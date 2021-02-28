@@ -15,9 +15,11 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
+    "@svgr/webpack": "5.5.0",
     "gatsby": "2.32.3",
     "gatsby-plugin-alias-imports": "1.0.5",
     "gatsby-plugin-intl": "0.3.3",
+    "gatsby-plugin-svgr": "2.1.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "sass": "1.32.7"

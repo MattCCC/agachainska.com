@@ -44,6 +44,12 @@
       ],
       "@utils/*": [
         "./src/utils/*"
+      ],
+      "@svg/*": [
+        "./src/svg/*"
+      ],
+      "@translations/*": [
+        "./src/translations/*"
       ]
     },
     /* Strict Type-Checking Options */
