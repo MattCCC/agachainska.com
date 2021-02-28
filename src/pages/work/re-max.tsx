@@ -1,7 +1,7 @@
 import { css, styled } from "twin.macro";
 import { Layout } from "@layouts/default";
 import { Header } from "@components/header";
-import { Translate } from "@components/translate"
+import { Translate } from "@components/translate";
 
 const Title = styled.h1(() => [
     css`
@@ -20,7 +20,9 @@ export default function About() {
     return (
         <Layout>
             <Header />
-            <Title><Translate id="work.remax.title" /></Title>
+            <Title>
+                <Translate id="work.remax.title" />
+            </Title>
         </Layout>
     );
 }

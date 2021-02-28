@@ -18,7 +18,7 @@
 
     Your site is now running at `http://localhost:8000`!
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_.
+    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`\_.
 
     Open the `aga-chainska.com` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
 
