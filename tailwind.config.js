@@ -2,6 +2,12 @@ module.exports = {
     purge: ["./src/**/*.{js,jsx,ts,tsx}"],
     darkMode: false, // or 'media' or 'class'
     theme: {
+        fontFamily: {
+            'sans': "'Larsseit'",
+            'serif': "'Larsseit'",
+            'mono': "'Larsseit'",
+            'base': "'Larsseit'"
+        },
         screens: {
             'sm': '640px',
             // => @media (min-width: 640px) { ... }

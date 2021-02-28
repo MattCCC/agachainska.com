@@ -17,9 +17,8 @@ const Title = styled.h1(() => [
         width: 45rem;
         max-width: 100%;
         color: #000000;
-        font-family: Larsseit;
         font-size: 140px;
-        font-weight: bold;
+        font-weight: 700;
         line-height: 160px;
     `,
 ]);
@@ -31,7 +30,6 @@ const Desc = styled.h2(() => [
         width: 18rem;
         max-width: 100%;
         color: #000000;
-        font-family: Larsseit;
         font-size: 30px;
         line-height: 42px;
     `,

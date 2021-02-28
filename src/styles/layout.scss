@@ -1,7 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap');
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
 
-$font-stack: Lato, serif;
-
-body {
-  font: 100% $font-stack;
-}
+@import "@styles/typography.scss";
