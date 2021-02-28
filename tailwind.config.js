@@ -2,6 +2,14 @@ module.exports = {
     purge: ["./src/**/*.{js,jsx,ts,tsx}"],
     darkMode: false, // or 'media' or 'class'
     theme: {
+        extend: {
+            colors: {
+                "primary-color": "var(--primary-color)",
+                "secondary-color": "var(--secondary-color)",
+                "tertiary-color": "var(--tertiary-color)",
+                "white-color": "var(--white-color)"
+            },
+        },
         fontFamily: {
             'sans': "'Larsseit'",
             'serif': "'Larsseit'",

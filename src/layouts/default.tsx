@@ -14,11 +14,7 @@ import { ReactComponent as CaipirinhaIllustration } from "@svg/London eye@1x.svg
  * Styles
  */
 const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
-    css`
-        height: 100%;
-        min-height: 100vh;
-        width: 100%;
-    `,
+    tw`h-full w-full min-h-screen text-primary-color`,
     hasGradient &&
         css`
             background: linear-gradient(
@@ -39,36 +35,32 @@ const Background = styled.div(() => [
 ]);
 
 const Wave1 = styled(WavePattern1)(() => [
-    tw`absolute`,
+    tw`absolute w-full`,
     css`
-        width: 100%;
         height: 224.88px;
         top: 59.5px;
     `,
 ]);
 
 const Wave2 = styled(WavePattern2)(() => [
-    tw`absolute`,
+    tw`absolute w-full`,
     css`
-        width: 100%;
         height: 219.12px;
         top: 295.7px;
     `,
 ]);
 
 const Wave3 = styled(WavePattern3)(() => [
-    tw`absolute`,
+    tw`absolute w-full`,
     css`
-        width: 100%;
         height: 219.12px;
         top: 435.7px;
     `,
 ]);
 
 const Wave4 = styled(WavePattern4)(() => [
-    tw`absolute`,
+    tw`absolute w-full`,
     css`
-        width: 100%;
         height: 219.12px;
         top: 665.7px;
     `,

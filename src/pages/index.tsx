@@ -17,7 +17,6 @@ const Title = styled.h1(() => [
         max-height: 303px;
         width: 45rem;
         max-width: 100%;
-        color: #000000;
         font-size: 140px;
         font-weight: 700;
         line-height: 160px;
@@ -30,7 +29,6 @@ const Desc = styled.h2(() => [
         max-height: 84px;
         width: 18rem;
         max-width: 100%;
-        color: #000000;
         font-size: 30px;
         line-height: 42px;
     `,
