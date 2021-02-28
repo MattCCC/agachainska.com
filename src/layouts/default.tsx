@@ -43,42 +43,34 @@ const Background = styled.div(() => [
 ]);
 
 const Wave1 = styled(WavePattern1)(() => [
-    tw`absolute z-10`,
     css`
-        width: 100vw;
-        background-size: contain;
+        width: 100%;
         height: 224.88px;
-        top: 59.5px;
+        margin-top: 59.5px;
     `,
 ]);
 
 const Wave2 = styled(WavePattern2)(() => [
-    tw`absolute z-10`,
     css`
-        width: 100vw;
-        background-size: contain;
+        width: 100%;
         height: 219.12px;
-        top: 295.7px;
+        margin-top: 295.7px;
     `,
 ]);
 
 const Wave3 = styled(WavePattern3)(() => [
-    tw`absolute z-10`,
     css`
-        width: 100vw;
-        background-size: contain;
+        width: 100%;
         height: 219.12px;
-        top: 435.7px;
+        margin-top: 435.7px;
     `,
 ]);
 
 const Wave4 = styled(WavePattern4)(() => [
-    tw`absolute z-10`,
     css`
-        width: 100vw;
-        background-size: contain;
+        width: 100%;
         height: 219.12px;
-        top: 665.7px;
+        margin-top: 665.7px;
     `,
 ]);
 
