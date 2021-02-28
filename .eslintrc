@@ -1,0 +1,15 @@
+{
+    "extends": [
+        "plugin:react-app/recommended"
+    ],
+    "rules": {
+        "semi": [
+            "error",
+            "always"
+        ],
+        "import/order": "error",
+        "@typescript-eslint/member-delimiter-style": [
+            "error"
+        ]
+    }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "agachainska.com",
+  "private": true,
+  "description": "A website",
+  "version": "0.1.0",
+  "license": "0BSD",
+  "scripts": {
+    "watch": "yarn develop",
+    "build": "gatsby build",
+    "develop": "gatsby develop -p8002",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "start": "yarn develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+  },
+  "dependencies": {
+    "gatsby": "2.32.3",
+    "gatsby-plugin-alias-imports": "1.0.5",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "sass": "1.32.7"
+  },
+  "devDependencies": {
+    "@emotion/react": "11.1.5",
+    "@emotion/styled": "11.1.5",
+    "@types/react": "17.0.1",
+    "@types/react-dom": "17.0.0",
+    "autoprefixer": "10.2.4",
+    "babel-preset-gatsby": "0.12.1",
+    "gatsby-plugin-emotion": "5.4.0",
+    "gatsby-plugin-postcss": "3.7.0",
+    "gatsby-plugin-sass": "3.2.0",
+    "gatsby-plugin-webpack-bundle-analyser-v2": "1.1.20",
+    "postcss": "8.2.6",
+    "postcss-loader": "5.0.0",
+    "prettier": "2.2.1",
+    "tailwindcss": "2.0.3",
+    "twin.macro": "2.2.3",
+    "typescript": "4.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MattCCC/agachainska.com"
+  },
+  "bugs": {
+    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  }
+}

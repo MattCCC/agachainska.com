@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap');
+
+$font-stack: Lato, serif;
+
+body {
+  font: 100% $font-stack;
+}
