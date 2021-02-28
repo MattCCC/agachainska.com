@@ -2,6 +2,7 @@ import tw, { css, styled } from "twin.macro";
 import { Layout } from "@layouts/default";
 import { Header } from "@components/header";
 import { Translate } from "@components/translate";
+import { PageProps } from "gatsby";
 
 /**
  * Styles
@@ -39,10 +40,10 @@ const Desc = styled.h2(() => [
  * Component
  * @param props
  */
-export default function Home() {
+export default function Home({ location }: PageProps) {
     return (
         <Layout>
-            <Header />
+            <Header location={location} />
             <Section>
                 <div className="container mx-auto">
                     <Title>
