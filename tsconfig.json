@@ -41,6 +41,9 @@
       ],
       "@pages/*": [
         "./src/pages/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
       ]
     },
     /* Strict Type-Checking Options */

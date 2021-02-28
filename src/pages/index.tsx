@@ -1,6 +1,7 @@
 import { css, styled } from "twin.macro";
 import { Layout } from "@layouts/default";
-import Header from "@components/header";
+import { Header } from "@components/header";
+import { Translate } from "@components/translate";
 
 const Title = styled.h1(() => [
     css`
@@ -31,8 +32,12 @@ export default function Home() {
     return (
         <Layout>
             <Header />
-            <Title>Aga Chaińska</Title>
-            <Desc>UX/UI designer with passion for ilustration</Desc>
+            <Title>
+                <Translate id="home.title" />
+            </Title>
+            <Desc>
+                <Translate id="home.description" />
+            </Desc>
         </Layout>
     );
 }
