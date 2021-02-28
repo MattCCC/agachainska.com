@@ -43,34 +43,38 @@ const Background = styled.div(() => [
 ]);
 
 const Wave1 = styled(WavePattern1)(() => [
+    tw`absolute`,
     css`
         width: 100%;
         height: 224.88px;
-        margin-top: 59.5px;
+        top: 59.5px;
     `,
 ]);
 
 const Wave2 = styled(WavePattern2)(() => [
+    tw`absolute`,
     css`
         width: 100%;
         height: 219.12px;
-        margin-top: 295.7px;
+        top: 295.7px;
     `,
 ]);
 
 const Wave3 = styled(WavePattern3)(() => [
+    tw`absolute`,
     css`
         width: 100%;
         height: 219.12px;
-        margin-top: 435.7px;
+        top: 435.7px;
     `,
 ]);
 
 const Wave4 = styled(WavePattern4)(() => [
+    tw`absolute`,
     css`
         width: 100%;
         height: 219.12px;
-        margin-top: 665.7px;
+        top: 665.7px;
     `,
 ]);
 
