@@ -11,10 +11,10 @@ const Section = styled.section(() => [
 ]);
 
 const Title = styled.h1(() => [
-    tw`md:px-28 inline-block`,
+    tw`inline-block`,
     css`
         max-height: 303px;
-        width: 40rem;
+        width: 45rem;
         max-width: 100%;
         color: #000000;
         font-family: Larsseit;
@@ -25,10 +25,10 @@ const Title = styled.h1(() => [
 ]);
 
 const Desc = styled.h2(() => [
-    tw`md:px-28 inline-block`,
+    tw`inline-block`,
     css`
         max-height: 84px;
-        width: 35rem;
+        width: 18rem;
         max-width: 100%;
         color: #000000;
         font-family: Larsseit;
@@ -46,7 +46,7 @@ export default function Home() {
         <Layout>
             <Header />
             <Section>
-                <div>
+                <div className="container mx-auto">
                     <Title>
                         <Translate id="home.title" />
                     </Title>
