@@ -1,8 +1,13 @@
 {
     "site.title": "Aga-chainska.com",
+    "header.title": "Aga Chaińska",
+    "header.link.work": "Work",
+    "header.link.about": "About",
+    "header.link.contact": "Contact",
     "home.title": "Aga Chaińska",
     "home.description": "UX/UI designer with passion for ilustration",
     "contact.title": "Contact",
     "about.title": "About",
+    "work.title": "Work",
     "work.remax.title": "Remax"
 }

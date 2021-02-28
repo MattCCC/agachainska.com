@@ -1,7 +1,7 @@
 import { css, styled } from "twin.macro";
 import { Layout } from "@layouts/default";
 import { Header } from "@components/header";
-import { Translate } from "@components/translate"
+import { Translate } from "@components/translate";
 import { PageProps } from "gatsby";
 
 /**
@@ -24,11 +24,13 @@ const Title = styled.h1(() => [
  * Component
  * @param props
  */
-export default function About({ location }: PageProps) {
+export default function Work({ location }: PageProps) {
     return (
         <Layout>
             <Header location={location} />
-            <Title><Translate id="about.title" /></Title>
+            <Title>
+                <Translate id="work.title" />
+            </Title>
         </Layout>
     );
 }

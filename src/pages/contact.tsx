@@ -2,7 +2,11 @@ import { css, styled } from "twin.macro";
 import { Layout } from "@layouts/default";
 import { Header } from "@components/header";
 import { Translate } from "@components/translate";
+import { PageProps } from "gatsby";
 
+/**
+ * Styles
+ */
 const Title = styled.h1(() => [
     css`
         height: 303px;
@@ -16,10 +20,14 @@ const Title = styled.h1(() => [
     `,
 ]);
 
-export default function Contact() {
+/**
+ * Component
+ * @param props
+ */
+export default function Contact({ location }: PageProps) {
     return (
         <Layout>
-            <Header />
+            <Header location={location} />
             <Title>
                 <Translate id="contact.title" />
             </Title>
