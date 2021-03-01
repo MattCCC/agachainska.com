@@ -1,6 +1,7 @@
 import tw, { css, styled } from "twin.macro";
 import { Link, Translate } from "@components/translate";
-import routes from "@config/routes";
+import { excludeProps } from "@utils/styled";
+import { getLinkProps } from "@utils/route";
 
 /**
  * Styles
@@ -14,20 +15,30 @@ const SiteTitle = styled.div(() => [
     `,
 ]);
 
-const HeaderWrapper = styled.header(({ hasSiteTitle }: HeaderWrapperProps) => [
-    tw`container mx-auto flex items-center justify-between flex-wrap absolute top-0 left-0 right-0 z-50`,
-    !hasSiteTitle && tw`flex-row-reverse`,
+const Logo = styled.div(() => [
+    tw`rounded-full h-14 w-14 flex items-center justify-center bg-primary-color text-white font-extrabold text-2xl`,
 ]);
 
-const Navigation = styled.div(() => [tw`py-8`]);
+const HeaderWrapper = styled.header(
+    ({ hasSiteTitle, hasLogo }: HeaderWrapperProps) => [
+        tw`container mx-auto flex items-center justify-between flex-wrap absolute top-0 left-0 right-0 z-50 p-2 lg:p-6`,
+        !hasSiteTitle && !hasLogo && tw`flex-row-reverse`,
+    ]
+);
 
-const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
+const Navigation = styled.div(() => [
+    tw`w-56 lg:w-96 space-x-6 lg:space-x-3 flex justify-evenly`,
+]);
+
+const LinkItem = styled(
+    Link,
+    excludeProps(["isCurrentPage"])
+)(({ isCurrentPage }: LinkProps) => [
     tw`font-medium text-primary-color border-primary-color`,
     css`
         font-size: 18px;
         letter-spacing: 0;
         line-height: 20px;
-        margin: 1.5rem;
         padding-bottom: 0.3rem;
     `,
     isCurrentPage && tw`border-b-2`,
@@ -39,47 +50,39 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
 interface Props {
     location: any;
     hasSiteTitle?: boolean;
-}
-
-interface LinkProps {
-    isCurrentPage: boolean;
+    hasLogo?: boolean;
 }
 
 interface HeaderWrapperProps {
     hasSiteTitle?: boolean;
+    hasLogo?: boolean;
 }
 
 /**
  * Component
  * @param props
  */
-export function Header({ hasSiteTitle, location }: Props) {
-    //const [text, setText] = useState('');
-
+export function Header({ hasSiteTitle, hasLogo, location }: Props) {
     return (
-        <HeaderWrapper hasSiteTitle={hasSiteTitle}>
+        <HeaderWrapper hasSiteTitle={hasSiteTitle} hasLogo={hasLogo}>
             {hasSiteTitle && (
                 <SiteTitle>
                     <Translate id="header.title" />
                 </SiteTitle>
             )}
+            {hasLogo && (
+                <Logo>
+                    <Translate id="header.logo.title" />
+                </Logo>
+            )}
             <Navigation>
-                <LinkItem
-                    to={routes.work.path}
-                    isCurrentPage={location.pathname === routes.work.path}
-                >
-                    <Translate id="header.link.work" />
-                </LinkItem>
-                <LinkItem
-                    to={routes.about.path}
-                    isCurrentPage={location.pathname === routes.about.path}
-                >
+                <LinkItem {...getLinkProps("work", location)}>
                     <Translate id="header.link.about" />
                 </LinkItem>
-                <LinkItem
-                    to={routes.contact.path}
-                    isCurrentPage={location.pathname === routes.contact.path}
-                >
+                <LinkItem {...getLinkProps("about", location)}>
+                    <Translate id="header.link.about" />
+                </LinkItem>
+                <LinkItem {...getLinkProps("contact", location)}>
                     <Translate id="header.link.contact" />
                 </LinkItem>
             </Navigation>

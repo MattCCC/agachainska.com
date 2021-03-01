@@ -41,7 +41,7 @@ const Desc = styled.h2(() => [
 export default function Home({ location }: PageProps) {
     return (
         <Layout>
-            <Header location={location} />
+            <Header location={location} hasLogo={true} />
             <Section>
                 <div className="container mx-auto">
                     <Title>
