@@ -27,7 +27,7 @@ const Title = styled.h1(() => [
 export default function Contact({ location }: PageProps) {
     return (
         <Layout>
-            <Header location={location} />
+            <Header location={location} hasSiteTitle={true} />
             <Title>
                 <Translate id="contact.title" />
             </Title>

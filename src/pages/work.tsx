@@ -27,7 +27,7 @@ const Title = styled.h1(() => [
 export default function Work({ location }: PageProps) {
     return (
         <Layout>
-            <Header location={location} />
+            <Header location={location} hasSiteTitle={true} />
             <Title>
                 <Translate id="work.title" />
             </Title>
