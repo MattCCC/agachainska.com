@@ -9,9 +9,6 @@ module.exports = {
                 "tertiary-color": "var(--tertiary-color)",
                 "black-color": "var(--black-color)",
             },
-            borderWidth: {
-                3: "3px",
-            },
         },
         fontFamily: {
             sans: "'Larsseit'",

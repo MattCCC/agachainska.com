@@ -30,7 +30,7 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
         margin: 1.5rem;
         padding-bottom: 0.3rem;
     `,
-    isCurrentPage && tw`border-b-3`,
+    isCurrentPage && tw`border-b-2`,
 ]);
 
 /**
