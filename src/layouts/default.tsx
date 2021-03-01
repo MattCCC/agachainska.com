@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import tw, { styled, css } from "twin.macro";
 import "@styles/layout.scss";
 import { ReactComponent as WavePattern1 } from "@svg/Path 2@1x.svg";
@@ -9,6 +9,7 @@ import { ReactComponent as GreekEyeIllustration } from "@svg/Greek eye@1x.svg";
 import { ReactComponent as LondonEyeIllustration } from "@svg/London eye@1x.svg";
 import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
 import { ReactComponent as CaipirinhaIllustration } from "@svg/London eye@1x.svg";
+import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
 
 /**
  * Styles
@@ -116,14 +117,19 @@ interface Props {}
  * @param props
  */
 export const Layout: FunctionComponent<Props> = ({ children }) => {
+    useEffect(() => {
+        initMotionGrid();
+
+        return destroyMotionGrid;
+    }, []);
+
     return (
         <Main hasGradient>
-            <Background>
-                <GreekEye />
-                <LondonEye />
-                <PricklyPear />
-                <Caipirinha />
-
+            <Background className="motion-grid">
+                <GreekEye className="motion-grid__item" />
+                <LondonEye className="motion-grid__item" />
+                <PricklyPear className="motion-grid__item" />
+                <Caipirinha className="motion-grid__item" />
                 <Wave1 />
                 <Wave2 />
                 <Wave3 />
