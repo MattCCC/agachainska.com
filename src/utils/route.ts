@@ -3,7 +3,7 @@ import routes from "@config/routes";
 /**
  * Interfaces
  */
-interface LinkProps {
+export interface LinkProps {
     to: any;
     isCurrentPage: boolean;
 }
