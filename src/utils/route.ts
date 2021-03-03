@@ -9,7 +9,7 @@ export interface LinkProps {
 }
 
 /**
- *
+ * Get props for particular link's styled component
  * @param routePath The current route key we need
  */
 export const getLinkProps = (routePath: string, location: any): LinkProps => ({
