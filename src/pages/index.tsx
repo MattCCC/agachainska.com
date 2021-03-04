@@ -97,9 +97,10 @@ export default function Home({ location }: PageProps) {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
     const { x, y, clientX, clientY } = trackMousePosition(titleRef);
     const titleStyle = { "--x": `${x}px`, "--y": `${y}px` } as CSSProperties;
+    const cursorWidth = 80;
     const cursorStyle = {
-        left: `${clientX}px`,
-        top: `${clientY}px`,
+        left: `${clientX || -cursorWidth}px`,
+        top: `${clientY || -cursorWidth}px`,
     } as CSSProperties;
 
     return (
