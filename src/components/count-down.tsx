@@ -12,7 +12,7 @@ const GlobalBase = () => (
                     stroke-dashoffset: 480px;
                 }
                 to {
-                    stroke-dashoffset: 0px;
+                    stroke-dashoffset: 0;
                 }
             }
         `}
@@ -20,25 +20,25 @@ const GlobalBase = () => (
 );
 
 const ProgressLabel = styled.div(() => [
-    tw`rounded-full border-2 border-purple-300 border-opacity-25 tracking-widest align-middle text-center text-xl text-opacity-40 text-melrose-color tracking-widest absolute bottom-14 right-14 h-16 w-16`,
+    tw`absolute bottom-14 right-14 h-16 w-16 tracking-widest align-middle rounded-full border-2 border-purple-300 border-opacity-25 text-center text-xl text-melrose text-opacity-5`,
     css`
         line-height: 4rem;
-        text-shadow: 0px 0px 3px var(--melrose-color);
+        text-shadow: 0 0 3px var(--melrose-color);
     `,
 ]);
 
 const ProgressCircleWrapper = styled.svg(() => [
-    tw`rounded-full align-middle text-center tracking-widest ring-opacity-20 absolute bottom-14 right-14 h-16 w-16`,
+    tw`absolute bottom-14 right-14 h-16 w-16 rounded-full align-middle tracking-widest ring-opacity-20 text-center`,
     css`
         transform: rotateY(0deg) rotateZ(-90deg);
     `,
 ]);
 
 const ProgressCircle = styled.circle(() => [
-    tw`text-center tracking-widest ring-opacity-20 absolute bottom-14 right-14 h-16 w-16`,
+    tw`absolute bottom-14 right-14 h-16 w-16 text-center tracking-widest ring-opacity-20`,
     css`
         stroke-dasharray: 480px;
-        stroke-dashoffset: 0px;
+        stroke-dashoffset: 0;
         stroke-linecap: round;
         stroke-width: 5px;
         stroke: var(--melrose-color);
