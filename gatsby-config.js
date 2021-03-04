@@ -31,6 +31,7 @@ module.exports = {
                     "@posts": "content/posts",
                     "@utils": "src/utils",
                     "@svg": "src/svg",
+                    "@hooks": "src/hooks",
                     "@translations": "src/translations",
                 },
                 extensions: ["js", "jsx", "ts", "tsx"],
