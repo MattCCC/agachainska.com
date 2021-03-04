@@ -1,6 +1,8 @@
 import { RefObject, useEffect, useState } from "react";
 
-export const trackMousePosition = (elementRef: RefObject<HTMLHeadingElement>) => {
+export const trackMousePosition = (
+    elementRef: RefObject<HTMLHeadingElement>
+) => {
     const defaultState = { x: 0, y: 0, clientX: 0, clientY: 0 };
     const [position, setPosition] = useState(defaultState);
 
@@ -12,8 +14,8 @@ export const trackMousePosition = (elementRef: RefObject<HTMLHeadingElement>) =>
                 clientX: e.clientX,
                 clientY: e.clientY,
                 x: e.clientX - clientRect.left,
-                y: e.clientY - clientRect.top
-            })
+                y: e.clientY - clientRect.top,
+            });
         };
 
         window.addEventListener("mousemove", setMousePosition);
