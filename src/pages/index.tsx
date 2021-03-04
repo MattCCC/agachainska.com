@@ -19,17 +19,12 @@ const Section = styled.section(() => [
 ]);
 
 const Title = styled.h1(() => [
-    tw`inline-block md:mr-16`,
+    tw`relative z-50 inline-block max-w-full lg:mr-16 prose prose-70px lg:prose-140px font-bold`,
     css`
         max-height: 303px;
         width: 570px;
-        max-width: 100%;
-        font-size: 140px;
-        font-weight: 700;
         line-height: 160px;
         user-select: none;
-        position: relative;
-        z-index: 50;
         color: var(--black-color);
         background: radial-gradient(
             40px circle at var(--x) var(--y),
@@ -60,12 +55,11 @@ const Title = styled.h1(() => [
 ]);
 
 const Desc = styled.h2(() => [
-    tw`inline-block`,
+    tw`inline-block prose prose-24px lg:prose-30px`,
     css`
         max-height: 84px;
         width: 18rem;
         max-width: 100%;
-        font-size: 30px;
         line-height: 42px;
     `,
 ]);
