@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 /**
  * Styles
  */
-const CountDownLabel = styled.div(() => [tw`absolute bottom-14 right-14 h-16 w-16 tracking-widest align-middle rounded-full border-2 border-purple-300 border-opacity-25 text-center text-xl text-melrose text-opacity-30`,
+const CountDownLabel = styled.div(() => [
+    tw`absolute bottom-14 right-14 h-16 w-16 tracking-widest align-middle rounded-full border-2 border-purple-300 border-opacity-25 text-center text-xl text-melrose text-opacity-30`,
     css`
         line-height: 4rem;
         text-shadow: 0 0 1px var(--melrose-color);
@@ -51,8 +52,8 @@ export function CountDown({ seconds = 0, onFinished }: Props) {
 
     useEffect(() => {
         if (state.currentSeconds === 0) {
-            if (typeof onFinished === 'function') {
-                onFinished()
+            if (typeof onFinished === "function") {
+                onFinished();
             }
 
             return () => {};
@@ -60,14 +61,14 @@ export function CountDown({ seconds = 0, onFinished }: Props) {
 
         const onTimer = () => {
             setState({
-                currentSeconds: (state.currentSeconds - 1),
-            })
-        }
+                currentSeconds: state.currentSeconds - 1,
+            });
+        };
 
         setTimeout(onTimer, 1000);
 
         return () => {};
-    })
+    });
 
     return (
         <span>
@@ -94,7 +95,9 @@ export function CountDown({ seconds = 0, onFinished }: Props) {
                     filter="url(#filterCd)"
                     style={{
                         strokeDasharray: radiusOffset,
-                        strokeDashoffset: `${(radiusOffset / seconds) * state.currentSeconds}`,
+                        strokeDashoffset: `${
+                            (radiusOffset / seconds) * state.currentSeconds
+                        }`,
                     }}
                 />
             </ProgressCircleWrapper>

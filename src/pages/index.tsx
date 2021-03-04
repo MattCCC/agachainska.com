@@ -118,9 +118,9 @@ export default function Home({ location }: PageProps) {
                     <CountDown
                         seconds={10}
                         onFinished={() => {
-                            navigate(getRoutePath("work").to)
+                            navigate(getRoutePath("work").to);
                         }}
-                     />
+                    />
                 </MainContainer>
             </Section>
         </Layout>

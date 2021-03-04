@@ -4,28 +4,28 @@ module.exports = {
     theme: {
         extend: {
             typography: {
-                '24px': {
+                "24px": {
                     css: {
-                        fontSize: '24px',
-                        lineHeight: '32px',
+                        fontSize: "24px",
+                        lineHeight: "32px",
                     },
                 },
-                '30px': {
+                "30px": {
                     css: {
-                        fontSize: '30px',
-                        lineHeight: '42px',
+                        fontSize: "30px",
+                        lineHeight: "42px",
                     },
                 },
-                '70px': {
+                "70px": {
                     css: {
-                        fontSize: '70px',
-                        lineHeight: '80px',
+                        fontSize: "70px",
+                        lineHeight: "80px",
                     },
                 },
-                '140px': {
+                "140px": {
                     css: {
-                        fontSize: '140px',
-                        lineHeight: '151px',
+                        fontSize: "140px",
+                        lineHeight: "151px",
                     },
                 },
             },
@@ -35,7 +35,7 @@ module.exports = {
                 "secondary-color": "var(--secondary-color)",
                 "tertiary-color": "var(--tertiary-color)",
                 "black-color": "var(--black-color)",
-                "melrose-color": "var(--melrose-color)"
+                "melrose-color": "var(--melrose-color)",
             },
         },
         fontFamily: {
@@ -64,7 +64,5 @@ module.exports = {
     variants: {
         extend: {},
     },
-    plugins: [
-        require('@tailwindcss/typography'),
-    ],
+    plugins: [require("@tailwindcss/typography")],
 };
