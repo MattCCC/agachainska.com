@@ -8,7 +8,7 @@ import { PageProps } from "gatsby";
 import { trackMousePosition } from "@hooks/track-mouse-position";
 import { CSSProperties, RefObject, useRef } from "react";
 import { Link } from "@components/translate";
-import { getLinkProps } from "@utils/route";
+import { getRoutePath } from "@utils/route";
 import { translateText } from "@utils/translate-text";
 
 /**
@@ -19,11 +19,9 @@ const Section = styled.section(() => [
 ]);
 
 const Title = styled.h1(() => [
-    tw`relative z-50 inline-block max-w-full lg:mr-16 prose prose-70px lg:prose-140px font-bold`,
+    tw`relative z-50 inline-block max-w-full lg:mr-16 font-bold prose-70px lg:prose-140px`,
     css`
-        max-height: 303px;
         width: 570px;
-        line-height: 160px;
         user-select: none;
         color: var(--black-color);
         background: radial-gradient(
@@ -55,7 +53,7 @@ const Title = styled.h1(() => [
 ]);
 
 const Desc = styled.h2(() => [
-    tw`inline-block prose prose-24px lg:prose-30px`,
+    tw`inline-block prose-24px lg:prose-30px`,
     css`
         max-height: 84px;
         width: 18rem;
@@ -110,7 +108,7 @@ export default function Home({ location }: PageProps) {
                         <Translate id="home.title" />
                     </Title>
                     <Cursor style={cursorStyle} className="cursor">
-                        <Link {...getLinkProps("work", location)}>
+                        <Link {...getRoutePath("work")}>
                             <Translate id="viewWork" />
                         </Link>
                     </Cursor>

@@ -7,21 +7,25 @@ module.exports = {
                 '24px': {
                     css: {
                         fontSize: '24px',
+                        lineHeight: '32px',
                     },
                 },
                 '30px': {
                     css: {
                         fontSize: '30px',
+                        lineHeight: '42px',
                     },
                 },
                 '70px': {
                     css: {
                         fontSize: '70px',
+                        lineHeight: '80px',
                     },
                 },
                 '140px': {
                     css: {
                         fontSize: '140px',
+                        lineHeight: '151px',
                     },
                 },
             },
