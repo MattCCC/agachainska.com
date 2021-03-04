@@ -70,11 +70,10 @@ const Desc = styled.h2(() => [
 ]);
 
 const Cursor = styled.div(() => [
-    tw`fixed text-white text-center uppercase`,
+    tw`fixed text-white text-center uppercase z-40 rounded-full`,
     css`
         width: 80px;
         height: 80px;
-        border-radius: 50%;
         background-color: var(--black-color);
         border: 1px solid var(--black-color);
         transform: translate(-50%, -50%);
