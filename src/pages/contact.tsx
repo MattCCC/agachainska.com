@@ -13,7 +13,7 @@ export default function Contact({ location }: PageProps) {
     return (
         <Layout>
             <Header location={location} hasSiteTitle={true} />
-            <MainContainer className="md:pt-20">
+            <MainContainer className="lg:pt-20">
                 <MainTitle>
                     <Translate id="contact.title" />
                 </MainTitle>

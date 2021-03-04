@@ -3,12 +3,39 @@ module.exports = {
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {
+            typography: {
+                '24px': {
+                    css: {
+                        fontSize: '24px',
+                        lineHeight: '32px',
+                    },
+                },
+                '30px': {
+                    css: {
+                        fontSize: '30px',
+                        lineHeight: '42px',
+                    },
+                },
+                '70px': {
+                    css: {
+                        fontSize: '70px',
+                        lineHeight: '80px',
+                    },
+                },
+                '140px': {
+                    css: {
+                        fontSize: '140px',
+                        lineHeight: '151px',
+                    },
+                },
+            },
             colors: {
+                melrose: "#C0A4FF",
                 "primary-color": "var(--primary-color)",
                 "secondary-color": "var(--secondary-color)",
                 "tertiary-color": "var(--tertiary-color)",
                 "black-color": "var(--black-color)",
-				"melrose-color": "var(--melrose-color)"
+                "melrose-color": "var(--melrose-color)"
             },
         },
         fontFamily: {
@@ -37,5 +64,7 @@ module.exports = {
     variants: {
         extend: {},
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/typography'),
+    ],
 };

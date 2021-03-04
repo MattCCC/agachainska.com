@@ -12,7 +12,7 @@ interface Props {
  * @param props
  */
 export const MainContainer: FunctionComponent<Props> = ({
-    className,
+    className = "",
     children,
 }) => {
     return <div className={`container mx-auto ${className}`}>{children}</div>;
