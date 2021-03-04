@@ -4,7 +4,7 @@ import { MainContainer } from "@components/main-container";
 import { Header } from "@components/header";
 import { CountDown } from "@components/count-down";
 import { Translate } from "@components/translate";
-import { PageProps } from "gatsby";
+import { PageProps, navigate } from "gatsby";
 import { trackMousePosition } from "@hooks/track-mouse-position";
 import { CSSProperties, RefObject, useRef } from "react";
 import { Link } from "@components/translate";
@@ -123,7 +123,12 @@ export default function Home({ location }: PageProps) {
                     <Desc>
                         <Translate id="home.description" />
                     </Desc>
-                    <CountDown />
+                    <CountDown
+                        seconds={10}
+                        onFinished={() => {
+                            navigate(getLinkProps("work", location).to)
+                        }}
+                     />
                 </MainContainer>
             </Section>
         </Layout>
