@@ -8,6 +8,7 @@ module.exports = {
                 "secondary-color": "var(--secondary-color)",
                 "tertiary-color": "var(--tertiary-color)",
                 "black-color": "var(--black-color)",
+				"melrose-color": "var(--melrose-color)"
             },
         },
         fontFamily: {

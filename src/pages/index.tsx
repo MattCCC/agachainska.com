@@ -2,6 +2,7 @@ import tw, { css, styled } from "twin.macro";
 import { Layout } from "@layouts/default";
 import { MainContainer } from "@components/main-container";
 import { Header } from "@components/header";
+import { CountDown } from "@components/count-down";
 import { Translate } from "@components/translate";
 import { PageProps } from "gatsby";
 import { trackMousePosition } from "@hooks/track-mouse-position";
@@ -122,6 +123,7 @@ export default function Home({ location }: PageProps) {
                     <Desc>
                         <Translate id="home.description" />
                     </Desc>
+                    <CountDown />
                 </MainContainer>
             </Section>
         </Layout>
