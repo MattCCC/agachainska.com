@@ -7,7 +7,7 @@ import { StyledOptions } from "@emotion/styled";
  * @return {StyledOptions<JSX.IntrinsicElements>}   Styled options for JSX Intrinsic Elements
  */
 export const excludeProps = (
-    excludes: string[]
+    excludes: string[] = []
 ): StyledOptions<JSX.IntrinsicElements> => ({
     shouldForwardProp: (prop: string) =>
         isPropValid(prop) && !excludes.includes(prop),
