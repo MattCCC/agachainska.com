@@ -1,5 +1,4 @@
 import { useIntl } from "gatsby-plugin-intl";
-
 export { Link, FormattedMessage as Translate } from "gatsby-plugin-intl";
 
 /**
