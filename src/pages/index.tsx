@@ -118,7 +118,7 @@ export default function Home({ location }: PageProps) {
                     </Desc>
                     <CountDown
                         seconds={10}
-                        onFinished={() => {
+                        onFinishedCallback={() => {
                             navigate(getRoutePath("work").to);
                         }}
                     />

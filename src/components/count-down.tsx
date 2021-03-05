@@ -1,14 +1,30 @@
 import tw, { css, styled } from "twin.macro";
+import { Global } from "@emotion/react";
 import { useEffect, useState } from "react";
 
 /**
  * Styles
  */
+const GlobalBase = () => (
+    <Global
+        styles={css`
+            @keyframes countdown {
+                from {
+                    stroke-dashoffset: 480px;
+                }
+                to {
+                    stroke-dashoffset: 0;
+                }
+            }
+        `}
+    />
+);
+
 const CountDownLabel = styled.div(() => [
-    tw`absolute bottom-14 right-14 h-16 w-16 tracking-widest align-middle rounded-full border-2 border-purple-300 border-opacity-25 text-center text-xl text-melrose text-opacity-30`,
+    tw`absolute bottom-14 right-14 h-16 w-16 tracking-widest align-middle rounded-full border-2 border-purple-300 border-opacity-25 text-center text-xl text-melrose text-opacity-5`,
     css`
         line-height: 4rem;
-        text-shadow: 0 0 1px var(--melrose-color);
+        text-shadow: 0 0 3px var(--melrose-color);
     `,
 ]);
 
@@ -16,20 +32,23 @@ const ProgressCircleWrapper = styled.svg(() => [
     tw`absolute bottom-14 right-14 h-16 w-16 rounded-full align-middle tracking-widest ring-opacity-20 text-center`,
     css`
         transform: rotateY(0deg) rotateZ(-90deg);
+
+        feDropShadow {
+            flood-color: var(--melrose-color);
+        }
     `,
 ]);
 
 const ProgressCircle = styled.circle(() => [
     tw`absolute bottom-14 right-14 h-16 w-16 text-center tracking-widest ring-opacity-20`,
     css`
+        stroke-dasharray: 480px;
+        stroke-dashoffset: 0;
         stroke-linecap: round;
         stroke-width: 5px;
         stroke: var(--melrose-color);
         fill: none;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
-        animation: left 1s ease-in forwards;
-        transition: stroke-dashoffset 0.5s;
+        animation: countdown 10s linear 1;
     `,
 ]);
 
@@ -38,40 +57,37 @@ const ProgressCircle = styled.circle(() => [
  */
 interface Props {
     seconds: number;
-    onFinished?: Function;
+    onFinishedCallback: Function;
 }
 
 /**
  * Component
  * @param props
  */
-export function CountDown({ seconds = 0, onFinished }: Props) {
-    const radiusOffset = 480;
-    const defaultState = { currentSeconds: seconds };
-    const [state, setState] = useState(defaultState);
+export function CountDown({
+    seconds = 0,
+    onFinishedCallback = () => null,
+    ...props
+}: Props) {
+    const [currentSeconds, setSeconds] = useState(seconds);
+
+    if (currentSeconds === 0) {
+        onFinishedCallback();
+    }
 
     useEffect(() => {
-        if (state.currentSeconds === 0) {
-            if (typeof onFinished === "function") {
-                onFinished();
-            }
+        const interval = setInterval(() => {
+            setSeconds(currentSeconds => currentSeconds - 1);
+        }, 1000);
 
-            return () => {};
-        }
-
-        const onTimer = () => {
-            setState({
-                currentSeconds: state.currentSeconds - 1,
-            });
+        return () => {
+            return clearInterval(interval);
         };
-
-        setTimeout(onTimer, 1000);
-
-        return () => {};
-    });
+    }, []);
 
     return (
         <span>
+            <GlobalBase />
             <ProgressCircleWrapper
                 viewBox="0 0 150 150"
                 preserveAspectRatio="xMinYMin meet"
@@ -83,7 +99,6 @@ export function CountDown({ seconds = 0, onFinished }: Props) {
                             dx="0"
                             dy="0"
                             stdDeviation="1.2"
-                            floodColor="#C0A4FF"
                             floodOpacity="0.9"
                         />
                     </filter>
@@ -93,16 +108,10 @@ export function CountDown({ seconds = 0, onFinished }: Props) {
                     cx="50%"
                     cy="50%"
                     filter="url(#filterCd)"
-                    style={{
-                        strokeDasharray: radiusOffset,
-                        strokeDashoffset: `${
-                            (radiusOffset / seconds) * state.currentSeconds
-                        }`,
-                    }}
                 />
             </ProgressCircleWrapper>
 
-            <CountDownLabel>{state.currentSeconds}s</CountDownLabel>
+            <CountDownLabel>{currentSeconds}s</CountDownLabel>
         </span>
     );
 }
