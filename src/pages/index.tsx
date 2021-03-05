@@ -1,13 +1,14 @@
+import { CSSProperties, RefObject, useRef } from "react";
 import tw, { css, styled } from "twin.macro";
+import { PageProps, navigate } from "gatsby";
 import { Layout } from "@layouts/default";
 import { MainContainer } from "@components/main-container";
 import { Header } from "@components/header";
 import { CountDown } from "@components/count-down";
 import { Translate } from "@components/translate";
-import { PageProps, navigate } from "gatsby";
-import { trackMousePosition } from "@hooks/track-mouse-position";
-import { CSSProperties, RefObject, useRef } from "react";
 import { Link } from "@components/translate";
+import { Logo } from "@components/logo";
+import { trackMousePosition } from "@hooks/track-mouse-position";
 import { getRoutePath } from "@utils/route";
 import { translateText } from "@utils/translate-text";
 
@@ -97,7 +98,7 @@ export default function Home({ location }: PageProps) {
 
     return (
         <Layout>
-            <Header location={location} />
+            <Header location={location} Logo={Logo} />
             <Section>
                 <MainContainer>
                     <Title

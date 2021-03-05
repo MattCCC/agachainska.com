@@ -1,9 +1,10 @@
+import { PageProps } from "gatsby";
 import { Layout } from "@layouts/default";
 import { MainContainer } from "@components/main-container";
 import { Header } from "@components/header";
 import { Translate } from "@components/translate";
 import { MainTitle } from "@components/main-title";
-import { PageProps } from "gatsby";
+import { Logo } from "@components/logo";
 
 /**
  * Component
@@ -12,7 +13,7 @@ import { PageProps } from "gatsby";
 export default function About({ location }: PageProps) {
     return (
         <Layout>
-            <Header location={location} hasSiteTitle={true} />
+            <Header location={location} Logo={Logo} hasSiteTitle={true} />
             <MainContainer className="lg:pt-20">
                 <MainTitle>
                     <Translate id="about.title" />
