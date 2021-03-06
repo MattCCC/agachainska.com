@@ -76,6 +76,15 @@ module.exports = {
             "2xl": "1440px",
             // => @media (min-width: 1536px) { ... }
         },
+        container: {
+            padding: {
+                DEFAULT: '15px',
+                sm: '2rem',
+                lg: '4rem',
+                xl: '5rem',
+                '2xl': '6rem',
+            },
+        },
     },
     variants: {
         extend: {},
