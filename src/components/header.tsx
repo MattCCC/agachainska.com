@@ -7,16 +7,14 @@ import { Logo } from "@components/logo";
  * Styles
  */
 const HeaderWrapper = styled.header(() => [
-    tw`container mx-auto flex h-12 items-center justify-between flex-wrap absolute top-0 left-0 right-0 z-50 p-2 lg:p-6`,
+    tw`container mx-auto flex items-center justify-between flex-wrap absolute top-0 left-0 right-0 z-50 py-2 lg:py-6`,
 ]);
 
 const Navigation = styled.div(() => [
     tw`w-56 lg:w-96 space-x-6 lg:space-x-3 flex justify-evenly`,
 ]);
 
-const LinkItem = styled(
-    Link,
-)(({ isCurrentPage }: LinkProps) => [
+const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
     tw`font-medium text-primary-color border-primary-color`,
     css`
         font-size: 18px;

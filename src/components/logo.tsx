@@ -5,12 +5,10 @@ import { getLinkProps } from "@utils/route";
 /**
  * Styles
  */
-const LogoWrapper = styled.div(() => [
-    tw`w-14 lg:w-80 text-primary-color flex items-center justify-center`,
-]);
+const LogoWrapper = styled.div(() => [tw`flex text-primary-color h-12`]);
 
 const SiteTitle = styled.div(({ showOnDesktop }: Props) => [
-    tw`prose-24px text-primary-color p-3 hidden`,
+    tw`prose-24px text-primary-color py-3 hidden`,
     showOnDesktop && tw`lg:block`,
     css`
         line-height: 30px;
