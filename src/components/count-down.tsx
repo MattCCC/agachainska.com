@@ -1,6 +1,6 @@
 import tw, { css, styled } from "twin.macro";
 import { Global } from "@emotion/react";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 /**
  * Styles
@@ -57,61 +57,62 @@ const ProgressCircle = styled.circle(() => [
  */
 interface Props {
     seconds: number;
-    onFinishedCallback: Function;
+    onFinishedCallback: Function | null;
 }
 
 /**
  * Component
  * @param props
  */
-export function CountDown({
-    seconds = 0,
-    onFinishedCallback = () => null,
-    ...props
-}: Props) {
-    const [currentSeconds, setSeconds] = useState(seconds);
+export const CountDown = memo(
+    ({ seconds = 0, onFinishedCallback = null, ...props }: Props) => {
+        const [currentSeconds, setSeconds] = useState(seconds);
 
-    if (currentSeconds === 0) {
-        onFinishedCallback();
-    }
+        if (currentSeconds === 0 && onFinishedCallback) {
+            onFinishedCallback();
+        }
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setSeconds(currentSeconds => Math.max(0, currentSeconds - 1));
-        }, 1000);
+        useEffect(() => {
+            const interval = setInterval(() => {
+                setSeconds(currentSeconds => Math.max(0, currentSeconds - 1));
+            }, 1000);
 
-        return () => {
-            return clearInterval(interval);
-        };
-    }, []);
+            return () => {
+                return clearInterval(interval);
+            };
+        }, []);
 
-    return (
-        <span>
-            <GlobalBase />
-            <ProgressCircleWrapper
-                viewBox="0 0 150 150"
-                preserveAspectRatio="xMinYMin meet"
-                filter="url(#filterCd)"
-            >
-                <defs>
-                    <filter id="filterCd">
-                        <feDropShadow
-                            dx="0"
-                            dy="0"
-                            stdDeviation="1.2"
-                            floodOpacity="0.9"
-                        />
-                    </filter>
-                </defs>
-                <ProgressCircle
-                    r="75"
-                    cx="50%"
-                    cy="50%"
+        return (
+            <span>
+                <GlobalBase />
+                <ProgressCircleWrapper
+                    viewBox="0 0 150 150"
+                    preserveAspectRatio="xMinYMin meet"
                     filter="url(#filterCd)"
-                />
-            </ProgressCircleWrapper>
+                >
+                    <defs>
+                        <filter id="filterCd">
+                            <feDropShadow
+                                dx="0"
+                                dy="0"
+                                stdDeviation="1.2"
+                                floodOpacity="0.9"
+                            />
+                        </filter>
+                    </defs>
+                    <ProgressCircle
+                        r="75"
+                        cx="50%"
+                        cy="50%"
+                        filter="url(#filterCd)"
+                    />
+                </ProgressCircleWrapper>
 
-            <CountDownLabel>{currentSeconds}s</CountDownLabel>
-        </span>
-    );
-}
+                <CountDownLabel>{currentSeconds}s</CountDownLabel>
+            </span>
+        );
+    },
+    (prevProps, nextProps) => {
+        return prevProps.seconds === nextProps.seconds;
+    }
+);

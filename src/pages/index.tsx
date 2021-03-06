@@ -1,4 +1,4 @@
-import { CSSProperties, RefObject, useRef } from "react";
+import { CSSProperties, RefObject, useCallback, useRef, useState } from "react";
 import tw, { css, styled } from "twin.macro";
 import { PageProps, navigate } from "gatsby";
 import { Layout } from "@layouts/default";
@@ -7,7 +7,6 @@ import { Header } from "@components/header";
 import { CountDown } from "@components/count-down";
 import { Translate } from "@components/translate";
 import { Link } from "@components/translate";
-import { trackMousePosition } from "@hooks/track-mouse-position";
 import { getRoutePath } from "@utils/route";
 import { translateText } from "@utils/translate-text";
 import { isDev } from "@utils/detect-env";
@@ -71,8 +70,28 @@ const Desc = styled.h2(() => [
 export default function Home({ location }: PageProps) {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
     const workLink = getRoutePath("work");
-    const { x, y, clientX, clientY } = trackMousePosition(titleRef);
-    const titleStyle = { "--x": `${x}px`, "--y": `${y}px` } as CSSProperties;
+    let clientRect: DOMRect;
+    const defaultState = { x: 0, y: 0 };
+    const [position, setPosition] = useState(defaultState);
+    const titleStyle = {
+        "--x": `${position.x}px`,
+        "--y": `${position.y}px`,
+    } as CSSProperties;
+
+    const onPositionUpdate = useCallback((clientX: number, clientY: number) => {
+        clientRect = (titleRef.current as HTMLHeadingElement).getBoundingClientRect();
+
+        setPosition({
+            x: clientX - clientRect.left,
+            y: clientY - clientRect.top,
+        });
+    }, []);
+
+    const onCountDownFinished = useCallback(() => {
+        if (!isDev()) {
+            navigate(workLink.to);
+        }
+    }, []);
 
     return (
         <Layout>
@@ -86,7 +105,7 @@ export default function Home({ location }: PageProps) {
                     >
                         <Translate id="home.title" />
                     </Title>
-                    <MotionCursor clientX={clientX} clientY={clientY}>
+                    <MotionCursor onPositionUpdate={onPositionUpdate}>
                         <Link {...workLink}>
                             <Translate id="viewWork" />
                         </Link>
@@ -96,11 +115,7 @@ export default function Home({ location }: PageProps) {
                     </Desc>
                     <CountDown
                         seconds={10}
-                        onFinishedCallback={() => {
-                            if (!isDev()) {
-                                navigate(workLink.to);
-                            }
-                        }}
+                        onFinishedCallback={onCountDownFinished}
                     />
                 </MainContainer>
             </Section>

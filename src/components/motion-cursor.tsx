@@ -1,5 +1,6 @@
-import { CSSProperties, FunctionComponent } from "react";
+import { CSSProperties, FunctionComponent, useEffect } from "react";
 import tw, { css, styled } from "twin.macro";
+import { trackMousePosition } from "@hooks/track-mouse-position";
 
 /**
  * Styles
@@ -27,8 +28,7 @@ const Cursor = styled.div(() => [
  * Interfaces
  */
 interface Props {
-    clientX: number;
-    clientY: number;
+    onPositionUpdate: Function;
 }
 
 /**
@@ -36,15 +36,21 @@ interface Props {
  * @param props
  */
 export const MotionCursor: FunctionComponent<Props> = ({
-    clientX = 0,
-    clientY = 0,
+    onPositionUpdate,
     children,
 }) => {
     const cursorWidth = 80;
+    const { clientX, clientY } = trackMousePosition();
     const cursorStyle = {
         left: `${clientX || -cursorWidth}px`,
         top: `${clientY || -cursorWidth}px`,
     } as CSSProperties;
+
+    useEffect(() => {
+        if (onPositionUpdate) {
+            onPositionUpdate(clientX, clientY);
+        }
+    }, [clientX, clientY]);
 
     return (
         <Cursor style={cursorStyle} className="cursor">
