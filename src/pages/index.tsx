@@ -11,6 +11,7 @@ import { trackMousePosition } from "@hooks/track-mouse-position";
 import { getRoutePath } from "@utils/route";
 import { translateText } from "@utils/translate-text";
 import { isDev } from "@utils/detect-env";
+import { MotionCursor } from "@components/motion-cursor";
 
 /**
  * Styles
@@ -63,25 +64,6 @@ const Desc = styled.h2(() => [
     `,
 ]);
 
-const Cursor = styled.div(() => [
-    tw`fixed text-white text-center uppercase z-40 rounded-full`,
-    css`
-        width: 80px;
-        height: 80px;
-        background-color: var(--black-color);
-        border: 1px solid var(--black-color);
-        transform: translate(-50%, -50%);
-        font-size: 12px;
-        padding: 24px 22px;
-        cursor: none;
-        user-select: none;
-
-        a {
-            cursor: none;
-        }
-    `,
-]);
-
 /**
  * Component
  * @param props
@@ -91,11 +73,6 @@ export default function Home({ location }: PageProps) {
     const workLink = getRoutePath("work");
     const { x, y, clientX, clientY } = trackMousePosition(titleRef);
     const titleStyle = { "--x": `${x}px`, "--y": `${y}px` } as CSSProperties;
-    const cursorWidth = 80;
-    const cursorStyle = {
-        left: `${clientX || -cursorWidth}px`,
-        top: `${clientY || -cursorWidth}px`,
-    } as CSSProperties;
 
     return (
         <Layout>
@@ -109,11 +86,11 @@ export default function Home({ location }: PageProps) {
                     >
                         <Translate id="home.title" />
                     </Title>
-                    <Cursor style={cursorStyle} className="cursor">
+                    <MotionCursor clientX={clientX} clientY={clientY}>
                         <Link {...workLink}>
                             <Translate id="viewWork" />
                         </Link>
-                    </Cursor>
+                    </MotionCursor>
                     <Desc>
                         <Translate id="home.description" />
                     </Desc>
