@@ -77,7 +77,7 @@ export function CountDown({
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setSeconds(currentSeconds => currentSeconds - 1);
+            setSeconds(currentSeconds => Math.max(0, currentSeconds - 1));
         }, 1000);
 
         return () => {
