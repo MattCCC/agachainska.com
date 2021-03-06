@@ -1,6 +1,5 @@
 import tw, { css, styled } from "twin.macro";
 import { Link, Translate } from "@components/translate";
-import { excludeProps } from "@utils/styled";
 import { getLinkProps, LinkProps } from "@utils/route";
 import { Logo } from "@components/logo";
 
@@ -17,7 +16,6 @@ const Navigation = styled.div(() => [
 
 const LinkItem = styled(
     Link,
-    excludeProps(["isCurrentPage"])
 )(({ isCurrentPage }: LinkProps) => [
     tw`font-medium text-primary-color border-primary-color`,
     css`
