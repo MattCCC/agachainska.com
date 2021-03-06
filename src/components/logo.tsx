@@ -18,7 +18,12 @@ const SiteTitle = styled.div(({ showOnDesktop }: Props) => [
 ]);
 
 const LogoIcon = styled.div(() => [
-    tw`rounded-full p-3 bg-primary-color text-white font-extrabold prose-16px lg:prose-18px block lg:hidden`,
+    tw`rounded-full bg-primary-color text-white text-center font-extrabold prose-16px lg:prose-18px block lg:hidden`,
+    css`
+        width: 48px;
+        height: 48px;
+        line-height: 48px;
+    `,
 ]);
 
 /**
