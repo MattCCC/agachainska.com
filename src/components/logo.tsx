@@ -14,6 +14,7 @@ const SiteTitle = styled.div(({ showOnDesktop }: Props) => [
     showOnDesktop && tw`lg:block`,
     css`
         line-height: 30px;
+        user-select: none;
     `,
 ]);
 
@@ -23,6 +24,7 @@ const LogoIcon = styled.div(() => [
         width: 48px;
         height: 48px;
         line-height: 48px;
+        user-select: none;
     `,
 ]);
 
