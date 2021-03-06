@@ -1,10 +1,7 @@
 import { FunctionComponent, useEffect } from "react";
 import tw, { styled, css } from "twin.macro";
 import "@styles/layout.scss";
-import { ReactComponent as WavePattern1 } from "@svg/Path 2@1x.svg";
-import { ReactComponent as WavePattern2 } from "@svg/Path 2-1@1x.svg";
-import { ReactComponent as WavePattern3 } from "@svg/Path 2-2@1x.svg";
-import { ReactComponent as WavePattern4 } from "@svg/Path 2-3@1x.svg";
+import { ReactComponent as WavePattern1 } from "@svg/bg-lines.svg";
 import { ReactComponent as GreekEyeIllustration } from "@svg/Greek eye@1x.svg";
 import { ReactComponent as LondonEyeIllustration } from "@svg/London eye@1x.svg";
 import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
@@ -35,35 +32,11 @@ const Background = styled.div(() => [
     `,
 ]);
 
-const Wave1 = styled(WavePattern1)(() => [
+const Waves = styled(WavePattern1)(() => [
     tw`absolute w-full`,
     css`
-        height: 224.88px;
+        height: 100vh;
         top: 59.5px;
-    `,
-]);
-
-const Wave2 = styled(WavePattern2)(() => [
-    tw`absolute w-full`,
-    css`
-        height: 219.12px;
-        top: 295.7px;
-    `,
-]);
-
-const Wave3 = styled(WavePattern3)(() => [
-    tw`absolute w-full`,
-    css`
-        height: 219.12px;
-        top: 435.7px;
-    `,
-]);
-
-const Wave4 = styled(WavePattern4)(() => [
-    tw`absolute w-full`,
-    css`
-        height: 219.12px;
-        top: 665.7px;
     `,
 ]);
 
@@ -130,10 +103,7 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
                 <LondonEye className="motion-grid__item" />
                 <PricklyPear className="motion-grid__item" />
                 <Caipirinha className="motion-grid__item" />
-                <Wave1 />
-                <Wave2 />
-                <Wave3 />
-                <Wave4 />
+                <Waves />
             </Background>
             {children}
         </Main>
