@@ -22,11 +22,14 @@ const LinkItem = styled(
     tw`font-medium text-primary-color border-primary-color`,
     css`
         font-size: 18px;
-        letter-spacing: 0;
         line-height: 20px;
-        padding-bottom: 0.3rem;
+        padding-bottom: 9px;
     `,
     isCurrentPage && tw`border-b-2`,
+    isCurrentPage &&
+        css`
+            margin-bottom: -2px;
+        `,
 ]);
 
 /**
