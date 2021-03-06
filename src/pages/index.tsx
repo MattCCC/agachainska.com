@@ -10,6 +10,7 @@ import { Link } from "@components/translate";
 import { trackMousePosition } from "@hooks/track-mouse-position";
 import { getRoutePath } from "@utils/route";
 import { translateText } from "@utils/translate-text";
+import { isDev } from "@utils/detect-env";
 
 /**
  * Styles
@@ -119,7 +120,9 @@ export default function Home({ location }: PageProps) {
                     <CountDown
                         seconds={10}
                         onFinishedCallback={() => {
-                            navigate(workLink.to);
+                            if (!isDev()) {
+                                navigate(workLink.to);
+                            }
                         }}
                     />
                 </MainContainer>
