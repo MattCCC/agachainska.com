@@ -20,6 +20,8 @@ const GlobalBase = () => (
     />
 );
 
+const CounteDownWrapper = styled.div(() => [tw`hidden lg:block`]);
+
 const CountDownLabel = styled.div(() => [
     tw`absolute bottom-14 right-14 h-16 w-16 tracking-widest align-middle rounded-full border-2 border-purple-300 border-opacity-25 text-center text-xl text-melrose text-opacity-5`,
     css`
@@ -83,7 +85,7 @@ export const CountDown = memo(
         }, []);
 
         return (
-            <span>
+            <CounteDownWrapper>
                 <GlobalBase />
                 <ProgressCircleWrapper
                     viewBox="0 0 150 150"
@@ -109,7 +111,7 @@ export const CountDown = memo(
                 </ProgressCircleWrapper>
 
                 <CountDownLabel>{currentSeconds}s</CountDownLabel>
-            </span>
+            </CounteDownWrapper>
         );
     },
     (prevProps, nextProps) => {
