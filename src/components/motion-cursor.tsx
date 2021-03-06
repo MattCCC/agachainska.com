@@ -6,7 +6,7 @@ import { trackMousePosition } from "@hooks/track-mouse-position";
  * Styles
  */
 const Cursor = styled.div(() => [
-    tw`fixed text-white text-center uppercase z-40 rounded-full`,
+    tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full`,
     css`
         width: 80px;
         height: 80px;
