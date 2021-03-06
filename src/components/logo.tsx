@@ -1,15 +1,52 @@
-import tw, { styled } from "twin.macro";
-import { Translate } from "@components/translate";
+import tw, { css, styled } from "twin.macro";
+import { Link, Translate } from "@components/translate";
+import { getLinkProps } from "@utils/route";
 
+/**
+ * Styles
+ */
 const LogoWrapper = styled.div(() => [
-    tw`rounded-full p-3 bg-primary-color text-white font-extrabold text-2xl`,
+    tw`w-14 lg:w-80 text-primary-color flex items-center justify-center`,
 ]);
 
+const SiteTitle = styled.div(({ showOnDesktop }: Props) => [
+    tw`prose-24px text-primary-color p-3 hidden`,
+    showOnDesktop && tw`lg:block`,
+    css`
+        line-height: 30px;
+    `,
+]);
 
-export function Logo() {
+const LogoIcon = styled.div(() => [
+    tw`rounded-full p-3 bg-primary-color text-white font-extrabold prose-16px lg:prose-18px block lg:hidden`,
+]);
+
+/**
+ * Interfaces
+ */
+interface Props {
+    showOnDesktop?: boolean;
+}
+
+/**
+ * Component
+ * @param props
+ */
+export function Logo({ showOnDesktop = true }: Props) {
+    const homeLink = getLinkProps("home", location);
+
     return (
         <LogoWrapper>
-            <Translate id="header.logo.title" />
+            <SiteTitle showOnDesktop={showOnDesktop}>
+                <Link {...homeLink}>
+                    <Translate id="header.title" />
+                </Link>
+            </SiteTitle>
+            <LogoIcon>
+                <Link {...homeLink}>
+                    <Translate id="header.logo.title" />
+                </Link>
+            </LogoIcon>
         </LogoWrapper>
-    )
+    );
 }

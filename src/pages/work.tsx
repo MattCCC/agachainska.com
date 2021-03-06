@@ -4,7 +4,6 @@ import { MainContainer } from "@components/main-container";
 import { Header } from "@components/header";
 import { MainTitle } from "@components/main-title";
 import { Translate } from "@components/translate";
-import { Logo } from "@components/logo";
 
 /**
  * Component
@@ -13,7 +12,7 @@ import { Logo } from "@components/logo";
 export default function Work({ location }: PageProps) {
     return (
         <Layout>
-            <Header location={location} Logo={Logo} hasSiteTitle={true} />
+            <Header location={location} />
             <MainContainer className="lg:pt-20">
                 <MainTitle>
                     <Translate id="work.title" />

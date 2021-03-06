@@ -7,7 +7,6 @@ import { Header } from "@components/header";
 import { CountDown } from "@components/count-down";
 import { Translate } from "@components/translate";
 import { Link } from "@components/translate";
-import { Logo } from "@components/logo";
 import { trackMousePosition } from "@hooks/track-mouse-position";
 import { getRoutePath } from "@utils/route";
 import { translateText } from "@utils/translate-text";
@@ -88,6 +87,7 @@ const Cursor = styled.div(() => [
  */
 export default function Home({ location }: PageProps) {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
+    const workLink = getRoutePath("work");
     const { x, y, clientX, clientY } = trackMousePosition(titleRef);
     const titleStyle = { "--x": `${x}px`, "--y": `${y}px` } as CSSProperties;
     const cursorWidth = 80;
@@ -98,7 +98,7 @@ export default function Home({ location }: PageProps) {
 
     return (
         <Layout>
-            <Header location={location} Logo={Logo} />
+            <Header location={location} showLogoOnDesktop={false} />
             <Section>
                 <MainContainer>
                     <Title
@@ -109,7 +109,7 @@ export default function Home({ location }: PageProps) {
                         <Translate id="home.title" />
                     </Title>
                     <Cursor style={cursorStyle} className="cursor">
-                        <Link {...getRoutePath("work")}>
+                        <Link {...workLink}>
                             <Translate id="viewWork" />
                         </Link>
                     </Cursor>
@@ -119,7 +119,7 @@ export default function Home({ location }: PageProps) {
                     <CountDown
                         seconds={10}
                         onFinishedCallback={() => {
-                            navigate(getRoutePath("work").to);
+                            navigate(workLink.to);
                         }}
                     />
                 </MainContainer>

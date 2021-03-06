@@ -3,7 +3,6 @@ import { Layout } from "@layouts/default";
 import { Header } from "@components/header";
 import { MainTitle } from "@components/main-title";
 import { Translate } from "@components/translate";
-import { Logo } from "@components/logo";
 
 /**
  * Component
@@ -12,7 +11,7 @@ import { Logo } from "@components/logo";
 export default function ProjectRemax({ location }: PageProps) {
     return (
         <Layout>
-            <Header location={location} Logo={Logo} hasSiteTitle={true} />
+            <Header location={location} />
             <MainTitle>
                 <Translate id="work.remax.title" />
             </MainTitle>

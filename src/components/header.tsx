@@ -2,30 +2,13 @@ import tw, { css, styled } from "twin.macro";
 import { Link, Translate } from "@components/translate";
 import { excludeProps } from "@utils/styled";
 import { getLinkProps, LinkProps } from "@utils/route";
+import { Logo } from "@components/logo";
 
 /**
  * Styles
  */
-const SiteTitle = styled.div(() => [
-    tw`text-primary-color p-3`,
-    css`
-        font-size: 24px;
-        letter-spacing: 0;
-        line-height: 30px;
-    `,
-]);
-
-const HeaderSubject = styled.div(() => [
-    tw`w-14 lg:w-80 text-primary-color flex items-center justify-center`,
-    css`
-        font-size: 24px;
-        letter-spacing: 0;
-        line-height: 30px;
-    `,
-]);
-
 const HeaderWrapper = styled.header(() => [
-        tw`container mx-auto flex h-12 items-center justify-between flex-wrap absolute top-0 left-0 right-0 z-50 p-2 lg:p-6`,
+    tw`container mx-auto flex h-12 items-center justify-between flex-wrap absolute top-0 left-0 right-0 z-50 p-2 lg:p-6`,
 ]);
 
 const Navigation = styled.div(() => [
@@ -51,31 +34,17 @@ const LinkItem = styled(
  */
 interface Props {
     location: any;
-    hasSiteTitle?: boolean;
-    Logo?: Function;
+    showLogoOnDesktop?: boolean;
 }
 
 /**
  * Component
  * @param props
  */
-export function Header({ hasSiteTitle = false, Logo, location }: Props) {
-    const titleClasses = hasSiteTitle ? `hidden lg:block` : `hidden`;
-
+export function Header({ showLogoOnDesktop = true, location }: Props) {
     return (
         <HeaderWrapper>
-            <HeaderSubject>
-                <span className={titleClasses}>
-                    <SiteTitle>
-                        <Translate id="header.title" />
-                    </SiteTitle>
-                </span>
-            {Logo && (
-                <span className="block lg:hidden">
-                    <Logo />
-                </span>
-            )}
-            </HeaderSubject>
+            <Logo showOnDesktop={showLogoOnDesktop} />
             <Navigation>
                 <LinkItem {...getLinkProps("work", location)}>
                     <Translate id="header.link.work" />
