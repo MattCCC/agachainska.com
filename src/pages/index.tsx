@@ -46,7 +46,7 @@ const Title = styled.h1(() => [
             -webkit-text-stroke-color: rgba(0, 0, 0, 0.8);
         }
 
-        &:hover + .cursor {
+        &:hover + a .cursor {
             background-color: transparent;
             color: transparent;
             cursor: none;
@@ -83,7 +83,8 @@ export default function Home({ location }: PageProps): JSX.Element {
             const clientRect = (titleRef.current as HTMLHeadingElement).getBoundingClientRect();
 
             setPosition({
-                x: clientX - clientRect.left,
+                // Cursor margin left
+                x: clientX - clientRect.left - 30,
                 y: clientY - clientRect.top,
             });
         },
