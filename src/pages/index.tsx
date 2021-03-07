@@ -11,6 +11,7 @@ import { getRoutePath } from "@utils/route";
 import { translateText } from "@utils/translate-text";
 import { isDev } from "@utils/detect-env";
 import { MotionCursor } from "@components/motion-cursor";
+import { LinkProvider } from "@store/link-context";
 
 /**
  * Styles
@@ -95,30 +96,32 @@ export default function Home({ location }: PageProps) {
 
     return (
         <Layout>
-            <Header location={location} showLogoOnDesktop={false} />
-            <Section>
-                <MainContainer>
-                    <Title
-                        data-text={translateText("home.title")}
-                        style={titleStyle}
-                        ref={titleRef}
-                    >
-                        <Translate id="home.title" />
-                    </Title>
-                    <MotionCursor onPositionUpdate={onPositionUpdate}>
-                        <Link {...workLink}>
-                            <Translate id="viewWork" />
-                        </Link>
-                    </MotionCursor>
-                    <Desc>
-                        <Translate id="home.description" />
-                    </Desc>
-                    <CountDown
-                        seconds={10}
-                        onFinishedCallback={onCountDownFinished}
-                    />
-                </MainContainer>
-            </Section>
+            <LinkProvider>
+                <Header location={location} showLogoOnDesktop={false} />
+                <Section>
+                    <MainContainer>
+                        <Title
+                            data-text={translateText("home.title")}
+                            style={titleStyle}
+                            ref={titleRef}
+                        >
+                            <Translate id="home.title" />
+                        </Title>
+                        <MotionCursor onPositionUpdate={onPositionUpdate}>
+                            <Link {...workLink}>
+                                <Translate id="viewWork" />
+                            </Link>
+                        </MotionCursor>
+                        <Desc>
+                            <Translate id="home.description" />
+                        </Desc>
+                        <CountDown
+                            seconds={10}
+                            onFinishedCallback={onCountDownFinished}
+                        />
+                    </MainContainer>
+                </Section>
+            </LinkProvider>
         </Layout>
     );
 }

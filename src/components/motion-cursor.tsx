@@ -1,12 +1,14 @@
-import { CSSProperties, FunctionComponent, useEffect } from "react";
+import { CSSProperties, FunctionComponent, useEffect, useContext } from "react";
 import tw, { css, styled } from "twin.macro";
 import { trackMousePosition } from "@hooks/track-mouse-position";
+import { LinkStateContext } from "@store/link-context";
 
 /**
  * Styles
  */
-const Cursor = styled.div(() => [
+const Cursor = styled.div(({ isHovered }: { isHovered: boolean }) => [
     tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full`,
+    isHovered && tw`lg:hidden`,
     css`
         width: 80px;
         height: 80px;
@@ -39,12 +41,15 @@ export const MotionCursor: FunctionComponent<Props> = ({
     onPositionUpdate,
     children,
 }) => {
+    const linkContext = useContext(LinkStateContext);
     const cursorWidth = 80;
     const { clientX, clientY } = trackMousePosition();
     const cursorStyle = {
         left: `${clientX || -cursorWidth}px`,
         top: `${clientY || -cursorWidth}px`,
     } as CSSProperties;
+
+    console.log(linkContext.isHovered);
 
     useEffect(() => {
         if (onPositionUpdate) {
@@ -53,7 +58,11 @@ export const MotionCursor: FunctionComponent<Props> = ({
     }, [clientX, clientY]);
 
     return (
-        <Cursor style={cursorStyle} className="cursor">
+        <Cursor
+            isHovered={linkContext.isHovered}
+            style={cursorStyle}
+            className="cursor"
+        >
             {children}
         </Cursor>
     );

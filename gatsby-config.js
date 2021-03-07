@@ -30,6 +30,7 @@ module.exports = {
                     "@components": "src/components",
                     "@layouts": "src/layouts",
                     "@pages": "src/pages",
+                    "@store": "src/store",
                     "@styles": "src/styles",
                     "@templates": "src/templates",
                     "@posts": "content/posts",

@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import tw, { css, styled } from "twin.macro";
 import { Link, Translate } from "@components/translate";
 import { getLinkProps, LinkProps } from "@utils/route";
 import { Logo } from "@components/logo";
+import { LinkDispatchContext, LinkStateContext } from "@store/link-context";
 
 /**
  * Styles
@@ -40,17 +42,51 @@ interface Props {
  * @param props
  */
 export function Header({ showLogoOnDesktop = true, location }: Props) {
+    const setLinkContext = useContext(LinkDispatchContext);
+    const linkContext = useContext(LinkStateContext);
+
+    const onMouseEnter = (): void => {
+        if (linkContext.isHovered) {
+            return;
+        }
+
+        setLinkContext({
+            isHovered: true,
+        });
+    };
+    const onMouseLeave = (): void => {
+        if (!linkContext.isHovered) {
+            return;
+        }
+
+        setLinkContext({
+            isHovered: false,
+        });
+    };
+
     return (
         <HeaderWrapper>
             <Logo showOnDesktop={showLogoOnDesktop} />
             <Navigation>
-                <LinkItem {...getLinkProps("work", location)}>
+                <LinkItem
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                    {...getLinkProps("work", location)}
+                >
                     <Translate id="header.link.work" />
                 </LinkItem>
-                <LinkItem {...getLinkProps("about", location)}>
+                <LinkItem
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                    {...getLinkProps("about", location)}
+                >
                     <Translate id="header.link.about" />
                 </LinkItem>
-                <LinkItem {...getLinkProps("contact", location)}>
+                <LinkItem
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                    {...getLinkProps("contact", location)}
+                >
                     <Translate id="header.link.contact" />
                 </LinkItem>
             </Navigation>

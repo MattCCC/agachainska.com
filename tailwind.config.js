@@ -78,11 +78,11 @@ module.exports = {
         },
         container: {
             padding: {
-                DEFAULT: '15px',
-                sm: '15px',
-                lg: '4rem',
-                xl: '5rem',
-                '2xl': '6rem',
+                DEFAULT: "15px",
+                sm: "15px",
+                lg: "4rem",
+                xl: "5rem",
+                "2xl": "6rem",
             },
         },
     },

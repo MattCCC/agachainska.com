@@ -14,7 +14,10 @@ interface Props {
  * Component
  * @param props
  */
-export const Link = styled(TranslatedLink, excludeProps(["isCurrentPage"]))(() => []);
+export const Link = styled(
+    TranslatedLink,
+    excludeProps(["isCurrentPage"])
+)(() => []);
 
 /**
  * Component
