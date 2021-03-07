@@ -1,16 +1,22 @@
-import React, { createContext, Dispatch, FunctionComponent, SetStateAction, useState } from "react";
+import React, {
+    createContext,
+    Dispatch,
+    FunctionComponent,
+    SetStateAction,
+    useState,
+} from "react";
 
 const LinkStateContext = createContext({
     isHovered: false,
-    setLinkContext: ((isHovered: boolean) => ({
+    setLinkContext: (((isHovered: boolean) => ({
         isHovered,
-    })) as unknown as Dispatch<SetStateAction<{ isHovered: boolean }>>
+    })) as unknown) as Dispatch<SetStateAction<{ isHovered: boolean }>>,
 });
 
 /**
  * Interfaces
  */
-interface Props { }
+interface Props {}
 
 /**
  * Component

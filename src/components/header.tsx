@@ -42,11 +42,11 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
         }
     `,
     isCurrentPage &&
-    css`
-        &:before {
-            transform: scaleX(1);
-            transform-origin: left top 0;
-        }
+        css`
+            &:before {
+                transform: scaleX(1);
+                transform-origin: left top 0;
+            }
         `,
 ]);
 
