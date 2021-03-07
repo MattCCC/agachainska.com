@@ -2,6 +2,8 @@ import tw, { css, styled } from "twin.macro";
 import { Circle } from "@components/circle";
 import { FunctionComponent } from "react";
 import { ReactComponent as ArrowDown } from "@svg/arrow-down.svg";
+import { Link } from "@components/translate";
+import { getRoutePath } from "@utils/route";
 
 /**
  * Styles
@@ -27,9 +29,13 @@ interface Props {}
  * @param props
  */
 export const BottomCircle: FunctionComponent<Props> = () => {
+    const workLink = getRoutePath("work");
+
     return (
-        <BottomCircleStyled>
-            <ArrowDownStyled />
-        </BottomCircleStyled>
+        <Link {...workLink}>
+            <BottomCircleStyled>
+                <ArrowDownStyled />
+            </BottomCircleStyled>
+        </Link>
     );
 };
