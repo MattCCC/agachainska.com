@@ -1,14 +1,16 @@
-import React, { createContext, FunctionComponent, useState } from "react";
+import React, { createContext, Dispatch, FunctionComponent, SetStateAction, useState } from "react";
 
 const LinkStateContext = createContext({
     isHovered: false,
+    setLinkContext: ((isHovered: boolean) => ({
+        isHovered,
+    })) as unknown as Dispatch<SetStateAction<{ isHovered: boolean }>>
 });
-const LinkDispatchContext = createContext({});
 
 /**
  * Interfaces
  */
-interface Props {}
+interface Props { }
 
 /**
  * Component
@@ -20,12 +22,10 @@ export const LinkProvider: FunctionComponent<Props> = ({ children }) => {
     });
 
     return (
-        <LinkStateContext.Provider value={linkContext}>
-            <LinkDispatchContext.Provider value={setLinkContext}>
-                {children}
-            </LinkDispatchContext.Provider>
+        <LinkStateContext.Provider value={{ ...linkContext, setLinkContext }}>
+            {children}
         </LinkStateContext.Provider>
     );
 };
 
-export { LinkStateContext, LinkDispatchContext };
+export { LinkStateContext };

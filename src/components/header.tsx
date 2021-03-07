@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import tw, { css, styled } from "twin.macro";
 import { Link, Translate } from "@components/translate";
 import { getLinkProps, LinkProps } from "@utils/route";
 import { Logo } from "@components/logo";
-import { LinkDispatchContext, LinkStateContext } from "@store/link-context";
+import { LinkStateContext } from "@store/link-context";
 
 /**
  * Styles
@@ -68,10 +68,10 @@ export function Header({
     showLogoOnDesktop = true,
     location,
 }: Props): JSX.Element {
-    const setLinkContext = useContext(LinkDispatchContext) as LinkContext;
     const linkContext = useContext(LinkStateContext);
+    const setLinkContext = linkContext.setLinkContext as LinkContext;
 
-    const onMouseEnter = (): void => {
+    const onMouseEnter = useCallback((): void => {
         if (linkContext.isHovered) {
             return;
         }
@@ -79,9 +79,9 @@ export function Header({
         setLinkContext({
             isHovered: true,
         });
-    };
+    }, [linkContext, setLinkContext]);
 
-    const onMouseLeave = (): void => {
+    const onMouseLeave = useCallback((): void => {
         if (!linkContext.isHovered) {
             return;
         }
@@ -89,7 +89,7 @@ export function Header({
         setLinkContext({
             isHovered: false,
         });
-    };
+    }, [linkContext, setLinkContext]);
 
     return (
         <HeaderWrapper>
