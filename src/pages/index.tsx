@@ -22,10 +22,9 @@ const Section = styled.section(() => [
 ]);
 
 const Title = styled.h1(() => [
-    tw`relative z-50 inline-block max-w-full lg:mr-16 font-bold prose-70px lg:prose-140px`,
+    tw`relative z-50 inline-block max-w-full lg:mr-16 font-bold prose-70px lg:prose-140px select-none`,
     css`
         width: 570px;
-        user-select: none;
         color: var(--black-color);
         background: radial-gradient(
             40px circle at var(--x) var(--y),

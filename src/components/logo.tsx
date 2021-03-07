@@ -11,22 +11,20 @@ const LogoWrapper = styled.div(() => [
 
 const SiteTitle = styled.div(
     ({ showOnDesktop }: { showOnDesktop: Props["showOnDesktop"] }) => [
-        tw`prose-24px text-primary-color hidden`,
+        tw`prose-24px text-primary-color hidden select-none`,
         showOnDesktop && tw`lg:block`,
         css`
             line-height: 30px;
-            user-select: none;
         `,
     ]
 );
 
 const LogoIcon = styled.div(() => [
-    tw`rounded-full bg-primary-color text-white text-center font-extrabold prose-16px lg:prose-18px block lg:hidden`,
+    tw`rounded-full bg-primary-color text-white text-center font-extrabold prose-16px lg:prose-18px block lg:hidden select-none`,
     css`
         width: 48px;
         height: 48px;
         line-height: 48px;
-        user-select: none;
     `,
 ]);
 

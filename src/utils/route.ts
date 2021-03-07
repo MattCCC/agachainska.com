@@ -12,7 +12,10 @@ export interface LinkProps {
  * Get props for particular link's styled component
  * @param routePath         Current route name
  */
-export const getLinkProps = (routePath: string, location: Location): LinkProps => ({
+export const getLinkProps = (
+    routePath: string,
+    location: Location
+): LinkProps => ({
     to: routes[routePath].path,
     isCurrentPage: location.pathname === routes[routePath].path,
 });

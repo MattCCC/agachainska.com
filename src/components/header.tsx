@@ -17,26 +17,37 @@ const Navigation = styled.div(() => [
 ]);
 
 const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
-    tw`font-medium text-primary-color border-primary-color prose-18px relative select-none`,
-    isCurrentPage && tw`border-b-2`,
-    isCurrentPage &&
+    tw`relative font-medium text-primary-color prose-18px select-none`,
     css`
-            margin-bottom: -2px;
-        `,
+        line-height: 48px;
+    `,
     css`
-        & > ::before {
-            bottom: -0.15rem;
+        &:hover:before {
+            transform: scaleX(1);
+            transform-origin: left top 0;
+        }
+    `,
+    css`
+        &::before {
+            bottom: -2px;
             content: "";
-            height: 0.15rem;
+            height: 2px;
             left: 0;
             position: absolute;
             transform: scaleX(0);
             transform-origin: right top 0;
             transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
             width: 100%;
-            background-color: hsla(0, 0%, 100%, 0.6);
+            background-color: var(--primary-color);
         }
     `,
+    isCurrentPage &&
+    css`
+        &:before {
+            transform: scaleX(1);
+            transform-origin: left top 0;
+        }
+        `,
 ]);
 
 /**
@@ -47,9 +58,7 @@ interface Props {
     showLogoOnDesktop?: boolean;
 }
 
-type LinkContext = (arg0: {
-    isHovered?: boolean;
-}) => void;
+type LinkContext = (arg0: { isHovered?: boolean }) => void;
 
 /**
  * Component

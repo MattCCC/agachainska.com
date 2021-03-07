@@ -4,7 +4,7 @@ import tw, { css, styled } from "twin.macro";
  * Styles
  */
 export const Circle = styled.div(() => [
-    tw`text-white text-center uppercase rounded-full`,
+    tw`text-white text-center uppercase rounded-full select-none`,
     css`
         width: 80px;
         height: 80px;
@@ -14,7 +14,6 @@ export const Circle = styled.div(() => [
         font-size: 12px;
         padding: 24px 22px;
         cursor: none;
-        user-select: none;
 
         a {
             cursor: none;

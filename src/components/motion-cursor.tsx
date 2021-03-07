@@ -7,7 +7,7 @@ import { LinkStateContext } from "@store/link-context";
  * Styles
  */
 const Cursor = styled.div(({ isHovered }: { isHovered: boolean }) => [
-    tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full`,
+    tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full select-none`,
     isHovered && tw`lg:hidden`,
     css`
         width: 80px;
@@ -18,7 +18,6 @@ const Cursor = styled.div(({ isHovered }: { isHovered: boolean }) => [
         font-size: 12px;
         padding: 24px 22px;
         cursor: none;
-        user-select: none;
 
         a {
             cursor: none;
