@@ -18,6 +18,7 @@
   "dependencies": {
     "@svgr/webpack": "5.5.0",
     "@tailwindcss/typography": "0.4.0",
+    "framer-motion": "3.10.0",
     "gatsby": "2.32.3",
     "gatsby-plugin-alias-imports": "1.0.5",
     "gatsby-plugin-intl": "0.3.3",

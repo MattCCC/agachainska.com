@@ -13,6 +13,8 @@ import { TranslateText } from "@utils/translate-text";
 import { isDev } from "@utils/detect-env";
 import { MotionCursor } from "@components/motion-cursor";
 import { LinkProvider } from "@store/link-context";
+import { motion } from "@components/animation";
+import { useLockBodyScroll } from "@hooks/lock-body-scroll";
 
 /**
  * Styles
@@ -64,6 +66,16 @@ const Desc = styled.h2(() => [
     `,
 ]);
 
+const transition = {
+    duration: 1,
+    ease: [0.43, 0.13, 0.23, 0.96]
+};
+
+const backVariants = {
+    exit: { y: 100, opacity: 0, transition },
+    enter: { y: 0, opacity: 1, transition: { delay: 0, ...transition } }
+};
+
 /**
  * Component
  * @param props
@@ -78,13 +90,15 @@ export default function Home({ location }: PageProps): JSX.Element {
         "--y": `${position.y}px`,
     } as CSSProperties;
 
+    useLockBodyScroll();
+
     const onPositionUpdate = useCallback(
         (clientX: number, clientY: number) => {
             const clientRect = (titleRef.current as HTMLHeadingElement).getBoundingClientRect();
+            const cursorMarginLeft = 30;
 
             setPosition({
-                // Cursor margin left
-                x: clientX - clientRect.left - 30,
+                x: clientX - clientRect.left - cursorMarginLeft,
                 y: clientY - clientRect.top,
             });
         },
@@ -101,30 +115,32 @@ export default function Home({ location }: PageProps): JSX.Element {
         <Layout>
             <LinkProvider>
                 <Header location={location} showLogoOnDesktop={false} />
-                <Section>
-                    <MainContainer>
-                        <Title
-                            data-text={TranslateText("home.title")}
-                            style={titleStyle}
-                            ref={titleRef}
-                        >
-                            <Translate id="home.title" />
-                        </Title>
-                        <Link {...workLink}>
-                            <MotionCursor onPositionUpdate={onPositionUpdate}>
-                                <Translate id="viewWork" />
-                            </MotionCursor>
-                        </Link>
-                        <Desc>
-                            <Translate id="home.description" />
-                        </Desc>
-                        <CountDown
-                            seconds={10}
-                            onFinishedCallback={onCountDownFinished}
-                        />
-                    </MainContainer>
-                </Section>
+                <motion.div className="single" initial="exit" animate="enter" exit="exit" variants={backVariants}>
+                    <Section>
+                        <MainContainer>
+                            <Title
+                                data-text={TranslateText("home.title")}
+                                style={titleStyle}
+                                ref={titleRef}
+                            >
+                                <Translate id="home.title" />
+                            </Title>
+                            <Link {...workLink}>
+                                <MotionCursor onPositionUpdate={onPositionUpdate}>
+                                    <Translate id="viewWork" />
+                                </MotionCursor>
+                            </Link>
+                            <Desc>
+                                <Translate id="home.description" />
+                            </Desc>
+                        </MainContainer>
+                    </Section>
+                </motion.div>
                 <BottomCircle />
+                <CountDown
+                    seconds={10}
+                    onFinishedCallback={onCountDownFinished}
+                />
             </LinkProvider>
         </Layout>
     );
