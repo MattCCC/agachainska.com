@@ -8,9 +8,13 @@ import { mapNumber } from "./map-number";
 let windowSize: { width: number; height: number };
 let mousePosition: { x: number; y: number };
 
-const resizeHandler = (): void => { windowSize = getWindowSize(); };
+const resizeHandler = (): void => {
+    windowSize = getWindowSize();
+};
 
-const mousemoveHandler = (e: MouseEvent): void => { mousePosition = getMousePosition(e); };
+const mousemoveHandler = (e: MouseEvent): void => {
+    mousePosition = getMousePosition(e);
+};
 
 /**
  * Calculate the viewport size
@@ -86,7 +90,7 @@ export const initMotionGrid = (
 
     const items = el.querySelectorAll(itemsSelector);
 
-    items.forEach(item => moveItem(item));
+    items.forEach((item) => moveItem(item));
 
     gsap.timeline()
         .set(items, { scale: 0.7, opacity: 0 }, 0)

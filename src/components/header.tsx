@@ -17,16 +17,26 @@ const Navigation = styled.div(() => [
 ]);
 
 const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
-    tw`font-medium text-primary-color border-primary-color`,
-    css`
-        font-size: 18px;
-        line-height: 20px;
-    `,
+    tw`font-medium text-primary-color border-primary-color prose-18px relative select-none`,
     isCurrentPage && tw`border-b-2`,
     isCurrentPage &&
         css`
             margin-bottom: -2px;
         `,
+    css`
+        & > ::before {
+            bottom: -0.15rem;
+            content: "";
+            height: 0.15rem;
+            left: 0;
+            position: absolute;
+            transform: scaleX(0);
+            transform-origin: right top 0;
+            transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+            width: 100%;
+            background-color: hsla(0, 0%, 100%, 0.6);
+        }
+    `,
 ]);
 
 /**

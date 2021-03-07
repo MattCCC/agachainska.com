@@ -23,7 +23,8 @@ const GlobalBase = (): ReactElement => (
 const CounteDownWrapper = styled.div(() => [tw`hidden lg:block`]);
 
 const CountDownLabel = styled.div(() => [
-    tw`absolute bottom-14 right-14 h-16 w-16 tracking-widest align-middle rounded-full border-2 border-purple-300 border-opacity-25 text-center text-xl text-melrose text-opacity-5`,
+    tw`absolute bottom-14 right-14 h-16 w-16 tracking-widest align-middle rounded-full border-2 border-purple-300 border-opacity-25`,
+    tw`text-center text-xl text-melrose text-opacity-5`,
     css`
         line-height: 4rem;
         text-shadow: 0 0 3px var(--melrose-color);
@@ -59,7 +60,7 @@ const ProgressCircle = styled.circle(() => [
  */
 interface Props {
     seconds: number;
-    onFinishedCallback: Function | null;
+    onFinishedCallback?: (() => void) | null;
 }
 
 /**
@@ -76,7 +77,7 @@ export const CountDown = memo(
 
         useEffect(() => {
             const interval = setInterval(() => {
-                setSeconds(currentSeconds => Math.max(0, currentSeconds - 1));
+                setSeconds((currentSecs) => Math.max(0, currentSecs - 1));
             }, 1000);
 
             return (): void => {
@@ -114,7 +115,5 @@ export const CountDown = memo(
             </CounteDownWrapper>
         );
     },
-    (prevProps, nextProps) => {
-        return prevProps.seconds === nextProps.seconds;
-    }
+    (prevProps, nextProps) => prevProps.seconds === nextProps.seconds
 );

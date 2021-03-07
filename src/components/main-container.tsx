@@ -14,6 +14,4 @@ interface Props {
 export const MainContainer: FunctionComponent<Props> = ({
     className = "",
     children,
-}) => {
-    return <div className={`container mx-auto ${className}`}>{children}</div>;
-};
+}) => <div className={`container mx-auto ${className}`}>{children}</div>;

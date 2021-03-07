@@ -30,7 +30,7 @@ const Cursor = styled.div(({ isHovered }: { isHovered: boolean }) => [
  * Interfaces
  */
 interface Props {
-    onPositionUpdate: Function;
+    onPositionUpdate: () => void;
 }
 
 /**
