@@ -24,10 +24,11 @@ const Cursor = styled.div(({ isHovered }: { isHovered: boolean }) => [
             cursor: pointer;
         }
     `,
-    isHovered && css`
-        transform: scale(0.08);
-        font-size: 0;
-    `,
+    isHovered &&
+        css`
+            transform: scale(0.08);
+            font-size: 0;
+        `,
 ]);
 
 /**

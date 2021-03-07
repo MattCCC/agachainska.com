@@ -14,7 +14,12 @@ import { isDev } from "@utils/detect-env";
 import { MotionCursor } from "@components/motion-cursor";
 import { LinkProvider } from "@store/link-context";
 import { motion } from "@components/animation";
+import { Overlays } from "@components/overlays";
 import { useLockBodyScroll } from "@hooks/lock-body-scroll";
+import {
+    homepageContentVariants,
+    pageOverlayTopVariants,
+} from "@config/animation-variants";
 
 /**
  * Styles
@@ -66,16 +71,6 @@ const Desc = styled.h2(() => [
     `,
 ]);
 
-const transition = {
-    duration: 1,
-    ease: [0.43, 0.13, 0.23, 0.96]
-};
-
-const backVariants = {
-    exit: { y: 100, opacity: 0, transition },
-    enter: { y: 0, opacity: 1, transition: { delay: 0, ...transition } }
-};
-
 /**
  * Component
  * @param props
@@ -112,36 +107,53 @@ export default function Home({ location }: PageProps): JSX.Element {
     }, [workLink]);
 
     return (
-        <Layout>
-            <LinkProvider>
-                <Header location={location} showLogoOnDesktop={false} />
-                <motion.div className="single" initial="exit" animate="enter" exit="exit" variants={backVariants}>
-                    <Section>
-                        <MainContainer>
-                            <Title
-                                data-text={TranslateText("home.title")}
-                                style={titleStyle}
-                                ref={titleRef}
-                            >
-                                <Translate id="home.title" />
-                            </Title>
-                            <Link {...workLink}>
-                                <MotionCursor onPositionUpdate={onPositionUpdate}>
-                                    <Translate id="viewWork" />
-                                </MotionCursor>
-                            </Link>
-                            <Desc>
-                                <Translate id="home.description" />
-                            </Desc>
-                        </MainContainer>
-                    </Section>
-                </motion.div>
-                <BottomCircle />
-                <CountDown
-                    seconds={10}
-                    onFinishedCallback={onCountDownFinished}
-                />
-            </LinkProvider>
-        </Layout>
+        <div>
+            <Overlays />
+            <motion.div
+                initial="exit"
+                animate="enter"
+                exit="exit"
+                variants={pageOverlayTopVariants}
+            >
+                <Layout>
+                    <LinkProvider>
+                        <Header location={location} showLogoOnDesktop={false} />
+                        <motion.div
+                            initial="exit"
+                            animate="enter"
+                            exit="exit"
+                            variants={homepageContentVariants}
+                        >
+                            <Section>
+                                <MainContainer>
+                                    <Title
+                                        data-text={TranslateText("home.title")}
+                                        style={titleStyle}
+                                        ref={titleRef}
+                                    >
+                                        <Translate id="home.title" />
+                                    </Title>
+                                    <Link {...workLink}>
+                                        <MotionCursor
+                                            onPositionUpdate={onPositionUpdate}
+                                        >
+                                            <Translate id="viewWork" />
+                                        </MotionCursor>
+                                    </Link>
+                                    <Desc>
+                                        <Translate id="home.description" />
+                                    </Desc>
+                                </MainContainer>
+                            </Section>
+                        </motion.div>
+                        <BottomCircle />
+                        <CountDown
+                            seconds={10}
+                            onFinishedCallback={onCountDownFinished}
+                        />
+                    </LinkProvider>
+                </Layout>
+            </motion.div>
+        </div>
     );
 }
