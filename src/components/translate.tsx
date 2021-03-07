@@ -23,7 +23,7 @@ export const Link = styled(
  * Component
  * @param props
  */
-export function TranslateText({ id }: Props) {
+export function TranslateText({ id }: Props): JSX.Element {
     const intl = useIntl();
 
     return <>{intl.formatMessage({ id })}</>;

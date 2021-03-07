@@ -1,11 +1,11 @@
 import tw, { css, styled } from "twin.macro";
 import { Global } from "@emotion/react";
-import { memo, useEffect, useState } from "react";
+import { memo, ReactElement, useEffect, useState } from "react";
 
 /**
  * Styles
  */
-const GlobalBase = () => (
+const GlobalBase = (): ReactElement => (
     <Global
         styles={css`
             @keyframes countdown {
@@ -79,8 +79,8 @@ export const CountDown = memo(
                 setSeconds(currentSeconds => Math.max(0, currentSeconds - 1));
             }, 1000);
 
-            return () => {
-                return clearInterval(interval);
+            return (): void => {
+                clearInterval(interval);
             };
         }, []);
 

@@ -8,7 +8,7 @@ import { Translate } from "@components/translate";
  * Component
  * @param props
  */
-export default function ProjectRemax({ location }: PageProps) {
+export default function ProjectRemax({ location }: PageProps): JSX.Element {
     return (
         <Layout>
             <Header location={location} />

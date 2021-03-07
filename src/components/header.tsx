@@ -33,7 +33,7 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
  * Interfaces
  */
 interface Props {
-    location: any;
+    location: Location;
     showLogoOnDesktop?: boolean;
 }
 
@@ -41,7 +41,10 @@ interface Props {
  * Component
  * @param props
  */
-export function Header({ showLogoOnDesktop = true, location }: Props) {
+export function Header({
+    showLogoOnDesktop = true,
+    location,
+}: Props): JSX.Element {
     const setLinkContext = useContext(LinkDispatchContext);
     const linkContext = useContext(LinkStateContext);
 
@@ -54,6 +57,7 @@ export function Header({ showLogoOnDesktop = true, location }: Props) {
             isHovered: true,
         });
     };
+
     const onMouseLeave = (): void => {
         if (!linkContext.isHovered) {
             return;

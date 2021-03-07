@@ -1,5 +1,9 @@
 {
-    "extends": ["plugin:react-app/recommended"],
+    "extends": [
+        "plugin:react-app/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
     "plugins": ["eslint-plugin-import"],
     "rules": {
         "semi": ["error", "always"],
@@ -8,6 +12,7 @@
         "newline-before-return": "error",
         "newline-per-chained-call": "error",
         "react-app/react/react-in-jsx-scope": "off",
+        "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/member-delimiter-style": ["error"]
     }
 }

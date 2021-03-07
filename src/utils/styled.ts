@@ -9,6 +9,6 @@ import { StyledOptions } from "@emotion/styled";
 export const excludeProps = (
     excludes: string[] = []
 ): StyledOptions<JSX.IntrinsicElements> => ({
-    shouldForwardProp: (prop: string) =>
+    shouldForwardProp: (prop: string): boolean =>
         isPropValid(prop) && !excludes.includes(prop),
 });

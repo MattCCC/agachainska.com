@@ -4,7 +4,7 @@ import routes from "@config/routes";
  * Interfaces
  */
 export interface LinkProps {
-    to: any;
+    to: string;
     isCurrentPage?: boolean;
 }
 
@@ -12,7 +12,7 @@ export interface LinkProps {
  * Get props for particular link's styled component
  * @param routePath         Current route name
  */
-export const getLinkProps = (routePath: string, location: any): LinkProps => ({
+export const getLinkProps = (routePath: string, location: Location): LinkProps => ({
     to: routes[routePath].path,
     isCurrentPage: location.pathname === routes[routePath].path,
 });

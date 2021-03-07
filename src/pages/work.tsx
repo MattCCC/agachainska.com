@@ -9,7 +9,7 @@ import { Translate } from "@components/translate";
  * Component
  * @param props
  */
-export default function Work({ location }: PageProps) {
+export default function Work({ location }: PageProps): JSX.Element {
     return (
         <Layout>
             <Header location={location} />

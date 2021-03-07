@@ -69,7 +69,7 @@ const Desc = styled.h2(() => [
  * Component
  * @param props
  */
-export default function Home({ location }: PageProps) {
+export default function Home({ location }: PageProps): JSX.Element {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
     const workLink = getRoutePath("work");
     const defaultState = { x: 0, y: 0 };

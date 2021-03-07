@@ -7,4 +7,4 @@ export const mapNumber = (
     b: number,
     c: number,
     d: number
-) => ((x - a) * (d - c)) / (b - a) + c;
+): number => ((x - a) * (d - c)) / (b - a) + c;

@@ -2,12 +2,12 @@
  * Get the mouse position
  * @param e Event
  */
-export default function getMousePosition(e: any) {
+export default function getMousePosition(e: MouseEvent): { x: number; y: number } {
     let posx = 0;
     let posy = 0;
 
     if (!e) {
-        e = window.event;
+        e = window.event as MouseEvent;
     }
 
     if (e.pageX || e.pageY) {

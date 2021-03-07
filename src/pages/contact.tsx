@@ -9,7 +9,7 @@ import { MainTitle } from "@components/main-title";
  * Component
  * @param props
  */
-export default function Contact({ location }: PageProps) {
+export default function Contact({ location }: PageProps): JSX.Element {
     return (
         <Layout>
             <Header location={location} />
