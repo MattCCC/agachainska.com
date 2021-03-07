@@ -32,6 +32,7 @@ const LogoIcon = styled.div(() => [
  * Interfaces
  */
 interface Props {
+    location?: any;
     showOnDesktop?: boolean;
 }
 
@@ -39,7 +40,7 @@ interface Props {
  * Component
  * @param props
  */
-export function Logo({ showOnDesktop = true }: Props) {
+export function Logo({ showOnDesktop = true, location }: Props) {
     const homeLink = getLinkProps("home", location);
 
     return (

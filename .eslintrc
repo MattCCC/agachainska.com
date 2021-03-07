@@ -1,15 +1,10 @@
 {
-    "extends": [
-        "plugin:react-app/recommended"
-    ],
+    "extends": ["plugin:react-app/recommended"],
+    "plugins": ["eslint-plugin-import"],
     "rules": {
-        "semi": [
-            "error",
-            "always"
-        ],
+        "semi": ["error", "always"],
         "import/order": "error",
-        "@typescript-eslint/member-delimiter-style": [
-            "error"
-        ]
+        "react-app/react/react-in-jsx-scope": "off",
+        "@typescript-eslint/member-delimiter-style": ["error"]
     }
 }

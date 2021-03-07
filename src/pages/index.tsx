@@ -8,7 +8,7 @@ import { CountDown } from "@components/count-down";
 import { Translate } from "@components/translate";
 import { Link } from "@components/translate";
 import { getRoutePath } from "@utils/route";
-import { translateText } from "@utils/translate-text";
+import { TranslateText } from "@utils/translate-text";
 import { isDev } from "@utils/detect-env";
 import { MotionCursor } from "@components/motion-cursor";
 import { LinkProvider } from "@store/link-context";
@@ -79,20 +79,23 @@ export default function Home({ location }: PageProps) {
         "--y": `${position.y}px`,
     } as CSSProperties;
 
-    const onPositionUpdate = useCallback((clientX: number, clientY: number) => {
-        clientRect = (titleRef.current as HTMLHeadingElement).getBoundingClientRect();
+    const onPositionUpdate = useCallback(
+        (clientX: number, clientY: number) => {
+            const clientRect = (titleRef.current as HTMLHeadingElement).getBoundingClientRect();
 
-        setPosition({
-            x: clientX - clientRect.left,
-            y: clientY - clientRect.top,
-        });
-    }, []);
+            setPosition({
+                x: clientX - clientRect.left,
+                y: clientY - clientRect.top,
+            });
+        },
+        [titleRef]
+    );
 
     const onCountDownFinished = useCallback(() => {
         if (!isDev()) {
             navigate(workLink.to);
         }
-    }, []);
+    }, [workLink]);
 
     return (
         <Layout>

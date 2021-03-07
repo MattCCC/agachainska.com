@@ -1,6 +1,6 @@
 import { CSSProperties, FunctionComponent, useEffect, useContext } from "react";
 import tw, { css, styled } from "twin.macro";
-import { trackMousePosition } from "@hooks/track-mouse-position";
+import { TrackMousePosition } from "@hooks/track-mouse-position";
 import { LinkStateContext } from "@store/link-context";
 
 /**
@@ -43,19 +43,17 @@ export const MotionCursor: FunctionComponent<Props> = ({
 }) => {
     const linkContext = useContext(LinkStateContext);
     const cursorWidth = 80;
-    const { clientX, clientY } = trackMousePosition();
+    const { clientX, clientY } = TrackMousePosition();
     const cursorStyle = {
         left: `${clientX || -cursorWidth}px`,
         top: `${clientY || -cursorWidth}px`,
     } as CSSProperties;
 
-    console.log(linkContext.isHovered);
-
     useEffect(() => {
         if (onPositionUpdate) {
             onPositionUpdate(clientX, clientY);
         }
-    }, [clientX, clientY]);
+    }, [clientX, clientY, onPositionUpdate]);
 
     return (
         <Cursor

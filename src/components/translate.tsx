@@ -1,7 +1,7 @@
 import { styled } from "twin.macro";
 import { Link as TranslatedLink, useIntl } from "gatsby-plugin-intl";
-export { FormattedMessage as Translate } from "gatsby-plugin-intl";
 import { excludeProps } from "@utils/styled";
+export { FormattedMessage as Translate } from "gatsby-plugin-intl";
 
 /**
  * Interfaces

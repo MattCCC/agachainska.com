@@ -24,7 +24,7 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
     `,
     isCurrentPage && tw`border-b-2`,
     isCurrentPage &&
-    css`
+        css`
             margin-bottom: -2px;
         `,
 ]);
@@ -66,7 +66,7 @@ export function Header({ showLogoOnDesktop = true, location }: Props) {
 
     return (
         <HeaderWrapper>
-            <Logo showOnDesktop={showLogoOnDesktop} />
+            <Logo showOnDesktop={showLogoOnDesktop} location={location} />
             <Navigation>
                 <LinkItem
                     onMouseEnter={onMouseEnter}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const trackMousePosition = () => {
+export const TrackMousePosition = () => {
     const defaultState = { clientX: 0, clientY: 0 };
     const [position, setPosition] = useState(defaultState);
 
@@ -17,7 +17,7 @@ export const trackMousePosition = () => {
         return () => {
             window.removeEventListener("mousemove", setMousePosition);
         };
-    }, []);
+    }, [defaultState]);
 
     return position;
 };
