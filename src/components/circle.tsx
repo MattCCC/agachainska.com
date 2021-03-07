@@ -13,10 +13,5 @@ export const Circle = styled.div(() => [
         transform: translate(-50%, -50%);
         font-size: 12px;
         padding: 24px 22px;
-        cursor: none;
-
-        a {
-            cursor: none;
-        }
     `,
 ]);

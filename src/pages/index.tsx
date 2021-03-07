@@ -109,11 +109,11 @@ export default function Home({ location }: PageProps): JSX.Element {
                         >
                             <Translate id="home.title" />
                         </Title>
-                        <MotionCursor onPositionUpdate={onPositionUpdate}>
-                            <Link {...workLink}>
+                        <Link {...workLink}>
+                            <MotionCursor onPositionUpdate={onPositionUpdate}>
                                 <Translate id="viewWork" />
-                            </Link>
-                        </MotionCursor>
+                            </MotionCursor>
+                        </Link>
                         <Desc>
                             <Translate id="home.description" />
                         </Desc>

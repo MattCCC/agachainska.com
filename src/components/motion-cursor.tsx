@@ -14,13 +14,13 @@ const Cursor = styled.div(({ isHovered }: { isHovered: boolean }) => [
         height: 80px;
         background-color: var(--black-color);
         border: 1px solid var(--black-color);
-        transform: translate(-50%, -50%);
+        transform: translate(-90%, -60%);
         font-size: 12px;
         padding: 24px 22px;
-        cursor: none;
+        cursor: pointer;
 
         a {
-            cursor: none;
+            cursor: pointer;
         }
     `,
 ]);
