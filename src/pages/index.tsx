@@ -7,6 +7,7 @@ import { Header } from "@components/header";
 import { CountDown } from "@components/count-down";
 import { Translate } from "@components/translate";
 import { Link } from "@components/translate";
+import { BottomCircle } from "@components/bottom-circle";
 import { getRoutePath } from "@utils/route";
 import { TranslateText } from "@utils/translate-text";
 import { isDev } from "@utils/detect-env";
@@ -71,7 +72,6 @@ const Desc = styled.h2(() => [
 export default function Home({ location }: PageProps) {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
     const workLink = getRoutePath("work");
-    let clientRect: DOMRect;
     const defaultState = { x: 0, y: 0 };
     const [position, setPosition] = useState(defaultState);
     const titleStyle = {
@@ -104,7 +104,7 @@ export default function Home({ location }: PageProps) {
                 <Section>
                     <MainContainer>
                         <Title
-                            data-text={translateText("home.title")}
+                            data-text={TranslateText("home.title")}
                             style={titleStyle}
                             ref={titleRef}
                         >
@@ -124,6 +124,7 @@ export default function Home({ location }: PageProps) {
                         />
                     </MainContainer>
                 </Section>
+                <BottomCircle />
             </LinkProvider>
         </Layout>
     );
