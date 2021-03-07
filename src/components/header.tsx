@@ -20,7 +20,7 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
     tw`font-medium text-primary-color border-primary-color prose-18px relative select-none`,
     isCurrentPage && tw`border-b-2`,
     isCurrentPage &&
-        css`
+    css`
             margin-bottom: -2px;
         `,
     css`
@@ -47,6 +47,10 @@ interface Props {
     showLogoOnDesktop?: boolean;
 }
 
+type LinkContext = (arg0: {
+    isHovered?: boolean;
+}) => void;
+
 /**
  * Component
  * @param props
@@ -55,7 +59,7 @@ export function Header({
     showLogoOnDesktop = true,
     location,
 }: Props): JSX.Element {
-    const setLinkContext = useContext(LinkDispatchContext);
+    const setLinkContext = useContext(LinkDispatchContext) as LinkContext;
     const linkContext = useContext(LinkStateContext);
 
     const onMouseEnter = (): void => {
