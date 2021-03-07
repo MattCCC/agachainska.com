@@ -11,7 +11,7 @@ const HeaderWrapper = styled.header(() => [
 ]);
 
 const Navigation = styled.div(() => [
-    tw`w-56 lg:w-96 space-x-6 lg:space-x-3 flex justify-evenly`,
+    tw`w-56 lg:w-96 space-x-6 lg:space-x-3 flex items-center justify-evenly`,
 ]);
 
 const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
@@ -19,11 +19,10 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
     css`
         font-size: 18px;
         line-height: 20px;
-        padding-bottom: 9px;
     `,
     isCurrentPage && tw`border-b-2`,
     isCurrentPage &&
-        css`
+    css`
             margin-bottom: -2px;
         `,
 ]);
