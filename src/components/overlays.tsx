@@ -1,42 +1,11 @@
 import { motion } from "@components/animation";
 import { getRandomNumber } from "@utils/random-number";
 import { memo, useEffect, useState } from "react";
-import tw, { css, styled } from "twin.macro";
 
 /**
  * Styles
  */
-export const OverlaysWrapper = styled(motion.div)(() => [
-    tw` left-0 w-full h-full`,
-    css`
-        z-index: 1000;
-    `,
-]);
-
-export const Overlay = styled(motion.div)(() => [
-    tw`absolute left-0 w-full h-full`,
-    css`
-        transform: translateZ(0);
-    `,
-]);
-
-export const Overlay1 = styled(Overlay)(() => [
-    css`
-        z-index: 1010;
-    `,
-]);
-
-export const Overlay2 = styled(Overlay)(() => [
-    css`
-        z-index: 1020;
-    `,
-]);
-
-export const Overlay3 = styled(Overlay)(() => [
-    css`
-        z-index: 1030;
-    `,
-]);
+const overlayStyleClasses = "absolute left-0 w-full h-full";
 
 /**
  * Configs
@@ -48,12 +17,7 @@ export const transition = {
     ease: [0.43, 0.13, 0.23, 0.96],
 };
 
-export const backgroundColors = [
-    ["#FF388A", "#8F38FF", "#00D99B"],
-    ["#3860FF", "#FF4C38", "#FFD229"],
-    ["#00D99B", "#3860FF", "#FF388A"],
-    ["#FFD229", "#FF388A", "#3860FF"],
-];
+export const backgroundColors = [["#F5A4FF", "#C0A4FF", "#61F1F8"]];
 
 const ContainerVariants = {
     hidden: {
@@ -111,35 +75,38 @@ export const Overlays = memo(
             );
         }, []);
 
+        const motionProps = {
+            className: overlayStyleClasses,
+            initial: "exit",
+            animate: "enter",
+            exit: "exit",
+        };
+
         return (
-            <OverlaysWrapper
+            <motion.div
+                className="left-0 w-full h-full"
+                style={{ zIndex: 1000 }}
                 variants={ContainerVariants}
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
             >
-                <Overlay1
-                    initial="exit"
-                    animate="enter"
-                    exit="exit"
+                <motion.div
+                    {...motionProps}
+                    style={{ backgroundColor: palette[0], zIndex: 1010 }}
                     variants={Overlay1Variants}
-                    style={{ backgroundColor: palette[0] }}
                 />
-                <Overlay2
-                    initial="exit"
-                    animate="enter"
-                    exit="exit"
+                <motion.div
+                    {...motionProps}
+                    style={{ backgroundColor: palette[1], zIndex: 1020 }}
                     variants={Overlay2Variants}
-                    style={{ backgroundColor: palette[1] }}
                 />
-                <Overlay3
-                    initial="exit"
-                    animate="enter"
-                    exit="exit"
+                <motion.div
+                    {...motionProps}
+                    style={{ backgroundColor: palette[2], zIndex: 1030 }}
                     variants={Overlay3Variants}
-                    style={{ backgroundColor: palette[2] }}
                 />
-            </OverlaysWrapper>
+            </motion.div>
         );
     }
 );

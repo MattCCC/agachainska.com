@@ -18,8 +18,7 @@ export const homepageContentVariants = {
         y: 0,
         opacity: 1,
         transition: {
-            delay: overlayDuration / 2,
-            type: "spring",
+            delay: overlayDuration / 1.5,
         },
     },
 };

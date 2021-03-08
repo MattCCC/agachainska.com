@@ -1,4 +1,11 @@
-import { CSSProperties, RefObject, useCallback, useRef, useState } from "react";
+import {
+    CSSProperties,
+    Fragment,
+    RefObject,
+    useCallback,
+    useRef,
+    useState,
+} from "react";
 import tw, { css, styled } from "twin.macro";
 import { PageProps, navigate } from "gatsby";
 import { Layout } from "@layouts/default";
@@ -90,7 +97,7 @@ export default function Home({ location }: PageProps): JSX.Element {
     const onPositionUpdate = useCallback(
         (clientX: number, clientY: number) => {
             const clientRect = (titleRef.current as HTMLHeadingElement).getBoundingClientRect();
-            const cursorMarginLeft = 30;
+            const cursorMarginLeft = 31;
 
             setPosition({
                 x: clientX - clientRect.left - cursorMarginLeft,
@@ -107,7 +114,7 @@ export default function Home({ location }: PageProps): JSX.Element {
     }, [workLink]);
 
     return (
-        <div>
+        <Fragment>
             <Overlays />
             <motion.div
                 initial="exit"
@@ -154,6 +161,6 @@ export default function Home({ location }: PageProps): JSX.Element {
                     </LinkProvider>
                 </Layout>
             </motion.div>
-        </div>
+        </Fragment>
     );
 }
