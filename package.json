@@ -16,6 +16,7 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
+    "@essentials/request-interval": "1.2.0",
     "@svgr/webpack": "5.5.0",
     "@tailwindcss/typography": "0.4.0",
     "framer-motion": "3.10.0",

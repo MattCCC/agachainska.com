@@ -1106,6 +1106,18 @@
     ts-node "^9"
     tslib "^2"
 
+"@essentials/raf@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@essentials/raf/-/raf-1.2.0.tgz#2755670021618433aa437453dc98ad4bc8436177"
+  integrity sha512-AWJvpprE2o7ATMb7HBYMVUVmPJBCt2wZp2rY7d+rAcNSMvzLbDepy9KFeqqrPZh+s9aIpbw1LgmuAW7kuRFgrQ==
+
+"@essentials/request-interval@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@essentials/request-interval/-/request-interval-1.2.0.tgz#237dc2129e086142f23de5408974aad57815d87f"
+  integrity sha512-tEi/SPQc85KUX9m/0l96Qdq/9dRm5put/5H24ILdvBnGmj3GiAWaPV/GbxXuCJQuQjv5eKLN4BSBJHGgIOEHJA==
+  dependencies:
+    "@essentials/raf" "^1.2.0"
+
 "@formatjs/intl-displaynames@^1.2.0":
   version "1.2.10"
   resolved "https://registry.yarnpkg.com/@formatjs/intl-displaynames/-/intl-displaynames-1.2.10.tgz#bb9625cca90b099978cd967c6a98aaf4e23fc878"

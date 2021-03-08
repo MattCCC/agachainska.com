@@ -7,6 +7,10 @@ import { ReactComponent as LondonEyeIllustration } from "@svg/London eye@1x.svg"
 import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
 import { ReactComponent as CaipirinhaIllustration } from "@svg/London eye@1x.svg";
 import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
+import {
+    requestInterval,
+    clearRequestInterval,
+} from "@essentials/request-interval";
 import { getRandomNumber } from "../utils/random-number";
 
 /**
@@ -102,16 +106,16 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
     useEffect(() => {
         initMotionGrid();
 
-        const intervalId = setInterval(() => {
+        const intervalId = requestInterval(() => {
             setPosition({
                 x: getRandomNumber(0, 1000),
                 y: getRandomNumber(0, 1000),
             });
-        }, 50);
+        }, 60);
 
         return (): void => {
             if (intervalId) {
-                clearInterval(intervalId);
+                clearRequestInterval(intervalId);
             }
 
             destroyMotionGrid();
