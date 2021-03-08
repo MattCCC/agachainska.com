@@ -104,7 +104,11 @@ export const Overlays = memo(
         const [palette, setPalette] = useState([] as string[]);
 
         useEffect(() => {
-            setPalette(backgroundColors[getRandomNumber(0, 3)]);
+            setPalette(
+                backgroundColors[
+                    getRandomNumber(0, backgroundColors.length - 1)
+                ]
+            );
         }, []);
 
         return (

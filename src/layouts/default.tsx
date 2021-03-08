@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect } from "react";
+import { CSSProperties, FunctionComponent, useEffect, useState } from "react";
 import tw, { styled, css } from "twin.macro";
 import "@styles/layout.scss";
 import { ReactComponent as WavePattern1 } from "@svg/bg-lines.svg";
@@ -7,6 +7,7 @@ import { ReactComponent as LondonEyeIllustration } from "@svg/London eye@1x.svg"
 import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
 import { ReactComponent as CaipirinhaIllustration } from "@svg/London eye@1x.svg";
 import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
+import { getRandomNumber } from "../utils/random-number";
 
 /**
  * Styles
@@ -28,7 +29,7 @@ const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
 const Background = styled.div(() => [
     tw`absolute overflow-hidden z-0 top-0 left-0 right-0 h-full	w-full min-h-screen`,
     css`
-        background: url("./svg/bg-pattern.svg") repeat;
+        background: url("./svg/bg-pattern.svg") repeat var(--x) var(--y);
     `,
 ]);
 
@@ -90,15 +91,36 @@ interface Props {}
  * @param props
  */
 export const Layout: FunctionComponent<Props> = ({ children }) => {
+    const defaultState = { x: 0, y: 0 };
+    const [position, setPosition] = useState(defaultState);
+
+    const backgroundStyle = {
+        "--x": `${position.x}px`,
+        "--y": `${position.y}px`,
+    } as CSSProperties;
+
     useEffect(() => {
         initMotionGrid();
 
-        return destroyMotionGrid;
+        const intervalId = setInterval(() => {
+            setPosition({
+                x: getRandomNumber(0, 1000),
+                y: getRandomNumber(0, 1000),
+            });
+        }, 50);
+
+        return (): void => {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+
+            destroyMotionGrid();
+        };
     }, []);
 
     return (
         <Main hasGradient>
-            <Background className="motion-grid">
+            <Background className="motion-grid" style={backgroundStyle}>
                 <GreekEye className="motion-grid__item" />
                 <LondonEye className="motion-grid__item" />
                 <PricklyPear className="motion-grid__item" />
