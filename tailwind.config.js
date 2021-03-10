@@ -8,6 +8,12 @@ module.exports = {
     theme: {
         extend: {
             typography: {
+                "14px": {
+                    css: {
+                        fontSize: "14px",
+                        lineHeight: "10px",
+                    },
+                },
                 "16px": {
                     css: {
                         fontSize: "16px",
@@ -18,6 +24,12 @@ module.exports = {
                     css: {
                         fontSize: "18px",
                         lineHeight: "20px",
+                    },
+                },
+                "20px": {
+                    css: {
+                        fontSize: "20px",
+                        lineHeight: "26px",
                     },
                 },
                 "24px": {
