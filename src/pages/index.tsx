@@ -22,19 +22,16 @@ import { MotionCursor } from "@components/motion-cursor";
 import { LinkProvider } from "@store/link-context";
 import { motion } from "@components/animation";
 import { Overlays } from "@components/overlays";
+import { MainSection } from "@components/main-section";
 import { useLockBodyScroll } from "@hooks/lock-body-scroll";
 import {
-    homepageContentVariants,
+    pageContentVariants,
     pageOverlayTopVariants,
 } from "@config/animation-variants";
 
 /**
  * Styles
  */
-const Section = styled.section(() => [
-    tw`grid grid-flow-col grid-cols-1 grid-rows-1 items-center h-screen relative z-10`,
-]);
-
 const Title = styled.h1(() => [
     tw`relative z-50 inline-block max-w-full lg:mr-16 font-bold prose-70px lg:prose-140px select-none`,
     css`
@@ -125,34 +122,33 @@ export default function Home({ location }: PageProps): JSX.Element {
                 <Layout>
                     <LinkProvider>
                         <Header location={location} showLogoOnDesktop={false} />
-                        <motion.div
+                        <MainSection
+                            className="grid grid-flow-col grid-cols-1 grid-rows-1 items-center"
                             initial="exit"
                             animate="enter"
                             exit="exit"
-                            variants={homepageContentVariants}
+                            variants={pageContentVariants}
                         >
-                            <Section>
-                                <MainContainer>
-                                    <Title
-                                        data-text={TranslateText("home.title")}
-                                        style={titleStyle}
-                                        ref={titleRef}
+                            <MainContainer>
+                                <Title
+                                    data-text={TranslateText("home.title")}
+                                    style={titleStyle}
+                                    ref={titleRef}
+                                >
+                                    <Translate id="home.title" />
+                                </Title>
+                                <Link {...workLink}>
+                                    <MotionCursor
+                                        onPositionUpdate={onPositionUpdate}
                                     >
-                                        <Translate id="home.title" />
-                                    </Title>
-                                    <Link {...workLink}>
-                                        <MotionCursor
-                                            onPositionUpdate={onPositionUpdate}
-                                        >
-                                            <Translate id="viewWork" />
-                                        </MotionCursor>
-                                    </Link>
-                                    <Desc>
-                                        <Translate id="home.description" />
-                                    </Desc>
-                                </MainContainer>
-                            </Section>
-                        </motion.div>
+                                        <Translate id="viewWork" />
+                                    </MotionCursor>
+                                </Link>
+                                <Desc>
+                                    <Translate id="home.description" />
+                                </Desc>
+                            </MainContainer>
+                        </MainSection>
                         <BottomCircle />
                         <CountDown
                             seconds={10}

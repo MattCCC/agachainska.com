@@ -12,7 +12,7 @@ export const pageOverlayTopVariants = {
     },
 };
 
-export const homepageContentVariants = {
+export const pageContentVariants = {
     exit: { y: 100, opacity: 0, transition: overlayTransition },
     enter: {
         y: 0,
