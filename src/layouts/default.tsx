@@ -1,4 +1,10 @@
-import { CSSProperties, FunctionComponent, useEffect, useState } from "react";
+import {
+    CSSProperties,
+    Fragment,
+    FunctionComponent,
+    useEffect,
+    useState,
+} from "react";
 import tw, { styled, css } from "twin.macro";
 import "@styles/layout.scss";
 import { ReactComponent as WavePattern1 } from "@svg/bg-lines.svg";
@@ -11,7 +17,8 @@ import {
     requestInterval,
     clearRequestInterval,
 } from "@essentials/request-interval";
-import { getRandomNumber } from "../utils/random-number";
+import { getRandomNumber } from "@utils/random-number";
+import { Overlays } from "@components/overlays";
 
 /**
  * Styles
@@ -97,7 +104,6 @@ interface Props {}
 export const Layout: FunctionComponent<Props> = ({ children }) => {
     const defaultState = { x: 0, y: 0 };
     const [position, setPosition] = useState(defaultState);
-
     const backgroundStyle = {
         "--x": `${position.x}px`,
         "--y": `${position.y}px`,
@@ -123,15 +129,18 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
     }, []);
 
     return (
-        <Main hasGradient>
-            <Background className="motion-grid" style={backgroundStyle}>
-                <GreekEye className="motion-grid__item" />
-                <LondonEye className="motion-grid__item" />
-                <PricklyPear className="motion-grid__item" />
-                <Caipirinha className="motion-grid__item" />
-                <Waves />
-            </Background>
-            {children}
-        </Main>
+        <Fragment>
+            <Overlays />
+            <Main hasGradient>
+                <Background className="motion-grid" style={backgroundStyle}>
+                    <GreekEye className="motion-grid__item" />
+                    <LondonEye className="motion-grid__item" />
+                    <PricklyPear className="motion-grid__item" />
+                    <Caipirinha className="motion-grid__item" />
+                    <Waves />
+                </Background>
+                {children}
+            </Main>{" "}
+        </Fragment>
     );
 };

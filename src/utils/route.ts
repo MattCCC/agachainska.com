@@ -6,6 +6,8 @@ import routes from "@config/routes";
 export interface LinkProps {
     to: string;
     isCurrentPage?: boolean;
+    onMouseEnter?: () => void;
+    onMouseLeave?: () => void;
 }
 
 /**

@@ -12,16 +12,15 @@ import { Layout } from "@layouts/default";
 import { MainContainer } from "@components/main-container";
 import { Header } from "@components/header";
 import { CountDown } from "@components/count-down";
-import { Translate } from "@components/translate";
-import { Link } from "@components/translate";
+import { Translate } from "@components/link";
+import { Link } from "@components/link";
 import { BottomCircle } from "@components/bottom-circle";
 import { getRoutePath } from "@utils/route";
 import { TranslateText } from "@utils/translate-text";
 import { isDev } from "@utils/detect-env";
 import { MotionCursor } from "@components/motion-cursor";
-import { LinkProvider } from "@store/link-context";
+import { Store } from "@store/index";
 import { motion } from "@components/animation";
-import { Overlays } from "@components/overlays";
 import { MainSection } from "@components/main-section";
 import { useLockBodyScroll } from "@hooks/lock-body-scroll";
 import {
@@ -112,16 +111,15 @@ export default function Home({ location }: PageProps): JSX.Element {
 
     return (
         <Fragment>
-            <Overlays />
             <motion.div
-                initial="exit"
+                initial="initial"
                 animate="enter"
-                exit="exit"
+                exit="exitHome"
                 variants={pageOverlayTopVariants}
             >
-                <Layout>
-                    <LinkProvider>
-                        <Header location={location} showLogoOnDesktop={false} />
+                <Store>
+                    <Layout>
+                        <Header showLogoOnDesktop={false} />
                         <MainSection
                             className="grid grid-flow-col grid-cols-1 grid-rows-1 items-center"
                             initial="exit"
@@ -154,8 +152,8 @@ export default function Home({ location }: PageProps): JSX.Element {
                             seconds={10}
                             onFinishedCallback={onCountDownFinished}
                         />
-                    </LinkProvider>
-                </Layout>
+                    </Layout>
+                </Store>
             </motion.div>
         </Fragment>
     );

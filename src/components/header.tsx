@@ -1,9 +1,10 @@
 import { useCallback, useContext } from "react";
 import tw, { css, styled } from "twin.macro";
-import { Link, Translate } from "@components/translate";
+import { Link, Translate } from "@components/link";
 import { getLinkProps, LinkProps } from "@utils/route";
 import { Logo } from "@components/logo";
-import { LinkStateContext } from "@store/link-context";
+import { Context } from "@store/index";
+import { useLocation } from "@reach/router";
 
 /**
  * Styles
@@ -54,46 +55,33 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
  * Interfaces
  */
 interface Props {
-    location: Location;
     showLogoOnDesktop?: boolean;
 }
-
-type LinkContext = (arg0: { isHovered?: boolean }) => void;
 
 /**
  * Component
  * @param props
  */
-export function Header({
-    showLogoOnDesktop = true,
-    location,
-}: Props): JSX.Element {
-    const linkContext = useContext(LinkStateContext);
-    const setLinkContext = linkContext.setLinkContext as LinkContext;
+export function Header({ showLogoOnDesktop = true }: Props): JSX.Element {
+    const state = useContext(Context);
+    const dispatch = state.dispatch;
+    const location = useLocation();
 
     const onMouseEnter = useCallback((): void => {
-        if (linkContext.isHovered) {
-            return;
+        if (!state.isHovered) {
+            dispatch("LINK_HOVER", true);
         }
-
-        setLinkContext({
-            isHovered: true,
-        });
-    }, [linkContext, setLinkContext]);
+    }, [state, dispatch]);
 
     const onMouseLeave = useCallback((): void => {
-        if (!linkContext.isHovered) {
-            return;
+        if (state.isHovered) {
+            dispatch("LINK_HOVER", false);
         }
-
-        setLinkContext({
-            isHovered: false,
-        });
-    }, [linkContext, setLinkContext]);
+    }, [state, dispatch]);
 
     return (
         <HeaderWrapper>
-            <Logo showOnDesktop={showLogoOnDesktop} location={location} />
+            <Logo showOnDesktop={showLogoOnDesktop} />
             <Navigation>
                 <LinkItem
                     onMouseEnter={onMouseEnter}

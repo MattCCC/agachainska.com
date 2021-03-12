@@ -1,6 +1,7 @@
-import { motion } from "@components/animation";
+import { motion, AnimateSharedLayout } from "@components/animation";
 import { getRandomNumber } from "@utils/random-number";
-import { memo, useEffect, useState } from "react";
+import { Fragment, memo, useCallback, useEffect, useState } from "react";
+import { useLocation } from "@reach/router";
 
 /**
  * Styles
@@ -28,9 +29,6 @@ const ContainerVariants = {
         transition: {
             duration,
             staggerChildren: 1.15,
-        },
-        transitionEnd: {
-            display: "none",
         },
     },
 };
@@ -65,7 +63,17 @@ const Overlay3Variants = {
  */
 export const Overlays = memo(
     (): JSX.Element => {
+        const location = useLocation();
         const [palette, setPalette] = useState([] as string[]);
+        const [displayMultiple, setDisplayMultiple] = useState(
+            location.pathname === "/"
+        );
+
+        const motionProps = {
+            className: overlayStyleClasses,
+            initial: "exit",
+            animate: "enter",
+        };
 
         useEffect(() => {
             setPalette(
@@ -75,38 +83,53 @@ export const Overlays = memo(
             );
         }, []);
 
-        const motionProps = {
-            className: overlayStyleClasses,
-            initial: "exit",
-            animate: "enter",
-            exit: "exit",
-        };
+        const onMultiOverlayAnimationComplete = useCallback(() => {
+            setDisplayMultiple(false);
+        }, [setDisplayMultiple]);
 
         return (
-            <motion.div
-                className="left-0 w-full h-full"
-                style={{ zIndex: 1000 }}
-                variants={ContainerVariants}
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-            >
-                <motion.div
-                    {...motionProps}
-                    style={{ backgroundColor: palette[0], zIndex: 1010 }}
-                    variants={Overlay1Variants}
-                />
-                <motion.div
-                    {...motionProps}
-                    style={{ backgroundColor: palette[1], zIndex: 1020 }}
-                    variants={Overlay2Variants}
-                />
-                <motion.div
-                    {...motionProps}
-                    style={{ backgroundColor: palette[2], zIndex: 1030 }}
-                    variants={Overlay3Variants}
-                />
-            </motion.div>
+            <Fragment>
+                <AnimateSharedLayout>
+                    <motion.div
+                        layout
+                        className="left-0 w-full h-full"
+                        style={{
+                            zIndex: 1000,
+                            display: displayMultiple ? "show" : "none",
+                        }}
+                        variants={ContainerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        onAnimationComplete={onMultiOverlayAnimationComplete}
+                    >
+                        <motion.div
+                            {...motionProps}
+                            style={{
+                                backgroundColor: palette[0],
+                                zIndex: 1010,
+                            }}
+                            variants={Overlay1Variants}
+                        />
+                        <motion.div
+                            {...motionProps}
+                            style={{
+                                backgroundColor: palette[1],
+                                zIndex: 1020,
+                            }}
+                            variants={Overlay2Variants}
+                        />
+                        <motion.div
+                            {...motionProps}
+                            style={{
+                                backgroundColor: palette[2],
+                                zIndex: 1030,
+                            }}
+                            variants={Overlay3Variants}
+                        />
+                    </motion.div>
+                </AnimateSharedLayout>
+            </Fragment>
         );
-    }
+    },
+    () => true
 );
