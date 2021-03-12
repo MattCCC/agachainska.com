@@ -4,7 +4,7 @@ import tw, { css, styled } from "twin.macro";
 
 const TimelineWrapper = styled.div(() => [
     tw`flex flex-col text-right z-50`,
-    css``
+    css``,
 ]);
 
 const Title = styled.h4(({ isActive }: TitleStyle) => [
@@ -15,13 +15,12 @@ const Title = styled.h4(({ isActive }: TitleStyle) => [
 
 const List = styled.ul(() => [
     tw`font-bold lg:prose-14px lg:text-gray-500 flex-grow`,
-    css``
+    css``,
 ]);
 
 const ListItem = styled.li(({ isActive }: ListItemStyle) => [
-    tw`lg:text-primary-color lg:border-r-1 lg:border-primary-color border-solid opacity-20 lg:p-5`,
-    isActive &&
-    tw`opacity-100`,
+    tw`lg:text-primary-color lg:border-primary-color border-solid opacity-20 lg:p-5`,
+    isActive && tw`opacity-100`,
     css``,
 ]);
 
