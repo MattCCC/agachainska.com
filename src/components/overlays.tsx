@@ -81,7 +81,7 @@ export const Overlays = memo(
                     getRandomNumber(0, backgroundColors.length - 1)
                 ]
             );
-        }, []);
+        }, [setPalette]);
 
         const onMultiOverlayAnimationComplete = useCallback(() => {
             setDisplayMultiple(false);

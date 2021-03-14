@@ -1,9 +1,9 @@
-import { useCallback, useContext } from "react";
+import { useCallback } from "react";
 import tw, { css, styled } from "twin.macro";
 import { Link, Translate } from "@components/link";
 import { getLinkProps, LinkProps } from "@utils/route";
 import { Logo } from "@components/logo";
-import { Context } from "@store/index";
+import { globalStore } from "@store/index";
 import { useLocation } from "@reach/router";
 
 /**
@@ -63,19 +63,18 @@ interface Props {
  * @param props
  */
 export function Header({ showLogoOnDesktop = true }: Props): JSX.Element {
-    const state = useContext(Context);
-    const dispatch = state.dispatch;
+    const [state, dispatch] = globalStore.useStore();
     const location = useLocation();
 
     const onMouseEnter = useCallback((): void => {
         if (!state.isHovered) {
-            dispatch("LINK_HOVER", true);
+            dispatch.hoverLink(true);
         }
     }, [state, dispatch]);
 
     const onMouseLeave = useCallback((): void => {
         if (state.isHovered) {
-            dispatch("LINK_HOVER", false);
+            dispatch.hoverLink(false);
         }
     }, [state, dispatch]);
 

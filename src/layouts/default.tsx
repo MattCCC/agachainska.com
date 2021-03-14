@@ -140,7 +140,7 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
                     <Waves />
                 </Background>
                 {children}
-            </Main>{" "}
+            </Main>
         </Fragment>
     );
 };

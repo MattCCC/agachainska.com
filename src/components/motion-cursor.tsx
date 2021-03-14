@@ -1,7 +1,7 @@
 import { CSSProperties, FunctionComponent, useEffect, useContext } from "react";
 import tw, { css, styled } from "twin.macro";
 import { TrackMousePosition } from "@hooks/track-mouse-position";
-import { Context } from "@store/index";
+import { globalStore } from "@store/index";
 
 /**
  * Styles
@@ -46,7 +46,7 @@ export const MotionCursor: FunctionComponent<Props> = ({
     onPositionUpdate,
     children,
 }) => {
-    const state = useContext(Context);
+    const [state] = globalStore.useStore();
     const cursorWidth = 80;
     const { clientX, clientY } = TrackMousePosition();
     const cursorStyle = {

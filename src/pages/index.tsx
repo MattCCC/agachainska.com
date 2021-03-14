@@ -7,7 +7,7 @@ import {
     useState,
 } from "react";
 import tw, { css, styled } from "twin.macro";
-import { PageProps, navigate } from "gatsby";
+import { navigate } from "gatsby";
 import { Layout } from "@layouts/default";
 import { MainContainer } from "@components/main-container";
 import { Header } from "@components/header";
@@ -19,7 +19,7 @@ import { getRoutePath } from "@utils/route";
 import { TranslateText } from "@utils/translate-text";
 import { isDev } from "@utils/detect-env";
 import { MotionCursor } from "@components/motion-cursor";
-import { Store } from "@store/index";
+import { globalStore } from "@store/index";
 import { motion } from "@components/animation";
 import { MainSection } from "@components/main-section";
 import { useLockBodyScroll } from "@hooks/lock-body-scroll";
@@ -78,7 +78,7 @@ const Desc = styled.h2(() => [
  * Component
  * @param props
  */
-export default function Home({ location }: PageProps): JSX.Element {
+export default function Home(): JSX.Element {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
     const workLink = getRoutePath("work");
     const defaultState = { x: 0, y: 0 };
@@ -117,7 +117,7 @@ export default function Home({ location }: PageProps): JSX.Element {
                 exit="exitHome"
                 variants={pageOverlayTopVariants}
             >
-                <Store>
+                <globalStore.Provider>
                     <Layout>
                         <Header showLogoOnDesktop={false} />
                         <MainSection
@@ -153,7 +153,7 @@ export default function Home({ location }: PageProps): JSX.Element {
                             onFinishedCallback={onCountDownFinished}
                         />
                     </Layout>
-                </Store>
+                </globalStore.Provider>
             </motion.div>
         </Fragment>
     );

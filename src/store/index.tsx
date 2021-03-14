@@ -1,31 +1,18 @@
-import { createContext, FunctionComponent, useReducer } from "react";
-import { Reducer } from "./actions";
+import { createStore } from "react-lit-store";
+import { toggle } from "@utils/store";
 
 const initialState = {
     isHovered: false,
     isPressedWithDelay: false,
-
-    dispatch: (_arg0: string, _arg1: any): null => null,
 };
 
-/**
- * Interfaces
- */
-interface Props {}
+type State = Partial<typeof initialState>;
 
-export const Store: FunctionComponent<Props> = ({ children }) => {
-    const [state, dispatchAction] = useReducer(Reducer, initialState);
-    const dispatch = (type: string, payload: any): any =>
-        dispatchAction({
-            type,
-            payload,
-        });
-
-    return (
-        <Context.Provider value={{ ...state, dispatch }}>
-            {children}
-        </Context.Provider>
-    );
+const actions = {
+    hoverLink: toggle<State>("isHovered"),
+    setPressedWithDelay: toggle<State>("isPressedWithDelay"),
 };
 
-export const Context = createContext(initialState);
+export { useStoreProvider } from "react-lit-store";
+
+export const globalStore = createStore(initialState, actions);
