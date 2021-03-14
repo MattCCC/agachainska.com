@@ -2,7 +2,7 @@ import { Layout } from "@layouts/default";
 import { MainContainer } from "@components/main-container";
 import { Header } from "@components/header";
 import { MainTitle } from "@components/main-title";
-import { Translate } from "@components/link";
+import { Translate } from "@components/translate";
 import { Timeline } from "@components/timeline";
 import { motion } from "@components/animation";
 

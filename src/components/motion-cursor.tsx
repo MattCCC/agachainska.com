@@ -1,4 +1,4 @@
-import { CSSProperties, FunctionComponent, useEffect, useContext } from "react";
+import { CSSProperties, FunctionComponent, useEffect } from "react";
 import tw, { css, styled } from "twin.macro";
 import { TrackMousePosition } from "@hooks/track-mouse-position";
 import { globalStore } from "@store/index";

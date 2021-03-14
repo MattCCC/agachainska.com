@@ -1,7 +1,7 @@
 import { Layout } from "@layouts/default";
 import { Header } from "@components/header";
 import { MainTitle } from "@components/main-title";
-import { Translate } from "@components/link";
+import { Translate } from "@components/translate";
 
 /**
  * Component

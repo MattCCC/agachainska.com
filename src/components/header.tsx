@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import tw, { css, styled } from "twin.macro";
-import { Link, Translate } from "@components/link";
+import { Link } from "@components/link";
+import { Translate } from "@components/translate";
 import { getLinkProps, LinkProps } from "@utils/route";
 import { Logo } from "@components/logo";
 import { globalStore } from "@store/index";

@@ -11,8 +11,6 @@ import {
 import { navigate } from "gatsby";
 import { useLocation } from "@reach/router";
 
-export { FormattedMessage as Translate } from "gatsby-plugin-intl";
-
 /**
  * Styles
  */

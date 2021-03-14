@@ -12,7 +12,7 @@ import { Layout } from "@layouts/default";
 import { MainContainer } from "@components/main-container";
 import { Header } from "@components/header";
 import { CountDown } from "@components/count-down";
-import { Translate } from "@components/link";
+import { Translate } from "@components/translate";
 import { Link } from "@components/link";
 import { BottomCircle } from "@components/bottom-circle";
 import { getRoutePath } from "@utils/route";
