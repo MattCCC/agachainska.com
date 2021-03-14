@@ -3,7 +3,7 @@ import { navigate } from "gatsby";
 
 export interface LinkDelayedArgs {
     to: string;
-    location: Location;
+    location?: Location;
     replace?: boolean;
     delay?: number;
     onDelayStart?: (e: Event, to: string) => null;
