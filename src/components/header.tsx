@@ -4,7 +4,7 @@ import { Link } from "@components/link";
 import { Translate } from "@components/translate";
 import { getLinkProps, LinkProps } from "@utils/route";
 import { Logo } from "@components/logo";
-import { globalStore } from "@store/index";
+import { useStore } from "@store/index";
 import { useLocation } from "@reach/router";
 
 /**
@@ -64,7 +64,7 @@ interface Props {
  * @param props
  */
 export function Header({ showLogoOnDesktop = true }: Props): JSX.Element {
-    const [state, dispatch] = globalStore.useStore();
+    const [state, dispatch] = useStore();
     const location = useLocation();
 
     const onMouseEnter = useCallback((): void => {

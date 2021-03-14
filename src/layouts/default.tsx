@@ -117,7 +117,7 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
                 x: getRandomNumber(0, 1000),
                 y: getRandomNumber(0, 1000),
             });
-        }, 100);
+        }, 150);
 
         return (): void => {
             if (intervalId) {

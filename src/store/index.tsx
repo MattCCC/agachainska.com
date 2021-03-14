@@ -15,4 +15,7 @@ const actions = {
 
 export { useStoreProvider } from "react-lit-store";
 
-export const globalStore = createStore(initialState, actions);
+const globalStore = createStore(initialState, actions);
+const useStore = globalStore.useStore;
+
+export { globalStore, useStore };
