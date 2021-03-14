@@ -22,7 +22,7 @@ export const TrackMousePosition = (): MousePosition => {
         return (): void => {
             window.removeEventListener("mousemove", setMousePosition);
         };
-    }, [defaultState]);
+    }, [defaultState, setPosition]);
 
     return position;
 };
