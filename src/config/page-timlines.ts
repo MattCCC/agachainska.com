@@ -12,6 +12,10 @@ const pageTimelines: PageTimeline = {
         {
             title: "UX",
             id: "ux",
+            items: [
+                { id: "nike", name: "Nike" },
+                { id: "pepsi", name: "Pepsi" },
+            ],
         },
         {
             title: "UI",
@@ -27,6 +31,10 @@ const pageTimelines: PageTimeline = {
         {
             title: "Illustrations",
             id: "illustrations",
+            items: [
+                { id: "addidas", name: "Addidas" },
+                { id: "topshop", name: "Topshop" },
+            ],
         },
     ],
 };

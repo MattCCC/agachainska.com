@@ -26,7 +26,7 @@ import { Overlays } from "@components/overlays";
 const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
     tw`h-full w-full min-h-screen text-primary-color`,
     hasGradient &&
-        css`
+    css`
             background: linear-gradient(
                 314.58deg,
                 rgba(191, 255, 160, 0.1) 0%,
@@ -95,7 +95,7 @@ const Caipirinha = styled(CaipirinhaIllustration)(() => [
 /**
  * Interfaces
  */
-interface Props {}
+interface Props { }
 
 /**
  * Component
