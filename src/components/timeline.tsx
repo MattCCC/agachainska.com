@@ -22,7 +22,7 @@ const List = styled.ul(() => [
 ]);
 
 const ListItem = styled.li(({ isActive }: ListItemStyle) => [
-    tw`lg:text-primary-color opacity-20 lg:p-5 border-r border-primary-color relative`,
+    tw`lg:text-primary-color opacity-20 lg:p-5 border-r border-primary-color relative select-none cursor-pointer`,
     isActive && tw`opacity-100 border-r-0`,
 ]);
 
