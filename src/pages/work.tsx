@@ -5,6 +5,8 @@ import { MainTitle } from "@components/main-title";
 import { Translate } from "@components/translate";
 import { Timeline } from "@components/timeline";
 import { motion } from "@components/animation";
+import { useCallback } from "react";
+import pageTimelines from "@config/page-timlines";
 
 const transition = {
     duration: 1,
@@ -21,6 +23,9 @@ const backVariants = {
  * @param props
  */
 export default function Work(): JSX.Element {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    const onTimelineItemChange = useCallback((): void => { }, []);
+
     return (
         <Layout>
             <motion.div
@@ -35,27 +40,8 @@ export default function Work(): JSX.Element {
                     <MainTitle>
                         <Translate id="work.title" />
                         <Timeline
-                            sections={[
-                                {
-                                    title: "UX",
-                                    items: [],
-                                },
-                                {
-                                    title: "UI",
-                                    isActive: true,
-                                    items: [
-                                        { name: "RE/MAX", isActive: true },
-                                        { name: "Addidas" },
-                                        { name: "Nike" },
-                                        { name: "Pepsi" },
-                                        { name: "Topshop" },
-                                    ],
-                                },
-                                {
-                                    title: "Illustrations",
-                                    items: [],
-                                },
-                            ]}
+                            onTimelineItemChange={onTimelineItemChange}
+                            sections={pageTimelines["rem-max"]}
                         />
                     </MainTitle>
                 </MainContainer>

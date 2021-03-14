@@ -39,9 +39,9 @@ const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
 
 const Background = styled.div(() => [
     tw`absolute overflow-hidden z-0 top-0 left-0 right-0 h-full	w-full min-h-screen`,
-    css`
-        background: url("./svg/bg-pattern.svg") repeat var(--x) var(--y);
-    `,
+    // css`
+    //     background: url("./svg/bg-pattern.svg") repeat var(--x) var(--y);
+    // `,
 ]);
 
 const Waves = styled(WavePattern1)(() => [
