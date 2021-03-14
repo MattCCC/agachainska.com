@@ -26,7 +26,7 @@ import { Overlays } from "@components/overlays";
 const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
     tw`h-full w-full min-h-screen text-primary-color`,
     hasGradient &&
-        css`
+    css`
             background: linear-gradient(
                 314.58deg,
                 rgba(191, 255, 160, 0.1) 0%,
@@ -39,9 +39,9 @@ const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
 
 const Background = styled.div(() => [
     tw`absolute overflow-hidden z-0 top-0 left-0 right-0 h-full	w-full min-h-screen`,
-    // css`
-    //     background: url("./svg/bg-pattern.svg") repeat var(--x) var(--y);
-    // `,
+    css`
+        background: url("./svg/bg-pattern.svg") repeat var(--x) var(--y);
+    `,
 ]);
 
 const Waves = styled(WavePattern1)(() => [
@@ -95,7 +95,7 @@ const Caipirinha = styled(CaipirinhaIllustration)(() => [
 /**
  * Interfaces
  */
-interface Props {}
+interface Props { }
 
 /**
  * Component
