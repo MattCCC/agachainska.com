@@ -39,7 +39,7 @@ export const Link: FunctionComponent<Props> = ({
         location,
         to,
         onDelayStart,
-        delay: 5000,
+        delay,
         replace,
         onDelayEnd,
     });
