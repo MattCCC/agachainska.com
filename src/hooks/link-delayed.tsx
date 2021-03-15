@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useRef } from "react";
 import { navigate } from "gatsby";
 
+export type LinkDelayedCallback = (e: Event, to: string) => void;
+
 export interface LinkDelayedArgs {
     to: string;
     location?: Location;
     replace?: boolean;
     delay?: number;
-    onDelayStart?: (e: Event, to: string) => null;
-    onDelayEnd?: (e: Event, to: string) => null;
+    onDelayStart?: LinkDelayedCallback;
+    onDelayEnd?: LinkDelayedCallback;
 }
 
 /**
@@ -19,8 +21,8 @@ export const useDelayLink = ({
     location,
     replace = false,
     delay = 0,
-    onDelayStart = (): null => null,
-    onDelayEnd = (): null => null,
+    onDelayStart = ((_e, _to) => {}) as LinkDelayedCallback,
+    onDelayEnd = ((_e, _to) => {}) as LinkDelayedCallback,
 }: LinkDelayedArgs): ((e: any) => void) => {
     const timeout = useRef<NodeJS.Timeout | null>(null);
 

@@ -1,5 +1,5 @@
 import { createStore } from "react-lit-store";
-import { toggle } from "@utils/store";
+import { set } from "@utils/store";
 
 const initialState = {
     isHovered: false,
@@ -9,8 +9,8 @@ const initialState = {
 type State = Partial<typeof initialState>;
 
 const actions = {
-    hoverLink: toggle<State>("isHovered"),
-    setPressedWithDelay: toggle<State>("isPressedWithDelay"),
+    hoverLink: set<State, boolean>("isHovered"),
+    setPressedWithDelay: set<State, boolean>("isPressedWithDelay"),
 };
 
 export { useStoreProvider } from "react-lit-store";

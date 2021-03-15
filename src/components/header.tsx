@@ -64,20 +64,16 @@ interface Props {
  * @param props
  */
 export function Header({ showLogoOnDesktop = true }: Props): JSX.Element {
-    const [state, dispatch] = useStore();
+    const [, dispatch] = useStore();
     const location = useLocation();
 
     const onMouseEnter = useCallback((): void => {
-        if (!state.isHovered) {
-            dispatch.hoverLink(true);
-        }
-    }, [state, dispatch]);
+        dispatch.hoverLink(true);
+    }, [dispatch]);
 
     const onMouseLeave = useCallback((): void => {
-        if (state.isHovered) {
-            dispatch.hoverLink(false);
-        }
-    }, [state, dispatch]);
+        dispatch.hoverLink(false);
+    }, [dispatch]);
 
     return (
         <HeaderWrapper>
