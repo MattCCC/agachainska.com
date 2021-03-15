@@ -131,10 +131,11 @@ export const Timeline = memo(({
     return (
         <TimelineWrapper>
             {sections.map((section: Section, index: number) => (
-                <AnimatePresence key={index} initial={false}>
+                <AnimatePresence key={`timeline-${index}`} initial={false}>
                     <Title isActive={section.id === state.sectionId}
                         initial={false}
                         onClick={onTimelineHeaderClick.bind(null, section)}
+                        key={`timeline-${index}-title`}
                     >
                         {section.title}
                     </Title>
@@ -142,6 +143,7 @@ export const Timeline = memo(({
                         animate="open"
                         initial="collapsed"
                         exit="collapsed"
+                        key={`timeline-${index}-list`}
                         variants={{
                             open: { opacity: 1, height: section.id === state.sectionId ? "auto" : 0 },
                             collapsed: { opacity: 0, height: 0 }
