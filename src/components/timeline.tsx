@@ -143,7 +143,7 @@ export const Timeline = memo(({
                         initial="collapsed"
                         exit="collapsed"
                         variants={{
-                            open: { opacity: 1, height: section.id === state.sectionId ? "auto" : 0, transform: "none" },
+                            open: { opacity: 1, height: section.id === state.sectionId ? "auto" : 0 },
                             collapsed: { opacity: 0, height: 0 }
                         }}
                         transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
@@ -165,8 +165,6 @@ export const Timeline = memo(({
                                 key={itemIndex}
                                 isActive={section.id === state.sectionId && item.id === state.activeId}
                                 onClick={onTimelineItemClick.bind(null, item)}
-                                variants={{ collapsed: { scale: 0.8 }, open: { scale: 1 } }}
-                                transition={{ duration: 0.8 }}
                                 {...(section.id === state.sectionId && item.id === state.activeId
                                     ? {
                                         ref: listItemActiveRef,
