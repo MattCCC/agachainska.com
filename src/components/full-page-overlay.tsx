@@ -46,11 +46,14 @@ export const FullPageOverlay = memo(
         useEffect(() => {
             if (state.currentDelayedRoute) {
                 (async (): Promise<void> => {
+                    document.body.style.overflow = "hidden";
+
                     await overlayControls.start((variant) => variant.initial);
                     await overlayControls.start((variant) => variant.enter);
 
                     setTimeout(() => {
                         overlayControls.start((variant) => variant.end);
+                        document.body.style.overflow = "visible";
                     }, fullPageOverlayDuration * 1000);
                 })();
             }
