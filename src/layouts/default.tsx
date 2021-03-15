@@ -19,6 +19,8 @@ import {
 } from "@essentials/request-interval";
 import { getRandomNumber } from "@utils/random-number";
 import { Overlays } from "@components/overlays";
+import { FullPageOverlay } from "@components/full-page-overlay";
+import { hot } from "react-hot-loader/root";
 
 /**
  * Styles
@@ -101,7 +103,7 @@ interface Props {}
  * Component
  * @param props
  */
-export const Layout: FunctionComponent<Props> = ({ children }) => {
+export const Layout: FunctionComponent<Props> = hot(({ children }) => {
     const defaultState = { x: 0, y: 0 };
     const [position, setPosition] = useState(defaultState);
     const backgroundStyle = {
@@ -131,6 +133,7 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
     return (
         <Fragment>
             <Overlays />
+            <FullPageOverlay />
             <Main hasGradient>
                 <Background className="motion-grid" style={backgroundStyle}>
                     <GreekEye className="motion-grid__item" />
@@ -143,4 +146,4 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
             </Main>
         </Fragment>
     );
-};
+});

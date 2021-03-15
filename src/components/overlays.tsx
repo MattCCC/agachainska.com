@@ -1,10 +1,6 @@
-import {
-    motion,
-    AnimateSharedLayout,
-    useAnimation,
-} from "@components/animation";
+import { motion, AnimateSharedLayout } from "@components/animation";
 import { getRandomNumber } from "@utils/random-number";
-import { Fragment, memo, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useLocation } from "@reach/router";
 import { useStore } from "@store/index";
 
@@ -17,7 +13,6 @@ const overlayStyleClasses = "absolute left-0 w-full h-full";
  * Configs
  */
 export const duration = 1;
-export const fullPageOverlayDuration = 1;
 
 export const transition = {
     duration,
@@ -25,8 +20,6 @@ export const transition = {
 };
 
 export const backgroundColors = [["#F5A4FF", "#C0A4FF", "#61F1F8"]];
-
-export const fullPageOverlayColor = "#000";
 
 const ContainerVariants = {
     hidden: {
@@ -65,24 +58,6 @@ const Overlay3Variants = {
     },
 };
 
-const OverlayFullPageVariants = {
-    initial: {
-        top: "100%",
-        transition: { ...transition, duration: 0 },
-        display: "none",
-    },
-    enter: {
-        display: "block",
-        top: "0%",
-        transition: { ...transition, duration: fullPageOverlayDuration },
-    },
-    end: {
-        display: "block",
-        top: "-100%",
-        transition: { ...transition, duration: fullPageOverlayDuration },
-    },
-};
-
 /**
  * Component
  * @param props
@@ -110,76 +85,45 @@ export const Overlays = memo(
             );
         }, [setPalette]);
 
-        const overlayControls = useAnimation();
-
-        // Orchestrate animation when switching the route
-        useEffect(() => {
-            if (state.currentDelayedRoute) {
-                overlayControls.start((variant) => variant.initial);
-
-                setTimeout(() => {
-                    overlayControls.start((variant) => variant.enter);
-                }, 50);
-
-                setTimeout(() => {
-                    overlayControls.start((variant) => variant.end);
-                }, fullPageOverlayDuration * 1000);
-            }
-        }, [overlayControls, state.currentDelayedRoute]);
-
         return (
-            <Fragment>
-                <AnimateSharedLayout>
-                    <motion.div
-                        layout
-                        className="left-0 w-full h-full"
-                        style={{
-                            zIndex: 1000,
-                            display: multiOverlays ? "block" : "none",
-                        }}
-                        variants={ContainerVariants}
-                        initial="hidden"
-                        animate="visible"
-                    >
-                        <motion.div
-                            {...motionProps}
-                            style={{
-                                backgroundColor: palette[0],
-                                zIndex: 1010,
-                            }}
-                            variants={Overlay1Variants}
-                        />
-                        <motion.div
-                            {...motionProps}
-                            style={{
-                                backgroundColor: palette[1],
-                                zIndex: 1020,
-                            }}
-                            variants={Overlay2Variants}
-                        />
-                        <motion.div
-                            {...motionProps}
-                            style={{
-                                backgroundColor: palette[2],
-                                zIndex: 1030,
-                            }}
-                            variants={Overlay3Variants}
-                        />
-                    </motion.div>
-                </AnimateSharedLayout>
+            <AnimateSharedLayout>
                 <motion.div
-                    key="fullPageOverlay"
-                    className="fixed left-0 w-full h-full"
-                    custom={OverlayFullPageVariants}
-                    animate={overlayControls}
-                    initial="initial"
+                    layout
+                    className="left-0 w-full h-full"
                     style={{
-                        backgroundColor: fullPageOverlayColor,
-                        zIndex: 1040,
+                        zIndex: 1000,
+                        display: multiOverlays ? "block" : "none",
                     }}
-                    variants={OverlayFullPageVariants}
-                />
-            </Fragment>
+                    variants={ContainerVariants}
+                    initial="hidden"
+                    animate="visible"
+                >
+                    <motion.div
+                        {...motionProps}
+                        style={{
+                            backgroundColor: palette[0],
+                            zIndex: 1010,
+                        }}
+                        variants={Overlay1Variants}
+                    />
+                    <motion.div
+                        {...motionProps}
+                        style={{
+                            backgroundColor: palette[1],
+                            zIndex: 1020,
+                        }}
+                        variants={Overlay2Variants}
+                    />
+                    <motion.div
+                        {...motionProps}
+                        style={{
+                            backgroundColor: palette[2],
+                            zIndex: 1030,
+                        }}
+                        variants={Overlay3Variants}
+                    />
+                </motion.div>
+            </AnimateSharedLayout>
         );
     },
     () => true

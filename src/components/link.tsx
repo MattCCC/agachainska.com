@@ -9,7 +9,7 @@ import {
     LinkDelayedCallback,
     useDelayLink,
 } from "@hooks/link-delayed";
-import { fullPageOverlayDuration } from "@components/overlays";
+import { fullPageOverlayDuration } from "@components/full-page-overlay";
 
 /**
  * Styles
