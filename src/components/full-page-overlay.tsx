@@ -6,7 +6,7 @@ import { useStore } from "@store/index";
  * Configs
  */
 export const duration = 1;
-export const fullPageOverlayDuration = 0.4;
+export const fullPageOverlayDuration = 0.6;
 
 export const transition = {
     duration,
