@@ -1,7 +1,12 @@
-import { motion, AnimateSharedLayout } from "@components/animation";
+import {
+    motion,
+    AnimateSharedLayout,
+    useAnimation,
+} from "@components/animation";
 import { getRandomNumber } from "@utils/random-number";
-import { Fragment, memo, useCallback, useEffect, useState } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 import { useLocation } from "@reach/router";
+import { useStore } from "@store/index";
 
 /**
  * Styles
@@ -12,6 +17,7 @@ const overlayStyleClasses = "absolute left-0 w-full h-full";
  * Configs
  */
 export const duration = 1;
+export const fullPageOverlayDuration = 1;
 
 export const transition = {
     duration,
@@ -19,6 +25,8 @@ export const transition = {
 };
 
 export const backgroundColors = [["#F5A4FF", "#C0A4FF", "#61F1F8"]];
+
+export const fullPageOverlayColor = "#000";
 
 const ContainerVariants = {
     hidden: {
@@ -57,6 +65,24 @@ const Overlay3Variants = {
     },
 };
 
+const OverlayFullPageVariants = {
+    initial: {
+        top: "100%",
+        transition: { ...transition, duration: 0 },
+        display: "none",
+    },
+    enter: {
+        display: "block",
+        top: "0%",
+        transition: { ...transition, duration: fullPageOverlayDuration },
+    },
+    end: {
+        display: "block",
+        top: "-100%",
+        transition: { ...transition, duration: fullPageOverlayDuration },
+    },
+};
+
 /**
  * Component
  * @param props
@@ -64,10 +90,10 @@ const Overlay3Variants = {
 export const Overlays = memo(
     (): JSX.Element => {
         const location = useLocation();
+        const [state] = useStore();
         const [palette, setPalette] = useState([] as string[]);
-        const [displayMultiple, setDisplayMultiple] = useState(
-            location.pathname === "/"
-        );
+        const multiOverlays =
+            state.currentDelayedRoute === "/" || location.pathname === "/";
 
         const motionProps = {
             className: overlayStyleClasses,
@@ -75,6 +101,7 @@ export const Overlays = memo(
             animate: "enter",
         };
 
+        // Multiple background colors
         useEffect(() => {
             setPalette(
                 backgroundColors[
@@ -83,9 +110,22 @@ export const Overlays = memo(
             );
         }, [setPalette]);
 
-        const onMultiOverlayAnimationComplete = useCallback(() => {
-            setDisplayMultiple(false);
-        }, [setDisplayMultiple]);
+        const overlayControls = useAnimation();
+
+        // Orchestrate animation when switching the route
+        useEffect(() => {
+            if (state.currentDelayedRoute) {
+                overlayControls.start((variant) => variant.initial);
+
+                setTimeout(() => {
+                    overlayControls.start((variant) => variant.enter);
+                }, 50);
+
+                setTimeout(() => {
+                    overlayControls.start((variant) => variant.end);
+                }, fullPageOverlayDuration * 1000);
+            }
+        }, [overlayControls, state.currentDelayedRoute]);
 
         return (
             <Fragment>
@@ -95,12 +135,11 @@ export const Overlays = memo(
                         className="left-0 w-full h-full"
                         style={{
                             zIndex: 1000,
-                            display: displayMultiple ? "show" : "none",
+                            display: multiOverlays ? "block" : "none",
                         }}
                         variants={ContainerVariants}
                         initial="hidden"
                         animate="visible"
-                        onAnimationComplete={onMultiOverlayAnimationComplete}
                     >
                         <motion.div
                             {...motionProps}
@@ -128,6 +167,18 @@ export const Overlays = memo(
                         />
                     </motion.div>
                 </AnimateSharedLayout>
+                <motion.div
+                    key="fullPageOverlay"
+                    className="fixed left-0 w-full h-full"
+                    custom={OverlayFullPageVariants}
+                    animate={overlayControls}
+                    initial="initial"
+                    style={{
+                        backgroundColor: fullPageOverlayColor,
+                        zIndex: 1040,
+                    }}
+                    variants={OverlayFullPageVariants}
+                />
             </Fragment>
         );
     },

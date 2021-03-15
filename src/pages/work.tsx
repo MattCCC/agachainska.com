@@ -1,4 +1,4 @@
-import { Layout } from "@layouts/default";
+import { Fragment } from "react";
 import { MainContainer } from "@components/main-container";
 import { Header } from "@components/header";
 import { MainTitle } from "@components/main-title";
@@ -27,7 +27,7 @@ export default function Work(): JSX.Element {
     const onTimelineItemChange = useCallback((): void => { }, []);
 
     return (
-        <Layout>
+        <Fragment>
             <motion.div
                 className="single"
                 initial="exit"
@@ -46,6 +46,6 @@ export default function Work(): JSX.Element {
                     </MainTitle>
                 </MainContainer>
             </motion.div>
-        </Layout>
+        </Fragment>
     );
 }

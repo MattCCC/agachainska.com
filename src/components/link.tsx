@@ -3,7 +3,13 @@ import { Link as TranslatedLink } from "gatsby-plugin-intl";
 import { excludeProps } from "@utils/styled";
 import { FunctionComponent, ReactNode } from "react";
 import { useLocation } from "@reach/router";
-import { LinkDelayedArgs, useDelayLink } from "@hooks/link-delayed";
+import { useStore } from "@store/index";
+import {
+    LinkDelayedArgs,
+    LinkDelayedCallback,
+    useDelayLink,
+} from "@hooks/link-delayed";
+import { fullPageOverlayDuration } from "@components/overlays";
 
 /**
  * Styles
@@ -29,19 +35,31 @@ export const Link: FunctionComponent<Props> = ({
     to,
     replace = false,
     delay = 0,
-    onDelayStart = (): null => null,
-    onDelayEnd = (): null => null,
+    onDelayStart = ((_e, _to) => {}) as LinkDelayedCallback,
+    onDelayEnd = ((_e, _to) => {}) as LinkDelayedCallback,
     children,
     ...props
 }: Props) => {
     const location = useLocation();
+    const [, dispatch] = useStore();
+
+    const startDelay = (e: Event, toRoute: string): void => {
+        dispatch.setCurrentDelayedRoute(toRoute);
+        onDelayStart(e, toRoute);
+    };
+
+    const endDelay = (e: Event, toRoute: string): void => {
+        dispatch.setCurrentDelayedRoute("");
+        onDelayEnd(e, toRoute);
+    };
+
     const onClick = useDelayLink({
         location,
         to,
-        onDelayStart,
-        delay,
+        delay: to === "/" ? 0 : fullPageOverlayDuration * 1000 * 1.1,
         replace,
-        onDelayEnd,
+        onDelayStart: startDelay,
+        onDelayEnd: endDelay,
     });
 
     return (

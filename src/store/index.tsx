@@ -3,14 +3,15 @@ import { set } from "@utils/store";
 
 const initialState = {
     isHovered: false,
-    isPressedWithDelay: false,
+    currentDelayedRoute: "",
 };
 
 type State = Partial<typeof initialState>;
 
 const actions = {
     hoverLink: set<State, boolean>("isHovered"),
-    setPressedWithDelay: set<State, boolean>("isPressedWithDelay"),
+    setCurrentDelayedRoute: set<State, string>("currentDelayedRoute"),
+    setPageOverlayVisible: set<State, boolean>(""),
 };
 
 export { useStoreProvider } from "react-lit-store";

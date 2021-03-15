@@ -8,7 +8,6 @@ import {
 } from "react";
 import tw, { css, styled } from "twin.macro";
 import { navigate } from "gatsby";
-import { Layout } from "@layouts/default";
 import { MainContainer } from "@components/main-container";
 import { Header } from "@components/header";
 import { CountDown } from "@components/count-down";
@@ -19,14 +18,9 @@ import { getRoutePath } from "@utils/route";
 import { TranslateText } from "@utils/translate-text";
 import { isDev } from "@utils/detect-env";
 import { MotionCursor } from "@components/motion-cursor";
-import { globalStore } from "@store/index";
-import { motion } from "@components/animation";
 import { MainSection } from "@components/main-section";
 import { useLockBodyScroll } from "@hooks/lock-body-scroll";
-import {
-    pageContentVariants,
-    pageOverlayTopVariants,
-} from "@config/animation-variants";
+import { pageContentVariants } from "@config/animation-variants";
 
 /**
  * Styles
@@ -111,50 +105,34 @@ export default function Home(): JSX.Element {
 
     return (
         <Fragment>
-            <motion.div
-                initial="initial"
+            <Header showLogoOnDesktop={false} />
+            <MainSection
+                className="grid grid-flow-col grid-cols-1 grid-rows-1 items-center"
+                initial="exit"
                 animate="enter"
-                exit="exitHome"
-                variants={pageOverlayTopVariants}
+                exit="exit"
+                variants={pageContentVariants}
             >
-                <globalStore.Provider>
-                    <Layout>
-                        <Header showLogoOnDesktop={false} />
-                        <MainSection
-                            className="grid grid-flow-col grid-cols-1 grid-rows-1 items-center"
-                            initial="exit"
-                            animate="enter"
-                            exit="exit"
-                            variants={pageContentVariants}
-                        >
-                            <MainContainer>
-                                <Title
-                                    data-text={TranslateText("home.title")}
-                                    style={titleStyle}
-                                    ref={titleRef}
-                                >
-                                    <Translate id="home.title" />
-                                </Title>
-                                <Link {...workLink}>
-                                    <MotionCursor
-                                        onPositionUpdate={onPositionUpdate}
-                                    >
-                                        <Translate id="viewWork" />
-                                    </MotionCursor>
-                                </Link>
-                                <Desc>
-                                    <Translate id="home.description" />
-                                </Desc>
-                            </MainContainer>
-                        </MainSection>
-                        <BottomCircle />
-                        <CountDown
-                            seconds={10}
-                            onFinishedCallback={onCountDownFinished}
-                        />
-                    </Layout>
-                </globalStore.Provider>
-            </motion.div>
+                <MainContainer>
+                    <Title
+                        data-text={TranslateText("home.title")}
+                        style={titleStyle}
+                        ref={titleRef}
+                    >
+                        <Translate id="home.title" />
+                    </Title>
+                    <Link {...workLink}>
+                        <MotionCursor onPositionUpdate={onPositionUpdate}>
+                            <Translate id="viewWork" />
+                        </MotionCursor>
+                    </Link>
+                    <Desc>
+                        <Translate id="home.description" />
+                    </Desc>
+                </MainContainer>
+            </MainSection>
+            <BottomCircle />
+            <CountDown seconds={10} onFinishedCallback={onCountDownFinished} />
         </Fragment>
     );
 }
