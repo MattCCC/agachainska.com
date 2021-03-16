@@ -115,8 +115,8 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
 
         const intervalId = requestInterval(() => {
             setPosition({
-                x: getRandomNumber(0, 1000),
-                y: getRandomNumber(0, 1000),
+                x: getRandomNumber(0, 100),
+                y: 0,
             });
         }, 150);
 
