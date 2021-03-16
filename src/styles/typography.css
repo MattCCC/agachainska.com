@@ -1,0 +1,40 @@
+@font-face {
+  font-family: 'Larsseit-Light';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: local('Larsseit-Light'), url(/fonts/Larsseit-Light.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Larsseit';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local('Larsseit'), url(/fonts/Larsseit.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Larsseit-Bold';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Larsseit-Bold'), url(/fonts/Larsseit-Bold.woff) format('woff');
+}
+
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(/fonts/Lato.woff2) format('woff2');
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(/fonts/Lato.woff2) format('woff2');
+}
