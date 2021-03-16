@@ -20,7 +20,6 @@ import {
 import { getRandomNumber } from "@utils/random-number";
 import { Overlays } from "@components/overlays";
 import { FullPageOverlay } from "@components/full-page-overlay";
-import { hot } from "react-hot-loader/root";
 
 /**
  * Styles
@@ -103,7 +102,7 @@ interface Props {}
  * Component
  * @param props
  */
-export const Layout: FunctionComponent<Props> = hot(({ children }) => {
+export const Layout: FunctionComponent<Props> = ({ children }) => {
     const defaultState = { x: 0, y: 0 };
     const [position, setPosition] = useState(defaultState);
     const backgroundStyle = {
@@ -146,4 +145,4 @@ export const Layout: FunctionComponent<Props> = hot(({ children }) => {
             </Main>
         </Fragment>
     );
-});
+};
