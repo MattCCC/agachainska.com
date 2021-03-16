@@ -26,6 +26,10 @@ import { FullPageOverlay } from "@components/full-page-overlay";
  */
 const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
     tw`h-full w-full min-h-screen text-primary-color`,
+    css`
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: scale(1);
+    `,
     hasGradient &&
         css`
             background: linear-gradient(
@@ -41,7 +45,10 @@ const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
 const Background = styled.div(() => [
     tw`absolute overflow-hidden z-0 top-0 left-0 right-0 h-full	w-full min-h-screen`,
     css`
-        background: url("./svg/bg-pattern.svg") repeat var(--x) var(--y);
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: scale(1);
+        background: url("./svg/bg-pattern.svg") repeat;
+        background-position: var(--x) var(--y);
     `,
 ]);
 
