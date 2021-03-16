@@ -1,7 +1,9 @@
-import { motion, AnimateSharedLayout } from "@components/animation";
-import { getRandomNumber } from "@utils/random-number";
+import {
+    motion,
+    AnimateSharedLayout,
+    useAnimation,
+} from "@components/animation";
 import { memo, useEffect, useState } from "react";
-import { useLocation } from "@reach/router";
 import { useStore } from "@store/index";
 
 /**
@@ -19,42 +21,31 @@ export const transition = {
     ease: [0.43, 0.13, 0.23, 0.96],
 };
 
-export const backgroundColors = [["#F5A4FF", "#C0A4FF", "#61F1F8"]];
+export const backgroundColors = ["#F5A4FF", "#C0A4FF", "#61F1F8"];
 
 const ContainerVariants = {
-    hidden: {
+    end: {
         opacity: 1,
-    },
-    visible: {
-        opacity: 1,
+        display: "none",
         transition: {
-            duration,
-            staggerChildren: 1.15,
+            when: "beforeChildren",
+        },
+    },
+    enter: {
+        opacity: 1,
+        display: "block",
+        transition: {
+            duration: 0,
+            staggerChildren: 0.5,
         },
     },
 };
 
-const Overlay1Variants = {
-    exit: { y: "0%", transition },
+const OverlayVariants = {
+    end: { y: "100%", transition },
     enter: {
         y: "-100%",
         transition: { ...transition, duration },
-    },
-};
-
-const Overlay2Variants = {
-    exit: { y: "0%", transition },
-    enter: {
-        y: "-100%",
-        transition: { ...transition, duration: duration / 2 },
-    },
-};
-
-const Overlay3Variants = {
-    exit: { y: "0%", transition },
-    enter: {
-        y: "-100%",
-        transition: { ...transition, duration: duration / 3 },
     },
 };
 
@@ -64,47 +55,61 @@ const Overlay3Variants = {
  */
 export const Overlays = memo(
     (): JSX.Element => {
-        const location = useLocation();
         const [state] = useStore();
         const [palette, setPalette] = useState([] as string[]);
-        const multiOverlays =
-            state.currentDelayedRoute === "/" || location.pathname === "/";
-
+        const multiOverlays = !state.currentDelayedRoute;
+        const animationControls = useAnimation();
         const motionProps = {
             className: overlayStyleClasses,
-            initial: "exit",
-            animate: "enter",
+            initial: "end",
+            animate: animationControls,
         };
+
+        // Orchestrate animation when switching the route
+        useEffect(() => {
+            if (multiOverlays) {
+                (async (): Promise<void> => {
+                    await animationControls.start((variant) => {
+                        if (variant.duration) {
+                            variant.enter.transition.duration =
+                                variant.duration;
+                        }
+
+                        return variant.enter;
+                    });
+
+                    await animationControls.start((variant) => variant.end);
+                })();
+            }
+        }, [animationControls, multiOverlays]);
 
         // Multiple background colors
         useEffect(() => {
-            setPalette(
-                backgroundColors[
-                    getRandomNumber(0, backgroundColors.length - 1)
-                ]
-            );
+            setPalette(backgroundColors);
         }, [setPalette]);
 
         return (
             <AnimateSharedLayout>
                 <motion.div
                     layout
-                    className="left-0 w-full h-full"
+                    className="w-full h-full"
                     style={{
                         zIndex: 1000,
-                        display: multiOverlays ? "block" : "none",
                     }}
-                    variants={ContainerVariants}
-                    initial="hidden"
-                    animate="visible"
+                    custom={ContainerVariants}
+                    animate={animationControls}
+                    initial="end"
                 >
                     <motion.div
                         {...motionProps}
                         style={{
                             backgroundColor: palette[0],
-                            zIndex: 1010,
+                            zIndex: 1030,
                         }}
-                        variants={Overlay1Variants}
+                        custom={{
+                            id: 1,
+                            ...OverlayVariants,
+                        }}
                     />
                     <motion.div
                         {...motionProps}
@@ -112,15 +117,23 @@ export const Overlays = memo(
                             backgroundColor: palette[1],
                             zIndex: 1020,
                         }}
-                        variants={Overlay2Variants}
+                        custom={{
+                            id: 2,
+                            duration: duration / 2,
+                            ...OverlayVariants,
+                        }}
                     />
                     <motion.div
                         {...motionProps}
                         style={{
                             backgroundColor: palette[2],
-                            zIndex: 1030,
+                            zIndex: 1010,
                         }}
-                        variants={Overlay3Variants}
+                        custom={{
+                            id: 3,
+                            duration: duration / 3,
+                            ...OverlayVariants,
+                        }}
                     />
                 </motion.div>
             </AnimateSharedLayout>

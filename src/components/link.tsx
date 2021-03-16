@@ -56,7 +56,7 @@ export const Link: FunctionComponent<Props> = ({
     const onClick = useDelayLink({
         location,
         to,
-        delay: to === "/" ? 0 : fullPageOverlayDuration * 1000 * 1.1,
+        delay: fullPageOverlayDuration * 1000 * 1.1,
         replace,
         onDelayStart: startDelay,
         onDelayEnd: endDelay,

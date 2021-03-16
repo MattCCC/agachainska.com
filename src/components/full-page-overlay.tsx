@@ -51,8 +51,8 @@ export const FullPageOverlay = memo(
                     await overlayControls.start((variant) => variant.initial);
                     await overlayControls.start((variant) => variant.enter);
 
-                    setTimeout(() => {
-                        overlayControls.start((variant) => variant.end);
+                    setTimeout(async () => {
+                        await overlayControls.start((variant) => variant.end);
                         document.body.style.overflow = "visible";
                     }, fullPageOverlayDuration * 1000);
                 })();
