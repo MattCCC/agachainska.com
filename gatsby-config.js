@@ -8,6 +8,36 @@ module.exports = {
         `gatsby-plugin-sass`,
         `gatsby-plugin-emotion`,
         "gatsby-plugin-postcss",
+        `gatsby-transformer-remark`,
+        {
+            resolve: `gatsby-transformer-yaml`,
+            options: {
+                // Conditionally set the typeName so that we both use a lowercased and capitalized type name
+                typeName: ({ node }) => {
+                    const name = node.sourceInstanceName;
+
+                    if (name === `projects`) {
+                        return `Project`;
+                    }
+
+                    return name;
+                },
+            },
+        },
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                name: `pages`,
+                path: `${__dirname}/src/pages/`,
+            },
+        },
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                path: `${__dirname}/src/data/projects.yml`,
+                name: `projects`,
+            },
+        },
         {
             resolve: "gatsby-plugin-svgr",
             options: {
