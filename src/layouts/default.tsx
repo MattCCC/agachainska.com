@@ -20,6 +20,7 @@ import {
 import { getRandomNumber } from "@utils/random-number";
 import { Overlays } from "@components/overlays";
 import { FullPageOverlay } from "@components/full-page-overlay";
+import { useStore } from "@store/index";
 
 /**
  * Styles
@@ -112,13 +113,16 @@ interface Props {}
 export const Layout: FunctionComponent<Props> = ({ children }) => {
     const defaultState = { x: 0, y: 0 };
     const [position, setPosition] = useState(defaultState);
+    const [state] = useStore();
     const backgroundStyle = {
         "--x": `${position.x}px`,
         "--y": `${position.y}px`,
     } as CSSProperties;
 
     useEffect(() => {
-        initMotionGrid();
+        if (state.showMotionGrid) {
+            initMotionGrid();
+        }
 
         const intervalId = requestInterval(() => {
             setPosition({
@@ -134,7 +138,7 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
 
             destroyMotionGrid();
         };
-    }, []);
+    }, [state.showMotionGrid]);
 
     return (
         <Fragment>
@@ -142,10 +146,14 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
             <FullPageOverlay />
             <Main hasGradient>
                 <Background className="motion-grid" style={backgroundStyle}>
-                    <GreekEye className="motion-grid__item" />
-                    <LondonEye className="motion-grid__item" />
-                    <PricklyPear className="motion-grid__item" />
-                    <Caipirinha className="motion-grid__item" />
+                    {state.showMotionGrid && (
+                        <Fragment>
+                            <GreekEye className="motion-grid__item" />
+                            <LondonEye className="motion-grid__item" />
+                            <PricklyPear className="motion-grid__item" />
+                            <Caipirinha className="motion-grid__item" />
+                        </Fragment>
+                    )}
                     <Waves />
                 </Background>
                 {children}

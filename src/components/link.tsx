@@ -50,6 +50,7 @@ export const Link: FunctionComponent<Props> = ({
 
     const endDelay = (e: Event, toRoute: string): void => {
         dispatch.setCurrentDelayedRoute("");
+        dispatch.showMotionGrid(true);
         onDelayEnd(e, toRoute);
     };
 
