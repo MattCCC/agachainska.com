@@ -1,21 +1,23 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { graphql, PageProps } from "gatsby";
 import { Header } from "@components/header";
 import { MainContainer } from "@components/main-container";
+import { MainSection } from "@components/main-section";
 import { MainTitle } from "@components/main-title";
+import { useStore } from "@store/index";
 
 /**
  * Interfaces
  */
+interface Project {
+    name: string;
+    description: string;
+}
+
 interface Props extends PageProps {
     data: {
         project: Project;
     };
-}
-
-interface Project {
-    name: string;
-    description: string;
 }
 
 /**
@@ -23,15 +25,23 @@ interface Project {
  * @param props
  */
 export default function Project({ data }: Props): JSX.Element {
-    const { project } = data;
+    const [, dispatch] = useStore();
+
+    useEffect(() => {
+        dispatch.showMotionGrid(false);
+    }, [dispatch]);
+
+    const { name, description } = data.project;
 
     return (
         <Fragment>
             <Header />
-            <MainContainer className="lg:pt-20">
-                <MainTitle>{project.name}</MainTitle>
-                <MainTitle>{project.description}</MainTitle>
-            </MainContainer>
+            <MainSection className="grid grid-flow-col grid-cols-1 grid-rows-1 items-center">
+                <MainContainer className="lg:pt-20">
+                    <MainTitle>{name}</MainTitle>
+                    <MainTitle>{description}</MainTitle>
+                </MainContainer>
+            </MainSection>
         </Fragment>
     );
 }

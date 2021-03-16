@@ -4,7 +4,6 @@ import { graphql } from "gatsby";
 import { MainContainer } from "@components/main-container";
 import { Header } from "@components/header";
 import { Timeline } from "@components/timeline";
-import { Slider } from "@components/slider";
 import { motion } from "@components/animation";
 import { Link } from "@components/link";
 import pageTimelines from "@config/page-timlines";
@@ -46,7 +45,6 @@ export default function Work({ data }): JSX.Element {
                 <Header />
                 <MainContainer className="lg:pt-20">
                     <ContentContainer>
-                        <Slider />
                         <Timeline
                             onTimelineItemChange={onTimelineItemChange}
                             sections={pageTimelines["rem-max"]}

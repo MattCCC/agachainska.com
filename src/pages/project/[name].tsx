@@ -1,17 +1,8 @@
-import { Link } from "@components/link";
+import { ErrorContainer } from "@components/404";
 import { PageProps } from "gatsby";
 
-interface Props extends PageProps { }
+interface Props extends PageProps {}
 
 export default function ProjectCatchAll({ params }: Props): JSX.Element {
-    return (
-        <div className="wrapper">
-            <header>
-                <Link to="/">Go back to "Home"</Link>
-            </header>
-            <main>
-                <p>This page doesn't exist' "{params.name}"</p>
-            </main>
-        </div>
-    );
+    return <ErrorContainer params={params} />;
 }
