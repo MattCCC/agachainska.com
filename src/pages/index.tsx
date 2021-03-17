@@ -30,6 +30,7 @@ const Title = styled.h1(() => [
     css`
         width: 570px;
         color: var(--black-color);
+        font-family: 'Larsseit-Bold';
         background: radial-gradient(
             40px circle at var(--x) var(--y),
             rgba(0, 0, 0, 0) 100%,
