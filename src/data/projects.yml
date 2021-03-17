@@ -1,6 +1,24 @@
-- name: Test 0
-  description: Test
+- name: RE/MAX
+  client: RE/MAX Malta
+  agency: BRND WGN
+  timeframe: November 2019, 7 days
+  roleInProject: UI designer
+  challenge:
+    overview: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    projectGoals: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    audience: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  approach:
+    brandElements: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+    quote: "'Lorem ipsum dolor sit amet, consectetur adipiscing elit'"
+  stats:
+    screens: 14
+    iterations: 6
+    prototypes: 34
+  credits:
+    concept: "UI Concept:"
+    conceptDesc: "RE/MAX Malta"
+    design: "UX Design:"
+    designDesc: "BRND WGN"
+    projectManagement: "Project management:"
+    projectManagementDesc: "November 2019, 7 days"
 - name: Test 1
-  description: Test
-- name: Test 2
-  description: Test

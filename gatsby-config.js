@@ -58,6 +58,7 @@ module.exports = {
                     "@src": "src",
                     "@config": "src/config",
                     "@components": "src/components",
+                    "@data": "src/data",
                     "@layouts": "src/layouts",
                     "@pages": "src/pages",
                     "@store": "src/store",

@@ -63,8 +63,7 @@ export const query = graphql`
     {
         projects: allProject {
             nodes {
-                name
-                description
+                ...ProjectFields
                 nameSlug: gatsbyPath(filePath: "/projects/{Project.name}")
             }
         }
