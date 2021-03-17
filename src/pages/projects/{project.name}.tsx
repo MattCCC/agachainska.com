@@ -11,7 +11,14 @@ import { useStore } from "@store/index";
  */
 interface Project {
     name: string;
-    description: string;
+    client: string;
+    agency: string;
+    timeframe: string;
+    roleInProject: string;
+    challenge: Record<string, string>;
+    approach: Record<string, string>;
+    stats: Record<string, number>;
+    credits: Record<string, string>;
 }
 
 interface Props extends PageProps {
@@ -31,7 +38,17 @@ export default function Project({ data }: Props): JSX.Element {
         dispatch.showMotionGrid(false);
     }, [dispatch]);
 
-    const { name, description } = data.project;
+    const {
+        name,
+        client,
+        agency,
+        timeframe,
+        roleInProject,
+        challenge,
+        approach,
+        stats,
+        credits,
+    } = data.project;
 
     return (
         <Fragment>
@@ -39,7 +56,6 @@ export default function Project({ data }: Props): JSX.Element {
             <MainSection className="grid grid-flow-col grid-cols-1 grid-rows-1 items-center">
                 <MainContainer className="lg:pt-20">
                     <MainTitle>{name}</MainTitle>
-                    <MainTitle>{description}</MainTitle>
                 </MainContainer>
             </MainSection>
         </Fragment>
@@ -49,8 +65,7 @@ export default function Project({ data }: Props): JSX.Element {
 export const query = graphql`
     query($id: String!) {
         project(id: { eq: $id }) {
-            name
-            description
+            ...ProjectFields
         }
     }
 `;
