@@ -6,22 +6,31 @@ import { getLinkProps, LinkProps } from "@utils/route";
 import { Logo } from "@components/logo";
 import { useStore } from "@store/index";
 import { useLocation } from "@reach/router";
+import { up } from "@utils/screens";
 
 /**
  * Styles
  */
 const HeaderWrapper = styled.header(() => [
-    tw`container mx-auto flex items-center justify-between flex-wrap absolute top-0 left-0 right-0 z-50 py-2 lg:py-6`,
+    tw`mx-auto flex items-center justify-between flex-wrap absolute top-0 left-0 right-0 z-50 py-2 lg:py-6`,
+    css`
+        max-width: 1243px;
+    `,
 ]);
 
 const Navigation = styled.div(() => [
-    tw`w-56 lg:w-96 space-x-6 lg:space-x-3 flex items-center justify-evenly`,
+    tw`w-56 lg:w-96 flex items-center justify-end`,
 ]);
 
 const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
     tw`relative font-medium text-primary-color prose-18px select-none`,
     css`
         line-height: 48px;
+        margin-left: 40px;
+
+        ${up("lg")} {
+            margin-left: 56px;
+        }
     `,
     css`
         &:hover:before {
