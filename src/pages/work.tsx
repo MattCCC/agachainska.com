@@ -4,8 +4,8 @@ import { graphql } from "gatsby";
 import { MainContainer } from "@components/main-container";
 import { Header } from "@components/header";
 import { Timeline } from "@components/timeline";
+import { Slider } from "@components/slider";
 import { motion } from "@components/animation";
-import { Link } from "@components/link";
 import pageTimelines from "@config/page-timlines";
 
 const transition = {
@@ -19,7 +19,7 @@ const backVariants = {
 };
 
 const ContentContainer = styled.div(() => [
-    tw`relative flex flex-row w-full`,
+    tw`relative grid grid-cols-5 grid-rows-6 gap-y-6 grid-flow-col`,
     css`
         top: 8rem;
     `,
@@ -31,7 +31,7 @@ const ContentContainer = styled.div(() => [
  */
 export default function Work({ data }): JSX.Element {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    const onTimelineItemChange = useCallback((): void => {}, []);
+    const onTimelineItemChange = useCallback((): void => { }, []);
 
     return (
         <Fragment>
@@ -45,13 +45,11 @@ export default function Work({ data }): JSX.Element {
                 <Header />
                 <MainContainer className="lg:pt-20">
                     <ContentContainer>
+                        <Slider />
                         <Timeline
                             onTimelineItemChange={onTimelineItemChange}
                             sections={pageTimelines["rem-max"]}
                         />
-                        {data.projects.nodes.map((product) => (
-                            <Link to={product.nameSlug}>{product.name}</Link>
-                        ))}
                     </ContentContainer>
                 </MainContainer>
             </motion.div>
