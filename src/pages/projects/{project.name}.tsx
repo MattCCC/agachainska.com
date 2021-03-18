@@ -1,10 +1,98 @@
 import { Fragment, useEffect } from "react";
 import { graphql, PageProps } from "gatsby";
 import { Header } from "@components/header";
-import { MainContainer } from "@components/main-container";
-import { MainSection } from "@components/main-section";
-import { MainTitle } from "@components/main-title";
+import { H2 } from "@components/h2";
+import { H3 } from "@components/h3";
 import { useStore } from "@store/index";
+import tw, { css, styled } from "twin.macro";
+
+/**
+ * Styles
+ */
+const Section = styled.section(() => [
+    tw`relative container mx-auto z-10`,
+    css`
+        p {
+            margin-bottom: 40px;
+        }
+    `,
+]);
+
+const ContentContainer = styled.div(() => [
+    css`
+        &.sm {
+            width: 827px;
+        }
+    `,
+]);
+
+const HeroImage = styled.div(() => [
+    tw`relative z-10`,
+    css`
+        height: 462px;
+        width: 1039px;
+        margin-top: 40px;
+        background-color: rgba(255, 255, 255, 0.8);
+    `,
+]);
+
+const Table = styled.div(() => [
+    tw`grid grid-cols-2 grid-rows-4 grid-flow-col`,
+    css`
+        width: 827px;
+        max-width: 100%;
+        line-height: 24px;
+    `,
+]);
+
+const CellTitle = styled.div(() => [
+    css`
+        margin-top: 12px;
+        font-family: "Larsseit-Bold";
+    `,
+]);
+
+const PageTitle = styled.h1(() => [
+    tw`relative z-10`,
+    css`
+        top: -80px;
+        color: var(--black-color);
+        background: linear-gradient(
+            0deg,
+            var(--black-color) 50px,
+            transparent 50px
+        );
+        background-clip: text;
+        font-size: 120px;
+        height: 130px;
+        width: 100%;
+        -webkit-text-fill-color: transparent;
+        font-family: "Larsseit-Bold";
+
+        &:before {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            content: attr(data-text);
+            clip-path: circle(500px at 10px 10px);
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: rgba(0, 0, 0, 0.8);
+            height: 100%;
+            width: 100%;
+        }
+    `,
+]);
+
+const Quote = styled.div(() => [
+    css`
+        color: #828282;
+        font-family: "Larsseit";
+        font-size: 48px;
+        font-weight: 700;
+        line-height: 56px;
+        margin-bottom: 140px;
+    `,
+]);
 
 /**
  * Interfaces
@@ -36,6 +124,7 @@ export default function Project({ data }: Props): JSX.Element {
 
     useEffect(() => {
         dispatch.showMotionGrid(false);
+        dispatch.showWavePattern(false);
     }, [dispatch]);
 
     const {
@@ -53,11 +142,45 @@ export default function Project({ data }: Props): JSX.Element {
     return (
         <Fragment>
             <Header />
-            <MainSection className="grid grid-flow-col grid-cols-1 grid-rows-1 items-center">
-                <MainContainer className="lg:pt-20">
-                    <MainTitle>{name}</MainTitle>
-                </MainContainer>
-            </MainSection>
+            <Section>
+                <ContentContainer className="lg:pt-20">
+                    <HeroImage />
+                    <PageTitle data-text={name}>{name}</PageTitle>
+                    <Table>
+                        <CellTitle>Client:</CellTitle>
+                        <p>{client}</p>
+                        <CellTitle>Project timeframe & duration:</CellTitle>
+                        <p>{timeframe}</p>
+                        <CellTitle>Agency:</CellTitle>
+                        <p>{agency}</p>
+                        <CellTitle>My role in the project:</CellTitle>
+                        <p>{roleInProject}</p>
+                    </Table>
+                </ContentContainer>
+            </Section>
+            <Section>
+                <ContentContainer className="sm">
+                    <H2>Challenge</H2>
+                    <H3>Overview</H3>
+                    <p>{challenge.overview}</p>
+                    <H3>Project goals</H3>
+                    <p>{challenge.projectGoals}</p>
+                    <H3>Audience</H3>
+                    <p>{challenge.audience}</p>
+                </ContentContainer>
+            </Section>
+            <Section>
+                <ContentContainer className="sm">
+                    <H2>Approach</H2>
+                    <H3>Brand elements</H3>
+                    <p>{approach.brandElements}</p>
+                    <Quote>{approach.quote}</Quote>
+                </ContentContainer>
+            </Section>
+            <br />
+            <br />
+            <br />
+            <br />
         </Fragment>
     );
 }

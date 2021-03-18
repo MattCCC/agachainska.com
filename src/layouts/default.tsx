@@ -48,7 +48,7 @@ const Background = styled.div(() => [
     css`
         -webkit-backface-visibility: hidden;
         -webkit-transform: scale(1);
-        background: url("./svg/bg-pattern.svg") repeat;
+        background: url("/svg/bg-pattern.svg") repeat;
         background-position: var(--x) var(--y);
     `,
 ]);
@@ -154,7 +154,7 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
                             <Caipirinha className="motion-grid__item" />
                         </Fragment>
                     )}
-                    <Waves />
+                    {state.showWavePattern && <Waves />}
                 </Background>
                 {children}
             </Main>
