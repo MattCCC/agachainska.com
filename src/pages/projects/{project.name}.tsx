@@ -10,8 +10,10 @@ import tw, { css, styled } from "twin.macro";
  * Styles
  */
 const Section = styled.section(() => [
-    tw`relative container mx-auto z-10`,
+    tw`relative mx-auto z-10`,
     css`
+        max-width: 1039px;
+
         p {
             margin-bottom: 40px;
         }
@@ -20,6 +22,8 @@ const Section = styled.section(() => [
 
 const ContentContainer = styled.div(() => [
     css`
+        max-width: 1039px;
+
         &.sm {
             width: 827px;
         }
@@ -32,12 +36,23 @@ const HeroImage = styled.div(() => [
         height: 462px;
         width: 1039px;
         margin-top: 40px;
+        background: url("/img/projects/project1.jpg");
         background-color: rgba(255, 255, 255, 0.8);
+        background-size: cover;
     `,
 ]);
 
-const Table = styled.div(() => [
+const TableProject = styled.div(() => [
     tw`grid grid-cols-2 grid-rows-4 grid-flow-col`,
+    css`
+        width: 827px;
+        max-width: 100%;
+        line-height: 24px;
+    `,
+]);
+
+const TableCredits = styled.div(() => [
+    tw`grid grid-cols-3 grid-rows-2 grid-flow-col`,
     css`
         width: 827px;
         max-width: 100%;
@@ -146,16 +161,16 @@ export default function Project({ data }: Props): JSX.Element {
                 <ContentContainer className="lg:pt-20">
                     <HeroImage />
                     <PageTitle data-text={name}>{name}</PageTitle>
-                    <Table>
+                    <TableProject>
                         <CellTitle>Client:</CellTitle>
-                        <p>{client}</p>
+                        <div>{client}</div>
                         <CellTitle>Project timeframe & duration:</CellTitle>
-                        <p>{timeframe}</p>
+                        <div>{timeframe}</div>
                         <CellTitle>Agency:</CellTitle>
-                        <p>{agency}</p>
+                        <div>{agency}</div>
                         <CellTitle>My role in the project:</CellTitle>
-                        <p>{roleInProject}</p>
-                    </Table>
+                        <div>{roleInProject}</div>
+                    </TableProject>
                 </ContentContainer>
             </Section>
             <Section>
@@ -175,6 +190,19 @@ export default function Project({ data }: Props): JSX.Element {
                     <H3>Brand elements</H3>
                     <p>{approach.brandElements}</p>
                     <Quote>{approach.quote}</Quote>
+                </ContentContainer>
+            </Section>
+            <Section>
+                <ContentContainer className="sm">
+                    <H2>Credits</H2>
+                    <TableCredits>
+                        <CellTitle>{credits.concept}</CellTitle>
+                        <div>{credits.conceptDesc}</div>
+                        <CellTitle>{credits.design}</CellTitle>
+                        <div>{credits.designDesc}</div>
+                        <CellTitle>{credits.projectManagement}</CellTitle>
+                        <div>{credits.projectManagementDesc}</div>
+                    </TableCredits>
                 </ContentContainer>
             </Section>
             <br />

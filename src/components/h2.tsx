@@ -11,6 +11,7 @@ export const H2 = styled.h2(() => [
         font-family: "Larsseit-Bold";
         line-height: 100px;
         padding: 80px 0 20px;
+        margin-bottom: 40px;
         border-bottom: 2px solid var(--primary-color);
     `,
 ]);
