@@ -1,4 +1,4 @@
-import { useState, RefObject, useRef, useCallback, memo, CSSProperties } from "react";
+import { useState, RefObject, useRef, useCallback, memo } from "react";
 import tw, { css, styled } from "twin.macro";
 import { motion, MotionProps, AnimatePresence } from "@components/animation";
 import { useElementSize } from "@hooks/element-size";
