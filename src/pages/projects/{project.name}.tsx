@@ -1,9 +1,10 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useCallback, useEffect } from "react";
 import { graphql, PageProps } from "gatsby";
 import { Header } from "@components/header";
 import { H2 } from "@components/h2";
 import { H3 } from "@components/h3";
 import { Timeline } from "@components/timeline";
+import { BigNumber } from "@components/big-number";
 import { useStore } from "@store/index";
 import tw, { css, styled } from "twin.macro";
 import { designProcessTimeline } from "@config/page-timlines";
@@ -62,6 +63,15 @@ const TableCredits = styled.div(() => [
     `,
 ]);
 
+const TableStats = styled.div(() => [
+    tw`grid grid-cols-3 grid-rows-4 grid-flow-col`,
+    css`
+        width: 827px;
+        max-width: 100%;
+        line-height: 24px;
+    `,
+]);
+
 const CellTitle = styled.div(() => [
     css`
         margin-top: 12px;
@@ -103,7 +113,7 @@ const PageTitle = styled.h1(() => [
 const Article = styled.article(() => [
     tw`relative`,
     css`
-        margin-bottom: 140px;
+        padding-bottom: 140px;
     `,
 ]);
 
@@ -128,6 +138,16 @@ const TimelineWrapper = styled.aside(() => [
         margin-left: auto;
         margin-right: 84px;
         transform: translateY(90px);
+    `,
+]);
+
+const H4 = styled.h4(() => [
+    css`
+        height: 40px;
+        width: 109px;
+        font-family: "Larsseit-Bold";
+        font-size: 30px;
+        line-height: 40px;
     `,
 ]);
 
@@ -176,6 +196,10 @@ export default function Project({ data }: Props): JSX.Element {
         credits,
     } = data.project;
 
+    const onTimelineItemChange = useCallback(({ id }): void => {
+        window.location.hash = "#" + id;
+    }, []);
+
     return (
         <Fragment>
             <Header />
@@ -199,15 +223,14 @@ export default function Project({ data }: Props): JSX.Element {
                 <TimelineWrapper>
                     <Timeline
                         style={{ height: "254px" }}
-                        // eslint-disable-next-line no-console
-                        onTimelineItemChange={console.log}
+                        onTimelineItemChange={onTimelineItemChange}
                         sections={designProcessTimeline}
                     />
                 </TimelineWrapper>
 
                 <Section>
                     <ContentContainer className="sm">
-                        <H2>Challenge</H2>
+                        <H2 id="challenge">Challenge</H2>
                         <H3>Overview</H3>
                         <p>{challenge.overview}</p>
                         <H3>Project goals</H3>
@@ -218,10 +241,51 @@ export default function Project({ data }: Props): JSX.Element {
                 </Section>
                 <Section>
                     <ContentContainer className="sm">
-                        <H2>Approach</H2>
+                        <H2 id="approach">Approach</H2>
                         <H3>Brand elements</H3>
                         <p>{approach.brandElements}</p>
                         <Quote>{approach.quote}</Quote>
+                    </ContentContainer>
+                    <ContentContainer id="results" className="sm">
+                        <TableStats>
+                            <CellTitle>
+                                <BigNumber
+                                    value={14}
+                                    style={{ width: "330px" }}
+                                />
+                            </CellTitle>
+                            <H4>Screens</H4>
+                            <CellTitle>
+                                <BigNumber
+                                    value={14}
+                                    style={{ width: "380px" }}
+                                />
+                            </CellTitle>
+                            <H4>Screens</H4>
+
+                            <CellTitle>
+                                <BigNumber
+                                    value={6}
+                                    style={{ width: "330px" }}
+                                />
+                            </CellTitle>
+                            <H4>Iterations</H4>
+                            <CellTitle>
+                                <BigNumber
+                                    value={6}
+                                    style={{ width: "380px" }}
+                                />
+                            </CellTitle>
+                            <H4>Iterations</H4>
+
+                            <CellTitle>
+                                <BigNumber
+                                    value={34}
+                                    style={{ width: "330px" }}
+                                />
+                            </CellTitle>
+                            <H4>Prototypes</H4>
+                        </TableStats>
                     </ContentContainer>
                 </Section>
                 <Section>
