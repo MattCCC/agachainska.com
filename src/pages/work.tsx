@@ -62,6 +62,7 @@ export default function Work({ data }): JSX.Element {
                         </SlideWrapper>
                         <TimelineWrapper>
                             <Timeline
+                                style={{ height: "27.76rem" }}
                                 onTimelineItemChange={onTimelineItemChange}
                                 sections={workPageTimeline}
                             />

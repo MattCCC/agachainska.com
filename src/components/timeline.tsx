@@ -13,18 +13,19 @@ import { useElementSize } from "@hooks/element-size";
 /**
  * Style
  */
-const TimelineWrapper = styled.div(() => [
-    tw`text-right w-52 z-10`,
-    css`
-        height: 27.76rem;
-    `,
-]);
+const TimelineWrapper = styled.div(() => [tw`text-right w-52 z-10`]);
 
-const Title = styled(motion.div)(({ isActive }: TitleStyle) => [
-    tw`lg:prose-20px lg:text-primary-color opacity-30 font-bold cursor-pointer`,
-    tw`hover:opacity-100 transition-opacity`,
-    isActive && tw`opacity-100`,
-]);
+const Title = styled(motion.div)(
+    ({ isActive, hasMultipleSections }: TitleStyle) => [
+        tw`lg:prose-20px lg:text-primary-color opacity-30 font-bold`,
+        tw`hover:opacity-100 transition-opacity`,
+        css`
+            padding-bottom: 7px;
+        `,
+        isActive && tw`opacity-100`,
+        hasMultipleSections && tw`cursor-pointer`,
+    ]
+);
 
 const List = styled(motion.div)(() => [
     tw`font-bold lg:prose-14px lg:text-gray-500 w-auto flex flex-col justify-evenly relative overflow-hidden`,
@@ -54,6 +55,7 @@ const Pin = styled(motion.div)(() => [
  */
 interface TitleStyle extends MotionProps {
     isActive?: boolean;
+    hasMultipleSections?: boolean;
 }
 
 interface ListItemStyle extends MotionProps {
@@ -153,6 +155,7 @@ export const Timeline = memo(
                     <AnimatePresence key={`timeline-${index}`} initial={false}>
                         <Title
                             isActive={section.id === state.sectionId}
+                            hasMultipleSections={sections.length > 1}
                             initial={false}
                             ref={sectionTitleRef}
                             onClick={onTimelineHeaderClick.bind(null, section)}

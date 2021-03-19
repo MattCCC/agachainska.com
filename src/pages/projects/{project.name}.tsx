@@ -3,8 +3,10 @@ import { graphql, PageProps } from "gatsby";
 import { Header } from "@components/header";
 import { H2 } from "@components/h2";
 import { H3 } from "@components/h3";
+import { Timeline } from "@components/timeline";
 import { useStore } from "@store/index";
 import tw, { css, styled } from "twin.macro";
+import { designProcessTimeline } from "@config/page-timlines";
 
 /**
  * Styles
@@ -98,6 +100,13 @@ const PageTitle = styled.h1(() => [
     `,
 ]);
 
+const Article = styled.article(() => [
+    tw`relative`,
+    css`
+        margin-bottom: 140px;
+    `,
+]);
+
 const Quote = styled.div(() => [
     css`
         color: #828282;
@@ -106,6 +115,19 @@ const Quote = styled.div(() => [
         font-weight: 700;
         line-height: 56px;
         margin-bottom: 140px;
+    `,
+]);
+
+const TimelineWrapper = styled.aside(() => [
+    tw`sticky`,
+    css`
+        top: 0;
+        right: 0;
+        margin-bottom: -254px;
+        width: 220px;
+        margin-left: auto;
+        margin-right: 84px;
+        transform: translateY(90px);
     `,
 ]);
 
@@ -173,42 +195,49 @@ export default function Project({ data }: Props): JSX.Element {
                     </TableProject>
                 </ContentContainer>
             </Section>
-            <Section>
-                <ContentContainer className="sm">
-                    <H2>Challenge</H2>
-                    <H3>Overview</H3>
-                    <p>{challenge.overview}</p>
-                    <H3>Project goals</H3>
-                    <p>{challenge.projectGoals}</p>
-                    <H3>Audience</H3>
-                    <p>{challenge.audience}</p>
-                </ContentContainer>
-            </Section>
-            <Section>
-                <ContentContainer className="sm">
-                    <H2>Approach</H2>
-                    <H3>Brand elements</H3>
-                    <p>{approach.brandElements}</p>
-                    <Quote>{approach.quote}</Quote>
-                </ContentContainer>
-            </Section>
-            <Section>
-                <ContentContainer className="sm">
-                    <H2>Credits</H2>
-                    <TableCredits>
-                        <CellTitle>{credits.concept}</CellTitle>
-                        <div>{credits.conceptDesc}</div>
-                        <CellTitle>{credits.design}</CellTitle>
-                        <div>{credits.designDesc}</div>
-                        <CellTitle>{credits.projectManagement}</CellTitle>
-                        <div>{credits.projectManagementDesc}</div>
-                    </TableCredits>
-                </ContentContainer>
-            </Section>
-            <br />
-            <br />
-            <br />
-            <br />
+            <Article>
+                <TimelineWrapper>
+                    <Timeline
+                        style={{ height: "254px" }}
+                        // eslint-disable-next-line no-console
+                        onTimelineItemChange={console.log}
+                        sections={designProcessTimeline}
+                    />
+                </TimelineWrapper>
+
+                <Section>
+                    <ContentContainer className="sm">
+                        <H2>Challenge</H2>
+                        <H3>Overview</H3>
+                        <p>{challenge.overview}</p>
+                        <H3>Project goals</H3>
+                        <p>{challenge.projectGoals}</p>
+                        <H3>Audience</H3>
+                        <p>{challenge.audience}</p>
+                    </ContentContainer>
+                </Section>
+                <Section>
+                    <ContentContainer className="sm">
+                        <H2>Approach</H2>
+                        <H3>Brand elements</H3>
+                        <p>{approach.brandElements}</p>
+                        <Quote>{approach.quote}</Quote>
+                    </ContentContainer>
+                </Section>
+                <Section>
+                    <ContentContainer className="sm">
+                        <H2>Credits</H2>
+                        <TableCredits>
+                            <CellTitle>{credits.concept}</CellTitle>
+                            <div>{credits.conceptDesc}</div>
+                            <CellTitle>{credits.design}</CellTitle>
+                            <div>{credits.designDesc}</div>
+                            <CellTitle>{credits.projectManagement}</CellTitle>
+                            <div>{credits.projectManagementDesc}</div>
+                        </TableCredits>
+                    </ContentContainer>
+                </Section>
+            </Article>
         </Fragment>
     );
 }
