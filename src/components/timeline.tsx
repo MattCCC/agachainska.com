@@ -23,7 +23,7 @@ const TimelineWrapper = styled.div(() => [
 const Title = styled(motion.div)(({ isActive }: TitleStyle) => [
     tw`lg:prose-20px lg:text-primary-color opacity-30 font-bold cursor-pointer`,
     tw`hover:opacity-100 transition-opacity`,
-    isActive && tw`opacity-100 lg:p-1`,
+    isActive && tw`opacity-100`,
 ]);
 
 const List = styled(motion.div)(() => [
