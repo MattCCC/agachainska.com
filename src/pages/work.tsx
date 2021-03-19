@@ -6,7 +6,7 @@ import { Header } from "@components/header";
 import { Timeline } from "@components/timeline";
 import { Slider } from "@components/slider";
 import { motion } from "@components/animation";
-import pageTimelines from "@config/page-timlines";
+import { workPageTimeline } from "@config/page-timlines";
 
 const transition = {
     duration: 1,
@@ -63,7 +63,7 @@ export default function Work({ data }): JSX.Element {
                         <TimelineWrapper>
                             <Timeline
                                 onTimelineItemChange={onTimelineItemChange}
-                                sections={pageTimelines["rem-max"]}
+                                sections={workPageTimeline}
                             />
                         </TimelineWrapper>
                     </ContentContainer>

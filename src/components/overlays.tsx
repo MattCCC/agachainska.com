@@ -9,7 +9,7 @@ import { useStore } from "@store/index";
 /**
  * Styles
  */
-const overlayStyleClasses = "absolute left-0 w-full h-full";
+const overlayStyleClasses = "fixed left-0 w-full h-full";
 
 /**
  * Configs
@@ -92,7 +92,7 @@ export const Overlays = memo(
             <AnimateSharedLayout>
                 <motion.div
                     layout
-                    className="w-full h-full"
+                    className={overlayStyleClasses}
                     style={{
                         zIndex: 1000,
                     }}
