@@ -6,7 +6,7 @@ import { Header } from "@components/header";
 import { Timeline } from "@components/timeline";
 import { Slider } from "@components/slider";
 import { motion } from "@components/animation";
-import pageTimelines from "@config/page-timlines";
+import { workPageTimeline } from "@config/page-timlines";
 
 const transition = {
     duration: 1,
@@ -31,7 +31,7 @@ const ContentContainer = styled.div(() => [
  */
 export default function Work({ data }): JSX.Element {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    const onTimelineItemChange = useCallback((): void => { }, []);
+    const onTimelineItemChange = useCallback((): void => {}, []);
 
     return (
         <Fragment>
@@ -48,7 +48,7 @@ export default function Work({ data }): JSX.Element {
                         <Slider />
                         <Timeline
                             onTimelineItemChange={onTimelineItemChange}
-                            sections={pageTimelines["rem-max"]}
+                            sections={workPageTimeline}
                         />
                     </ContentContainer>
                 </MainContainer>
