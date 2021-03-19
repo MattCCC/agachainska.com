@@ -18,7 +18,7 @@ const HeaderWrapper = styled.header(() => [
     `,
 ]);
 
-const Navigation = styled.div(() => [
+const Navigation = styled.nav(() => [
     tw`w-56 lg:w-96 flex items-center justify-end`,
 ]);
 
