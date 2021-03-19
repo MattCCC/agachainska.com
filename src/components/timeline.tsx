@@ -14,7 +14,7 @@ import { useElementSize } from "@hooks/element-size";
  * Style
  */
 const TimelineWrapper = styled.div(() => [
-    tw`text-right  w-52 z-10`,
+    tw`text-right w-52 z-10`,
     css`
         height: 27.76rem;
     `,
@@ -22,19 +22,23 @@ const TimelineWrapper = styled.div(() => [
 
 const Title = styled(motion.div)(({ isActive }: TitleStyle) => [
     tw`lg:prose-20px lg:text-primary-color opacity-30 font-bold cursor-pointer`,
+    tw`hover:opacity-100 transition-opacity`,
     isActive && tw`opacity-100 lg:p-1`,
 ]);
 
 const List = styled(motion.div)(() => [
     tw`font-bold lg:prose-14px lg:text-gray-500 w-auto flex flex-col justify-evenly relative overflow-hidden`,
     css`
+        box-shadow: inset -1px 0px 1px -1px var(--primary-color);
         transition: opacity 0.3s ease-in-out;
     `,
 ]);
 
 const ListItem = styled(motion.div)(({ isActive }: ListItemStyle) => [
-    tw`lg:text-primary-color opacity-20 border-r lg:p-5 h-full border-primary-color align-middle flex text-right ml-auto items-center relative select-none cursor-pointer`,
-    isActive && tw`opacity-100 border-r-0`,
+    tw`relative align-middle ml-auto items-center h-full`,
+    tw`lg:text-primary-color flex text-right opacity-30 lg:p-5 select-none cursor-pointer`,
+    tw`hover:opacity-100 transition-opacity`,
+    isActive && tw`opacity-100`,
 ]);
 
 const Pin = styled(motion.div)(() => [
