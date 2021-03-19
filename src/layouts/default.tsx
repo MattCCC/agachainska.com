@@ -9,10 +9,9 @@ import { FullPageOverlay } from "@components/full-page-overlay";
  * Styles
  */
 const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
-    tw`h-full w-full min-h-screen text-primary-color`,
+    tw`relative h-full w-full min-h-screen text-primary-color`,
     css`
         -webkit-backface-visibility: hidden;
-        -webkit-transform: scale(1);
     `,
     hasGradient &&
         css`

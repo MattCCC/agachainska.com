@@ -6,11 +6,11 @@ import {
 export const pageOverlayTopVariants = {
     initial: {
         height: "100vh",
-        transition: overlayTransition,
+        transition: { ...overlayTransition, delay: 0.3 },
     },
     enter: {
         height: 0,
-        transition: overlayTransition,
+        transition: { ...overlayTransition, delay: 0.3 },
     },
     exit: {
         height: 0,
