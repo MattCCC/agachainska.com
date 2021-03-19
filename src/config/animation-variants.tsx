@@ -5,15 +5,15 @@ import {
 
 export const pageOverlayTopVariants = {
     initial: {
-        y: "100%",
+        height: "100vh",
         transition: overlayTransition,
     },
     enter: {
-        y: 0,
+        height: 0,
         transition: overlayTransition,
     },
-    exitHome: {
-        y: "100%",
+    exit: {
+        height: 0,
         transition: overlayTransition,
     },
 };
