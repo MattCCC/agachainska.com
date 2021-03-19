@@ -25,6 +25,14 @@ const ContentContainer = styled.div(() => [
     `,
 ]);
 
+const SlideWrapper = styled.div(() => [
+    tw`col-start-1 col-end-4 col-span-4 row-start-1 row-end-6 row-span-5`,
+]);
+
+const TimelineWrapper = styled.aside(() => [
+    tw`m-auto justify-center col-start-5 row-start-1 row-end-5 row-span-5`,
+]);
+
 /**
  * Component
  * @param props
@@ -45,11 +53,19 @@ export default function Work({ data }): JSX.Element {
                 <Header />
                 <MainContainer className="lg:pt-20">
                     <ContentContainer>
-                        <Slider />
-                        <Timeline
-                            onTimelineItemChange={onTimelineItemChange}
-                            sections={pageTimelines["rem-max"]}
-                        />
+                        <SlideWrapper>
+                            <Slider images={[
+                                "./img/projects/image-1.png",
+                                "./img/projects/danish-bakery.jpg",
+                                "./img/projects/image-1.png"
+                            ]} />
+                        </SlideWrapper>
+                        <TimelineWrapper>
+                            <Timeline
+                                onTimelineItemChange={onTimelineItemChange}
+                                sections={pageTimelines["rem-max"]}
+                            />
+                        </TimelineWrapper>
                     </ContentContainer>
                 </MainContainer>
             </motion.div>

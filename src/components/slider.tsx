@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Fragment, useEffect } from "react";
 import tw, { css, styled } from "twin.macro";
 import { motion, MotionProps, AnimatePresence } from "@components/animation";
 import { ReactComponent as PrevIcon } from "@svg/down.svg";
@@ -7,10 +7,18 @@ import { ReactComponent as NextIcon } from "@svg/up.svg";
 /**
  * Style
  */
-const SliderWrapper = styled.div(() => [tw`relative col-start-1 col-end-4 col-span-4 row-start-1 row-end-6 row-span-6`]);
+const SliderWrapper = styled.div(() => [tw`relative`]);
+
+const SlideContent = styled.div(() => [
+    tw`overflow-hidden`,
+    css`
+        height: 27.76rem;
+    `
+]);
+
 
 const Title = styled.h1(() => [
-    tw`absolute w-9/12 lg:prose-120px uppercase z-50 select-none`,
+    tw`absolute w-1/2 lg:prose-120px uppercase z-50 select-none`,
     css`
         top: -5.35rem;
         color: var(--black-color);
@@ -33,13 +41,12 @@ const Title = styled.h1(() => [
     `,
 ]);
 
-const SlideItem = styled(motion.div)(() => [tw`relative w-auto pb-12`]);
-
-const SlidePattern = styled.img(() => [tw`absolute w-full h-full z-40`]);
+const SlidesList = styled(motion.div)(() => [tw`relative w-auto`]);
+// pb-12
 
 const SlideImg = styled.img(() => [tw`relative w-full h-full z-10`]);
 
-const Controls = styled.div(() => [tw`relative flex justify-items-center`]);
+const Controls = styled.div(() => [tw`relative pt-12 flex justify-items-center`]);
 
 const Btn = styled.div(() => [tw`lg:prose-16px w-28 flex-row`]);
 
@@ -54,19 +61,14 @@ const NextIconStyled = styled(NextIcon)(() => [
 
 const variants = {
     enter: (direction: number) => ({
-        y: direction > 0 ? 1000 : -800,
-        opacity: 0
+        y: direction > 0 ? 1000 : -1000,
+        // opacity: 0
     }),
     center: {
-        zIndex: 1,
+        // zIndex: 1,
         y: 0,
-        opacity: 1
+        // opacity: 1
     },
-    exit: (direction: number) => ({
-        zIndex: 0,
-        y: direction < 0 ? 1000 : -800,
-        opacity: 0
-    })
 };
 
 /**
@@ -82,55 +84,75 @@ const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velo
  * Interfaxces
  */
 
-interface Props { }
+interface Props {
+    images: string[];
+}
+
+export const wrap = (min: number, max: number, v: number): number => {
+    const rangeSize = max - min;
+
+    return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
+};
 
 /**
  * Component
  * @param props
  */
-export function Slider(props: Props): JSX.Element {
-    const [[page, direction], setPage] = useState([0, 0]);
+export function Slider({ images }: Props): JSX.Element {
+    const [[page, direction, lastIndex], setPage] = useState([0, 0, 0]);
 
     // We only have 3 images, but we paginate them absolutely (ie 1, 2, 3, 4, 5...) and
     // then wrap that within 0-2 to find our image ID in the array below. By passing an
     // absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
     // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
-    // const imageIndex = wrap(0, images.length, page);
+    const imageIndex = wrap(0, images.length, page);
+    const lastImageIndex = wrap(0, images.length, lastIndex);
 
-    const paginate = (newDirection: number) => {
-        setPage([page + newDirection, newDirection]);
+    const paginate = (newDirection: number): void => {
+        setPage([page + newDirection, newDirection, page]);
     };
 
     return (
-        <SliderWrapper>
-            <Title
-                data-text={"Danish Bakery"}
-            >Danish Bakery</Title>
-            <AnimatePresence initial={false} custom={direction}>
-                <SlideItem
-                    key={page}
-                    custom={direction}
-                    variants={variants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{
-                        y: { type: "spring", stiffness: 300, damping: 50 },
-                        opacity: { duration: 0.2 }
-                    }}
-                >
-                    <SlidePattern src="./img/slider-pattern.png" />
-                    <SlideImg src="./img/projects/danish-bakery.png" />
-                </SlideItem>
-            </AnimatePresence>
-            <Controls>
-                <Btn onClick={(): void => paginate(1)}>
-                    <NextIconStyled /> Next
-                    </Btn>
-                <Btn onClick={(): void => paginate(-1)}>
-                    <PrevIconStyled /> Previous
-                    </Btn>
-            </Controls>
-        </SliderWrapper>
+        <Fragment>
+            <SliderWrapper>
+                <Title
+                    data-text={"Danish Bakery"}
+                >Danish Bakery</Title>
+                <AnimatePresence initial={false} custom={direction}>
+                    <SlideContent>
+                        <SlidesList
+                            key={page}
+                            custom={direction}
+                            variants={variants}
+                            initial="enter"
+                            animate="center"
+                            transition={{
+                                y: {
+                                    type: "spring",
+                                    stiffness: 100,
+                                    damping: 15
+                                },
+                                opacity: { duration: 0.2 }
+                            }}
+                        >
+                            {/* {
+                                images.map((image, index) => (<SlideImg key={index} src={image} />))
+                            } */}
+                            <SlideImg src={images[lastImageIndex]} />
+                            <SlideImg src={images[imageIndex]} />
+                            <SlideImg src={images[lastImageIndex]} />
+                        </SlidesList>
+                    </SlideContent>
+                    <Controls>
+                        <Btn onClick={(): void => paginate(1)}>
+                            <NextIconStyled /> Next
+                                </Btn>
+                        <Btn onClick={(): void => paginate(-1)}>
+                            <PrevIconStyled /> Previous
+                                </Btn>
+                    </Controls>
+                </AnimatePresence>
+            </SliderWrapper>
+        </Fragment>
     );
 }

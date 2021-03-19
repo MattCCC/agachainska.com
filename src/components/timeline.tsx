@@ -7,7 +7,7 @@ import { useElementSize } from "@hooks/element-size";
  * Style
  */
 const TimelineWrapper = styled.div(() => [
-    tw`text-right w-52 z-10 m-auto flex flex-col justify-center col-start-5 row-start-1 row-end-5 row-span-5`,
+    tw`text-right  w-52 z-10`,
     css`
         height: 27.76rem;
     `
