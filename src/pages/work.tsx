@@ -13,7 +13,7 @@ import { workPageTimeline } from "@config/page-timlines";
 const ContentContainer = styled.div(() => [
     tw`relative grid grid-cols-5 grid-rows-6 gap-y-6 grid-flow-col`,
     css`
-        top: 8rem;
+        margin-top: 8rem;
     `,
 ]);
 
