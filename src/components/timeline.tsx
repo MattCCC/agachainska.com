@@ -1,4 +1,11 @@
-import { useState, RefObject, useRef, useCallback, memo } from "react";
+import {
+    useState,
+    RefObject,
+    useRef,
+    useCallback,
+    memo,
+    HTMLAttributes,
+} from "react";
 import tw, { css, styled } from "twin.macro";
 import { motion, MotionProps, AnimatePresence } from "@components/animation";
 import { useElementSize } from "@hooks/element-size";
@@ -10,7 +17,7 @@ const TimelineWrapper = styled.div(() => [
     tw`text-right w-52 z-10 m-auto flex flex-col justify-center col-start-5 row-start-1 row-end-5 row-span-5`,
     css`
         height: 27.76rem;
-    `
+    `,
 ]);
 
 const Title = styled(motion.div)(({ isActive }: TitleStyle) => [
@@ -60,7 +67,7 @@ export interface Section {
     items?: Item[];
 }
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLElement> {
     onTimelineItemChange: (item: Item) => void;
     sections: Section[];
 }
@@ -73,6 +80,7 @@ export const Timeline = memo(
     ({
         sections,
         onTimelineItemChange = (): null => null,
+        ...props
     }: Props): JSX.Element => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
         const sectionTitleRef = useRef() as RefObject<HTMLDivElement>;
@@ -91,7 +99,8 @@ export const Timeline = memo(
         const { height: wrapperHeight } = useElementSize(wrapperRef);
         const { height: sectionTitleHeight } = useElementSize(sectionTitleRef);
 
-        const contentListMinHeight = (wrapperHeight - (sectionTitleHeight * sections.length)) - 50;
+        const contentListMinHeight =
+            wrapperHeight - sectionTitleHeight * sections.length - 50;
 
         const [state, setState] = useState({
             sectionId: activeSections[0].id,
@@ -135,10 +144,11 @@ export const Timeline = memo(
         );
 
         return (
-            <TimelineWrapper ref={wrapperRef}>
+            <TimelineWrapper ref={wrapperRef} {...props}>
                 {sections.map((section: Section, index: number) => (
                     <AnimatePresence key={`timeline-${index}`} initial={false}>
-                        <Title isActive={section.id === state.sectionId}
+                        <Title
+                            isActive={section.id === state.sectionId}
                             initial={false}
                             ref={sectionTitleRef}
                             onClick={onTimelineHeaderClick.bind(null, section)}
@@ -169,13 +179,16 @@ export const Timeline = memo(
                             <Pin
                                 animate={{
                                     y:
-                                        (contentListMinHeight / (section.items?.length ?? 1)) *
+                                        (contentListMinHeight /
+                                            (section.items?.length ?? 1)) *
                                         (section.items?.findIndex(
                                             (item) => item.id === state.activeId
                                         ) || 0),
                                 }}
                                 style={{
-                                    height: (contentListMinHeight / (section.items?.length ?? 1))
+                                    height:
+                                        contentListMinHeight /
+                                        (section.items?.length ?? 1),
                                 }}
                             />
                             {section.items?.map(
