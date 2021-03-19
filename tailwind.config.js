@@ -72,9 +72,9 @@ module.exports = {
                 "melrose-color": "var(--melrose-color)",
             },
             zIndex: {
-                '75': 75,
-                '100': 100,
-            }
+                75: 75,
+                100: 100,
+            },
         },
         fontFamily: {
             sans: "'Larsseit'",

@@ -13,16 +13,19 @@ const SlideContent = styled.div(() => [
     tw`overflow-hidden`,
     css`
         height: 27.76rem;
-    `
+    `,
 ]);
-
 
 const Title = styled.h1(() => [
     tw`absolute w-1/2 lg:prose-120px uppercase z-50 select-none`,
     css`
         top: -5.35rem;
         color: var(--black-color);
-        background: linear-gradient(180deg,var(--black-color) 33%,transparent 32%);
+        background: linear-gradient(
+            180deg,
+            var(--black-color) 33%,
+            transparent 32%
+        );
         background-clip: text;
         -webkit-text-fill-color: transparent;
 
@@ -46,7 +49,9 @@ const SlidesList = styled(motion.div)(() => [tw`relative w-auto`]);
 
 const SlideImg = styled.img(() => [tw`relative w-full h-full z-10`]);
 
-const Controls = styled.div(() => [tw`relative pt-12 flex justify-items-center`]);
+const Controls = styled.div(() => [
+    tw`relative pt-12 flex justify-items-center`,
+]);
 
 const Btn = styled.div(() => [tw`lg:prose-16px w-28 flex-row`]);
 
@@ -57,7 +62,6 @@ const PrevIconStyled = styled(PrevIcon)(() => [
 const NextIconStyled = styled(NextIcon)(() => [
     tw`inline-block text-center mr-4`,
 ]);
-
 
 const variants = {
     enter: (direction: number) => ({
@@ -78,7 +82,8 @@ const variants = {
  * just distance thresholds and velocity > 0.
  */
 const swipeConfidenceThreshold = 10000;
-const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velocity;
+const swipePower = (offset: number, velocity: number) =>
+    Math.abs(offset) * velocity;
 
 /**
  * Interfaxces
@@ -115,9 +120,7 @@ export function Slider({ images }: Props): JSX.Element {
     return (
         <Fragment>
             <SliderWrapper>
-                <Title
-                    data-text={"Danish Bakery"}
-                >Danish Bakery</Title>
+                <Title data-text={"Danish Bakery"}>Danish Bakery</Title>
                 <AnimatePresence initial={false} custom={direction}>
                     <SlideContent>
                         <SlidesList
@@ -130,9 +133,9 @@ export function Slider({ images }: Props): JSX.Element {
                                 y: {
                                     type: "spring",
                                     stiffness: 100,
-                                    damping: 15
+                                    damping: 15,
                                 },
-                                opacity: { duration: 0.2 }
+                                opacity: { duration: 0.2 },
                             }}
                         >
                             {/* {
@@ -146,10 +149,10 @@ export function Slider({ images }: Props): JSX.Element {
                     <Controls>
                         <Btn onClick={(): void => paginate(1)}>
                             <NextIconStyled /> Next
-                                </Btn>
+                        </Btn>
                         <Btn onClick={(): void => paginate(-1)}>
                             <PrevIconStyled /> Previous
-                                </Btn>
+                        </Btn>
                     </Controls>
                 </AnimatePresence>
             </SliderWrapper>

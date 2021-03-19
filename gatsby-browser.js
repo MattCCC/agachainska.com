@@ -9,7 +9,8 @@ import { LocationProvider } from "@reach/router";
 export const wrapRootElement = ({ element }) => {
     return (
         <Fragment>
-            <motion.div className="relative z-100 bg-white"
+            <motion.div
+                className="relative z-100 bg-white"
                 initial="initial"
                 animate="enter"
                 exit="exit"
