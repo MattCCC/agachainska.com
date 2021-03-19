@@ -71,6 +71,10 @@ module.exports = {
                 "black-color": "var(--black-color)",
                 "melrose-color": "var(--melrose-color)",
             },
+            zIndex: {
+                '75': 75,
+                '100': 100,
+            }
         },
         fontFamily: {
             sans: "'Larsseit'",
