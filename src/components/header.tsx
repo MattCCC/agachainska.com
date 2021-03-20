@@ -12,9 +12,12 @@ import { up } from "@utils/screens";
  * Styles
  */
 const HeaderWrapper = styled.header(() => [
-    tw`mx-auto flex items-center justify-between flex-wrap absolute top-0 left-0 right-0 z-50 py-2 lg:py-6`,
+    tw`mx-auto flex items-center justify-between flex-wrap absolute top-0 z-50 lg:py-6`,
     css`
-        max-width: 1243px;
+        max-width: 1213px;
+        left: 15px;
+        right: 15px;
+        padding: 15px 0;
     `,
 ]);
 

@@ -22,9 +22,7 @@ export function BigNumber({ value = 0, ...props }: Props): JSX.Element {
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
-            width="390"
-            height="239"
-            viewBox="0 0 390 239"
+            viewBox="0 0 200 200"
             {...props}
         >
             <defs>
