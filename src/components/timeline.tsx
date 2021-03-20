@@ -74,8 +74,9 @@ export interface Section {
 }
 
 interface Props extends HTMLAttributes<HTMLElement> {
-    onTimelineItemChange: (item: Item) => void;
     sections: Section[];
+    activeItemId?: string | number;
+    onTimelineItemChange?: (item: Item) => void;
 }
 
 /**
@@ -85,6 +86,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
 export const Timeline = memo(
     ({
         sections,
+        activeItemId = "",
         onTimelineItemChange = (): null => null,
         ...props
     }: Props): JSX.Element => {
@@ -110,8 +112,15 @@ export const Timeline = memo(
 
         const [state, setState] = useState({
             sectionId: activeSections[0].id,
-            activeId: allItems[0].id,
+            activeId: activeItemId || allItems[0].id,
         });
+
+        if (state.activeId !== activeItemId) {
+            setState({
+                ...state,
+                activeId: activeItemId,
+            });
+        }
 
         const onTimelineItemClick = useCallback(
             (item: Item) => {

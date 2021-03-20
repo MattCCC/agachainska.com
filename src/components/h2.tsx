@@ -10,8 +10,8 @@ export const H2 = styled.h2(() => [
         font-size: 54px;
         font-family: "Larsseit-Bold";
         line-height: 100px;
-        padding: 80px 0 20px;
-        margin-bottom: 40px;
+        padding: 0 0 20px;
+        margin: 80px 0 40px;
         border-bottom: 2px solid var(--primary-color);
     `,
 ]);

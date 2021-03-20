@@ -31,6 +31,7 @@
     "lerp": "1.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-hook-inview": "4.3.8",
     "react-lit-store": "1.2.2",
     "sass": "1.32.7"
   },

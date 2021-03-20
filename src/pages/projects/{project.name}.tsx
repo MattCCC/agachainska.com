@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import { graphql, PageProps } from "gatsby";
 import { Header } from "@components/header";
 import { H2 } from "@components/h2";
@@ -8,6 +8,8 @@ import { BigNumber } from "@components/big-number";
 import { useStore } from "@store/index";
 import tw, { css, styled } from "twin.macro";
 import { designProcessTimeline } from "@config/page-timlines";
+import { useInViewEffect } from "react-hook-inview";
+import { thresholdArray } from "@utils/threshold-array";
 
 /**
  * Styles
@@ -178,11 +180,38 @@ interface Props extends PageProps {
  */
 export default function Project({ data }: Props): JSX.Element {
     const [, dispatch] = useStore();
+    const [activeItemId, setActiveItemId] = useState("challenge");
 
     useEffect(() => {
         dispatch.showMotionGrid(false);
         dispatch.showWavePattern(false);
     }, [dispatch]);
+
+    const pctInViewport = {} as Record<string, number>;
+
+    const options = {
+        rootMargin: "0px",
+        threshold: thresholdArray(20),
+    };
+
+    const intersection: IntersectionObserverCallback = useCallback(
+        ([{ intersectionRatio, target }]): void => {
+            pctInViewport[target.id] = intersectionRatio;
+
+            const selectedId = Object.keys(
+                pctInViewport
+            ).reduceRight((prev, curr) =>
+                pctInViewport[prev] > pctInViewport[curr] ? prev : curr
+            );
+
+            setActiveItemId(selectedId);
+        },
+        [pctInViewport]
+    );
+
+    const refChallenge = useInViewEffect(intersection, options);
+    const refApproach = useInViewEffect(intersection, options);
+    const refResults = useInViewEffect(intersection, options);
 
     const {
         name,
@@ -223,14 +252,19 @@ export default function Project({ data }: Props): JSX.Element {
                 <TimelineWrapper>
                     <Timeline
                         style={{ height: "254px" }}
+                        activeItemId={activeItemId}
                         onTimelineItemChange={onTimelineItemChange}
                         sections={designProcessTimeline}
                     />
                 </TimelineWrapper>
 
                 <Section>
-                    <ContentContainer className="sm">
-                        <H2 id="challenge">Challenge</H2>
+                    <ContentContainer
+                        ref={refChallenge}
+                        id="challenge"
+                        className="sm"
+                    >
+                        <H2>Challenge</H2>
                         <H3>Overview</H3>
                         <p>{challenge.overview}</p>
                         <H3>Project goals</H3>
@@ -240,13 +274,21 @@ export default function Project({ data }: Props): JSX.Element {
                     </ContentContainer>
                 </Section>
                 <Section>
-                    <ContentContainer className="sm">
-                        <H2 id="approach">Approach</H2>
+                    <ContentContainer
+                        ref={refApproach}
+                        id="approach"
+                        className="sm"
+                    >
+                        <H2>Approach</H2>
                         <H3>Brand elements</H3>
                         <p>{approach.brandElements}</p>
                         <Quote>{approach.quote}</Quote>
                     </ContentContainer>
-                    <ContentContainer id="results" className="sm">
+                    <ContentContainer
+                        ref={refResults}
+                        id="results"
+                        className="sm"
+                    >
                         <TableStats>
                             <CellTitle>
                                 <BigNumber
