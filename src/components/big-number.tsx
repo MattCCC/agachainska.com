@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-import { HTMLAttributes } from "react";
+import { SVGProps } from "react";
 
 /**
  * Styles
@@ -9,7 +9,7 @@ import { HTMLAttributes } from "react";
 /**
  * Interfaces
  */
-interface Props extends HTMLAttributes<HTMLElement> {
+interface Props extends SVGProps<SVGSVGElement> {
     value: number;
 }
 
