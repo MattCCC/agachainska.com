@@ -8,6 +8,9 @@ module.exports = {
         `gatsby-plugin-sass`,
         `gatsby-plugin-emotion`,
         "gatsby-plugin-postcss",
+        `gatsby-plugin-image`,
+        `gatsby-plugin-sharp`,
+        `gatsby-transformer-sharp`, // Needed for dynamic images
         `gatsby-transformer-remark`,
         {
             resolve: `gatsby-transformer-yaml`,
