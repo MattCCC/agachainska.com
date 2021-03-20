@@ -2,6 +2,8 @@ import { graphql } from "gatsby";
 
 export const ProjectFragment = graphql`
     fragment ProjectFields on Project {
+        uid
+        category
         name
         client
         agency
