@@ -1,4 +1,6 @@
-- name: RE/MAX
+- uid: 1
+  category: UX
+  name: RE/MAX
   client: RE/MAX Malta
   agency: BRND WGN
   timeframe: November 2019, 7 days
@@ -21,4 +23,28 @@
     designDesc: "BRND WGN"
     projectManagement: "Project management:"
     projectManagementDesc: "November 2019, 7 days"
-- name: Test 1
+- uid: 2
+  category: UX
+  name: Danish Bakery 2
+  client: Danish Bakery Malta
+  agency: BRND WGN
+  timeframe: November 2019, 7 days
+  roleInProject: UI designer
+  challenge:
+    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
+  approach:
+    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
+    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
+  stats:
+    screens: 14
+    iterations: 6
+    prototypes: 34
+  credits:
+    concept: "UI Concept:"
+    conceptDesc: "Danish Bakery Malta"
+    design: "UX Design:"
+    designDesc: "BRND WGN"
+    projectManagement: "Project management:"
+    projectManagementDesc: "November 2019, 7 days"
