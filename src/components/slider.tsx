@@ -1,8 +1,8 @@
-import { useState, Fragment, useEffect } from "react";
+import { useState, Fragment } from "react";
 import tw, { css, styled } from "twin.macro";
-import { motion, MotionProps, AnimatePresence } from "@components/animation";
-import { ReactComponent as PrevIcon } from "@svg/down.svg";
-import { ReactComponent as NextIcon } from "@svg/up.svg";
+import { motion, AnimatePresence } from "@components/animation";
+import { ReactComponent as PrevIcon } from "@svg/up.svg";
+import { ReactComponent as NextIcon } from "@svg/down.svg";
 
 /**
  * Style
@@ -45,15 +45,25 @@ const Title = styled.h1(() => [
 ]);
 
 const SlidesList = styled(motion.div)(() => [tw`relative w-auto`]);
-// pb-12
 
-const SlideImg = styled.img(() => [tw`relative w-full h-full z-10`]);
+const SlideImg = styled.img(() => [
+    tw`relative w-full h-full z-10`,
+    css`
+        transition: transform 0.8s;
+
+        &:hover {
+            transform: scale(1.03, 1.03);
+        }
+    `,
+]);
 
 const Controls = styled.div(() => [
     tw`relative pt-12 flex justify-items-center`,
 ]);
 
-const Btn = styled.div(() => [tw`lg:prose-16px w-28 flex-row`]);
+const Btn = styled.div(() => [
+    tw`lg:prose-16px w-28 flex-row select-none cursor-pointer`,
+]);
 
 const PrevIconStyled = styled(PrevIcon)(() => [
     tw`inline-block text-center mr-4`,
@@ -66,12 +76,9 @@ const NextIconStyled = styled(NextIcon)(() => [
 const variants = {
     enter: (direction: number) => ({
         y: direction > 0 ? 1000 : -1000,
-        // opacity: 0
     }),
     center: {
-        // zIndex: 1,
         y: 0,
-        // opacity: 1
     },
 };
 
@@ -82,6 +89,7 @@ const variants = {
  * just distance thresholds and velocity > 0.
  */
 const swipeConfidenceThreshold = 10000;
+
 const swipePower = (offset: number, velocity: number) =>
     Math.abs(offset) * velocity;
 
