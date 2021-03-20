@@ -115,7 +115,7 @@ export const Timeline = memo(
             activeId: activeItemId || allItems[0].id,
         });
 
-        if (state.activeId !== activeItemId) {
+        if (activeItemId && state.activeId !== activeItemId) {
             setState({
                 ...state,
                 activeId: activeItemId,
