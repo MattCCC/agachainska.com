@@ -179,16 +179,23 @@ const FullPageImgWrapper = styled.div(() => [
 
 const FullSizeImageWrapper = styled.div(() => [
     css`
-        height: 546px;
         margin-bottom: 90px;
+
+        ${up("lg")} {
+            height: 546px;
+        }
     `,
 ]);
 
 const TwoImagesWrapper = styled.div(() => [
     tw`grid grid-cols-2 grid-flow-col gap-6`,
     css`
-        height: 562px;
         margin-bottom: 90px;
+        height: 220px;
+
+        ${up("lg")} {
+            height: 562px;
+        }
     `,
 ]);
 
@@ -321,7 +328,7 @@ export default function Project({ data }: Props): JSX.Element {
                                 src="../../img/placeholder-full.png"
                                 alt="Placeholder"
                                 placeholder="blurred"
-                                layout="constrained"
+                                objectFit="cover"
                             />
                         </FullSizeImageWrapper>
 
