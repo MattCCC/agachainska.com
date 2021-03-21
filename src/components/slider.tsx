@@ -1,12 +1,19 @@
-import { useState, Fragment, useCallback, useRef, ElementRef } from "react";
+import {
+    useState,
+    Fragment,
+    useCallback,
+    useRef,
+    ElementRef,
+    RefObject,
+} from "react";
 import tw, { css, styled } from "twin.macro";
-import { motion } from "@components/animation";
+import { animate, AnimatePresence, motion } from "@components/animation";
 import { ReactComponent as PrevIcon } from "@svg/up.svg";
 import { ReactComponent as NextIcon } from "@svg/down.svg";
 import { useEventListener } from "@hooks/event-listener";
-import { AnimatePresence } from "framer-motion";
+import { Distortion } from "@components/distortion";
 
-const duration = 0.8;
+const duration = 1;
 const height = 445;
 
 const variants = {
@@ -39,8 +46,17 @@ const variants = {
  */
 const swipeConfidenceThreshold = 5;
 
-const swipePower = (offset: number, velocity: number): number =>
+export const swipePower = (offset: number, velocity: number): number =>
     Math.abs(offset) * velocity;
+
+export const powerEasing = (power: number = 2) => (p: number): number =>
+    p < 0.5 ? Math.pow(p * 2, power) / 2 : 1 - Math.pow((1 - p) * 2, power) / 2;
+
+export const wrap = (min: number, max: number, v: number): number => {
+    const rangeSize = max - min;
+
+    return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
+};
 
 /**
  * Style
@@ -82,16 +98,20 @@ const Title = styled.h1(() => [
     `,
 ]);
 
-const SlidesList = styled(motion.div)(() => [tw`absolute w-auto`]);
+const SlidesList = styled(motion.div)(() => [
+    tw`absolute w-full max-w-full`,
+    css`
+        height: 27.76rem;
+    `,
+]);
 
-const SlideImg = styled.img(() => [
+const Slide = styled(motion(Distortion, { forwardMotionProps: true }))(() => [
     tw`relative w-full h-full z-10`,
     css`
-        pointer-events: none;
         transition: transform 0.8s;
 
         &:hover {
-            transform: scale(1.03, 1.03);
+            transform: scale(1.05);
         }
     `,
 ]);
@@ -122,12 +142,6 @@ interface Props {
 
 type SliderRefHandle = ElementRef<typeof Slider>;
 
-export const wrap = (min: number, max: number, v: number): number => {
-    const rangeSize = max - min;
-
-    return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
-};
-
 /**
  * Component
  * @param props
@@ -135,13 +149,60 @@ export const wrap = (min: number, max: number, v: number): number => {
 export function Slider({ images }: Props): JSX.Element {
     const [[page, direction], setPage] = useState([0, 0]);
     const [isAnimating, setIsAnimating] = useState(false);
-    const sliderRef = useRef<SliderRefHandle>(null);
+
+    const sliderRef = useRef<SliderRefHandle>(
+        null
+    ) as RefObject<HTMLDivElement>;
 
     // We only have 3 images, but we paginate them absolutely (ie 1, 2, 3, 4, 5...) and
     // then wrap that within 0-2 to find our image ID in the array below. By passing an
     // absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
     // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
     const imageIndex = wrap(0, images.length, page);
+
+    const [scales, setScales] = useState({} as Record<string, number>);
+
+    if (typeof scales[page] === "undefined") {
+        setScales((prevState) => ({
+            ...prevState,
+            ...{ [page]: 0 },
+        }));
+    }
+
+    // Orchestrate distorsion animation
+    const orchestrateVectorAnimation = useCallback(
+        (from = 0, to = 100, slideNo = 0) => {
+            requestAnimationFrame(() => {
+                animate(from, to, {
+                    duration: duration / 2,
+                    ease: powerEasing(2),
+                    onUpdate: (v) => {
+                        // Access element that is about to be removed from the DOM
+                        // This way we avoid 1 rendering roundtrip
+                        const el = document?.querySelector("feDisplacementMap");
+
+                        if (el) {
+                            el.scale.baseVal = v;
+                        }
+
+                        setScales((prevState) => ({
+                            ...prevState,
+                            ...{ [slideNo]: v },
+                        }));
+                    },
+                    onComplete: () => {
+                        // Avoid infinite loop since we call the orchestration recursively
+                        if (!to) {
+                            return;
+                        }
+
+                        orchestrateVectorAnimation(100, 0, slideNo);
+                    },
+                });
+            });
+        },
+        [setScales]
+    );
 
     const goTo = useCallback(
         (newDirection: number = -1): void => {
@@ -151,8 +212,9 @@ export function Slider({ images }: Props): JSX.Element {
 
             setIsAnimating(true);
             setPage([page + newDirection, newDirection]);
+            orchestrateVectorAnimation(0, 100, page + newDirection);
         },
-        [isAnimating, page, setIsAnimating]
+        [isAnimating, orchestrateVectorAnimation, page]
     );
 
     const onDragEnd = useCallback(
@@ -160,9 +222,9 @@ export function Slider({ images }: Props): JSX.Element {
             const swipe = swipePower(offset.x, velocity.x);
 
             if (swipe < -swipeConfidenceThreshold) {
-                goTo(1);
-            } else if (swipe > swipeConfidenceThreshold) {
                 goTo(-1);
+            } else if (swipe > swipeConfidenceThreshold) {
+                goTo(1);
             }
         },
         [goTo]
@@ -222,7 +284,12 @@ export function Slider({ images }: Props): JSX.Element {
                             dragElastic={1}
                             onDragEnd={onDragEnd}
                         >
-                            <SlideImg src={images[imageIndex]} />
+                            <Slide
+                                id={String(page)}
+                                imgUrl={images[imageIndex]}
+                                key={`slide-${page}`}
+                                scale={scales[page]}
+                            ></Slide>
                         </SlidesList>
                     </AnimatePresence>
                 </SlideContent>

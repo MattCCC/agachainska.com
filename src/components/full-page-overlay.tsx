@@ -61,8 +61,9 @@ export const FullPageOverlay = memo(
 
         return (
             <motion.div
-                key="fullPageOverlay"
                 className="fixed left-0 w-full h-full"
+                key="fullPageOverlay"
+                variants={OverlayFullPageVariants}
                 custom={OverlayFullPageVariants}
                 animate={overlayControls}
                 initial="initial"
@@ -70,7 +71,6 @@ export const FullPageOverlay = memo(
                     backgroundColor: fullPageOverlayColor,
                     zIndex: 1040,
                 }}
-                variants={OverlayFullPageVariants}
             />
         );
     },

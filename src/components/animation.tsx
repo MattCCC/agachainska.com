@@ -1,5 +1,6 @@
 export {
     motion,
+    animate,
     AnimatePresence,
     useAnimation,
     AnimateSharedLayout,
