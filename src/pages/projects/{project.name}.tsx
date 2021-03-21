@@ -351,10 +351,8 @@ export default function Project({ data }: Props): JSX.Element {
             return;
         }
 
-        const firstProject = projectsList[0] as ProjectByCurrentCategory;
-        const lastProject = projectsList[
-            projectsList.length - 1
-        ] as ProjectByCurrentCategory;
+        const firstProject = projectsList[0];
+        const lastProject = projectsList[projectsList.length - 1];
 
         setNavigation({
             hasPreviousButton: firstProject.uid !== uid,
