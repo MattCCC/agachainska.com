@@ -16,6 +16,9 @@ import { up } from "@utils/screens";
 import { MainTitle } from "@components/main-title";
 import { ReactComponent as PrevIcon } from "@svg/down.svg";
 import { ReactComponent as NextIcon } from "@svg/up.svg";
+import { MotionCursor } from "@components/motion-cursor";
+import { Translate } from "@components/translate";
+
 /**
  * Styles
  */
@@ -136,9 +139,7 @@ const TimelineWrapper = styled.aside(() => [
     `,
 ]);
 
-const OtherProject = styled.div(() => [
-    tw`flex flex-col`,
-]);
+const OtherProject = styled.div(() => [tw`flex flex-col`]);
 
 const H4 = styled.h4(() => [
     css`
@@ -293,13 +294,13 @@ export default function Project({ data }: Props): JSX.Element {
 
     const [{ hasPreviousButton, hasNextButton }, setNavigation] = useState({
         hasPreviousButton: false,
-        hasNextButton: false
+        hasNextButton: false,
     } as Navigation);
-
 
     useEffect(() => {
         dispatch.showMotionGrid(false);
         dispatch.showWavePattern(false);
+        dispatch.hideMotionCursor(true);
     }, [dispatch]);
 
     useEffect(() => {
@@ -307,40 +308,53 @@ export default function Project({ data }: Props): JSX.Element {
             return;
         }
 
-        const filteredProjectsInState: ProjectByCurrentCategory[] = projectsByCategory.filteredProjects;
+        const filteredProjectsInState: ProjectByCurrentCategory[] =
+            projectsByCategory.filteredProjects;
         const otherProjectsInState: Project[] = projectsByCategory.others;
 
         const filteredProjectsByCategory: ProjectByCurrentCategory[] = projects
             .filter((project: Project) => project.category === category)
             .map((currentProject: Project) => ({
                 uid: currentProject.uid,
-                nameSlug: currentProject.nameSlug
+                nameSlug: currentProject.nameSlug,
             }));
 
-        const otherProjects: Project[] = projects
-            .filter((project: Project) => project.subCategory === "Others");
+        const otherProjects: Project[] = projects.filter(
+            (project: Project) => project.subCategory === "Others"
+        );
 
-        if ((otherProjects.length === 0 && filteredProjectsByCategory.length === 0) ||
-            (otherProjects.length === otherProjectsInState.length && filteredProjectsByCategory.length === filteredProjectsInState.length)) {
+        if (
+            (otherProjects.length === 0 &&
+                filteredProjectsByCategory.length === 0) ||
+            (otherProjects.length === otherProjectsInState.length &&
+                filteredProjectsByCategory.length ===
+                    filteredProjectsInState.length)
+        ) {
             return;
         }
 
-        setProjectsByCategory((prevState) => ({
-            ...prevState,
-            others: otherProjects,
-            filteredProjects: filteredProjectsByCategory
-        }) as ProjectByCategory);
+        setProjectsByCategory(
+            (prevState) =>
+                ({
+                    ...prevState,
+                    others: otherProjects,
+                    filteredProjects: filteredProjectsByCategory,
+                } as ProjectByCategory)
+        );
     }, [category, projects, uid, projectsByCategory, setProjectsByCategory]);
 
     useEffect(() => {
-        const projectsList: ProjectByCurrentCategory[] = projectsByCategory.filteredProjects;
+        const projectsList: ProjectByCurrentCategory[] =
+            projectsByCategory.filteredProjects;
 
         if (projectsList.length === 0) {
             return;
         }
 
         const firstProject = projectsList[0] as ProjectByCurrentCategory;
-        const lastProject = projectsList[projectsList.length - 1] as ProjectByCurrentCategory;
+        const lastProject = projectsList[
+            projectsList.length - 1
+        ] as ProjectByCurrentCategory;
 
         setNavigation({
             hasPreviousButton: firstProject.uid !== uid,
@@ -373,45 +387,55 @@ export default function Project({ data }: Props): JSX.Element {
         window.location.hash = "#" + id;
     }, []);
 
-    const onPaginate = useCallback((num: number): void => {
-        if (projectsByCategory.filteredProjects.length === 0) {
-            return;
-        }
+    const onPaginate = useCallback(
+        (num: number): void => {
+            if (projectsByCategory.filteredProjects.length === 0) {
+                return;
+            }
 
-        const projectIndex = projectsByCategory.filteredProjects.findIndex((currentProject: ProjectByCurrentCategory) => currentProject.uid === uid);
+            const projectIndex = projectsByCategory.filteredProjects.findIndex(
+                (currentProject: ProjectByCurrentCategory) =>
+                    currentProject.uid === uid
+            );
 
-        if (projectIndex <= -1 || !projects[projectIndex + num]) {
-            return;
-        }
+            if (projectIndex <= -1 || !projects[projectIndex + num]) {
+                return;
+            }
 
-        const { nameSlug } = projects[projectIndex + num] as ProjectByCurrentCategory;
+            const { nameSlug } = projects[
+                projectIndex + num
+            ] as ProjectByCurrentCategory;
 
-        navigate(nameSlug, { replace: true });
-    }, [projects, projectsByCategory, uid]);
+            navigate(nameSlug, { replace: true });
+        },
+        [projects, projectsByCategory, uid]
+    );
 
     return (
         <Fragment>
             <Header />
+            <MotionCursor onPositionUpdate={(): void => null}>
+                <Translate id="viewWork" />
+            </MotionCursor>
+
             <MainSection>
                 <ContentContainer className="pt-28 lg:pt-32">
                     <HeroImage />
                     <MainTitle data-text={name}>{name}</MainTitle>
-                    {(hasPreviousButton || hasNextButton) &&
+                    {(hasPreviousButton || hasNextButton) && (
                         <Controls>
-                            {
-                                hasPreviousButton &&
+                            {hasPreviousButton && (
                                 <Btn onClick={(): void => onPaginate(-1)}>
                                     <PrevIconStyled /> Previous
                                 </Btn>
-                            }
-                            {
-                                hasNextButton &&
+                            )}
+                            {hasNextButton && (
                                 <Btn onClick={(): void => onPaginate(1)}>
                                     Next <NextIconStyled />
                                 </Btn>
-                            }
+                            )}
                         </Controls>
-                    }
+                    )}
                     <TableProject>
                         <CellTitle>Client:</CellTitle>
                         <div>{client}</div>
@@ -539,17 +563,25 @@ export default function Project({ data }: Props): JSX.Element {
                     <ContentContainer className="sm">
                         <H2>Other UX Projects</H2>
                         <TableOtherProjects>
-                            {
-                                projectsByCategory.others.map((project: Project, index) => (
-                                    <div key={index} className={`col-start-${(index % 2 === 0 ? 1 : 2)} row-start-${(index + 1)} flex`}>
-                                        <StyledNumber className="prose-70px" value={`${(index + 1)}.`} />
+                            {projectsByCategory.others.map(
+                                (project: Project, index) => (
+                                    <div
+                                        key={index}
+                                        className={`col-start-${
+                                            index % 2 === 0 ? 1 : 2
+                                        } row-start-${index + 1} flex`}
+                                    >
+                                        <StyledNumber
+                                            className="prose-70px"
+                                            value={`${index + 1}.`}
+                                        />
                                         <OtherProject>
                                             <H4>{project.name}</H4>
                                             <div>{project.category}</div>
                                         </OtherProject>
                                     </div>
-                                ))
-                            }
+                                )
+                            )}
                         </TableOtherProjects>
                     </ContentContainer>
                 </ArticleSection>
@@ -562,12 +594,12 @@ export const query = graphql`
     query($id: String!) {
         project(id: { eq: $id }) {
             ...ProjectFields
-        },
+        }
         projects: allProject {
             nodes {
                 ...ProjectFields
                 nameSlug: gatsbyPath(filePath: "/projects/{Project.name}")
             }
         }
-    },
+    }
 `;

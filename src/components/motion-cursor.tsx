@@ -6,30 +6,32 @@ import { useStore } from "@store/index";
 /**
  * Styles
  */
-const Cursor = styled.div(({ isHovered }: { isHovered: boolean }) => [
-    tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full select-none`,
-    css`
-        width: 80px;
-        height: 80px;
-        background-color: var(--black-color);
-        border: 1px solid var(--black-color);
-        transform: translate(-50%, -50%);
-        margin-left: -30px;
-        font-size: 12px;
-        padding: 24px 22px;
-        cursor: pointer;
-        transition: transform 300ms;
-
-        a {
-            cursor: pointer;
-        }
-    `,
-    isHovered &&
+const Cursor = styled.div(
+    ({ isMotionCursorHidden }: { isMotionCursorHidden: boolean }) => [
+        tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full select-none`,
         css`
-            transform: scale(0.08);
-            font-size: 0;
+            width: 80px;
+            height: 80px;
+            background-color: var(--black-color);
+            border: 1px solid var(--black-color);
+            transform: translate(-50%, -50%);
+            margin-left: -30px;
+            font-size: 12px;
+            padding: 24px 22px;
+            cursor: pointer;
+            transition: transform 300ms;
+
+            a {
+                cursor: pointer;
+            }
         `,
-]);
+        isMotionCursorHidden &&
+            css`
+                transform: scale(0.08);
+                font-size: 0;
+            `,
+    ]
+);
 
 /**
  * Interfaces
@@ -62,7 +64,7 @@ export const MotionCursor: FunctionComponent<Props> = ({
 
     return (
         <Cursor
-            isHovered={state.isHovered}
+            isMotionCursorHidden={state.isMotionCursorHidden}
             style={cursorStyle}
             className="cursor"
         >

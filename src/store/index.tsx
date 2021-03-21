@@ -2,7 +2,7 @@ import { createStore } from "react-lit-store";
 import { set } from "@utils/store";
 
 const initialState = {
-    isHovered: false,
+    isMotionCursorHidden: false,
     showMotionGrid: true,
     showWavePattern: true,
     currentDelayedRoute: "",
@@ -11,7 +11,7 @@ const initialState = {
 type State = Partial<typeof initialState>;
 
 const actions = {
-    hoverLink: set<State, boolean>("isHovered"),
+    hideMotionCursor: set<State, boolean>("isMotionCursorHidden"),
     showMotionGrid: set<State, boolean>("showMotionGrid"),
     showWavePattern: set<State, boolean>("showWavePattern"),
 

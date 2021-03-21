@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import tw, { css, styled } from "twin.macro";
 import { Link } from "@components/link";
 import { Translate } from "@components/translate";
@@ -76,16 +76,28 @@ interface Props {
  * @param props
  */
 export function Header({ showLogoOnDesktop = true }: Props): JSX.Element {
-    const [, dispatch] = useStore();
+    const [state, dispatch] = useStore();
+    const [
+        isMotionCursorVisibleCache,
+        setIsMotionCursorVisibleCache,
+    ] = useState(false);
     const location = useLocation();
 
     const onMouseEnter = useCallback((): void => {
-        dispatch.hoverLink(true);
-    }, [dispatch]);
+        const isVisible = !state.isMotionCursorHidden;
+
+        if (isVisible) {
+            setIsMotionCursorVisibleCache(isVisible);
+            dispatch.hideMotionCursor(true);
+        }
+    }, [dispatch, state.isMotionCursorHidden]);
 
     const onMouseLeave = useCallback((): void => {
-        dispatch.hoverLink(false);
-    }, [dispatch]);
+        if (isMotionCursorVisibleCache) {
+            setIsMotionCursorVisibleCache(false);
+            dispatch.hideMotionCursor(false);
+        }
+    }, [dispatch, isMotionCursorVisibleCache]);
 
     return (
         <HeaderWrapper>
