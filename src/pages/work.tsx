@@ -41,9 +41,9 @@ export default function Work({ data }): JSX.Element {
                     <SlideWrapper>
                         <Slider
                             images={[
-                                "./img/projects/image-1.png",
-                                "./img/projects/danish-bakery.jpg",
-                                "./img/projects/image-1.png",
+                                "/img/projects/image-1.png",
+                                "/img/projects/danish-bakery.jpg",
+                                "/img/projects/placeholder-1.png",
                             ]}
                         />
                     </SlideWrapper>
