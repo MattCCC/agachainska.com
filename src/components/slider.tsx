@@ -1,12 +1,46 @@
 import { useState, Fragment, useCallback, useRef, ElementRef } from "react";
 import tw, { css, styled } from "twin.macro";
-import { motion, AnimatePresence } from "@components/animation";
+import { motion } from "@components/animation";
 import { ReactComponent as PrevIcon } from "@svg/up.svg";
 import { ReactComponent as NextIcon } from "@svg/down.svg";
-import { useDebounce } from "@hooks/use-debounce";
 import { useEventListener } from "@hooks/event-listener";
+import { AnimatePresence } from "framer-motion";
 
-const duration = 0.2;
+const duration = 0.8;
+const height = 445;
+
+const variants = {
+    enter: (direction: number) => ({
+        zIndex: 1,
+        top: direction > 0 ? height : -height,
+    }),
+    center: {
+        top: 0,
+        zIndex: 1,
+        transition: {
+            duration,
+        },
+    },
+    exit: (direction: number) => ({
+        zIndex: 0,
+        top: direction < 0 ? height : -height,
+        opacity: 1,
+        transition: {
+            duration,
+        },
+    }),
+};
+
+/**
+ * Experimenting with distilling swipe offset and velocity into a single variable, so the
+ * less distance a user has swiped, the more velocity they need to register as a swipe.
+ * Should accomodate longer swipes and short flicks without having binary checks on
+ * just distance thresholds and velocity > 0.
+ */
+const swipeConfidenceThreshold = 10000;
+
+const swipePower = (offset: number, velocity: number) =>
+    Math.abs(offset) * velocity;
 
 /**
  * Style
@@ -14,7 +48,7 @@ const duration = 0.2;
 const SliderWrapper = styled.div(() => [tw`relative`]);
 
 const SlideContent = styled.div(() => [
-    tw`overflow-hidden`,
+    tw`overflow-hidden relative`,
     css`
         height: 27.76rem;
     `,
@@ -48,7 +82,7 @@ const Title = styled.h1(() => [
     `,
 ]);
 
-const SlidesList = styled(motion.div)(() => [tw`relative w-auto`]);
+const SlidesList = styled(motion.div)(() => [tw`absolute w-auto`]);
 
 const SlideImg = styled.img(() => [
     tw`relative w-full h-full z-10`,
@@ -77,26 +111,6 @@ const NextIconStyled = styled(NextIcon)(() => [
     tw`inline-block text-center mr-4`,
 ]);
 
-const variants = {
-    enter: (direction: number) => ({
-        y: direction > 0 ? 1000 : -1000,
-    }),
-    center: {
-        y: 0,
-    },
-};
-
-/**
- * Experimenting with distilling swipe offset and velocity into a single variable, so the
- * less distance a user has swiped, the more velocity they need to register as a swipe.
- * Should accomodate longer swipes and short flicks without having binary checks on
- * just distance thresholds and velocity > 0.
- */
-const swipeConfidenceThreshold = 10000;
-
-const swipePower = (offset: number, velocity: number) =>
-    Math.abs(offset) * velocity;
-
 /**
  * Interfaxces
  */
@@ -104,6 +118,8 @@ const swipePower = (offset: number, velocity: number) =>
 interface Props {
     images: string[];
 }
+
+type SliderRefHandle = ElementRef<typeof Slider>;
 
 export const wrap = (min: number, max: number, v: number): number => {
     const rangeSize = max - min;
@@ -116,10 +132,8 @@ export const wrap = (min: number, max: number, v: number): number => {
  * @param props
  */
 export function Slider({ images }: Props): JSX.Element {
-    const [[page, direction, lastIndex], setPage] = useState([0, 0, 0]);
-
-    type SliderRefHandle = ElementRef<typeof Slider>;
-
+    const [[page, direction], setPage] = useState([0, 0]);
+    const [isAnimating, setIsAnimating] = useState(false);
     const sliderRef = useRef<SliderRefHandle>(null);
 
     // We only have 3 images, but we paginate them absolutely (ie 1, 2, 3, 4, 5...) and
@@ -127,33 +141,38 @@ export function Slider({ images }: Props): JSX.Element {
     // absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
     // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
     const imageIndex = wrap(0, images.length, page);
-    const lastImageIndex = wrap(0, images.length, lastIndex);
 
     const goTo = useCallback(
-        (dir: string = "previous"): void => {
-            const newDirection = dir === "previous" ? -1 : 1;
+        (newDirection: number = -1): void => {
+            if (isAnimating) {
+                return;
+            }
 
-            setPage([page + newDirection, newDirection, page]);
+            setIsAnimating(true);
+            setPage([page + newDirection, newDirection]);
         },
-        [page, setPage]
+        [isAnimating, page, setIsAnimating]
     );
 
-    const updateScroll = useDebounce((e: WheelEvent): void => {
-        const isUp = e.deltaY && e.deltaY < 0;
+    const updateScroll = useCallback(
+        (e: WheelEvent): void => {
+            const isUp = e.deltaY && e.deltaY < 0;
 
-        if (isUp) {
-            goTo("next");
-        } else {
-            goTo("previous");
-        }
-    }, duration * 1000);
+            if (isUp) {
+                goTo(1);
+            } else {
+                goTo(-1);
+            }
+        },
+        [goTo]
+    );
 
     useEventListener(
         "wheel",
         (e) => {
             e.preventDefault();
 
-            return updateScroll(e);
+            return updateScroll(e as WheelEvent);
         },
         sliderRef
     );
@@ -162,16 +181,21 @@ export function Slider({ images }: Props): JSX.Element {
         <Fragment>
             <SliderWrapper ref={sliderRef}>
                 <Title data-text={"Danish Bakery"}>Danish Bakery</Title>
-                <AnimatePresence initial={false} custom={direction}>
-                    <SlideContent>
+                <SlideContent>
+                    <AnimatePresence
+                        initial={false}
+                        custom={direction}
+                        onExitComplete={(): void => setIsAnimating(false)}
+                    >
                         <SlidesList
                             key={page}
                             custom={direction}
                             variants={variants}
                             initial="enter"
                             animate="center"
+                            exit="exit"
                             transition={{
-                                y: {
+                                top: {
                                     type: "spring",
                                     stiffness: 100,
                                     damping: 15,
@@ -179,23 +203,18 @@ export function Slider({ images }: Props): JSX.Element {
                                 opacity: { duration },
                             }}
                         >
-                            {/* {
-                                images.map((image, index) => (<SlideImg key={index} src={image} />))
-                            } */}
-                            <SlideImg src={images[lastImageIndex]} />
                             <SlideImg src={images[imageIndex]} />
-                            <SlideImg src={images[lastImageIndex]} />
                         </SlidesList>
-                    </SlideContent>
-                    <Controls>
-                        <Btn onClick={(): void => goTo("next")}>
-                            <NextIconStyled /> Next
-                        </Btn>
-                        <Btn onClick={(): void => goTo()}>
-                            <PrevIconStyled /> Previous
-                        </Btn>
-                    </Controls>
-                </AnimatePresence>
+                    </AnimatePresence>
+                </SlideContent>
+                <Controls>
+                    <Btn onClick={(): void => goTo(1)}>
+                        <NextIconStyled /> Next
+                    </Btn>
+                    <Btn onClick={(): void => goTo()}>
+                        <PrevIconStyled /> Previous
+                    </Btn>
+                </Controls>
             </SliderWrapper>
         </Fragment>
     );
