@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useEffect, useState } from "react";
-import { graphql, PageProps } from "gatsby";
+import { graphql, navigate, PageProps } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { Header } from "@components/header";
 import { H2 } from "@components/h2";
@@ -14,7 +14,8 @@ import { thresholdArray } from "@utils/threshold-array";
 import { Quote } from "@components/quote";
 import { up } from "@utils/screens";
 import { MainTitle } from "@components/main-title";
-
+import { ReactComponent as PrevIcon } from "@svg/down.svg";
+import { ReactComponent as NextIcon } from "@svg/up.svg";
 /**
  * Styles
  */
@@ -86,6 +87,16 @@ const TableStats = styled.div(() => [
     `,
 ]);
 
+const TableOtherProjects = styled.div(() => [
+    tw`grid grid-cols-1 lg:grid-cols-2 grid-flow-row lg:grid-flow-col gap-y-10 gap-x-32`,
+    css`
+        grid-template-rows: repeat(3, minmax(0, max-content));
+        width: 827px;
+        max-width: 100%;
+        line-height: 24px;
+    `,
+]);
+
 const CellTitle = styled.div(() => [
     css`
         margin-top: 12px;
@@ -125,6 +136,10 @@ const TimelineWrapper = styled.aside(() => [
     `,
 ]);
 
+const OtherProject = styled.div(() => [
+    tw`flex flex-col`,
+]);
+
 const H4 = styled.h4(() => [
     css`
         height: 40px;
@@ -154,6 +169,20 @@ const StyledNumber = styled(BigNumber)(() => [
         ${up("lg")} {
             transform: none;
             width: 136px;
+            height: 117px;
+        }
+    `,
+]);
+
+const StyledBigNumber = styled(BigNumber)(() => [
+    css`
+        max-width: 100%;
+        transform: translateX(50%);
+        width: 430px;
+
+        ${up("lg")} {
+            transform: none;
+            width: 400px;
             height: 117px;
         }
     `,
@@ -199,24 +228,44 @@ const TwoImagesWrapper = styled.div(() => [
     `,
 ]);
 
+const Controls = styled.div(() => [
+    tw`relative flex justify-end place-content-between w-48`,
+]);
+
+const Btn = styled.div(() => [tw`lg:prose-16px flex-row`]);
+
+const PrevIconStyled = styled(PrevIcon)(() => [
+    tw`inline-block text-center mr-4 transform rotate-90`,
+]);
+
+const NextIconStyled = styled(NextIcon)(() => [
+    tw`inline-block text-center ml-4 transform rotate-90`,
+]);
+
 /**
  * Interfaces
  */
-interface Project {
-    name: string;
-    client: string;
-    agency: string;
-    timeframe: string;
-    roleInProject: string;
-    challenge: Record<string, string>;
-    approach: Record<string, string>;
-    stats: Record<string, number>;
-    credits: Record<string, string>;
+interface Navigation {
+    hasPreviousButton: boolean;
+    hasNextButton: boolean;
+}
+
+interface ProjectByCategory {
+    others: Project[];
+    filteredProjects: ProjectByCurrentCategory[];
+}
+
+interface ProjectByCurrentCategory {
+    uid: number;
+    nameSlug: string;
 }
 
 interface Props extends PageProps {
     data: {
         project: Project;
+        projects: {
+            nodes: Project[];
+        };
     };
 }
 
@@ -235,10 +284,83 @@ export default function Project({ data }: Props): JSX.Element {
         (window.location.hash || "challenge").replace("#", "")
     );
 
+    const {
+        uid,
+        name,
+        client,
+        category,
+        agency,
+        timeframe,
+        roleInProject,
+        challenge,
+        approach,
+        stats,
+        credits,
+    } = data.project;
+
+    const projects = data.projects.nodes;
+
+    const [projectsByCategory, setProjectsByCategory] = useState({
+        others: [],
+        filteredProjects: [],
+    } as ProjectByCategory);
+
+    const [{ hasPreviousButton, hasNextButton }, setNavigation] = useState({
+        hasPreviousButton: false,
+        hasNextButton: false
+    } as Navigation);
+
+
     useEffect(() => {
         dispatch.showMotionGrid(false);
         dispatch.showWavePattern(false);
     }, [dispatch]);
+
+    useEffect(() => {
+        if (projects.length === 0) {
+            return;
+        }
+
+        const filteredProjectsInState: ProjectByCurrentCategory[] = projectsByCategory.filteredProjects;
+        const otherProjectsInState: Project[] = projectsByCategory.others;
+
+        const filteredProjectsByCategory: ProjectByCurrentCategory[] = projects
+            .filter((project: Project) => project.category === category)
+            .map((currentProject: Project) => ({
+                uid: currentProject.uid,
+                nameSlug: currentProject.nameSlug
+            }));
+
+        const otherProjects: Project[] = projects
+            .filter((project: Project) => project.category === "Others");
+
+        if ((otherProjects.length === 0 && filteredProjectsByCategory.length === 0) ||
+            (otherProjects.length === otherProjectsInState.length && filteredProjectsByCategory.length === filteredProjectsInState.length)) {
+            return;
+        }
+
+        setProjectsByCategory((prevState) => ({
+            ...prevState,
+            others: otherProjects,
+            filteredProjects: filteredProjectsByCategory
+        }) as ProjectByCategory);
+    }, [category, projects, uid, projectsByCategory, setProjectsByCategory]);
+
+    useEffect(() => {
+        const projectsList: ProjectByCurrentCategory[] = projectsByCategory.filteredProjects;
+
+        if (projectsList.length === 0) {
+            return;
+        }
+
+        const firstProject = projectsList[0] as ProjectByCurrentCategory;
+        const lastProject = projectsList[projectsList.length - 1] as ProjectByCurrentCategory;
+
+        setNavigation({
+            hasPreviousButton: firstProject.uid !== uid,
+            hasNextButton: lastProject.uid !== uid,
+        } as Navigation);
+    }, [projectsByCategory, setNavigation, uid]);
 
     const pctInViewport = {} as Record<string, number>;
 
@@ -261,21 +383,25 @@ export default function Project({ data }: Props): JSX.Element {
     const refApproach = useInViewEffect(intersection, options);
     const refResults = useInViewEffect(intersection, options);
 
-    const {
-        name,
-        client,
-        agency,
-        timeframe,
-        roleInProject,
-        challenge,
-        approach,
-        stats,
-        credits,
-    } = data.project;
-
     const onTimelineItemChange = useCallback(({ id }): void => {
         window.location.hash = "#" + id;
     }, []);
+
+    const onPaginate = useCallback((num: number): void => {
+        if (projectsByCategory.filteredProjects.length === 0) {
+            return;
+        }
+
+        const projectIndex = projectsByCategory.filteredProjects.findIndex((currentProject: ProjectByCurrentCategory) => currentProject.uid === uid);
+
+        if (projectIndex <= -1 || !projects[projectIndex + num]) {
+            return;
+        }
+
+        const { nameSlug } = projects[projectIndex + num] as ProjectByCurrentCategory;
+
+        navigate(nameSlug, { replace: true });
+    }, [projects, projectsByCategory, uid]);
 
     return (
         <Fragment>
@@ -284,6 +410,22 @@ export default function Project({ data }: Props): JSX.Element {
                 <ContentContainer className="pt-28 lg:pt-32">
                     <HeroImage />
                     <MainTitle data-text={name}>{name}</MainTitle>
+                    {(hasPreviousButton || hasNextButton) &&
+                        <Controls>
+                            {
+                                hasPreviousButton &&
+                                <Btn onClick={(): void => onPaginate(-1)}>
+                                    <PrevIconStyled /> Previous
+                                </Btn>
+                            }
+                            {
+                                hasNextButton &&
+                                <Btn onClick={(): void => onPaginate(1)}>
+                                    Next <NextIconStyled />
+                                </Btn>
+                            }
+                        </Controls>
+                    }
                     <TableProject>
                         <CellTitle>Client:</CellTitle>
                         <div>{client}</div>
@@ -410,14 +552,19 @@ export default function Project({ data }: Props): JSX.Element {
                 <ArticleSection id="another-projects">
                     <ContentContainer className="sm">
                         <H2>Other UX Projects</H2>
-                        <TableCredits>
-                            <CellTitle>{credits.concept}</CellTitle>
-                            <div>{credits.conceptDesc}</div>
-                            <CellTitle>{credits.design}</CellTitle>
-                            <div>{credits.designDesc}</div>
-                            <CellTitle>{credits.projectManagement}</CellTitle>
-                            <div>{credits.projectManagementDesc}</div>
-                        </TableCredits>
+                        <TableOtherProjects>
+                            {
+                                projectsByCategory.others.map((project: Project, index) => (
+                                    <div key={index} className={`col-start-${(index % 2 === 0 ? 1 : 2)} flex`}>
+                                        <StyledBigNumber className="prose-70px" value={`${(index + 1)}.`} />
+                                        <OtherProject>
+                                            <CellTitle>{project.name}</CellTitle>
+                                            <div>{project.approach.brandElements}</div>
+                                        </OtherProject>
+                                    </div>
+                                ))
+                            }
+                        </TableOtherProjects>
                     </ContentContainer>
                 </ArticleSection>
             </Article>
@@ -429,6 +576,12 @@ export const query = graphql`
     query($id: String!) {
         project(id: { eq: $id }) {
             ...ProjectFields
+        },
+        projects: allProject {
+            nodes {
+                ...ProjectFields
+                nameSlug: gatsbyPath(filePath: "/projects/{Project.name}")
+            }
         }
-    }
+    },
 `;

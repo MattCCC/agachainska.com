@@ -10,7 +10,7 @@ import { SVGProps } from "react";
  * Interfaces
  */
 interface Props extends SVGProps<SVGSVGElement> {
-    value: number;
+    value: number | string;
 }
 
 /**
