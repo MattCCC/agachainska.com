@@ -37,9 +37,9 @@ const variants = {
  * Should accomodate longer swipes and short flicks without having binary checks on
  * just distance thresholds and velocity > 0.
  */
-const swipeConfidenceThreshold = 10000;
+const swipeConfidenceThreshold = 5;
 
-const swipePower = (offset: number, velocity: number) =>
+const swipePower = (offset: number, velocity: number): number =>
     Math.abs(offset) * velocity;
 
 /**
@@ -87,6 +87,7 @@ const SlidesList = styled(motion.div)(() => [tw`absolute w-auto`]);
 const SlideImg = styled.img(() => [
     tw`relative w-full h-full z-10`,
     css`
+        pointer-events: none;
         transition: transform 0.8s;
 
         &:hover {
@@ -154,6 +155,19 @@ export function Slider({ images }: Props): JSX.Element {
         [isAnimating, page, setIsAnimating]
     );
 
+    const onDragEnd = useCallback(
+        (e, { offset, velocity }): void => {
+            const swipe = swipePower(offset.x, velocity.x);
+
+            if (swipe < -swipeConfidenceThreshold) {
+                goTo(1);
+            } else if (swipe > swipeConfidenceThreshold) {
+                goTo(-1);
+            }
+        },
+        [goTo]
+    );
+
     const updateScroll = useCallback(
         (e: WheelEvent): void => {
             const isUp = e.deltaY && e.deltaY < 0;
@@ -202,6 +216,11 @@ export function Slider({ images }: Props): JSX.Element {
                                 },
                                 opacity: { duration },
                             }}
+                            dragPropagation={true}
+                            drag="y"
+                            dragConstraints={{ top: 0, bottom: 0 }}
+                            dragElastic={1}
+                            onDragEnd={onDragEnd}
                         >
                             <SlideImg src={images[imageIndex]} />
                         </SlidesList>
@@ -211,7 +230,7 @@ export function Slider({ images }: Props): JSX.Element {
                     <Btn onClick={(): void => goTo(1)}>
                         <NextIconStyled /> Next
                     </Btn>
-                    <Btn onClick={(): void => goTo()}>
+                    <Btn onClick={(): void => goTo(-1)}>
                         <PrevIconStyled /> Previous
                     </Btn>
                 </Controls>
