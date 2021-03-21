@@ -88,7 +88,7 @@ const TableStats = styled.div(() => [
 ]);
 
 const TableOtherProjects = styled.div(() => [
-    tw`grid grid-cols-1 lg:grid-cols-2 grid-flow-row lg:grid-flow-col gap-y-10 gap-x-32`,
+    tw`grid grid-cols-1 lg:grid-cols-2 grid-flow-row lg:grid-flow-col gap-x-20`,
     css`
         grid-template-rows: repeat(3, minmax(0, max-content));
         width: 827px;
@@ -169,20 +169,6 @@ const StyledNumber = styled(BigNumber)(() => [
         ${up("lg")} {
             transform: none;
             width: 136px;
-            height: 117px;
-        }
-    `,
-]);
-
-const StyledBigNumber = styled(BigNumber)(() => [
-    css`
-        max-width: 100%;
-        transform: translateX(50%);
-        width: 430px;
-
-        ${up("lg")} {
-            transform: none;
-            width: 400px;
             height: 117px;
         }
     `,
@@ -332,7 +318,7 @@ export default function Project({ data }: Props): JSX.Element {
             }));
 
         const otherProjects: Project[] = projects
-            .filter((project: Project) => project.category === "Others");
+            .filter((project: Project) => project.subCategory === "Others");
 
         if ((otherProjects.length === 0 && filteredProjectsByCategory.length === 0) ||
             (otherProjects.length === otherProjectsInState.length && filteredProjectsByCategory.length === filteredProjectsInState.length)) {
@@ -555,11 +541,11 @@ export default function Project({ data }: Props): JSX.Element {
                         <TableOtherProjects>
                             {
                                 projectsByCategory.others.map((project: Project, index) => (
-                                    <div key={index} className={`col-start-${(index % 2 === 0 ? 1 : 2)} flex`}>
-                                        <StyledBigNumber className="prose-70px" value={`${(index + 1)}.`} />
+                                    <div key={index} className={`col-start-${(index % 2 === 0 ? 1 : 2)} row-start-${(index + 1)} flex`}>
+                                        <StyledNumber className="prose-70px" value={`${(index + 1)}.`} />
                                         <OtherProject>
-                                            <CellTitle>{project.name}</CellTitle>
-                                            <div>{project.approach.brandElements}</div>
+                                            <H4>{project.name}</H4>
+                                            <div>{project.category}</div>
                                         </OtherProject>
                                     </div>
                                 ))

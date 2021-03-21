@@ -4,6 +4,7 @@ export const ProjectFragment = graphql`
     fragment ProjectFields on Project {
         uid
         category
+        subCategory
         name
         client
         agency

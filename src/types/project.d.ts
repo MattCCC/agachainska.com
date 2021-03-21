@@ -3,6 +3,7 @@ type ProjectCategory = "UX" | "UI" | "Others";
 interface Project {
     uid: number;
     name: string;
+    subCategory: string;
     nameSlug: string;
     category: ProjectCategory;
     client: string;
