@@ -15,11 +15,15 @@ import { Distortion } from "@components/distortion";
 
 const duration = 1;
 const height = 445;
+const initialSlideScale = 0.25;
 
 const variants = {
     enter: (direction: number) => ({
         zIndex: 1,
-        top: direction > 0 ? height : -height,
+        top:
+            direction > 0
+                ? height + height * initialSlideScale
+                : -height - height * initialSlideScale,
     }),
     center: {
         top: 0,
@@ -109,6 +113,7 @@ const Slide = styled(motion(Distortion, { forwardMotionProps: true }))(() => [
     tw`relative w-full h-full z-10`,
     css`
         transition: transform 0.8s;
+        transform: scale(${initialSlideScale + 1});
 
         &:hover {
             transform: scale(1.05);

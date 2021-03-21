@@ -22,7 +22,7 @@ export const Distortion = forwardRef(
                     <feTurbulence
                         type="turbulence"
                         baseFrequency="0.01 0.01"
-                        numOctaves="5"
+                        numOctaves="4"
                         seed="2"
                         stitchTiles="stitch"
                         x="0%"
