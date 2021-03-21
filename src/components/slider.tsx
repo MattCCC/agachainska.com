@@ -42,6 +42,17 @@ const variants = {
     }),
 };
 
+const sliderTransition = {
+    top: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+    },
+    opacity: { duration },
+};
+
+const sliderDragConstraints = { top: 0, bottom: 0 };
+
 /**
  * Experimenting with distilling swipe offset and velocity into a single variable, so the
  * less distance a user has swiped, the more velocity they need to register as a swipe.
@@ -275,17 +286,10 @@ export function Slider({ images }: Props): JSX.Element {
                             initial="enter"
                             animate="center"
                             exit="exit"
-                            transition={{
-                                top: {
-                                    type: "spring",
-                                    stiffness: 100,
-                                    damping: 15,
-                                },
-                                opacity: { duration },
-                            }}
+                            transition={sliderTransition}
                             dragPropagation={true}
                             drag="y"
-                            dragConstraints={{ top: 0, bottom: 0 }}
+                            dragConstraints={sliderDragConstraints}
                             dragElastic={1}
                             onDragEnd={onDragEnd}
                         >
