@@ -1,8 +1,12 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useCallback, useRef, ElementRef } from "react";
 import tw, { css, styled } from "twin.macro";
 import { motion, AnimatePresence } from "@components/animation";
 import { ReactComponent as PrevIcon } from "@svg/up.svg";
 import { ReactComponent as NextIcon } from "@svg/down.svg";
+import { useDebounce } from "@hooks/use-debounce";
+import { useEventListener } from "@hooks/event-listener";
+
+const duration = 0.2;
 
 /**
  * Style
@@ -114,6 +118,10 @@ export const wrap = (min: number, max: number, v: number): number => {
 export function Slider({ images }: Props): JSX.Element {
     const [[page, direction, lastIndex], setPage] = useState([0, 0, 0]);
 
+    type SliderRefHandle = ElementRef<typeof Slider>;
+
+    const sliderRef = useRef<SliderRefHandle>(null);
+
     // We only have 3 images, but we paginate them absolutely (ie 1, 2, 3, 4, 5...) and
     // then wrap that within 0-2 to find our image ID in the array below. By passing an
     // absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
@@ -121,13 +129,38 @@ export function Slider({ images }: Props): JSX.Element {
     const imageIndex = wrap(0, images.length, page);
     const lastImageIndex = wrap(0, images.length, lastIndex);
 
-    const paginate = (newDirection: number): void => {
-        setPage([page + newDirection, newDirection, page]);
-    };
+    const goTo = useCallback(
+        (dir: string = "previous"): void => {
+            const newDirection = dir === "previous" ? -1 : 1;
+
+            setPage([page + newDirection, newDirection, page]);
+        },
+        [page, setPage]
+    );
+
+    const updateScroll = useDebounce((e: WheelEvent): void => {
+        const isUp = e.deltaY && e.deltaY < 0;
+
+        if (isUp) {
+            goTo("next");
+        } else {
+            goTo("previous");
+        }
+    }, duration * 1000);
+
+    useEventListener(
+        "wheel",
+        (e) => {
+            e.preventDefault();
+
+            return updateScroll(e);
+        },
+        sliderRef
+    );
 
     return (
         <Fragment>
-            <SliderWrapper>
+            <SliderWrapper ref={sliderRef}>
                 <Title data-text={"Danish Bakery"}>Danish Bakery</Title>
                 <AnimatePresence initial={false} custom={direction}>
                     <SlideContent>
@@ -143,7 +176,7 @@ export function Slider({ images }: Props): JSX.Element {
                                     stiffness: 100,
                                     damping: 15,
                                 },
-                                opacity: { duration: 0.2 },
+                                opacity: { duration },
                             }}
                         >
                             {/* {
@@ -155,10 +188,10 @@ export function Slider({ images }: Props): JSX.Element {
                         </SlidesList>
                     </SlideContent>
                     <Controls>
-                        <Btn onClick={(): void => paginate(1)}>
+                        <Btn onClick={(): void => goTo("next")}>
                             <NextIconStyled /> Next
                         </Btn>
-                        <Btn onClick={(): void => paginate(-1)}>
+                        <Btn onClick={(): void => goTo()}>
                             <PrevIconStyled /> Previous
                         </Btn>
                     </Controls>

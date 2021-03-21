@@ -1,11 +1,13 @@
 import { useRef, useEffect, RefObject } from "react";
 
+type AvailableEvents = WheelEvent | Event;
+
 export function useEventListener<T extends HTMLElement = HTMLDivElement>(
     eventName: string,
-    handler: (event: Event) => void,
+    handler: (event: AvailableEvents) => void,
     element?: RefObject<T>
 ): void {
-    const savedHandler = useRef<(event: Event) => void>();
+    const savedHandler = useRef<(event: AvailableEvents) => void>();
 
     useEffect(() => {
         const targetElement: T | Window = element?.current || window;
@@ -18,7 +20,7 @@ export function useEventListener<T extends HTMLElement = HTMLDivElement>(
             savedHandler.current = handler;
         }
 
-        const eventListener = (event: Event): void => {
+        const eventListener = (event: AvailableEvents): void => {
             if (!!savedHandler?.current) {
                 savedHandler.current(event);
             }

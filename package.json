@@ -32,6 +32,7 @@
     "gatsby-transformer-yaml": "^3.1.0",
     "gsap": "3.6.0",
     "lerp": "1.0.3",
+    "lodash-es": "4.17.21",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-hook-inview": "4.3.8",
@@ -41,6 +42,7 @@
   "devDependencies": {
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
+    "@types/lodash-es": "4.17.4",
     "@types/react": "17.0.1",
     "@types/react-dom": "17.0.0",
     "autoprefixer": "10.2.4",
