@@ -84,18 +84,18 @@ export function Header({ showLogoOnDesktop = true }: Props): JSX.Element {
     const location = useLocation();
 
     const onMouseEnter = useCallback((): void => {
-        const isVisible = !state.isMotionCursorHidden;
+        const isVisible = state.isMotionCursorVisible;
 
         if (isVisible) {
             setIsMotionCursorVisibleCache(isVisible);
-            dispatch.hideMotionCursor(true);
+            dispatch.showMotionCursor(false);
         }
-    }, [dispatch, state.isMotionCursorHidden]);
+    }, [dispatch, state.isMotionCursorVisible]);
 
     const onMouseLeave = useCallback((): void => {
         if (isMotionCursorVisibleCache) {
             setIsMotionCursorVisibleCache(false);
-            dispatch.hideMotionCursor(false);
+            dispatch.showMotionCursor(true);
         }
     }, [dispatch, isMotionCursorVisibleCache]);
 

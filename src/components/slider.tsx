@@ -295,7 +295,7 @@ export function Slider({ images }: Props): JSX.Element {
                         >
                             <Slide
                                 id={String(page)}
-                                imgUrl={images[imageIndex]}
+                                imgUrl={images[imageIndex] || ""}
                                 key={`slide-${page}`}
                                 scale={scales[page]}
                             ></Slide>

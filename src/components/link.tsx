@@ -45,6 +45,7 @@ export const Link: FunctionComponent<Props> = ({
 
     const startDelay = (e: Event, toRoute: string): void => {
         dispatch.setCurrentDelayedRoute(toRoute);
+        dispatch.showMotionCursor(false);
         onDelayStart(e, toRoute);
     };
 

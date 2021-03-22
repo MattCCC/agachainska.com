@@ -2,7 +2,7 @@ import { createStore } from "react-lit-store";
 import { set } from "@utils/store";
 
 const initialState = {
-    isMotionCursorHidden: false,
+    isMotionCursorVisible: false,
     showMotionGrid: true,
     showWavePattern: true,
     currentDelayedRoute: "",
@@ -11,7 +11,7 @@ const initialState = {
 type State = Partial<typeof initialState>;
 
 const actions = {
-    hideMotionCursor: set<State, boolean>("isMotionCursorHidden"),
+    showMotionCursor: set<State, boolean>("isMotionCursorVisible"),
     showMotionGrid: set<State, boolean>("showMotionGrid"),
     showWavePattern: set<State, boolean>("showWavePattern"),
 

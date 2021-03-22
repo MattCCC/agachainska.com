@@ -21,6 +21,8 @@ import { MotionCursor } from "@components/motion-cursor";
 import { MainSection } from "@components/main-section";
 import { useLockBodyScroll } from "@hooks/lock-body-scroll";
 import { pageContentVariants } from "@config/animation-variants";
+import { useEffect } from "react";
+import { useStore } from "@store/index";
 
 /**
  * Styles
@@ -77,6 +79,7 @@ export default function Home(): JSX.Element {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
     const workLink = getRoutePath("work");
     const defaultState = { x: 0, y: 0 };
+    const [, dispatch] = useStore();
     const [position, setPosition] = useState(defaultState);
     const titleStyle = {
         "--x": `${position.x}px`,
@@ -103,6 +106,10 @@ export default function Home(): JSX.Element {
             navigate(workLink.to);
         }
     }, [workLink]);
+
+    useEffect(() => {
+        dispatch.showMotionCursor(true);
+    }, [dispatch]);
 
     return (
         <Fragment>

@@ -7,7 +7,7 @@ import { useStore } from "@store/index";
  * Styles
  */
 const Cursor = styled.div(
-    ({ isMotionCursorHidden }: { isMotionCursorHidden: boolean }) => [
+    ({ isMotionCursorVisible }: { isMotionCursorVisible: boolean }) => [
         tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full select-none`,
         css`
             width: 80px;
@@ -25,7 +25,7 @@ const Cursor = styled.div(
                 cursor: pointer;
             }
         `,
-        isMotionCursorHidden &&
+        !isMotionCursorVisible &&
             css`
                 transform: scale(0.08);
                 font-size: 0;
@@ -64,7 +64,7 @@ export const MotionCursor: FunctionComponent<Props> = ({
 
     return (
         <Cursor
-            isMotionCursorHidden={state.isMotionCursorHidden}
+            isMotionCursorVisible={state.isMotionCursorVisible}
             style={cursorStyle}
             className="cursor"
         >
