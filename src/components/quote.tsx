@@ -5,7 +5,7 @@ import { up } from "@utils/screens";
 /**
  * Styles
  */
-export const Quote = styled.div(() => [
+export const Quote = styled.blockquote(() => [
     css`
         color: #828282;
         font-family: "Larsseit-Bold";

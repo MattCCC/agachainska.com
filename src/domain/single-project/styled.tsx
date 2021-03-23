@@ -109,7 +109,7 @@ export const StatsCaption = styled(H4)(() => [
     `,
 ]);
 
-export const TableOtherProjects = styled.ul(() => [
+export const TableOtherProjects = styled.ol(() => [
     tw`grid grid-cols-1 lg:grid-cols-2 grid-flow-row lg:grid-flow-col gap-x-20 gap-y-8`,
     css`
         grid-template-rows: repeat(3, minmax(0, max-content));
@@ -191,7 +191,7 @@ export const TimelineWrapper = styled.aside(() => [
 /**
  * Images
  */
-export const FullPageImgWrapper = styled.div(() => [
+export const FullPageImgWrapper = styled.figure(() => [
     css`
         max-width: 100%;
         width: 100%;
@@ -209,7 +209,7 @@ export const FullPageImgWrapper = styled.div(() => [
     `,
 ]);
 
-export const FullSizeImageWrapper = styled.div(() => [
+export const FullSizeImageWrapper = styled.figure(() => [
     css`
         margin-bottom: 90px;
 
@@ -219,7 +219,7 @@ export const FullSizeImageWrapper = styled.div(() => [
     `,
 ]);
 
-export const TwoImagesWrapper = styled.div(() => [
+export const TwoImagesWrapper = styled.figure(() => [
     tw`grid grid-cols-2 grid-flow-col gap-6`,
     css`
         margin-bottom: 90px;
@@ -241,7 +241,7 @@ export const Controls = styled.div(() => [
     `,
 ]);
 
-export const Btn = styled.div(() => [
+export const Button = styled.button(() => [
     tw`lg:prose-16px flex-row cursor-pointer select-none`,
     css`
         &:last-child {

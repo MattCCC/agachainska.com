@@ -16,7 +16,7 @@ import { Translate } from "@components/translate";
 import { designProcessTimeline } from "@config/page-timlines";
 import {
     MainSection,
-    Btn,
+    Button,
     CellTitle,
     ContentContainer,
     Controls,
@@ -244,16 +244,16 @@ export default function Project({ data }: Props): JSX.Element {
                         <Controls>
                             {navigation.hasPreviousButton && (
                                 <Link to={navigation.previousTo}>
-                                    <Btn>
+                                    <Button>
                                         <PrevIconStyled /> Previous
-                                    </Btn>
+                                    </Button>
                                 </Link>
                             )}
                             {navigation.hasNextButton && (
                                 <Link to={navigation.nextTo}>
-                                    <Btn>
+                                    <Button>
                                         Next <NextIconStyled />
-                                    </Btn>
+                                    </Button>
                                 </Link>
                             )}
                         </Controls>
