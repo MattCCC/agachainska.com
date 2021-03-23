@@ -9,9 +9,10 @@ const smBaseFontSize = 70;
 const baseFontSize = 120;
 
 export const MainTitle = styled.h1(() => [
-    tw`relative z-10`,
+    tw`relative z-10 overflow-hidden whitespace-nowrap overflow-ellipsis`,
     css`
         top: -${Math.floor(smBaseFontSize * (2 / 3))}px;
+        margin-bottom: -${Math.floor(smBaseFontSize * (2 / 3))}px;
         color: var(--black-color);
         background: linear-gradient(
             0deg,
@@ -27,6 +28,7 @@ export const MainTitle = styled.h1(() => [
 
         ${up("lg")} {
             top: -${Math.floor(baseFontSize * (2 / 3))}px;
+            margin-bottom: -${Math.floor(baseFontSize * (2 / 3))}px;
             font-size: ${baseFontSize}px;
             height: ${baseFontSize + 40}px;
             background: linear-gradient(
@@ -47,6 +49,9 @@ export const MainTitle = styled.h1(() => [
             -webkit-text-stroke-color: rgba(0, 0, 0, 0.8);
             height: 100%;
             width: 100%;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
     `,
 ]);
