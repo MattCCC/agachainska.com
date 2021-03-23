@@ -1,9 +1,10 @@
 import { Fragment, useCallback, useEffect, useState } from "react";
-import { graphql, navigate, PageProps } from "gatsby";
+import { graphql, PageProps } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { Header } from "@components/header";
 import { H2 } from "@components/h2";
 import { H3 } from "@components/h3";
+import { H4 } from "@components/h4";
 import { Timeline } from "@components/timeline";
 import { BigNumber } from "@components/big-number";
 import { useStore } from "@store/index";
@@ -28,10 +29,12 @@ const MainSection = styled.section(() => [
     css`
         max-width: 1069px;
         padding: 0 15px;
+    `,
+]);
 
-        p {
-            margin-bottom: 40px;
-        }
+const Paragraph = styled.p(() => [
+    css`
+        margin-bottom: 40px;
     `,
 ]);
 
@@ -42,6 +45,20 @@ const ContentContainer = styled.div(() => [
         &.sm {
             width: 827px;
             max-width: 100%;
+        }
+    `,
+]);
+
+const StyledNumber = styled(BigNumber)(() => [
+    css`
+        max-width: 100%;
+        transform: translateX(50%);
+        width: 150px;
+
+        ${up("lg")} {
+            transform: none;
+            width: 136px;
+            height: 117px;
         }
     `,
 ]);
@@ -91,13 +108,68 @@ const TableStats = styled.div(() => [
     `,
 ]);
 
-const TableOtherProjects = styled.div(() => [
-    tw`grid grid-cols-1 lg:grid-cols-2 grid-flow-row lg:grid-flow-col gap-x-20`,
+const StatsCaption = styled(H4)(() => [
+    css`
+        padding-left: 25%;
+
+        ${up("lg")} {
+            padding-left: 10px;
+        }
+
+        &.space {
+            ${up("lg")} {
+                margin-bottom: 150px;
+            }
+        }
+    `,
+]);
+
+const TableOtherProjects = styled.ul(() => [
+    tw`grid grid-cols-1 lg:grid-cols-2 grid-flow-row lg:grid-flow-col gap-x-20 gap-y-8`,
     css`
         grid-template-rows: repeat(3, minmax(0, max-content));
         width: 827px;
         max-width: 100%;
         line-height: 24px;
+        margin-bottom: 80px;
+    `,
+]);
+
+const TableOtherProjectsLi = styled.li(() => [tw`flex`]);
+
+const TableOtherProjectsNumber = styled(StyledNumber)(() => [
+    css`
+        height: 70px;
+        width: auto;
+        margin: -10px 30px -10px -40px;
+
+        ${up("lg")} {
+            height: 92px;
+            width: auto;
+            margin: -20px 0;
+        }
+    `,
+]);
+
+const OtherProject = styled.div(() => [tw`flex flex-col`]);
+
+const OtherProjectH4 = styled(H4)(() => [
+    css`
+        font-size: 24px;
+
+        ${up("lg")} {
+            font-size: 30px;
+        }
+    `,
+]);
+
+const OtherProjectCaption = styled.p(() => [
+    css`
+        font-size: 16px;
+
+        ${up("lg")} {
+            font-size: 24px;
+        }
     `,
 ]);
 
@@ -108,22 +180,13 @@ const CellTitle = styled.div(() => [
     `,
 ]);
 
-const Article = styled.article(() => [
-    tw`relative`,
-    css`
-        padding-bottom: 140px;
-    `,
-]);
+const Article = styled.article(() => [tw`relative`]);
 
 const ArticleSection = styled.section(() => [
     tw`relative mx-auto z-10`,
     css`
         max-width: 1069px;
         padding: 0 15px 1px;
-
-        p {
-            margin-bottom: 40px;
-        }
     `,
 ]);
 
@@ -140,42 +203,9 @@ const TimelineWrapper = styled.aside(() => [
     `,
 ]);
 
-const OtherProject = styled.div(() => [tw`flex flex-col`]);
-
-const H4 = styled.h4(() => [
-    css`
-        height: 40px;
-        font-family: "Larsseit-Bold";
-        font-size: 30px;
-        line-height: 40px;
-        padding-left: 25%;
-
-        &.space {
-            ${up("lg")} {
-                margin-bottom: 150px;
-            }
-        }
-
-        ${up("lg")} {
-            padding-left: 10px;
-        }
-    `,
-]);
-
-const StyledNumber = styled(BigNumber)(() => [
-    css`
-        max-width: 100%;
-        transform: translateX(50%);
-        width: 150px;
-
-        ${up("lg")} {
-            transform: none;
-            width: 136px;
-            height: 117px;
-        }
-    `,
-]);
-
+/**
+ * Images
+ */
 const FullPageImgWrapper = styled.div(() => [
     css`
         max-width: 100%;
@@ -216,6 +246,9 @@ const TwoImagesWrapper = styled.div(() => [
     `,
 ]);
 
+/**
+ * Pagination
+ */
 const Controls = styled.div(() => [
     tw`relative hidden lg:flex justify-end content-end ml-auto z-10`,
     css`
@@ -479,11 +512,11 @@ export default function Project({ data }: Props): JSX.Element {
                     <ContentContainer className="sm">
                         <H2>Challenge</H2>
                         <H3>Overview</H3>
-                        <p>{challenge.overview}</p>
+                        <Paragraph>{challenge.overview}</Paragraph>
                         <H3>Project goals</H3>
-                        <p>{challenge.projectGoals}</p>
+                        <Paragraph>{challenge.projectGoals}</Paragraph>
                         <H3>Audience</H3>
-                        <p>{challenge.audience}</p>
+                        <Paragraph>{challenge.audience}</Paragraph>
                     </ContentContainer>
                 </ArticleSection>
 
@@ -491,7 +524,7 @@ export default function Project({ data }: Props): JSX.Element {
                     <ContentContainer className="sm">
                         <H2>Approach</H2>
                         <H3>Brand elements</H3>
-                        <p>{approach.brandElements}</p>
+                        <Paragraph>{approach.brandElements}</Paragraph>
                         <FullSizeImageWrapper>
                             <StaticImage
                                 src="../../img/placeholder-full.png"
@@ -539,25 +572,31 @@ export default function Project({ data }: Props): JSX.Element {
                             <CellTitle>
                                 <StyledNumber value={14} />
                             </CellTitle>
-                            <H4 className="space">Screens</H4>
+                            <StatsCaption className="space">
+                                Screens
+                            </StatsCaption>
                             <CellTitle>
                                 <StyledNumber value={14} />
                             </CellTitle>
-                            <H4>Screens</H4>
+                            <StatsCaption>Screens</StatsCaption>
 
                             <CellTitle>
                                 <StyledNumber value={6} />
                             </CellTitle>
-                            <H4 className="space">Iterations</H4>
+                            <StatsCaption className="space">
+                                Iterations
+                            </StatsCaption>
                             <CellTitle>
                                 <StyledNumber value={6} />
                             </CellTitle>
-                            <H4>Iterations</H4>
+                            <StatsCaption>Iterations</StatsCaption>
 
                             <CellTitle>
                                 <StyledNumber value={34} />
                             </CellTitle>
-                            <H4 className="space">Prototypes</H4>
+                            <StatsCaption className="space">
+                                Prototypes
+                            </StatsCaption>
                         </TableStats>
                     </ContentContainer>
                 </ArticleSection>
@@ -582,21 +621,26 @@ export default function Project({ data }: Props): JSX.Element {
                         <TableOtherProjects>
                             {projectsByCategory.others.map(
                                 (project: Project, index) => (
-                                    <div
+                                    <TableOtherProjectsLi
                                         key={index}
-                                        className={`col-start-${
+                                        className={`lg:col-start-${
                                             index % 2 === 0 ? 1 : 2
-                                        } row-start-${index + 1} flex`}
+                                        } lg:row-start-${index + 1}`}
                                     >
-                                        <StyledNumber
-                                            className="prose-70px"
+                                        <TableOtherProjectsNumber
                                             value={`${index + 1}.`}
                                         />
-                                        <OtherProject>
-                                            <H4>{project.name}</H4>
-                                            <div>{project.category}</div>
-                                        </OtherProject>
-                                    </div>
+                                        <Link to={project.nameSlug}>
+                                            <OtherProject>
+                                                <OtherProjectH4>
+                                                    {project.name}
+                                                </OtherProjectH4>
+                                                <OtherProjectCaption>
+                                                    {project.category}
+                                                </OtherProjectCaption>
+                                            </OtherProject>
+                                        </Link>
+                                    </TableOtherProjectsLi>
                                 )
                             )}
                         </TableOtherProjects>
