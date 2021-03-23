@@ -14,7 +14,10 @@ interface Props {
  * @param props
  */
 export const Distortion = forwardRef(
-    ({ id = "", imgUrl = "", scale = 0, ...rest }: Props): JSX.Element => (
+    (
+        { id = "", imgUrl = "", scale = 0, ...rest }: Props,
+        _ref
+    ): JSX.Element => (
         <svg width="100%" height="100%" {...rest}>
             <filter id={`distortion${id}`}>
                 <feTurbulence
