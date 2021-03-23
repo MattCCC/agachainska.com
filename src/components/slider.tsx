@@ -236,7 +236,7 @@ export function Slider({ images }: Props): JSX.Element {
     );
 
     const onDragEnd = useCallback(
-        (e, { offset, velocity }): void => {
+        (_e, { offset, velocity }): void => {
             const swipe = swipePower(offset.x, velocity.x);
 
             if (swipe < -swipeConfidenceThreshold) {
