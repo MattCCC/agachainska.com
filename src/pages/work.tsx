@@ -1,10 +1,12 @@
 import { Fragment, useCallback } from "react";
-import tw, { css, styled } from "twin.macro";
+
 import { graphql } from "gatsby";
-import { MainContainer } from "@components/main-container";
+import tw, { css, styled } from "twin.macro";
+
 import { Header } from "@components/header";
-import { Timeline } from "@components/timeline";
+import { MainContainer } from "@components/main-container";
 import { Slider } from "@components/slider";
+import { Timeline } from "@components/timeline";
 import { workPageTimeline } from "@config/page-timlines";
 
 /**

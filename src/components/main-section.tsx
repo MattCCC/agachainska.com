@@ -1,5 +1,7 @@
 import { FunctionComponent } from "react";
+
 import tw, { styled } from "twin.macro";
+
 import { Variants, motion } from "@components/animation";
 
 /**

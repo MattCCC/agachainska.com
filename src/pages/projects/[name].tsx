@@ -1,5 +1,6 @@
-import { ErrorContainer } from "@components/404";
 import { PageProps } from "gatsby";
+
+import { ErrorContainer } from "@components/404";
 
 interface Props extends PageProps {}
 

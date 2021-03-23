@@ -1,11 +1,13 @@
 import { useCallback, useState } from "react";
+
 import tw, { css, styled } from "twin.macro";
+
 import { Link } from "@components/link";
-import { Translate } from "@components/translate";
-import { getLinkProps, LinkProps } from "@utils/route";
 import { Logo } from "@components/logo";
-import { useStore } from "@store/index";
+import { Translate } from "@components/translate";
 import { useLocation } from "@reach/router";
+import { useStore } from "@store/index";
+import { getLinkProps, LinkProps } from "@utils/route";
 import { up } from "@utils/screens";
 
 /**

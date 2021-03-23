@@ -6,19 +6,21 @@ import {
     ElementRef,
     RefObject,
 } from "react";
+
 import tw, { css, styled } from "twin.macro";
+
 import { animate, AnimatePresence, motion } from "@components/animation";
-import { ReactComponent as PrevIcon } from "@svg/up.svg";
-import { ReactComponent as NextIcon } from "@svg/down.svg";
-import { useEventListener } from "@hooks/event-listener";
 import { Distortion } from "@components/distortion";
+import { useEventListener } from "@hooks/event-listener";
+import { ReactComponent as NextIcon } from "@svg/down.svg";
+import { ReactComponent as PrevIcon } from "@svg/up.svg";
 
 const duration = 1;
 const height = 445;
 const initialSlideScale = 0.25;
 
 const variants = {
-    enter: (direction: number) => ({
+    enter: (direction: number): Record<string, any> => ({
         zIndex: 1,
         top:
             direction > 0
@@ -32,7 +34,7 @@ const variants = {
             duration,
         },
     },
-    exit: (direction: number) => ({
+    exit: (direction: number): Record<string, any> => ({
         zIndex: 0,
         top: direction < 0 ? height : -height,
         opacity: 1,

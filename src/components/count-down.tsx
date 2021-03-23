@@ -1,6 +1,8 @@
-import tw, { css, styled } from "twin.macro";
-import { Global } from "@emotion/react";
 import { memo, ReactElement, useEffect, useState } from "react";
+
+import tw, { css, styled } from "twin.macro";
+
+import { Global } from "@emotion/react";
 
 /**
  * Styles

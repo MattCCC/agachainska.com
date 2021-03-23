@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface MousePosition {
     clientX: number;
@@ -6,7 +6,7 @@ interface MousePosition {
 }
 
 export const TrackMousePosition = (): MousePosition => {
-    const defaultState = { clientX: 0, clientY: 0 };
+    const defaultState = useMemo(() => ({ clientX: 0, clientY: 0 }), []);
     const [position, setPosition] = useState(defaultState);
 
     useEffect(() => {

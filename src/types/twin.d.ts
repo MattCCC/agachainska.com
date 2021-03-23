@@ -1,7 +1,7 @@
 // twin.d.ts
 import "twin.macro";
-import styledImport from "@emotion/styled";
 import { css as cssImport } from "@emotion/react";
+import styledImport from "@emotion/styled";
 
 // The css prop
 // https://emotion.sh/docs/typescript#css-prop

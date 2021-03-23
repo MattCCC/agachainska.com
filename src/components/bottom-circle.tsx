@@ -1,8 +1,10 @@
-import tw, { css, styled } from "twin.macro";
-import { Circle } from "@components/circle";
 import { FunctionComponent, memo } from "react";
-import { ReactComponent as ArrowDown } from "@svg/arrow-down.svg";
+
+import tw, { css, styled } from "twin.macro";
+
+import { Circle } from "@components/circle";
 import { Link } from "@components/link";
+import { ReactComponent as ArrowDown } from "@svg/arrow-down.svg";
 import { getRoutePath } from "@utils/route";
 
 /**

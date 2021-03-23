@@ -1,9 +1,10 @@
+import { memo, useEffect, useState } from "react";
+
 import {
     motion,
     AnimateSharedLayout,
     useAnimation,
 } from "@components/animation";
-import { memo, useEffect, useState } from "react";
 import { useStore } from "@store/index";
 
 /**

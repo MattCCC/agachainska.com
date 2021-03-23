@@ -1,15 +1,18 @@
-import { styled } from "twin.macro";
-import { Link as TranslatedLink } from "gatsby-plugin-intl";
-import { excludeProps } from "@utils/styled";
 import { FunctionComponent, ReactNode } from "react";
-import { useLocation } from "@reach/router";
-import { useStore } from "@store/index";
+
+import { Link as TranslatedLink } from "gatsby-plugin-intl";
+import { styled } from "twin.macro";
+
+import { fullPageOverlayDuration } from "@components/full-page-overlay";
 import {
     LinkDelayedArgs,
     LinkDelayedCallback,
     useDelayLink,
 } from "@hooks/link-delayed";
-import { fullPageOverlayDuration } from "@components/full-page-overlay";
+import { useLocation } from "@reach/router";
+import { useStore } from "@store/index";
+import { excludeProps } from "@utils/styled";
+
 
 /**
  * Styles

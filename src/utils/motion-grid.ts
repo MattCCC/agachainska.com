@@ -1,9 +1,10 @@
 import { gsap } from "gsap";
 import lerp from "lerp";
+
+import { mapNumber } from "./map-number";
 import getMousePosition from "./mouse-position";
 import { getRandomNumber } from "./random-number";
 import { getWindowSize } from "./window-size";
-import { mapNumber } from "./map-number";
 
 let windowSize: { width: number; height: number };
 let mousePosition: { x: number; y: number };

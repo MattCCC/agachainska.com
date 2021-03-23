@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
+
 import { navigate } from "gatsby";
 
 export type LinkDelayedCallback = (e: Event, to: string) => void;

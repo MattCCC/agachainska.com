@@ -6,23 +6,25 @@ import {
     useRef,
     useState,
 } from "react";
-import tw, { css, styled } from "twin.macro";
+import { useEffect } from "react";
+
 import { navigate } from "gatsby";
-import { MainContainer } from "@components/main-container";
-import { Header } from "@components/header";
-import { CountDown } from "@components/count-down";
-import { Translate } from "@components/translate";
-import { Link } from "@components/link";
+import tw, { css, styled } from "twin.macro";
+
 import { BottomCircle } from "@components/bottom-circle";
+import { CountDown } from "@components/count-down";
+import { Header } from "@components/header";
+import { Link } from "@components/link";
+import { MainContainer } from "@components/main-container";
+import { MainSection } from "@components/main-section";
+import { MotionCursor } from "@components/motion-cursor";
+import { Translate } from "@components/translate";
+import { pageContentVariants } from "@config/animation-variants";
+import { useLockBodyScroll } from "@hooks/lock-body-scroll";
+import { useStore } from "@store/index";
+import { isDev } from "@utils/detect-env";
 import { getRoutePath } from "@utils/route";
 import { TranslateText } from "@utils/translate-text";
-import { isDev } from "@utils/detect-env";
-import { MotionCursor } from "@components/motion-cursor";
-import { MainSection } from "@components/main-section";
-import { useLockBodyScroll } from "@hooks/lock-body-scroll";
-import { pageContentVariants } from "@config/animation-variants";
-import { useEffect } from "react";
-import { useStore } from "@store/index";
 
 /**
  * Styles

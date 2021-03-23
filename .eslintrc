@@ -1,14 +1,27 @@
 {
+    "plugins": ["@typescript-eslint", "eslint-plugin-import", "jsx-a11y"],
     "extends": [
         "plugin:react-app/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:jsx-a11y/recommended",
+        "plugin:import/typescript",
+        "plugin:react-hooks/recommended"
     ],
-    "plugins": ["eslint-plugin-import"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "project": "./tsconfig.json"
+    },
+    "settings": {
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx"]
+        },
+        "import/resolver": {
+            "typescript": {
+                "alwaysTryTypes": true // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+            }
+        }
     },
     "rules": {
         "@typescript-eslint/adjacent-overload-signatures": "error",
@@ -112,7 +125,35 @@
             "undefined"
         ],
         "id-match": "error",
-        "import/order": "error",
+        "import/order": [
+            "error",
+            {
+                "groups": ["builtin", "external", "internal"],
+                "pathGroups": [
+                    {
+                        "pattern": "react",
+                        "group": "external",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "*",
+                        "group": "external",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "@*",
+                        "group": "internal",
+                        "position": "after"
+                    }
+                ],
+                "pathGroupsExcludedImportTypes": ["react"],
+                "newlines-between": "always",
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
+        ],
         "max-classes-per-file": ["error", 1],
         "max-len": [
             "error",

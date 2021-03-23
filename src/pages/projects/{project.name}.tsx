@@ -1,277 +1,49 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
+
 import { graphql, PageProps } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
-import { Header } from "@components/header";
+import { useInViewEffect } from "react-hook-inview";
+
 import { H2 } from "@components/h2";
 import { H3 } from "@components/h3";
-import { H4 } from "@components/h4";
-import { Timeline } from "@components/timeline";
-import { BigNumber } from "@components/big-number";
-import { useStore } from "@store/index";
-import tw, { css, styled } from "twin.macro";
-import { designProcessTimeline } from "@config/page-timlines";
-import { useInViewEffect } from "react-hook-inview";
-import { thresholdArray } from "@utils/threshold-array";
-import { Quote } from "@components/quote";
-import { up } from "@utils/screens";
-import { MainTitle } from "@components/main-title";
-import { ReactComponent as PrevIcon } from "@svg/down.svg";
-import { ReactComponent as NextIcon } from "@svg/up.svg";
-import { MotionCursor } from "@components/motion-cursor";
-import { Translate } from "@components/translate";
+import { Header } from "@components/header";
 import { Link } from "@components/link";
-
-/**
- * Styles
- */
-const MainSection = styled.section(() => [
-    tw`relative mx-auto z-10`,
-    css`
-        max-width: 1069px;
-        padding: 0 15px;
-    `,
-]);
-
-const Paragraph = styled.p(() => [
-    css`
-        margin-bottom: 40px;
-    `,
-]);
-
-const ContentContainer = styled.div(() => [
-    css`
-        max-width: 1069px;
-
-        &.sm {
-            width: 827px;
-            max-width: 100%;
-        }
-    `,
-]);
-
-const StyledNumber = styled(BigNumber)(() => [
-    css`
-        max-width: 100%;
-        transform: translateX(50%);
-        width: 150px;
-
-        ${up("lg")} {
-            transform: none;
-            width: 136px;
-            height: 117px;
-        }
-    `,
-]);
-
-const HeroImage = styled.div(() => [
-    tw`relative z-10`,
-    css`
-        height: 200px;
-        width: 1069px;
-        max-width: 100%;
-        background: url("/img/projects/danish-bakery.jpg");
-        background-color: rgba(255, 255, 255, 0.8);
-        background-size: contain;
-
-        ${up("lg")} {
-            background-size: cover;
-            height: 462px;
-        }
-    `,
-]);
-
-const TableProject = styled.div(() => [
-    tw`grid grid-cols-1 lg:grid-cols-2 grid-rows-4 grid-flow-row lg:grid-flow-col`,
-    css`
-        width: 827px;
-        max-width: 100%;
-        line-height: 24px;
-    `,
-]);
-
-const TableCredits = styled.div(() => [
-    tw`grid grid-cols-1 lg:grid-cols-3 grid-rows-2 grid-flow-row lg:grid-flow-col`,
-    css`
-        width: 827px;
-        max-width: 100%;
-        line-height: 24px;
-    `,
-]);
-
-const TableStats = styled.div(() => [
-    tw`grid grid-cols-1 lg:grid-cols-3 grid-flow-row lg:grid-flow-col`,
-    css`
-        grid-template-rows: repeat(4, minmax(0, max-content));
-        width: 827px;
-        max-width: 100%;
-        line-height: 24px;
-    `,
-]);
-
-const StatsCaption = styled(H4)(() => [
-    css`
-        padding-left: 25%;
-
-        ${up("lg")} {
-            padding-left: 10px;
-        }
-
-        &.space {
-            ${up("lg")} {
-                margin-bottom: 150px;
-            }
-        }
-    `,
-]);
-
-const TableOtherProjects = styled.ul(() => [
-    tw`grid grid-cols-1 lg:grid-cols-2 grid-flow-row lg:grid-flow-col gap-x-20 gap-y-8`,
-    css`
-        grid-template-rows: repeat(3, minmax(0, max-content));
-        width: 827px;
-        max-width: 100%;
-        line-height: 24px;
-        margin-bottom: 80px;
-    `,
-]);
-
-const TableOtherProjectsLi = styled.li(() => [tw`flex`]);
-
-const TableOtherProjectsNumber = styled(StyledNumber)(() => [
-    css`
-        height: 70px;
-        width: auto;
-        margin: -10px 30px -10px -40px;
-
-        ${up("lg")} {
-            height: 92px;
-            width: auto;
-            margin: -20px 0;
-        }
-    `,
-]);
-
-const OtherProject = styled.div(() => [tw`flex flex-col`]);
-
-const OtherProjectH4 = styled(H4)(() => [
-    css`
-        font-size: 24px;
-
-        ${up("lg")} {
-            font-size: 30px;
-        }
-    `,
-]);
-
-const OtherProjectCaption = styled.p(() => [
-    css`
-        font-size: 16px;
-
-        ${up("lg")} {
-            font-size: 24px;
-        }
-    `,
-]);
-
-const CellTitle = styled.div(() => [
-    css`
-        margin-top: 12px;
-        font-family: "Larsseit-Bold";
-    `,
-]);
-
-const Article = styled.article(() => [tw`relative`]);
-
-const ArticleSection = styled.section(() => [
-    tw`relative mx-auto z-10`,
-    css`
-        max-width: 1069px;
-        padding: 0 15px 1px;
-    `,
-]);
-
-const TimelineWrapper = styled.aside(() => [
-    tw`sticky hidden lg:block z-20`,
-    css`
-        top: 0;
-        right: 0;
-        margin-bottom: -254px;
-        width: 220px;
-        margin-left: auto;
-        margin-right: 84px;
-        transform: translateY(90px);
-    `,
-]);
-
-/**
- * Images
- */
-const FullPageImgWrapper = styled.div(() => [
-    css`
-        max-width: 100%;
-        width: 100%;
-        border: 1px solid #979797;
-        margin-bottom: 40px;
-
-        ${up("lg")} {
-            max-width: none;
-            width: 100vw;
-            position: relative;
-            height: auto;
-            margin: 0 auto 90px -50vw;
-            left: calc(50% - 8px);
-        }
-    `,
-]);
-
-const FullSizeImageWrapper = styled.div(() => [
-    css`
-        margin-bottom: 90px;
-
-        ${up("lg")} {
-            height: 546px;
-        }
-    `,
-]);
-
-const TwoImagesWrapper = styled.div(() => [
-    tw`grid grid-cols-2 grid-flow-col gap-6`,
-    css`
-        margin-bottom: 90px;
-        height: 220px;
-
-        ${up("lg")} {
-            height: 562px;
-        }
-    `,
-]);
-
-/**
- * Pagination
- */
-const Controls = styled.div(() => [
-    tw`relative hidden lg:flex justify-end content-end ml-auto z-10`,
-    css`
-        top: -60px;
-    `,
-]);
-
-const Btn = styled.div(() => [
-    tw`lg:prose-16px flex-row cursor-pointer select-none`,
-    css`
-        &:last-child {
-            margin-left: 40px;
-        }
-    `,
-]);
-
-const PrevIconStyled = styled(PrevIcon)(() => [
-    tw`inline-block text-center mr-4 transform rotate-90`,
-]);
-
-const NextIconStyled = styled(NextIcon)(() => [
-    tw`inline-block text-center ml-4 transform rotate-90`,
-]);
+import { MainTitle } from "@components/main-title";
+import { MotionCursor } from "@components/motion-cursor";
+import { Quote } from "@components/quote";
+import { Timeline } from "@components/timeline";
+import { Translate } from "@components/translate";
+import { designProcessTimeline } from "@config/page-timlines";
+import {
+    MainSection,
+    Btn,
+    CellTitle,
+    ContentContainer,
+    Controls,
+    HeroImage,
+    NextIconStyled,
+    PrevIconStyled,
+    TableProject,
+    Article,
+    TimelineWrapper,
+    ArticleSection,
+    Paragraph,
+    FullSizeImageWrapper,
+    TwoImagesWrapper,
+    FullPageImgWrapper,
+    TableStats,
+    StyledNumber,
+    StatsCaption,
+    TableCredits,
+    TableOtherProjects,
+    TableOtherProjectsLi,
+    TableOtherProjectsNumber,
+    OtherProject,
+    OtherProjectH4,
+    OtherProjectCaption,
+} from "@domain/single-project/styled";
+import { useStore } from "@store/index";
+import { thresholdArray } from "@utils/threshold-array";
 
 /**
  * Interfaces
@@ -431,7 +203,7 @@ export default function Project({ data }: Props): JSX.Element {
         } as Navigation);
     }, [onPaginate, projectsByCategory, setNavigation, uid]);
 
-    const pctInViewport = {} as Record<string, number>;
+    const pctInViewport = useMemo(() => ({} as Record<string, number>), []);
 
     const intersection: IntersectionObserverCallback = useCallback(
         ([{ intersectionRatio, target }]): void => {
@@ -570,29 +342,29 @@ export default function Project({ data }: Props): JSX.Element {
                     >
                         <TableStats>
                             <CellTitle>
-                                <StyledNumber value={14} />
+                                <StyledNumber value={stats.screens} />
                             </CellTitle>
                             <StatsCaption className="space">
                                 Screens
                             </StatsCaption>
                             <CellTitle>
-                                <StyledNumber value={14} />
+                                <StyledNumber value={stats.screens} />
                             </CellTitle>
                             <StatsCaption>Screens</StatsCaption>
 
                             <CellTitle>
-                                <StyledNumber value={6} />
+                                <StyledNumber value={stats.iterations} />
                             </CellTitle>
                             <StatsCaption className="space">
                                 Iterations
                             </StatsCaption>
                             <CellTitle>
-                                <StyledNumber value={6} />
+                                <StyledNumber value={stats.iterations} />
                             </CellTitle>
                             <StatsCaption>Iterations</StatsCaption>
 
                             <CellTitle>
-                                <StyledNumber value={34} />
+                                <StyledNumber value={stats.prototypes} />
                             </CellTitle>
                             <StatsCaption className="space">
                                 Prototypes

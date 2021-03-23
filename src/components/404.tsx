@@ -1,7 +1,8 @@
-import { Header } from "@components/header";
-import { MainSection } from "@components/main-section";
-import { MainContainer } from "@components/main-container";
 import { Fragment } from "react";
+
+import { Header } from "@components/header";
+import { MainContainer } from "@components/main-container";
+import { MainSection } from "@components/main-section";
 import { Translate } from "@components/translate";
 
 interface Props {

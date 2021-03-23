@@ -1,5 +1,6 @@
-import { motion, useAnimation } from "@components/animation";
 import { memo, useEffect } from "react";
+
+import { motion, useAnimation } from "@components/animation";
 import { useStore } from "@store/index";
 
 /**

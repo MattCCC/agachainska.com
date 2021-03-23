@@ -5,19 +5,21 @@ import {
     useEffect,
     useState,
 } from "react";
+
 import tw, { css, styled } from "twin.macro";
-import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
+
 import {
     requestInterval,
     clearRequestInterval,
 } from "@essentials/request-interval";
-import { getRandomNumber } from "@utils/random-number";
 import { useStore } from "@store/index";
 import { ReactComponent as WavePattern1 } from "@svg/bg-lines.svg";
 import { ReactComponent as GreekEyeIllustration } from "@svg/Greek eye@1x.svg";
 import { ReactComponent as LondonEyeIllustration } from "@svg/London eye@1x.svg";
-import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
 import { ReactComponent as CaipirinhaIllustration } from "@svg/London eye@1x.svg";
+import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
+import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
+import { getRandomNumber } from "@utils/random-number";
 
 /**
  * Styles

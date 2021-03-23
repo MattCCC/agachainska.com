@@ -1,5 +1,6 @@
-import { up } from "@utils/screens";
 import { css, styled } from "twin.macro";
+
+import { up } from "@utils/screens";
 
 /**
  * Styles
