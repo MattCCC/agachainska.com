@@ -51,6 +51,8 @@
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-react-app": "6.2.2",
     "gatsby-plugin-emotion": "5.4.0",
+    "gatsby-plugin-manifest": "3.1.0",
+    "gatsby-plugin-offline": "4.1.0",
     "gatsby-plugin-postcss": "3.7.0",
     "gatsby-plugin-sass": "3.2.0",
     "gatsby-plugin-ts-config": "1.1.5",

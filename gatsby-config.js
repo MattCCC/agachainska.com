@@ -86,5 +86,18 @@ module.exports = {
                 redirect: false,
             },
         },
+        {
+            resolve: `gatsby-plugin-manifest`,
+            options: {
+                name: `Aga Chainska`,
+                short_name: `Aga Chainska`,
+                icon: `static/img/slider-pattern.png`,
+                start_url: `/`,
+                background_color: `#f7f7f7`,
+                theme_color: `#191919`,
+                display: `minimal-ui`
+            }
+        },
+        `gatsby-plugin-offline`
     ],
 };
