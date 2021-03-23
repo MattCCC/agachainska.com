@@ -617,7 +617,7 @@ export default function Project({ data }: Props): JSX.Element {
 
                 <ArticleSection id="another-projects">
                     <ContentContainer className="sm">
-                        <H2>Other UX Projects</H2>
+                        <H2>Other {category} Projects</H2>
                         <TableOtherProjects>
                             {projectsByCategory.others.map(
                                 (project: Project, index) => (
