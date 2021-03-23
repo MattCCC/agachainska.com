@@ -15,6 +15,11 @@
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn lint && yarn format"
+    }
+  },
   "dependencies": {
     "@essentials/request-interval": "1.2.0",
     "@svgr/webpack": "5.5.0",
@@ -60,6 +65,7 @@
     "gatsby-plugin-sass": "3.2.0",
     "gatsby-plugin-ts-config": "1.1.5",
     "gatsby-plugin-webpack-bundle-analyser-v2": "1.1.20",
+    "husky": "5.2.0",
     "postcss": "8.2.6",
     "postcss-loader": "5.0.0",
     "prettier": "2.2.1",
