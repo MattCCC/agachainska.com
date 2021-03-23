@@ -53,6 +53,7 @@
     "gatsby-plugin-emotion": "5.4.0",
     "gatsby-plugin-postcss": "3.7.0",
     "gatsby-plugin-sass": "3.2.0",
+    "gatsby-plugin-ts-config": "1.1.5",
     "gatsby-plugin-webpack-bundle-analyser-v2": "1.1.20",
     "postcss": "8.2.6",
     "postcss-loader": "5.0.0",

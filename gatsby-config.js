@@ -5,6 +5,7 @@ require("dotenv").config({
 module.exports = {
     plugins: [
         "gatsby-plugin-webpack-bundle-analyser-v2",
+        `gatsby-plugin-ts-config`,
         `gatsby-plugin-sass`,
         `gatsby-plugin-emotion`,
         "gatsby-plugin-postcss",
