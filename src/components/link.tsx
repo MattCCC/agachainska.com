@@ -13,7 +13,6 @@ import { useLocation } from "@reach/router";
 import { useStore } from "@store/index";
 import { excludeProps } from "@utils/styled";
 
-
 /**
  * Styles
  */

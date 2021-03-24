@@ -42,7 +42,7 @@ import {
     OtherProjectH4,
     OtherProjectCaption,
 } from "@domain/single-project/styled";
-import { useStore } from "@store/index";
+import { useStoreProp } from "@store/index";
 import { thresholdArray } from "@utils/threshold-array";
 
 /**
@@ -84,7 +84,8 @@ const options = {
  * @param props
  */
 export default function Project({ data }: Props): JSX.Element {
-    const [, dispatch] = useStore();
+    const [, dispatch] = useStoreProp("isMotionCursorVisible");
+
     const [activeItemId, setActiveItemId] = useState(
         (window.location.hash || "challenge").replace("#", "")
     );
@@ -227,6 +228,14 @@ export default function Project({ data }: Props): JSX.Element {
     const onTimelineItemChange = useCallback(({ id }): void => {
         window.location.hash = "#" + id;
     }, []);
+
+    const onMouseEnter = useCallback((): void => {
+        dispatch.showMotionCursor(true);
+    }, [dispatch]);
+
+    const onMouseLeave = useCallback((): void => {
+        dispatch.showMotionCursor(false);
+    }, [dispatch]);
 
     return (
         <Fragment>
@@ -403,7 +412,10 @@ export default function Project({ data }: Props): JSX.Element {
                                             value={`${index + 1}.`}
                                         />
                                         <Link to={project.nameSlug}>
-                                            <OtherProject>
+                                            <OtherProject
+                                                onMouseEnter={onMouseEnter}
+                                                onMouseLeave={onMouseLeave}
+                                            >
                                                 <OtherProjectH4>
                                                     {project.name}
                                                 </OtherProjectH4>
