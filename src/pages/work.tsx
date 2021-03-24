@@ -32,24 +32,26 @@ const TimelineWrapper = styled.aside(() => [
  */
 export default function Work({ data }): JSX.Element {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    const onTimelineItemChange = useCallback(({ routeTo }: Item): void => {
-        // navigate(routeTo, { replace: true });
-    }, []);
+    const onTimelineItemChange = useCallback((currentItem: Item): void => { }, []);
 
     const [timelineList, setTimelineList] = useState([] as Section[]);
 
     useEffect(() => {
         const projects = data.projects.nodes || [];
 
-        setTimelineList(["UX", "UI", "Illustrations"].map((category) => ({
-            title: category,
-            id: category.toLowerCase().replace(/\s/gi, "-"),
-            items: projects.filter((project: Project) => project.category === category).map((project: Project) => ({
-                name: project.name,
-                id: project.name.toLowerCase().replace(/\s/gi, "-"),
-                routeTo: project.nameSlug
+        setTimelineList(
+            ["UX", "UI", "Illustrations"].map((category) => ({
+                title: category,
+                id: category.toLowerCase().replace(/\s/gi, "-"),
+                items: projects
+                    .filter((project: Project) => project.category === category)
+                    .map((project: Project) => ({
+                        name: project.name,
+                        id: project.name.toLowerCase().replace(/\s/gi, "-"),
+                        routeTo: project.nameSlug,
+                    })),
             }))
-        })));
+        );
     }, [data, setTimelineList]);
 
     return (

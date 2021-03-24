@@ -126,11 +126,14 @@ export function Timeline({
             []
         );
 
-        const sectionId = activeSectionId.toLowerCase() || activeSections[0]?.id || "";
+        const sectionId =
+            activeSectionId.toLowerCase() || activeSections[0]?.id || "";
         const activeId = activeItemId.toLowerCase() || allItems[0]?.id || "";
 
-        if ((activeId && state.activeId !== activeId) ||
-            (sectionId && state.sectionId !== sectionId)) {
+        if (
+            (activeId && state.activeId !== activeId) ||
+            (sectionId && state.sectionId !== sectionId)
+        ) {
             setState((prevState) => ({
                 ...prevState,
                 activeId,
@@ -140,14 +143,13 @@ export function Timeline({
         }
     }, [sections, activeSectionId, activeItemId, state, setState]);
 
-
     useEffect(() => {
         const newHeight = wrapperHeight - sectionTitleHeight * sections.length;
 
-        if ((state.contentListHeight !== newHeight)) {
+        if (state.contentListHeight !== newHeight) {
             setState((prevState) => ({
                 ...prevState,
-                contentListHeight: newHeight > 0 ? (newHeight - 50) : 0,
+                contentListHeight: newHeight > 0 ? newHeight - 50 : 0,
             }));
         }
     }, [wrapperHeight, sectionTitleHeight, sections, state, setState]);
@@ -237,25 +239,23 @@ export function Timeline({
                                     (section.items?.length ?? 1),
                             }}
                         />
-                        {section.items?.map(
-                            (item: Item, itemIndex: number) => (
-                                <Link to={item.routeTo}>
-                                    <ListItem
-                                        key={itemIndex}
-                                        isActive={
-                                            section.id === state.sectionId &&
-                                            item.id === state.activeId
-                                        }
-                                        onClick={onTimelineItemClick.bind(
-                                            null,
-                                            item
-                                        )}
-                                    >
-                                        {item.name}
-                                    </ListItem>
-                                </Link>
-                            )
-                        )}
+                        {section.items?.map((item: Item, itemIndex: number) => (
+                            <Link to={item.routeTo}>
+                                <ListItem
+                                    key={itemIndex}
+                                    isActive={
+                                        section.id === state.sectionId &&
+                                        item.id === state.activeId
+                                    }
+                                    onClick={onTimelineItemClick.bind(
+                                        null,
+                                        item
+                                    )}
+                                >
+                                    {item.name}
+                                </ListItem>
+                            </Link>
+                        ))}
                     </List>
                 </AnimatePresence>
             ))}
