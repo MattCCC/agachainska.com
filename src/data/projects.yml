@@ -82,7 +82,7 @@
 - uid: 4
   category: UI
   subCategory: Others
-  name: RE/MAX WEBSITE
+  name: RE/MAX
   client: Twitch Malta
   agency: BRND WGN
   timeframe: November 2019, 7 days
@@ -182,6 +182,114 @@
   credits:
     concept: "UI Concept:"
     conceptDesc: "Twitch Malta"
+    design: "UX Design:"
+    designDesc: "BRND WGN"
+    projectManagement: "Project management:"
+    projectManagementDesc: "November 2019, 7 days"
+
+- uid: 8
+  category: UI
+  subCategory: Others
+  name: Addidas
+  client: Addidas Malta
+  agency: BRND WGN
+  timeframe: November 2019, 7 days
+  roleInProject: UI designer
+  challenge:
+    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
+  approach:
+    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
+    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
+  stats:
+    screens: 14
+    iterations: 6
+    prototypes: 34
+  credits:
+    concept: "UI Concept:"
+    conceptDesc: "Addidas Malta"
+    design: "UX Design:"
+    designDesc: "BRND WGN"
+    projectManagement: "Project management:"
+    projectManagementDesc: "November 2019, 7 days"
+
+- uid: 9
+  category: UI
+  subCategory: Others
+  name: Nike
+  client: Nike Malta
+  agency: BRND WGN
+  timeframe: November 2019, 7 days
+  roleInProject: UI designer
+  challenge:
+    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
+  approach:
+    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
+    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
+  stats:
+    screens: 14
+    iterations: 6
+    prototypes: 34
+  credits:
+    concept: "UI Concept:"
+    conceptDesc: "Nike Malta"
+    design: "UX Design:"
+    designDesc: "BRND WGN"
+    projectManagement: "Project management:"
+    projectManagementDesc: "November 2019, 7 days"
+
+- uid: 10
+  category: UI
+  subCategory: Others
+  name: Pepsi
+  client: Pepsi Malta
+  agency: BRND WGN
+  timeframe: November 2019, 7 days
+  roleInProject: UI designer
+  challenge:
+    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
+  approach:
+    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
+    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
+  stats:
+    screens: 14
+    iterations: 6
+    prototypes: 34
+  credits:
+    concept: "UI Concept:"
+    conceptDesc: "Pepsi Malta"
+    design: "UX Design:"
+    designDesc: "BRND WGN"
+    projectManagement: "Project management:"
+    projectManagementDesc: "November 2019, 7 days"
+
+- uid: 11
+  category: UI
+  subCategory: Others
+  name: Topshop
+  client: Topshop Malta
+  agency: BRND WGN
+  timeframe: November 2019, 7 days
+  roleInProject: UI designer
+  challenge:
+    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
+  approach:
+    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
+    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
+  stats:
+    screens: 14
+    iterations: 6
+    prototypes: 34
+  credits:
+    concept: "UI Concept:"
+    conceptDesc: "Topshop Malta"
     design: "UX Design:"
     designDesc: "BRND WGN"
     projectManagement: "Project management:"

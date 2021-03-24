@@ -1,13 +1,12 @@
-import { Fragment, useCallback } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 
-import { graphql } from "gatsby";
+import { graphql, navigate } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 
 import { Header } from "@components/header";
 import { MainContainer } from "@components/main-container";
 import { Slider } from "@components/slider";
-import { Timeline } from "@components/timeline";
-import { workPageTimeline } from "@config/page-timlines";
+import { Timeline, Item, Section } from "@components/timeline";
 
 /**
  * Styles
@@ -33,7 +32,25 @@ const TimelineWrapper = styled.aside(() => [
  */
 export default function Work({ data }): JSX.Element {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    const onTimelineItemChange = useCallback((): void => {}, []);
+    const onTimelineItemChange = useCallback(({ routeTo }: Item): void => {
+        // navigate(routeTo, { replace: true });
+    }, []);
+
+    const [timelineList, setTimelineList] = useState([] as Section[]);
+
+    useEffect(() => {
+        const projects = data.projects.nodes || [];
+
+        setTimelineList(["UX", "UI", "Illustrations"].map((category) => ({
+            title: category,
+            id: category.toLowerCase().replace(/\s/gi, "-"),
+            items: projects.filter((project: Project) => project.category === category).map((project: Project) => ({
+                name: project.name,
+                id: project.name.toLowerCase().replace(/\s/gi, "-"),
+                routeTo: project.nameSlug
+            }))
+        })));
+    }, [data, setTimelineList]);
 
     return (
         <Fragment>
@@ -53,7 +70,9 @@ export default function Work({ data }): JSX.Element {
                         <Timeline
                             style={{ height: "27.76rem" }}
                             onTimelineItemChange={onTimelineItemChange}
-                            sections={workPageTimeline}
+                            sections={timelineList}
+                            activeSectionId="UI"
+                            activeItemId="re/max"
                         />
                     </TimelineWrapper>
                 </ContentContainer>

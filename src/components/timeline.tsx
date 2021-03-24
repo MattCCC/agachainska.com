@@ -3,13 +3,14 @@ import {
     RefObject,
     useRef,
     useCallback,
-    memo,
+    useEffect,
     HTMLAttributes,
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
 import { motion, MotionProps, AnimatePresence } from "@components/animation";
+import { Link } from "@components/link";
 import { useElementSize } from "@hooks/element-size";
 
 /**
@@ -23,6 +24,7 @@ const Title = styled(motion.div)(
         tw`hover:opacity-100 transition-opacity`,
         css`
             padding-bottom: 7px;
+            height: 33px;
         `,
         isActive && tw`opacity-100`,
         hasMultipleSections && tw`cursor-pointer`,
@@ -30,7 +32,7 @@ const Title = styled(motion.div)(
 );
 
 const List = styled(motion.div)(() => [
-    tw`font-bold lg:prose-14px lg:text-gray-500 w-auto flex flex-col justify-evenly relative overflow-hidden`,
+    tw`font-bold lg:prose-14px lg:text-gray-500 w-auto flex flex-col justify-evenly relative items-end overflow-hidden`,
     css`
         box-shadow: inset -1px 0px 1px -1px var(--primary-color);
         transition: opacity 0.3s ease-in-out;
@@ -67,6 +69,7 @@ interface ListItemStyle extends MotionProps {
 export interface Item {
     name: string;
     id: string;
+    routeTo: string;
 }
 
 export interface Section {
@@ -77,7 +80,8 @@ export interface Section {
 
 interface Props extends HTMLAttributes<HTMLElement> {
     sections: Section[];
-    activeItemId?: string | number;
+    activeSectionId?: string;
+    activeItemId?: string;
     onTimelineItemChange?: (item: Item) => void;
 }
 
@@ -85,15 +89,31 @@ interface Props extends HTMLAttributes<HTMLElement> {
  * Component
  * @param props
  */
-export const Timeline = memo(
-    ({
-        sections,
-        activeItemId = "",
-        onTimelineItemChange = (): null => null,
-        ...props
-    }: Props): JSX.Element => {
-        const wrapperRef = useRef() as RefObject<HTMLDivElement>;
-        const sectionTitleRef = useRef() as RefObject<HTMLDivElement>;
+export function Timeline({
+    sections,
+    activeSectionId = "",
+    activeItemId = "",
+    onTimelineItemChange = (): null => null,
+    ...props
+}: Props): JSX.Element {
+    const wrapperRef = useRef() as RefObject<HTMLDivElement>;
+    const sectionTitleRef = useRef() as RefObject<HTMLDivElement>;
+
+    const { height: wrapperHeight } = useElementSize(wrapperRef);
+    const { height: sectionTitleHeight } = useElementSize(sectionTitleRef);
+
+    const [state, setState] = useState({
+        sectionId: "",
+        activeId: "",
+        totalSections: 0,
+        contentListHeight: 0,
+    });
+
+    useEffect(() => {
+        if (sections.length === state.totalSections) {
+            return;
+        }
+
         const activeSections: Section[] = sections.filter(
             (section: Section) => section?.items && section?.items?.length > 0
         );
@@ -106,111 +126,120 @@ export const Timeline = memo(
             []
         );
 
-        const { height: wrapperHeight } = useElementSize(wrapperRef);
-        const { height: sectionTitleHeight } = useElementSize(sectionTitleRef);
+        const sectionId = activeSectionId.toLowerCase() || activeSections[0]?.id || "";
+        const activeId = activeItemId.toLowerCase() || allItems[0]?.id || "";
 
-        const contentListMinHeight =
-            wrapperHeight - sectionTitleHeight * sections.length - 50;
+        if ((activeId && state.activeId !== activeId) ||
+            (sectionId && state.sectionId !== sectionId)) {
+            setState((prevState) => ({
+                ...prevState,
+                activeId,
+                sectionId,
+                totalSections: sections.length,
+            }));
+        }
+    }, [sections, activeSectionId, activeItemId, state, setState]);
 
-        const [state, setState] = useState({
-            sectionId: activeSections[0].id,
-            activeId: activeItemId || allItems[0].id,
-        });
 
-        if (activeItemId && state.activeId !== activeItemId) {
+    useEffect(() => {
+        const newHeight = wrapperHeight - sectionTitleHeight * sections.length;
+
+        if ((state.contentListHeight !== newHeight)) {
+            setState((prevState) => ({
+                ...prevState,
+                contentListHeight: newHeight > 0 ? (newHeight - 50) : 0,
+            }));
+        }
+    }, [wrapperHeight, sectionTitleHeight, sections, state, setState]);
+
+    const onTimelineItemClick = useCallback(
+        (item: Item) => {
+            if (state.activeId === item.id) {
+                return;
+            }
+
             setState({
                 ...state,
-                activeId: activeItemId,
+                activeId: item.id,
             });
-        }
 
-        const onTimelineItemClick = useCallback(
-            (item: Item) => {
-                if (state.activeId === item.id) {
-                    return;
-                }
+            onTimelineItemChange(item);
+        },
+        [onTimelineItemChange, state]
+    );
 
-                setState({
-                    ...state,
-                    activeId: item.id,
-                });
+    const onTimelineHeaderClick = useCallback(
+        (section: Section): void => {
+            if (state.sectionId === section.id) {
+                return;
+            }
 
-                onTimelineItemChange(item);
-            },
-            [onTimelineItemChange, state]
-        );
+            const newState = {
+                ...state,
+                sectionId: section.id,
+            };
 
-        const onTimelineHeaderClick = useCallback(
-            (section: Section): void => {
-                if (state.sectionId === section.id) {
-                    return;
-                }
+            if (section.items && section.items.length > 0) {
+                newState.activeId = section.items[0].id || "";
+            }
 
-                const newState = {
-                    ...state,
-                    sectionId: section.id,
-                };
+            setState(newState);
+        },
+        [state]
+    );
 
-                if (section.items && section.items.length > 0) {
-                    newState.activeId = section.items[0].id || "";
-                }
-
-                setState(newState);
-            },
-            [state]
-        );
-
-        return (
-            <TimelineWrapper ref={wrapperRef} {...props}>
-                {sections.map((section: Section, index: number) => (
-                    <AnimatePresence key={`timeline-${index}`} initial={false}>
-                        <Title
-                            isActive={section.id === state.sectionId}
-                            hasMultipleSections={sections.length > 1}
-                            initial={false}
-                            ref={sectionTitleRef}
-                            onClick={onTimelineHeaderClick.bind(null, section)}
-                            key={`timeline-${index}-title`}
-                        >
-                            {section.title}
-                        </Title>
-                        <List
-                            animate="open"
-                            initial="collapsed"
-                            exit="collapsed"
-                            key={`timeline-${index}-list`}
-                            variants={{
-                                open: {
-                                    opacity: 1,
-                                    height:
-                                        section.id === state.sectionId
-                                            ? contentListMinHeight
-                                            : 0,
-                                },
-                                collapsed: { opacity: 0, height: 0 },
+    return (
+        <TimelineWrapper ref={wrapperRef} {...props}>
+            {sections.map((section: Section, index: number) => (
+                <AnimatePresence key={`timeline-${index}`} initial={false}>
+                    <Title
+                        isActive={section.id === state.sectionId}
+                        hasMultipleSections={sections.length > 1}
+                        initial={false}
+                        ref={sectionTitleRef}
+                        onClick={onTimelineHeaderClick.bind(null, section)}
+                        key={`timeline-${index}-title`}
+                    >
+                        {section.title}
+                    </Title>
+                    <List
+                        animate="open"
+                        initial="collapsed"
+                        exit="collapsed"
+                        key={`timeline-${index}-list`}
+                        variants={{
+                            open: {
+                                opacity: 1,
+                                height:
+                                    section.id === state.sectionId
+                                        ? state.contentListHeight
+                                        : 0,
+                            },
+                            collapsed: { opacity: 0, height: 0 },
+                        }}
+                        transition={{
+                            duration: 0.8,
+                            ease: [0.04, 0.62, 0.23, 0.98],
+                        }}
+                    >
+                        <Pin
+                            animate={{
+                                y:
+                                    (state.contentListHeight /
+                                        (section.items?.length ?? 1)) *
+                                    (section.items?.findIndex(
+                                        (item) => item.id === state.activeId
+                                    ) || 0),
                             }}
-                            transition={{
-                                duration: 0.8,
-                                ease: [0.04, 0.62, 0.23, 0.98],
+                            style={{
+                                height:
+                                    state.contentListHeight /
+                                    (section.items?.length ?? 1),
                             }}
-                        >
-                            <Pin
-                                animate={{
-                                    y:
-                                        (contentListMinHeight /
-                                            (section.items?.length ?? 1)) *
-                                        (section.items?.findIndex(
-                                            (item) => item.id === state.activeId
-                                        ) || 0),
-                                }}
-                                style={{
-                                    height:
-                                        contentListMinHeight /
-                                        (section.items?.length ?? 1),
-                                }}
-                            />
-                            {section.items?.map(
-                                (item: Item, itemIndex: number) => (
+                        />
+                        {section.items?.map(
+                            (item: Item, itemIndex: number) => (
+                                <Link to={item.routeTo}>
                                     <ListItem
                                         key={itemIndex}
                                         isActive={
@@ -224,12 +253,12 @@ export const Timeline = memo(
                                     >
                                         {item.name}
                                     </ListItem>
-                                )
-                            )}
-                        </List>
-                    </AnimatePresence>
-                ))}
-            </TimelineWrapper>
-        );
-    }
-);
+                                </Link>
+                            )
+                        )}
+                    </List>
+                </AnimatePresence>
+            ))}
+        </TimelineWrapper>
+    );
+}
