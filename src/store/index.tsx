@@ -1,6 +1,4 @@
-import { createStore } from "react-lit-store";
-
-import { set } from "@utils/store";
+import { set, createStore } from "@utils/store";
 
 const initialState = {
     isMotionCursorVisible: false,
@@ -19,9 +17,8 @@ const actions = {
     setCurrentDelayedRoute: set<State, string>("currentDelayedRoute"),
 };
 
-export { useStoreProvider } from "react-lit-store";
-
 const globalStore = createStore(initialState, actions);
 const useStore = globalStore.useStore;
+const useStoreProp = globalStore.useStoreProp;
 
-export { globalStore, useStore };
+export { globalStore, useStore, useStoreProp };

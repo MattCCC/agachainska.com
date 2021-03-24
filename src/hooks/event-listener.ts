@@ -1,6 +1,7 @@
 import { useRef, useEffect, RefObject } from "react";
 
-type AllEvents = AnimationEvent
+type AllEvents =
+    | AnimationEvent
     | ClipboardEvent
     | CompositionEvent
     | DragEvent
