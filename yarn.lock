@@ -2657,6 +2657,11 @@
     "@types/glob" "*"
     "@types/node" "*"
 
+"@types/throttle-debounce@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/throttle-debounce/-/throttle-debounce-2.1.0.tgz#1c3df624bfc4b62f992d3012b84c56d41eab3776"
+  integrity sha512-5eQEtSCoESnh2FsiLTxE121IiE60hnMqcb435fShf4bpLRjEu1Eoekht23y6zXS9Ts3l+Szu3TARnTsA0GkOkQ==
+
 "@types/tmp@^0.0.33":
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/@types/tmp/-/tmp-0.0.33.tgz#1073c4bc824754ae3d10cfab88ab0237ba964e4d"
@@ -14529,6 +14534,11 @@ text-table@0.2.0, text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
+throttle-debounce@^2.1.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-2.3.0.tgz#fd31865e66502071e411817e241465b3e9c372e2"
+  integrity sha512-H7oLPV0P7+jgvrk+6mwwwBDmxTaxnu9HMXmloNLXwnNO0ZxZ31Orah2n8lU1eMPvsaowP2CX+USCgyovXfdOFQ==
+
 through2@^2.0.0, through2@^2.0.1:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.5.tgz#01c1e39eb31d07cb7d03a96a70823260b23132cd"
@@ -15224,6 +15234,15 @@ use-context-selector@1.3.7:
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/use-context-selector/-/use-context-selector-1.3.7.tgz#4e59270baa73417dcb0c5c6c124359fd0e8b3aaf"
   integrity sha512-O94hcN9UDAPTC4Fsm3p6Og5PVlhTEeKqxJX3HuBbVSuevOSPLDZxowFUmx49/fnu9jpgY83Nd3TALJVDRtYzdQ==
+
+use-mouse-leave@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/use-mouse-leave/-/use-mouse-leave-1.0.0.tgz#86584b8f3f472237100c20db77797183013fb7c0"
+  integrity sha512-licNBKkpdvdXYZtxLbAn+DXVnn3bCcxii0icm3On/M/R2r9WWPaCtI3mulnJ3IMAFF9ZF+PNGHhFlc0KFsXuaA==
+  dependencies:
+    "@types/throttle-debounce" "^2.1.0"
+    throttle-debounce "^2.1.0"
+    tslib "^1.10.0"
 
 use@^3.1.0:
   version "3.1.1"

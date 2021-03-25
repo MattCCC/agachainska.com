@@ -109,55 +109,6 @@ export const StatsCaption = styled(H4)(() => [
     `,
 ]);
 
-export const TableOtherProjects = styled.ol(() => [
-    tw`grid grid-cols-1 lg:grid-cols-2 grid-flow-row lg:grid-flow-col gap-x-20 gap-y-8`,
-    css`
-        grid-template-rows: repeat(3, minmax(0, max-content));
-        width: 827px;
-        max-width: 100%;
-        line-height: 24px;
-        margin-bottom: 80px;
-    `,
-]);
-
-export const TableOtherProjectsLi = styled.li(() => [tw`flex`]);
-
-export const TableOtherProjectsNumber = styled(StyledNumber)(() => [
-    css`
-        height: 70px;
-        width: auto;
-        margin: -10px 30px -10px -40px;
-
-        ${up("lg")} {
-            height: 92px;
-            width: auto;
-            margin: -20px 0;
-        }
-    `,
-]);
-
-export const OtherProject = styled.div(() => [tw`flex flex-col`]);
-
-export const OtherProjectH4 = styled(H4)(() => [
-    css`
-        font-size: 24px;
-
-        ${up("lg")} {
-            font-size: 30px;
-        }
-    `,
-]);
-
-export const OtherProjectCaption = styled.p(() => [
-    css`
-        font-size: 16px;
-
-        ${up("lg")} {
-            font-size: 24px;
-        }
-    `,
-]);
-
 export const CellTitle = styled.div(() => [
     css`
         margin-top: 12px;

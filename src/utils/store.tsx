@@ -101,8 +101,7 @@ export function createStore<S, M extends Mutations<S>>(
 
         return (
             <context.Provider value={[state, actions]}>
-                {" "}
-                {children}{" "}
+                {children}
             </context.Provider>
         );
     }
