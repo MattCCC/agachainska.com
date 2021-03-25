@@ -1,12 +1,12 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, memo } from "react";
 
-import { graphql, navigate } from "gatsby";
+import { graphql } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 
 import { Header } from "@components/header";
 import { MainContainer } from "@components/main-container";
 import { Slider } from "@components/slider";
-import { Timeline, Item, Section } from "@components/timeline";
+import { Timeline, Item } from "@components/timeline";
 
 /**
  * Styles
@@ -30,58 +30,56 @@ const TimelineWrapper = styled.aside(() => [
  * Component
  * @param props
  */
-export default function Work({ data }): JSX.Element {
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    const onTimelineItemChange = useCallback((currentItem: Item): void => { }, []);
+const Work = memo(
+    ({ data }): JSX.Element => {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        const onTimelineItemChange = useCallback((currentItem: Item): void => { }, []);
 
-    const [timelineList, setTimelineList] = useState([] as Section[]);
-
-    useEffect(() => {
         const projects = data.projects.nodes || [];
 
-        setTimelineList(
-            ["UX", "UI", "Illustrations"].map((category) => ({
-                title: category,
-                id: category.toLowerCase().replace(/\s/gi, "-"),
-                items: projects
-                    .filter((project: Project) => project.category === category)
-                    .map((project: Project) => ({
-                        name: project.name,
-                        id: project.name.toLowerCase().replace(/\s/gi, "-"),
-                        routeTo: project.nameSlug,
-                    })),
-            }))
-        );
-    }, [data, setTimelineList]);
+        const timelineList = ["UX", "UI", "Illustrations"].map((category) => ({
+            title: category,
+            id: category.replace(/\s/gi, "-"),
+            items: projects
+                .filter((project: Project) => project.category === category)
+                .map((project: Project) => ({
+                    name: project.name,
+                    id: String(project.uid),
+                    routeTo: project.nameSlug,
+                })),
+        }));
 
-    return (
-        <Fragment>
-            <Header />
-            <MainContainer className="lg:pt-20">
-                <ContentContainer>
-                    <SlideWrapper>
-                        <Slider
-                            images={[
-                                "/img/projects/image-1.png",
-                                "/img/projects/danish-bakery.jpg",
-                                "/img/projects/placeholder-1.png",
-                            ]}
-                        />
-                    </SlideWrapper>
-                    <TimelineWrapper>
-                        <Timeline
-                            style={{ height: "27.76rem" }}
-                            onTimelineItemChange={onTimelineItemChange}
-                            sections={timelineList}
-                            activeSectionId="UI"
-                            activeItemId="re/max"
-                        />
-                    </TimelineWrapper>
-                </ContentContainer>
-            </MainContainer>
-        </Fragment>
-    );
-}
+        return (
+            <Fragment>
+                <Header />
+                <MainContainer className="lg:pt-20">
+                    <ContentContainer>
+                        <SlideWrapper>
+                            <Slider
+                                images={[
+                                    "/img/projects/image-1.png",
+                                    "/img/projects/danish-bakery.jpg",
+                                    "/img/projects/placeholder-1.png",
+                                ]}
+                            />
+                        </SlideWrapper>
+                        <TimelineWrapper>
+                            <Timeline
+                                style={{ height: "27.76rem" }}
+                                onTimelineItemChange={onTimelineItemChange}
+                                sections={timelineList}
+                                activeSectionId="UI"
+                                activeItemId="1"
+                            />
+                        </TimelineWrapper>
+                    </ContentContainer>
+                </MainContainer>
+            </Fragment>
+        );
+    }
+);
+
+export default Work;
 
 export const query = graphql`
     {
