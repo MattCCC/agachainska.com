@@ -6,6 +6,7 @@ export const ProjectFragment = graphql`
         category
         subCategory
         name
+        cover
         client
         agency
         timeframe

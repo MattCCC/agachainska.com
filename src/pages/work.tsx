@@ -1,12 +1,12 @@
-import { Fragment, useCallback, memo } from "react";
+import { Fragment, useCallback, memo, useState } from "react";
 
-import { graphql } from "gatsby";
+import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 
 import { Header } from "@components/header";
 import { MainContainer } from "@components/main-container";
-import { Slider } from "@components/slider";
-import { Timeline, Item } from "@components/timeline";
+import { Slider, SliderItem } from "@components/slider";
+import { Timeline, Item, Section } from "@components/timeline";
 
 /**
  * Styles
@@ -27,17 +27,34 @@ const TimelineWrapper = styled.aside(() => [
 ]);
 
 /**
+ * Interfaces
+ */
+interface NavigationState {
+    sliderIndex: number;
+    activeSectionId: string;
+    activeItemId: string;
+}
+
+interface Props extends PageProps {
+    data: {
+        projects: {
+            nodes: Project[];
+        };
+    };
+}
+
+/**
  * Component
  * @param props
  */
 const Work = memo(
-    ({ data }): JSX.Element => {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        const onTimelineItemChange = useCallback((currentItem: Item): void => { }, []);
+    ({ data }: Props): JSX.Element => {
+        const workCategories = ["UX", "UI", "Illustrations"];
+        const [navigation, setNavigation] = useState({} as NavigationState);
 
         const projects = data.projects.nodes || [];
 
-        const timelineList = ["UX", "UI", "Illustrations"].map((category) => ({
+        const timelineList = workCategories.map((category) => ({
             title: category,
             id: category.replace(/\s/gi, "-"),
             items: projects
@@ -46,8 +63,59 @@ const Work = memo(
                     name: project.name,
                     id: String(project.uid),
                     routeTo: project.nameSlug,
+                    cover: project.cover,
+                    category: project.category,
                 })),
         }));
+
+        const sliderItems: SliderItem[] = timelineList
+            .reduce(
+                (itemsList: Item[], currentValue: Section) => {
+                    itemsList = [...itemsList, ...(currentValue.items || [])];
+
+                    return itemsList;
+                },
+                []
+            );
+
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        const onTimelineItemChange = useCallback(
+            (currentItem: Item): void => {
+                if (navigation.activeItemId === currentItem.id) {
+                    return;
+                }
+
+                const sliderIndex = sliderItems.findIndex(
+                    (sliderItem: SliderItem) => sliderItem.id === currentItem.id
+                );
+
+                setNavigation({
+                    sliderIndex,
+                    activeSectionId: currentItem.category,
+                    activeItemId: currentItem.id,
+                });
+            },
+            [navigation, sliderItems, setNavigation]
+        );
+
+        const onSliderTap = useCallback(
+            (currentItem: SliderItem): void => {
+                if (navigation.activeItemId === currentItem.id) {
+                    return;
+                }
+
+                const sliderIndex = sliderItems.findIndex(
+                    (sliderItem: SliderItem) => sliderItem.id === currentItem.id
+                );
+
+                setNavigation({
+                    sliderIndex,
+                    activeSectionId: currentItem.category,
+                    activeItemId: currentItem.id,
+                });
+            },
+            [navigation, sliderItems, setNavigation]
+        );
 
         return (
             <Fragment>
@@ -56,11 +124,9 @@ const Work = memo(
                     <ContentContainer>
                         <SlideWrapper>
                             <Slider
-                                images={[
-                                    "/img/projects/image-1.png",
-                                    "/img/projects/danish-bakery.jpg",
-                                    "/img/projects/placeholder-1.png",
-                                ]}
+                                sliderItems={sliderItems}
+                                onSliderTap={onSliderTap}
+                                slideId={navigation.sliderIndex}
                             />
                         </SlideWrapper>
                         <TimelineWrapper>
@@ -68,8 +134,10 @@ const Work = memo(
                                 style={{ height: "27.76rem" }}
                                 onTimelineItemChange={onTimelineItemChange}
                                 sections={timelineList}
-                                activeSectionId="UI"
-                                activeItemId="1"
+                                activeSectionId={
+                                    navigation.activeSectionId || "UI"
+                                }
+                                activeItemId={navigation.activeItemId || "1"}
                             />
                         </TimelineWrapper>
                     </ContentContainer>

@@ -5,9 +5,7 @@ import { useRef, useEffect } from "react";
  * @param {*} items
  * @returns {MutableRefObject<never[]>} itemsRef
  */
-export const useRefArray = (
-    items: any,
-): any => {
+export const useRefArray = (items: any): any => {
     const itemsRef = useRef<Array<HTMLDivElement | null>>([]);
 
     useEffect(() => {

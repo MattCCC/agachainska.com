@@ -2,6 +2,7 @@
   category: UX
   subCategory:
   name: RE/MAX
+  cover: "/img/projects/image-1.png"
   client: RE/MAX Malta
   agency: BRND WGN
   timeframe: November 2019, 7 days
@@ -29,6 +30,7 @@
   category: UX
   subCategory:
   name: Danish Bakery
+  cover: "/img/projects/danish-bakery.jpg"
   client: Danish Bakery Malta
   agency: BRND WGN
   timeframe: November 2019, 7 days
@@ -56,6 +58,7 @@
   category: UX
   subCategory:
   name: Twitch
+  cover: "/img/projects/placeholder-1.png"
   client: Twitch Malta
   agency: BRND WGN
   timeframe: November 2019, 7 days
@@ -83,6 +86,7 @@
   category: UI
   subCategory: Others
   name: RE/MAX
+  cover: "/img/projects/image-1.png"
   client: Twitch Malta
   agency: BRND WGN
   timeframe: November 2019, 7 days
@@ -110,6 +114,7 @@
   category: Illustrations
   subCategory: Others
   name: YELLOW WEBSITE
+  cover: "/img/projects/danish-bakery.jpg"
   client: Twitch Malta
   agency: BRND WGN
   timeframe: November 2019, 7 days
@@ -137,6 +142,7 @@
   category: Illustrations
   subCategory: Others
   name: YELLOW WEBSITE
+  cover: "/img/projects/placeholder-1.png"
   client: Twitch Malta
   agency: BRND WGN
   timeframe: November 2019, 7 days
@@ -164,6 +170,7 @@
   category: Illustrations
   subCategory: Others
   name: YELLOW WEBSITE
+  cover: "/img/projects/image-1.png"
   client: Twitch Malta
   agency: BRND WGN
   timeframe: November 2019, 7 days
@@ -191,6 +198,7 @@
   category: UI
   subCategory: Others
   name: Addidas
+  cover: "/img/projects/danish-bakery.jpg"
   client: Addidas Malta
   agency: BRND WGN
   timeframe: November 2019, 7 days
@@ -218,6 +226,7 @@
   category: UI
   subCategory: Others
   name: Nike
+  cover: "/img/projects/placeholder-1.png"
   client: Nike Malta
   agency: BRND WGN
   timeframe: November 2019, 7 days
@@ -245,6 +254,7 @@
   category: UI
   subCategory: Others
   name: Pepsi
+  cover: "/img/projects/image-1.png"
   client: Pepsi Malta
   agency: BRND WGN
   timeframe: November 2019, 7 days
@@ -272,6 +282,7 @@
   category: UI
   subCategory: Others
   name: Topshop
+  cover: "/img/projects/danish-bakery.jpg"
   client: Topshop Malta
   agency: BRND WGN
   timeframe: November 2019, 7 days

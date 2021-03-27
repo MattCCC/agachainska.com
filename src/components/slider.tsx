@@ -1,5 +1,6 @@
 import {
     useState,
+    useEffect,
     Fragment,
     useCallback,
     useRef,
@@ -154,8 +155,17 @@ const NextIconStyled = styled(NextIcon)(() => [
  * Interfaxces
  */
 
+export interface SliderItem {
+    cover: string;
+    id: string;
+    routeTo: string;
+    category: string;
+}
+
 interface Props {
-    images: string[];
+    sliderItems: SliderItem[];
+    slideId: number;
+    onSliderTap: (currentItem: SliderItem) => void;
 }
 
 type SliderRefHandle = ElementRef<typeof Slider>;
@@ -164,7 +174,11 @@ type SliderRefHandle = ElementRef<typeof Slider>;
  * Component
  * @param props
  */
-export function Slider({ images }: Props): JSX.Element {
+export function Slider({
+    sliderItems,
+    slideId = -1,
+    onSliderTap,
+}: Props): JSX.Element {
     const [[page, direction], setPage] = useState([0, 0]);
     const [isAnimating, setIsAnimating] = useState(false);
 
@@ -176,7 +190,7 @@ export function Slider({ images }: Props): JSX.Element {
     // then wrap that within 0-2 to find our image ID in the array below. By passing an
     // absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
     // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
-    const imageIndex = wrap(0, images.length, page);
+    const sliderIndex = wrap(0, sliderItems.length, page);
 
     const [scales, setScales] = useState({} as Record<string, number>);
 
@@ -228,11 +242,27 @@ export function Slider({ images }: Props): JSX.Element {
                 return;
             }
 
+            const newStateDirection = page + newDirection;
+
             setIsAnimating(true);
-            setPage([page + newDirection, newDirection]);
-            orchestrateVectorAnimation(0, 100, page + newDirection);
+            setPage([newStateDirection, newDirection]);
+            orchestrateVectorAnimation(0, 100, newStateDirection);
+
+            const currentSliderItem = wrap(
+                0,
+                sliderItems.length,
+                newStateDirection
+            );
+
+            onSliderTap(sliderItems[currentSliderItem]);
         },
-        [isAnimating, orchestrateVectorAnimation, page]
+        [
+            isAnimating,
+            page,
+            orchestrateVectorAnimation,
+            sliderItems,
+            onSliderTap,
+        ]
     );
 
     const onDragEnd = useCallback(
@@ -260,6 +290,23 @@ export function Slider({ images }: Props): JSX.Element {
         },
         [goTo]
     );
+
+    useEffect(() => {
+        if (slideId === -1 || page === slideId) {
+            return;
+        }
+
+        setIsAnimating(true);
+        setPage([slideId, sliderIndex > 0 ? 1 : -1]);
+        orchestrateVectorAnimation(0, 100, slideId);
+    }, [
+        sliderItems,
+        sliderIndex,
+        slideId,
+        page,
+        goTo,
+        orchestrateVectorAnimation,
+    ]);
 
     useEventListener(
         "wheel",
@@ -297,7 +344,7 @@ export function Slider({ images }: Props): JSX.Element {
                         >
                             <Slide
                                 id={String(page)}
-                                imgUrl={images[imageIndex] || ""}
+                                imgUrl={sliderItems[sliderIndex]?.cover || ""}
                                 key={`slide-${page}`}
                                 scale={scales[page]}
                             ></Slide>

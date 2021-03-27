@@ -1,5 +1,6 @@
 import {
     useState,
+    useEffect,
     RefObject,
     useRef,
     useCallback,
@@ -11,6 +12,7 @@ import tw, { css, styled } from "twin.macro";
 
 import { motion, MotionProps, AnimatePresence } from "@components/animation";
 import { useElementSize } from "@hooks/element-size";
+import { usePreviousContext } from "@hooks/use-previous-context";
 
 /**
  * Style
@@ -69,6 +71,8 @@ export interface Item {
     name: string;
     id: string;
     routeTo: string;
+    cover: string;
+    category: string;
 }
 
 export interface Section {
@@ -113,13 +117,36 @@ export const Timeline = memo(
         const { height: wrapperHeight } = useElementSize(wrapperRef);
         const { height: sectionTitleHeight } = useElementSize(sectionTitleRef);
 
-        const activeListHeight = (wrapperHeight - sectionTitleHeight * sections.length);
-        const contentListHeight = activeListHeight > 0 ? (activeListHeight - 50) : 0;
+        const activeListHeight =
+            wrapperHeight - sectionTitleHeight * sections.length;
+        const contentListHeight =
+            activeListHeight > 0 ? activeListHeight - 50 : 0;
+
+        const previousProps = usePreviousContext({
+            activeSectionId,
+            activeItemId,
+        });
 
         const [state, setState] = useState({
             sectionId: activeSectionId || activeSections[0]?.id || "",
             activeId: activeItemId || allItems[0]?.id || "",
         });
+
+        useEffect(() => {
+            if (
+                previousProps &&
+                activeSectionId &&
+                activeItemId &&
+                (activeSectionId !== previousProps.activeSectionId ||
+                    activeItemId !== previousProps.activeItemId)
+            ) {
+                setState({
+                    ...state,
+                    sectionId: activeSectionId,
+                    activeId: activeItemId,
+                });
+            }
+        }, [activeItemId, activeSectionId, previousProps, state]);
 
         const onTimelineItemClick = useCallback(
             (item: Item) => {
@@ -150,11 +177,13 @@ export const Timeline = memo(
 
                 if (section.items && section.items.length > 0) {
                     newState.activeId = section.items[0].id || "";
+
+                    onTimelineItemChange(section.items[0]);
                 }
 
                 setState(newState);
             },
-            [state]
+            [state, onTimelineItemChange]
         );
 
         return (
@@ -193,38 +222,49 @@ export const Timeline = memo(
                         >
                             <Pin
                                 animate={{
-                                    y: Math.max(0, ((contentListHeight /
-                                        (section.items?.length ?? 1)) *
+                                    y: Math.max(
+                                        0,
+                                        (contentListHeight /
+                                            (section.items?.length ?? 1)) *
                                         (section.items?.findIndex(
-                                            (item) => item.id === state.activeId
-                                        ) || 0))),
+                                            (item) =>
+                                                item.id === state.activeId
+                                        ) || 0)
+                                    ),
                                 }}
                                 style={{
-                                    height:
-                                        Math.max(0, contentListHeight /
-                                            (section.items?.length ?? 1)),
+                                    height: Math.max(
+                                        0,
+                                        contentListHeight /
+                                        (section.items?.length ?? 1)
+                                    ),
                                 }}
                             />
-                            {section.items?.map((item: Item, itemIndex: number) => (
-                                <ListItem
-                                    key={itemIndex}
-                                    isActive={
-                                        section.id === state.sectionId &&
-                                        item.id === state.activeId
-                                    }
-                                    onClick={onTimelineItemClick.bind(
-                                        null,
-                                        item
-                                    )}
-                                >
-                                    {item.name}
-                                </ListItem>
-                            ))}
+                            {section.items?.map(
+                                (item: Item, itemIndex: number) => (
+                                    <ListItem
+                                        key={itemIndex}
+                                        isActive={
+                                            section.id === state.sectionId &&
+                                            item.id === state.activeId
+                                        }
+                                        onClick={onTimelineItemClick.bind(
+                                            null,
+                                            item
+                                        )}
+                                    >
+                                        {item.name}
+                                    </ListItem>
+                                )
+                            )}
                         </List>
                     </AnimatePresence>
                 ))}
             </TimelineWrapper>
         );
     },
-    (prevProps, nextProps) => prevProps.sections.length === nextProps.sections.length
+    (prevProps, nextProps) =>
+        prevProps.sections.length === nextProps.sections.length &&
+        prevProps.activeSectionId === nextProps.activeSectionId &&
+        prevProps.activeItemId === nextProps.activeItemId
 );
