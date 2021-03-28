@@ -1,12 +1,13 @@
 import { Fragment, useCallback, memo, useState } from "react";
 
-import { graphql, PageProps } from "gatsby";
+import { graphql, PageProps, navigate } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 
 import { Header } from "@components/header";
 import { MainContainer } from "@components/main-container";
 import { Slider, SliderItem } from "@components/slider";
 import { Timeline, Item, Section } from "@components/timeline";
+import { useDelayedLink } from "@hooks/use-delay-link";
 
 /**
  * Styles
@@ -33,6 +34,7 @@ interface NavigationState {
     sliderIndex: number;
     activeSectionId: string;
     activeItemId: string;
+    routeTo: string;
 }
 
 interface Props extends PageProps {
@@ -49,12 +51,15 @@ interface Props extends PageProps {
  */
 const Work = memo(
     ({ data }: Props): JSX.Element => {
-        const workCategories = ["UX", "UI", "Illustrations"];
         const [navigation, setNavigation] = useState({} as NavigationState);
 
         const projects = data.projects.nodes || [];
 
-        const timelineList = workCategories.map((category) => ({
+        const { onClick: onClickDelayNav } = useDelayedLink({
+            to: navigation.routeTo
+        });
+
+        const timelineList = ["UX", "UI", "Illustrations"].map((category) => ({
             title: category,
             id: category.replace(/\s/gi, "-"),
             items: projects
@@ -90,6 +95,8 @@ const Work = memo(
                 );
 
                 setNavigation({
+                    ...navigation,
+                    routeTo: currentItem.routeTo,
                     sliderIndex,
                     activeSectionId: currentItem.category,
                     activeItemId: currentItem.id,
@@ -98,7 +105,7 @@ const Work = memo(
             [navigation, sliderItems, setNavigation]
         );
 
-        const onSliderTap = useCallback(
+        const onSliderChange = useCallback(
             (currentItem: SliderItem): void => {
                 if (navigation.activeItemId === currentItem.id) {
                     return;
@@ -109,12 +116,18 @@ const Work = memo(
                 );
 
                 setNavigation({
+                    ...navigation,
+                    routeTo: currentItem.routeTo,
                     sliderIndex,
                     activeSectionId: currentItem.category,
                     activeItemId: currentItem.id,
                 });
             },
             [navigation, sliderItems, setNavigation]
+        );
+
+        const onSliderTap = useCallback(onClickDelayNav,
+            [onClickDelayNav]
         );
 
         return (
@@ -126,6 +139,7 @@ const Work = memo(
                             <Slider
                                 sliderItems={sliderItems}
                                 onSliderTap={onSliderTap}
+                                onSliderChange={onSliderChange}
                                 slideId={navigation.sliderIndex}
                             />
                         </SlideWrapper>
