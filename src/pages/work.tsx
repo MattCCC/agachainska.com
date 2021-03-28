@@ -55,10 +55,6 @@ const Work = memo(
 
         const projects = data.projects.nodes || [];
 
-        const { onClick: onClickDelayNav } = useDelayedLink({
-            to: navigation.routeTo
-        });
-
         const timelineList = ["UX", "UI", "Illustrations"].map((category) => ({
             title: category,
             id: category.replace(/\s/gi, "-"),
@@ -82,6 +78,16 @@ const Work = memo(
                 },
                 []
             );
+
+        const defaultSettings = {
+            timelineSectionId: "UI",
+            timelineItemId: timelineList.find((item) => item.id === "UI")?.items[0]?.id ?? "1",
+            routeTo: timelineList.find((item) => item.id === "UI")?.items[0]?.routeTo ?? ""
+        };
+
+        const { onClick: onClickDelayNav } = useDelayedLink({
+            to: navigation.routeTo || defaultSettings.routeTo
+        });
 
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         const onTimelineItemChange = useCallback(
@@ -149,9 +155,9 @@ const Work = memo(
                                 onTimelineItemChange={onTimelineItemChange}
                                 sections={timelineList}
                                 activeSectionId={
-                                    navigation.activeSectionId || "UI"
+                                    navigation.activeSectionId || defaultSettings.timelineSectionId
                                 }
-                                activeItemId={navigation.activeItemId || "1"}
+                                activeItemId={navigation.activeItemId || defaultSettings.timelineItemId}
                             />
                         </TimelineWrapper>
                     </ContentContainer>
