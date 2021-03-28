@@ -156,6 +156,7 @@ const NextIconStyled = styled(NextIcon)(() => [
  */
 
 export interface SliderItem {
+    name: string;
     cover: string;
     id: string;
     routeTo: string;
@@ -165,7 +166,8 @@ export interface SliderItem {
 interface Props {
     sliderItems: SliderItem[];
     slideId: number;
-    onSliderTap: (currentItem: SliderItem) => void;
+    onSliderTap: (e: any, currentItem: SliderItem) => void;
+    onSliderChange: (currentItem: SliderItem) => void;
 }
 
 type SliderRefHandle = ElementRef<typeof Slider>;
@@ -178,6 +180,7 @@ export function Slider({
     sliderItems,
     slideId = -1,
     onSliderTap,
+    onSliderChange,
 }: Props): JSX.Element {
     const [[page, direction], setPage] = useState([0, 0]);
     const [isAnimating, setIsAnimating] = useState(false);
@@ -254,14 +257,14 @@ export function Slider({
                 newStateDirection
             );
 
-            onSliderTap(sliderItems[currentSliderItem]);
+            onSliderChange(sliderItems[currentSliderItem]);
         },
         [
             isAnimating,
             page,
             orchestrateVectorAnimation,
             sliderItems,
-            onSliderTap,
+            onSliderChange,
         ]
     );
 
@@ -321,7 +324,7 @@ export function Slider({
     return (
         <Fragment>
             <SliderWrapper ref={sliderRef}>
-                <Title data-text={"Danish Bakery"}>Danish Bakery</Title>
+                <Title data-text={sliderItems[sliderIndex].name}>{sliderItems[sliderIndex].name}</Title>
                 <SlideContent>
                     <AnimatePresence
                         initial={false}
@@ -341,6 +344,7 @@ export function Slider({
                             dragConstraints={sliderDragConstraints}
                             dragElastic={1}
                             onDragEnd={onDragEnd}
+                            onClick={(e): void => onSliderTap(e, sliderItems[sliderIndex])}
                         >
                             <Slide
                                 id={String(page)}
