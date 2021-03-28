@@ -78,7 +78,7 @@ export interface PostItem {
 interface Props {
     post: PostItem;
     postNum?: number;
-    onPostTap: (post: PostItem) => void;
+    onPostTap: (e: any, post: PostItem) => void;
 }
 
 /**
@@ -92,11 +92,9 @@ export function Post({
 }: Props): JSX.Element {
     return (
         <Fragment>
-            <PostWrapper>
+            <PostWrapper onClick={(e): void => onPostTap(e, post)}>
                 <Title data-text={post.name}>{post.name}</Title>
-                <PostImg onClick={(): void => onPostTap(post)}
-                    src={post.cover || ""}>
-                </PostImg>
+                <PostImg src={post.cover || ""} />
                 <PostDescription>
                     {post.description.split(" ").slice(0, 8)
                         .join(" ")}

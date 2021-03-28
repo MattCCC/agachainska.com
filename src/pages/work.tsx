@@ -1,4 +1,4 @@
-import { Fragment, useCallback, memo, useState } from "react";
+import { Fragment, useCallback, memo, useState, useEffect } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import tw, { styled } from "twin.macro";
@@ -10,6 +10,7 @@ import { Slider, SliderItem } from "@components/slider";
 import { Tabs } from "@components/tabs";
 import { Timeline, Item, Section } from "@components/timeline";
 import { useDelayedLink } from "@hooks/use-delay-link";
+import { usePreviousContext } from "@hooks/use-previous-context";
 
 /**
  * Styles
@@ -38,6 +39,7 @@ interface NavigationState {
     activeSectionId: string;
     activeItemId: string;
     routeTo: string;
+    clickEvent: Event;
 }
 
 interface Props extends PageProps {
@@ -55,6 +57,7 @@ interface Props extends PageProps {
 const Work = memo(
     ({ data }: Props): JSX.Element => {
         const [navigation, setNavigation] = useState({} as NavigationState);
+        const prevNavigation = usePreviousContext(navigation);
 
         const projects = data.projects.nodes || [];
 
@@ -168,9 +171,24 @@ const Work = memo(
             [onClickDelayNav]
         );
 
-        const onPostTap = useCallback(onClickDelayNav,
-            [onClickDelayNav]
-        );
+        const onPostTap = useCallback((e, currentPost: PostItem) => {
+            setNavigation({
+                ...navigation,
+                routeTo: currentPost.routeTo,
+                sliderIndex: -1,
+                clickEvent: e,
+            });
+        }, [navigation]);
+
+        useEffect(() => {
+            if (!navigation.routeTo ||
+                !navigation.clickEvent ||
+                prevNavigation.routeTo === navigation.routeTo) {
+                return;
+            }
+
+            onClickDelayNav(navigation.clickEvent);
+        }, [prevNavigation, navigation, onClickDelayNav]);
 
         return (
             <Fragment>
