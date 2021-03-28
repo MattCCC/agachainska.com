@@ -89,14 +89,15 @@ const SlideContent = styled.div(() => [
 ]);
 
 const Title = styled.h1(() => [
-    tw`absolute w-1/2 lg:prose-120px uppercase z-50 select-none`,
+    tw`absolute lg:prose-120px uppercase z-50 select-none`,
     css`
+        width: 55%;
         top: -5.35rem;
         color: var(--black-color);
         background: linear-gradient(
             180deg,
-            var(--black-color) 33%,
-            transparent 32%
+            var(--black-color) 86px,
+            transparent 14px
         );
         background-clip: text;
         -webkit-text-fill-color: transparent;
