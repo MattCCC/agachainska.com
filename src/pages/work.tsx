@@ -14,7 +14,7 @@ import { useDelayedLink } from "@hooks/use-delay-link";
  * Styles
  */
 const ContentContainer = styled.div(() => [
-    tw`relative grid grid-cols-1 grid-rows-2 lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col top-24 lg:top-0 lg:mt-32`,
+    tw`relative grid grid-cols-1 grid-rows-2 lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col top-32 lg:top-0 lg:mt-32`,
 ]);
 
 const SlideWrapper = styled.div(() => [

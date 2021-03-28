@@ -80,7 +80,6 @@ export const TabsBar = memo(
         ...props
     }: Props): JSX.Element => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
-        const sectionTabRef = useRef() as RefObject<HTMLDivElement>;
         const activeSections: Section[] = sections.filter(
             (section: Section) => section?.items && section?.items?.length > 0
         );
@@ -95,7 +94,7 @@ export const TabsBar = memo(
 
         const { width: wrapperWidth } = useElementSize(wrapperRef);
 
-        const tabWidth = wrapperWidth / sections.length;
+        const tabWidth = ((wrapperWidth - 14) / sections.length);
 
         const previousProps = usePreviousContext({
             activeSectionId,
@@ -144,7 +143,7 @@ export const TabsBar = memo(
                 <AnimatePresence initial={false}>
                     {
                         sections.map((section: Section, index: number) => (
-                            <Tab ref={sectionTabRef} key={`tab-${index}`}
+                            <Tab key={`tab-${index}`}
                                 isActive={section.id === state.sectionId}
                                 onClick={onTimelineItemClick.bind(
                                     null,
