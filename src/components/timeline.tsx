@@ -73,6 +73,7 @@ export interface Item {
     routeTo: string;
     cover: string;
     category: string;
+    description: string;
 }
 
 export interface Section {

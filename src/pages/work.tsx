@@ -70,6 +70,7 @@ const Work = memo(
                     routeTo: project.nameSlug,
                     cover: project.cover,
                     category: project.category,
+                    description: project.challenge.overview
                 })),
         }));
 
@@ -90,7 +91,7 @@ const Work = memo(
             );
 
         const postItems: PostItem[] = timelineList
-            .filter((post) => post.category === navigation.activeSectionId || defaultSettings.sectionId)
+            .filter((post) => post.id === (navigation.activeSectionId || defaultSettings.sectionId))
             .reduce(
                 (itemsList: Item[], currentValue: Section) => {
                     itemsList = [...itemsList, ...(currentValue.items || [])];
@@ -184,7 +185,16 @@ const Work = memo(
                                     navigation.activeSectionId || defaultSettings.sectionId
                                 }
                                 activeItemId={navigation.activeItemId || defaultSettings.itemId}
-                            />
+                            >
+                                {
+                                    postItems.map((post: PostItem, index: number) => (
+                                        <Post key={index}
+                                            postNum={index + 1}
+                                            post={post}
+                                            onPostTap={onPostTap} />
+                                    ))
+                                }
+                            </Tabs>
                         </TabsWrapper>
                         <SlideWrapper>
                             <Slider
