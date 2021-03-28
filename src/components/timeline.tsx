@@ -78,6 +78,7 @@ export interface Item {
 export interface Section {
     title: string;
     id: string;
+    category: string;
     items?: Item[];
 }
 

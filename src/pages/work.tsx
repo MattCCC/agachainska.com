@@ -5,8 +5,9 @@ import tw, { styled } from "twin.macro";
 
 import { Header } from "@components/header";
 import { MainContainer } from "@components/main-container";
+import { Post, PostItem } from "@components/post";
 import { Slider, SliderItem } from "@components/slider";
-import { TabsBar } from "@components/tabs-bar";
+import { Tabs } from "@components/tabs";
 import { Timeline, Item, Section } from "@components/timeline";
 import { useDelayedLink } from "@hooks/use-delay-link";
 
@@ -14,7 +15,7 @@ import { useDelayedLink } from "@hooks/use-delay-link";
  * Styles
  */
 const ContentContainer = styled.div(() => [
-    tw`relative grid grid-cols-1 grid-rows-2 lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col top-32 lg:top-0 lg:mt-32`,
+    tw`relative lg:grid lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col top-32 lg:top-0 lg:mt-32`,
 ]);
 
 const SlideWrapper = styled.div(() => [
@@ -26,7 +27,7 @@ const TimelineWrapper = styled.aside(() => [
 ]);
 
 const TabsWrapper = styled.aside(() => [
-    tw`col-start-1 row-start-1 lg:hidden`,
+    tw`lg:hidden`,
 ]);
 
 /**
@@ -60,6 +61,7 @@ const Work = memo(
         const timelineList = ["UX", "UI", "Illustrations"].map((category) => ({
             title: category,
             id: category.replace(/\s/gi, "-"),
+            category,
             items: projects
                 .filter((project: Project) => project.category === category)
                 .map((project: Project) => ({
@@ -71,6 +73,12 @@ const Work = memo(
                 })),
         }));
 
+        const defaultSettings = {
+            sectionId: "UI",
+            itemId: timelineList.find((item) => item.id === "UI")?.items[0]?.id ?? "1",
+            routeTo: timelineList.find((item) => item.id === "UI")?.items[0]?.routeTo ?? ""
+        };
+
         const sliderItems: SliderItem[] = timelineList
             .reduce(
                 (itemsList: Item[], currentValue: Section) => {
@@ -81,11 +89,16 @@ const Work = memo(
                 []
             );
 
-        const defaultSettings = {
-            sectionId: "UI",
-            itemId: timelineList.find((item) => item.id === "UI")?.items[0]?.id ?? "1",
-            routeTo: timelineList.find((item) => item.id === "UI")?.items[0]?.routeTo ?? ""
-        };
+        const postItems: PostItem[] = timelineList
+            .filter((post) => post.category === navigation.activeSectionId || defaultSettings.sectionId)
+            .reduce(
+                (itemsList: Item[], currentValue: Section) => {
+                    itemsList = [...itemsList, ...(currentValue.items || [])];
+
+                    return itemsList;
+                },
+                []
+            );
 
         const { onClick: onClickDelayNav } = useDelayedLink({
             to: navigation.routeTo || defaultSettings.routeTo
@@ -117,6 +130,14 @@ const Work = memo(
                 if (navigation.activeSectionId === currentTab.id) {
                     return;
                 }
+
+                setNavigation({
+                    ...navigation,
+                    routeTo: "",
+                    sliderIndex: -1,
+                    activeSectionId: currentTab.category,
+                    activeItemId: currentTab.id,
+                });
             },
             [navigation]
         );
@@ -146,13 +167,17 @@ const Work = memo(
             [onClickDelayNav]
         );
 
+        const onPostTap = useCallback(onClickDelayNav,
+            [onClickDelayNav]
+        );
+
         return (
             <Fragment>
                 <Header />
                 <MainContainer className="lg:pt-20">
                     <ContentContainer>
                         <TabsWrapper>
-                            <TabsBar
+                            <Tabs
                                 onTabChange={onTabChange}
                                 sections={timelineList}
                                 activeSectionId={

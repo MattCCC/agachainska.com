@@ -17,7 +17,9 @@ import { usePreviousContext } from "@hooks/use-previous-context";
 /**
  * Style
  */
-const TabsWrapper = styled.div(() => [tw`flex flex-row w-full justify-between`]);
+const TabsWrapper = styled.div(() => [tw`w-full`]);
+
+const TabsList = styled.div(() => [tw`flex flex-row w-full justify-between mb-8`]);
 
 const Tab = styled.div(({ isActive = false }: TabStyled) => [
     tw`prose-20px w-full h-8 opacity-30 select-none cursor-pointer`,
@@ -39,6 +41,8 @@ const Pin = styled(motion.div)(() => [
     `,
 ]);
 
+const TabContent = styled.div(() => []);
+
 /**
  * Interfaxces
  */
@@ -46,7 +50,7 @@ interface TabStyled extends MotionProps {
     isActive?: boolean;
 }
 
-export interface Item {
+interface Item {
     name: string;
     id: string;
     routeTo: string;
@@ -54,9 +58,10 @@ export interface Item {
     category: string;
 }
 
-export interface Section {
+interface Section {
     title: string;
     id: string;
+    category: string;
     items?: Item[];
 }
 
@@ -71,8 +76,9 @@ interface Props extends HTMLAttributes<HTMLElement> {
  * Component
  * @param props
  */
-export const TabsBar = memo(
+export const Tabs = memo(
     ({
+        children,
         sections,
         activeSectionId = "",
         activeItemId = "",
@@ -122,7 +128,7 @@ export const TabsBar = memo(
             }
         }, [activeItemId, activeSectionId, previousProps, state]);
 
-        const onTimelineItemClick = useCallback(
+        const onTabClick = useCallback(
             (section: Section) => {
                 if (state.sectionId === section.id) {
                     return;
@@ -140,34 +146,39 @@ export const TabsBar = memo(
 
         return (
             <TabsWrapper ref={wrapperRef} {...props}>
-                <AnimatePresence initial={false}>
-                    {
-                        sections.map((section: Section, index: number) => (
-                            <Tab key={`tab-${index}`}
-                                isActive={section.id === state.sectionId}
-                                onClick={onTimelineItemClick.bind(
-                                    null,
-                                    section
-                                )}>{section.title}</Tab>
-                        ))
-                    }
-                    <Pin
-                        animate={{
-                            x: Math.max(
-                                0,
-                                (tabWidth *
-                                    (sections?.findIndex(
-                                        (item) =>
-                                            item.id === state.sectionId
-                                    ) || 0)
-                                ),
-                            )
-                        }}
-                        style={{
-                            width: tabWidth,
-                        }}
-                    />
-                </AnimatePresence>
+                <TabsList>
+                    <AnimatePresence initial={false}>
+                        {
+                            sections.map((section: Section, index: number) => (
+                                <Tab key={`tab-${index}`}
+                                    isActive={section.id === state.sectionId}
+                                    onClick={onTabClick.bind(
+                                        null,
+                                        section
+                                    )}>{section.title}</Tab>
+                            ))
+                        }
+                        <Pin
+                            animate={{
+                                x: Math.max(
+                                    0,
+                                    (tabWidth *
+                                        (sections?.findIndex(
+                                            (item) =>
+                                                item.id === state.sectionId
+                                        ) || 0)
+                                    ),
+                                )
+                            }}
+                            style={{
+                                width: tabWidth,
+                            }}
+                        />
+                    </AnimatePresence>
+                </TabsList>
+                <TabContent>
+                    {children}
+                </TabContent>
             </TabsWrapper>
         );
     },
