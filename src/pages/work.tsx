@@ -1,11 +1,12 @@
 import { Fragment, useCallback, memo, useState } from "react";
 
-import { graphql, PageProps, navigate } from "gatsby";
-import tw, { css, styled } from "twin.macro";
+import { graphql, PageProps } from "gatsby";
+import tw, { styled } from "twin.macro";
 
 import { Header } from "@components/header";
 import { MainContainer } from "@components/main-container";
 import { Slider, SliderItem } from "@components/slider";
+import { TabsBar } from "@components/tabs-bar";
 import { Timeline, Item, Section } from "@components/timeline";
 import { useDelayedLink } from "@hooks/use-delay-link";
 
@@ -13,18 +14,19 @@ import { useDelayedLink } from "@hooks/use-delay-link";
  * Styles
  */
 const ContentContainer = styled.div(() => [
-    tw`relative grid grid-cols-5 grid-rows-6 gap-y-6 grid-flow-col`,
-    css`
-        margin-top: 8rem;
-    `,
+    tw`relative grid grid-cols-1 grid-rows-2 lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col top-24 lg:top-0 lg:mt-32`,
 ]);
 
 const SlideWrapper = styled.div(() => [
-    tw`col-start-1 col-end-4 col-span-4 row-start-1 row-end-6 row-span-5`,
+    tw`col-start-1 col-end-4 col-span-4 row-start-1 row-end-6 row-span-5 hidden lg:block`,
 ]);
 
 const TimelineWrapper = styled.aside(() => [
-    tw`m-auto justify-center col-start-5 row-start-1 row-end-5 row-span-5`,
+    tw`m-auto justify-center col-start-5 row-start-1 row-end-5 row-span-5 hidden lg:block`,
+]);
+
+const TabsWrapper = styled.aside(() => [
+    tw`col-start-1 row-start-1 lg:hidden`,
 ]);
 
 /**
@@ -80,8 +82,8 @@ const Work = memo(
             );
 
         const defaultSettings = {
-            timelineSectionId: "UI",
-            timelineItemId: timelineList.find((item) => item.id === "UI")?.items[0]?.id ?? "1",
+            sectionId: "UI",
+            itemId: timelineList.find((item) => item.id === "UI")?.items[0]?.id ?? "1",
             routeTo: timelineList.find((item) => item.id === "UI")?.items[0]?.routeTo ?? ""
         };
 
@@ -89,7 +91,6 @@ const Work = memo(
             to: navigation.routeTo || defaultSettings.routeTo
         });
 
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
         const onTimelineItemChange = useCallback(
             (currentItem: Item): void => {
                 if (navigation.activeItemId === currentItem.id) {
@@ -109,6 +110,15 @@ const Work = memo(
                 });
             },
             [navigation, sliderItems, setNavigation]
+        );
+
+        const onTabChange = useCallback(
+            (currentTab: Section): void => {
+                if (navigation.activeSectionId === currentTab.id) {
+                    return;
+                }
+            },
+            [navigation]
         );
 
         const onSliderChange = useCallback(
@@ -141,6 +151,16 @@ const Work = memo(
                 <Header />
                 <MainContainer className="lg:pt-20">
                     <ContentContainer>
+                        <TabsWrapper>
+                            <TabsBar
+                                onTabChange={onTabChange}
+                                sections={timelineList}
+                                activeSectionId={
+                                    navigation.activeSectionId || defaultSettings.sectionId
+                                }
+                                activeItemId={navigation.activeItemId || defaultSettings.itemId}
+                            />
+                        </TabsWrapper>
                         <SlideWrapper>
                             <Slider
                                 sliderItems={sliderItems}
@@ -155,9 +175,9 @@ const Work = memo(
                                 onTimelineItemChange={onTimelineItemChange}
                                 sections={timelineList}
                                 activeSectionId={
-                                    navigation.activeSectionId || defaultSettings.timelineSectionId
+                                    navigation.activeSectionId || defaultSettings.sectionId
                                 }
-                                activeItemId={navigation.activeItemId || defaultSettings.timelineItemId}
+                                activeItemId={navigation.activeItemId || defaultSettings.itemId}
                             />
                         </TimelineWrapper>
                     </ContentContainer>
