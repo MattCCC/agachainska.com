@@ -27,8 +27,6 @@ const TimelineWrapper = styled.aside(() => [
     tw`m-auto justify-center col-start-5 row-start-1 row-end-5 row-span-5 hidden lg:block`,
 ]);
 
-const TabsWrapper = styled.aside(() => [tw`lg:hidden`]);
-
 /**
  * Interfaces
  */
@@ -200,31 +198,29 @@ const Work = memo(
                 <Header />
                 <MainContainer className="lg:pt-20">
                     <ContentContainer>
-                        <TabsWrapper>
-                            <Tabs
-                                onTabChange={onTabChange}
-                                sections={timelineList}
-                                activeSectionId={
-                                    navigation.activeSectionId ||
-                                    defaultSettings.sectionId
-                                }
-                                activeItemId={
-                                    navigation.activeItemId ||
-                                    defaultSettings.itemId
-                                }
-                            >
-                                {postItems.map(
-                                    (post: PostItem, index: number) => (
-                                        <Post
-                                            key={index}
-                                            postNum={index + 1}
-                                            post={post}
-                                            onPostTap={onPostTap}
-                                        />
-                                    )
-                                )}
-                            </Tabs>
-                        </TabsWrapper>
+                        <Tabs
+                            onTabChange={onTabChange}
+                            sections={timelineList}
+                            activeSectionId={
+                                navigation.activeSectionId ||
+                                defaultSettings.sectionId
+                            }
+                            activeItemId={
+                                navigation.activeItemId ||
+                                defaultSettings.itemId
+                            }
+                        >
+                            {postItems.map(
+                                (post: PostItem, index: number) => (
+                                    <Post
+                                        key={index}
+                                        postNum={index + 1}
+                                        post={post}
+                                        onPostTap={onPostTap}
+                                    />
+                                )
+                            )}
+                        </Tabs>
                         <SlideWrapper>
                             <Slider
                                 sliderItems={sliderItems}
@@ -250,7 +246,7 @@ const Work = memo(
                         </TimelineWrapper>
                     </ContentContainer>
                 </MainContainer>
-            </Fragment>
+            </Fragment >
         );
     }
 );
