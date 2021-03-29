@@ -11,6 +11,7 @@ interface Project {
     agency: string;
     timeframe: string;
     roleInProject: string;
+    shortDescription: string;
     challenge: Record<string, string>;
     approach: Record<string, string>;
     stats: Record<string, number>;

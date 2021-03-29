@@ -69,7 +69,7 @@ const Work = memo(
                     routeTo: project.nameSlug,
                     cover: project.cover,
                     category: project.category,
-                    description: project.challenge.overview,
+                    description: project.shortDescription
                 })),
         }));
 
