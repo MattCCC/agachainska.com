@@ -12,7 +12,7 @@ import tw, { css, styled } from "twin.macro";
 
 import { animate, AnimatePresence, motion } from "@components/animation";
 import { Distortion } from "@components/distortion";
-import { useEventListener } from "@hooks/event-listener";
+import { useEventListener } from "@hooks/use-event-listener";
 import { ReactComponent as NextIcon } from "@svg/down.svg";
 import { ReactComponent as PrevIcon } from "@svg/up.svg";
 
