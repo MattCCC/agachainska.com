@@ -69,7 +69,7 @@ const Work = memo(
                     routeTo: project.nameSlug,
                     cover: project.cover,
                     category: project.category,
-                    description: project.challenge.overview,
+                    description: project.shortDescription
                 })),
         }));
 
@@ -199,7 +199,6 @@ const Work = memo(
                 <MainContainer className="lg:pt-20">
                     <ContentContainer>
                         <Tabs
-                            hideForDesktop={true}
                             onTabChange={onTabChange}
                             sections={timelineList}
                             activeSectionId={
@@ -211,14 +210,16 @@ const Work = memo(
                                 defaultSettings.itemId
                             }
                         >
-                            {postItems.map((post: PostItem, index: number) => (
-                                <Post
-                                    key={index}
-                                    postNum={index + 1}
-                                    post={post}
-                                    onPostTap={onPostTap}
-                                />
-                            ))}
+                            {postItems.map(
+                                (post: PostItem, index: number) => (
+                                    <Post
+                                        key={index}
+                                        postNum={index + 1}
+                                        post={post}
+                                        onPostTap={onPostTap}
+                                    />
+                                )
+                            )}
                         </Tabs>
                         <SlideWrapper>
                             <Slider
@@ -245,7 +246,7 @@ const Work = memo(
                         </TimelineWrapper>
                     </ContentContainer>
                 </MainContainer>
-            </Fragment>
+            </Fragment >
         );
     }
 );

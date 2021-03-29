@@ -11,6 +11,7 @@ export const ProjectFragment = graphql`
         agency
         timeframe
         roleInProject
+        shortDescription
         challenge {
             overview
             projectGoals

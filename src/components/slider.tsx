@@ -125,7 +125,7 @@ const SlidesList = styled(motion.div)(() => [
 ]);
 
 const Slide = styled(motion(Distortion, { forwardMotionProps: true }))(() => [
-    tw`relative w-full h-full z-10`,
+    tw`relative w-full h-full z-10 cursor-pointer`,
     css`
         transition: transform 0.8s;
         transform: scale(${initialSlideScale + 1});
@@ -325,7 +325,9 @@ export function Slider({
     return (
         <Fragment>
             <SliderWrapper ref={sliderRef}>
-                <Title data-text={sliderItems[sliderIndex].name}>{sliderItems[sliderIndex].name}</Title>
+                <Title data-text={sliderItems[sliderIndex].name}>
+                    {sliderItems[sliderIndex].name}
+                </Title>
                 <SlideContent>
                     <AnimatePresence
                         initial={false}
@@ -345,7 +347,9 @@ export function Slider({
                             dragConstraints={sliderDragConstraints}
                             dragElastic={1}
                             onDragEnd={onDragEnd}
-                            onClick={(e): void => onSliderTap(e, sliderItems[sliderIndex])}
+                            onClick={(e): void =>
+                                onSliderTap(e, sliderItems[sliderIndex])
+                            }
                         >
                             <Slide
                                 id={String(page)}
