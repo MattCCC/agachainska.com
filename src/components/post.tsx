@@ -43,6 +43,7 @@ const Title = styled.h1(() => [
         );
         background-clip: text;
         -webkit-text-fill-color: transparent;
+        font-family: "Larsseit-Bold";
 
         ::before {
             position: absolute;
