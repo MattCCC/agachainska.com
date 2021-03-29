@@ -48,7 +48,6 @@ interface Props extends PageProps {
 
 /**
  * Component
- * @param props
  */
 const Work = memo(
     ({ data }: Props): JSX.Element => {
@@ -69,7 +68,7 @@ const Work = memo(
                     routeTo: project.nameSlug,
                     cover: project.cover,
                     category: project.category,
-                    description: project.shortDescription
+                    description: project.shortDescription,
                 })),
         }));
 
@@ -210,16 +209,14 @@ const Work = memo(
                                 defaultSettings.itemId
                             }
                         >
-                            {postItems.map(
-                                (post: PostItem, index: number) => (
-                                    <Post
-                                        key={index}
-                                        postNum={index + 1}
-                                        post={post}
-                                        onPostTap={onPostTap}
-                                    />
-                                )
-                            )}
+                            {postItems.map((post: PostItem, index: number) => (
+                                <Post
+                                    key={index}
+                                    postNum={index + 1}
+                                    post={post}
+                                    onPostTap={onPostTap}
+                                />
+                            ))}
                         </Tabs>
                         <SlideWrapper>
                             <Slider
@@ -246,7 +243,7 @@ const Work = memo(
                         </TimelineWrapper>
                     </ContentContainer>
                 </MainContainer>
-            </Fragment >
+            </Fragment>
         );
     }
 );

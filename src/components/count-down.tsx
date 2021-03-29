@@ -67,7 +67,6 @@ interface Props {
 
 /**
  * Component
- * @param props
  */
 export const CountDown = memo(
     ({ seconds = 0, onFinishedCallback = null, ...props }: Props) => {

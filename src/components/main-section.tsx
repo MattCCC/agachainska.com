@@ -22,7 +22,6 @@ interface Props {
 
 /**
  * Component
- * @param props
  */
 export const MainSection: FunctionComponent<Props> = ({
     initial = "",

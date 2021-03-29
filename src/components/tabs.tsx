@@ -85,7 +85,6 @@ interface Props extends HTMLAttributes<HTMLElement> {
 
 /**
  * Component
- * @param props
  */
 export const Tabs = memo(
     ({

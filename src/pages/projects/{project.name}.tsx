@@ -76,7 +76,6 @@ const options = {
 
 /**
  * Component
- * @param props
  */
 export default function Project({ data }: Props): JSX.Element {
     const [, dispatch] = useStoreProp("showMotionGrid");

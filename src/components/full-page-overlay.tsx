@@ -36,7 +36,6 @@ const OverlayFullPageVariants = {
 
 /**
  * Component
- * @param props
  */
 export const FullPageOverlay = memo(
     (): JSX.Element => {

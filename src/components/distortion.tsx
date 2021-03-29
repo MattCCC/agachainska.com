@@ -11,7 +11,6 @@ interface Props {
 
 /**
  * Apply distortion at particular image
- * @param props
  */
 export const Distortion = forwardRef(
     (

@@ -52,7 +52,6 @@ const OverlayVariants = {
 
 /**
  * Component
- * @param props
  */
 export const Overlays = memo(
     (): JSX.Element => {

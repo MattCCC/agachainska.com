@@ -75,7 +75,6 @@ interface Props {
 
 /**
  * Component
- * @param props
  */
 export function Header({ showLogoOnDesktop = true }: Props): JSX.Element {
     const [state, dispatch] = useStore();

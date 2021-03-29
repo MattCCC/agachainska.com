@@ -9,7 +9,6 @@ interface Props {
 
 /**
  * Component
- * @param props
  */
 export const MainContainer: FunctionComponent<Props> = ({
     className = "",

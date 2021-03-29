@@ -25,7 +25,6 @@ export interface Props extends LinkDelayedArgs {
 
 /**
  * Component
- * @param props
  */
 export const Link: FunctionComponent<Props> = ({
     to,

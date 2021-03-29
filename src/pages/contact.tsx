@@ -7,7 +7,6 @@ import { Translate } from "@components/translate";
 
 /**
  * Component
- * @param props
  */
 export default function Contact(): JSX.Element {
     return (

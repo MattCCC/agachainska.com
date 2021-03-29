@@ -28,7 +28,6 @@ interface Props {}
 
 /**
  * Component
- * @param props
  */
 export const BottomCircle: FunctionComponent<Props> = memo(() => {
     const workLink = getRoutePath("work");

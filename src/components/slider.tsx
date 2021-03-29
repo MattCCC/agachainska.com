@@ -175,7 +175,6 @@ type SliderRefHandle = ElementRef<typeof Slider>;
 
 /**
  * Component
- * @param props
  */
 export function Slider({
     sliderItems,

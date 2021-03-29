@@ -15,7 +15,6 @@ interface Props extends SVGProps<SVGSVGElement> {
 
 /**
  * Component
- * @param props
  */
 export function BigNumber({ value = 0, ...props }: Props): JSX.Element {
     return (

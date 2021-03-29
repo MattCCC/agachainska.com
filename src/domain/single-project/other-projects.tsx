@@ -29,7 +29,6 @@ interface Props {
 
 /**
  * Component
- * @param props
  */
 export const OtherProjects = memo(
     ({ projectsByCategory, limit = 4, ...props }: Props): JSX.Element => (

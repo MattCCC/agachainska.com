@@ -81,7 +81,6 @@ interface Props {
 
 /**
  * Component
- * @param props
  */
 export function Post({ post, postNum = -1, onPostTap }: Props): JSX.Element {
     return (
@@ -89,9 +88,7 @@ export function Post({ post, postNum = -1, onPostTap }: Props): JSX.Element {
             <PostWrapper onClick={(e): void => onPostTap(e, post)}>
                 <Title data-text={post.name}>{post.name}</Title>
                 <PostImg src={post.cover || ""} />
-                <PostDescription>
-                    {post.description}
-                </PostDescription>
+                <PostDescription>{post.description}</PostDescription>
                 {postNum && <StyledNumber value={`${postNum}.`} />}
             </PostWrapper>
         </Fragment>

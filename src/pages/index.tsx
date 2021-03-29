@@ -75,7 +75,6 @@ const Desc = styled.h2(() => [
 
 /**
  * Component
- * @param props
  */
 export default function Home(): JSX.Element {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;

@@ -7,7 +7,6 @@ interface Props {
 
 /**
  * Component
- * @param props
  */
 export default function Button({ text, ...attributes }: Props): JSX.Element {
     return <button {...attributes}>{text}</button>;

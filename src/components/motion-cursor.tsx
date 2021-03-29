@@ -44,7 +44,6 @@ interface Props {
 
 /**
  * Component
- * @param props
  */
 export const MotionCursor: FunctionComponent<Props> = ({
     onPositionUpdate,

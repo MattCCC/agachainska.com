@@ -40,7 +40,6 @@ interface Props {
 
 /**
  * Component
- * @param props
  */
 export function Logo({ showOnDesktop = true }: Props): JSX.Element {
     const location = useLocation();

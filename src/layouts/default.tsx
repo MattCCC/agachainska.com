@@ -34,7 +34,6 @@ interface Props {}
 
 /**
  * Component
- * @param props
  */
 export const Layout: FunctionComponent<Props> = ({ children }) => (
     <Fragment>

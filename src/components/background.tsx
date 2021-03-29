@@ -89,7 +89,6 @@ interface Props {}
 
 /**
  * Component
- * @param props
  */
 export const Background: FunctionComponent<Props> = () => {
     const defaultState = { x: 0, y: 0 };
