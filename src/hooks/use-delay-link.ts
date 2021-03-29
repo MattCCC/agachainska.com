@@ -14,7 +14,7 @@ export interface DelayedLink extends LinkDelayedArgs {
 }
 
 export interface DelayedLinkHook {
-    onClick: ((e: any) => void);
+    onClick: (e: any) => void;
 }
 
 /**

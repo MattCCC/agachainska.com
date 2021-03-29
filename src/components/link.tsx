@@ -3,10 +3,7 @@ import { FunctionComponent, ReactNode } from "react";
 import { Link as TranslatedLink } from "gatsby-plugin-intl";
 import { styled } from "twin.macro";
 
-import {
-    LinkDelayedArgs,
-    LinkDelayedCallback,
-} from "@hooks/link-delayed";
+import { LinkDelayedArgs, LinkDelayedCallback } from "@hooks/link-delayed";
 import { useDelayedLink } from "@hooks/use-delay-link";
 import { excludeProps } from "@utils/styled";
 
@@ -34,8 +31,8 @@ export const Link: FunctionComponent<Props> = ({
     to,
     replace = false,
     delay = 0,
-    onDelayStart = ((_e, _to) => { }) as LinkDelayedCallback,
-    onDelayEnd = ((_e, _to) => { }) as LinkDelayedCallback,
+    onDelayStart = ((_e, _to) => {}) as LinkDelayedCallback,
+    onDelayEnd = ((_e, _to) => {}) as LinkDelayedCallback,
     children,
     ...props
 }: Props) => {

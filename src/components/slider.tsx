@@ -325,7 +325,9 @@ export function Slider({
     return (
         <Fragment>
             <SliderWrapper ref={sliderRef}>
-                <Title data-text={sliderItems[sliderIndex].name}>{sliderItems[sliderIndex].name}</Title>
+                <Title data-text={sliderItems[sliderIndex].name}>
+                    {sliderItems[sliderIndex].name}
+                </Title>
                 <SlideContent>
                     <AnimatePresence
                         initial={false}
@@ -345,7 +347,9 @@ export function Slider({
                             dragConstraints={sliderDragConstraints}
                             dragElastic={1}
                             onDragEnd={onDragEnd}
-                            onClick={(e): void => onSliderTap(e, sliderItems[sliderIndex])}
+                            onClick={(e): void =>
+                                onSliderTap(e, sliderItems[sliderIndex])
+                            }
                         >
                             <Slide
                                 id={String(page)}

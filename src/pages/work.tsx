@@ -27,9 +27,7 @@ const TimelineWrapper = styled.aside(() => [
     tw`m-auto justify-center col-start-5 row-start-1 row-end-5 row-span-5 hidden lg:block`,
 ]);
 
-const TabsWrapper = styled.aside(() => [
-    tw`lg:hidden`,
-]);
+const TabsWrapper = styled.aside(() => [tw`lg:hidden`]);
 
 /**
  * Interfaces
@@ -73,39 +71,43 @@ const Work = memo(
                     routeTo: project.nameSlug,
                     cover: project.cover,
                     category: project.category,
-                    description: project.challenge.overview
+                    description: project.challenge.overview,
                 })),
         }));
 
         const defaultSettings = {
             sectionId: "UI",
-            itemId: timelineList.find((item) => item.id === "UI")?.items[0]?.id ?? "1",
-            routeTo: timelineList.find((item) => item.id === "UI")?.items[0]?.routeTo ?? ""
+            itemId:
+                timelineList.find((item) => item.id === "UI")?.items[0]?.id ??
+                "1",
+            routeTo:
+                timelineList.find((item) => item.id === "UI")?.items[0]
+                    ?.routeTo ?? "",
         };
 
-        const sliderItems: SliderItem[] = timelineList
-            .reduce(
-                (itemsList: Item[], currentValue: Section) => {
-                    itemsList = [...itemsList, ...(currentValue.items || [])];
+        const sliderItems: SliderItem[] = timelineList.reduce(
+            (itemsList: Item[], currentValue: Section) => {
+                itemsList = [...itemsList, ...(currentValue.items || [])];
 
-                    return itemsList;
-                },
-                []
-            );
+                return itemsList;
+            },
+            []
+        );
 
         const postItems: PostItem[] = timelineList
-            .filter((post) => post.id === (navigation.activeSectionId || defaultSettings.sectionId))
-            .reduce(
-                (itemsList: Item[], currentValue: Section) => {
-                    itemsList = [...itemsList, ...(currentValue.items || [])];
+            .filter(
+                (post) =>
+                    post.id ===
+                    (navigation.activeSectionId || defaultSettings.sectionId)
+            )
+            .reduce((itemsList: Item[], currentValue: Section) => {
+                itemsList = [...itemsList, ...(currentValue.items || [])];
 
-                    return itemsList;
-                },
-                []
-            );
+                return itemsList;
+            }, []);
 
         const { onClick: onClickDelayNav } = useDelayedLink({
-            to: navigation.routeTo || defaultSettings.routeTo
+            to: navigation.routeTo || defaultSettings.routeTo,
         });
 
         const onTimelineItemChange = useCallback(
@@ -167,23 +169,26 @@ const Work = memo(
             [navigation, sliderItems, setNavigation]
         );
 
-        const onSliderTap = useCallback(onClickDelayNav,
-            [onClickDelayNav]
+        const onSliderTap = useCallback(onClickDelayNav, [onClickDelayNav]);
+
+        const onPostTap = useCallback(
+            (e, currentPost: PostItem) => {
+                setNavigation({
+                    ...navigation,
+                    routeTo: currentPost.routeTo,
+                    sliderIndex: -1,
+                    clickEvent: e,
+                });
+            },
+            [navigation]
         );
 
-        const onPostTap = useCallback((e, currentPost: PostItem) => {
-            setNavigation({
-                ...navigation,
-                routeTo: currentPost.routeTo,
-                sliderIndex: -1,
-                clickEvent: e,
-            });
-        }, [navigation]);
-
         useEffect(() => {
-            if (!navigation.routeTo ||
+            if (
+                !navigation.routeTo ||
                 !navigation.clickEvent ||
-                prevNavigation.routeTo === navigation.routeTo) {
+                prevNavigation.routeTo === navigation.routeTo
+            ) {
                 return;
             }
 
@@ -200,18 +205,24 @@ const Work = memo(
                                 onTabChange={onTabChange}
                                 sections={timelineList}
                                 activeSectionId={
-                                    navigation.activeSectionId || defaultSettings.sectionId
+                                    navigation.activeSectionId ||
+                                    defaultSettings.sectionId
                                 }
-                                activeItemId={navigation.activeItemId || defaultSettings.itemId}
+                                activeItemId={
+                                    navigation.activeItemId ||
+                                    defaultSettings.itemId
+                                }
                             >
-                                {
-                                    postItems.map((post: PostItem, index: number) => (
-                                        <Post key={index}
+                                {postItems.map(
+                                    (post: PostItem, index: number) => (
+                                        <Post
+                                            key={index}
                                             postNum={index + 1}
                                             post={post}
-                                            onPostTap={onPostTap} />
-                                    ))
-                                }
+                                            onPostTap={onPostTap}
+                                        />
+                                    )
+                                )}
                             </Tabs>
                         </TabsWrapper>
                         <SlideWrapper>
@@ -228,9 +239,13 @@ const Work = memo(
                                 onTimelineItemChange={onTimelineItemChange}
                                 sections={timelineList}
                                 activeSectionId={
-                                    navigation.activeSectionId || defaultSettings.sectionId
+                                    navigation.activeSectionId ||
+                                    defaultSettings.sectionId
                                 }
-                                activeItemId={navigation.activeItemId || defaultSettings.itemId}
+                                activeItemId={
+                                    navigation.activeItemId ||
+                                    defaultSettings.itemId
+                                }
                             />
                         </TimelineWrapper>
                     </ContentContainer>

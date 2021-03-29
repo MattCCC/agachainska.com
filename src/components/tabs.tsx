@@ -103,7 +103,7 @@ export const Tabs = memo(
 
         const { width: wrapperWidth } = useElementSize(wrapperRef);
 
-        const tabWidth = ((wrapperWidth - 14) / sections.length);
+        const tabWidth = (wrapperWidth - 14) / sections.length;
 
         const previousProps = usePreviousContext({
             activeSectionId,
@@ -151,27 +151,25 @@ export const Tabs = memo(
             <TabsWrapper ref={wrapperRef} {...props}>
                 <TabsList>
                     <AnimatePresence initial={false}>
-                        {
-                            sections.map((section: Section, index: number) => (
-                                <Tab key={`tab-${index}`}
-                                    isActive={section.id === state.sectionId}
-                                    onClick={onTabClick.bind(
-                                        null,
-                                        section
-                                    )}>{section.title}</Tab>
-                            ))
-                        }
+                        {sections.map((section: Section, index: number) => (
+                            <Tab
+                                key={`tab-${index}`}
+                                isActive={section.id === state.sectionId}
+                                onClick={onTabClick.bind(null, section)}
+                            >
+                                {section.title}
+                            </Tab>
+                        ))}
                         <Pin
                             animate={{
                                 x: Math.max(
                                     0,
-                                    (tabWidth *
+                                    tabWidth *
                                         (sections?.findIndex(
                                             (item) =>
                                                 item.id === state.sectionId
                                         ) || 0)
-                                    ),
-                                )
+                                ),
                             }}
                             style={{
                                 width: tabWidth,
@@ -179,9 +177,7 @@ export const Tabs = memo(
                         />
                     </AnimatePresence>
                 </TabsList>
-                <TabContent>
-                    {children}
-                </TabContent>
+                <TabContent>{children}</TabContent>
             </TabsWrapper>
         );
     },

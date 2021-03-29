@@ -228,17 +228,17 @@ export const Timeline = memo(
                                         0,
                                         (contentListHeight /
                                             (section.items?.length ?? 1)) *
-                                        (section.items?.findIndex(
-                                            (item) =>
-                                                item.id === state.activeId
-                                        ) || 0)
+                                            (section.items?.findIndex(
+                                                (item) =>
+                                                    item.id === state.activeId
+                                            ) || 0)
                                     ),
                                 }}
                                 style={{
                                     height: Math.max(
                                         0,
                                         contentListHeight /
-                                        (section.items?.length ?? 1)
+                                            (section.items?.length ?? 1)
                                     ),
                                 }}
                             />

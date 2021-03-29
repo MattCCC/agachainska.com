@@ -1,9 +1,6 @@
-import {
-    Fragment,
-} from "react";
+import { Fragment } from "react";
 
 import tw, { css, styled } from "twin.macro";
-
 
 import { BigNumber } from "@components/big-number";
 
@@ -20,7 +17,7 @@ const PostDescription = styled.div(() => [
     tw`prose-16px w-3/4`,
     css`
         line-height: 24px;
-    `
+    `,
 ]);
 
 const StyledNumber = styled(BigNumber)(() => [
@@ -30,7 +27,7 @@ const StyledNumber = styled(BigNumber)(() => [
         max-width: 100%;
         transform: translateX(50%);
         height: 120px;
-    `
+    `,
 ]);
 
 const Title = styled.h1(() => [
@@ -85,25 +82,16 @@ interface Props {
  * Component
  * @param props
  */
-export function Post({
-    post,
-    postNum = -1,
-    onPostTap,
-}: Props): JSX.Element {
+export function Post({ post, postNum = -1, onPostTap }: Props): JSX.Element {
     return (
         <Fragment>
             <PostWrapper onClick={(e): void => onPostTap(e, post)}>
                 <Title data-text={post.name}>{post.name}</Title>
                 <PostImg src={post.cover || ""} />
                 <PostDescription>
-                    {post.description.split(" ").slice(0, 8)
-                        .join(" ")}
-                    {post.description.split(" ").slice(0, 5)
-                        .join(" ")}
+                    {post.description}
                 </PostDescription>
-                {
-                    postNum && <StyledNumber value={`${postNum}.`} />
-                }
+                {postNum && <StyledNumber value={`${postNum}.`} />}
             </PostWrapper>
         </Fragment>
     );
