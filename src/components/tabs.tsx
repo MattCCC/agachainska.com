@@ -19,7 +19,9 @@ import { usePreviousContext } from "@hooks/use-previous-context";
  */
 const TabsWrapper = styled.div(() => [tw`w-full`]);
 
-const TabsList = styled.div(() => [tw`flex flex-row w-full justify-between mb-8`]);
+const TabsList = styled.div(() => [
+    tw`flex flex-row w-full justify-between mb-8`,
+]);
 
 const Tab = styled.div(({ isActive = false }: TabStyled) => [
     tw`prose-20px w-full h-8 opacity-30 select-none cursor-pointer`,
@@ -29,7 +31,8 @@ const Tab = styled.div(({ isActive = false }: TabStyled) => [
         color: var(--melrose-color);
         line-height: 25px;
         box-shadow: inset 0px -2px 1px -1px var(--melrose-color);
-        text-shadow: 0 2px 4px 0 rgba(var(--melrose-color),0.7)`
+        text-shadow: 0 2px 4px 0 var(--melrose-color);
+    `,
 ]);
 
 const Pin = styled(motion.div)(() => [
@@ -37,7 +40,7 @@ const Pin = styled(motion.div)(() => [
     css`
         z-index: 2;
         background-color: var(--melrose-color);
-        box-shadow: 0 2px 4px 0 var(--melrose-color)
+        box-shadow: 0 2px 4px 0 var(--melrose-color);
     `,
 ]);
 
