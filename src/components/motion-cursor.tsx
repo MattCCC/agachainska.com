@@ -2,7 +2,7 @@ import { CSSProperties, FunctionComponent, useEffect } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import { TrackMousePosition } from "@hooks/track-mouse-position";
+import { TrackMousePosition } from "@hooks/use-track-mouse-position";
 import { useStore } from "@store/index";
 
 /**

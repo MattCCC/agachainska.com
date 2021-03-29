@@ -20,7 +20,7 @@ import { MainSection } from "@components/main-section";
 import { MotionCursor } from "@components/motion-cursor";
 import { Translate } from "@components/translate";
 import { pageContentVariants } from "@config/animation-variants";
-import { useLockBodyScroll } from "@hooks/lock-body-scroll";
+import { useLockBodyScroll } from "@hooks/use-lock-body-scroll";
 import { useStore } from "@store/index";
 import { isDev } from "@utils/detect-env";
 import { getRoutePath } from "@utils/route";

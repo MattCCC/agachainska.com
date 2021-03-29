@@ -11,7 +11,7 @@ import {
 import tw, { css, styled } from "twin.macro";
 
 import { motion, MotionProps, AnimatePresence } from "@components/animation";
-import { useElementSize } from "@hooks/element-size";
+import { useElementSize } from "@hooks/use-element-size";
 import { usePreviousContext } from "@hooks/use-previous-context";
 
 /**
@@ -228,17 +228,17 @@ export const Timeline = memo(
                                         0,
                                         (contentListHeight /
                                             (section.items?.length ?? 1)) *
-                                        (section.items?.findIndex(
-                                            (item) =>
-                                                item.id === state.activeId
-                                        ) || 0)
+                                            (section.items?.findIndex(
+                                                (item) =>
+                                                    item.id === state.activeId
+                                            ) || 0)
                                     ),
                                 }}
                                 style={{
                                     height: Math.max(
                                         0,
                                         contentListHeight /
-                                        (section.items?.length ?? 1)
+                                            (section.items?.length ?? 1)
                                     ),
                                 }}
                             />
