@@ -17,7 +17,7 @@ export interface LinkDelayedArgs {
  * Delay hooks by X ms
  * @param {LinkDelayedArgs} payload     Options
  */
-export const useDelayLink = ({
+export const useLinkDelayed = ({
     to,
     location,
     replace = false,

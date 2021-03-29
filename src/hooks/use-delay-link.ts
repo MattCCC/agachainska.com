@@ -2,8 +2,8 @@ import { fullPageOverlayDuration } from "@components/full-page-overlay";
 import {
     LinkDelayedArgs,
     LinkDelayedCallback,
-    useDelayLink,
-} from "@hooks/link-delayed";
+    useLinkDelayed,
+} from "@hooks/use-link-delayed";
 import { useLocation } from "@reach/router";
 import { useStore } from "@store/index";
 /**
@@ -43,7 +43,7 @@ export const useDelayedLink = ({
         onDelayEnd(e, toRoute);
     };
 
-    const onClick = useDelayLink({
+    const onClick = useLinkDelayed({
         location,
         to,
         delay: fullPageOverlayDuration * 1000 * 1.1,
