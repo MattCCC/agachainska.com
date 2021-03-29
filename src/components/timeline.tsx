@@ -21,7 +21,7 @@ const TimelineWrapper = styled.div(() => [tw`text-right w-52 z-10`]);
 
 const Title = styled(motion.div)(
     ({ isActive, hasMultipleSections }: TitleStyle) => [
-        tw`lg:prose-20px lg:text-primary-color opacity-30 font-bold`,
+        tw`lg:prose-20px lg:text-primary-color opacity-30 font-bold select-none`,
         tw`hover:opacity-100 transition-opacity`,
         css`
             padding-bottom: 7px;
