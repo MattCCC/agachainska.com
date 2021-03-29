@@ -17,13 +17,16 @@ import { usePreviousContext } from "@hooks/use-previous-context";
 /**
  * Style
  */
-const TabsWrapper = styled.div(() => [tw`w-full`]);
+const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
+    tw`w-full`,
+    hideForDesktop && tw`lg:hidden`,
+]);
 
-const TabsList = styled.div(() => [
+const TabsList = styled.ul(() => [
     tw`flex flex-row w-full justify-between mb-8`,
 ]);
 
-const Tab = styled.div(({ isActive = false }: TabStyled) => [
+const Tab = styled.li(({ isActive = false }: TabStyled) => [
     tw`prose-20px w-full h-8 opacity-30 select-none cursor-pointer`,
     tw`hover:opacity-100 transition-opacity`,
     isActive && tw`opacity-100`,
@@ -49,6 +52,10 @@ const TabContent = styled.div(() => []);
 /**
  * Interfaxces
  */
+interface TabsStyled {
+    hideForDesktop?: boolean;
+}
+
 interface TabStyled extends MotionProps {
     isActive?: boolean;
 }
@@ -72,6 +79,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     sections: Section[];
     activeSectionId?: string;
     activeItemId?: string;
+    hideForDesktop?: boolean;
     onTabChange?: (section: Section) => void;
 }
 
@@ -103,7 +111,7 @@ export const Tabs = memo(
 
         const { width: wrapperWidth } = useElementSize(wrapperRef);
 
-        const tabWidth = ((wrapperWidth - 14) / sections.length);
+        const tabWidth = (wrapperWidth - 14) / sections.length;
 
         const previousProps = usePreviousContext({
             activeSectionId,
@@ -151,27 +159,25 @@ export const Tabs = memo(
             <TabsWrapper ref={wrapperRef} {...props}>
                 <TabsList>
                     <AnimatePresence initial={false}>
-                        {
-                            sections.map((section: Section, index: number) => (
-                                <Tab key={`tab-${index}`}
-                                    isActive={section.id === state.sectionId}
-                                    onClick={onTabClick.bind(
-                                        null,
-                                        section
-                                    )}>{section.title}</Tab>
-                            ))
-                        }
+                        {sections.map((section: Section, index: number) => (
+                            <Tab
+                                key={`tab-${index}`}
+                                isActive={section.id === state.sectionId}
+                                onClick={onTabClick.bind(null, section)}
+                            >
+                                {section.title}
+                            </Tab>
+                        ))}
                         <Pin
                             animate={{
                                 x: Math.max(
                                     0,
-                                    (tabWidth *
+                                    tabWidth *
                                         (sections?.findIndex(
                                             (item) =>
                                                 item.id === state.sectionId
                                         ) || 0)
-                                    ),
-                                )
+                                ),
                             }}
                             style={{
                                 width: tabWidth,
@@ -179,9 +185,7 @@ export const Tabs = memo(
                         />
                     </AnimatePresence>
                 </TabsList>
-                <TabContent>
-                    {children}
-                </TabContent>
+                <TabContent>{children}</TabContent>
             </TabsWrapper>
         );
     },
