@@ -93,7 +93,7 @@ const Title = styled(MainTitleTop)(() => [
     tw`absolute uppercase z-50 select-none`,
     css`
         width: 55%;
-        top: -5.35rem;
+        top: -4.35rem;
         line-height: 130px;
     `,
 ]);
@@ -305,7 +305,7 @@ export function Slider({
     return (
         <Fragment>
             <SliderWrapper ref={sliderRef}>
-                <Title percentage={86} baseFontSize={120} smBaseFontSize={120} data-text={sliderItems[sliderIndex].name}>
+                <Title percentage={70} baseFontSize={120} smBaseFontSize={120} data-text={sliderItems[sliderIndex].name}>
                     {sliderItems[sliderIndex].name}
                 </Title>
                 <SlideContent>
