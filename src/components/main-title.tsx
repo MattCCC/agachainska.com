@@ -34,7 +34,6 @@ const title = (
     line-height: ${smBaseFontSize}px;
 
     ${up("lg")} {
-        background-clip: text;
         font-size: ${baseFontSize}px;
         line-height: ${baseFontSize}px;
     }
