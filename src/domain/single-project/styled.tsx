@@ -18,6 +18,18 @@ export const MainSection = styled.section(() => [
     `,
 ]);
 
+export const MainTitleWrapper = styled.div(
+    tw`absolute`,
+    css`
+        max-width: 90%;
+        bottom: -43px;
+
+        ${up("lg")} {
+            bottom: -74px;
+        }
+    `
+);
+
 export const MainTitle = styled(MainTitleBottom)(
     ({ baseFontSize = 120, percentage = 62 }) => [
         css`
@@ -63,11 +75,24 @@ export const StyledNumber = styled(BigNumber)(() => [
     `,
 ]);
 
-export const HeroImage = styled.div(() => [
-    tw`relative z-10`,
+export const HeroWrapper = styled.div(() => [
+    tw`relative`,
     css`
         height: 200px;
-        width: 1069px;
+        width: 100%;
+        margin-bottom: 70px;
+
+        ${up("lg")} {
+            margin-bottom: 90px;
+            height: 462px;
+        }
+    `,
+]);
+
+export const HeroImage = styled.div(() => [
+    css`
+        height: 100%;
+        width: 100%;
         max-width: 100%;
         background: url("/img/projects/danish-bakery.jpg");
         background-color: rgba(255, 255, 255, 0.8);
@@ -75,7 +100,6 @@ export const HeroImage = styled.div(() => [
 
         ${up("lg")} {
             background-size: cover;
-            height: 462px;
         }
     `,
 ]);
@@ -203,7 +227,7 @@ export const TwoImagesWrapper = styled.figure(() => [
 export const Controls = styled.div(() => [
     tw`relative hidden lg:flex justify-end content-end ml-auto z-10`,
     css`
-        top: -60px;
+        top: -70px;
     `,
 ]);
 

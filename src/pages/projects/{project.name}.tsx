@@ -30,9 +30,11 @@ import {
     Paragraph,
     FullSizeImageWrapper,
     TwoImagesWrapper,
+    HeroWrapper,
     FullPageImgWrapper,
     TableStats,
     StyledNumber,
+    MainTitleWrapper,
     StatsCaption,
     TableCredits,
     MainTitle,
@@ -232,15 +234,19 @@ export default function Project({ data }: Props): JSX.Element {
 
             <MainSection>
                 <ContentContainer className="pt-28 lg:pt-32">
-                    <HeroImage />
-                    <MainTitle
-                        percentage={62}
-                        baseFontSize={120}
-                        smBaseFontSize={70}
-                        data-text={name}
-                    >
-                        {name}
-                    </MainTitle>
+                    <HeroWrapper>
+                        <MainTitleWrapper>
+                            <MainTitle
+                                percentage={62}
+                                baseFontSize={120}
+                                smBaseFontSize={70}
+                                data-text={name}
+                            >
+                                {name}
+                            </MainTitle>
+                        </MainTitleWrapper>
+                        <HeroImage />
+                    </HeroWrapper>
                     {(navigation.hasPreviousButton ||
                         navigation.hasNextButton) && (
                         <Controls>
