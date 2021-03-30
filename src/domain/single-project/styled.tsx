@@ -19,16 +19,14 @@ export const MainSection = styled.section(() => [
 ]);
 
 export const MainTitle = styled(MainTitleBottom)(
-    ({ baseFontSize = 120, smBaseFontSize = 70 }) => [
-        tw`relative`,
+    ({ baseFontSize = 120, percentage = 62 }) => [
         css`
-            top: -${Math.floor(smBaseFontSize * (2 / 3))}px;
-            margin-bottom: -${Math.floor(smBaseFontSize * (2 / 3))}px;
-            height: ${smBaseFontSize}px;
+            top: -${Math.floor(percentage / 2 - 4)}px;
+            margin-bottom: -${Math.floor(percentage / 2 - 4)}px;
 
             ${up("lg")} {
-                font-size: ${baseFontSize}px;
-                height: ${baseFontSize + 5}px;
+                top: -${Math.floor(baseFontSize * (1 / 3) + 6)}px;
+                margin-bottom: -${Math.floor(baseFontSize * (1 / 3) + 6)}px;
             }
         `,
     ]

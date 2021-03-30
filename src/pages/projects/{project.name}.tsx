@@ -234,7 +234,7 @@ export default function Project({ data }: Props): JSX.Element {
                 <ContentContainer className="pt-28 lg:pt-32">
                     <HeroImage />
                     <MainTitle
-                        percentage={80}
+                        percentage={62}
                         baseFontSize={120}
                         smBaseFontSize={70}
                         data-text={name}
