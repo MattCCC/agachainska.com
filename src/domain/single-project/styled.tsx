@@ -185,6 +185,7 @@ export const TimelineWrapper = styled.aside(() => [
  * Images
  */
 export const FullSizeImageWrapper = styled.figure(() => [
+    tw`overflow-hidden`,
     css`
         margin-bottom: 90px;
 
@@ -195,7 +196,7 @@ export const FullSizeImageWrapper = styled.figure(() => [
 ]);
 
 export const TwoImagesWrapper = styled.figure(() => [
-    tw`grid grid-cols-2 grid-flow-col gap-6`,
+    tw`grid grid-cols-2 grid-flow-col gap-6 overflow-hidden`,
     css`
         margin-bottom: 90px;
         height: 220px;

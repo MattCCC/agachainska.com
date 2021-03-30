@@ -3,6 +3,7 @@ import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { graphql, PageProps } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { useInViewEffect } from "react-hook-inview";
+import { Parallax } from "react-scroll-parallax";
 
 import { FullPageImage } from "@components/full-page-image";
 import { H2 } from "@components/h2";
@@ -306,12 +307,14 @@ export default function Project({ data }: Props): JSX.Element {
                         <H3>Brand elements</H3>
                         <Paragraph>{approach.brandElements}</Paragraph>
                         <FullSizeImageWrapper>
-                            <StaticImage
-                                src="../../img/placeholder-full.png"
-                                alt="Placeholder"
-                                placeholder="blurred"
-                                objectFit="cover"
-                            />
+                            <Parallax y={[-50, 50]}>
+                                <StaticImage
+                                    src="../../img/placeholder-full.png"
+                                    alt="Placeholder"
+                                    placeholder="blurred"
+                                    objectFit="cover"
+                                />
+                            </Parallax>
                         </FullSizeImageWrapper>
 
                         <TwoImagesWrapper>
