@@ -28,7 +28,7 @@ const BadgeNumber = styled(StyledNumber)(() => [
     `,
 ]);
 
-const ProjectLink = styled.div(() => [tw`flex flex-col`]);
+const ProjectLink = styled.a(() => [tw`flex flex-col`]);
 
 const ProjectTitle = styled(H4)(() => [
     css`
