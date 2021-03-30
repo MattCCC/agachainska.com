@@ -61,7 +61,9 @@ export function Post({ post, postNum = -1, onPostTap }: Props): JSX.Element {
     return (
         <Fragment>
             <PostWrapper onClick={(e): void => onPostTap(e, post)}>
-                <Title percentage={44} data-text={post.name}>{post.name}</Title>
+                <Title percentage={44} data-text={post.name}>
+                    {post.name}
+                </Title>
                 <PostImg src={post.cover || ""} />
                 <PostDescription>{post.description}</PostDescription>
                 {postNum && <StyledNumber value={`${postNum}.`} />}

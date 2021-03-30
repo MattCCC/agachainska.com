@@ -305,7 +305,12 @@ export function Slider({
     return (
         <Fragment>
             <SliderWrapper ref={sliderRef}>
-                <Title percentage={70} baseFontSize={120} smBaseFontSize={120} data-text={sliderItems[sliderIndex].name}>
+                <Title
+                    percentage={70}
+                    baseFontSize={120}
+                    smBaseFontSize={120}
+                    data-text={sliderItems[sliderIndex].name}
+                >
                     {sliderItems[sliderIndex].name}
                 </Title>
                 <SlideContent>

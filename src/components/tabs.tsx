@@ -172,10 +172,10 @@ export const Tabs = memo(
                                 x: Math.max(
                                     0,
                                     tabWidth *
-                                    (sections?.findIndex(
-                                        (item) =>
-                                            item.id === state.sectionId
-                                    ) || 0)
+                                        (sections?.findIndex(
+                                            (item) =>
+                                                item.id === state.sectionId
+                                        ) || 0)
                                 ),
                             }}
                             style={{

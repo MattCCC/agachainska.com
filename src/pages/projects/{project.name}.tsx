@@ -140,18 +140,18 @@ export default function Project({ data }: Props): JSX.Element {
                 filteredProjectsByCategory.length === 0) ||
             (otherProjects.length === otherProjectsInState.length &&
                 filteredProjectsByCategory.length ===
-                filteredProjectsInState.length)
+                    filteredProjectsInState.length)
         ) {
             return;
         }
 
         setProjectsByCategory(
             (prevState) =>
-            ({
-                ...prevState,
-                others: otherProjects,
-                filteredProjects: filteredProjectsByCategory,
-            } as ProjectByCategory)
+                ({
+                    ...prevState,
+                    others: otherProjects,
+                    filteredProjects: filteredProjectsByCategory,
+                } as ProjectByCategory)
         );
     }, [category, projects, uid, projectsByCategory, setProjectsByCategory]);
 
@@ -233,29 +233,33 @@ export default function Project({ data }: Props): JSX.Element {
             <MainSection>
                 <ContentContainer className="pt-28 lg:pt-32">
                     <HeroImage />
-                    <MainTitle percentage={80}
+                    <MainTitle
+                        percentage={80}
                         baseFontSize={120}
                         smBaseFontSize={70}
-                        data-text={name}>{name}</MainTitle>
+                        data-text={name}
+                    >
+                        {name}
+                    </MainTitle>
                     {(navigation.hasPreviousButton ||
                         navigation.hasNextButton) && (
-                            <Controls>
-                                {navigation.hasPreviousButton && (
-                                    <Link to={navigation.previousTo}>
-                                        <Button>
-                                            <PrevIconStyled /> Previous
+                        <Controls>
+                            {navigation.hasPreviousButton && (
+                                <Link to={navigation.previousTo}>
+                                    <Button>
+                                        <PrevIconStyled /> Previous
                                     </Button>
-                                    </Link>
-                                )}
-                                {navigation.hasNextButton && (
-                                    <Link to={navigation.nextTo}>
-                                        <Button>
-                                            Next <NextIconStyled />
-                                        </Button>
-                                    </Link>
-                                )}
-                            </Controls>
-                        )}
+                                </Link>
+                            )}
+                            {navigation.hasNextButton && (
+                                <Link to={navigation.nextTo}>
+                                    <Button>
+                                        Next <NextIconStyled />
+                                    </Button>
+                                </Link>
+                            )}
+                        </Controls>
+                    )}
                     <TableProject>
                         <CellTitle>Client:</CellTitle>
                         <div>{client}</div>
@@ -394,7 +398,7 @@ export default function Project({ data }: Props): JSX.Element {
                     </ContentContainer>
                 </ArticleSection>
             </Article>
-        </Fragment >
+        </Fragment>
     );
 }
 

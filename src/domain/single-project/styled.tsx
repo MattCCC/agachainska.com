@@ -18,19 +18,21 @@ export const MainSection = styled.section(() => [
     `,
 ]);
 
-export const MainTitle = styled(MainTitleBottom)(({ baseFontSize = 120, smBaseFontSize = 70 }) => [
-    tw`relative`,
-    css`
-        top: -${Math.floor(smBaseFontSize * (2 / 3))}px;
-        margin-bottom: -${Math.floor(smBaseFontSize * (2 / 3))}px;
-        height: ${smBaseFontSize}px;
+export const MainTitle = styled(MainTitleBottom)(
+    ({ baseFontSize = 120, smBaseFontSize = 70 }) => [
+        tw`relative`,
+        css`
+            top: -${Math.floor(smBaseFontSize * (2 / 3))}px;
+            margin-bottom: -${Math.floor(smBaseFontSize * (2 / 3))}px;
+            height: ${smBaseFontSize}px;
 
-        ${up("lg")} {
-            font-size: ${baseFontSize}px;
-            height: ${baseFontSize + 5}px;
-        }
-    `,
-]);
+            ${up("lg")} {
+                font-size: ${baseFontSize}px;
+                height: ${baseFontSize + 5}px;
+            }
+        `,
+    ]
+);
 
 export const Paragraph = styled.p(() => [
     css`
