@@ -198,6 +198,7 @@ const Work = memo(
                 <MainContainer className="lg:pt-20">
                     <ContentContainer>
                         <Tabs
+                            hideForDesktop={true}
                             onTabChange={onTabChange}
                             sections={timelineList}
                             activeSectionId={

@@ -2,6 +2,7 @@ import tw, { css, styled } from "twin.macro";
 
 import { BigNumber } from "@components/big-number";
 import { H4 } from "@components/h4";
+import { MainTitleBottom } from "@components/main-title";
 import { ReactComponent as PrevIcon } from "@svg/down.svg";
 import { ReactComponent as NextIcon } from "@svg/up.svg";
 import { up } from "@utils/screens";
@@ -14,6 +15,20 @@ export const MainSection = styled.section(() => [
     css`
         max-width: 1069px;
         padding: 0 15px;
+    `,
+]);
+
+export const MainTitle = styled(MainTitleBottom)(({ baseFontSize = 120, smBaseFontSize = 70 }) => [
+    tw`relative`,
+    css`
+        top: -${Math.floor(smBaseFontSize * (2 / 3))}px;
+        margin-bottom: -${Math.floor(smBaseFontSize * (2 / 3))}px;
+        height: ${smBaseFontSize}px;
+
+        ${up("lg")} {
+            font-size: ${baseFontSize}px;
+            height: ${baseFontSize + 5}px;
+        }
     `,
 ]);
 

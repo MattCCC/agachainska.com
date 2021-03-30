@@ -8,7 +8,6 @@ import { H2 } from "@components/h2";
 import { H3 } from "@components/h3";
 import { Header } from "@components/header";
 import { Link } from "@components/link";
-import { MainTitle } from "@components/main-title";
 import { MotionCursor } from "@components/motion-cursor";
 import { Quote } from "@components/quote";
 import { Timeline } from "@components/timeline";
@@ -36,6 +35,7 @@ import {
     StyledNumber,
     StatsCaption,
     TableCredits,
+    MainTitle,
 } from "@domain/single-project/styled";
 import { useStoreProp } from "@store/index";
 import { thresholdArray } from "@utils/threshold-array";
@@ -140,18 +140,18 @@ export default function Project({ data }: Props): JSX.Element {
                 filteredProjectsByCategory.length === 0) ||
             (otherProjects.length === otherProjectsInState.length &&
                 filteredProjectsByCategory.length ===
-                    filteredProjectsInState.length)
+                filteredProjectsInState.length)
         ) {
             return;
         }
 
         setProjectsByCategory(
             (prevState) =>
-                ({
-                    ...prevState,
-                    others: otherProjects,
-                    filteredProjects: filteredProjectsByCategory,
-                } as ProjectByCategory)
+            ({
+                ...prevState,
+                others: otherProjects,
+                filteredProjects: filteredProjectsByCategory,
+            } as ProjectByCategory)
         );
     }, [category, projects, uid, projectsByCategory, setProjectsByCategory]);
 
@@ -233,26 +233,29 @@ export default function Project({ data }: Props): JSX.Element {
             <MainSection>
                 <ContentContainer className="pt-28 lg:pt-32">
                     <HeroImage />
-                    <MainTitle data-text={name}>{name}</MainTitle>
+                    <MainTitle percentage={80}
+                        baseFontSize={120}
+                        smBaseFontSize={70}
+                        data-text={name}>{name}</MainTitle>
                     {(navigation.hasPreviousButton ||
                         navigation.hasNextButton) && (
-                        <Controls>
-                            {navigation.hasPreviousButton && (
-                                <Link to={navigation.previousTo}>
-                                    <Button>
-                                        <PrevIconStyled /> Previous
+                            <Controls>
+                                {navigation.hasPreviousButton && (
+                                    <Link to={navigation.previousTo}>
+                                        <Button>
+                                            <PrevIconStyled /> Previous
                                     </Button>
-                                </Link>
-                            )}
-                            {navigation.hasNextButton && (
-                                <Link to={navigation.nextTo}>
-                                    <Button>
-                                        Next <NextIconStyled />
-                                    </Button>
-                                </Link>
-                            )}
-                        </Controls>
-                    )}
+                                    </Link>
+                                )}
+                                {navigation.hasNextButton && (
+                                    <Link to={navigation.nextTo}>
+                                        <Button>
+                                            Next <NextIconStyled />
+                                        </Button>
+                                    </Link>
+                                )}
+                            </Controls>
+                        )}
                     <TableProject>
                         <CellTitle>Client:</CellTitle>
                         <div>{client}</div>
@@ -391,7 +394,7 @@ export default function Project({ data }: Props): JSX.Element {
                     </ContentContainer>
                 </ArticleSection>
             </Article>
-        </Fragment>
+        </Fragment >
     );
 }
 

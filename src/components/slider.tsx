@@ -12,6 +12,7 @@ import tw, { css, styled } from "twin.macro";
 
 import { animate, AnimatePresence, motion } from "@components/animation";
 import { Distortion } from "@components/distortion";
+import { MainTitleTop } from "@components/main-title";
 import { useEventListener } from "@hooks/use-event-listener";
 import { ReactComponent as NextIcon } from "@svg/down.svg";
 import { ReactComponent as PrevIcon } from "@svg/up.svg";
@@ -88,32 +89,12 @@ const SlideContent = styled.div(() => [
     `,
 ]);
 
-const Title = styled.h1(() => [
-    tw`absolute lg:prose-120px uppercase z-50 select-none`,
+const Title = styled(MainTitleTop)(() => [
+    tw`absolute uppercase z-50 select-none`,
     css`
         width: 55%;
         top: -5.35rem;
-        color: var(--black-color);
-        background: linear-gradient(
-            180deg,
-            var(--black-color) 86px,
-            transparent 14px
-        );
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-
-        ::before {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            content: attr(data-text);
-            color: transparent;
-            clip-path: circle(500px at 100px 100px);
-            -webkit-text-stroke-width: 2px;
-            -webkit-text-stroke-color: rgba(0, 0, 0, 0.8);
-            background-color: transparent;
-            color: transparent;
-        }
+        line-height: 130px;
     `,
 ]);
 
@@ -324,7 +305,7 @@ export function Slider({
     return (
         <Fragment>
             <SliderWrapper ref={sliderRef}>
-                <Title data-text={sliderItems[sliderIndex].name}>
+                <Title percentage={86} baseFontSize={120} smBaseFontSize={120} data-text={sliderItems[sliderIndex].name}>
                     {sliderItems[sliderIndex].name}
                 </Title>
                 <SlideContent>

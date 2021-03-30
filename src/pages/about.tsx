@@ -2,7 +2,7 @@ import { Fragment } from "react";
 
 import { Header } from "@components/header";
 import { MainContainer } from "@components/main-container";
-import { MainTitle } from "@components/main-title";
+import { SectionMainTitle } from "@components/main-title";
 import { Translate } from "@components/translate";
 
 /**
@@ -13,9 +13,9 @@ export default function About(): JSX.Element {
         <Fragment>
             <Header />
             <MainContainer className="lg:pt-20">
-                <MainTitle>
+                <SectionMainTitle percentage={0}>
                     <Translate id="about.title" />
-                </MainTitle>
+                </SectionMainTitle>
             </MainContainer>
         </Fragment>
     );
