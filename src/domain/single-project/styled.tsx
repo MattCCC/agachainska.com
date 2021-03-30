@@ -99,6 +99,9 @@ export const HeroImage = styled.div(() => [
         background-size: contain;
 
         ${up("lg")} {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
             background-size: cover;
         }
     `,
@@ -181,24 +184,6 @@ export const TimelineWrapper = styled.aside(() => [
 /**
  * Images
  */
-export const FullPageImgWrapper = styled.figure(() => [
-    css`
-        max-width: 100%;
-        width: 100%;
-        border: 1px solid #979797;
-        margin-bottom: 40px;
-
-        ${up("lg")} {
-            max-width: none;
-            width: 100vw;
-            position: relative;
-            height: auto;
-            margin: 0 auto 90px -50vw;
-            left: calc(50% - 8px);
-        }
-    `,
-]);
-
 export const FullSizeImageWrapper = styled.figure(() => [
     css`
         margin-bottom: 90px;

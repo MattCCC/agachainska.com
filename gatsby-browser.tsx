@@ -1,10 +1,14 @@
 import "./src/styles/global.css";
 import { Fragment } from "react";
-import { pageOverlayTopVariants } from "@config/animation-variants";
+
+import { WrapRootElementNodeArgs } from "gatsby";
+import { ParallaxProvider } from "react-scroll-parallax";
+
 import { motion } from "@components/animation";
+import { pageOverlayTopVariants } from "@config/animation-variants";
 import { Layout } from "@layouts/default";
 import { LocationProvider } from "@reach/router";
-import { WrapRootElementNodeArgs } from "gatsby";
+
 import { globalStore } from "./src/store/index";
 
 export const wrapRootElement = ({
@@ -18,10 +22,12 @@ export const wrapRootElement = ({
             exit="exit"
             variants={pageOverlayTopVariants}
         />
-        <LocationProvider>
-            <globalStore.Provider>
-                <Layout>{element}</Layout>
-            </globalStore.Provider>
-        </LocationProvider>
+        <ParallaxProvider>
+            <LocationProvider>
+                <globalStore.Provider>
+                    <Layout>{element}</Layout>
+                </globalStore.Provider>
+            </LocationProvider>
+        </ParallaxProvider>
     </Fragment>
 );

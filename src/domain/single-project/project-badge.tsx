@@ -28,7 +28,9 @@ const BadgeNumber = styled(StyledNumber)(() => [
     `,
 ]);
 
-const ProjectLink = styled.a(() => [tw`flex flex-col`]);
+const ProjectLink = styled.div(() => [
+    tw`flex flex-col select-none cursor-pointer`,
+]);
 
 const ProjectTitle = styled(H4)(() => [
     css`

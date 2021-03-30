@@ -1,11 +1,15 @@
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 img {
-  pointer-events: none;
+    pointer-events: none;
 }
 
 button {
-  outline: none;
+    outline: none;
+}
+
+.parallax-outer {
+    transform: scale(1.5);
 }

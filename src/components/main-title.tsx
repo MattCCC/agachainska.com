@@ -35,7 +35,7 @@ const title = (
 
     ${up("lg")} {
         font-size: ${baseFontSize}px;
-        line-height: ${baseFontSize}px;
+        line-height: ${baseFontSize + 10}px;
     }
 `;
 

@@ -4,6 +4,7 @@ import { graphql, PageProps } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { useInViewEffect } from "react-hook-inview";
 
+import { FullPageImage } from "@components/full-page-image";
 import { H2 } from "@components/h2";
 import { H3 } from "@components/h3";
 import { Header } from "@components/header";
@@ -31,7 +32,6 @@ import {
     FullSizeImageWrapper,
     TwoImagesWrapper,
     HeroWrapper,
-    FullPageImgWrapper,
     TableStats,
     StyledNumber,
     MainTitleWrapper,
@@ -330,14 +330,14 @@ export default function Project({ data }: Props): JSX.Element {
                         </TwoImagesWrapper>
                     </ContentContainer>
 
-                    <FullPageImgWrapper>
+                    <FullPageImage>
                         <StaticImage
                             src="../../img/placeholder-2.png"
                             alt="Placeholder"
                             placeholder="blurred"
                             layout="fullWidth"
                         />
-                    </FullPageImgWrapper>
+                    </FullPageImage>
 
                     <ContentContainer className="sm">
                         <Quote>{approach.quote}</Quote>
