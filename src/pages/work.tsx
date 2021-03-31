@@ -75,7 +75,7 @@ const Work = memo(
                     id: String(project.uid),
                     routeTo: project.nameSlug,
                     cover: project.cover,
-                    category: project.category,
+                    category,
                     description: project.shortDescription,
                 })),
         }));
