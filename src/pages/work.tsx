@@ -56,12 +56,20 @@ const Work = memo(
 
         const projects = data.projects.nodes || [];
 
-        const timelineList = ["UX", "UI", "Illustrations"].map((category) => ({
+        const mergedCategories = ["UX", "Illustrations"];
+
+        const timelineList = ["UX", "UI"].map((category) => ({
             title: category,
             id: category.replace(/\s/gi, "-"),
             category,
             items: projects
-                .filter((project: Project) => project.category === category)
+                .filter((project: Project) => {
+                    if (category === "UX") {
+                        return mergedCategories.includes(project.category);
+                    }
+
+                    return project.category === category;
+                })
                 .map((project: Project) => ({
                     name: project.name,
                     id: String(project.uid),
