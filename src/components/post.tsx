@@ -5,9 +5,19 @@ import tw, { css, styled } from "twin.macro";
 import { BigNumber } from "@components/big-number";
 import { MainTitleTop } from "@components/main-title";
 
-/**
- * Style
- */
+export interface PostItem {
+    [x: string]: any;
+    name: string;
+    cover: string;
+    shortDescription: string;
+}
+
+interface Props {
+    post: PostItem;
+    postNum?: number;
+    onPostTap: (e: any, post: PostItem) => void;
+}
+
 const PostWrapper = styled.div(() => [tw`relative h-auto pt-11 pb-11`]);
 
 const PostImg = styled.img(() => [
@@ -35,28 +45,6 @@ const Title = styled(MainTitleTop)(() => [
     tw`absolute uppercase z-50 select-none top-0`,
 ]);
 
-/**
- * Interfaxces
- */
-
-export interface PostItem {
-    name: string;
-    cover: string;
-    id: string;
-    routeTo: string;
-    category: string;
-    description: string;
-}
-
-interface Props {
-    post: PostItem;
-    postNum?: number;
-    onPostTap: (e: any, post: PostItem) => void;
-}
-
-/**
- * Component
- */
 export function Post({ post, postNum = -1, onPostTap }: Props): JSX.Element {
     return (
         <Fragment>
@@ -65,7 +53,7 @@ export function Post({ post, postNum = -1, onPostTap }: Props): JSX.Element {
                     {post.name}
                 </Title>
                 <PostImg src={post.cover || ""} />
-                <PostDescription>{post.description}</PostDescription>
+                <PostDescription>{post.shortDescription}</PostDescription>
                 {postNum && <StyledNumber value={`${postNum}.`} />}
             </PostWrapper>
         </Fragment>

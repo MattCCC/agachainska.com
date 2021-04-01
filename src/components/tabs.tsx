@@ -14,9 +14,37 @@ import { motion, MotionProps, AnimatePresence } from "@components/animation";
 import { useElementSize } from "@hooks/use-element-size";
 import { usePreviousContext } from "@hooks/use-previous-context";
 
-/**
- * Style
- */
+interface TabsStyled {
+    hideForDesktop?: boolean;
+}
+
+interface TabStyled extends MotionProps {
+    isActive?: boolean;
+}
+
+interface Item {
+    name: string;
+    id: string;
+    routeTo: string;
+    cover: string;
+    category: string;
+}
+
+interface Section {
+    title: string;
+    id: string;
+    category: string;
+    items?: Item[];
+}
+
+interface Props extends HTMLAttributes<HTMLElement> {
+    sections: Section[];
+    activeSectionId?: string;
+    activeItemId?: string;
+    hideForDesktop?: boolean;
+    onTabChange?: (section: Section) => void;
+}
+
 const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
     tw`w-full`,
     hideForDesktop && tw`lg:hidden`,
@@ -49,43 +77,6 @@ const Pin = styled(motion.div)(() => [
 
 const TabContent = styled.div(() => []);
 
-/**
- * Interfaxces
- */
-interface TabsStyled {
-    hideForDesktop?: boolean;
-}
-
-interface TabStyled extends MotionProps {
-    isActive?: boolean;
-}
-
-interface Item {
-    name: string;
-    id: string;
-    routeTo: string;
-    cover: string;
-    category: string;
-}
-
-interface Section {
-    title: string;
-    id: string;
-    category: string;
-    items?: Item[];
-}
-
-interface Props extends HTMLAttributes<HTMLElement> {
-    sections: Section[];
-    activeSectionId?: string;
-    activeItemId?: string;
-    hideForDesktop?: boolean;
-    onTabChange?: (section: Section) => void;
-}
-
-/**
- * Component
- */
 export const Tabs = memo(
     ({
         children,

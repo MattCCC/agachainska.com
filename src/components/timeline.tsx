@@ -14,9 +14,6 @@ import { motion, MotionProps, AnimatePresence } from "@components/animation";
 import { useElementSize } from "@hooks/use-element-size";
 import { usePreviousContext } from "@hooks/use-previous-context";
 
-/**
- * Style
- */
 const TimelineWrapper = styled.div(() => [tw`text-right w-52 z-10`]);
 
 const Title = styled(motion.div)(
@@ -55,9 +52,6 @@ const Pin = styled(motion.div)(() => [
     `,
 ]);
 
-/**
- * Interfaxces
- */
 interface TitleStyle extends MotionProps {
     isActive?: boolean;
     hasMultipleSections?: boolean;
@@ -68,12 +62,10 @@ interface ListItemStyle extends MotionProps {
 }
 
 export interface Item {
+    [x: string]: any;
     name: string;
     id: string;
-    routeTo: string;
-    cover: string;
     category: string;
-    description: string;
 }
 
 export interface Section {
@@ -90,9 +82,6 @@ interface Props extends HTMLAttributes<HTMLElement> {
     onTimelineItemChange?: (item: Item) => void;
 }
 
-/**
- * Component
- */
 export const Timeline = memo(
     ({
         sections,

@@ -17,6 +17,22 @@ import { useEventListener } from "@hooks/use-event-listener";
 import { ReactComponent as NextIcon } from "@svg/down.svg";
 import { ReactComponent as PrevIcon } from "@svg/up.svg";
 
+export interface SliderItem {
+    [x: string]: any;
+    name: string;
+    cover: string;
+    id: string;
+}
+
+interface Props {
+    sliderItems: SliderItem[];
+    slideId: number;
+    onSliderTap: (e: any, currentItem: SliderItem) => void;
+    onSliderChange: (currentItem: SliderItem) => void;
+}
+
+type SliderRefHandle = ElementRef<typeof Slider>;
+
 const duration = 1;
 const height = 445;
 const initialSlideScale = 0.25;
@@ -57,12 +73,7 @@ const sliderTransition = {
 
 const sliderDragConstraints = { top: 0, bottom: 0 };
 
-/**
- * Experimenting with distilling swipe offset and velocity into a single variable, so the
- * less distance a user has swiped, the more velocity they need to register as a swipe.
- * Should accomodate longer swipes and short flicks without having binary checks on
- * just distance thresholds and velocity > 0.
- */
+// The less distance a user has swiped, the more velocity they need to register as a swipe
 const swipeConfidenceThreshold = 5;
 
 export const swipePower = (offset: number, velocity: number): number =>
@@ -77,9 +88,6 @@ export const wrap = (min: number, max: number, v: number): number => {
     return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
 };
 
-/**
- * Style
- */
 const SliderWrapper = styled.div(() => [tw`relative`]);
 
 const SlideContent = styled.div(() => [
@@ -132,30 +140,6 @@ const NextIconStyled = styled(NextIcon)(() => [
     tw`inline-block text-center mr-4`,
 ]);
 
-/**
- * Interfaxces
- */
-
-export interface SliderItem {
-    name: string;
-    cover: string;
-    id: string;
-    routeTo: string;
-    category: string;
-}
-
-interface Props {
-    sliderItems: SliderItem[];
-    slideId: number;
-    onSliderTap: (e: any, currentItem: SliderItem) => void;
-    onSliderChange: (currentItem: SliderItem) => void;
-}
-
-type SliderRefHandle = ElementRef<typeof Slider>;
-
-/**
- * Component
- */
 export function Slider({
     sliderItems,
     slideId = -1,
@@ -169,9 +153,7 @@ export function Slider({
         null
     ) as RefObject<HTMLDivElement>;
 
-    // We only have 3 images, but we paginate them absolutely (ie 1, 2, 3, 4, 5...) and
-    // then wrap that within 0-2 to find our image ID in the array below. By passing an
-    // absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
+    // By passing an absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
     // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
     const sliderIndex = wrap(0, sliderItems.length, page);
 

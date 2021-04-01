@@ -1,4 +1,4 @@
-import { Fragment, useCallback, memo, useState, useEffect } from "react";
+import { Fragment, useCallback, memo, useState } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import tw, { styled } from "twin.macro";
@@ -9,8 +9,7 @@ import { Post, PostItem } from "@components/post";
 import { Slider, SliderItem } from "@components/slider";
 import { Tabs } from "@components/tabs";
 import { Timeline, Item, Section } from "@components/timeline";
-import { useDelayedLink } from "@hooks/use-delay-link";
-import { usePreviousContext } from "@hooks/use-previous-context";
+import { useNavigate } from "@hooks/use-delay-link";
 import { groupBy } from "@utils/group-by";
 
 /**
@@ -31,12 +30,21 @@ const TimelineWrapper = styled.aside(() => [
 /**
  * Interfaces
  */
-interface NavigationState {
+interface PageState {
     sliderIndex: number;
     activeSectionId: string;
     activeItemId: string;
     routeTo: string;
     clickEvent: Event;
+}
+
+interface TimelineItem {
+    name: string;
+    id: string;
+    routeTo: string;
+    cover: string;
+    category: string;
+    shortDescription: string;
 }
 
 interface Props extends PageProps {
@@ -52,8 +60,7 @@ interface Props extends PageProps {
  */
 const Work = memo(
     ({ data }: Props): JSX.Element => {
-        const [navigation, setNavigation] = useState({} as NavigationState);
-        const prevNavigation = usePreviousContext(navigation);
+        const [state, setState] = useState({} as PageState);
         const projects = data.projects.nodes || [];
         const categories = Object.keys(groupBy(projects, "category"));
 
@@ -64,12 +71,9 @@ const Work = memo(
             items: projects
                 .filter((project: Project) => project.category === category)
                 .map((project: Project) => ({
-                    name: project.name,
+                    ...project,
                     id: String(project.uid),
                     routeTo: project.nameSlug,
-                    cover: project.cover,
-                    category,
-                    description: project.shortDescription,
                 })),
         }));
 
@@ -84,8 +88,8 @@ const Work = memo(
             routeTo: firstCategoryItems?.routeTo ?? "",
         };
 
-        const sliderItems: SliderItem[] = timelineList.reduce(
-            (itemsList: Item[], currentValue: Section) => {
+        const sliderItems: TimelineItem[] = timelineList.reduce(
+            (itemsList: TimelineItem[], currentValue) => {
                 itemsList = [...itemsList, ...(currentValue.items || [])];
 
                 return itemsList;
@@ -93,25 +97,19 @@ const Work = memo(
             []
         );
 
-        const postItems: PostItem[] = timelineList
-            .filter(
-                (post) =>
-                    post.id ===
-                    (navigation.activeSectionId || defaultSettings.sectionId)
-            )
-            .reduce((itemsList: Item[], currentValue: Section) => {
-                itemsList = [...itemsList, ...(currentValue.items || [])];
+        const projectsByCategory: PostItem[] = sliderItems.filter(
+            (post) =>
+                post.category ===
+                (state.activeSectionId || defaultSettings.sectionId)
+        );
 
-                return itemsList;
-            }, []);
-
-        const { onClick: onClickDelayNav } = useDelayedLink({
-            to: navigation.routeTo || defaultSettings.routeTo,
+        const onNavigate = useNavigate({
+            to: state.routeTo || defaultSettings.routeTo,
         });
 
-        const onTimelineItemChange = useCallback(
-            (currentItem: Item): void => {
-                if (navigation.activeItemId === currentItem.id) {
+        const navigateToSlide = useCallback(
+            (currentItem: Item | SliderItem): void => {
+                if (state.activeItemId === currentItem.id) {
                     return;
                 }
 
@@ -119,78 +117,31 @@ const Work = memo(
                     (sliderItem: SliderItem) => sliderItem.id === currentItem.id
                 );
 
-                setNavigation({
-                    ...navigation,
+                setState((prevState) => ({
+                    ...prevState,
                     routeTo: currentItem.routeTo,
                     sliderIndex,
                     activeSectionId: currentItem.category,
                     activeItemId: currentItem.id,
-                });
+                }));
             },
-            [navigation, sliderItems, setNavigation]
+            [state, sliderItems, setState]
         );
 
         const onTabChange = useCallback(
             (currentTab: Section): void => {
-                if (navigation.activeSectionId === currentTab.id) {
+                if (state.activeSectionId === currentTab.id) {
                     return;
                 }
 
-                setNavigation({
-                    ...navigation,
-                    routeTo: "",
-                    sliderIndex: -1,
+                setState((prevState) => ({
+                    ...prevState,
                     activeSectionId: currentTab.category,
                     activeItemId: currentTab.id,
-                });
+                }));
             },
-            [navigation]
+            [state]
         );
-
-        const onSliderChange = useCallback(
-            (currentItem: SliderItem): void => {
-                if (navigation.activeItemId === currentItem.id) {
-                    return;
-                }
-
-                const sliderIndex = sliderItems.findIndex(
-                    (sliderItem: SliderItem) => sliderItem.id === currentItem.id
-                );
-
-                setNavigation({
-                    ...navigation,
-                    routeTo: currentItem.routeTo,
-                    sliderIndex,
-                    activeSectionId: currentItem.category,
-                    activeItemId: currentItem.id,
-                });
-            },
-            [navigation, sliderItems, setNavigation]
-        );
-
-        const onPostTap = useCallback(
-            (e, currentPost: PostItem) => {
-                setNavigation({
-                    ...navigation,
-                    routeTo: currentPost.routeTo,
-                    sliderIndex: -1,
-                    clickEvent: e,
-                });
-            },
-            [navigation]
-        );
-
-        useEffect(() => {
-            if (
-                !navigation.routeTo ||
-                !navigation.clickEvent ||
-                prevNavigation.routeTo === navigation.routeTo
-            ) {
-                return;
-            }
-
-            onClickDelayNav(navigation.clickEvent);
-        }, [prevNavigation, navigation, onClickDelayNav]);
 
         return (
             <Fragment>
@@ -202,43 +153,45 @@ const Work = memo(
                             onTabChange={onTabChange}
                             sections={timelineList}
                             activeSectionId={
-                                navigation.activeSectionId ||
+                                state.activeSectionId ||
                                 defaultSettings.sectionId
                             }
                             activeItemId={
-                                navigation.activeItemId ||
-                                defaultSettings.itemId
+                                state.activeItemId || defaultSettings.itemId
                             }
                         >
-                            {postItems.map((post: PostItem, index: number) => (
-                                <Post
-                                    key={index}
-                                    postNum={index + 1}
-                                    post={post}
-                                    onPostTap={onPostTap}
-                                />
-                            ))}
+                            {projectsByCategory.map(
+                                (post: PostItem, index: number) => (
+                                    <Post
+                                        key={index}
+                                        postNum={index + 1}
+                                        post={post}
+                                        onPostTap={(e, { routeTo }): any =>
+                                            onNavigate(e, routeTo)
+                                        }
+                                    />
+                                )
+                            )}
                         </Tabs>
                         <SlideWrapper>
                             <Slider
                                 sliderItems={sliderItems}
-                                onSliderTap={onClickDelayNav}
-                                onSliderChange={onSliderChange}
-                                slideId={navigation.sliderIndex}
+                                onSliderTap={(e): any => onNavigate(e)}
+                                onSliderChange={navigateToSlide}
+                                slideId={state.sliderIndex}
                             />
                         </SlideWrapper>
                         <TimelineWrapper>
                             <Timeline
                                 style={{ height: "27.76rem" }}
-                                onTimelineItemChange={onTimelineItemChange}
+                                onTimelineItemChange={navigateToSlide}
                                 sections={timelineList}
                                 activeSectionId={
-                                    navigation.activeSectionId ||
+                                    state.activeSectionId ||
                                     defaultSettings.sectionId
                                 }
                                 activeItemId={
-                                    navigation.activeItemId ||
-                                    defaultSettings.itemId
+                                    state.activeItemId || defaultSettings.itemId
                                 }
                             />
                         </TimelineWrapper>

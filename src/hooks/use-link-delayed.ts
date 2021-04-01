@@ -2,15 +2,22 @@ import { useCallback, useEffect, useRef } from "react";
 
 import { navigate } from "gatsby";
 
-export type LinkDelayedCallback = (e: Event, to: string) => void;
+export type LinkDelayedCallback = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    to?: string
+) => void;
+export type OnDelayCallback = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    to: string
+) => void;
 
 export interface LinkDelayedArgs {
     to: string;
     location?: Location;
     replace?: boolean;
     delay?: number;
-    onDelayStart?: LinkDelayedCallback;
-    onDelayEnd?: LinkDelayedCallback;
+    onDelayStart?: OnDelayCallback;
+    onDelayEnd?: OnDelayCallback;
 }
 
 /**
@@ -22,9 +29,9 @@ export const useLinkDelayed = ({
     location,
     replace = false,
     delay = 0,
-    onDelayStart = ((_e, _to) => {}) as LinkDelayedCallback,
-    onDelayEnd = ((_e, _to) => {}) as LinkDelayedCallback,
-}: LinkDelayedArgs): ((e: any) => void) => {
+    onDelayStart = ((_e, _to) => {}) as OnDelayCallback,
+    onDelayEnd = ((_e, _to) => {}) as OnDelayCallback,
+}: LinkDelayedArgs): LinkDelayedCallback => {
     const timeout = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(
@@ -36,15 +43,17 @@ export const useLinkDelayed = ({
         [timeout]
     );
 
-    const onClick = useCallback(
-        (e): void => {
+    const onClick: LinkDelayedCallback = useCallback(
+        (e, toRoute = "") => {
+            const goTo = toRoute || to;
+
             // If trying to navigate to current page stop everything
-            if (location?.pathname === to) {
+            if (location?.pathname === goTo) {
                 return;
             }
 
             if (delay) {
-                onDelayStart(e, to);
+                onDelayStart(e, goTo);
 
                 if (e.defaultPrevented) {
                     return;
@@ -54,12 +63,12 @@ export const useLinkDelayed = ({
 
                 timeout.current = setTimeout(() => {
                     if (replace) {
-                        navigate(to, { replace: true });
+                        navigate(goTo, { replace: true });
                     } else {
-                        navigate(to);
+                        navigate(goTo);
                     }
 
-                    onDelayEnd(e, to);
+                    onDelayEnd(e, goTo);
                 }, delay);
             }
         },
