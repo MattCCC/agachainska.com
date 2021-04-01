@@ -1,4 +1,4 @@
-import { Fragment, useCallback, memo, useState } from "react";
+import { Fragment, useCallback, memo, useState, useEffect } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import tw, { styled } from "twin.macro";
@@ -10,6 +10,7 @@ import { Slider, SliderItem } from "@components/slider";
 import { Tabs } from "@components/tabs";
 import { Timeline, Item, Section } from "@components/timeline";
 import { useNavigate } from "@hooks/use-delay-link";
+import { useStoreProp } from "@store/index";
 import { groupBy } from "@utils/group-by";
 
 /**
@@ -60,9 +61,14 @@ interface Props extends PageProps {
  */
 const Work = memo(
     ({ data }: Props): JSX.Element => {
+        const [, dispatch] = useStoreProp("showMotionGrid");
         const [state, setState] = useState({} as PageState);
         const projects = data.projects.nodes || [];
         const categories = Object.keys(groupBy(projects, "category"));
+
+        useEffect(() => {
+            dispatch.showMotionGrid(false);
+        }, [dispatch]);
 
         const timelineList = categories.map((category) => ({
             title: category,
