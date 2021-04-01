@@ -90,12 +90,13 @@ export const HeroWrapper = styled.div(() => [
     `,
 ]);
 
-export const HeroImage = styled.div(() => [
+export const HeroImage = styled.div(({ bgImgUrl }: { bgImgUrl: string }) => [
     css`
         height: 100%;
         width: 100%;
         max-width: 100%;
-        background: url("/img/projects/danish-bakery.jpg");
+        background-image: url("${bgImgUrl}");
+        background-repeat: no-repeat;
         background-color: rgba(255, 255, 255, 0.8);
         background-size: contain;
 

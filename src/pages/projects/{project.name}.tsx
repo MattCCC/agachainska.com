@@ -75,6 +75,7 @@ export default function Project({ data }: Props): JSX.Element {
     const {
         uid,
         name,
+        cover,
         client,
         category,
         agency,
@@ -183,7 +184,7 @@ export default function Project({ data }: Props): JSX.Element {
                                 {name}
                             </MainTitle>
                         </MainTitleWrapper>
-                        <HeroImage />
+                        <HeroImage bgImgUrl={cover} />
                     </HeroWrapper>
                     {(navigation.hasPreviousButton ||
                         navigation.hasNextButton) && (
