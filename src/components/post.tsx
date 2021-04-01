@@ -32,11 +32,10 @@ const PostDescription = styled.div(() => [
 ]);
 
 const StyledNumber = styled(BigNumber)(() => [
-    tw`absolute right-7 z-10`,
+    tw`absolute right-0 z-10`,
     css`
         bottom: 2.5rem;
         max-width: 100%;
-        transform: translateX(50%);
         height: 120px;
     `,
 ]);
@@ -54,7 +53,13 @@ export function Post({ post, postNum = -1, onPostTap }: Props): JSX.Element {
                 </Title>
                 <PostImg src={post.cover || ""} />
                 <PostDescription>{post.shortDescription}</PostDescription>
-                {postNum && <StyledNumber value={`${postNum}.`} />}
+                {postNum && (
+                    <StyledNumber
+                        value={`${postNum}.`}
+                        viewBox="0 0 160 200"
+                        preserveAspectRatio="xMaxYMin meet"
+                    />
+                )}
             </PostWrapper>
         </Fragment>
     );
