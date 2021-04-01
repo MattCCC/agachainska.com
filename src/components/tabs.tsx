@@ -10,7 +10,6 @@ import {
 import tw, { css, styled } from "twin.macro";
 
 import { motion, MotionProps, AnimatePresence } from "@components/animation";
-import { useElementSize } from "@hooks/use-element-size";
 
 interface TabsStyled {
     hideForDesktop?: boolean;
@@ -44,7 +43,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
-    tw`w-full`,
+    tw`w-full overflow-hidden`,
     hideForDesktop && tw`lg:hidden`,
 ]);
 
@@ -53,11 +52,10 @@ const TabsList = styled.ul(() => [
 ]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
-    tw`prose-20px w-full h-8 opacity-30 select-none cursor-pointer`,
-    tw`hover:opacity-100 transition-opacity`,
+    tw`prose-20px w-full h-8 opacity-40 select-none cursor-pointer`,
+    tw`hover:opacity-100 transition-opacity text-melrose`,
     isActive && tw`opacity-100`,
     css`
-        color: var(--melrose-color);
         line-height: 25px;
         box-shadow: inset 0px -2px 1px -1px var(--melrose-color);
         text-shadow: 0 2px 4px 0 var(--melrose-color);
@@ -65,10 +63,9 @@ const Tab = styled.li(({ isActive = false }: TabStyled) => [
 ]);
 
 const Pin = styled(motion.div)(() => [
-    tw`absolute left-0 top-8 h-px`,
+    tw`absolute left-0 top-8 h-px bg-melrose`,
     css`
         z-index: 2;
-        background-color: var(--melrose-color);
         box-shadow: 0 2px 4px 0 var(--melrose-color);
     `,
 ]);
@@ -97,13 +94,17 @@ export const Tabs = memo(
             []
         );
 
-        const { width: wrapperWidth } = useElementSize(wrapperRef);
-        const tabWidth = (wrapperWidth - 14) / sections.length;
-
         const [state, setState] = useState({
             sectionId: activeSectionId || activeSections[0]?.id || "",
             activeId: activeItemId || allItems[0]?.id || "",
         });
+
+        const activeSectionIndex = sections?.findIndex(
+            (item) => item.id === state.sectionId
+        );
+
+        const tabWidth = 100 / sections.length;
+        const pinX = tabWidth * (activeSectionIndex + 1) - tabWidth + "%";
 
         const onTabClick = useCallback(
             (section: Section) => {
@@ -135,19 +136,8 @@ export const Tabs = memo(
                             </Tab>
                         ))}
                         <Pin
-                            animate={{
-                                x: Math.max(
-                                    0,
-                                    tabWidth *
-                                        (sections?.findIndex(
-                                            (item) =>
-                                                item.id === state.sectionId
-                                        ) || 0)
-                                ),
-                            }}
-                            style={{
-                                width: tabWidth,
-                            }}
+                            animate={{ left: pinX }}
+                            style={{ width: `${100 / sections.length}%` }}
                         />
                     </AnimatePresence>
                 </TabsList>
