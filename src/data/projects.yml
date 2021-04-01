@@ -1,5 +1,5 @@
 - uid: 1
-  category: UX
+  category: UX/UI
   subCategory:
   name: RE/MAX
   cover: "/img/projects/image-1.png"
@@ -28,7 +28,7 @@
     projectManagementDesc: "November 2019, 7 days"
 
 - uid: 2
-  category: UX
+  category: UX/UI
   subCategory:
   name: Danish Bakery
   cover: "/img/projects/danish-bakery.jpg"
@@ -57,7 +57,7 @@
     projectManagementDesc: "November 2019, 7 days"
 
 - uid: 3
-  category: UX
+  category: Illustrations
   subCategory:
   name: Twitch
   cover: "/img/projects/placeholder-1.png"
@@ -86,7 +86,7 @@
     projectManagementDesc: "November 2019, 7 days"
 
 - uid: 4
-  category: UI
+  category: Illustrations
   subCategory: Others
   name: RE/MAX
   cover: "/img/projects/image-1.png"
@@ -202,7 +202,7 @@
     projectManagementDesc: "November 2019, 7 days"
 
 - uid: 8
-  category: UI
+  category: UX/UI
   subCategory: Others
   name: Addidas
   cover: "/img/projects/danish-bakery.jpg"
@@ -231,7 +231,7 @@
     projectManagementDesc: "November 2019, 7 days"
 
 - uid: 9
-  category: UI
+  category: UX/UI
   subCategory: Others
   name: Nike
   cover: "/img/projects/placeholder-1.png"
@@ -260,7 +260,7 @@
     projectManagementDesc: "November 2019, 7 days"
 
 - uid: 10
-  category: UI
+  category: UX/UI
   subCategory: Others
   name: Pepsi
   cover: "/img/projects/image-1.png"
@@ -289,7 +289,7 @@
     projectManagementDesc: "November 2019, 7 days"
 
 - uid: 11
-  category: UI
+  category: UX/UI
   subCategory: Others
   name: Topshop
   cover: "/img/projects/danish-bakery.jpg"

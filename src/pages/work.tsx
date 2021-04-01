@@ -11,6 +11,7 @@ import { Tabs } from "@components/tabs";
 import { Timeline, Item, Section } from "@components/timeline";
 import { useDelayedLink } from "@hooks/use-delay-link";
 import { usePreviousContext } from "@hooks/use-previous-context";
+import { groupBy } from "@utils/group-by";
 
 /**
  * Styles
@@ -53,23 +54,15 @@ const Work = memo(
     ({ data }: Props): JSX.Element => {
         const [navigation, setNavigation] = useState({} as NavigationState);
         const prevNavigation = usePreviousContext(navigation);
-
         const projects = data.projects.nodes || [];
+        const categories = Object.keys(groupBy(projects, "category"));
 
-        const mergedCategories = ["UX", "Illustrations"];
-
-        const timelineList = ["UX", "UI"].map((category) => ({
+        const timelineList = categories.map((category) => ({
             title: category,
-            id: category.replace(/\s/gi, "-"),
+            id: category,
             category,
             items: projects
-                .filter((project: Project) => {
-                    if (category === "UX") {
-                        return mergedCategories.includes(project.category);
-                    }
-
-                    return project.category === category;
-                })
+                .filter((project: Project) => project.category === category)
                 .map((project: Project) => ({
                     name: project.name,
                     id: String(project.uid),
@@ -80,14 +73,15 @@ const Work = memo(
                 })),
         }));
 
+        const firstCategory = timelineList[0].category;
+        const firstCategoryItems = timelineList.find(
+            ({ id }) => id === firstCategory
+        )?.items[0];
+
         const defaultSettings = {
-            sectionId: "UI",
-            itemId:
-                timelineList.find((item) => item.id === "UI")?.items[0]?.id ??
-                "1",
-            routeTo:
-                timelineList.find((item) => item.id === "UI")?.items[0]
-                    ?.routeTo ?? "",
+            sectionId: firstCategory,
+            itemId: firstCategoryItems?.id ?? "1",
+            routeTo: firstCategoryItems?.routeTo ?? "",
         };
 
         const sliderItems: SliderItem[] = timelineList.reduce(
