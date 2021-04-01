@@ -42,7 +42,8 @@ export type StoreContext<S, A> = Context<Array<S | Actions<A>>>;
 
 export interface Store<S, M> {
     Provider: React.FC<React.PropsWithChildren<{}>>;
-    useStore: () => Array<S | Actions<M>>;
+    useStore: () => [S, Actions<M>];
+    useStoreProp: (v: keyof S) => [S, Actions<M>, S | Actions<M>];
 }
 
 function getEmptyActions<S, M extends Mutations<S>>(mutations: M): Actions<M> {
@@ -106,18 +107,18 @@ export function createStore<S, M extends Mutations<S>>(
         );
     }
 
-    function useStore(): any {
+    function useStore() {
         return useContextSelector(context, (state) => state);
     }
 
-    function useStoreProp(prop: keyof M): Array<S | Actions<M>> {
+    function useStoreProp(prop: keyof M) {
         const state = useContextSelector(
             context,
             (v) => (v[0] as Actions<M>)[prop]
         );
         const setState = useContextSelector(context, (v) => v[1]);
 
-        return [state, actions, setState] as any;
+        return [state, actions, setState];
     }
 
     return { Provider, useStore, useStoreProp } as any;
