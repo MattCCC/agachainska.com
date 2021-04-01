@@ -9,9 +9,13 @@ import { StyledNumber } from "@domain/single-project/styled";
 import { useStoreProp } from "@store/index";
 import { up } from "@utils/screens";
 
-/**
- * Styled
- */
+interface Props {
+    index: number;
+    nameSlug: string;
+    name: string;
+    category: string;
+}
+
 const Badge = styled.li(() => [tw`flex`]);
 
 const BadgeNumber = styled(StyledNumber)(() => [
@@ -51,16 +55,6 @@ const ProjectCaption = styled.p(() => [
         }
     `,
 ]);
-
-/**
- * Interfaces
- */
-interface Props {
-    index: number;
-    nameSlug: string;
-    name: string;
-    category: string;
-}
 
 export const ProjectBadge = memo(
     ({ index, nameSlug, name, category }: Props): JSX.Element => {

@@ -3,11 +3,13 @@ import { memo } from "react";
 import tw, { styled, css } from "twin.macro";
 
 import { ProjectBadge } from "@domain/single-project/project-badge";
-import { ProjectByCategory } from "@pages/projects/{project.name}";
+import { ProjectsByCategory } from "@hooks/use-projects-by-category";
 
-/**
- * Styled
- */
+interface Props {
+    limit?: number;
+    projectsByCategory: ProjectsByCategory;
+}
+
 const Table = styled.ol(() => [
     tw`grid grid-cols-1 lg:grid-cols-2 grid-flow-row lg:grid-flow-col gap-x-20 gap-y-8`,
     css`
@@ -19,17 +21,6 @@ const Table = styled.ol(() => [
     `,
 ]);
 
-/**
- * Interfaces
- */
-interface Props {
-    limit?: number;
-    projectsByCategory: ProjectByCategory;
-}
-
-/**
- * Component
- */
 export const OtherProjects = memo(
     ({ projectsByCategory, limit = 4, ...props }: Props): JSX.Element => (
         <Table {...props}>
