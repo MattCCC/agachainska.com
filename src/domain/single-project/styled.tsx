@@ -7,9 +7,6 @@ import { ReactComponent as PrevIcon } from "@svg/down.svg";
 import { ReactComponent as NextIcon } from "@svg/up.svg";
 import { up } from "@utils/screens";
 
-/**
- * Styles
- */
 export const MainSection = styled.section(() => [
     tw`relative mx-auto z-10`,
     css`

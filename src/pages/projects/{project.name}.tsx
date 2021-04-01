@@ -285,6 +285,7 @@ export default function Project({ data }: Props): JSX.Element {
                     <Timeline
                         style={{ height: "254px" }}
                         activeItemId={activeItemId}
+                        activeSectionId={designProcessTimeline[0].id}
                         onTimelineItemChange={onTimelineItemChange}
                         sections={designProcessTimeline}
                     />

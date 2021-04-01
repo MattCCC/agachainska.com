@@ -6,14 +6,13 @@ import tw, { css, styled } from "twin.macro";
 
 import { up } from "@utils/screens";
 
-/**
- * Styles
- */
+interface Props {
+    children: ReactNode;
+}
+
 export const FullPageImgWrapper = styled.figure(() => [
-    tw`overflow-hidden`,
+    tw`overflow-hidden w-full max-w-full`,
     css`
-        max-width: 100%;
-        width: 100%;
         border: 1px solid #979797;
         margin-bottom: 40px;
 
@@ -21,7 +20,6 @@ export const FullPageImgWrapper = styled.figure(() => [
             max-width: none;
             width: 100vw;
             position: relative;
-            overflow: hidden;
             height: auto;
             margin: 0 auto 90px -50vw;
             left: calc(50% - 8px);
@@ -29,16 +27,6 @@ export const FullPageImgWrapper = styled.figure(() => [
     `,
 ]);
 
-/**
- * Interfaces
- */
-interface Props {
-    children: ReactNode;
-}
-
-/**
- * Component
- */
 export const FullPageImage: FunctionComponent<Props> = ({
     children,
     ...props
