@@ -102,23 +102,25 @@ export default function Project({ data }: Props): JSX.Element {
 
     const onPaginate = useCallback(
         (num: number): string | boolean => {
-            if (projectsByCategory.filteredProjects.length === 0) {
+            const projectsList = projectsByCategory.filteredProjects;
+
+            if (projectsList.length === 0) {
                 return false;
             }
 
-            const projectIndex = projectsByCategory.filteredProjects.findIndex(
+            const projectIndex = projectsList.findIndex(
                 (currentProject) => currentProject.uid === uid
             );
 
-            if (projectIndex <= -1 || !projects[projectIndex + num]) {
+            if (projectIndex <= -1 || !projectsList[projectIndex + num]) {
                 return false;
             }
 
-            const { nameSlug } = projects[projectIndex + num];
+            const { nameSlug } = projectsList[projectIndex + num];
 
             return nameSlug;
         },
-        [projects, projectsByCategory, uid]
+        [projectsByCategory, uid]
     );
 
     useEffect(() => {

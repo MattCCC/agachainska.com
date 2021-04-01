@@ -41,7 +41,7 @@ export type Actions<M> = {
 export type StoreContext<S, A> = Context<Array<S | Actions<A>>>;
 
 export interface Store<S, M> {
-    Provider: React.FC<React.PropsWithChildren<{}>>;
+    Provider: React.FC<React.PropsWithChildren<Record<string, unknown>>>;
     useStore: () => [S, Actions<M>];
     useStoreProp: (v: keyof S) => [S, Actions<M>, S | Actions<M>];
 }
@@ -85,7 +85,9 @@ export function createStore<S, M extends Mutations<S>>(
         };
     }
 
-    function Provider({ children }: React.PropsWithChildren<{}>): JSX.Element {
+    function Provider({
+        children,
+    }: React.PropsWithChildren<Record<string, unknown>>): JSX.Element {
         const [state, dispatch] = useReducer(reducer, initialState);
 
         actions = useMemo(() => {
@@ -131,8 +133,10 @@ export function createStore<S, M extends Mutations<S>>(
  */
 export function useStoreProvider(
     ...stores: Array<Store<any, any>>
-): FC<PropsWithChildren<{}>> {
-    function Provider({ children }: React.PropsWithChildren<{}>): JSX.Element {
+): FC<PropsWithChildren<Record<string, unknown>>> {
+    function Provider({
+        children,
+    }: React.PropsWithChildren<Record<string, unknown>>): JSX.Element {
         let wrapped = children;
 
         stores.forEach(({ Provider: ProviderWrapper }) => {
