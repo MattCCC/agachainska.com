@@ -3,8 +3,8 @@ import { FunctionComponent, ReactNode } from "react";
 import { Link as TranslatedLink } from "gatsby-plugin-intl";
 import { styled } from "twin.macro";
 
-import { useNavigate } from "@hooks/use-delay-link";
 import { LinkDelayedArgs, OnDelayCallback } from "@hooks/use-link-delayed";
+import { useNavigation } from "@hooks/use-navigation";
 import { excludeProps } from "@utils/styled";
 
 /**
@@ -35,7 +35,7 @@ export const Link: FunctionComponent<Props> = ({
     children,
     ...props
 }: Props) => {
-    const onClick = useNavigate({
+    const onClick = useNavigation({
         to,
         replace,
         delay,

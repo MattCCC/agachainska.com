@@ -9,28 +9,10 @@ import { Post, PostItem } from "@components/post";
 import { Slider, SliderItem } from "@components/slider";
 import { Tabs } from "@components/tabs";
 import { Timeline, Item, Section } from "@components/timeline";
-import { useNavigate } from "@hooks/use-delay-link";
+import { useNavigation } from "@hooks/use-navigation";
 import { useStoreProp } from "@store/index";
 import { groupBy } from "@utils/group-by";
 
-/**
- * Styles
- */
-const ContentContainer = styled.div(() => [
-    tw`relative lg:grid lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col top-32 lg:top-0 lg:mt-32`,
-]);
-
-const SlideWrapper = styled.div(() => [
-    tw`col-start-1 col-end-5 col-span-5 row-start-1 row-end-6 row-span-5 hidden lg:block`,
-]);
-
-const TimelineWrapper = styled.aside(() => [
-    tw`m-auto justify-center col-start-5 row-start-1 row-end-5 row-span-5 hidden lg:block`,
-]);
-
-/**
- * Interfaces
- */
 interface PageState {
     sliderIndex: number;
     activeSectionId: string;
@@ -56,9 +38,18 @@ interface Props extends PageProps {
     };
 }
 
-/**
- * Component
- */
+const ContentContainer = styled.div(() => [
+    tw`relative lg:grid lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col top-32 lg:top-0 lg:mt-32`,
+]);
+
+const SlideWrapper = styled.div(() => [
+    tw`col-start-1 col-end-5 col-span-5 row-start-1 row-end-6 row-span-5 hidden lg:block`,
+]);
+
+const TimelineWrapper = styled.aside(() => [
+    tw`m-auto justify-center col-start-5 row-start-1 row-end-5 row-span-5 hidden lg:block`,
+]);
+
 const Work = memo(
     ({ data }: Props): JSX.Element => {
         const [, dispatch] = useStoreProp("showMotionGrid");
@@ -109,7 +100,7 @@ const Work = memo(
                 (state.activeSectionId || defaultSettings.sectionId)
         );
 
-        const onNavigate = useNavigate({
+        const onNavigate = useNavigation({
             to: state.routeTo || defaultSettings.routeTo,
         });
 

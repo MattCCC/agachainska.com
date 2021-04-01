@@ -41,27 +41,15 @@ import {
     TableCredits,
     MainTitle,
 } from "@domain/single-project/styled";
+import { useProjectsByCategory } from "@hooks/use-projects-by-category";
 import { useStoreProp } from "@store/index";
 import { thresholdArray } from "@utils/threshold-array";
 
-/**
- * Interfaces
- */
 interface Navigation {
     hasPreviousButton: boolean;
     hasNextButton: boolean;
     previousTo: string;
     nextTo: string;
-}
-
-export interface ProjectByCategory {
-    others: Project[];
-    filteredProjects: ProjectByCurrentCategory[];
-}
-
-interface ProjectByCurrentCategory {
-    uid: number;
-    nameSlug: string;
 }
 
 interface Props extends PageProps {
@@ -78,12 +66,8 @@ const options = {
     threshold: thresholdArray(20),
 };
 
-/**
- * Component
- */
 export default function Project({ data }: Props): JSX.Element {
     const [, dispatch] = useStoreProp("showMotionGrid");
-
     const [activeItemId, setActiveItemId] = useState(
         (window.location.hash || "challenge").replace("#", "")
     );
@@ -103,11 +87,7 @@ export default function Project({ data }: Props): JSX.Element {
     } = data.project;
 
     const projects = data.projects.nodes;
-
-    const [projectsByCategory, setProjectsByCategory] = useState({
-        others: [],
-        filteredProjects: [],
-    } as ProjectByCategory);
+    const [projectsByCategory] = useProjectsByCategory({ category, projects });
 
     const [navigation, setNavigation] = useState({
         hasPreviousButton: false,
@@ -119,46 +99,6 @@ export default function Project({ data }: Props): JSX.Element {
         dispatch.showWavePattern(false);
     }, [dispatch]);
 
-    useEffect(() => {
-        if (projects.length === 0) {
-            return;
-        }
-
-        const filteredProjectsInState: ProjectByCurrentCategory[] =
-            projectsByCategory.filteredProjects;
-        const otherProjectsInState: Project[] = projectsByCategory.others;
-
-        const filteredProjectsByCategory: ProjectByCurrentCategory[] = projects
-            .filter((project: Project) => project.category === category)
-            .map((currentProject: Project) => ({
-                uid: currentProject.uid,
-                nameSlug: currentProject.nameSlug,
-            }));
-
-        const otherProjects: Project[] = projects.filter(
-            (project: Project) => project.subCategory === "Others"
-        );
-
-        if (
-            (otherProjects.length === 0 &&
-                filteredProjectsByCategory.length === 0) ||
-            (otherProjects.length === otherProjectsInState.length &&
-                filteredProjectsByCategory.length ===
-                    filteredProjectsInState.length)
-        ) {
-            return;
-        }
-
-        setProjectsByCategory(
-            (prevState) =>
-                ({
-                    ...prevState,
-                    others: otherProjects,
-                    filteredProjects: filteredProjectsByCategory,
-                } as ProjectByCategory)
-        );
-    }, [category, projects, uid, projectsByCategory, setProjectsByCategory]);
-
     const onPaginate = useCallback(
         (num: number): string | boolean => {
             if (projectsByCategory.filteredProjects.length === 0) {
@@ -166,17 +106,14 @@ export default function Project({ data }: Props): JSX.Element {
             }
 
             const projectIndex = projectsByCategory.filteredProjects.findIndex(
-                (currentProject: ProjectByCurrentCategory) =>
-                    currentProject.uid === uid
+                (currentProject) => currentProject.uid === uid
             );
 
             if (projectIndex <= -1 || !projects[projectIndex + num]) {
                 return false;
             }
 
-            const { nameSlug } = projects[
-                projectIndex + num
-            ] as ProjectByCurrentCategory;
+            const { nameSlug } = projects[projectIndex + num];
 
             return nameSlug;
         },
@@ -184,8 +121,7 @@ export default function Project({ data }: Props): JSX.Element {
     );
 
     useEffect(() => {
-        const projectsList: ProjectByCurrentCategory[] =
-            projectsByCategory.filteredProjects;
+        const projectsList = projectsByCategory.filteredProjects;
 
         if (projectsList.length === 0) {
             return;
@@ -200,7 +136,7 @@ export default function Project({ data }: Props): JSX.Element {
             hasPreviousButton: projectsList[0]?.uid !== uid,
             hasNextButton: projectsList[projectsList.length - 1]?.uid !== uid,
         } as Navigation);
-    }, [onPaginate, projectsByCategory, setNavigation, uid]);
+    }, [onPaginate, projectsByCategory, uid]);
 
     const pctInViewport = useMemo(() => ({} as Record<string, number>), []);
 

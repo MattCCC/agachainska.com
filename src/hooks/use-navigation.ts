@@ -15,7 +15,7 @@ export interface DelayedLink extends LinkDelayedArgs {
 /**
  * Performs navigation and applies necessary route guards
  */
-export const useNavigate = ({
+export const useNavigation = ({
     to,
     replace = false,
     onDelayStart = ((_e, _to) => {}) as OnDelayCallback,
