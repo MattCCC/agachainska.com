@@ -168,8 +168,6 @@ const Work = memo(
             [navigation, sliderItems, setNavigation]
         );
 
-        const onSliderTap = useCallback(onClickDelayNav, [onClickDelayNav]);
-
         const onPostTap = useCallback(
             (e, currentPost: PostItem) => {
                 setNavigation({
@@ -224,7 +222,7 @@ const Work = memo(
                         <SlideWrapper>
                             <Slider
                                 sliderItems={sliderItems}
-                                onSliderTap={onSliderTap}
+                                onSliderTap={onClickDelayNav}
                                 onSliderChange={onSliderChange}
                                 slideId={navigation.sliderIndex}
                             />
