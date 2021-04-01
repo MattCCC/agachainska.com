@@ -1,6 +1,5 @@
 import {
     useState,
-    useEffect,
     RefObject,
     useRef,
     useCallback,
@@ -12,7 +11,6 @@ import tw, { css, styled } from "twin.macro";
 
 import { motion, MotionProps, AnimatePresence } from "@components/animation";
 import { useElementSize } from "@hooks/use-element-size";
-import { usePreviousContext } from "@hooks/use-previous-context";
 
 interface TabsStyled {
     hideForDesktop?: boolean;
@@ -100,34 +98,12 @@ export const Tabs = memo(
         );
 
         const { width: wrapperWidth } = useElementSize(wrapperRef);
-
         const tabWidth = (wrapperWidth - 14) / sections.length;
-
-        const previousProps = usePreviousContext({
-            activeSectionId,
-            activeItemId,
-        });
 
         const [state, setState] = useState({
             sectionId: activeSectionId || activeSections[0]?.id || "",
             activeId: activeItemId || allItems[0]?.id || "",
         });
-
-        useEffect(() => {
-            if (
-                previousProps &&
-                activeSectionId &&
-                activeItemId &&
-                (activeSectionId !== previousProps.activeSectionId ||
-                    activeItemId !== previousProps.activeItemId)
-            ) {
-                setState({
-                    ...state,
-                    sectionId: activeSectionId,
-                    activeId: activeItemId,
-                });
-            }
-        }, [activeItemId, activeSectionId, previousProps, state]);
 
         const onTabClick = useCallback(
             (section: Section) => {
