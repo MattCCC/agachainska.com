@@ -2,7 +2,6 @@ import { Fragment, FunctionComponent } from "react";
 
 import tw, { styled, css } from "twin.macro";
 
-import "@styles/layout.scss";
 import { Background } from "@components/background";
 import { FullPageOverlay } from "@components/full-page-overlay";
 import { Overlays } from "@components/overlays";

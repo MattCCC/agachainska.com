@@ -21,7 +21,7 @@ const ContentContainer = styled.div(() => [
 ]);
 
 const SlideWrapper = styled.div(() => [
-    tw`col-start-1 col-end-4 col-span-4 row-start-1 row-end-6 row-span-5 hidden lg:block`,
+    tw`col-start-1 col-end-5 col-span-5 row-start-1 row-end-6 row-span-5 hidden lg:block`,
 ]);
 
 const TimelineWrapper = styled.aside(() => [

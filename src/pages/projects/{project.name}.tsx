@@ -20,6 +20,7 @@ import {
     MainSection,
     Button,
     CellTitle,
+    MainContainer,
     ContentContainer,
     Controls,
     HeroImage,
@@ -234,7 +235,7 @@ export default function Project({ data }: Props): JSX.Element {
             </MotionCursor>
 
             <MainSection>
-                <ContentContainer className="pt-28 lg:pt-32">
+                <MainContainer>
                     <HeroWrapper>
                         <MainTitleWrapper>
                             <MainTitle
@@ -277,7 +278,7 @@ export default function Project({ data }: Props): JSX.Element {
                         <CellTitle>My role in the project:</CellTitle>
                         <div>{roleInProject}</div>
                     </TableProject>
-                </ContentContainer>
+                </MainContainer>
             </MainSection>
             <Article>
                 <TimelineWrapper>

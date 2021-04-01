@@ -6,7 +6,10 @@ body {
     overscroll-behavior-y: none;
 }
 
-img {
+img,
+picture {
+    @apply select-none;
+
     pointer-events: none;
 }
 

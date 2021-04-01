@@ -1,4 +1,4 @@
-import "./src/styles/global.css";
+import "./src/styles/global.scss";
 import { Fragment } from "react";
 
 import { WrapRootElementNodeArgs } from "gatsby";

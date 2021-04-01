@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./typography.css";
+
+:root {
+    --primary-color: #0b0b0b;
+    --secondary-color: #4a4a4a;
+    --tertiary-color: #61f1f8;
+    --black-color: #000000;
+    --melrose-color: #c0a4ff;
+}
+
+@import "./layout.scss";

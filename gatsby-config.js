@@ -6,7 +6,13 @@ module.exports = {
     plugins: [
         "gatsby-plugin-webpack-bundle-analyser-v2",
         `gatsby-plugin-ts-config`,
-        `gatsby-plugin-sass`,
+        {
+            resolve: `gatsby-plugin-sass`,
+            options: {
+                // Configure SASS to process Tailwind
+                postCssPlugins: [require('tailwindcss')],
+            },
+        },
         `gatsby-plugin-emotion`,
         "gatsby-plugin-postcss",
         `gatsby-plugin-image`,

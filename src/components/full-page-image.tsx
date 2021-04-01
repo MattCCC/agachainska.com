@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { ReactNode } from "react";
 
 import { Parallax } from "react-scroll-parallax";
-import { css, styled } from "twin.macro";
+import tw, { css, styled } from "twin.macro";
 
 import { up } from "@utils/screens";
 
@@ -10,6 +10,7 @@ import { up } from "@utils/screens";
  * Styles
  */
 export const FullPageImgWrapper = styled.figure(() => [
+    tw`overflow-hidden`,
     css`
         max-width: 100%;
         width: 100%;

@@ -61,6 +61,10 @@ export const ContentContainer = styled.div(() => [
     `,
 ]);
 
+export const MainContainer = styled(ContentContainer)(() => [
+    tw`pt-28 lg:pt-32`,
+]);
+
 export const StyledNumber = styled(BigNumber)(() => [
     css`
         max-width: 100%;
