@@ -1,26 +1,25 @@
-import { CSSProperties, FunctionComponent, useEffect } from "react";
+import { CSSProperties, FunctionComponent, memo, useEffect } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
+import { Translate } from "@components/translate";
+import { useNavigation } from "@hooks/use-navigation";
 import { TrackMousePosition } from "@hooks/use-track-mouse-position";
 import { useStore } from "@store/index";
 
-/**
- * Styles
- */
+interface Props {
+    onPositionUpdate?: (clientX: number, clientY: number) => void;
+}
+
 const Cursor = styled.div(
     ({ isMotionCursorVisible }: { isMotionCursorVisible: boolean }) => [
-        tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full select-none`,
+        tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full select-none bg-black cursor-pointer`,
+        tw`border border-black prose-12px`,
         css`
             width: 80px;
             height: 80px;
-            background-color: var(--black-color);
-            border: 1px solid var(--black-color);
             transform: translate(-50%, -50%);
             margin-left: -30px;
-            font-size: 12px;
-            padding: 24px 22px;
-            cursor: pointer;
             transition: transform 300ms;
 
             a {
@@ -35,22 +34,43 @@ const Cursor = styled.div(
     ]
 );
 
-/**
- * Interfaces
- */
-interface Props {
-    onPositionUpdate: (clientX: number, clientY: number) => void;
-}
+const TextWrapper = styled.div(() => [tw`flex w-full h-full`]);
 
-/**
- * Component
- */
+const CursorText = styled.div(() => [
+    tw`m-auto`,
+    css`
+        width: 80%;
+        line-height: 16px;
+    `,
+]);
+
+const CursorLink: FunctionComponent<{ text: string; route: string }> = memo(
+    ({ text, route, children }) => {
+        const onNavigate = useNavigation({
+            to: route,
+        });
+
+        if (!text || !route) {
+            return <CursorText>{children}</CursorText>;
+        }
+
+        return (
+            <TextWrapper onClick={(e: any) => onNavigate(e, route)}>
+                <CursorText>
+                    <Translate id={text} />
+                </CursorText>
+            </TextWrapper>
+        );
+    }
+);
+
+const cursorWidth = 80;
+
 export const MotionCursor: FunctionComponent<Props> = ({
-    onPositionUpdate,
+    onPositionUpdate = null,
     children,
 }) => {
     const [state] = useStore();
-    const cursorWidth = 80;
     const { clientX, clientY } = TrackMousePosition();
     const cursorStyle = {
         left: `${clientX || -cursorWidth}px`,
@@ -69,7 +89,12 @@ export const MotionCursor: FunctionComponent<Props> = ({
             style={cursorStyle}
             className="cursor"
         >
-            {children}
+            <CursorLink
+                text={state.motionCursorData.text}
+                route={state.motionCursorData.route}
+            >
+                {children}
+            </CursorLink>
         </Cursor>
     );
 };

@@ -7,25 +7,16 @@ import { LinkDelayedArgs, OnDelayCallback } from "@hooks/use-link-delayed";
 import { useNavigation } from "@hooks/use-navigation";
 import { excludeProps } from "@utils/styled";
 
-/**
- * Styles
- */
-const LinkStyled = styled(
-    TranslatedLink,
-    excludeProps(["isCurrentPage"])
-)(() => []);
-
-/**
- * Interfaces
- */
 export interface Props extends LinkDelayedArgs {
     to: string;
     children: ReactNode;
 }
 
-/**
- * Component
- */
+const LinkStyled = styled(
+    TranslatedLink,
+    excludeProps(["isCurrentPage"])
+)(() => []);
+
 export const Link: FunctionComponent<Props> = ({
     to,
     replace = false,
@@ -44,7 +35,7 @@ export const Link: FunctionComponent<Props> = ({
     });
 
     return (
-        <LinkStyled onClick={onClick} to={to} {...props}>
+        <LinkStyled onClick={(e) => onClick(e)} to={to} {...props}>
             {children}
         </LinkStyled>
     );

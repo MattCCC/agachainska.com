@@ -13,7 +13,7 @@ export interface DelayedLink extends LinkDelayedArgs {
 }
 
 /**
- * Performs navigation and applies necessary route guards
+ * Perform navigation and applies necessary route guards
  */
 export const useNavigation = ({
     to,

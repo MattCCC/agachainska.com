@@ -62,8 +62,11 @@ export const ProjectBadge = memo(
         const [mouseLeft, itemsRef] = useMouseLeave();
 
         useEffect(() => {
-            dispatch.showMotionCursor(!mouseLeft);
-        }, [mouseLeft, dispatch]);
+            dispatch.showMotionCursor(!mouseLeft, {
+                text: "explore",
+                route: nameSlug,
+            });
+        }, [mouseLeft, dispatch, nameSlug]);
 
         return (
             <Badge

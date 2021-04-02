@@ -13,7 +13,6 @@ import { Link } from "@components/link";
 import { MotionCursor } from "@components/motion-cursor";
 import { Quote } from "@components/quote";
 import { Timeline } from "@components/timeline";
-import { Translate } from "@components/translate";
 import { designProcessTimeline } from "@config/page-timlines";
 import { OtherProjects } from "@domain/single-project/other-projects";
 import {
@@ -169,9 +168,7 @@ export default function Project({ data }: Props): JSX.Element {
     return (
         <Fragment>
             <Header />
-            <MotionCursor onPositionUpdate={(): void => null}>
-                <Translate id="viewWork" />
-            </MotionCursor>
+            <MotionCursor />
 
             <MainSection>
                 <MainContainer>

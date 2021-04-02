@@ -6,7 +6,7 @@ import {
     useRef,
     useState,
 } from "react";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 import { navigate } from "gatsby";
 import tw, { css, styled } from "twin.macro";
@@ -14,7 +14,6 @@ import tw, { css, styled } from "twin.macro";
 import { BottomCircle } from "@components/bottom-circle";
 import { CountDown } from "@components/count-down";
 import { Header } from "@components/header";
-import { Link } from "@components/link";
 import { MainContainer } from "@components/main-container";
 import { MainSection } from "@components/main-section";
 import { MotionCursor } from "@components/motion-cursor";
@@ -26,21 +25,17 @@ import { isDev } from "@utils/detect-env";
 import { getRoutePath } from "@utils/route";
 import { TranslateText } from "@utils/translate-text";
 
-/**
- * Styles
- */
 const Title = styled.h1(() => [
-    tw`relative z-50 inline-block max-w-full lg:mr-16 font-bold prose-70px lg:prose-140px select-none`,
+    tw`relative z-50 inline-block max-w-full lg:pr-16 font-bold prose-70px lg:prose-140px select-none`,
+    tw`text-black bg-clip-text`,
     css`
-        width: 570px;
-        color: var(--black-color);
+        width: 634px;
         font-family: "Larsseit-Bold";
-        background: radial-gradient(
+        background-image: radial-gradient(
             40px circle at var(--x) var(--y),
             rgba(0, 0, 0, 0) 100%,
             var(--black-color)
         );
-        background-clip: text;
         -webkit-text-fill-color: transparent;
         cursor: none;
 
@@ -55,7 +50,7 @@ const Title = styled.h1(() => [
             -webkit-text-stroke-color: rgba(0, 0, 0, 0.8);
         }
 
-        &:hover + a .cursor {
+        &:hover + .cursor {
             background-color: transparent;
             color: transparent;
             cursor: none;
@@ -73,13 +68,10 @@ const Desc = styled.h2(() => [
     `,
 ]);
 
-/**
- * Component
- */
 export default function Home(): JSX.Element {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
     const workLink = getRoutePath("work");
-    const defaultState = { x: 0, y: 0 };
+    const defaultState = useMemo(() => ({ x: 0, y: 0 }), []);
     const [, dispatch] = useStore();
     const [position, setPosition] = useState(defaultState);
     const titleStyle = {
@@ -109,8 +101,11 @@ export default function Home(): JSX.Element {
     }, [workLink]);
 
     useEffect(() => {
-        dispatch.showMotionCursor(true);
-    }, [dispatch]);
+        dispatch.showMotionCursor(true, {
+            text: "viewWork",
+            route: workLink.to,
+        });
+    }, [dispatch, workLink.to]);
 
     return (
         <Fragment>
@@ -130,11 +125,7 @@ export default function Home(): JSX.Element {
                     >
                         <Translate id="home.title" />
                     </Title>
-                    <Link {...workLink}>
-                        <MotionCursor onPositionUpdate={onPositionUpdate}>
-                            <Translate id="viewWork" />
-                        </MotionCursor>
-                    </Link>
+                    <MotionCursor onPositionUpdate={onPositionUpdate} />
                     <Desc>
                         <Translate id="home.description" />
                     </Desc>
