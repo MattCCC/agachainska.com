@@ -42,6 +42,7 @@ import {
 } from "@domain/single-project/styled";
 import { useProjectsByCategory } from "@hooks/use-projects-by-category";
 import { useStoreProp } from "@store/index";
+import { scrollTo } from "@utils/scroll-to";
 import { thresholdArray } from "@utils/threshold-array";
 
 interface Navigation {
@@ -162,7 +163,7 @@ export default function Project({ data }: Props): JSX.Element {
     const refResults = useInViewEffect(intersection, options);
 
     const onTimelineItemChange = useCallback(({ id }): void => {
-        window.location.hash = "#" + id;
+        scrollTo("#" + id);
     }, []);
 
     return (
