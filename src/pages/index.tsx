@@ -59,7 +59,7 @@ const Title = styled.h1(() => [
 ]);
 
 const Desc = styled.h2(() => [
-    tw`inline-block prose-24px lg:prose-30px`,
+    tw`inline-block prose-24px lg:prose-30px select-none`,
     css`
         max-height: 84px;
         width: 18rem;

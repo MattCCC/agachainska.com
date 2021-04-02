@@ -10,9 +10,10 @@ import { useStore } from "@store/index";
 import { getLinkProps, LinkProps } from "@utils/route";
 import { up } from "@utils/screens";
 
-/**
- * Styles
- */
+interface Props {
+    showLogoOnDesktop?: boolean;
+}
+
 const HeaderWrapper = styled.header(() => [
     tw`mx-auto flex items-center justify-between flex-wrap absolute top-0 z-50 lg:py-6`,
     css`
@@ -24,18 +25,21 @@ const HeaderWrapper = styled.header(() => [
 ]);
 
 const Navigation = styled.nav(() => [
-    tw`w-56 lg:w-96 flex items-center justify-end`,
+    tw`w-56 lg:w-auto flex items-center justify-end`,
+    css`
+        line-height: 48px;
+        gap: 40px;
+
+        ${up("lg")} {
+            gap: 56px;
+        }
+    `,
 ]);
 
 const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
     tw`relative font-medium text-primary-color prose-18px select-none`,
     css`
         line-height: 48px;
-        margin-left: 40px;
-
-        ${up("lg")} {
-            margin-left: 56px;
-        }
     `,
     css`
         &:hover:before {
@@ -66,16 +70,6 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
         `,
 ]);
 
-/**
- * Interfaces
- */
-interface Props {
-    showLogoOnDesktop?: boolean;
-}
-
-/**
- * Component
- */
 export function Header({ showLogoOnDesktop = true }: Props): JSX.Element {
     const [state, dispatch] = useStore();
     const [
@@ -103,26 +97,14 @@ export function Header({ showLogoOnDesktop = true }: Props): JSX.Element {
     return (
         <HeaderWrapper>
             <Logo showOnDesktop={showLogoOnDesktop} />
-            <Navigation>
-                <LinkItem
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
-                    {...getLinkProps("work", location)}
-                >
+            <Navigation onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                <LinkItem {...getLinkProps("work", location)}>
                     <Translate id="header.link.work" />
                 </LinkItem>
-                <LinkItem
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
-                    {...getLinkProps("about", location)}
-                >
+                <LinkItem {...getLinkProps("about", location)}>
                     <Translate id="header.link.about" />
                 </LinkItem>
-                <LinkItem
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
-                    {...getLinkProps("contact", location)}
-                >
+                <LinkItem {...getLinkProps("contact", location)}>
                     <Translate id="header.link.contact" />
                 </LinkItem>
             </Navigation>
