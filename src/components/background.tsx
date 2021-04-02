@@ -3,6 +3,7 @@ import {
     Fragment,
     FunctionComponent,
     useEffect,
+    useMemo,
     useState,
 } from "react";
 
@@ -21,9 +22,8 @@ import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.
 import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
 import { getRandomNumber } from "@utils/random-number";
 
-/**
- * Styles
- */
+interface Props {}
+
 const BackgroundWrapper = styled.div(() => [
     tw`absolute overflow-hidden z-0 top-0 left-0 right-0 h-full w-full min-h-screen`,
     css`
@@ -31,6 +31,7 @@ const BackgroundWrapper = styled.div(() => [
         -webkit-transform: scale(1);
         background: url("/svg/bg-pattern.svg") repeat;
         background-position: var(--x) var(--y);
+        will-change: background-position;
     `,
 ]);
 
@@ -82,16 +83,8 @@ const Caipirinha = styled(CaipirinhaIllustration)(() => [
     `,
 ]);
 
-/**
- * Interfaces
- */
-interface Props {}
-
-/**
- * Component
- */
 export const Background: FunctionComponent<Props> = () => {
-    const defaultState = { x: 0, y: 0 };
+    const defaultState = useMemo(() => ({ x: 0, y: 0 }), []);
     const [position, setPosition] = useState(defaultState);
     const [state] = useStore();
     const backgroundStyle = {
