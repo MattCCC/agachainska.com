@@ -1,22 +1,44 @@
 /* eslint-disable max-len */
 
-import { SVGProps } from "react";
+import { SVGProps, useEffect, useState } from "react";
 
-/**
- * Styles
- */
+import useInterval from "@use-it/interval";
 
-/**
- * Interfaces
- */
 interface Props extends SVGProps<SVGSVGElement> {
-    value: number | string;
+    value: number;
+    animate?: boolean;
 }
 
-/**
- * Component
- */
-export function BigNumber({ value = 0, ...props }: Props): JSX.Element {
+export function BigNumber({
+    value = 0,
+    animate = false,
+    ...props
+}: Props): JSX.Element {
+    const [count, setCount] = useState(0);
+    const [delay] = useState(1000 / value);
+    const [isRunning, setIsRunning] = useState(false);
+
+    useEffect(() => {
+        setCount(animate ? 0 : value);
+
+        setIsRunning(true);
+    }, [animate, value]);
+
+    useInterval(
+        () => {
+            if (!animate) {
+                return;
+            }
+
+            setCount(count + 1);
+
+            if (count === value) {
+                setIsRunning(false);
+            }
+        },
+        isRunning ? delay : null
+    );
+
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -75,12 +97,12 @@ export function BigNumber({ value = 0, ...props }: Props): JSX.Element {
                             strokeWidth="1.5"
                         >
                             <tspan x="8.129" y="179">
-                                {value}
+                                {count}
                             </tspan>
                         </text>
                         <text fill="#FFF" stroke="#0B0B0B" strokeWidth="0.5">
                             <tspan x="0" y="179">
-                                {value}
+                                {count}
                             </tspan>
                         </text>
                     </g>

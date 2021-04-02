@@ -1,7 +1,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 
 import { graphql, PageProps } from "gatsby";
-import { useInViewEffect } from "react-hook-inview";
+import { useInView, useInViewEffect } from "react-hook-inview";
 
 import { FullPageImage } from "@components/full-page-image";
 import { H2 } from "@components/h2";
@@ -156,6 +156,14 @@ export default function Project({ data }: Props): JSX.Element {
         [pctInViewport]
     );
 
+    // Increment stats animation
+    const [animateStats, setAnimateStats] = useState(false);
+    const [refStats, isVisible] = useInView();
+
+    useEffect(() => {
+        setAnimateStats(isVisible);
+    }, [isVisible]);
+
     const refChallenge = useInViewEffect(intersection, options);
     const refApproach = useInViewEffect(intersection, options);
     const refResults = useInViewEffect(intersection, options);
@@ -275,31 +283,46 @@ export default function Project({ data }: Props): JSX.Element {
                         ref={refResults}
                         className="sm"
                     >
-                        <TableStats>
+                        <TableStats ref={refStats}>
                             <CellTitle>
-                                <StyledNumber value={stats.screens} />
+                                <StyledNumber
+                                    value={stats.screens}
+                                    animate={animateStats}
+                                />
                             </CellTitle>
                             <StatsCaption className="space">
                                 Screens
                             </StatsCaption>
                             <CellTitle>
-                                <StyledNumber value={stats.screens} />
+                                <StyledNumber
+                                    value={stats.screens}
+                                    animate={animateStats}
+                                />
                             </CellTitle>
                             <StatsCaption>Screens</StatsCaption>
 
                             <CellTitle>
-                                <StyledNumber value={stats.iterations} />
+                                <StyledNumber
+                                    value={stats.iterations}
+                                    animate={animateStats}
+                                />
                             </CellTitle>
                             <StatsCaption className="space">
                                 Iterations
                             </StatsCaption>
                             <CellTitle>
-                                <StyledNumber value={stats.iterations} />
+                                <StyledNumber
+                                    value={stats.iterations}
+                                    animate={animateStats}
+                                />
                             </CellTitle>
                             <StatsCaption>Iterations</StatsCaption>
 
                             <CellTitle>
-                                <StyledNumber value={stats.prototypes} />
+                                <StyledNumber
+                                    value={stats.prototypes}
+                                    animate={animateStats}
+                                />
                             </CellTitle>
                             <StatsCaption className="space">
                                 Prototypes
