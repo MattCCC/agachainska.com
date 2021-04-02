@@ -102,9 +102,10 @@ export const HeroImage = styled.div(({ bgImgUrl }: { bgImgUrl: string }) => [
 
         ${up("lg")} {
             background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
             background-size: cover;
+            transform: translateZ(0);
+            -webkit-backface-visibility: inherit;
+            -webkit-font-smoothing: antialiased;
         }
     `,
 ]);

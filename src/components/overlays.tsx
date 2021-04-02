@@ -95,17 +95,21 @@ const setScrollBehaviour = (
     }
 };
 
+const scrollTo = (y: number = 0) => {
+    window.scrollTo({
+        top: y,
+        left: 0,
+        behavior: "auto",
+    });
+};
+
 export const TopOverlay = (): JSX.Element => (
     <motion.div
         initial="initial"
         animate="enter"
         exit="exit"
         onUpdate={() => {
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "auto",
-            });
+            scrollTo();
         }}
         onAnimationStart={() => {
             setScrollBehaviour("auto");
@@ -114,6 +118,8 @@ export const TopOverlay = (): JSX.Element => (
         onAnimationComplete={(variant) => {
             if (variant === "enter") {
                 setScrollBehaviour("smooth");
+
+                scrollTo(1);
             }
         }}
         variants={pageOverlayTopVariants}
