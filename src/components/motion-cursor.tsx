@@ -21,6 +21,7 @@ const Cursor = styled.div(
             transform: translate(-50%, -50%);
             margin-left: -30px;
             transition: transform 300ms;
+            will-change: left, top;
 
             a {
                 cursor: pointer;
