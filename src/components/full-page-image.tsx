@@ -1,7 +1,6 @@
 import { FunctionComponent } from "react";
 import { ReactNode } from "react";
 
-import { Parallax } from "react-scroll-parallax";
 import tw, { css, styled } from "twin.macro";
 
 import { up } from "@utils/screens";
@@ -19,8 +18,8 @@ export const FullPageImgWrapper = styled.figure(() => [
         ${up("lg")} {
             max-width: none;
             width: 100vw;
+            height: 80vh;
             position: relative;
-            height: auto;
             margin: 0 auto 90px -50vw;
             left: calc(50% - 8px);
         }
@@ -30,8 +29,4 @@ export const FullPageImgWrapper = styled.figure(() => [
 export const FullPageImage: FunctionComponent<Props> = ({
     children,
     ...props
-}) => (
-    <FullPageImgWrapper {...props}>
-        <Parallax y={[-50, 50]}>{children}</Parallax>
-    </FullPageImgWrapper>
-);
+}) => <FullPageImgWrapper {...props}>{children}</FullPageImgWrapper>;

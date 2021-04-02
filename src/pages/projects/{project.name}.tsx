@@ -1,9 +1,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 
 import { graphql, PageProps } from "gatsby";
-import { StaticImage } from "gatsby-plugin-image";
 import { useInViewEffect } from "react-hook-inview";
-import { Parallax } from "react-scroll-parallax";
 
 import { FullPageImage } from "@components/full-page-image";
 import { H2 } from "@components/h2";
@@ -11,6 +9,7 @@ import { H3 } from "@components/h3";
 import { Header } from "@components/header";
 import { Link } from "@components/link";
 import { MotionCursor } from "@components/motion-cursor";
+import { ParallaxBackground } from "@components/parallax-background";
 import { Quote } from "@components/quote";
 import { Timeline } from "@components/timeline";
 import { designProcessTimeline } from "@config/page-timlines";
@@ -22,7 +21,6 @@ import {
     MainContainer,
     ContentContainer,
     Controls,
-    HeroImage,
     NextIconStyled,
     PrevIconStyled,
     TableProject,
@@ -184,7 +182,7 @@ export default function Project({ data }: Props): JSX.Element {
                                 {name}
                             </MainTitle>
                         </MainTitleWrapper>
-                        <HeroImage bgImgUrl={cover} />
+                        <ParallaxBackground bgImgUrl={cover} />
                     </HeroWrapper>
                     {(navigation.hasPreviousButton ||
                         navigation.hasNextButton) && (
@@ -246,39 +244,26 @@ export default function Project({ data }: Props): JSX.Element {
                         <H3>Brand elements</H3>
                         <Paragraph>{approach.brandElements}</Paragraph>
                         <FullSizeImageWrapper>
-                            <Parallax y={[-50, 50]}>
-                                <StaticImage
-                                    src="../../img/placeholder-full.png"
-                                    alt="Placeholder"
-                                    placeholder="blurred"
-                                    objectFit="cover"
-                                />
-                            </Parallax>
+                            <ParallaxBackground
+                                bgImgUrl="/img/placeholder-full.png"
+                                contain={true}
+                            />
                         </FullSizeImageWrapper>
 
                         <TwoImagesWrapper>
-                            <StaticImage
-                                src="../../img/placeholder-full.png"
-                                alt="Placeholder"
-                                placeholder="blurred"
-                                objectFit="cover"
+                            <ParallaxBackground
+                                bgImgUrl="/img/placeholder-full.png"
+                                contain={true}
                             />
-                            <StaticImage
-                                src="../../img/placeholder-full.png"
-                                alt="Placeholder"
-                                placeholder="blurred"
-                                objectFit="cover"
+                            <ParallaxBackground
+                                bgImgUrl="/img/placeholder-full.png"
+                                contain={true}
                             />
                         </TwoImagesWrapper>
                     </ContentContainer>
 
                     <FullPageImage>
-                        <StaticImage
-                            src="../../img/placeholder-2.png"
-                            alt="Placeholder"
-                            placeholder="blurred"
-                            layout="fullWidth"
-                        />
+                        <ParallaxBackground bgImgUrl="/img/placeholder-2.png" />
                     </FullPageImage>
 
                     <ContentContainer className="sm">

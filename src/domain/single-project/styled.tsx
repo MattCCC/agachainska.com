@@ -90,26 +90,6 @@ export const HeroWrapper = styled.div(() => [
     `,
 ]);
 
-export const HeroImage = styled.div(({ bgImgUrl }: { bgImgUrl: string }) => [
-    css`
-        height: 100%;
-        width: 100%;
-        max-width: 100%;
-        background-image: url("${bgImgUrl}");
-        background-repeat: no-repeat;
-        background-color: rgba(255, 255, 255, 0.8);
-        background-size: contain;
-
-        ${up("lg")} {
-            background-attachment: fixed;
-            background-size: cover;
-            transform: translateZ(0);
-            -webkit-backface-visibility: inherit;
-            -webkit-font-smoothing: antialiased;
-        }
-    `,
-]);
-
 export const TableProject = styled.div(() => [
     tw`grid grid-cols-1 lg:grid-cols-2 grid-rows-4 grid-flow-row lg:grid-flow-col`,
     css`
