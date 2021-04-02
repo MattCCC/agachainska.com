@@ -7,14 +7,8 @@ import {
 } from "@components/animation";
 import { useStore } from "@store/index";
 
-/**
- * Styles
- */
 const overlayStyleClasses = "fixed left-0 w-full h-full";
 
-/**
- * Configs
- */
 export const duration = 1;
 
 export const transition = {
@@ -23,6 +17,37 @@ export const transition = {
 };
 
 export const backgroundColors = ["#F5A4FF", "#C0A4FF", "#61F1F8"];
+
+export const pageOverlayTopVariants = {
+    initial: {
+        height: "100vh",
+        transition: { ...transition, duration: 0 },
+    },
+    enter: {
+        height: 0,
+        transition: { ...transition, delay: 0.3 },
+    },
+    exit: {
+        height: 0,
+        transition,
+    },
+};
+
+export const pageContentVariants = {
+    exit: {
+        y: 100,
+        opacity: 0,
+        transition,
+    },
+    enter: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            duration,
+            delay: duration,
+        },
+    },
+};
 
 const ContainerVariants = {
     end: {
@@ -50,9 +75,51 @@ const OverlayVariants = {
     },
 };
 
-/**
- * Component
- */
+const removeLocationHash = () => {
+    const hasHash = window.location.href.indexOf("#") !== -1;
+
+    if (hasHash) {
+        window.location.replace(
+            window.location.href.substr(0, window.location.href.indexOf("#"))
+        );
+    }
+};
+
+const setScrollBehaviour = (
+    scrollBehavior: CSSStyleDeclaration["scrollBehavior"]
+) => {
+    const mainFrame = document.querySelector("html");
+
+    if (mainFrame) {
+        mainFrame.style.scrollBehavior = scrollBehavior;
+    }
+};
+
+export const TopOverlay = (): JSX.Element => (
+    <motion.div
+        initial="initial"
+        animate="enter"
+        exit="exit"
+        onUpdate={() => {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "auto",
+            });
+        }}
+        onAnimationStart={() => {
+            setScrollBehaviour("auto");
+            removeLocationHash();
+        }}
+        onAnimationComplete={(variant) => {
+            if (variant === "enter") {
+                setScrollBehaviour("smooth");
+            }
+        }}
+        variants={pageOverlayTopVariants}
+    />
+);
+
 export const Overlays = memo(
     (): JSX.Element => {
         const [state] = useStore();

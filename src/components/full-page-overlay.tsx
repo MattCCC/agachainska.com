@@ -3,9 +3,6 @@ import { memo, useEffect } from "react";
 import { motion, useAnimation } from "@components/animation";
 import { useStore } from "@store/index";
 
-/**
- * Configs
- */
 export const duration = 1;
 export const fullPageOverlayDuration = 0.6;
 
@@ -34,9 +31,6 @@ const OverlayFullPageVariants = {
     },
 };
 
-/**
- * Component
- */
 export const FullPageOverlay = memo(
     (): JSX.Element => {
         const [state] = useStore();
