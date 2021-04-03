@@ -2,6 +2,7 @@ import { set, createStore } from "@utils/store";
 
 const initialState = {
     isMotionCursorVisible: false,
+    showBackgroundGradient: false,
     motionCursorData: { text: "", route: "" },
     showMotionGrid: true,
     showWavePattern: true,
@@ -13,6 +14,7 @@ type State = typeof initialState;
 const actions = {
     showMotionGrid: set<State, boolean>("showMotionGrid"),
     showWavePattern: set<State, boolean>("showWavePattern"),
+    showBackgroundGradient: set<State, boolean>("showBackgroundGradient"),
     setCurrentDelayedRoute: set<State, string>("currentDelayedRoute"),
 
     showMotionCursor(

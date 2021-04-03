@@ -5,6 +5,7 @@ import tw, { styled, css } from "twin.macro";
 import { Background } from "@components/background";
 import { FullPageOverlay } from "@components/full-page-overlay";
 import { Overlays } from "@components/overlays";
+import { useStoreProp } from "@store/index";
 
 interface Props {}
 
@@ -25,13 +26,17 @@ const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
         `,
 ]);
 
-export const Layout: FunctionComponent<Props> = ({ children }) => (
-    <Fragment>
-        <Overlays />
-        <FullPageOverlay />
-        <Main hasGradient>
-            <Background />
-            {children}
-        </Main>
-    </Fragment>
-);
+export const Layout: FunctionComponent<Props> = ({ children }) => {
+    const [showBackgroundGradient] = useStoreProp("showBackgroundGradient");
+
+    return (
+        <Fragment>
+            <Overlays />
+            <FullPageOverlay />
+            <Main hasGradient={showBackgroundGradient}>
+                <Background />
+                {children}
+            </Main>
+        </Fragment>
+    );
+};

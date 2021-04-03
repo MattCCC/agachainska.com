@@ -90,6 +90,7 @@ const Work = memo(
 
         useEffect(() => {
             dispatch.showMotionGrid(false);
+            dispatch.showBackgroundGradient(false);
         }, [dispatch]);
 
         const timelineList = categories.map((category) => ({
