@@ -28,8 +28,8 @@ export interface SliderItem {
 interface Props {
     sliderItems: SliderItem[];
     slideId: number;
-    onSliderTap: (e: any, currentItem: SliderItem) => void;
-    onSliderChange: (currentItem: SliderItem) => void;
+    onSliderTap?: (e: any, currentItem: SliderItem) => void;
+    onSliderChange?: (currentItem: SliderItem) => void;
     onSliderMouseEnter?: (mouseLeft: boolean) => void;
     onSliderMouseLeave?: (mouseLeft: boolean) => void;
 }
@@ -142,8 +142,8 @@ const NextIconStyled = styled(NextIcon)(() => [
 export const Slider: FunctionComponent<Props> = ({
     sliderItems,
     slideId = -1,
-    onSliderTap,
-    onSliderChange,
+    onSliderTap = null,
+    onSliderChange = null,
     onSliderMouseEnter = null,
     onSliderMouseLeave = null,
 }) => {
@@ -220,7 +220,9 @@ export const Slider: FunctionComponent<Props> = ({
                 newStateDirection
             );
 
-            onSliderChange(sliderItems[currentSliderItem]);
+            if (onSliderChange) {
+                onSliderChange(sliderItems[currentSliderItem]);
+            }
         },
         [
             isAnimating,
@@ -297,6 +299,15 @@ export const Slider: FunctionComponent<Props> = ({
         }
     }, [mouseLeft, onSliderMouseEnter, onSliderMouseLeave]);
 
+    const onSliderClick = useCallback(
+        (e) => {
+            if (onSliderTap) {
+                onSliderTap(e, sliderItems[sliderIndex]);
+            }
+        },
+        [onSliderTap, sliderIndex, sliderItems]
+    );
+
     return (
         <SliderWrapper ref={sliderRef}>
             <Title
@@ -326,9 +337,7 @@ export const Slider: FunctionComponent<Props> = ({
                         dragConstraints={sliderDragConstraints}
                         dragElastic={1}
                         onDragEnd={onDragEnd}
-                        onClick={(e): void =>
-                            onSliderTap(e, sliderItems[sliderIndex])
-                        }
+                        onClick={onSliderClick}
                     >
                         <Slide
                             id={String(page)}
