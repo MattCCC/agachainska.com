@@ -120,10 +120,6 @@ const Slide = styled(motion(Distortion, { forwardMotionProps: true }))(() => [
     css`
         transition: transform 0.8s;
         transform: scale(${initialSlideScale + 1});
-
-        &:hover {
-            transform: scale(1.05);
-        }
     `,
 ]);
 
@@ -278,17 +274,20 @@ export const Slider: FunctionComponent<Props> = ({
         orchestrateVectorAnimation,
     ]);
 
+    const [mouseLeft, sliderContentRef] = useMouseLeave();
+
     useEventListener(
         "wheel",
         (e) => {
-            e.preventDefault();
+            if (!mouseLeft) {
+                e.preventDefault();
 
-            return updateScroll(e as WheelEvent);
+                updateScroll(e as WheelEvent);
+            }
         },
-        sliderRef
+        (document.body as unknown) as RefObject<HTMLDivElement>,
+        { passive: false }
     );
-
-    const [mouseLeft, sliderContentRef] = useMouseLeave();
 
     useEffect((): void => {
         if (mouseLeft && onSliderMouseLeave) {

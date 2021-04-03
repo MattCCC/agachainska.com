@@ -18,12 +18,14 @@ type AllEvents =
 export function useEventListener<T extends HTMLElement = HTMLDivElement>(
     eventName: string,
     handler: (event: AllEvents) => void,
-    element?: RefObject<T>
+    element?: RefObject<T> | HTMLElement,
+    options?: boolean | AddEventListenerOptions | undefined
 ): void {
     const savedHandler = useRef<(event: AllEvents) => void>();
 
     useEffect(() => {
-        const targetElement: T | Window = element?.current || window;
+        const targetElement =
+            (element as RefObject<HTMLElement>)?.current || window;
 
         if (!(targetElement && targetElement.addEventListener)) {
             return;
@@ -39,10 +41,14 @@ export function useEventListener<T extends HTMLElement = HTMLDivElement>(
             }
         };
 
-        targetElement.addEventListener(eventName, eventListener);
+        targetElement.addEventListener(eventName, eventListener, options);
 
         return (): void => {
-            targetElement.removeEventListener(eventName, eventListener);
+            targetElement.removeEventListener(
+                eventName,
+                eventListener,
+                options
+            );
         };
-    }, [eventName, element, handler]);
+    }, [eventName, element, handler, options]);
 }
