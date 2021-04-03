@@ -9,6 +9,7 @@ import { MainContainer } from "@components/main-container";
 import { MotionCursor } from "@components/motion-cursor";
 import { Post, PostItem } from "@components/post";
 import { Slider, SliderItem } from "@components/slider";
+import { Star } from "@components/star";
 import { Tabs } from "@components/tabs";
 import { Timeline, Item, Section } from "@components/timeline";
 import { useNavigation } from "@hooks/use-navigation";
@@ -21,6 +22,9 @@ interface PageState {
     activeItemId: string;
     routeTo: string;
     clickEvent: Event;
+    showStar: boolean;
+    showNumber: boolean;
+    currentProject?: Item | SliderItem;
 }
 
 interface TimelineItem {
@@ -60,12 +64,27 @@ const StyledNumber = styled(BigNumber)(() => [
     `,
 ]);
 
+const StyledStar = styled(Star)(() => [
+    tw`absolute z-20 select-none`,
+    css`
+        right: -60px;
+        bottom: -65px;
+        height: 260px;
+        width: 260px;
+    `,
+]);
+
+const categoryColors = {
+    "UX/UI": "#F5A4FF",
+    // eslint-disable-next-line quote-props
+    Illustrations: "#C0A4FF",
+} as {
+    [x: string]: string;
+};
+
 const Work = memo(
     ({ data }: Props): JSX.Element => {
         const [, dispatch] = useStoreProp("showMotionGrid");
-        const [state, setState] = useState({
-            sliderIndex: 0,
-        } as PageState);
         const projects = data.projects.nodes || [];
         const categories = Object.keys(groupBy(projects, "category"));
 
@@ -87,15 +106,19 @@ const Work = memo(
         }));
 
         const firstCategory = timelineList[0].category;
-        const firstCategoryItems = timelineList.find(
+        const firstCategoryFirstItem = timelineList.find(
             ({ id }) => id === firstCategory
         )?.items[0];
 
-        const defaultSettings = {
-            sectionId: firstCategory,
-            itemId: firstCategoryItems?.id ?? "1",
-            routeTo: firstCategoryItems?.routeTo ?? "",
-        };
+        const [state, setState] = useState({
+            sliderIndex: 0,
+            showStar: false,
+            showNumber: true,
+            currentProject: firstCategoryFirstItem,
+            activeSectionId: firstCategory,
+            activeItemId: firstCategoryFirstItem?.id ?? "1",
+            routeTo: firstCategoryFirstItem?.routeTo ?? "",
+        } as PageState);
 
         const sliderItems: TimelineItem[] = timelineList.reduce(
             (itemsList: TimelineItem[], currentValue) => {
@@ -107,13 +130,11 @@ const Work = memo(
         );
 
         const projectsByCategory: PostItem[] = sliderItems.filter(
-            (post) =>
-                post.category ===
-                (state.activeSectionId || defaultSettings.sectionId)
+            (post) => post.category === state.activeSectionId
         );
 
         const onNavigate = useNavigation({
-            to: state.routeTo || defaultSettings.routeTo,
+            to: state.routeTo,
         });
 
         const setCurrentSlide = useCallback(
@@ -132,6 +153,7 @@ const Work = memo(
                     sliderIndex,
                     activeSectionId: currentItem.category,
                     activeItemId: currentItem.id,
+                    currentProject: currentItem,
                 }));
             },
             [state, sliderItems, setState]
@@ -157,10 +179,16 @@ const Work = memo(
             (mouseDidLeave = false) => {
                 dispatch.showMotionCursor(!mouseDidLeave, {
                     text: "explore",
-                    route: state.routeTo || defaultSettings.routeTo,
+                    route: state.routeTo,
                 });
+
+                setState((prevState) => ({
+                    ...prevState,
+                    showStar: !mouseDidLeave,
+                    showNumber: mouseDidLeave,
+                }));
             },
-            [defaultSettings.routeTo, dispatch, state.routeTo]
+            [dispatch, state.routeTo]
         );
 
         return (
@@ -175,6 +203,24 @@ const Work = memo(
                                 value={`${state.sliderIndex + 1}.`}
                                 viewBox="0 0 280 200"
                                 displayOnRight={true}
+                                style={{
+                                    display: state.showNumber
+                                        ? "block"
+                                        : "none",
+                                }}
+                            />
+                            <StyledStar
+                                text={
+                                    state?.currentProject?.shortDescription ||
+                                    ""
+                                }
+                                color={
+                                    state?.currentProject?.category &&
+                                    categoryColors[
+                                        state.currentProject.category
+                                    ]
+                                }
+                                displayStar={state.showStar}
                             />
                             <Slider
                                 sliderItems={sliderItems}
@@ -194,26 +240,16 @@ const Work = memo(
                                 style={{ height: "27.76rem" }}
                                 onTimelineItemChange={setCurrentSlide}
                                 sections={timelineList}
-                                activeSectionId={
-                                    state.activeSectionId ||
-                                    defaultSettings.sectionId
-                                }
-                                activeItemId={
-                                    state.activeItemId || defaultSettings.itemId
-                                }
+                                activeSectionId={state.activeSectionId}
+                                activeItemId={state.activeItemId}
                             />
                         </TimelineWrapper>
                         <Tabs
                             hideForDesktop={true}
                             onTabChange={onTabChange}
                             sections={timelineList}
-                            activeSectionId={
-                                state.activeSectionId ||
-                                defaultSettings.sectionId
-                            }
-                            activeItemId={
-                                state.activeItemId || defaultSettings.itemId
-                            }
+                            activeSectionId={state.activeSectionId}
+                            activeItemId={state.activeItemId}
                         >
                             {projectsByCategory.map(
                                 (post: PostItem, index: number) => (
