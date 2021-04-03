@@ -255,6 +255,7 @@ export default function Project({ data }: Props): JSX.Element {
                             <ParallaxBackground
                                 bgImgUrl="/img/placeholder-full.png"
                                 contain={true}
+                                scaleOnHover={true}
                             />
                         </FullSizeImageWrapper>
 
@@ -262,10 +263,12 @@ export default function Project({ data }: Props): JSX.Element {
                             <ParallaxBackground
                                 bgImgUrl="/img/placeholder-full.png"
                                 contain={true}
+                                scaleOnHover={true}
                             />
                             <ParallaxBackground
                                 bgImgUrl="/img/placeholder-full.png"
                                 contain={true}
+                                scaleOnHover={true}
                             />
                         </TwoImagesWrapper>
                     </ContentContainer>

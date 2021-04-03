@@ -6,9 +6,8 @@ import { Background } from "@components/background";
 import { FullPageOverlay } from "@components/full-page-overlay";
 import { Overlays } from "@components/overlays";
 
-/**
- * Styles
- */
+interface Props {}
+
 const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
     tw`relative h-full w-full min-h-screen text-primary-color`,
     css`
@@ -26,14 +25,6 @@ const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
         `,
 ]);
 
-/**
- * Interfaces
- */
-interface Props {}
-
-/**
- * Component
- */
 export const Layout: FunctionComponent<Props> = ({ children }) => (
     <Fragment>
         <Overlays />
