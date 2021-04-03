@@ -1,15 +1,24 @@
-import { CSSProperties, FunctionComponent, memo, useEffect } from "react";
+import {
+    CSSProperties,
+    FunctionComponent,
+    memo,
+    useCallback,
+    useEffect,
+    useState,
+} from "react";
 
 import tw, { css, styled } from "twin.macro";
 
 import { Translate } from "@components/translate";
 import { useNavigation } from "@hooks/use-navigation";
 import { TrackMousePosition } from "@hooks/use-track-mouse-position";
-import { useStore } from "@store/index";
+import { useStore, useStoreProp } from "@store/index";
 
 interface Props {
     onPositionUpdate?: (clientX: number, clientY: number) => void;
 }
+
+const cursorWidth = 80;
 
 const Cursor = styled.div(
     ({ isMotionCursorVisible }: { isMotionCursorVisible: boolean }) => [
@@ -65,7 +74,33 @@ const CursorLink: FunctionComponent<{ text: string; route: string }> = memo(
     }
 );
 
-const cursorWidth = 80;
+export const useHideCursorPreserveVisibility = () => {
+    const [isMotionCursorVisible, dispatch] = useStoreProp(
+        "isMotionCursorVisible"
+    );
+    const [
+        isMotionCursorVisibleCache,
+        setIsMotionCursorVisibleCache,
+    ] = useState(false);
+
+    const onMouseEnter = useCallback((): void => {
+        const isVisible = isMotionCursorVisible;
+
+        if (isVisible) {
+            setIsMotionCursorVisibleCache(isVisible);
+            dispatch.showMotionCursor(false);
+        }
+    }, [dispatch, isMotionCursorVisible]);
+
+    const onMouseLeave = useCallback((): void => {
+        if (isMotionCursorVisibleCache) {
+            setIsMotionCursorVisibleCache(false);
+            dispatch.showMotionCursor(true);
+        }
+    }, [dispatch, isMotionCursorVisibleCache]);
+
+    return [onMouseEnter, onMouseLeave];
+};
 
 export const MotionCursor: FunctionComponent<Props> = ({
     onPositionUpdate = null,

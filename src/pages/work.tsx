@@ -6,6 +6,7 @@ import tw, { css, styled } from "twin.macro";
 import { BigNumber } from "@components/big-number";
 import { Header } from "@components/header";
 import { MainContainer } from "@components/main-container";
+import { MotionCursor } from "@components/motion-cursor";
 import { Post, PostItem } from "@components/post";
 import { Slider, SliderItem } from "@components/slider";
 import { Tabs } from "@components/tabs";
@@ -52,7 +53,7 @@ const TimelineWrapper = styled.aside(() => [
 ]);
 
 const StyledNumber = styled(BigNumber)(() => [
-    tw`absolute z-50 right-0 select-none`,
+    tw`absolute z-20 right-0 select-none`,
     css`
         bottom: -33px;
         height: 260px;
@@ -115,7 +116,7 @@ const Work = memo(
             to: state.routeTo || defaultSettings.routeTo,
         });
 
-        const navigateToSlide = useCallback(
+        const setCurrentSlide = useCallback(
             (currentItem: Item | SliderItem): void => {
                 if (state.activeItemId === currentItem.id) {
                     return;
@@ -151,9 +152,22 @@ const Work = memo(
             [state]
         );
 
+        // Cursor CTA
+        const onSliderContentMouseEventChange = useCallback(
+            (mouseDidLeave = false) => {
+                dispatch.showMotionCursor(!mouseDidLeave, {
+                    text: "explore",
+                    route: state.routeTo || defaultSettings.routeTo,
+                });
+            },
+            [defaultSettings.routeTo, dispatch, state.routeTo]
+        );
+
         return (
             <Fragment>
                 <Header />
+                <MotionCursor />
+
                 <MainContainer className="lg:pt-20">
                     <ContentContainer>
                         <SlideWrapper>
@@ -165,14 +179,20 @@ const Work = memo(
                             <Slider
                                 sliderItems={sliderItems}
                                 onSliderTap={(e): any => onNavigate(e)}
-                                onSliderChange={navigateToSlide}
+                                onSliderChange={setCurrentSlide}
                                 slideId={state.sliderIndex}
+                                onSliderMouseEnter={
+                                    onSliderContentMouseEventChange
+                                }
+                                onSliderMouseLeave={
+                                    onSliderContentMouseEventChange
+                                }
                             />
                         </SlideWrapper>
                         <TimelineWrapper>
                             <Timeline
                                 style={{ height: "27.76rem" }}
-                                onTimelineItemChange={navigateToSlide}
+                                onTimelineItemChange={setCurrentSlide}
                                 sections={timelineList}
                                 activeSectionId={
                                     state.activeSectionId ||

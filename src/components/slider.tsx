@@ -5,9 +5,11 @@ import {
     useRef,
     ElementRef,
     RefObject,
+    FunctionComponent,
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
+import useMouseLeave from "use-mouse-leave";
 
 import { animate, AnimatePresence, motion } from "@components/animation";
 import { Distortion } from "@components/distortion";
@@ -28,6 +30,8 @@ interface Props {
     slideId: number;
     onSliderTap: (e: any, currentItem: SliderItem) => void;
     onSliderChange: (currentItem: SliderItem) => void;
+    onSliderMouseEnter?: (mouseLeft: boolean) => void;
+    onSliderMouseLeave?: (mouseLeft: boolean) => void;
 }
 
 type SliderRefHandle = ElementRef<typeof Slider>;
@@ -97,7 +101,7 @@ const SlideContent = styled.div(() => [
 ]);
 
 const Title = styled(MainTitleTop)(() => [
-    tw`absolute uppercase z-50 select-none`,
+    tw`absolute uppercase z-30 select-none`,
     css`
         top: -4.35rem;
         line-height: 130px;
@@ -139,12 +143,14 @@ const NextIconStyled = styled(NextIcon)(() => [
     tw`inline-block text-center mr-4`,
 ]);
 
-export function Slider({
+export const Slider: FunctionComponent<Props> = ({
     sliderItems,
     slideId = -1,
     onSliderTap,
     onSliderChange,
-}: Props): JSX.Element {
+    onSliderMouseEnter = null,
+    onSliderMouseLeave = null,
+}) => {
     const [[page, direction], setPage] = useState([0, 0]);
     const [isAnimating, setIsAnimating] = useState(false);
 
@@ -282,6 +288,16 @@ export function Slider({
         sliderRef
     );
 
+    const [mouseLeft, sliderContentRef] = useMouseLeave();
+
+    useEffect((): void => {
+        if (mouseLeft && onSliderMouseLeave) {
+            onSliderMouseLeave(true);
+        } else if (onSliderMouseEnter) {
+            onSliderMouseEnter(false);
+        }
+    }, [mouseLeft, onSliderMouseEnter, onSliderMouseLeave]);
+
     return (
         <SliderWrapper ref={sliderRef}>
             <Title
@@ -292,7 +308,7 @@ export function Slider({
             >
                 {sliderItems[sliderIndex].name}
             </Title>
-            <SlideContent>
+            <SlideContent ref={sliderContentRef}>
                 <AnimatePresence
                     initial={false}
                     custom={direction}
@@ -334,4 +350,4 @@ export function Slider({
             </Controls>
         </SliderWrapper>
     );
-}
+};

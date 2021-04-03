@@ -1,12 +1,10 @@
-import { useCallback, useState } from "react";
-
 import tw, { css, styled } from "twin.macro";
 
 import { Link } from "@components/link";
 import { Logo } from "@components/logo";
+import { useHideCursorPreserveVisibility } from "@components/motion-cursor";
 import { Translate } from "@components/translate";
 import { useLocation } from "@reach/router";
-import { useStore } from "@store/index";
 import { getLinkProps, LinkProps } from "@utils/route";
 import { up } from "@utils/screens";
 
@@ -71,28 +69,8 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
 ]);
 
 export function Header({ showLogoOnDesktop = true }: Props): JSX.Element {
-    const [state, dispatch] = useStore();
-    const [
-        isMotionCursorVisibleCache,
-        setIsMotionCursorVisibleCache,
-    ] = useState(false);
+    const [onMouseEnter, onMouseLeave] = useHideCursorPreserveVisibility();
     const location = useLocation();
-
-    const onMouseEnter = useCallback((): void => {
-        const isVisible = state.isMotionCursorVisible;
-
-        if (isVisible) {
-            setIsMotionCursorVisibleCache(isVisible);
-            dispatch.showMotionCursor(false);
-        }
-    }, [dispatch, state.isMotionCursorVisible]);
-
-    const onMouseLeave = useCallback((): void => {
-        if (isMotionCursorVisibleCache) {
-            setIsMotionCursorVisibleCache(false);
-            dispatch.showMotionCursor(true);
-        }
-    }, [dispatch, isMotionCursorVisibleCache]);
 
     return (
         <HeaderWrapper>

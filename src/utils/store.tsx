@@ -43,7 +43,7 @@ export type StoreContext<S, A> = Context<Array<S | Actions<A>>>;
 export interface Store<S, M> {
     Provider: React.FC<React.PropsWithChildren<Record<string, unknown>>>;
     useStore: () => [S, Actions<M>];
-    useStoreProp: (v: keyof S) => [S, Actions<M>, S | Actions<M>];
+    useStoreProp: (v: keyof S) => [any, Actions<M>, S | Actions<M>];
 }
 
 function getEmptyActions<S, M extends Mutations<S>>(mutations: M): Actions<M> {
