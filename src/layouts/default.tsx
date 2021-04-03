@@ -11,7 +11,7 @@ interface Props {}
 const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
     tw`relative h-full w-full min-h-screen text-primary-color`,
     css`
-        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
     `,
     hasGradient &&
         css`

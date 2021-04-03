@@ -19,6 +19,7 @@ interface Props {
 const Badge = styled.li(() => [tw`flex`]);
 
 const BadgeNumber = styled(StyledNumber)(() => [
+    tw`select-none`,
     css`
         height: 70px;
         width: auto;

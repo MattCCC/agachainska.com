@@ -1,7 +1,6 @@
 import {
     useState,
     useEffect,
-    Fragment,
     useCallback,
     useRef,
     ElementRef,
@@ -284,57 +283,55 @@ export function Slider({
     );
 
     return (
-        <Fragment>
-            <SliderWrapper ref={sliderRef}>
-                <Title
-                    percentage={59}
-                    baseFontSize={120}
-                    smBaseFontSize={120}
-                    data-text={sliderItems[sliderIndex].name}
+        <SliderWrapper ref={sliderRef}>
+            <Title
+                percentage={59}
+                baseFontSize={120}
+                smBaseFontSize={120}
+                data-text={sliderItems[sliderIndex].name}
+            >
+                {sliderItems[sliderIndex].name}
+            </Title>
+            <SlideContent>
+                <AnimatePresence
+                    initial={false}
+                    custom={direction}
+                    onExitComplete={(): void => setIsAnimating(false)}
                 >
-                    {sliderItems[sliderIndex].name}
-                </Title>
-                <SlideContent>
-                    <AnimatePresence
-                        initial={false}
+                    <SlidesList
+                        key={page}
                         custom={direction}
-                        onExitComplete={(): void => setIsAnimating(false)}
+                        variants={variants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={sliderTransition}
+                        dragPropagation={true}
+                        drag="y"
+                        dragConstraints={sliderDragConstraints}
+                        dragElastic={1}
+                        onDragEnd={onDragEnd}
+                        onClick={(e): void =>
+                            onSliderTap(e, sliderItems[sliderIndex])
+                        }
                     >
-                        <SlidesList
-                            key={page}
-                            custom={direction}
-                            variants={variants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            transition={sliderTransition}
-                            dragPropagation={true}
-                            drag="y"
-                            dragConstraints={sliderDragConstraints}
-                            dragElastic={1}
-                            onDragEnd={onDragEnd}
-                            onClick={(e): void =>
-                                onSliderTap(e, sliderItems[sliderIndex])
-                            }
-                        >
-                            <Slide
-                                id={String(page)}
-                                imgUrl={sliderItems[sliderIndex]?.cover || ""}
-                                key={`slide-${page}`}
-                                scale={scales[page]}
-                            ></Slide>
-                        </SlidesList>
-                    </AnimatePresence>
-                </SlideContent>
-                <Controls>
-                    <Btn onClick={(): void => goTo(1)}>
-                        <NextIconStyled /> Next
-                    </Btn>
-                    <Btn onClick={(): void => goTo(-1)}>
-                        <PrevIconStyled /> Previous
-                    </Btn>
-                </Controls>
-            </SliderWrapper>
-        </Fragment>
+                        <Slide
+                            id={String(page)}
+                            imgUrl={sliderItems[sliderIndex]?.cover || ""}
+                            key={`slide-${page}`}
+                            scale={scales[page]}
+                        ></Slide>
+                    </SlidesList>
+                </AnimatePresence>
+            </SlideContent>
+            <Controls>
+                <Btn onClick={(): void => goTo(1)}>
+                    <NextIconStyled /> Next
+                </Btn>
+                <Btn onClick={(): void => goTo(-1)}>
+                    <PrevIconStyled /> Previous
+                </Btn>
+            </Controls>
+        </SliderWrapper>
     );
 }

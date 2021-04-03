@@ -1,8 +1,9 @@
 import { Fragment, useCallback, memo, useState, useEffect } from "react";
 
 import { graphql, PageProps } from "gatsby";
-import tw, { styled } from "twin.macro";
+import tw, { css, styled } from "twin.macro";
 
+import { BigNumber } from "@components/big-number";
 import { Header } from "@components/header";
 import { MainContainer } from "@components/main-container";
 import { Post, PostItem } from "@components/post";
@@ -43,17 +44,27 @@ const ContentContainer = styled.div(() => [
 ]);
 
 const SlideWrapper = styled.div(() => [
-    tw`col-start-1 col-end-5 col-span-5 row-start-1 row-end-6 row-span-5 hidden lg:block`,
+    tw`col-start-1 col-end-5 col-span-5 row-start-1 row-end-6 row-span-5 hidden lg:block relative`,
 ]);
 
 const TimelineWrapper = styled.aside(() => [
     tw`m-auto justify-center col-start-5 row-start-1 row-end-5 row-span-5 hidden lg:block`,
 ]);
 
+const StyledNumber = styled(BigNumber)(() => [
+    tw`absolute z-50 right-0 select-none`,
+    css`
+        bottom: -33px;
+        height: 260px;
+    `,
+]);
+
 const Work = memo(
     ({ data }: Props): JSX.Element => {
         const [, dispatch] = useStoreProp("showMotionGrid");
-        const [state, setState] = useState({} as PageState);
+        const [state, setState] = useState({
+            sliderIndex: 0,
+        } as PageState);
         const projects = data.projects.nodes || [];
         const categories = Object.keys(groupBy(projects, "category"));
 
@@ -145,6 +156,33 @@ const Work = memo(
                 <Header />
                 <MainContainer className="lg:pt-20">
                     <ContentContainer>
+                        <SlideWrapper>
+                            <StyledNumber
+                                value={`${state.sliderIndex + 1}.`}
+                                viewBox="0 0 280 200"
+                                displayOnRight={true}
+                            />
+                            <Slider
+                                sliderItems={sliderItems}
+                                onSliderTap={(e): any => onNavigate(e)}
+                                onSliderChange={navigateToSlide}
+                                slideId={state.sliderIndex}
+                            />
+                        </SlideWrapper>
+                        <TimelineWrapper>
+                            <Timeline
+                                style={{ height: "27.76rem" }}
+                                onTimelineItemChange={navigateToSlide}
+                                sections={timelineList}
+                                activeSectionId={
+                                    state.activeSectionId ||
+                                    defaultSettings.sectionId
+                                }
+                                activeItemId={
+                                    state.activeItemId || defaultSettings.itemId
+                                }
+                            />
+                        </TimelineWrapper>
                         <Tabs
                             hideForDesktop={true}
                             onTabChange={onTabChange}
@@ -170,28 +208,6 @@ const Work = memo(
                                 )
                             )}
                         </Tabs>
-                        <SlideWrapper>
-                            <Slider
-                                sliderItems={sliderItems}
-                                onSliderTap={(e): any => onNavigate(e)}
-                                onSliderChange={navigateToSlide}
-                                slideId={state.sliderIndex}
-                            />
-                        </SlideWrapper>
-                        <TimelineWrapper>
-                            <Timeline
-                                style={{ height: "27.76rem" }}
-                                onTimelineItemChange={navigateToSlide}
-                                sections={timelineList}
-                                activeSectionId={
-                                    state.activeSectionId ||
-                                    defaultSettings.sectionId
-                                }
-                                activeItemId={
-                                    state.activeItemId || defaultSettings.itemId
-                                }
-                            />
-                        </TimelineWrapper>
                     </ContentContainer>
                 </MainContainer>
             </Fragment>

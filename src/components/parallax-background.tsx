@@ -24,7 +24,7 @@ export const Background = styled.div(
             ${up("lg")} {
                 background-attachment: fixed;
                 transform: translateZ(0);
-                -webkit-backface-visibility: inherit;
+                backface-visibility: inherit;
                 -webkit-font-smoothing: antialiased;
                 background-size: 100% 100%;
             }
