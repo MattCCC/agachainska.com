@@ -1,8 +1,5 @@
 import routes from "@config/routes";
 
-/**
- * Interfaces
- */
 export interface LinkProps {
     to: string;
     isCurrentPage?: boolean;

@@ -85,16 +85,6 @@ const removeLocationHash = () => {
     }
 };
 
-const setScrollBehaviour = (
-    scrollBehavior: CSSStyleDeclaration["scrollBehavior"]
-) => {
-    const mainFrame = document.querySelector("html");
-
-    if (mainFrame) {
-        mainFrame.style.scrollBehavior = scrollBehavior;
-    }
-};
-
 const scrollTo = (y: number = 0) => {
     window.scrollTo({
         top: y,
@@ -112,13 +102,10 @@ export const TopOverlay = (): JSX.Element => (
             scrollTo();
         }}
         onAnimationStart={() => {
-            setScrollBehaviour("auto");
             removeLocationHash();
         }}
         onAnimationComplete={(variant) => {
             if (variant === "enter") {
-                setScrollBehaviour("smooth");
-
                 scrollTo(1);
             }
         }}
