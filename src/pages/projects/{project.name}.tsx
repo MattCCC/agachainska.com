@@ -273,7 +273,7 @@ export default function Project({ data }: Props): JSX.Element {
                         </TwoImagesWrapper>
                     </ContentContainer>
 
-                    <FullPageImage>
+                    <FullPageImage widthPct={90}>
                         <ParallaxBackground bgImgUrl="/img/placeholder-2.png" />
                     </FullPageImage>
 
