@@ -54,7 +54,7 @@ const smoothScrollingHandler = (
 };
 
 export const SmoothScroll: FunctionComponent<Props> = ({ children }) => {
-    const windowSize = useWindowSize();
+    const windowDimensions = useWindowSize();
     const containerRef = useRef<RefHandle>(null) as RefObject<HTMLDivElement>;
     const data = useMemo(
         () => ({
@@ -70,7 +70,7 @@ export const SmoothScroll: FunctionComponent<Props> = ({ children }) => {
         if (containerRef.current) {
             setBodyHeight(containerRef.current);
         }
-    }, [containerRef, windowSize.height]);
+    }, [containerRef, windowDimensions.height]);
 
     useEffect(() => {
         requestAnimationFrame(() => {
