@@ -31,7 +31,7 @@ const TrackWrapper = styled(motion.div)(
             display: flex;
             flex-wrap: nowrap;
             min-width: min-content;
-            padding: ${padding || 10}px;
+            padding: ${padding || 0}px;
             cursor: grab;
 
             &:active {

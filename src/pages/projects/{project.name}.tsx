@@ -1,14 +1,23 @@
-import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
+import {
+    Fragment,
+    memo,
+    useCallback,
+    useEffect,
+    useMemo,
+    useState,
+} from "react";
 
 import { graphql, PageProps } from "gatsby";
 import { useInView, useInViewEffect } from "react-hook-inview";
+import { styled } from "twin.macro";
 
-import { FullPageImage } from "@components/full-page-image";
+import { FullPageContent } from "@components/full-page-content";
 import { H2 } from "@components/h2";
 import { H3 } from "@components/h3";
 import { Header } from "@components/header";
 import { Link } from "@components/link";
 import { MotionCursor } from "@components/motion-cursor";
+import { MotionSlider } from "@components/motion-slider";
 import { ParallaxBackground } from "@components/parallax-background";
 import { Quote } from "@components/quote";
 import { Timeline } from "@components/timeline";
@@ -63,6 +72,31 @@ const options = {
     rootMargin: "0px",
     threshold: thresholdArray(20),
 };
+
+const Element = styled.div`
+    width: 820px;
+    height: 550px;
+    background: rgba(255, 255, 255, 0.99);
+`;
+
+const GallerySlider = memo(({ ...props }: Record<string, any>) => (
+    <FullPageContent widthPct={100} border={false}>
+        <MotionSlider {...props}>
+            <Element>
+                <img src="/img/placeholder-full.png" alt="" />
+            </Element>
+            <Element>
+                <img src="/img/placeholder-full.png" alt="" />
+            </Element>
+            <Element>
+                <img src="/img/placeholder-full.png" alt="" />
+            </Element>
+            <Element>
+                <img src="/img/placeholder-full.png" alt="" />
+            </Element>
+        </MotionSlider>
+    </FullPageContent>
+));
 
 export default function Project({ data }: Props): JSX.Element {
     const [, dispatch] = useStoreProp("showMotionGrid");
@@ -273,9 +307,11 @@ export default function Project({ data }: Props): JSX.Element {
                         </TwoImagesWrapper>
                     </ContentContainer>
 
-                    <FullPageImage widthPct={90}>
+                    <FullPageContent widthPct={90}>
                         <ParallaxBackground bgImgUrl="/img/placeholder-2.png" />
-                    </FullPageImage>
+                    </FullPageContent>
+
+                    <GallerySlider gap={133} />
 
                     <ContentContainer className="sm">
                         <Quote>{approach.quote}</Quote>
