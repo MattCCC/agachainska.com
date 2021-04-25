@@ -150,54 +150,56 @@ export const Overlays = memo(
         }, [setPalette]);
 
         return (
-            <AnimateSharedLayout>
-                <motion.div
-                    layout
-                    className={overlayStyleClasses}
-                    style={{
-                        zIndex: 1000,
-                    }}
-                    custom={ContainerVariants}
-                    animate={animationControls}
-                    initial="end"
-                >
+            <div id="overlays">
+                <AnimateSharedLayout>
                     <motion.div
-                        {...motionProps}
+                        layout
+                        className={overlayStyleClasses}
                         style={{
-                            backgroundColor: palette[0],
-                            zIndex: 1030,
+                            zIndex: 1000,
                         }}
-                        custom={{
-                            id: 1,
-                            ...OverlayVariants,
-                        }}
-                    />
-                    <motion.div
-                        {...motionProps}
-                        style={{
-                            backgroundColor: palette[1],
-                            zIndex: 1020,
-                        }}
-                        custom={{
-                            id: 2,
-                            duration: duration / 2,
-                            ...OverlayVariants,
-                        }}
-                    />
-                    <motion.div
-                        {...motionProps}
-                        style={{
-                            backgroundColor: palette[2],
-                            zIndex: 1010,
-                        }}
-                        custom={{
-                            id: 3,
-                            duration: duration / 3,
-                            ...OverlayVariants,
-                        }}
-                    />
-                </motion.div>
-            </AnimateSharedLayout>
+                        custom={ContainerVariants}
+                        animate={animationControls}
+                        initial="end"
+                    >
+                        <motion.div
+                            {...motionProps}
+                            style={{
+                                backgroundColor: palette[0],
+                                zIndex: 1030,
+                            }}
+                            custom={{
+                                id: 1,
+                                ...OverlayVariants,
+                            }}
+                        />
+                        <motion.div
+                            {...motionProps}
+                            style={{
+                                backgroundColor: palette[1],
+                                zIndex: 1020,
+                            }}
+                            custom={{
+                                id: 2,
+                                duration: duration / 2,
+                                ...OverlayVariants,
+                            }}
+                        />
+                        <motion.div
+                            {...motionProps}
+                            style={{
+                                backgroundColor: palette[2],
+                                zIndex: 1010,
+                            }}
+                            custom={{
+                                id: 3,
+                                duration: duration / 3,
+                                ...OverlayVariants,
+                            }}
+                        />
+                    </motion.div>
+                </AnimateSharedLayout>
+            </div>
         );
     },
     () => true
