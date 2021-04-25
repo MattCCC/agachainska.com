@@ -1,8 +1,7 @@
-import { Fragment, memo, useCallback, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 
 import { graphql, PageProps } from "gatsby";
-import { useInView, useInViewEffect } from "react-hook-inview";
-import { styled } from "twin.macro";
+import { useInViewEffect } from "react-hook-inview";
 
 import { FullPageContent } from "@components/full-page-content";
 import { H2 } from "@components/h2";
@@ -10,11 +9,11 @@ import { H3 } from "@components/h3";
 import { Header } from "@components/header";
 import { Link } from "@components/link";
 import { MotionCursor } from "@components/motion-cursor";
-import { MotionSlider } from "@components/motion-slider";
 import { ParallaxBackground } from "@components/parallax-background";
 import { Quote } from "@components/quote";
 import { Timeline } from "@components/timeline";
 import { designProcessTimeline } from "@config/page-timlines";
+import { GallerySlider } from "@domain/single-project/gallery-slider";
 import { OtherProjects } from "@domain/single-project/other-projects";
 import {
     MainSection,
@@ -40,11 +39,11 @@ import {
     TableCredits,
     MainTitle,
 } from "@domain/single-project/styled";
+import { useIncrementStats } from "@domain/single-project/use-increment-stats";
 import { usePagination } from "@domain/single-project/use-pagination";
 import { useProjectsByCategory } from "@hooks/use-projects-by-category";
 import { useTimelineViewport } from "@hooks/use-timeline-viewport";
 import { useStoreProp } from "@store/index";
-import { scrollTo } from "@utils/scroll-to";
 
 interface Props extends PageProps {
     data: {
@@ -54,31 +53,6 @@ interface Props extends PageProps {
         };
     };
 }
-
-const Element = styled.div`
-    width: 820px;
-    height: 550px;
-    background: rgba(255, 255, 255, 0.99);
-`;
-
-const GallerySlider = memo(({ ...props }: Record<string, any>) => (
-    <FullPageContent widthPct={100} border={false}>
-        <MotionSlider {...props}>
-            <Element>
-                <img src="/img/placeholder-full.png" alt="" />
-            </Element>
-            <Element>
-                <img src="/img/placeholder-full.png" alt="" />
-            </Element>
-            <Element>
-                <img src="/img/placeholder-full.png" alt="" />
-            </Element>
-            <Element>
-                <img src="/img/placeholder-full.png" alt="" />
-            </Element>
-        </MotionSlider>
-    </FullPageContent>
-));
 
 export default function Project({ data }: Props): JSX.Element {
     const [, dispatch] = useStoreProp("showMotionGrid");
@@ -107,23 +81,17 @@ export default function Project({ data }: Props): JSX.Element {
     }, [dispatch]);
 
     const [navigation] = usePagination({ projectsByCategory, uid });
+    const [refStats, animateStats] = useIncrementStats();
 
-    // Increment stats animation
-    const [animateStats, setAnimateStats] = useState(false);
-    const [refStats, isVisible] = useInView();
-
-    useEffect(() => {
-        setAnimateStats(isVisible);
-    }, [isVisible]);
-
-    const [activeItemId, intersection, options] = useTimelineViewport();
+    const [
+        activeItemId,
+        intersection,
+        options,
+        onTimelineItemChange,
+    ] = useTimelineViewport();
     const refChallenge = useInViewEffect(intersection, options);
     const refApproach = useInViewEffect(intersection, options);
     const refResults = useInViewEffect(intersection, options);
-
-    const onTimelineItemChange = useCallback(({ id }): void => {
-        scrollTo("#" + id);
-    }, []);
 
     return (
         <Fragment>

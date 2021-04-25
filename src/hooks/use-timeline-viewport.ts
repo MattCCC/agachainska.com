@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 
+import { scrollTo } from "@utils/scroll-to";
 import { thresholdArray } from "@utils/threshold-array";
 
 const options = {
@@ -32,5 +33,9 @@ export const useTimelineViewport = (): any => {
         [pctInViewport]
     );
 
-    return [activeItemId, intersection, options];
+    const onTimelineItemChange = useCallback(({ id }): void => {
+        scrollTo("#" + id);
+    }, []);
+
+    return [activeItemId, intersection, options, onTimelineItemChange];
 };
