@@ -282,7 +282,7 @@ export const query = graphql`
         projects: allProject {
             nodes {
                 ...ProjectFields
-                nameSlug: gatsbyPath(filePath: "/projects/{Project.name}")
+                nameSlug: gatsbyPath(filePath: "/projects/{project.name}")
             }
         }
     }
