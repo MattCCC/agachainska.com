@@ -31,7 +31,7 @@ const Title = styled(motion.div)(
 const List = styled(motion.div)(() => [
     tw`font-bold lg:prose-14px lg:text-gray-500 w-auto flex flex-col justify-evenly relative items-end overflow-hidden`,
     css`
-        box-shadow: inset -1px 0px 1px -1px var(--primary-color);
+        box-shadow: inset -2px 0 0 -1px rgba(0, 0, 0, 0.2);
         transition: opacity 0.3s ease-in-out;
     `,
 ]);
