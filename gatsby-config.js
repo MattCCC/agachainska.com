@@ -13,6 +13,7 @@ module.exports = {
                 postCssPlugins: [require('tailwindcss')],
             },
         },
+        `gatsby-plugin-netlify`,
         `gatsby-plugin-emotion`,
         "gatsby-plugin-postcss",
         `gatsby-plugin-image`,
