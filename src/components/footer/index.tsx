@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 import tw, { css, styled } from "twin.macro";
 
 import { Contact } from "@components/footer/contact";
@@ -5,6 +7,7 @@ import { SocialMedia } from "@components/footer/social-media";
 import { socialMedia } from "@data/social-media";
 import { useStoreProp } from "@store/index";
 import { up } from "@utils/screens";
+import { scrollTo } from "@utils/scroll-to";
 
 interface Props {
     showFooter: boolean;
@@ -28,7 +31,7 @@ const FooterContainer = styled.div(() => [
 ]);
 
 const BottomFooter = styled.div(() => [
-    tw`flex items-center flex-row border-t border-white w-full`,
+    tw`border-t border-white w-full`,
     css`
         height: 70px;
 
@@ -40,13 +43,6 @@ const BottomFooter = styled.div(() => [
 
 const FooterNav = styled.nav(() => [
     tw`flex items-center flex-row w-full justify-between`,
-    css`
-        height: 70px;
-
-        ${up("lg")} {
-            height: 120px;
-        }
-    `,
 ]);
 
 const BackToTop = styled.div(() => [
@@ -62,6 +58,9 @@ const BackToTop = styled.div(() => [
 
 export function Footer(): JSX.Element {
     const [showFooter] = useStoreProp("showFooter");
+    const onBackToTopClicked = useCallback((): void => {
+        scrollTo();
+    }, []);
 
     return (
         <FooterWrapper showFooter={showFooter}>
@@ -69,7 +68,9 @@ export function Footer(): JSX.Element {
             <BottomFooter>
                 <FooterContainer>
                     <FooterNav>
-                        <BackToTop>Back to top</BackToTop>
+                        <a href="#top" onClick={onBackToTopClicked}>
+                            <BackToTop>Back to top</BackToTop>
+                        </a>
                         <SocialMedia items={socialMedia} />
                     </FooterNav>
                 </FooterContainer>

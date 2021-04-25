@@ -3,8 +3,8 @@
  * @param selector Query selector (falls back use window)
  * @param y In conjunction with empty selector, position to scroll can be provided
  */
-export const scrollTo = (selector: string = "", y = 0) => {
-    const element = document.querySelector(selector);
+export const scrollTo = (selector: string | null = null, y = 0) => {
+    const element = selector ? document.querySelector(selector) : null;
     const top = element
         ? element.getBoundingClientRect().top + window.scrollY
         : y;
