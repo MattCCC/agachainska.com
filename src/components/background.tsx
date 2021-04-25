@@ -14,7 +14,7 @@ import {
     clearRequestInterval,
 } from "@essentials/request-interval";
 import { useStore } from "@store/index";
-import { ReactComponent as WavePattern1 } from "@svg/bg-lines.svg";
+import { ReactComponent as WavesPattern } from "@svg/bg-lines.svg";
 import { ReactComponent as GreekEyeIllustration } from "@svg/Greek eye@1x.svg";
 import { ReactComponent as LondonEyeIllustration } from "@svg/London eye@1x.svg";
 import { ReactComponent as CaipirinhaIllustration } from "@svg/London eye@1x.svg";
@@ -35,7 +35,7 @@ const BackgroundWrapper = styled.div(() => [
     `,
 ]);
 
-const Waves = styled(WavePattern1)(() => [
+const Waves = styled(WavesPattern)(() => [
     tw`absolute w-full`,
     css`
         height: 100vh;

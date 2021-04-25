@@ -6,6 +6,8 @@ import { Contact } from "@components/footer/contact";
 import { SocialMedia } from "@components/footer/social-media";
 import { socialMedia } from "@data/social-media";
 import { useStoreProp } from "@store/index";
+import { ReactComponent as WavesPattern } from "@svg/bg-lines.svg";
+import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
 import { up } from "@utils/screens";
 import { scrollTo } from "@utils/scroll-to";
 
@@ -56,6 +58,20 @@ const BackToTop = styled.div(() => [
     `,
 ]);
 
+const Waves = styled(WavesPattern)(() => [
+    tw`absolute w-full h-full opacity-5`,
+]);
+
+const PricklyPear = styled(PricklyPearIllustration)(() => [
+    tw`absolute z-10`,
+    css`
+        width: 100px;
+        height: 100px;
+        left: 48%;
+        top: 129px;
+    `,
+]);
+
 export function Footer(): JSX.Element {
     const [showFooter] = useStoreProp("showFooter");
     const onBackToTopClicked = useCallback((): void => {
@@ -64,6 +80,8 @@ export function Footer(): JSX.Element {
 
     return (
         <FooterWrapper showFooter={showFooter}>
+            <Waves />
+            <PricklyPear />
             <Contact />
             <BottomFooter>
                 <FooterContainer>
