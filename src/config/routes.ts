@@ -38,6 +38,11 @@ const routesList: RoutesList = {
     contact: {
         id: "contact",
         path: "/contact",
+        meta: {
+            store: {
+                showFooter: false,
+            }
+        }
     },
     about: {
         id: "about",
@@ -50,6 +55,7 @@ const routesList: RoutesList = {
             store: {
                 showMotionGrid: false,
                 showBackgroundGradient: false,
+                showFooter: false,
             }
         }
     },
