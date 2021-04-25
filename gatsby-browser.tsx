@@ -5,7 +5,6 @@ import { WrapRootElementNodeArgs } from "gatsby";
 import { IntlContextProvider, IntlProvider } from "gatsby-plugin-intl";
 import { ParallaxProvider } from "react-scroll-parallax";
 
-import { TopOverlay } from "@components/overlays";
 import { Layout } from "@layouts/default";
 import { LocationProvider } from "@reach/router";
 import { globalStore } from "@store/index";
@@ -24,14 +23,13 @@ export const wrapRootElement = ({
     element,
 }: WrapRootElementNodeArgs): JSX.Element => (
     <Fragment>
-        <TopOverlay />
         <ParallaxProvider>
             <LocationProvider>
                 <globalStore.Provider>
                     <IntlContextProvider value={intlConfig}>
                         <IntlProvider locale="en" messages={messages}>
                             <Layout>{element}</Layout>
-                        </IntlProvider>{" "}
+                        </IntlProvider>
                     </IntlContextProvider>
                 </globalStore.Provider>
             </LocationProvider>

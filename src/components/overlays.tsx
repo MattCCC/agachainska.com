@@ -95,7 +95,7 @@ const scrollTo = (y: number = 0) => {
 
 export const TopOverlay = (): JSX.Element => (
     <motion.div
-        className={"relative z-100 bg-white"}
+        className="relative z-100 bg-white"
         initial="initial"
         animate="enter"
         exit="exit"

@@ -7,6 +7,7 @@ import { Footer } from "@components/footer";
 import { FullPageOverlay } from "@components/full-page-overlay";
 import { Header } from "@components/header";
 import { Overlays } from "@components/overlays";
+import { TopOverlay } from "@components/overlays";
 import { useOnRouteChange } from "@hooks/use-on-route-change";
 import { useStoreProp } from "@store/index";
 import { up } from "@utils/screens";
@@ -50,6 +51,7 @@ export const Layout: FunctionComponent<unknown> = ({ children }) => {
 
     return (
         <Fragment>
+            <TopOverlay />
             <Overlays />
             <FullPageOverlay />
             <Header />
