@@ -51,6 +51,7 @@ export const Layout: FunctionComponent<unknown> = ({ children }) => {
 
     return (
         <Fragment>
+            <div id="internal-announcer"></div>
             <TopOverlay />
             <Overlays />
             <FullPageOverlay />
