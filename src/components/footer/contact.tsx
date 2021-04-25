@@ -57,8 +57,8 @@ export const Contact = memo(
 
         useEffect(() => {
             dispatch.showMotionCursor(!mouseLeft, {
-                text: "explore",
-                route: "contact",
+                text: "contact",
+                route: "/contact",
             });
         }, [mouseLeft, dispatch]);
 
