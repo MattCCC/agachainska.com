@@ -6,6 +6,7 @@ import { Background } from "@components/background";
 import { FullPageOverlay } from "@components/full-page-overlay";
 import { Header } from "@components/header";
 import { Overlays } from "@components/overlays";
+import { useOnRouteChange } from "@hooks/use-on-route-change";
 import { useStoreProp } from "@store/index";
 
 interface Props {}
@@ -29,6 +30,8 @@ const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
 
 export const Layout: FunctionComponent<Props> = ({ children }) => {
     const [showBackgroundGradient] = useStoreProp("showBackgroundGradient");
+
+    useOnRouteChange();
 
     return (
         <Fragment>

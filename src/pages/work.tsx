@@ -1,4 +1,4 @@
-import { Fragment, useCallback, memo, useState, useEffect } from "react";
+import { Fragment, useCallback, memo, useState } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
@@ -87,11 +87,6 @@ const Work = memo(
         const [, dispatch] = useStoreProp("showMotionGrid");
         const projects = data.projects.nodes || [];
         const categories = Object.keys(groupBy(projects, "category"));
-
-        useEffect(() => {
-            dispatch.showMotionGrid(false);
-            dispatch.showBackgroundGradient(false);
-        }, [dispatch]);
 
         const timelineList = categories.map((category) => ({
             title: category,

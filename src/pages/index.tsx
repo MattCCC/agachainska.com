@@ -100,8 +100,6 @@ export default function Home(): JSX.Element {
     }, [workLink]);
 
     useEffect(() => {
-        dispatch.showLogoOnDesktop(false);
-
         dispatch.showMotionCursor(true, {
             text: "viewWork",
             route: workLink.to,

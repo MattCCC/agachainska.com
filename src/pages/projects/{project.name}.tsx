@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
@@ -43,7 +43,6 @@ import { useIncrementStats } from "@domain/single-project/use-increment-stats";
 import { usePagination } from "@domain/single-project/use-pagination";
 import { useProjectsByCategory } from "@hooks/use-projects-by-category";
 import { useTimelineViewport } from "@hooks/use-timeline-viewport";
-import { useStoreProp } from "@store/index";
 
 interface Props extends PageProps {
     data: {
@@ -55,8 +54,6 @@ interface Props extends PageProps {
 }
 
 export default function Project({ data }: Props): JSX.Element {
-    const [, dispatch] = useStoreProp("showMotionGrid");
-
     const {
         uid,
         name,
@@ -74,11 +71,6 @@ export default function Project({ data }: Props): JSX.Element {
 
     const projects = data.projects.nodes;
     const [projectsByCategory] = useProjectsByCategory({ category, projects });
-
-    useEffect(() => {
-        dispatch.showMotionGrid(false);
-        dispatch.showWavePattern(false);
-    }, [dispatch]);
 
     const [navigation] = usePagination({ projectsByCategory, uid });
     const [refStats, animateStats] = useIncrementStats();

@@ -12,9 +12,6 @@ export interface DelayedLink extends LinkDelayedArgs {
     to: string;
 }
 
-/**
- * Perform navigation and applies necessary route guards
- */
 export const useNavigation = ({
     to,
     replace = false,
@@ -32,10 +29,6 @@ export const useNavigation = ({
 
     const endDelay: OnDelayCallback = (e, toRoute) => {
         dispatch.setCurrentDelayedRoute("");
-        dispatch.showBackgroundGradient(true);
-        dispatch.showMotionGrid(true);
-        dispatch.showWavePattern(true);
-        dispatch.showLogoOnDesktop(true);
         onDelayEnd(e, toRoute);
     };
 

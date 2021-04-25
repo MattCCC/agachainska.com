@@ -1,20 +1,22 @@
 import { set, createStore } from "@utils/store";
 
 const initialState = {
-    isMotionCursorVisible: false,
-    showBackgroundGradient: false,
-    showLogoOnDesktop: false,
-    motionCursorData: { text: "", route: "" },
     showMotionGrid: true,
+    isMotionCursorVisible: false,
+    showFooter: false,
+    showLogoOnDesktop: false,
+    showBackgroundGradient: false,
+    motionCursorData: { text: "", route: "" },
     showWavePattern: true,
     currentDelayedRoute: "",
 };
 
-type State = typeof initialState;
+export type State = typeof initialState;
 
 const actions = {
     showMotionGrid: set<State, boolean>("showMotionGrid"),
     showWavePattern: set<State, boolean>("showWavePattern"),
+    showFooter: set<State, boolean>("showFooter"),
     showLogoOnDesktop: set<State, boolean>("showLogoOnDesktop"),
     showBackgroundGradient: set<State, boolean>("showBackgroundGradient"),
     setCurrentDelayedRoute: set<State, string>("currentDelayedRoute"),
@@ -33,6 +35,13 @@ const actions = {
                       ...(motionCursorData || {}),
                   }
                 : prevState.motionCursorData || {},
+        };
+    },
+
+    replaceInState(prevState: State, newState: Partial<State>) {
+        return {
+            ...prevState,
+            ...newState,
         };
     },
 };
