@@ -2,10 +2,6 @@ import { css, styled } from "twin.macro";
 
 import { up } from "@utils/screens";
 
-/**
- * Styles
- */
-
 export const H3 = styled.h3(() => [
     css`
         font-size: 24px;

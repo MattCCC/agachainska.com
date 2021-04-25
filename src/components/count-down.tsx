@@ -4,9 +4,6 @@ import tw, { css, styled } from "twin.macro";
 
 import { Global } from "@emotion/react";
 
-/**
- * Styles
- */
 const GlobalBase = (): ReactElement => (
     <Global
         styles={css`

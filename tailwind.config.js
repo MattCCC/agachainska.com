@@ -56,13 +56,22 @@ module.exports = {
                         lineHeight: "80px",
                     },
                 },
-                "120px": {
+                "80": {
                     css: {
-                        fontSize: "120px",
-                        lineHeight: "130px",
+                        fontSize: "80px",
                     },
                 },
-                "140px": {
+                "90": {
+                    css: {
+                        fontSize: "90px",
+                    },
+                },
+                "120": {
+                    css: {
+                        fontSize: "120px",
+                    },
+                },
+                "140": {
                     css: {
                         fontSize: "140px",
                         lineHeight: "151px",

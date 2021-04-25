@@ -1,9 +1,5 @@
 import { css, styled } from "twin.macro";
 
-/**
- * Styles
- */
-
 export const H4 = styled.h4(() => [
     css`
         height: 40px;

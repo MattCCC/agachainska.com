@@ -3,33 +3,51 @@ import { Fragment, FunctionComponent } from "react";
 import tw, { styled, css } from "twin.macro";
 
 import { Background } from "@components/background";
+import { Footer } from "@components/footer";
 import { FullPageOverlay } from "@components/full-page-overlay";
 import { Header } from "@components/header";
 import { Overlays } from "@components/overlays";
 import { useOnRouteChange } from "@hooks/use-on-route-change";
 import { useStoreProp } from "@store/index";
+import { up } from "@utils/screens";
 
-interface Props {}
+interface Props {
+    hasGradient: boolean;
+    showFooter: boolean;
+}
 
-const Main = styled.main(({ hasGradient }: { hasGradient: boolean }) => [
-    tw`relative h-full w-full min-h-screen text-primary-color`,
+const smFooterHeight = `${430 + 70}px`;
+const footerHeight = `${690 + 120}px`;
+
+const Main = styled.main(({ hasGradient, showFooter }: Props) => [
+    tw`relative h-full w-full min-h-screen text-primary-color z-10`,
     css`
         backface-visibility: hidden;
     `,
+    showFooter &&
+        css`
+            margin-bottom: ${smFooterHeight};
+
+            ${up("lg")} {
+                margin-bottom: ${footerHeight};
+            }
+        `,
     hasGradient &&
         css`
             background: linear-gradient(
                 314.58deg,
-                rgba(191, 255, 160, 0.1) 0%,
-                rgba(136, 238, 251, 0.1) 30.9%,
-                rgba(185, 166, 254, 0.1) 61.63%,
-                rgba(255, 171, 252, 0.1) 100%
+                rgb(249, 255, 246) 0%,
+                rgb(243, 253, 255) 30.9%,
+                rgb(248, 246, 255) 61.63%,
+                rgb(255, 247, 255) 100%
             );
         `,
+    !hasGradient && tw`bg-white`,
 ]);
 
-export const Layout: FunctionComponent<Props> = ({ children }) => {
+export const Layout: FunctionComponent<unknown> = ({ children }) => {
     const [showBackgroundGradient] = useStoreProp("showBackgroundGradient");
+    const [showFooter] = useStoreProp("showFooter");
 
     useOnRouteChange();
 
@@ -38,10 +56,11 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
             <Overlays />
             <FullPageOverlay />
             <Header />
-            <Main hasGradient={showBackgroundGradient}>
+            <Main hasGradient={showBackgroundGradient} showFooter={showFooter}>
                 <Background />
                 {children}
             </Main>
+            <Footer />
         </Fragment>
     );
 };

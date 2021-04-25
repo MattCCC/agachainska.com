@@ -25,7 +25,7 @@ import { getRoutePath } from "@utils/route";
 import { TranslateText } from "@utils/translate-text";
 
 const Title = styled.h1(() => [
-    tw`relative z-50 inline-block max-w-full lg:pr-16 font-bold prose-70px lg:prose-140px select-none`,
+    tw`relative z-50 inline-block max-w-full lg:pr-16 font-bold prose-70px lg:prose-140 select-none`,
     tw`text-black bg-clip-text`,
     css`
         width: 634px;
@@ -100,10 +100,12 @@ export default function Home(): JSX.Element {
     }, [workLink]);
 
     useEffect(() => {
-        dispatch.showMotionCursor(true, {
-            text: "viewWork",
-            route: workLink.to,
-        });
+        setTimeout(() => {
+            dispatch.showMotionCursor(true, {
+                text: "viewWork",
+                route: workLink.to,
+            });
+        }, 0);
     }, [dispatch, workLink.to]);
 
     return (

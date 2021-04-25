@@ -2,10 +2,6 @@ import tw, { css, styled } from "twin.macro";
 
 import { up } from "@utils/screens";
 
-/**
- * Styles
- */
-
 export const H2 = styled.h2(() => [
     tw`uppercase`,
     css`
