@@ -1,11 +1,4 @@
-import {
-    Fragment,
-    memo,
-    useCallback,
-    useEffect,
-    useMemo,
-    useState,
-} from "react";
+import { Fragment, memo, useCallback, useEffect, useState } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import { useInView, useInViewEffect } from "react-hook-inview";
@@ -49,9 +42,9 @@ import {
 } from "@domain/single-project/styled";
 import { usePagination } from "@domain/single-project/use-pagination";
 import { useProjectsByCategory } from "@hooks/use-projects-by-category";
+import { useTimelineViewport } from "@hooks/use-timeline-viewport";
 import { useStoreProp } from "@store/index";
 import { scrollTo } from "@utils/scroll-to";
-import { thresholdArray } from "@utils/threshold-array";
 
 interface Props extends PageProps {
     data: {
@@ -61,11 +54,6 @@ interface Props extends PageProps {
         };
     };
 }
-
-const options = {
-    rootMargin: "0px",
-    threshold: thresholdArray(20),
-};
 
 const Element = styled.div`
     width: 820px;
@@ -120,27 +108,6 @@ export default function Project({ data }: Props): JSX.Element {
 
     const [navigation] = usePagination({ projectsByCategory, uid });
 
-    const [activeItemId, setActiveItemId] = useState(
-        (window.location.hash || "challenge").replace("#", "")
-    );
-
-    const pctInViewport = useMemo(() => ({} as Record<string, number>), []);
-
-    const intersection: IntersectionObserverCallback = useCallback(
-        ([{ intersectionRatio, target }]): void => {
-            pctInViewport[target.id] = intersectionRatio;
-
-            const selectedId = Object.keys(
-                pctInViewport
-            ).reduceRight((prev, curr) =>
-                pctInViewport[prev] > pctInViewport[curr] ? prev : curr
-            );
-
-            setActiveItemId(selectedId);
-        },
-        [pctInViewport]
-    );
-
     // Increment stats animation
     const [animateStats, setAnimateStats] = useState(false);
     const [refStats, isVisible] = useInView();
@@ -149,6 +116,7 @@ export default function Project({ data }: Props): JSX.Element {
         setAnimateStats(isVisible);
     }, [isVisible]);
 
+    const [activeItemId, intersection, options] = useTimelineViewport();
     const refChallenge = useInViewEffect(intersection, options);
     const refApproach = useInViewEffect(intersection, options);
     const refResults = useInViewEffect(intersection, options);
