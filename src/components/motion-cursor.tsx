@@ -25,16 +25,23 @@ type CursorProps = {
 const cursorSize = 80;
 
 const Cursor = styled.div(
-    ({ isMotionCursorVisible, color, size }: CursorProps) => [
+    ({ isMotionCursorVisible, color, size, overlap }: CursorProps) => [
         tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full select-none cursor-pointer`,
         tw`border prose-12px`,
         color === "black" && tw`bg-black border-black`,
         color === "melrose" && tw`bg-melrose border-melrose`,
+        overlap &&
+            css`
+                margin-left: -${(size || cursorSize) / 2 - 10}px;
+            `,
+        !overlap &&
+            css`
+                margin-left: -${size || cursorSize}px;
+            `,
         css`
             width: ${size || cursorSize}px;
             height: ${size || cursorSize}px;
             transform: translate(-50%, -50%);
-            margin-left: -${(size || cursorSize) / 2 - 10}px;
             transition: transform 300ms;
             will-change: left, top;
 
@@ -66,7 +73,17 @@ const CursorLink: FunctionComponent<State["motionCursorData"]> = memo(
             to: route,
         });
 
-        if (!text || !route) {
+        if (!route) {
+            if (text) {
+                return (
+                    <TextWrapper>
+                        <CursorText>
+                            <Translate id={text} />
+                        </CursorText>
+                    </TextWrapper>
+                );
+            }
+
             return <CursorText>{children}</CursorText>;
         }
 
@@ -128,8 +145,7 @@ export const MotionCursor: FunctionComponent<Props> = ({
     return (
         <Cursor
             isMotionCursorVisible={state.isMotionCursorVisible}
-            size={state.motionCursorData.size}
-            color={state.motionCursorData.color}
+            {...state.motionCursorData}
             style={cursorStyle}
             className="cursor"
         >

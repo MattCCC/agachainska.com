@@ -16,6 +16,7 @@ export interface Props extends MotionProps {
     velocity?: number;
     overflow?: "hidden";
     allowSlideToLast?: boolean;
+    displayGrabCursor?: boolean;
     transition?: Spring;
 }
 
@@ -35,6 +36,7 @@ export const MotionSlider: FunctionComponent<Props> = memo(
             mass: 2,
         } as Spring,
         allowSlideToLast = false,
+        displayGrabCursor = true,
         children,
     }) => {
         const x = useMotionValue(0);
@@ -48,6 +50,7 @@ export const MotionSlider: FunctionComponent<Props> = memo(
                         velocity={velocity}
                         transition={transition}
                         allowSlideToLast={allowSlideToLast}
+                        displayGrabCursor={displayGrabCursor}
                         style={{ x }}
                     >
                         {children &&

@@ -6,7 +6,13 @@ const initialState = {
     showFooter: false,
     showLogoOnDesktop: false,
     showBackgroundGradient: false,
-    motionCursorData: { text: "", route: "", color: "black", size: 80 },
+    motionCursorData: {
+        text: "",
+        route: "",
+        color: "black",
+        size: 80,
+        overlap: true,
+    },
     showWavePattern: true,
     currentDelayedRoute: "",
 };

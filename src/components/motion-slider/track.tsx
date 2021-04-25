@@ -23,21 +23,30 @@ interface Props extends MotionProps {
     velocity: number;
     transition: Spring;
     allowSlideToLast?: boolean;
+    displayGrabCursor?: boolean;
+}
+
+interface TrackWrapperProps {
+    padding?: number;
+    displayGrabCursor?: boolean;
 }
 
 const TrackWrapper = styled(motion.div)(
-    ({ padding }: { padding: number | undefined }) => [
+    ({ padding, displayGrabCursor }: TrackWrapperProps) => [
         css`
             display: flex;
             flex-wrap: nowrap;
             min-width: min-content;
             padding: ${padding || 0}px;
-            cursor: grab;
-
-            &:active {
-                cursor: grabbing;
-            }
         `,
+        displayGrabCursor &&
+            css`
+                cursor: grab;
+
+                &:active {
+                    cursor: grabbing;
+                }
+            `,
     ]
 );
 
@@ -48,6 +57,7 @@ export const Track: FunctionComponent<Props> = ({
     velocity,
     transition,
     allowSlideToLast,
+    displayGrabCursor,
     style,
 }: Props) => {
     const ref = useRef<HTMLElement | null>(null);
@@ -138,6 +148,7 @@ export const Track: FunctionComponent<Props> = ({
             }}
             style={style}
             padding={padding}
+            displayGrabCursor={displayGrabCursor}
             animate={controls}
             drag="x"
             dragConstraints={{
