@@ -4,7 +4,6 @@ import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 
 import { BigNumber } from "@components/big-number";
-import { Header } from "@components/header";
 import { MainContainer } from "@components/main-container";
 import { MotionCursor } from "@components/motion-cursor";
 import { Post, PostItem } from "@components/post";
@@ -44,7 +43,7 @@ interface Props extends PageProps {
     };
 }
 
-const ContentContainer = styled.div(() => [
+const ContentContainer = styled.section(() => [
     tw`relative lg:grid lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col top-32 lg:top-0 lg:mt-32`,
 ]);
 
@@ -189,7 +188,6 @@ const Work = memo(
 
         return (
             <Fragment>
-                <Header />
                 <MotionCursor />
 
                 <MainContainer className="lg:pt-20">
