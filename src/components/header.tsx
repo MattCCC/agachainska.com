@@ -5,12 +5,9 @@ import { Logo } from "@components/logo";
 import { useHideCursorPreserveVisibility } from "@components/motion-cursor";
 import { Translate } from "@components/translate";
 import { useLocation } from "@reach/router";
+import { useStoreProp } from "@store/index";
 import { getLinkProps, LinkProps } from "@utils/route";
 import { up } from "@utils/screens";
-
-interface Props {
-    showLogoOnDesktop?: boolean;
-}
 
 const HeaderWrapper = styled.header(() => [
     tw`mx-auto flex items-center justify-between flex-wrap absolute top-0 z-50 lg:py-6`,
@@ -68,7 +65,8 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
         `,
 ]);
 
-export function Header({ showLogoOnDesktop = true }: Props): JSX.Element {
+export function Header(): JSX.Element {
+    const [showLogoOnDesktop] = useStoreProp("showLogoOnDesktop");
     const [onMouseEnter, onMouseLeave] = useHideCursorPreserveVisibility();
     const location = useLocation();
 

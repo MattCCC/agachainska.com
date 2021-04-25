@@ -13,7 +13,6 @@ import tw, { css, styled } from "twin.macro";
 
 import { BottomCircle } from "@components/bottom-circle";
 import { CountDown } from "@components/count-down";
-import { Header } from "@components/header";
 import { MainContainer } from "@components/main-container";
 import { MainSection } from "@components/main-section";
 import { MotionCursor } from "@components/motion-cursor";
@@ -101,6 +100,8 @@ export default function Home(): JSX.Element {
     }, [workLink]);
 
     useEffect(() => {
+        dispatch.showLogoOnDesktop(false);
+
         dispatch.showMotionCursor(true, {
             text: "viewWork",
             route: workLink.to,
@@ -109,7 +110,6 @@ export default function Home(): JSX.Element {
 
     return (
         <Fragment>
-            <Header showLogoOnDesktop={false} />
             <MainSection
                 className="grid grid-flow-col grid-cols-1 grid-rows-1 items-center"
                 initial="exit"

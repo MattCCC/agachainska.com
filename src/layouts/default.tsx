@@ -4,6 +4,7 @@ import tw, { styled, css } from "twin.macro";
 
 import { Background } from "@components/background";
 import { FullPageOverlay } from "@components/full-page-overlay";
+import { Header } from "@components/header";
 import { Overlays } from "@components/overlays";
 import { useStoreProp } from "@store/index";
 
@@ -33,6 +34,7 @@ export const Layout: FunctionComponent<Props> = ({ children }) => {
         <Fragment>
             <Overlays />
             <FullPageOverlay />
+            <Header />
             <Main hasGradient={showBackgroundGradient}>
                 <Background />
                 {children}
