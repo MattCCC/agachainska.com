@@ -12,8 +12,10 @@ const options = {
  * Use Timeline Within viewport
  */
 export const useTimelineViewport = (): any => {
+    const locationHash = typeof window !== "undefined" && window.location.hash;
+
     const [activeItemId, setActiveItemId] = useState(
-        (window.location.hash || "challenge").replace("#", "")
+        (locationHash || "challenge").replace("#", "")
     );
 
     const pctInViewport = useMemo(() => ({} as Record<string, number>), []);

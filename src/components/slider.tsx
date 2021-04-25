@@ -287,7 +287,8 @@ export const Slider: FunctionComponent<Props> = ({
                 updateScroll(e as WheelEvent);
             }
         },
-        (document.body as unknown) as RefObject<HTMLDivElement>,
+        (typeof document !== "undefined" &&
+            (document.body as unknown)) as RefObject<HTMLDivElement>,
         { passive: false }
     );
 
