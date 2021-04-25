@@ -3,7 +3,6 @@ import { Fragment } from "react";
 import { graphql, PageProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
 
-import { Footer } from "@components/footer/index";
 import { FullPageContent } from "@components/full-page-content";
 import { H2 } from "@components/h2";
 import { H3 } from "@components/h3";
@@ -271,8 +270,6 @@ export default function Project({ data }: Props): JSX.Element {
                     </ContentContainer>
                 </ArticleSection>
             </Article>
-
-            <Footer />
         </Fragment>
     );
 }
