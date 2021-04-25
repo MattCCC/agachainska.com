@@ -44,7 +44,7 @@ interface Props extends PageProps {
 }
 
 const ContentContainer = styled.section(() => [
-    tw`relative lg:grid lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col top-32 lg:top-0 lg:mt-32`,
+    tw`relative lg:grid lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col mt-32`,
 ]);
 
 const SlideWrapper = styled.div(() => [

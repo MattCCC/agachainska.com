@@ -23,7 +23,7 @@ const SiteTitle = styled.div(
 );
 
 const LogoIcon = styled.div(() => [
-    tw`rounded-full bg-primary-color text-white text-center font-extrabold prose-16px lg:prose-18px block lg:hidden select-none`,
+    tw`rounded-full bg-primary-color text-white text-center font-extrabold prose-16 lg:prose-18px block lg:hidden select-none`,
     css`
         width: 48px;
         height: 48px;

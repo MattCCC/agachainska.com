@@ -20,7 +20,7 @@ module.exports = {
                         lineHeight: "10px",
                     },
                 },
-                "16px": {
+                "16": {
                     css: {
                         fontSize: "16px",
                         lineHeight: "20px",
@@ -50,7 +50,12 @@ module.exports = {
                         lineHeight: "42px",
                     },
                 },
-                "70px": {
+                "60": {
+                    css: {
+                        fontSize: "60px",
+                    },
+                },
+                "70": {
                     css: {
                         fontSize: "70px",
                         lineHeight: "80px",

@@ -16,7 +16,6 @@ interface Props {
     showFooter: boolean;
 }
 
-const smFooterHeight = `${430 + 70}px`;
 const footerHeight = `${690 + 120}px`;
 
 const Main = styled.main(({ hasGradient, showFooter }: Props) => [
@@ -26,8 +25,6 @@ const Main = styled.main(({ hasGradient, showFooter }: Props) => [
     `,
     showFooter &&
         css`
-            margin-bottom: ${smFooterHeight};
-
             ${up("lg")} {
                 margin-bottom: ${footerHeight};
             }

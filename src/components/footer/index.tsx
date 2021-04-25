@@ -16,7 +16,7 @@ interface Props {
 }
 
 const FooterWrapper = styled.footer(({ showFooter = true }: Props) => [
-    tw`fixed bottom-0 w-full z-0`,
+    tw`relative lg:fixed bottom-0 w-full z-0 overflow-hidden`,
     css`
         background: rgba(0, 0, 0, 0.95);
     `,
@@ -33,22 +33,22 @@ const FooterContainer = styled.div(() => [
 ]);
 
 const BottomFooter = styled.div(() => [
-    tw`border-t border-white w-full`,
+    tw`relative z-10 border-t border-white w-full`,
     css`
-        height: 70px;
+        min-height: 140px;
 
         ${up("lg")} {
-            height: 120px;
+            min-height: 120px;
         }
     `,
 ]);
 
 const FooterNav = styled.nav(() => [
-    tw`flex items-center flex-row w-full justify-between`,
+    tw`flex items-center flex-col lg:flex-row w-full justify-between`,
 ]);
 
 const BackToTop = styled.div(() => [
-    tw`text-white prose-16px select-none`,
+    tw`text-white prose-16 select-none`,
     css`
         line-height: 70px;
 
@@ -65,10 +65,17 @@ const Waves = styled(WavesPattern)(() => [
 const PricklyPear = styled(PricklyPearIllustration)(() => [
     tw`absolute z-10`,
     css`
-        width: 100px;
-        height: 100px;
-        left: 48%;
-        top: 129px;
+        width: 50px;
+        height: 50px;
+        left: 45px;
+        top: 29px;
+
+        ${up("lg")} {
+            width: 100px;
+            height: 100px;
+            left: 48%;
+            top: 129px;
+        }
     `,
 ]);
 

@@ -66,6 +66,7 @@ export const ProjectBadge = memo(
             dispatch.showMotionCursor(!mouseLeft, {
                 text: "explore",
                 route: nameSlug,
+                size: 130,
             });
         }, [mouseLeft, dispatch, nameSlug]);
 

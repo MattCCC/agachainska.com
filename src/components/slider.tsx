@@ -128,7 +128,7 @@ const Controls = styled.div(() => [
 ]);
 
 const Btn = styled.div(() => [
-    tw`lg:prose-16px w-28 flex-row select-none cursor-pointer`,
+    tw`lg:prose-16 w-28 flex-row select-none cursor-pointer`,
 ]);
 
 const PrevIconStyled = styled(PrevIcon)(() => [
