@@ -12,23 +12,29 @@ import tw, { css, styled } from "twin.macro";
 import { Translate } from "@components/translate";
 import { useNavigation } from "@hooks/use-navigation";
 import { TrackMousePosition } from "@hooks/use-track-mouse-position";
-import { useStore, useStoreProp } from "@store/index";
+import { State, useStore, useStoreProp } from "@store/index";
 
 interface Props {
     onPositionUpdate?: (clientX: number, clientY: number) => void;
 }
 
-const cursorWidth = 80;
+type CursorProps = {
+    isMotionCursorVisible: State["isMotionCursorVisible"];
+} & Partial<State["motionCursorData"]>;
+
+const cursorSize = 80;
 
 const Cursor = styled.div(
-    ({ isMotionCursorVisible }: { isMotionCursorVisible: boolean }) => [
-        tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full select-none bg-black cursor-pointer`,
-        tw`border border-black prose-12px`,
+    ({ isMotionCursorVisible, color, size }: CursorProps) => [
+        tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full select-none cursor-pointer`,
+        tw`border prose-12px`,
+        color === "black" && tw`bg-black border-black`,
+        color === "melrose" && tw`bg-melrose border-melrose`,
         css`
-            width: 80px;
-            height: 80px;
+            width: ${size || cursorSize}px;
+            height: ${size || cursorSize}px;
             transform: translate(-50%, -50%);
-            margin-left: -30px;
+            margin-left: -${(size || cursorSize) / 2 - 10}px;
             transition: transform 300ms;
             will-change: left, top;
 
@@ -54,7 +60,7 @@ const CursorText = styled.div(() => [
     `,
 ]);
 
-const CursorLink: FunctionComponent<{ text: string; route: string }> = memo(
+const CursorLink: FunctionComponent<State["motionCursorData"]> = memo(
     ({ text, route, children }) => {
         const onNavigate = useNavigation({
             to: route,
@@ -109,8 +115,8 @@ export const MotionCursor: FunctionComponent<Props> = ({
     const [state] = useStore();
     const { clientX, clientY } = TrackMousePosition();
     const cursorStyle = {
-        left: `${clientX || -cursorWidth}px`,
-        top: `${clientY || -cursorWidth}px`,
+        left: `${clientX || -state.motionCursorData.size || -cursorSize}px`,
+        top: `${clientY || -state.motionCursorData.size || -cursorSize}px`,
     } as CSSProperties;
 
     useEffect(() => {
@@ -122,15 +128,12 @@ export const MotionCursor: FunctionComponent<Props> = ({
     return (
         <Cursor
             isMotionCursorVisible={state.isMotionCursorVisible}
+            size={state.motionCursorData.size}
+            color={state.motionCursorData.color}
             style={cursorStyle}
             className="cursor"
         >
-            <CursorLink
-                text={state.motionCursorData.text}
-                route={state.motionCursorData.route}
-            >
-                {children}
-            </CursorLink>
+            <CursorLink {...state.motionCursorData}>{children}</CursorLink>
         </Cursor>
     );
 };

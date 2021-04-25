@@ -1,4 +1,4 @@
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 
 import tw, { css, styled } from "twin.macro";
 import useMouseLeave from "use-mouse-leave";
@@ -54,13 +54,25 @@ export const Contact = memo(
         const location = useLocation();
         const [, dispatch] = useStoreProp("currentDelayedRoute");
         const [mouseLeft, itemsRef] = useMouseLeave();
+        const [mouseStateIncrement, setMouseStateIncrement] = useState(0);
 
         useEffect(() => {
-            dispatch.showMotionCursor(!mouseLeft, {
-                text: "contact",
-                route: "/contact",
-            });
-        }, [mouseLeft, dispatch]);
+            // Ensure that mouse left isn't triggered on mount
+            if (!mouseLeft || mouseStateIncrement > 0) {
+                if (!mouseStateIncrement) {
+                    setMouseStateIncrement(mouseStateIncrement + 1);
+
+                    return;
+                }
+
+                dispatch.showMotionCursor(!mouseLeft, {
+                    text: "contact",
+                    route: "/contact",
+                    size: 120,
+                    color: "melrose",
+                });
+            }
+        }, [mouseLeft, mouseStateIncrement, dispatch]);
 
         return (
             <ContactWrapper {...getLinkProps("contact", location)}>

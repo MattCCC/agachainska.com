@@ -1,4 +1,4 @@
-import { set, createStore } from "@utils/store";
+import { set, createStore, mergeState } from "@utils/store";
 
 const initialState = {
     showMotionGrid: true,
@@ -6,7 +6,7 @@ const initialState = {
     showFooter: false,
     showLogoOnDesktop: false,
     showBackgroundGradient: false,
-    motionCursorData: { text: "", route: "" },
+    motionCursorData: { text: "", route: "", color: "black", size: 80 },
     showWavePattern: true,
     currentDelayedRoute: "",
 };
@@ -24,17 +24,17 @@ const actions = {
     showMotionCursor(
         prevState: State,
         isMotionCursorVisible: boolean,
-        motionCursorData?: State["motionCursorData"]
+        motionCursorData?: Partial<State["motionCursorData"]>
     ) {
         return {
             ...prevState,
             isMotionCursorVisible,
-            motionCursorData: motionCursorData
-                ? {
-                      ...(prevState.motionCursorData || {}),
-                      ...(motionCursorData || {}),
-                  }
-                : prevState.motionCursorData || {},
+            ...mergeState(
+                initialState,
+                prevState,
+                motionCursorData,
+                "motionCursorData"
+            ),
         };
     },
 

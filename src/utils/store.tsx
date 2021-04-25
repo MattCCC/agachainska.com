@@ -148,3 +148,27 @@ export function useStoreProvider(
 
     return Provider;
 }
+
+/**
+ * Merge State while preserving initial state's sub-objects
+ * @param initialState Initial state
+ * @param prevState Previous state
+ * @param obj New object to be updated
+ * @param key State property
+ * @returns Merged object
+ */
+export const mergeState = (
+    initialState: { [x: string]: any },
+    prevState: { [x: string]: any },
+    obj: { [x: string]: any } | undefined,
+    key: string
+) => {
+    const newObj = obj
+        ? {
+              ...initialState[key],
+              ...obj,
+          }
+        : prevState[key] || initialState[key];
+
+    return { [key]: newObj };
+};
