@@ -5,9 +5,6 @@ import { MainContainer } from "@components/main-container";
 import { SectionMainTitle } from "@components/main-title";
 import { Translate } from "@components/translate";
 
-/**
- * Component
- */
 export default function About(): JSX.Element {
     return (
         <Fragment>

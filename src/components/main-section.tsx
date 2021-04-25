@@ -4,14 +4,8 @@ import tw, { styled } from "twin.macro";
 
 import { Variants, motion } from "@components/animation";
 
-/**
- * Styles
- */
 const Section = styled.section(() => [tw`h-screen relative z-10`]);
 
-/**
- * Interfaces
- */
 interface Props {
     initial?: string;
     animate?: string;
@@ -20,9 +14,6 @@ interface Props {
     variants?: Variants | undefined;
 }
 
-/**
- * Component
- */
 export const MainSection: FunctionComponent<Props> = ({
     initial = "",
     animate = "",

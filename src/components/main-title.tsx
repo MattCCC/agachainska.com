@@ -3,9 +3,6 @@ import tw, { css, styled, TwStyle } from "twin.macro";
 import { SerializedStyles } from "@emotion/react";
 import { up } from "@utils/screens";
 
-/**
- * Interfaces
- */
 interface MainTitleStyled {
     baseFontSize?: number;
     smBaseFontSize?: number;
@@ -15,10 +12,6 @@ interface MainTitleStyled {
 interface TitleGradientStyled extends MainTitleStyled {
     percentage: number;
 }
-
-/**
- * Styles
- */
 
 const title = (
     smBaseFontSize: number,

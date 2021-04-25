@@ -47,17 +47,11 @@ import {
     TableCredits,
     MainTitle,
 } from "@domain/single-project/styled";
+import { usePagination } from "@domain/single-project/use-pagination";
 import { useProjectsByCategory } from "@hooks/use-projects-by-category";
 import { useStoreProp } from "@store/index";
 import { scrollTo } from "@utils/scroll-to";
 import { thresholdArray } from "@utils/threshold-array";
-
-interface Navigation {
-    hasPreviousButton: boolean;
-    hasNextButton: boolean;
-    previousTo: string;
-    nextTo: string;
-}
 
 interface Props extends PageProps {
     data: {
@@ -100,9 +94,6 @@ const GallerySlider = memo(({ ...props }: Record<string, any>) => (
 
 export default function Project({ data }: Props): JSX.Element {
     const [, dispatch] = useStoreProp("showMotionGrid");
-    const [activeItemId, setActiveItemId] = useState(
-        (window.location.hash || "challenge").replace("#", "")
-    );
 
     const {
         uid,
@@ -122,56 +113,16 @@ export default function Project({ data }: Props): JSX.Element {
     const projects = data.projects.nodes;
     const [projectsByCategory] = useProjectsByCategory({ category, projects });
 
-    const [navigation, setNavigation] = useState({
-        hasPreviousButton: false,
-        hasNextButton: false,
-    } as Navigation);
-
     useEffect(() => {
         dispatch.showMotionGrid(false);
         dispatch.showWavePattern(false);
     }, [dispatch]);
 
-    const onPaginate = useCallback(
-        (num: number): string | boolean => {
-            const projectsList = projectsByCategory.filteredProjects;
+    const [navigation] = usePagination({ projectsByCategory, uid });
 
-            if (projectsList.length === 0) {
-                return false;
-            }
-
-            const projectIndex = projectsList.findIndex(
-                (currentProject) => currentProject.uid === uid
-            );
-
-            if (projectIndex <= -1 || !projectsList[projectIndex + num]) {
-                return false;
-            }
-
-            const { nameSlug } = projectsList[projectIndex + num];
-
-            return nameSlug;
-        },
-        [projectsByCategory, uid]
+    const [activeItemId, setActiveItemId] = useState(
+        (window.location.hash || "challenge").replace("#", "")
     );
-
-    useEffect(() => {
-        const projectsList = projectsByCategory.filteredProjects;
-
-        if (projectsList.length === 0) {
-            return;
-        }
-
-        const previousTo = onPaginate(-1);
-        const nextTo = onPaginate(1);
-
-        setNavigation({
-            previousTo,
-            nextTo,
-            hasPreviousButton: projectsList[0]?.uid !== uid,
-            hasNextButton: projectsList[projectsList.length - 1]?.uid !== uid,
-        } as Navigation);
-    }, [onPaginate, projectsByCategory, uid]);
 
     const pctInViewport = useMemo(() => ({} as Record<string, number>), []);
 
