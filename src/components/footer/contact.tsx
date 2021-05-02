@@ -66,7 +66,7 @@ export const Contact = memo(
                 dispatch.showMotionCursor(!mouseLeft, {
                     text: "contact",
                     route: "/contact",
-                    size: mouseLeft ? 80 : 120,
+                    size: 80,
                     color: mouseLeft ? "black" : "melrose",
                 });
             }

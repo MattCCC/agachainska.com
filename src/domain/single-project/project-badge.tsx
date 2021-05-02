@@ -34,7 +34,7 @@ const BadgeNumber = styled(StyledNumber)(() => [
 ]);
 
 const ProjectLink = styled.div(() => [
-    tw`flex flex-col select-none cursor-pointer`,
+    tw`flex flex-col cursor-pointer select-none`,
 ]);
 
 const ProjectTitle = styled(H4)(() => [
@@ -66,7 +66,7 @@ export const ProjectBadge = memo(
             dispatch.showMotionCursor(!mouseLeft, {
                 text: "explore",
                 route: nameSlug,
-                size: mouseLeft ? 80 : 130,
+                size: 80,
             });
         }, [mouseLeft, dispatch, nameSlug]);
 

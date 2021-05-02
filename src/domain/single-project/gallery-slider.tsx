@@ -22,7 +22,7 @@ export const GallerySlider = memo(({ ...props }: Record<string, any>) => {
             text: "drag",
             route: "",
             color: mouseLeft ? "black" : "melrose",
-            size: mouseLeft ? 80 : 130,
+            size: 80,
             overlap: mouseLeft,
         });
     }, [mouseLeft, dispatch]);
