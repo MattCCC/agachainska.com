@@ -22,10 +22,10 @@ export const FullPageContentWrapper = styled.figure(
             margin-bottom: 40px;
 
             ${up("lg")} {
-                max-width: none;
+                ${tw`max-w-none relative`}
+
                 width: ${widthPct}vw;
                 height: 80vh;
-                position: relative;
                 margin: 0 auto 90px -${widthPct / 2}vw;
                 left: calc(50% - 8px);
             }
