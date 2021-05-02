@@ -3,6 +3,9 @@ require("dotenv").config({
 });
 
 module.exports = {
+    siteMetadata: {
+        siteUrl: `https://aga-chainska.com`,
+    },
     plugins: [
         "gatsby-plugin-webpack-bundle-analyser-v2",
         `gatsby-plugin-ts-config`,
@@ -106,6 +109,13 @@ module.exports = {
                 display: `minimal-ui`,
             },
         },
-        `gatsby-plugin-offline`,
+        {
+            resolve: 'gatsby-plugin-offline',
+            options: {
+                navigateFallbackWhitelist: [/\/$/],
+            }
+        },
+        `gatsby-plugin-force-trailing-slashes`,
+        `gatsby-plugin-sitemap`,
     ],
 };

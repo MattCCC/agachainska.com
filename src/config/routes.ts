@@ -11,6 +11,7 @@ export interface RouteMeta {
 export interface RouteStruct {
     id: string;
     path: string;
+    pattern?: string;
     meta?: RouteMeta;
 }
 
@@ -37,7 +38,7 @@ const routesList: RoutesList = {
     },
     contact: {
         id: "contact",
-        path: "/contact",
+        path: "/contact/",
         meta: {
             store: {
                 showFooter: false,
@@ -46,11 +47,11 @@ const routesList: RoutesList = {
     },
     about: {
         id: "about",
-        path: "/about",
+        path: "/about/",
     },
     work: {
         id: "work",
-        path: "/work",
+        path: "/work/",
         meta: {
             store: {
                 showMotionGrid: false,
@@ -62,6 +63,7 @@ const routesList: RoutesList = {
     project: {
         id: "project",
         path: "/projects/[name]/'",
+        pattern: "/projects/.*?/$",
         meta: {
             store: {
                 showMotionGrid: false,
