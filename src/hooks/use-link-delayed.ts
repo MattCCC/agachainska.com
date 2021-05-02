@@ -8,6 +8,7 @@ export type LinkDelayedCallback = (
     e: React.MouseEvent<HTMLAnchorElement>,
     to?: string
 ) => void;
+
 export type OnDelayCallback = (
     e: React.MouseEvent<HTMLAnchorElement>,
     to: string
@@ -30,8 +31,8 @@ export const useLinkDelayed = ({
     location,
     replace = false,
     delay = 0,
-    onDelayStart = ((_e, _to) => {}) as OnDelayCallback,
-    onDelayEnd = ((_e, _to) => {}) as OnDelayCallback,
+    onDelayStart = ((_e, _to) => { }) as OnDelayCallback,
+    onDelayEnd = ((_e, _to) => { }) as OnDelayCallback,
 }: LinkDelayedArgs): LinkDelayedCallback => {
     const timeout = useRef<NodeJS.Timeout | null>(null);
 
