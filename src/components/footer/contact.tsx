@@ -26,11 +26,10 @@ const MarqueeTextWrapper = styled.div(() => [tw`flex w-full h-full mx-auto`]);
 
 const MarqueeTextContainer = styled.span(
     ({ isHovering = false }: Record<string, any>) => [
-        tw`block overflow-hidden select-none`,
+        tw`block overflow-hidden select-none bg-clip-text`,
         tw`uppercase text-primary-color font-fbold prose-60 lg:prose-120 whitespace-nowrap`,
         tw`hover:text-white`,
         css`
-            background-clip: text;
             -webkit-text-stroke-width: 3px;
             -webkit-text-stroke-color: rgba(255, 255, 255, 0.8);
             line-height: 430px;

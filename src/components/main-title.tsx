@@ -17,10 +17,8 @@ const title = (
     smBaseFontSize: number,
     baseFontSize: number
 ): Array<TwStyle | SerializedStyles> => [
-    tw`relative z-10 subpixel-antialiased font-bold text-black select-none`,
+    tw`relative z-10 w-full subpixel-antialiased font-bold text-black select-none bg-clip-text`,
     css`
-        background-clip: text;
-        width: 100%;
         -webkit-text-fill-color: transparent;
         font-size: ${smBaseFontSize}px;
         line-height: ${smBaseFontSize}px;
@@ -55,15 +53,11 @@ const gradient = (
 
 const beforeTitle = css`
     &:before {
-        position: absolute;
-        left: 0;
-        bottom: 0;
+        ${tw`absolute bottom-0 left-0 w-full h-full`}
         content: attr(data-text);
         clip-path: circle(500% at 0px 0px);
         -webkit-text-stroke-width: 2px;
         -webkit-text-stroke-color: rgba(0, 0, 0, 0.8);
-        width: 100%;
-        height: 100%;
     }
 `;
 

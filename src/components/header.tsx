@@ -44,16 +44,12 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
     `,
     css`
         &::before {
-            bottom: 0;
+            ${tw`absolute bottom-0 left-0 w-full bg-primary-color`}
             content: "";
             height: 2px;
-            left: 0;
-            position: absolute;
             transform: scaleX(0);
             transform-origin: right top 0;
             transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
-            width: 100%;
-            background-color: var(--primary-color);
         }
     `,
     isCurrentPage &&
