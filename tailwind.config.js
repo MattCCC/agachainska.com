@@ -14,10 +14,10 @@ module.exports = {
             flight: "'Larsseit-Light'",
             fbold: "'Larsseit-Bold'",
         },
-        cursor: {
-            none: 'none',
-        },
         extend: {
+            cursor: {
+                none: 'none',
+            },
             typography: {
                 "12px": {
                     css: {
