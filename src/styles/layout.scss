@@ -9,6 +9,15 @@ picture {
     pointer-events: none;
 }
 
+button {
+    outline: none;
+
+    &:focus,
+    &:active {
+        outline: none;
+    }
+}
+
 .parallax-scale {
     transform: scale(1.5);
 }

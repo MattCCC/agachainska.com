@@ -111,8 +111,8 @@ module.exports = {
             sm: "640px",
             md: "768px",
             lg: "1024px",
-            xl: "1280px",
-            "2xl": "1440px",
+            xl: "1240px",
+            "2xl": "1240px",
         },
         container: {
             padding: {
@@ -123,6 +123,9 @@ module.exports = {
                 "2xl": "6rem",
             },
         },
+    },
+    corePlugins: {
+        outline: false,
     },
     variants: {
         extend: {},

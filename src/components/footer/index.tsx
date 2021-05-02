@@ -22,9 +22,8 @@ const FooterWrapper = styled.footer(({ showFooter = true }: Props) => [
 ]);
 
 const FooterContainer = styled.div(() => [
-    tw`flex w-full h-full mx-auto`,
+    tw`flex w-full h-full mx-auto max-w-screen-2xl`,
     css`
-        max-width: 1213px;
         left: 15px;
         right: 15px;
     `,

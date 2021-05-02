@@ -26,7 +26,7 @@ import { TranslateText } from "@utils/translate-text";
 
 const Title = styled.h1(() => [
     tw`relative z-50 inline-block max-w-full font-bold select-none lg:pr-16 prose-70 lg:prose-140`,
-    tw`subpixel-antialiased text-black bg-clip-text font-fbold`,
+    tw`subpixel-antialiased text-black bg-clip-text font-fbold cursor-none`,
     css`
         width: 634px;
         background-image: radial-gradient(
@@ -35,7 +35,6 @@ const Title = styled.h1(() => [
             var(--black-color)
         );
         -webkit-text-fill-color: transparent;
-        cursor: none;
 
         &:before {
             ${tw`absolute top-0 left-0 text-white`}

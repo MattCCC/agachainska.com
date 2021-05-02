@@ -10,9 +10,8 @@ import { getLinkProps, LinkProps } from "@utils/route";
 import { up } from "@utils/screens";
 
 const HeaderWrapper = styled.header(() => [
-    tw`absolute top-0 z-50 flex flex-wrap items-center justify-between mx-auto lg:py-6`,
+    tw`absolute top-0 z-50 flex flex-wrap items-center justify-between mx-auto max-w-screen-2xl`,
     css`
-        max-width: 1213px;
         left: 15px;
         right: 15px;
         padding: 15px 0;
