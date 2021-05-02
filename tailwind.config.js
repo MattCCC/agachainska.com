@@ -14,6 +14,9 @@ module.exports = {
             flight: "'Larsseit-Light'",
             fbold: "'Larsseit-Bold'",
         },
+        cursor: {
+            none: 'none',
+        },
         extend: {
             typography: {
                 "12px": {
