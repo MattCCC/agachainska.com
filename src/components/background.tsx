@@ -1,18 +1,8 @@
-import {
-    CSSProperties,
-    Fragment,
-    FunctionComponent,
-    useEffect,
-    useMemo,
-    useState,
-} from "react";
+import { Fragment, FunctionComponent, useEffect } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import {
-    requestInterval,
-    clearRequestInterval,
-} from "@essentials/request-interval";
+import { BackgroundNoise } from "@components/background-noise";
 import { useStore } from "@store/index";
 import { ReactComponent as WavesPattern } from "@svg/bg-lines.svg";
 import { ReactComponent as GreekEyeIllustration } from "@svg/Greek eye@1x.svg";
@@ -20,20 +10,8 @@ import { ReactComponent as LondonEyeIllustration } from "@svg/London eye@1x.svg"
 import { ReactComponent as CaipirinhaIllustration } from "@svg/London eye@1x.svg";
 import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
 import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
-import { getRandomNumber } from "@utils/random-number";
 
 interface Props {}
-
-const BackgroundWrapper = styled.div(() => [
-    tw`absolute overflow-hidden z-0 top-0 left-0 right-0 h-full w-full min-h-screen`,
-    css`
-        -webkit-backface-visibility: hidden;
-        -webkit-transform: scale(1);
-        background: url("/svg/bg-pattern.svg") repeat;
-        background-position: var(--x) var(--y);
-        will-change: background-position;
-    `,
-]);
 
 const Waves = styled(WavesPattern)(() => [
     tw`absolute w-full`,
@@ -84,37 +62,18 @@ const Caipirinha = styled(CaipirinhaIllustration)(() => [
 ]);
 
 export const Background: FunctionComponent<Props> = () => {
-    const defaultState = useMemo(() => ({ x: 0, y: 0 }), []);
-    const [position, setPosition] = useState(defaultState);
     const [state] = useStore();
-    const backgroundStyle = {
-        "--x": `${position.x}px`,
-        "--y": `${position.y}px`,
-    } as CSSProperties;
 
     useEffect(() => {
         if (state.showMotionGrid) {
             initMotionGrid();
         }
 
-        const intervalId = requestInterval(() => {
-            setPosition({
-                x: getRandomNumber(0, 100),
-                y: 0,
-            });
-        }, 150);
-
-        return (): void => {
-            if (intervalId) {
-                clearRequestInterval(intervalId);
-            }
-
-            destroyMotionGrid();
-        };
+        return destroyMotionGrid;
     }, [state.showMotionGrid]);
 
     return (
-        <BackgroundWrapper className="motion-grid" style={backgroundStyle}>
+        <BackgroundNoise className="motion-grid">
             {state.showMotionGrid && (
                 <Fragment>
                     <GreekEye className="motion-grid__item" />
@@ -124,6 +83,6 @@ export const Background: FunctionComponent<Props> = () => {
                 </Fragment>
             )}
             {state.showWavePattern && <Waves />}
-        </BackgroundWrapper>
+        </BackgroundNoise>
     );
 };

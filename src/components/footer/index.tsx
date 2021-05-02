@@ -2,6 +2,7 @@ import { useCallback } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
+import { BackgroundNoise } from "@components/background-noise";
 import { Contact } from "@components/footer/contact";
 import { SocialMedia } from "@components/footer/social-media";
 import { socialMedia } from "@data/social-media";
@@ -16,15 +17,12 @@ interface Props {
 }
 
 const FooterWrapper = styled.footer(({ showFooter = true }: Props) => [
-    tw`relative lg:fixed bottom-0 w-full z-0 overflow-hidden`,
-    css`
-        background: rgba(0, 0, 0, 0.95);
-    `,
+    tw`relative bottom-0 z-0 w-full overflow-hidden bg-black lg:fixed`,
     !showFooter && tw`hidden`,
 ]);
 
 const FooterContainer = styled.div(() => [
-    tw`flex mx-auto w-full h-full`,
+    tw`flex w-full h-full mx-auto`,
     css`
         max-width: 1213px;
         left: 15px;
@@ -33,7 +31,7 @@ const FooterContainer = styled.div(() => [
 ]);
 
 const BottomFooter = styled.div(() => [
-    tw`relative z-10 border-t border-white w-full`,
+    tw`relative z-10 w-full border-t border-white`,
     css`
         min-height: 140px;
 
@@ -44,11 +42,11 @@ const BottomFooter = styled.div(() => [
 ]);
 
 const FooterNav = styled.nav(() => [
-    tw`flex items-center flex-col lg:flex-row w-full justify-between`,
+    tw`flex flex-col items-center justify-between w-full lg:flex-row`,
 ]);
 
 const BackToTop = styled.div(() => [
-    tw`text-white prose-16 select-none`,
+    tw`text-white select-none prose-16`,
     css`
         line-height: 70px;
 
@@ -81,25 +79,28 @@ const PricklyPear = styled(PricklyPearIllustration)(() => [
 
 export function Footer(): JSX.Element {
     const [showFooter] = useStoreProp("showFooter");
-    const onBackToTopClicked = useCallback((): void => {
+    const onBackToTopClicked = useCallback((e): void => {
         scrollTo();
     }, []);
 
     return (
         <FooterWrapper showFooter={showFooter}>
-            <Waves />
-            <PricklyPear />
-            <Contact />
-            <BottomFooter>
-                <FooterContainer>
-                    <FooterNav>
-                        <a href="#top" onClick={onBackToTopClicked}>
-                            <BackToTop>Back to top</BackToTop>
-                        </a>
-                        <SocialMedia items={socialMedia} />
-                    </FooterNav>
-                </FooterContainer>
-            </BottomFooter>
+            <BackgroundNoise />
+            <div className="relative">
+                <Waves />
+                <PricklyPear />
+                <Contact />
+                <BottomFooter>
+                    <FooterContainer>
+                        <FooterNav>
+                            <a href="#top" onClick={onBackToTopClicked}>
+                                <BackToTop>Back to top</BackToTop>
+                            </a>
+                            <SocialMedia items={socialMedia} />
+                        </FooterNav>
+                    </FooterContainer>
+                </BottomFooter>
+            </div>
         </FooterWrapper>
     );
 }
