@@ -4,6 +4,11 @@ import tw, { css, styled } from "twin.macro";
 
 import { Global } from "@emotion/react";
 
+interface Props {
+    seconds: number;
+    onFinishedCallback?: (() => void) | null;
+}
+
 const GlobalBase = (): ReactElement => (
     <Global
         styles={css`
@@ -22,16 +27,16 @@ const GlobalBase = (): ReactElement => (
 const CounteDownWrapper = styled.div(() => [tw`hidden lg:block`]);
 
 const CountDownLabel = styled.div(() => [
-    tw`absolute bottom-14 right-14 h-16 w-16 tracking-widest align-middle rounded-full border-2 border-purple-300 border-opacity-25`,
-    tw`text-center text-xl text-melrose text-opacity-5`,
+    tw`absolute w-16 h-16 align-middle border-2 border-purple-300 border-opacity-25 rounded-full bottom-14 right-14`,
+    tw`text-xl text-center text-melrose`,
     css`
         line-height: 4rem;
-        text-shadow: 0 0 3px var(--melrose-color);
+        text-shadow: 0 2px 4px rgba(192, 164, 255, 0.6);
     `,
 ]);
 
 const ProgressCircleWrapper = styled.svg(() => [
-    tw`absolute bottom-14 right-14 h-16 w-16 rounded-full align-middle tracking-widest ring-opacity-20 text-center`,
+    tw`absolute w-16 h-16 text-center align-middle rounded-full bottom-14 right-14 ring-opacity-20`,
     css`
         transform: rotateY(0deg) rotateZ(-90deg);
 
@@ -42,7 +47,7 @@ const ProgressCircleWrapper = styled.svg(() => [
 ]);
 
 const ProgressCircle = styled.circle(() => [
-    tw`absolute bottom-14 right-14 h-16 w-16 text-center tracking-widest ring-opacity-20`,
+    tw`absolute w-16 h-16 bottom-14 right-14 ring-opacity-20`,
     css`
         stroke-dasharray: 480px;
         stroke-dashoffset: 0;
@@ -54,19 +59,8 @@ const ProgressCircle = styled.circle(() => [
     `,
 ]);
 
-/**
- * Interfaces
- */
-interface Props {
-    seconds: number;
-    onFinishedCallback?: (() => void) | null;
-}
-
-/**
- * Component
- */
 export const CountDown = memo(
-    ({ seconds = 0, onFinishedCallback = null, ...props }: Props) => {
+    ({ seconds = 0, onFinishedCallback = null }: Props) => {
         const [currentSeconds, setSeconds] = useState(seconds);
 
         if (currentSeconds === 0 && onFinishedCallback) {
