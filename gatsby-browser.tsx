@@ -5,6 +5,7 @@ import { WrapRootElementNodeArgs } from "gatsby";
 import { IntlContextProvider, IntlProvider } from "gatsby-plugin-intl";
 import { ParallaxProvider } from "react-scroll-parallax";
 
+import { Meta } from "@components/meta";
 import { Layout } from "@layouts/default";
 import { LocationProvider } from "@reach/router";
 import { globalStore } from "@store/index";
@@ -28,6 +29,7 @@ export const wrapRootElement = ({
                 <globalStore.Provider>
                     <IntlContextProvider value={intlConfig}>
                         <IntlProvider locale="en" messages={messages}>
+                            <Meta />
                             <Layout>{element}</Layout>
                         </IntlProvider>
                     </IntlContextProvider>

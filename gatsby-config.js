@@ -4,7 +4,12 @@ require("dotenv").config({
 
 module.exports = {
     siteMetadata: {
-        siteUrl: `https://aga-chainska.com`,
+        title: "Aga Chainska",
+        titleTemplate: "%s · Aga Chainska",
+        description: "Aga Chainska Personal Website.",
+        image: "/img/slider-pattern.png",
+        twitterUsername: "@aga",
+        url: `https://aga-chainska.com`,
     },
     plugins: [
         "gatsby-plugin-webpack-bundle-analyser-v2",
@@ -117,5 +122,6 @@ module.exports = {
         },
         `gatsby-plugin-force-trailing-slashes`,
         `gatsby-plugin-sitemap`,
+        `gatsby-plugin-react-helmet`,
     ],
 };
