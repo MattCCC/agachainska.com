@@ -81,6 +81,8 @@ export function Footer(): JSX.Element {
     const [showFooter] = useStoreProp("showFooter");
     const onBackToTopClicked = useCallback((e): void => {
         scrollTo();
+
+        e.preventDefault();
     }, []);
 
     return (
