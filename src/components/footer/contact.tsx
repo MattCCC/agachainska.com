@@ -24,28 +24,20 @@ const ContactWrapper = styled(Link)(() => [
 
 const MarqueeTextWrapper = styled.div(() => [tw`flex w-full h-full mx-auto`]);
 
-const MarqueeTextContainer = styled.span(
-    ({ isHovering = false }: Record<string, any>) => [
-        tw`block overflow-hidden select-none bg-clip-text`,
-        tw`uppercase text-primary-color font-fbold prose-60 lg:prose-120 whitespace-nowrap`,
-        tw`hover:text-white`,
-        css`
-            -webkit-text-stroke-width: 3px;
-            -webkit-text-stroke-color: rgba(255, 255, 255, 0.8);
-            line-height: 430px;
-            transition: all 300ms;
+const MarqueeTextContainer = styled.span(() => [
+    tw`block overflow-hidden select-none bg-clip-text`,
+    tw`uppercase text-primary-color font-fbold prose-60 lg:prose-120 whitespace-nowrap`,
+    css`
+        -webkit-text-stroke-width: 3px;
+        -webkit-text-stroke-color: rgba(255, 255, 255, 0.8);
+        line-height: 430px;
+        transition: all 300ms;
 
-            ${up("lg")} {
-                line-height: 690px;
-            }
-
-            &:hover {
-                -webkit-text-stroke-color: transparent;
-            }
-        `,
-        isHovering && tw`text-white`,
-    ]
-);
+        ${up("lg")} {
+            line-height: 690px;
+        }
+    `,
+]);
 
 export const Contact = memo(
     (): JSX.Element => {
@@ -75,7 +67,7 @@ export const Contact = memo(
         return (
             <ContactWrapper {...getLinkProps("contact", location)}>
                 <MarqueeTextWrapper as="span" ref={itemsRef}>
-                    <MarqueeTextContainer isHovering={!mouseLeft}>
+                    <MarqueeTextContainer>
                         <MarqueeText text="Build Something Awesome •" />
                     </MarqueeTextContainer>
                 </MarqueeTextWrapper>
