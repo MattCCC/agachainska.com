@@ -17,7 +17,7 @@ const title = (
     smBaseFontSize: number,
     baseFontSize: number
 ): Array<TwStyle | SerializedStyles> => [
-    tw`relative z-10 w-full subpixel-antialiased font-bold text-black select-none bg-clip-text`,
+    tw`relative z-10 w-full subpixel-antialiased text-black select-none font-fbold bg-clip-text`,
     css`
         -webkit-text-fill-color: transparent;
         font-size: ${smBaseFontSize}px;
