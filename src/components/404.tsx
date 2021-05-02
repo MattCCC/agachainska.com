@@ -11,9 +11,9 @@ interface Props {
 export function ErrorContainer({ params }: Props): JSX.Element {
     return (
         <Fragment>
-            <MainSection className="grid grid-flow-col grid-cols-1 grid-rows-1 items-center">
-                <MainContainer className="lg:pt-20">
-                    <h1 className="text-center prose-140 font-bold">
+            <MainSection className="grid items-center grid-flow-col grid-cols-1 grid-rows-1">
+                <MainContainer topPadding={true}>
+                    <h1 className="font-bold text-center prose-140">
                         <Translate id="page.notfound" />
                     </h1>
                 </MainContainer>

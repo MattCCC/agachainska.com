@@ -12,3 +12,14 @@ export const excludeProps = (
     shouldForwardProp: (prop: string): boolean =>
         isPropValid(prop) && !excludes.includes(prop),
 });
+
+/**
+ * Include props
+ * @param {string[]} includesList                   The list of props that are excluded
+ * @return {StyledOptions<JSX.IntrinsicElements>}   Styled options for JSX Intrinsic Elements
+ */
+export const includeProps = (
+    includesList: string[] = []
+): StyledOptions<JSX.IntrinsicElements> => ({
+    shouldForwardProp: (prop: string): boolean => isPropValid(prop) || includesList.includes(prop)
+});

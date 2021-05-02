@@ -7,6 +7,7 @@ import { FullPageContent } from "@components/full-page-content";
 import { H2 } from "@components/h2";
 import { H3 } from "@components/h3";
 import { Link } from "@components/link";
+import { GridRow } from "@components/main-container";
 import { MotionCursor } from "@components/motion-cursor";
 import { ParallaxBackground } from "@components/parallax-background";
 import { Quote } from "@components/quote";
@@ -18,7 +19,6 @@ import {
     MainSection,
     Button,
     CellTitle,
-    MainContainer,
     ContentContainer,
     Controls,
     NextIconStyled,
@@ -88,21 +88,21 @@ export default function Project({ data }: Props): JSX.Element {
         <Fragment>
             <MotionCursor />
 
-            <MainSection>
-                <MainContainer>
-                    <HeroWrapper>
-                        <MainTitleWrapper>
-                            <MainTitle
-                                percentage={62}
-                                baseFontSize={120}
-                                smBaseFontSize={70}
-                                data-text={name}
-                            >
-                                {name}
-                            </MainTitle>
-                        </MainTitleWrapper>
-                        <ParallaxBackground bgImgUrl={cover} />
-                    </HeroWrapper>
+            <MainSection topPadding={true}>
+                <HeroWrapper>
+                    <MainTitleWrapper>
+                        <MainTitle
+                            percentage={62}
+                            baseFontSize={120}
+                            smBaseFontSize={70}
+                            data-text={name}
+                        >
+                            {name}
+                        </MainTitle>
+                    </MainTitleWrapper>
+                    <ParallaxBackground bgImgUrl={cover} />
+                </HeroWrapper>
+                <GridRow start={2} end={12}>
                     {(navigation.hasPreviousButton ||
                         navigation.hasNextButton) && (
                         <Controls>
@@ -132,7 +132,7 @@ export default function Project({ data }: Props): JSX.Element {
                         <CellTitle>My role in the project:</CellTitle>
                         <div>{roleInProject}</div>
                     </TableProject>
-                </MainContainer>
+                </GridRow>
             </MainSection>
             <Article>
                 <TimelineWrapper>

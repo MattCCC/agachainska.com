@@ -13,7 +13,7 @@ import tw, { css, styled } from "twin.macro";
 
 import { BottomCircle } from "@components/bottom-circle";
 import { CountDown } from "@components/count-down";
-import { MainContainer } from "@components/main-container";
+import { GridRow, MainContainer } from "@components/main-container";
 import { MainSection } from "@components/main-section";
 import { MotionCursor } from "@components/motion-cursor";
 import { pageContentVariants } from "@components/overlays";
@@ -112,17 +112,19 @@ export default function Home(): JSX.Element {
                 variants={pageContentVariants}
             >
                 <MainContainer>
-                    <Title
-                        data-text={TranslateText("home.title")}
-                        style={titleStyle}
-                        ref={titleRef}
-                    >
-                        <Translate id="home.title" />
-                    </Title>
-                    <MotionCursor onPositionUpdate={onPositionUpdate} />
-                    <Desc>
-                        <Translate id="home.description" />
-                    </Desc>
+                    <GridRow>
+                        <Title
+                            data-text={TranslateText("home.title")}
+                            style={titleStyle}
+                            ref={titleRef}
+                        >
+                            <Translate id="home.title" />
+                        </Title>
+                        <MotionCursor onPositionUpdate={onPositionUpdate} />
+                        <Desc>
+                            <Translate id="home.description" />
+                        </Desc>
+                    </GridRow>
                 </MainContainer>
             </MainSection>
             <BottomCircle />

@@ -1,16 +1,18 @@
 import { Fragment } from "react";
 
-import { MainContainer } from "@components/main-container";
+import { GridRow, MainContainer } from "@components/main-container";
 import { MainSection } from "@components/main-section";
 
 export default function About(): JSX.Element {
     return (
         <Fragment>
-            <MainSection className="grid grid-flow-col grid-cols-1 grid-rows-1 items-center">
-                <MainContainer className="lg:pt-20">
-                    <h1 className="text-center prose-140 font-bold">
-                        Coming Soon
-                    </h1>
+            <MainSection className="grid items-center grid-flow-col grid-cols-1 grid-rows-1">
+                <MainContainer>
+                    <GridRow>
+                        <h1 className="font-bold text-center prose-70 lg:prose-140">
+                            Coming Soon
+                        </h1>
+                    </GridRow>
                 </MainContainer>
             </MainSection>
         </Fragment>

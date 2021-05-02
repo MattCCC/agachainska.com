@@ -2,18 +2,17 @@ import tw, { css, styled } from "twin.macro";
 
 import { BigNumber } from "@components/big-number";
 import { H4 } from "@components/h4";
+import { MainContainer } from "@components/main-container";
 import { MainTitleBottom } from "@components/main-title";
 import { ReactComponent as PrevIcon } from "@svg/down.svg";
 import { ReactComponent as NextIcon } from "@svg/up.svg";
 import { up } from "@utils/screens";
+import { includeProps } from "@utils/styled";
 
-export const MainSection = styled.section(() => [
-    tw`relative z-10 mx-auto`,
-    css`
-        max-width: 1069px;
-        padding: 0 15px;
-    `,
-]);
+export const MainSection = styled(
+    MainContainer,
+    includeProps(["topPadding"])
+)(() => [tw`absolute z-10 col-start-2 col-end-13`]);
 
 export const MainTitleWrapper = styled.div(
     tw`absolute`,
@@ -58,10 +57,6 @@ export const ContentContainer = styled.div(() => [
     `,
 ]);
 
-export const MainContainer = styled(ContentContainer)(() => [
-    tw`pt-28 lg:pt-32`,
-]);
-
 export const StyledNumber = styled(BigNumber)(() => [
     css`
         max-width: 100%;
@@ -77,10 +72,9 @@ export const StyledNumber = styled(BigNumber)(() => [
 ]);
 
 export const HeroWrapper = styled.div(() => [
-    tw`relative`,
+    tw`relative w-full col-start-1 col-end-13 lg:col-start-2 lg:col-end-12`,
     css`
         height: 200px;
-        width: 100%;
         margin-bottom: 70px;
 
         ${up("lg")} {
@@ -201,7 +195,7 @@ export const Controls = styled.div(() => [
 ]);
 
 export const Button = styled.button(() => [
-    tw`flex-row cursor-pointer select-none lg:prose-16`,
+    tw`flex-row outline-none cursor-pointer select-none lg:prose-16`,
     css`
         &:last-child {
             margin-left: 40px;

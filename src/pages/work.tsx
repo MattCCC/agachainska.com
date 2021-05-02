@@ -44,19 +44,19 @@ interface Props extends PageProps {
 }
 
 const ContentContainer = styled.section(() => [
-    tw`relative lg:grid lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col mt-32`,
+    tw`relative col-start-1 col-end-13 mt-16 lg:col-start-2 lg:grid lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col`,
 ]);
 
 const SlideWrapper = styled.div(() => [
-    tw`col-start-1 col-end-5 col-span-5 row-start-1 row-end-6 row-span-5 hidden lg:block relative`,
+    tw`relative hidden col-span-5 col-start-1 col-end-5 row-span-5 row-start-1 row-end-6 lg:block`,
 ]);
 
 const TimelineWrapper = styled.aside(() => [
-    tw`m-auto justify-center col-start-5 row-start-1 row-end-5 row-span-5 hidden lg:block`,
+    tw`justify-center hidden col-start-5 row-span-5 row-start-1 row-end-5 m-auto lg:block`,
 ]);
 
 const StyledNumber = styled(BigNumber)(() => [
-    tw`absolute z-20 right-0 select-none`,
+    tw`absolute right-0 z-20 select-none`,
     css`
         bottom: -33px;
         height: 260px;
@@ -190,7 +190,7 @@ const Work = memo(
             <Fragment>
                 <MotionCursor />
 
-                <MainContainer className="lg:pt-20">
+                <MainContainer topPadding={true}>
                     <ContentContainer>
                         <SlideWrapper>
                             <StyledNumber
