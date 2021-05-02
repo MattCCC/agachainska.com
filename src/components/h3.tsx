@@ -1,11 +1,11 @@
-import { css, styled } from "twin.macro";
+import tw, { css, styled } from "twin.macro";
 
 import { up } from "@utils/screens";
 
 export const H3 = styled.h3(() => [
+    tw`font-fbold`,
     css`
         font-size: 24px;
-        font-family: "Larsseit-Bold";
         line-height: 24px;
         padding: 0 0 16px;
 

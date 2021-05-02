@@ -6,6 +6,14 @@ module.exports = {
     purge: ["./src/**/*.{js,jsx,ts,tsx}"],
     darkMode: false, // or 'media' or 'class'
     theme: {
+        fontFamily: {
+            sans: "'Larsseit'",
+            serif: "'Larsseit'",
+            mono: "'Larsseit'",
+            base: "'Larsseit'",
+            flight: "'Larsseit-Light'",
+            fbold: "'Larsseit-Bold'",
+        },
         extend: {
             typography: {
                 "12px": {
@@ -95,12 +103,6 @@ module.exports = {
                 75: 75,
                 100: 100,
             },
-        },
-        fontFamily: {
-            sans: "'Larsseit'",
-            serif: "'Larsseit'",
-            mono: "'Larsseit'",
-            base: "'Larsseit'",
         },
         screens: {
             sm: "640px",

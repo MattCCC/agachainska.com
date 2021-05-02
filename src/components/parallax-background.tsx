@@ -12,7 +12,7 @@ interface Props {
 
 export const Background = styled.div(
     ({ bgImgUrl, contain = false, scaleOnHover = false }: Props) => [
-        tw`h-full w-full`,
+        tw`w-full h-full`,
         css`
             background-image: url("${bgImgUrl}");
             background-repeat: no-repeat;
@@ -25,7 +25,6 @@ export const Background = styled.div(
                 background-attachment: fixed;
                 transform: translateZ(0);
                 backface-visibility: inherit;
-                -webkit-font-smoothing: antialiased;
                 background-size: 100% 100%;
             }
         `,
@@ -47,7 +46,7 @@ export const Background = styled.div(
 );
 
 export const BackgroundWrapper = styled.div(() => [
-    tw`overflow-hidden h-full w-full max-w-full`,
+    tw`w-full h-full max-w-full overflow-hidden`,
 ]);
 
 export const ParallaxBackground: FunctionComponent<Props> = (props: Props) => (

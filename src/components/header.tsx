@@ -10,7 +10,7 @@ import { getLinkProps, LinkProps } from "@utils/route";
 import { up } from "@utils/screens";
 
 const HeaderWrapper = styled.header(() => [
-    tw`mx-auto flex items-center justify-between flex-wrap absolute top-0 z-50 lg:py-6`,
+    tw`absolute top-0 z-50 flex flex-wrap items-center justify-between mx-auto lg:py-6`,
     css`
         max-width: 1213px;
         left: 15px;
@@ -20,7 +20,7 @@ const HeaderWrapper = styled.header(() => [
 ]);
 
 const Navigation = styled.nav(() => [
-    tw`w-56 lg:w-auto flex items-center justify-end`,
+    tw`flex items-center justify-end w-56 lg:w-auto`,
     css`
         line-height: 48px;
         gap: 40px;
@@ -32,7 +32,7 @@ const Navigation = styled.nav(() => [
 ]);
 
 const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
-    tw`relative font-medium text-primary-color prose-18px select-none`,
+    tw`relative font-medium select-none text-primary-color prose-18px`,
     css`
         line-height: 48px;
     `,
@@ -44,7 +44,7 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
     `,
     css`
         &::before {
-            bottom: -2px;
+            bottom: 0;
             content: "";
             height: 2px;
             left: 0;

@@ -11,7 +11,7 @@ import { getLinkProps } from "@utils/route";
 import { up } from "@utils/screens";
 
 const ContactWrapper = styled(Link)(() => [
-    tw`block relative cursor-pointer select-none`,
+    tw`relative block cursor-pointer select-none`,
 
     css`
         height: 430px;
@@ -22,12 +22,12 @@ const ContactWrapper = styled(Link)(() => [
     `,
 ]);
 
-const MarqueeTextWrapper = styled.div(() => [tw`flex mx-auto w-full h-full`]);
+const MarqueeTextWrapper = styled.div(() => [tw`flex w-full h-full mx-auto`]);
 
 const MarqueeTextContainer = styled.span(
     ({ isHovering = false }: Record<string, any>) => [
-        tw`block select-none overflow-hidden`,
-        tw`text-primary-color prose-60 lg:prose-120 whitespace-nowrap uppercase`,
+        tw`block overflow-hidden select-none`,
+        tw`uppercase text-primary-color font-fbold prose-60 lg:prose-120 whitespace-nowrap`,
         tw`hover:text-white`,
         css`
             background-clip: text;
@@ -35,7 +35,6 @@ const MarqueeTextContainer = styled.span(
             -webkit-text-stroke-color: rgba(255, 255, 255, 0.8);
             line-height: 430px;
             transition: all 300ms;
-            font-family: "Larsseit-Bold";
 
             ${up("lg")} {
                 line-height: 690px;

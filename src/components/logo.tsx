@@ -5,16 +5,17 @@ import { Translate } from "@components/translate";
 import { useLocation } from "@reach/router";
 import { getLinkProps } from "@utils/route";
 
-/**
- * Styles
- */
+interface Props {
+    showOnDesktop?: boolean;
+}
+
 const LogoWrapper = styled.div(() => [
-    tw`flex items-center text-primary-color h-12`,
+    tw`flex items-center h-12 text-primary-color`,
 ]);
 
 const SiteTitle = styled.div(
     ({ showOnDesktop }: { showOnDesktop: Props["showOnDesktop"] }) => [
-        tw`prose-24px text-primary-color hidden select-none`,
+        tw`hidden subpixel-antialiased select-none font-flight prose-24px text-primary-color`,
         showOnDesktop && tw`lg:block`,
         css`
             line-height: 30px;
@@ -23,7 +24,7 @@ const SiteTitle = styled.div(
 );
 
 const LogoIcon = styled.div(() => [
-    tw`rounded-full bg-primary-color text-white text-center font-extrabold prose-16 lg:prose-18px block lg:hidden select-none`,
+    tw`block font-extrabold text-center text-white rounded-full select-none bg-primary-color prose-16 lg:prose-18px lg:hidden`,
     css`
         width: 48px;
         height: 48px;
@@ -31,16 +32,6 @@ const LogoIcon = styled.div(() => [
     `,
 ]);
 
-/**
- * Interfaces
- */
-interface Props {
-    showOnDesktop?: boolean;
-}
-
-/**
- * Component
- */
 export function Logo({ showOnDesktop = true }: Props): JSX.Element {
     const location = useLocation();
     const homeLink = getLinkProps("home", location);

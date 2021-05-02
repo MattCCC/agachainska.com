@@ -8,7 +8,7 @@ import { ReactComponent as NextIcon } from "@svg/up.svg";
 import { up } from "@utils/screens";
 
 export const MainSection = styled.section(() => [
-    tw`relative mx-auto z-10`,
+    tw`relative z-10 mx-auto`,
     css`
         max-width: 1069px;
         padding: 0 15px;
@@ -91,7 +91,7 @@ export const HeroWrapper = styled.div(() => [
 ]);
 
 export const TableProject = styled.div(() => [
-    tw`grid grid-cols-1 lg:grid-cols-2 grid-rows-4 grid-flow-row lg:grid-flow-col`,
+    tw`grid grid-flow-row grid-cols-1 grid-rows-4 lg:grid-cols-2 lg:grid-flow-col`,
     css`
         width: 827px;
         max-width: 100%;
@@ -100,7 +100,7 @@ export const TableProject = styled.div(() => [
 ]);
 
 export const TableCredits = styled.div(() => [
-    tw`grid grid-cols-1 lg:grid-cols-3 grid-rows-2 grid-flow-row lg:grid-flow-col`,
+    tw`grid grid-flow-row grid-cols-1 grid-rows-2 lg:grid-cols-3 lg:grid-flow-col`,
     css`
         width: 827px;
         max-width: 100%;
@@ -109,7 +109,7 @@ export const TableCredits = styled.div(() => [
 ]);
 
 export const TableStats = styled.div(() => [
-    tw`grid grid-cols-1 lg:grid-cols-3 grid-flow-row lg:grid-flow-col`,
+    tw`grid grid-flow-row grid-cols-1 lg:grid-cols-3 lg:grid-flow-col`,
     css`
         grid-template-rows: repeat(4, minmax(0, max-content));
         width: 827px;
@@ -135,16 +135,16 @@ export const StatsCaption = styled(H4)(() => [
 ]);
 
 export const CellTitle = styled.div(() => [
+    tw`font-fbold`,
     css`
         margin-top: 12px;
-        font-family: "Larsseit-Bold";
     `,
 ]);
 
 export const Article = styled.article(() => [tw`relative`]);
 
 export const ArticleSection = styled.section(() => [
-    tw`relative mx-auto z-10`,
+    tw`relative z-10 mx-auto`,
     css`
         max-width: 1069px;
         padding: 0 15px 1px;
@@ -152,7 +152,7 @@ export const ArticleSection = styled.section(() => [
 ]);
 
 export const TimelineWrapper = styled.aside(() => [
-    tw`sticky hidden lg:block z-20`,
+    tw`sticky z-20 hidden lg:block`,
     css`
         top: 0;
         right: 0;
@@ -179,7 +179,7 @@ export const FullSizeImageWrapper = styled.figure(() => [
 ]);
 
 export const TwoImagesWrapper = styled.figure(() => [
-    tw`grid grid-cols-2 grid-flow-col gap-6 overflow-hidden`,
+    tw`grid grid-flow-col grid-cols-2 gap-6 overflow-hidden`,
     css`
         margin-bottom: 90px;
         height: 220px;
@@ -194,14 +194,14 @@ export const TwoImagesWrapper = styled.figure(() => [
  * Pagination
  */
 export const Controls = styled.div(() => [
-    tw`relative hidden lg:flex justify-end content-end ml-auto z-10`,
+    tw`relative z-10 content-end justify-end hidden ml-auto lg:flex`,
     css`
         top: -70px;
     `,
 ]);
 
 export const Button = styled.button(() => [
-    tw`lg:prose-16 flex-row cursor-pointer select-none`,
+    tw`flex-row cursor-pointer select-none lg:prose-16`,
     css`
         &:last-child {
             margin-left: 40px;
@@ -210,9 +210,9 @@ export const Button = styled.button(() => [
 ]);
 
 export const PrevIconStyled = styled(PrevIcon)(() => [
-    tw`inline-block text-center mr-4 transform rotate-90`,
+    tw`inline-block mr-4 text-center transform rotate-90`,
 ]);
 
 export const NextIconStyled = styled(NextIcon)(() => [
-    tw`inline-block text-center ml-4 transform rotate-90`,
+    tw`inline-block ml-4 text-center transform rotate-90`,
 ]);

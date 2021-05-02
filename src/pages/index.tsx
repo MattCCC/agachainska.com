@@ -25,11 +25,10 @@ import { getRoutePath } from "@utils/route";
 import { TranslateText } from "@utils/translate-text";
 
 const Title = styled.h1(() => [
-    tw`relative z-50 inline-block max-w-full lg:pr-16 font-bold prose-70 lg:prose-140 select-none`,
-    tw`text-black bg-clip-text`,
+    tw`relative z-50 inline-block max-w-full font-bold select-none lg:pr-16 prose-70 lg:prose-140`,
+    tw`subpixel-antialiased text-black bg-clip-text font-fbold`,
     css`
         width: 634px;
-        font-family: "Larsseit-Bold";
         background-image: radial-gradient(
             40px circle at var(--x) var(--y),
             rgba(0, 0, 0, 0) 100%,
@@ -39,26 +38,21 @@ const Title = styled.h1(() => [
         cursor: none;
 
         &:before {
-            position: absolute;
-            top: 0;
-            left: 0;
+            ${tw`absolute top-0 left-0 text-white`}
             content: attr(data-text);
-            color: var(--white-color);
             clip-path: circle(40px at var(--x, -100%) var(--y, -100%));
             -webkit-text-stroke-width: 1px;
             -webkit-text-stroke-color: rgba(0, 0, 0, 0.8);
         }
 
         &:hover + .cursor {
-            background-color: transparent;
-            color: transparent;
-            cursor: none;
+            ${tw`text-transparent bg-transparent cursor-none`}
         }
     `,
 ]);
 
 const Desc = styled.h2(() => [
-    tw`inline-block prose-24px lg:prose-30px select-none`,
+    tw`inline-block select-none prose-24px lg:prose-30px`,
     css`
         max-height: 84px;
         width: 18rem;
@@ -111,7 +105,7 @@ export default function Home(): JSX.Element {
     return (
         <Fragment>
             <MainSection
-                className="grid grid-flow-col grid-cols-1 grid-rows-1 items-center"
+                className="grid items-center grid-flow-col grid-cols-1 grid-rows-1"
                 initial="exit"
                 animate="enter"
                 exit="exit"

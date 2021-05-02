@@ -1,14 +1,11 @@
-import { css, styled } from "twin.macro";
+import tw, { css, styled } from "twin.macro";
 
 import { up } from "@utils/screens";
 
-/**
- * Styles
- */
 export const Quote = styled.blockquote(() => [
+    tw`font-fbold`,
     css`
         color: #828282;
-        font-family: "Larsseit-Bold";
         font-size: 28px;
         line-height: 34px;
         margin-bottom: 57px;

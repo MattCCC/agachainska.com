@@ -17,14 +17,11 @@ const title = (
     smBaseFontSize: number,
     baseFontSize: number
 ): Array<TwStyle | SerializedStyles> => [
-    tw`relative z-10 select-none`,
+    tw`relative z-10 subpixel-antialiased font-bold text-black select-none`,
     css`
         background-clip: text;
-        color: var(--black-color);
         width: 100%;
         -webkit-text-fill-color: transparent;
-        font-family: "Larsseit-Bold";
-
         font-size: ${smBaseFontSize}px;
         line-height: ${smBaseFontSize}px;
 
