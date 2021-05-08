@@ -1,17 +1,22 @@
 import { memo, useEffect } from "react";
 
-import { styled } from "twin.macro";
+import tw, { css, styled } from "twin.macro";
 import useMouseLeave from "use-mouse-leave";
 
 import { FullPageContent } from "@components/full-page-content";
 import { MotionSlider } from "@components/motion-slider";
 import { useStoreProp } from "@store/index";
 
-const Element = styled.div`
-    width: 820px;
-    height: 550px;
-    background: rgba(255, 255, 255, 0.99);
-`;
+const SliderWrapper = styled.div(() => [tw`cursor-none lg:ml-72`]);
+
+const Element = styled.div(() => [
+    tw`max-w-full`,
+    css`
+        width: 820px;
+        height: 550px;
+        background: rgba(255, 255, 255, 0.99);
+    `,
+]);
 
 export const GallerySlider = memo(({ ...props }: Record<string, any>) => {
     const [, dispatch] = useStoreProp("currentDelayedRoute");
@@ -29,7 +34,7 @@ export const GallerySlider = memo(({ ...props }: Record<string, any>) => {
 
     return (
         <FullPageContent widthPct={100} border={false}>
-            <div ref={itemsRef} style={{ cursor: "none" }}>
+            <SliderWrapper ref={itemsRef}>
                 <MotionSlider {...props} displayGrabCursor={false}>
                     <Element>
                         <img src="/img/placeholder-full.png" alt="" />
@@ -44,7 +49,7 @@ export const GallerySlider = memo(({ ...props }: Record<string, any>) => {
                         <img src="/img/placeholder-full.png" alt="" />
                     </Element>
                 </MotionSlider>
-            </div>
+            </SliderWrapper>
         </FullPageContent>
     );
 });

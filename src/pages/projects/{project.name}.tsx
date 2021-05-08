@@ -134,6 +134,7 @@ export default function Project({ data }: Props): JSX.Element {
                     </TableProject>
                 </GridRow>
             </MainSection>
+
             <Article>
                 <TimelineWrapper>
                     <Timeline
@@ -146,8 +147,8 @@ export default function Project({ data }: Props): JSX.Element {
                 </TimelineWrapper>
 
                 <ArticleSection id="challenge" ref={refChallenge}>
-                    <ContentContainer className="sm">
-                        <H2>Challenge</H2>
+                    <H2>Challenge</H2>
+                    <ContentContainer>
                         <H3>Overview</H3>
                         <Paragraph>{challenge.overview}</Paragraph>
                         <H3>Project goals</H3>
@@ -158,8 +159,8 @@ export default function Project({ data }: Props): JSX.Element {
                 </ArticleSection>
 
                 <ArticleSection id="approach" ref={refApproach}>
-                    <ContentContainer className="sm">
-                        <H2>Approach</H2>
+                    <H2>Approach</H2>
+                    <ContentContainer>
                         <H3>Brand elements</H3>
                         <Paragraph>{approach.brandElements}</Paragraph>
                         <FullSizeImageWrapper>
@@ -190,14 +191,14 @@ export default function Project({ data }: Props): JSX.Element {
 
                     <GallerySlider gap={133} />
 
-                    <ContentContainer className="sm">
+                    <ContentContainer variant="full">
                         <Quote>{approach.quote}</Quote>
                     </ContentContainer>
 
                     <ContentContainer
                         id="results"
                         ref={refResults}
-                        className="sm"
+                        variant="full"
                     >
                         <TableStats ref={refStats}>
                             <CellTitle>
@@ -248,8 +249,8 @@ export default function Project({ data }: Props): JSX.Element {
                 </ArticleSection>
 
                 <ArticleSection id="credits">
-                    <ContentContainer className="sm">
-                        <H2>Credits</H2>
+                    <H2>Credits</H2>
+                    <ContentContainer variant="full">
                         <TableCredits>
                             <CellTitle>{credits.concept}</CellTitle>
                             <div>{credits.conceptDesc}</div>
@@ -262,8 +263,8 @@ export default function Project({ data }: Props): JSX.Element {
                 </ArticleSection>
 
                 <ArticleSection id="another-projects">
-                    <ContentContainer className="sm">
-                        <H2>Other {category} Projects</H2>
+                    <H2>Other {category} Projects</H2>
+                    <ContentContainer variant="full">
                         <OtherProjects
                             projectsByCategory={projectsByCategory}
                         />

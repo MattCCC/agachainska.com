@@ -3,13 +3,13 @@ import tw, { css, styled } from "twin.macro";
 import { up } from "@utils/screens";
 
 export const H2 = styled.h2(() => [
-    tw`uppercase font-fbold`,
+    tw`uppercase border-b border-solid font-fbold border-primary-color`,
     css`
         font-size: 30px;
         line-height: 40px;
         padding: 0 0 5px;
         margin: 40px 0 32px;
-        border-bottom: 1px solid var(--primary-color);
+        max-width: 820px;
 
         ${up("lg")} {
             font-size: 54px;

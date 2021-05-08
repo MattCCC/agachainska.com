@@ -9,10 +9,28 @@ import { ReactComponent as NextIcon } from "@svg/up.svg";
 import { up } from "@utils/screens";
 import { includeProps } from "@utils/styled";
 
+interface ContentContainerProps {
+    variant?: string;
+}
+
 export const MainSection = styled(
     MainContainer,
     includeProps(["topPadding"])
 )(() => [tw`absolute z-10 col-start-2 col-end-13`]);
+
+export const ContentContainer = styled.div(
+    ({ variant = "3/4" }: ContentContainerProps) => [
+        tw`max-w-full`,
+        variant === "3/4" &&
+            css`
+                width: 613px;
+            `,
+        variant === "full" &&
+            css`
+                width: 820px;
+            `,
+    ]
+);
 
 export const MainTitleWrapper = styled.div(
     tw`absolute`,
@@ -46,17 +64,6 @@ export const Paragraph = styled.p(() => [
     `,
 ]);
 
-export const ContentContainer = styled.div(() => [
-    css`
-        max-width: 1069px;
-
-        &.sm {
-            width: 827px;
-            max-width: 100%;
-        }
-    `,
-]);
-
 export const StyledNumber = styled(BigNumber)(() => [
     css`
         max-width: 100%;
@@ -85,29 +92,26 @@ export const HeroWrapper = styled.div(() => [
 ]);
 
 export const TableProject = styled.div(() => [
-    tw`grid grid-flow-row grid-cols-1 grid-rows-4 lg:grid-cols-2 lg:grid-flow-col`,
+    tw`grid max-w-full grid-flow-row grid-cols-1 grid-rows-4 lg:grid-cols-2 lg:grid-flow-col`,
     css`
-        width: 827px;
-        max-width: 100%;
+        width: 820px;
         line-height: 24px;
     `,
 ]);
 
 export const TableCredits = styled.div(() => [
-    tw`grid grid-flow-row grid-cols-1 grid-rows-2 lg:grid-cols-3 lg:grid-flow-col`,
+    tw`grid max-w-full grid-flow-row grid-cols-1 grid-rows-2 lg:grid-cols-3 lg:grid-flow-col`,
     css`
-        width: 827px;
-        max-width: 100%;
+        width: 820px;
         line-height: 24px;
     `,
 ]);
 
 export const TableStats = styled.div(() => [
-    tw`grid grid-flow-row grid-cols-1 lg:grid-cols-3 lg:grid-flow-col`,
+    tw`grid max-w-full grid-flow-row grid-cols-1 lg:grid-cols-3 lg:grid-flow-col`,
     css`
         grid-template-rows: repeat(4, minmax(0, max-content));
-        width: 827px;
-        max-width: 100%;
+        width: 820px;
         line-height: 24px;
     `,
 ]);
@@ -146,13 +150,10 @@ export const ArticleSection = styled.section(() => [
 ]);
 
 export const TimelineWrapper = styled.aside(() => [
-    tw`sticky z-20 hidden lg:block`,
+    tw`sticky top-0 right-0 z-20 hidden ml-auto lg:block lg:col-start-11`,
     css`
-        top: 0;
-        right: 0;
         margin-bottom: -254px;
         width: 220px;
-        margin-left: auto;
         margin-right: 84px;
         transform: translateY(90px);
     `,
@@ -168,6 +169,7 @@ export const FullSizeImageWrapper = styled.figure(() => [
 
         ${up("lg")} {
             height: 546px;
+            width: 820px;
         }
     `,
 ]);
@@ -180,6 +182,7 @@ export const TwoImagesWrapper = styled.figure(() => [
 
         ${up("lg")} {
             height: 562px;
+            width: 820px;
         }
     `,
 ]);
