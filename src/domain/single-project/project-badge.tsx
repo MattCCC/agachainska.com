@@ -16,13 +16,25 @@ interface Props {
     category: string;
 }
 
-const Badge = styled.li(() => [tw`flex`]);
+interface BadgeProps {
+    rowNo: number;
+    colNo: number;
+}
+
+const Badge = styled.li(({ rowNo, colNo }: BadgeProps) => [
+    tw`flex`,
+    colNo === 1 && tw`lg:col-start-1`,
+    colNo === 2 && tw`lg:col-start-2`,
+    rowNo === 1 && tw`lg:row-start-1`,
+    rowNo === 2 && tw`lg:row-start-2`,
+    rowNo === 3 && tw`lg:row-start-3`,
+    rowNo === 4 && tw`lg:row-start-4`,
+]);
 
 const BadgeNumber = styled(StyledNumber)(() => [
-    tw`select-none`,
+    tw`w-auto select-none`,
     css`
         height: 70px;
-        width: auto;
         margin: -10px 30px -10px -40px;
 
         ${up("lg")} {
@@ -73,9 +85,8 @@ export const ProjectBadge = memo(
         return (
             <Badge
                 ref={itemsRef}
-                className={`lg:col-start-${
-                    index % 2 === 0 ? 1 : 2
-                } lg:row-start-${index + 1}`}
+                rowNo={index + 1}
+                colNo={index % 2 === 0 ? 1 : 2}
             >
                 <BadgeNumber value={`${index + 1}.`} />
 
