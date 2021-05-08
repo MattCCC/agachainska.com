@@ -10,6 +10,7 @@ module.exports = {
         image: "/img/slider-pattern.png",
         twitterUsername: "@aga",
         url: `https://aga-chainska.com`,
+        siteUrl: `https://aga-chainska.com`,
     },
     plugins: [
         "gatsby-plugin-webpack-bundle-analyser-v2",
