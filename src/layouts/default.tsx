@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent } from "react";
+import { Fragment, FunctionComponent, ReactElement } from "react";
 
 import tw, { styled, css } from "twin.macro";
 
@@ -8,6 +8,7 @@ import { FullPageOverlay } from "@components/full-page-overlay";
 import { Header } from "@components/header";
 import { Overlays } from "@components/overlays";
 import { TopOverlay } from "@components/overlays";
+import { Global } from "@emotion/react";
 import { useOnRouteChange } from "@hooks/use-on-route-change";
 import { useStoreProp } from "@store/index";
 import { up } from "@utils/screens";
@@ -15,12 +16,24 @@ import { up } from "@utils/screens";
 interface Props {
     hasGradient: boolean;
     showFooter: boolean;
+    darkTheme: boolean;
 }
 
 const footerHeight = `${690 + 120}px`;
 
-const Main = styled.main(({ hasGradient, showFooter }: Props) => [
-    tw`relative h-full w-full min-h-screen text-primary-color z-10`,
+const DarkTheme = (): ReactElement => (
+    <Global
+        styles={css`
+            :root {
+                --primary-color: #fff;
+                --tertiary-color: #0b0b0b;
+            }
+        `}
+    />
+);
+
+const Main = styled.main(({ hasGradient, showFooter, darkTheme }: Props) => [
+    tw`relative z-10 w-full h-full min-h-screen text-primary-color`,
     css`
         backface-visibility: hidden;
     `,
@@ -40,11 +53,20 @@ const Main = styled.main(({ hasGradient, showFooter }: Props) => [
                 rgb(255, 247, 255) 100%
             );
         `,
-    !hasGradient && tw`bg-white`,
+    !hasGradient && !darkTheme && tw`bg-white`,
+    darkTheme && tw`bg-black`,
 ]);
+
+const Annotation = styled.div(({ showFooter }: Partial<Props>) => [
+    tw`container relative z-10 mx-auto -mt-10 text-center text-primary-color lg:text-left`,
+    showFooter && tw`text-white bottom-2`,
+]);
+
+const AnnotationLink = styled.a(() => [tw`inline-block ml-1 text-green`]);
 
 export const Layout: FunctionComponent<unknown> = ({ children }) => {
     const [showBackgroundGradient] = useStoreProp("showBackgroundGradient");
+    const [darkTheme] = useStoreProp("darkTheme");
     const [showFooter] = useStoreProp("showFooter");
 
     useOnRouteChange();
@@ -52,15 +74,30 @@ export const Layout: FunctionComponent<unknown> = ({ children }) => {
     return (
         <Fragment>
             <div id="internal-announcer"></div>
+            {darkTheme && <DarkTheme />}
             <TopOverlay />
             <Overlays />
             <FullPageOverlay />
             <Header />
-            <Main hasGradient={showBackgroundGradient} showFooter={showFooter}>
+            <Main
+                hasGradient={showBackgroundGradient}
+                showFooter={showFooter}
+                darkTheme={darkTheme}
+            >
                 <Background />
                 {children}
             </Main>
             <Footer />
+            <Annotation showFooter={showFooter}>
+                Coded by
+                <AnnotationLink
+                    href="https://deindesign.pl/"
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    Matt
+                </AnnotationLink>
+            </Annotation>
         </Fragment>
     );
 };

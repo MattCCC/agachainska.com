@@ -3,7 +3,7 @@ import { Fragment, FunctionComponent, useEffect } from "react";
 import tw, { css, styled } from "twin.macro";
 
 import { BackgroundNoise } from "@components/background-noise";
-import { useStore } from "@store/index";
+import { useStoreProp } from "@store/index";
 import { ReactComponent as WavesPattern } from "@svg/bg-lines.svg";
 import { ReactComponent as GreekEyeIllustration } from "@svg/Greek eye@1x.svg";
 import { ReactComponent as LondonEyeIllustration } from "@svg/London eye@1x.svg";
@@ -13,8 +13,13 @@ import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
 
 interface Props {}
 
-const Waves = styled(WavesPattern)(() => [
+interface WavesProps {
+    darkTheme: boolean;
+}
+
+const Waves = styled(WavesPattern)(({ darkTheme }: WavesProps) => [
     tw`absolute w-full`,
+    darkTheme && tw`opacity-5`,
     css`
         height: 100vh;
         top: 59.5px;
@@ -62,19 +67,21 @@ const Caipirinha = styled(CaipirinhaIllustration)(() => [
 ]);
 
 export const Background: FunctionComponent<Props> = () => {
-    const [state] = useStore();
+    const [showMotionGrid] = useStoreProp("showMotionGrid");
+    const [showWavePattern] = useStoreProp("showWavePattern");
+    const [darkTheme] = useStoreProp("darkTheme");
 
     useEffect(() => {
-        if (state.showMotionGrid) {
+        if (showMotionGrid) {
             initMotionGrid();
         }
 
         return destroyMotionGrid;
-    }, [state.showMotionGrid]);
+    }, [showMotionGrid]);
 
     return (
         <BackgroundNoise className="motion-grid">
-            {state.showMotionGrid && (
+            {showMotionGrid && (
                 <Fragment>
                     <GreekEye className="motion-grid__item" />
                     <LondonEye className="motion-grid__item" />
@@ -82,7 +89,7 @@ export const Background: FunctionComponent<Props> = () => {
                     <Caipirinha className="motion-grid__item" />
                 </Fragment>
             )}
-            {state.showWavePattern && <Waves />}
+            {showWavePattern && <Waves darkTheme={darkTheme} />}
         </BackgroundNoise>
     );
 };

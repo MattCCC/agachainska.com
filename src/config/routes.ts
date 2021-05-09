@@ -22,6 +22,7 @@ export const defaultRouteMeta = {
         showLogoOnDesktop: true,
         showWavePattern: true,
         showBackgroundGradient: true,
+        darkTheme: false,
     } as RouteMeta["store"]
 };
 
@@ -41,7 +42,21 @@ const routesList: RoutesList = {
         path: "/contact/",
         meta: {
             store: {
+                showMotionGrid: false,
                 showFooter: false,
+                showBackgroundGradient: false,
+                darkTheme: true,
+            }
+        }
+    },
+    thanks: {
+        id: "thanks",
+        path: "/thanks/",
+        meta: {
+            store: {
+                showFooter: false,
+                showBackgroundGradient: false,
+                darkTheme: true,
             }
         }
     },

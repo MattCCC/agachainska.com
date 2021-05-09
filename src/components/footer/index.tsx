@@ -4,7 +4,7 @@ import tw, { css, styled } from "twin.macro";
 
 import { BackgroundNoise } from "@components/background-noise";
 import { Contact } from "@components/footer/contact";
-import { SocialMedia } from "@components/footer/social-media";
+import { SocialMedia } from "@components/social-media";
 import { socialMedia } from "@data/social-media";
 import { useStoreProp } from "@store/index";
 import { ReactComponent as WavesPattern } from "@svg/bg-lines.svg";

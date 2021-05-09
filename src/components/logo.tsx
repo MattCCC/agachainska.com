@@ -13,18 +13,16 @@ const LogoWrapper = styled.div(() => [
     tw`flex items-center h-12 text-primary-color`,
 ]);
 
-const SiteTitle = styled.div(
-    ({ showOnDesktop }: { showOnDesktop: Props["showOnDesktop"] }) => [
-        tw`hidden subpixel-antialiased select-none font-flight prose-24px text-primary-color`,
-        showOnDesktop && tw`lg:block`,
-        css`
-            line-height: 30px;
-        `,
-    ]
-);
+const SiteTitle = styled.div(({ showOnDesktop }: Props) => [
+    tw`hidden subpixel-antialiased select-none font-flight prose-24px text-primary-color`,
+    showOnDesktop && tw`lg:block`,
+    css`
+        line-height: 30px;
+    `,
+]);
 
 const LogoIcon = styled.div(() => [
-    tw`block font-extrabold text-center text-white rounded-full select-none bg-primary-color prose-16 lg:prose-18px lg:hidden`,
+    tw`block text-center rounded-full select-none font-fbold text-tertiary-color bg-primary-color prose-18 lg:prose-18px lg:hidden`,
     css`
         width: 48px;
         height: 48px;

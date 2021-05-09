@@ -6,6 +6,7 @@ const initialState = {
     showFooter: false,
     showLogoOnDesktop: false,
     showBackgroundGradient: false,
+    darkTheme: false,
     motionCursorData: {
         text: "",
         route: "",
@@ -25,6 +26,7 @@ const actions = {
     showFooter: set<State, boolean>("showFooter"),
     showLogoOnDesktop: set<State, boolean>("showLogoOnDesktop"),
     showBackgroundGradient: set<State, boolean>("showBackgroundGradient"),
+    setDarkTheme: set<State, boolean>("darkTheme"),
     setCurrentDelayedRoute: set<State, string>("currentDelayedRoute"),
 
     showMotionCursor(

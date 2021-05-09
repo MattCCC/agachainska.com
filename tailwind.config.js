@@ -43,6 +43,11 @@ module.exports = {
                         lineHeight: "20px",
                     },
                 },
+                "18": {
+                    css: {
+                        fontSize: "18px",
+                    },
+                },
                 "20px": {
                     css: {
                         fontSize: "20px",
@@ -55,10 +60,27 @@ module.exports = {
                         lineHeight: "32px",
                     },
                 },
+                "28px": {
+                    css: {
+                        fontSize: "28px",
+                        lineHeight: "34px",
+                    },
+                },
+                "24": {
+                    css: {
+                        fontSize: "24px",
+                    },
+                },
                 "30px": {
                     css: {
                         fontSize: "30px",
                         lineHeight: "42px",
+                    },
+                },
+                "48px": {
+                    css: {
+                        fontSize: "48px",
+                        lineHeight: "56px",
                     },
                 },
                 "60": {
@@ -101,6 +123,7 @@ module.exports = {
                 "tertiary-color": "var(--tertiary-color)",
                 "black-color": "var(--black-color)",
                 "melrose-color": "var(--melrose-color)",
+                "green": "var(--green-color)",
             },
             zIndex: {
                 75: 75,

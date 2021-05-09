@@ -9,7 +9,9 @@ picture {
     pointer-events: none;
 }
 
-button {
+button,
+textarea,
+input {
     outline: none;
 
     &:focus,
