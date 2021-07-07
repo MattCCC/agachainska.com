@@ -57,7 +57,7 @@ export const Contact = memo(
 
                 dispatch.showMotionCursor(!mouseLeft, {
                     text: "contact",
-                    route: "/contact",
+                    route: "/contact/",
                     size: 80,
                     color: mouseLeft ? "black" : "melrose",
                 });
