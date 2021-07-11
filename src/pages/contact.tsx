@@ -36,7 +36,7 @@ export default function Contact(): JSX.Element {
         <form
             action="https://formsubmit.co/a.chainska@gmail.com"
             method="POST"
-            className="pb-16"
+            className="pb-52 lg:pb-16"
         >
             <MainContainer topPadding={true} as="section">
                 <PricklyPear />
