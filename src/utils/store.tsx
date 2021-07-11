@@ -2,29 +2,7 @@ import { useReducer, useMemo, FC, PropsWithChildren, Context } from "react";
 
 import { createContext, useContextSelector } from "use-context-selector";
 
-import { isDev } from "./detect-env";
-
 type Funct<T, TT> = (prevState: T, payload: TT) => any;
-
-/**
- * Toggle state boolean
- * @param {string} type      State key
- * @returns {function}
- */
-export const set = <T, T1, T2 = T>(type: keyof T): Funct<T2, T1> => (
-    prevState,
-    payload
-): any => {
-    if (isDev()) {
-        // eslint-disable-next-line no-console
-        console.log("store:", type, payload, " prev:", prevState);
-    }
-
-    return {
-        ...prevState,
-        [type]: payload,
-    };
-};
 
 export interface Mutations<S> {
     [name: string]: (state: S, ...args: any) => Partial<S>;
@@ -46,6 +24,19 @@ export interface Store<S, M> {
     useStoreProp: (v: keyof S) => [any, Actions<M>, S | Actions<M>];
 }
 
+/**
+ * Toggle state boolean
+ * @param {string} type      State key
+ * @returns {object}        Modified state
+ */
+export const set = <T, T1, T2 = T>(type: keyof T): Funct<T2, T1> => (
+    prevState,
+    payload
+): any => ({
+    ...prevState,
+    [type]: payload,
+});
+
 function getEmptyActions<S, M extends Mutations<S>>(mutations: M): Actions<M> {
     const actions: Actions<M> = Object.assign({}, mutations);
 
@@ -57,10 +48,10 @@ function getEmptyActions<S, M extends Mutations<S>>(mutations: M): Actions<M> {
 }
 
 /**
- * Create a lit-store instance with the initial state and reducer.
- * @param initialState Initial store state
- * @param reducer Reducer to mutate state
- * @returns Store instance with `Provider` component and `useStore` hook.
+ * Create a simple store instance with the initial state and reducer
+ * @param initialState      Initial store state
+ * @param reducer           Reducer to mutate state
+ * @returns {Store}         Store instance with `Provider` component and `useStore` hook
  */
 export function createStore<S, M extends Mutations<S>>(
     initialState: S,
