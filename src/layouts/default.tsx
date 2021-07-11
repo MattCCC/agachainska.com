@@ -57,13 +57,6 @@ const Main = styled.main(({ hasGradient, showFooter, darkTheme }: Props) => [
     darkTheme && tw`bg-black`,
 ]);
 
-const Annotation = styled.div(({ showFooter }: Partial<Props>) => [
-    tw`container relative z-10 mx-auto -mt-10 text-center text-primary-color lg:text-left`,
-    showFooter && tw`text-white bottom-2`,
-]);
-
-const AnnotationLink = styled.a(() => [tw`inline-block ml-1 text-green`]);
-
 export const Layout: FunctionComponent<unknown> = ({ children }) => {
     const [showBackgroundGradient] = useStoreProp("showBackgroundGradient");
     const [darkTheme] = useStoreProp("darkTheme");
@@ -88,16 +81,6 @@ export const Layout: FunctionComponent<unknown> = ({ children }) => {
                 {children}
             </Main>
             <Footer />
-            <Annotation showFooter={showFooter}>
-                Coded by
-                <AnnotationLink
-                    href="https://deindesign.pl/"
-                    rel="noreferrer"
-                    target="_blank"
-                >
-                    Matt
-                </AnnotationLink>
-            </Annotation>
         </Fragment>
     );
 };

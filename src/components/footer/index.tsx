@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { Fragment, useCallback } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -21,6 +21,17 @@ const FooterWrapper = styled.footer(({ showFooter = true }: Props) => [
     !showFooter && tw`hidden`,
 ]);
 
+const MiniFooterWrapper = styled.footer(() => [
+    tw`relative bottom-0 z-10 w-full overflow-hidden`,
+    css`
+        margin-top: -140px;
+
+        ${up("lg")} {
+            margin-top: -120px;
+        }
+    `,
+]);
+
 const FooterContainer = styled.div(() => [
     tw`flex w-full h-full mx-auto max-w-screen-2xl`,
     css`
@@ -32,19 +43,19 @@ const FooterContainer = styled.div(() => [
 const BottomFooter = styled.div(() => [
     tw`relative z-10 w-full border-t border-white`,
     css`
-        min-height: 140px;
+        height: 140px;
 
         ${up("lg")} {
-            min-height: 120px;
+            height: 120px;
         }
     `,
 ]);
 
 const FooterNav = styled.nav(() => [
-    tw`flex flex-col items-center justify-between w-full lg:flex-row`,
+    tw`flex flex-col items-center w-full text-white lg:justify-between lg:flex-row`,
 ]);
 
-const BackToTop = styled.div(() => [
+const FooterNavText = styled.div(() => [
     tw`text-white select-none prose-16`,
     css`
         line-height: 70px;
@@ -54,6 +65,8 @@ const BackToTop = styled.div(() => [
         }
     `,
 ]);
+
+const BackToTop = FooterNavText;
 
 const Waves = styled(WavesPattern)(() => [
     tw`absolute w-full h-full opacity-5`,
@@ -76,8 +89,23 @@ const PricklyPear = styled(PricklyPearIllustration)(() => [
     `,
 ]);
 
+const Annotation = styled.div(({ showFooter }: Partial<Props>) => [
+    tw`container relative z-10 mx-auto text-center lg:-mt-10 text-primary-color lg:text-left`,
+    css`
+        ${tw`-mt-5`}
+
+        ${up("lg")} {
+            ${tw`-mt-20`}
+        }
+    `,
+    showFooter && tw`text-white bottom-2`,
+]);
+
+const AnnotationLink = styled.a(() => [tw`inline-block ml-1 text-green`]);
+
 export function Footer(): JSX.Element {
     const [showFooter] = useStoreProp("showFooter");
+    const [darkTheme] = useStoreProp("darkTheme");
     const onBackToTopClicked = useCallback((e): void => {
         scrollTo();
 
@@ -85,23 +113,62 @@ export function Footer(): JSX.Element {
     }, []);
 
     return (
-        <FooterWrapper showFooter={showFooter}>
-            <BackgroundNoise />
-            <div className="relative">
-                <Waves />
-                <PricklyPear />
-                <Contact />
-                <BottomFooter>
-                    <FooterContainer>
-                        <FooterNav>
-                            <a href="#top" onClick={onBackToTopClicked}>
-                                <BackToTop>Back to top</BackToTop>
-                            </a>
-                            <SocialMedia items={socialMedia} />
-                        </FooterNav>
-                    </FooterContainer>
-                </BottomFooter>
-            </div>
-        </FooterWrapper>
+        <Fragment>
+            {showFooter && (
+                <FooterWrapper showFooter={showFooter}>
+                    <BackgroundNoise />
+                    <div className="relative">
+                        <Waves />
+                        <PricklyPear />
+                        <Contact />
+                        <BottomFooter>
+                            <FooterContainer>
+                                <FooterNav>
+                                    <a href="#top" onClick={onBackToTopClicked}>
+                                        <BackToTop>Back to top</BackToTop>
+                                    </a>
+                                    <SocialMedia items={socialMedia} />
+                                </FooterNav>
+                            </FooterContainer>
+                        </BottomFooter>
+                    </div>
+                </FooterWrapper>
+            )}
+
+            {darkTheme && (
+                <MiniFooterWrapper>
+                    <BottomFooter>
+                        <FooterContainer>
+                            <FooterNav>
+                                <FooterNavText>
+                                    Coded by
+                                    <AnnotationLink
+                                        href="https://deindesign.pl/"
+                                        rel="noreferrer"
+                                        target="_blank"
+                                    >
+                                        Matt
+                                    </AnnotationLink>
+                                </FooterNavText>
+                                <SocialMedia items={socialMedia} />
+                            </FooterNav>
+                        </FooterContainer>
+                    </BottomFooter>
+                </MiniFooterWrapper>
+            )}
+
+            {!darkTheme && (
+                <Annotation showFooter={showFooter}>
+                    Coded by
+                    <AnnotationLink
+                        href="https://deindesign.pl/"
+                        rel="noreferrer"
+                        target="_blank"
+                    >
+                        Matt
+                    </AnnotationLink>
+                </Annotation>
+            )}
+        </Fragment>
     );
 }
