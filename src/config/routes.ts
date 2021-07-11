@@ -63,6 +63,11 @@ const routesList: RoutesList = {
     about: {
         id: "about",
         path: "/about/",
+        meta: {
+            store: {
+                showMotionGrid: false,
+            }
+        },
     },
     work: {
         id: "work",
