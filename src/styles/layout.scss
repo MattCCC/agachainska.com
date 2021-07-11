@@ -4,9 +4,7 @@ body {
 
 img,
 picture {
-    @apply select-none;
-
-    pointer-events: none;
+    @apply select-none pointer-events-none;
 }
 
 button,
@@ -22,4 +20,8 @@ input {
 
 .parallax-scale {
     transform: scale(1.5);
+}
+
+::selection {
+    @apply text-tertiary-color bg-melrose;
 }

@@ -117,7 +117,8 @@ module.exports = {
                 },
             },
             colors: {
-                melrose: "#C0A4FF",
+                melrose: "var(--melrose-color)",
+                pink: 'var(--pink-color)',
                 "primary-color": "var(--primary-color)",
                 "secondary-color": "var(--secondary-color)",
                 "tertiary-color": "var(--tertiary-color)",
