@@ -12,10 +12,7 @@ interface Props {
     variant?: "normal" | "big";
 }
 
-const SocialMediaWrapper = styled.div(() => [
-    tw`flex items-center w-56 lg:w-auto`,
-    css``,
-]);
+const SocialMediaWrapper = styled.div(() => [tw`flex items-center`, css``]);
 
 const ListItem = styled.a(({ variant }: Props) => [
     tw`inline-block text-center text-white border border-white select-none prose-18px`,
