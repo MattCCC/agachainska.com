@@ -6,6 +6,7 @@ import { GridRow, MainContainer } from "@components/main-container";
 import PersonalPic from "@components/personal-pic";
 import { SocialMedia } from "@components/social-media";
 import { socialMedia } from "@data/social-media";
+import { useWindowSize } from "@hooks/use-window-size";
 import {up} from "@utils/screens";
 
 
@@ -62,6 +63,8 @@ const SocialMediaLinksCon = styled.div(() => [
 ]);
 
 export default function About(): JSX.Element {
+    const windowSize = useWindowSize();
+
     return (
         <Fragment>
             <MainContainer>
@@ -76,7 +79,9 @@ export default function About(): JSX.Element {
                                 </AboutAga>
 
                                 <SocialMediaLinksCon>
-                                    <SocialMedia items={socialMedia} variant="normal"/>
+                                    <SocialMedia items={socialMedia}
+                                        variant={windowSize.width < 1024 ? "normal" : "big"}
+                                    />
                                 </SocialMediaLinksCon>
                             </Info>
                     </HeroSection>
