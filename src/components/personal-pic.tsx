@@ -1,8 +1,8 @@
-import { Fragment, useState, useEffect} from "react";
+import { Fragment } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import {getWindowSize} from "@utils/window-size";
+import { useWindowSize } from "@hooks/use-window-size";
 
 import personalPicDesktop from "../img/personal-pic-desktop.png";
 import personalPicMobile from "../img/personal-pic-rectangle.png";
@@ -64,21 +64,11 @@ const PersonalPicContainerDesktop = styled(PersonalPicContainerMobile)(() => [
 
 
 export default function PersonalPic() {
-    const [screenSize, setScreenSize] = useState(getWindowSize());
-
-    useEffect(() => {
-        const updateState =  () => setScreenSize(getWindowSize());
-
-        updateState();
-
-        window.addEventListener("resize", updateState);
-
-        return () => window.removeEventListener("resize", updateState);
-    }, []);
+    const windowSize = useWindowSize();
 
 return(
         <Fragment>
-            {screenSize.width < 1024 ? (
+            {windowSize.width < 1024 ? (
                 <PersonalPicContainerMobile>
                     <img src={personalPicMobile} alt="Aga" />
                 </PersonalPicContainerMobile>
