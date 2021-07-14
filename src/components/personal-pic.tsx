@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect} from "react";
 
-import { css, styled } from "twin.macro";
+import tw, { css, styled } from "twin.macro";
 
 import {getWindowSize} from "@utils/window-size";
 
@@ -42,10 +42,12 @@ const PersonalPicContainerMobile = styled.div(() => [
 
 
 const PersonalPicContainerDesktop = styled(PersonalPicContainerMobile)(() => [
+    tw`lg:col-start-1 lg:col-span-3`,
     css`
         width: 275px;
         height: 378px;
         background: url(${personalPicBlackBgDesk}) no-repeat;
+        margin-bottom: 0;
 
         img {
             width: 261px;
