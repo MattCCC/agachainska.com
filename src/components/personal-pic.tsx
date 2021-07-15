@@ -36,8 +36,8 @@ const PersonalPicContainerMobile = styled.div(() => [
 ]);
 
 
-const PersonalPicContainerDesktop = styled(PersonalPicContainerMobile)(() => [
-    tw`col-start-1 col-span-3 mb-0`,
+const PersonalPicContainerDesktop = styled.div(() => [
+    tw`relative col-start-1 col-span-3 flex justify-center items-center mb-0 bg-contain`,
     css`
         width: 275px;
         height: 378px;
@@ -50,8 +50,11 @@ const PersonalPicContainerDesktop = styled(PersonalPicContainerMobile)(() => [
 
         &:after {
             content: url(${personalPicWhiteBgDesk});
+            position: absolute;
             top: 53%;
             left: 53%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
         }
     `
 ]);
