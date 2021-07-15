@@ -11,24 +11,17 @@ import {up} from "@utils/screens";
 
 
 const HeroSection = styled.section(() => [
-    tw`relative lg:grid lg:grid-cols-12 lg:gap-7`,
+    tw`relative lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-screen`,
     css`
         margin-top: 110px;
-
-        ${up("lg")} {
-            align-items: center;
-            margin-top: 0;
-            height: 100vh;
-        }
     `
 ]);
 
 const Info = styled.div(() => [
-    tw`lg:col-start-5 lg:col-end-11 lg:flex lg:flex-col lg:justify-between`,
+    tw`lg:col-start-5 lg:col-end-11 lg:pt-2.5 lg:flex lg:flex-col lg:justify-between`,
     css`
         ${up("lg")} {
             height: 386px;
-            padding-top: 10px
         }
         
     `
@@ -44,7 +37,6 @@ const SocialMediaLinksCon = styled.div(() => [
         a { 
             color: #000;
             border: 1px solid #000;
-            
             
             &:first-child {
                 margin-left: 0;

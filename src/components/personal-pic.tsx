@@ -13,16 +13,11 @@ import personalPicWhiteBgDesk from "../svg/personal-pic-white-bg-desk.svg";
 
 
 const PersonalPicContainerMobile = styled.div(() => [
+    tw`relative flex justify-center items-center mb-8 bg-contain`,
     css`
         width: 157px;
         height: 157px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         background: url(${personalPictureBlackBackground}) no-repeat;
-        background-size: contain;
-        position: relative;
-        margin-bottom: 32px;
 
         img {
             width: 149px;
@@ -42,12 +37,11 @@ const PersonalPicContainerMobile = styled.div(() => [
 
 
 const PersonalPicContainerDesktop = styled(PersonalPicContainerMobile)(() => [
-    tw`lg:col-start-1 lg:col-span-3`,
+    tw`col-start-1 col-span-3 mb-0`,
     css`
         width: 275px;
         height: 378px;
         background: url(${personalPicBlackBgDesk}) no-repeat;
-        margin-bottom: 0;
 
         img {
             width: 261px;
