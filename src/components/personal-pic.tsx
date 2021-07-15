@@ -62,10 +62,11 @@ const PersonalPicContainerDesktop = styled.div(() => [
 
 export default function PersonalPic() {
     const windowSize = useWindowSize();
+    const hasSmallWindowWidth = windowSize.width < 1024;
 
 return(
         <Fragment>
-            {windowSize.width < 1024 ? (
+            {hasSmallWindowWidth ? (
                 <PersonalPicContainerMobile>
                     <img src={personalPicMobile} alt="Aga" />
                 </PersonalPicContainerMobile>

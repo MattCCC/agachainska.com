@@ -56,6 +56,7 @@ const SocialMediaLinksCon = styled.div(() => [
 
 export default function About(): JSX.Element {
     const windowSize = useWindowSize();
+    const hasSmallWindowWidth = windowSize.width < 1024;
 
     return (
         <Fragment>
@@ -63,19 +64,19 @@ export default function About(): JSX.Element {
                 <GridRow>
                     <HeroSection>
                         <PersonalPic />
-                            <Info>
-                                <AboutAga>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                                    aliqua. Adipiscing elit, sed do eiusmod tempor et dolore magna aliqua.
-                                </AboutAga>
+                        <Info>
+                            <AboutAga>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua. Adipiscing elit, sed do eiusmod tempor et dolore magna aliqua.
+                            </AboutAga>
 
-                                <SocialMediaLinksCon>
-                                    <SocialMedia items={socialMedia}
-                                        variant={windowSize.width < 1024 ? "normal" : "big"}
-                                    />
-                                </SocialMediaLinksCon>
-                            </Info>
+                            <SocialMediaLinksCon>
+                                <SocialMedia items={socialMedia}
+                                    variant={hasSmallWindowWidth ? "normal" : "big"}
+                                />
+                            </SocialMediaLinksCon>
+                        </Info>
                     </HeroSection>
                 </GridRow>
             </MainContainer>
