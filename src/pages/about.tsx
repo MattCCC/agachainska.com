@@ -27,7 +27,7 @@ const Info = styled.div(() => [
     `
 ]);
 
-const AboutAga = styled.h2(() => [
+const AboutyStyle = styled.h2(() => [
     tw`prose-24px font-fbold lg:prose-30px`,
 ]);
 
@@ -65,11 +65,11 @@ export default function About(): JSX.Element {
                     <HeroSection>
                         <PersonalPic />
                         <Info>
-                            <AboutAga>
+                            <AboutyStyle>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                 sed do eiusmod tempor incididunt ut labore et dolore magna
                                 aliqua. Adipiscing elit, sed do eiusmod tempor et dolore magna aliqua.
-                            </AboutAga>
+                            </AboutyStyle>
 
                             <SocialMediaLinksCon>
                                 <SocialMedia items={socialMedia}
