@@ -38,6 +38,12 @@ module.exports = {
                         lineHeight: "20px",
                     },
                 },
+                "16px-h24": {
+                    css: {
+                        fontSize: "16px",
+                        lineHeight: "24px",
+                    },
+                },
                 "18px": {
                     css: {
                         fontSize: "18px",
