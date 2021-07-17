@@ -94,14 +94,14 @@ export const wrap = (min: number, max: number, v: number): number => {
 const SliderWrapper = styled.div(() => [tw`relative`]);
 
 const SlideContent = styled.div(() => [
-    tw`overflow-hidden relative`,
+    tw`relative overflow-hidden`,
     css`
         height: 27.76rem;
     `,
 ]);
 
 const Title = styled(MainTitleTop)(() => [
-    tw`absolute uppercase z-30 select-none`,
+    tw`absolute z-30 uppercase select-none`,
     css`
         top: -4.35rem;
         line-height: 130px;
@@ -116,7 +116,7 @@ const SlidesList = styled(motion.div)(() => [
 ]);
 
 const Slide = styled(motion(Distortion, { forwardMotionProps: true }))(() => [
-    tw`relative w-full h-full z-10 cursor-pointer`,
+    tw`relative z-10 w-full h-full cursor-pointer`,
     css`
         transition: transform 0.8s;
         transform: scale(${initialSlideScale + 1});
@@ -124,19 +124,19 @@ const Slide = styled(motion(Distortion, { forwardMotionProps: true }))(() => [
 ]);
 
 const Controls = styled.div(() => [
-    tw`relative pt-12 flex justify-items-center`,
+    tw`relative flex pt-12 justify-items-center`,
 ]);
 
 const Btn = styled.div(() => [
-    tw`lg:prose-16 w-28 flex-row select-none cursor-pointer`,
+    tw`flex-row cursor-pointer select-none lg:prose-16px w-28`,
 ]);
 
 const PrevIconStyled = styled(PrevIcon)(() => [
-    tw`inline-block text-center mr-4`,
+    tw`inline-block mr-4 text-center`,
 ]);
 
 const NextIconStyled = styled(NextIcon)(() => [
-    tw`inline-block text-center mr-4`,
+    tw`inline-block mr-4 text-center`,
 ]);
 
 export const Slider: FunctionComponent<Props> = ({
