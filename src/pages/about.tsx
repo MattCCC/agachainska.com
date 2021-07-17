@@ -91,7 +91,7 @@ const DetailsContainer = styled.div(() => [
 ]);
 
 const Details = styled.p(() => [
-    tw`prose-16 font-base leading-6 mb-10`
+    tw`prose-16px-h24 font-base mb-10`
 ]);
 
 const SkillsTable = styled.ul(() => [
