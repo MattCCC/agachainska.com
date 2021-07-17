@@ -25,7 +25,7 @@ const PostImg = styled.img(() => [
 ]);
 
 const PostDescription = styled.div(() => [
-    tw`w-3/4 prose-16`,
+    tw`w-3/4 prose-16px`,
     css`
         line-height: 24px;
     `,

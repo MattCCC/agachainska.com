@@ -19,6 +19,7 @@ module.exports = {
                 none: 'none',
             },
             typography: {
+                // Use "px" suffix whenever both font size and line height are specified
                 "12px": {
                     css: {
                         fontSize: "12px",
@@ -31,7 +32,7 @@ module.exports = {
                         lineHeight: "10px",
                     },
                 },
-                "16": {
+                "16px": {
                     css: {
                         fontSize: "16px",
                         lineHeight: "20px",
@@ -88,7 +89,7 @@ module.exports = {
                         fontSize: "60px",
                     },
                 },
-                "70": {
+                "70px": {
                     css: {
                         fontSize: "70px",
                         lineHeight: "80px",
@@ -109,7 +110,7 @@ module.exports = {
                         fontSize: "120px",
                     },
                 },
-                "140": {
+                "140px": {
                     css: {
                         fontSize: "140px",
                         lineHeight: "151px",

@@ -56,7 +56,7 @@ const FooterNav = styled.nav(() => [
 ]);
 
 const FooterNavText = styled.div(() => [
-    tw`text-white select-none prose-16`,
+    tw`text-white select-none prose-16px`,
     css`
         line-height: 70px;
 
