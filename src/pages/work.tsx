@@ -244,20 +244,19 @@ const Work = memo(
                             sections={timelineList}
                             activeSectionId={state.activeSectionId}
                             activeItemId={state.activeItemId}
-                        >
-                            {projectsByCategory.map(
-                                (post: PostItem, index: number) => (
-                                    <Post
-                                        key={index}
-                                        postNum={index + 1}
-                                        post={post}
-                                        onPostTap={(e, { routeTo }): any =>
-                                            onNavigate(e, routeTo)
-                                        }
-                                    />
-                                )
-                            )}
-                        </Tabs>
+                        />
+                        {projectsByCategory.map(
+                            (post: PostItem, index: number) => (
+                                <Post
+                                    key={index}
+                                    postNum={index + 1}
+                                    post={post}
+                                    onPostTap={(e, { routeTo }): any =>
+                                        onNavigate(e, routeTo)
+                                    }
+                                />
+                            )
+                        )}
                     </ContentContainer>
                 </MainContainer>
             </Fragment>
