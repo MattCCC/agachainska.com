@@ -32,11 +32,6 @@ module.exports = {
                         lineHeight: "10px",
                     },
                 },
-                "16": {
-                    css: {
-                        fontSize: "16px",
-                    },
-                },
                 "16px": {
                     css: {
                         fontSize: "16px",
@@ -47,11 +42,6 @@ module.exports = {
                     css: {
                         fontSize: "18px",
                         lineHeight: "20px",
-                    },
-                },
-                "18": {
-                    css: {
-                        fontSize: "18px",
                     },
                 },
                 "20px": {
@@ -72,11 +62,6 @@ module.exports = {
                         lineHeight: "34px",
                     },
                 },
-                "24": {
-                    css: {
-                        fontSize: "24px",
-                    },
-                },
                 "30px": {
                     css: {
                         fontSize: "30px",
@@ -89,15 +74,38 @@ module.exports = {
                         lineHeight: "56px",
                     },
                 },
-                "60": {
-                    css: {
-                        fontSize: "60px",
-                    },
-                },
                 "70px": {
                     css: {
                         fontSize: "70px",
                         lineHeight: "80px",
+                    },
+                },
+                "140px": {
+                    css: {
+                        fontSize: "140px",
+                        lineHeight: "151px",
+                    },
+                },
+
+                // Classes without line height
+                "16": {
+                    css: {
+                        fontSize: "16px",
+                    },
+                },
+                "18": {
+                    css: {
+                        fontSize: "18px",
+                    },
+                },
+                "24": {
+                    css: {
+                        fontSize: "24px",
+                    },
+                },
+                "60": {
+                    css: {
+                        fontSize: "60px",
                     },
                 },
                 "80": {
@@ -113,12 +121,6 @@ module.exports = {
                 "120": {
                     css: {
                         fontSize: "120px",
-                    },
-                },
-                "140px": {
-                    css: {
-                        fontSize: "140px",
-                        lineHeight: "151px",
                     },
                 },
             },
