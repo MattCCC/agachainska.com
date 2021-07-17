@@ -59,30 +59,40 @@ const Article = styled.article(() => [
 ]);
 
 const ArticleSection = styled.section(() => [
-    tw``,
+    tw`lg:grid lg:grid-cols-12 lg:grid-rows-1 lg:items-center`,
     css`
         &:first-child {
             margin-top: 165px;
+        }
+
+        ${up("lg")} {
+            &:first-child {
+                margin-top: 0;
+            }                
         }
     `
 ]);
 
 const TitleContainer = styled.div(() => [
-    tw`border-b border-black border-solid mb-6`,
+    tw`border-b border-black border-solid mb-6 lg:col-start-1 lg:col-end-11 lg:grid lg:grid-cols-12`,
     css`
         padding-bottom: 5px;
+
+        ${up("lg")} {
+            padding-bottom: 27px;
+        }
     `
 ]);
 
 const Title = styled.h2(() => [
-    tw`prose-30px font-fbold uppercase -ml-px`,
-    css`
-        height: 40px;
-    `
+    tw`prose-30px h-10 font-fbold uppercase -ml-px lg:prose-54px lg:col-start-1 lg:col-end-4 lg:h-auto`
 ]);
 
 const DetailsContainer = styled.div(() => [
-    tw`mb-20`
+    tw`mb-20 lg:col-start-1 lg:col-end-7`,
+    css`
+        max-width: 606px;   
+    `
 ]);
 
 const Details = styled.p(() => [
@@ -90,13 +100,19 @@ const Details = styled.p(() => [
 ]);
 
 const SkillsTable = styled.ul(() => [
-    tw`grid grid-cols-2 grid-rows-3 border-black border-b border-l`
+    tw`grid grid-cols-2 grid-rows-3 lg:grid-cols-3 lg:grid-rows-2 border-black border-b border-l`
 ]);
 
 const Skill = styled.li(() => [
-    tw`flex items-center justify-center font-fbold text-center uppercase prose-18px leading-6 border-black border-t border-r`,
+    tw`flex items-center justify-center font-fbold text-center uppercase prose-18px lg:prose-20px 
+    leading-6 border-black border-t border-r`,
     css`
         height: 78px;
+        padding: 8px;
+
+        ${up("lg")} {
+            height: 100px;
+        }
     `
 ]);
 
@@ -109,8 +125,8 @@ export default function About(): JSX.Element {
         "ux design",
         "ux design",
         "ui design",
-        "ui design",
-        "ui design",
+        "responsive design",
+        "design systems",
     ];
 
     return (
