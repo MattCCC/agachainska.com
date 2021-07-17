@@ -41,11 +41,6 @@ const SocialMediaLinksCon = styled.div(() => [
             &:first-child {
                 margin-left: 0;
             }
-            
-            &:hover { 
-                background: #000;
-                color: #fff;
-            }
         }
 
         ${up("lg")} {
