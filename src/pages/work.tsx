@@ -12,6 +12,7 @@ import { Star } from "@components/star";
 import { Tabs } from "@components/tabs";
 import { Timeline, Item, Section } from "@components/timeline";
 import { useNavigation } from "@hooks/use-navigation";
+import { useWindowSize } from "@hooks/use-window-size";
 import { useStoreProp } from "@store/index";
 import { groupBy } from "@utils/group-by";
 
@@ -83,6 +84,9 @@ const categoryColors = {
 
 const Work = memo(
     ({ data }: Props): JSX.Element => {
+        const windowSize = useWindowSize();
+        const hasSmallWindowWidth = windowSize.width < 1024;
+
         const [, dispatch] = useStoreProp("showMotionGrid");
         const projects = data.projects.nodes || [];
         const categories = Object.keys(groupBy(projects, "category"));
@@ -245,18 +249,19 @@ const Work = memo(
                             activeSectionId={state.activeSectionId}
                             activeItemId={state.activeItemId}
                         />
-                        {projectsByCategory.map(
-                            (post: PostItem, index: number) => (
-                                <Post
-                                    key={index}
-                                    postNum={index + 1}
-                                    post={post}
-                                    onPostTap={(e, { routeTo }): any =>
-                                        onNavigate(e, routeTo)
-                                    }
-                                />
-                            )
-                        )}
+                        {hasSmallWindowWidth &&
+                            projectsByCategory.map(
+                                (post: PostItem, index: number) => (
+                                    <Post
+                                        key={index}
+                                        postNum={index + 1}
+                                        post={post}
+                                        onPostTap={(e, { routeTo }): any =>
+                                            onNavigate(e, routeTo)
+                                        }
+                                    />
+                                )
+                            )}
                     </ContentContainer>
                 </MainContainer>
             </Fragment>
