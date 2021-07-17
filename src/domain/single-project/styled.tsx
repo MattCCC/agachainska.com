@@ -198,7 +198,7 @@ export const Controls = styled.div(() => [
 ]);
 
 export const Button = styled.button(() => [
-    tw`flex-row cursor-pointer select-none lg:prose-16`,
+    tw`flex-row cursor-pointer select-none lg:prose-16px`,
     css`
         &:last-child {
             margin-left: 40px;

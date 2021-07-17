@@ -21,11 +21,11 @@ interface Props {
 const PostWrapper = styled.div(() => [tw`relative h-auto pt-11 pb-11`]);
 
 const PostImg = styled.img(() => [
-    tw`overflow-hidden relative w-full h-48 z-10`,
+    tw`relative z-10 w-full h-48 overflow-hidden`,
 ]);
 
 const PostDescription = styled.div(() => [
-    tw`prose-16 w-3/4`,
+    tw`w-3/4 prose-16px`,
     css`
         line-height: 24px;
     `,
@@ -41,7 +41,7 @@ const StyledNumber = styled(BigNumber)(() => [
 ]);
 
 const Title = styled(MainTitleTop)(() => [
-    tw`absolute uppercase z-50 select-none top-0`,
+    tw`absolute top-0 z-50 uppercase select-none`,
 ]);
 
 export function Post({ post, postNum = -1, onPostTap }: Props): JSX.Element {

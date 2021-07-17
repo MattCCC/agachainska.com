@@ -48,12 +48,12 @@ const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
 ]);
 
 const TabsList = styled.ul(() => [
-    tw`flex flex-row w-full justify-between mb-8`,
+    tw`flex flex-row justify-between w-full mb-8`,
 ]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
-    tw`prose-20px w-full h-8 opacity-40 select-none cursor-pointer`,
-    tw`hover:opacity-100 transition-opacity text-melrose`,
+    tw`w-full h-8 cursor-pointer select-none prose-20px opacity-40`,
+    tw`transition-opacity hover:opacity-100 text-melrose`,
     isActive && tw`opacity-100`,
     css`
         line-height: 25px;
@@ -63,14 +63,12 @@ const Tab = styled.li(({ isActive = false }: TabStyled) => [
 ]);
 
 const Pin = styled(motion.div)(() => [
-    tw`absolute left-0 top-8 h-px bg-melrose`,
+    tw`absolute left-0 h-px top-8 bg-melrose`,
     css`
         z-index: 2;
         box-shadow: 0 2px 4px 0 var(--melrose-color);
     `,
 ]);
-
-const TabContent = styled.div(() => []);
 
 export const Tabs = memo(
     ({
@@ -141,7 +139,6 @@ export const Tabs = memo(
                         />
                     </AnimatePresence>
                 </TabsList>
-                <TabContent>{children}</TabContent>
             </TabsWrapper>
         );
     },

@@ -16,9 +16,10 @@ module.exports = {
         },
         extend: {
             cursor: {
-                none: 'none',
+                none: "none",
             },
             typography: {
+                // Use "px" suffix whenever both font size and line height are specified
                 "12px": {
                     css: {
                         fontSize: "12px",
@@ -31,21 +32,22 @@ module.exports = {
                         lineHeight: "10px",
                     },
                 },
-                "16": {
+                "16px": {
                     css: {
                         fontSize: "16px",
                         lineHeight: "20px",
+                    },
+                },
+                "16px-h24": {
+                    css: {
+                        fontSize: "16px",
+                        lineHeight: "24px",
                     },
                 },
                 "18px": {
                     css: {
                         fontSize: "18px",
                         lineHeight: "20px",
-                    },
-                },
-                "18": {
-                    css: {
-                        fontSize: "18px",
                     },
                 },
                 "20px": {
@@ -66,11 +68,6 @@ module.exports = {
                         lineHeight: "34px",
                     },
                 },
-                "24": {
-                    css: {
-                        fontSize: "24px",
-                    },
-                },
                 "30px": {
                     css: {
                         fontSize: "30px",
@@ -86,51 +83,68 @@ module.exports = {
                 "54px": {
                     css: {
                         fontSize: "54px",
-                        lineHeight: "62px"
-                    }
-                },
-                "60": {
-                    css: {
-                        fontSize: "60px",
+                        lineHeight: "62px",
                     },
                 },
-                "70": {
+                "70px": {
                     css: {
                         fontSize: "70px",
                         lineHeight: "80px",
                     },
                 },
-                "80": {
-                    css: {
-                        fontSize: "80px",
-                    },
-                },
-                "90": {
-                    css: {
-                        fontSize: "90px",
-                    },
-                },
-                "120": {
-                    css: {
-                        fontSize: "120px",
-                    },
-                },
-                "140": {
+                "140px": {
                     css: {
                         fontSize: "140px",
                         lineHeight: "151px",
                     },
                 },
+
+                // Classes without line height
+                16: {
+                    css: {
+                        fontSize: "16px",
+                    },
+                },
+                18: {
+                    css: {
+                        fontSize: "18px",
+                    },
+                },
+                24: {
+                    css: {
+                        fontSize: "24px",
+                    },
+                },
+                60: {
+                    css: {
+                        fontSize: "60px",
+                    },
+                },
+                80: {
+                    css: {
+                        fontSize: "80px",
+                    },
+                },
+                90: {
+                    css: {
+                        fontSize: "90px",
+                    },
+                },
+                120: {
+                    css: {
+                        fontSize: "120px",
+                    },
+                },
             },
             colors: {
                 melrose: "var(--melrose-color)",
-                pink: 'var(--pink-color)',
+                pink: "var(--pink-color)",
                 "primary-color": "var(--primary-color)",
                 "secondary-color": "var(--secondary-color)",
                 "tertiary-color": "var(--tertiary-color)",
                 "black-color": "var(--black-color)",
                 "melrose-color": "var(--melrose-color)",
-                "green": "var(--green-color)",
+                green: "var(--green-color)",
             },
             zIndex: {
                 75: 75,

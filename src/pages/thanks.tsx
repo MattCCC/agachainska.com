@@ -7,7 +7,7 @@ export default function Thanks(): JSX.Element {
         <Fragment>
             <MainContainer topPadding={true}>
                 <GridRow>
-                    <h1 className="font-bold text-center prose-70 lg:prose-140">
+                    <h1 className="font-bold text-center prose-70px lg:prose-140px">
                         Form submitted. Thank you.
                     </h1>
                 </GridRow>
