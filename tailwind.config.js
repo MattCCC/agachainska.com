@@ -16,7 +16,7 @@ module.exports = {
         },
         extend: {
             cursor: {
-                none: 'none',
+                none: "none",
             },
             typography: {
                 // Use "px" suffix whenever both font size and line height are specified
@@ -80,6 +80,12 @@ module.exports = {
                         lineHeight: "56px",
                     },
                 },
+                "54px": {
+                    css: {
+                        fontSize: "54px",
+                        lineHeight: "62px",
+                    },
+                },
                 "70px": {
                     css: {
                         fontSize: "70px",
@@ -94,37 +100,37 @@ module.exports = {
                 },
 
                 // Classes without line height
-                "16": {
+                16: {
                     css: {
                         fontSize: "16px",
                     },
                 },
-                "18": {
+                18: {
                     css: {
                         fontSize: "18px",
                     },
                 },
-                "24": {
+                24: {
                     css: {
                         fontSize: "24px",
                     },
                 },
-                "60": {
+                60: {
                     css: {
                         fontSize: "60px",
                     },
                 },
-                "80": {
+                80: {
                     css: {
                         fontSize: "80px",
                     },
                 },
-                "90": {
+                90: {
                     css: {
                         fontSize: "90px",
                     },
                 },
-                "120": {
+                120: {
                     css: {
                         fontSize: "120px",
                     },
@@ -132,13 +138,13 @@ module.exports = {
             },
             colors: {
                 melrose: "var(--melrose-color)",
-                pink: 'var(--pink-color)',
+                pink: "var(--pink-color)",
                 "primary-color": "var(--primary-color)",
                 "secondary-color": "var(--secondary-color)",
                 "tertiary-color": "var(--tertiary-color)",
                 "black-color": "var(--black-color)",
                 "melrose-color": "var(--melrose-color)",
-                "green": "var(--green-color)",
+                green: "var(--green-color)",
             },
             zIndex: {
                 75: 75,

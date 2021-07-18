@@ -27,7 +27,7 @@ const Info = styled.div(() => [
     `
 ]);
 
-const AboutyStyle = styled.h2(() => [
+const AboutStyle = styled.h2(() => [
     tw`prose-24px font-fbold lg:prose-30px`,
 ]);
 
@@ -41,11 +41,6 @@ const SocialMediaLinksCon = styled.div(() => [
             &:first-child {
                 margin-left: 0;
             }
-            
-            &:hover { 
-                background: #000;
-                color: #fff;
-            }
         }
 
         ${up("lg")} {
@@ -54,9 +49,80 @@ const SocialMediaLinksCon = styled.div(() => [
     `
 ]);
 
+const Article = styled.article(() => [
+    tw`relative mb-6`
+]);
+
+const ArticleSection = styled.section(() => [
+    tw`lg:grid lg:grid-cols-12 lg:grid-rows-1 lg:items-center`,
+    css`
+        &:first-child {
+            margin-top: 165px;
+        }
+
+        ${up("lg")} {
+            &:first-child {
+                margin-top: 0;
+            }                
+        }
+    `
+]);
+
+const TitleContainer = styled.div(() => [
+    tw`border-b border-black border-solid mb-6 lg:col-start-1 lg:col-end-11 lg:grid lg:grid-cols-12`,
+    css`
+        padding-bottom: 5px;
+
+        ${up("lg")} {
+            padding-bottom: 27px;
+        }
+    `
+]);
+
+const Title = styled.h2(() => [
+    tw`prose-30px h-10 font-fbold uppercase -ml-px lg:prose-54px lg:col-start-1 lg:col-end-4 lg:h-auto`
+]);
+
+const DetailsContainer = styled.div(() => [
+    tw`mb-20 lg:col-start-1 lg:col-end-7`,
+    css`
+        max-width: 606px;   
+    `
+]);
+
+const Details = styled.p(() => [
+    tw`prose-16px-h24 font-base mb-10`
+]);
+
+const SkillsTable = styled.ul(() => [
+    tw`grid grid-cols-2 grid-rows-3 lg:grid-cols-3 lg:grid-rows-2 border-black border-b border-l`
+]);
+
+const Skill = styled.li(() => [
+    tw`flex items-center justify-center font-fbold text-center uppercase prose-18px lg:prose-20px 
+    leading-6 border-black border-t border-r`,
+    css`
+        height: 78px;
+        padding: 8px;
+
+        ${up("lg")} {
+            height: 100px;
+        }
+    `
+]);
+
+
 export default function About(): JSX.Element {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
+    const skillsList = [
+        "ux design",
+        "ux design",
+        "ux design",
+        "ui design",
+        "responsive design",
+        "design systems",
+    ];
 
     return (
         <Fragment>
@@ -65,11 +131,11 @@ export default function About(): JSX.Element {
                     <HeroSection>
                         <PersonalPic />
                         <Info>
-                            <AboutyStyle>
+                            <AboutStyle>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                 sed do eiusmod tempor incididunt ut labore et dolore magna
                                 aliqua. Adipiscing elit, sed do eiusmod tempor et dolore magna aliqua.
-                            </AboutyStyle>
+                            </AboutStyle>
 
                             <SocialMediaLinksCon>
                                 <SocialMedia items={socialMedia}
@@ -78,6 +144,34 @@ export default function About(): JSX.Element {
                             </SocialMediaLinksCon>
                         </Info>
                     </HeroSection>
+
+                    <Article>
+                        <ArticleSection id="expertise">
+                            <TitleContainer>
+                                <Title>
+                                    Expertise
+                                </Title>
+                            </TitleContainer>
+
+                            <DetailsContainer>
+                                <Details>
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                                    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+                                    sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                                    voluptatem sequi nesciunt.
+                                </Details>
+
+                                <SkillsTable>
+                                    {skillsList.map((element, index) => (
+                                        <Skill key={index}>
+                                            {element}
+                                        </Skill>
+                                    ))}
+                                </SkillsTable>
+                            </DetailsContainer>
+                        </ArticleSection>
+                    </Article>
                 </GridRow>
             </MainContainer>
         </Fragment>
