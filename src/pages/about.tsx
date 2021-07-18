@@ -116,28 +116,32 @@ const DesignProcessTable = styled.ul(() => [
 ]);
 
 const DesignProcessElement = styled.li(() => [
-    tw`h-36 flex flex-col justify-center p-4 border-black border-t border-r`,
+    tw`h-36 flex flex-col justify-center lg:flex-row lg:justify-between p-4 lg:p-5 border-black border-t border-r`,
 ]);
 
 const DesignProcessTitleContainer = styled.div(() => [
-    tw`flex mb-2`
+    tw`flex mb-2 lg:mb-0 lg:mt-2`
 ]);
 
 const DesignProcessTitle = styled.h3(() => [
-    tw`prose-24px font-fbold capitalize inline-block`,
+    tw`prose-24px lg:prose-30px-h40 font-fbold capitalize inline-block`,
     css`
         margin-top: -2px;
     `
 ]);
 
 const DesignProcessNumber = styled.span(() => [
-    tw`font-fbold prose-18px-h24 mr-3`
+    tw`font-fbold prose-18px-h24 lg:prose-20px mr-3`
 ]);
 
 const DesignProcessElementDesc = styled.p(() => [
-    tw`font-base`,
+    tw`font-base lg:self-center`,
     css`
         color: #808080;
+
+        ${up("lg")} {
+            width: 272px;
+        }
     `
 ]);
 
