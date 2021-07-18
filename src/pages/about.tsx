@@ -111,6 +111,35 @@ const Skill = styled.li(() => [
     `
 ]);
 
+const DesignProcessTable = styled.ul(() => [
+    tw`grid grid-cols-1 grid-rows-4 border-black border-b border-l`
+]);
+
+const DesignProcessElement = styled.li(() => [
+    tw`h-36 flex flex-col justify-center p-4 border-black border-t border-r`,
+]);
+
+const DesignProcessTitleContainer = styled.div(() => [
+    tw`flex mb-2`
+]);
+
+const DesignProcessTitle = styled.h3(() => [
+    tw`prose-24px font-fbold capitalize inline-block`,
+    css`
+        margin-top: -2px;
+    `
+]);
+
+const DesignProcessNumber = styled.span(() => [
+    tw`font-fbold prose-18px-h24 mr-3`
+]);
+
+const DesignProcessElementDesc = styled.p(() => [
+    tw`font-base`,
+    css`
+        color: #808080;
+    `
+]);
 
 export default function About(): JSX.Element {
     const windowSize = useWindowSize();
@@ -122,6 +151,28 @@ export default function About(): JSX.Element {
         "ui design",
         "responsive design",
         "design systems",
+    ];
+    const designProcess = [
+        {
+            id: 1,
+            title: "discover",
+            desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam."
+        },
+        {
+            id: 2,
+            title: "define",
+            desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam."
+        },
+        {
+            id: 3,
+            title: "develop",
+            desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam."
+        },
+        {
+            id: 4,
+            title: "deliver",
+            desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam."
+        }
     ];
 
     return (
@@ -169,6 +220,42 @@ export default function About(): JSX.Element {
                                         </Skill>
                                     ))}
                                 </SkillsTable>
+                            </DetailsContainer>
+                        </ArticleSection>
+
+                        <ArticleSection id="design-process">
+                            <TitleContainer>
+                                <Title>
+                                    Design Process
+                                </Title>
+                            </TitleContainer>
+
+                            <DetailsContainer>
+                                <Details>
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                                    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+                                    sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                                    voluptatem sequi nesciunt.
+                                </Details>
+
+                                <DesignProcessTable>
+                                    {designProcess.map((element) => (
+                                        <DesignProcessElement key={element.id}>
+                                            <DesignProcessTitleContainer>
+                                                <DesignProcessNumber>
+                                                    0{element.id}
+                                                </DesignProcessNumber>
+                                                <DesignProcessTitle>
+                                                    {element.title}
+                                                </DesignProcessTitle>
+                                            </DesignProcessTitleContainer>
+                                            <DesignProcessElementDesc>
+                                                {element.desc}
+                                            </DesignProcessElementDesc>
+                                        </DesignProcessElement>
+                                    ))}
+                                </DesignProcessTable>
                             </DetailsContainer>
                         </ArticleSection>
                     </Article>
