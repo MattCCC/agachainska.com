@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 
+import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 
 import { GridRow, MainContainer } from "@components/main-container";
@@ -145,39 +146,16 @@ const DesignProcessElementDesc = styled.p(() => [
     `
 ]);
 
-export default function About(): JSX.Element {
+interface Props extends PageProps {
+    data: {
+        aboutPageData: AboutPageData;
+    };
+}
+
+export default function About({ data }: Props): JSX.Element {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
-    const skillsList = [
-        "ux design",
-        "ux design",
-        "ux design",
-        "ui design",
-        "responsive design",
-        "design systems",
-    ];
-    const designProcess = [
-        {
-            id: 1,
-            title: "discover",
-            desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam."
-        },
-        {
-            id: 2,
-            title: "define",
-            desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam."
-        },
-        {
-            id: 3,
-            title: "develop",
-            desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam."
-        },
-        {
-            id: 4,
-            title: "deliver",
-            desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam."
-        }
-    ];
+    const {hero, expertise, designProcess} = data.aboutPageData;
 
     return (
         <Fragment>
@@ -187,9 +165,7 @@ export default function About(): JSX.Element {
                         <PersonalPic />
                         <Info>
                             <AboutStyle>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua. Adipiscing elit, sed do eiusmod tempor et dolore magna aliqua.
+                                {hero.description}
                             </AboutStyle>
 
                             <SocialMediaLinksCon>
@@ -210,17 +186,13 @@ export default function About(): JSX.Element {
 
                             <DetailsContainer>
                                 <Details>
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-                                    sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                                    voluptatem sequi nesciunt.
+                                    {expertise.description}
                                 </Details>
 
                                 <SkillsTable>
-                                    {skillsList.map((element, index) => (
+                                    {expertise.skills.map((skill, index) => (
                                         <Skill key={index}>
-                                            {element}
+                                            {skill}
                                         </Skill>
                                     ))}
                                 </SkillsTable>
@@ -236,26 +208,22 @@ export default function About(): JSX.Element {
 
                             <DetailsContainer>
                                 <Details>
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-                                    sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                                    voluptatem sequi nesciunt.
+                                    {designProcess.description}
                                 </Details>
 
                                 <DesignProcessTable>
-                                    {designProcess.map((element) => (
-                                        <DesignProcessElement key={element.id}>
+                                    {designProcess.designProcessPhases.map((designProcessPhase) => (
+                                        <DesignProcessElement key={designProcessPhase.phaseNum}>
                                             <DesignProcessTitleContainer>
                                                 <DesignProcessNumber>
-                                                    0{element.id}
+                                                    {designProcessPhase.phaseNum}
                                                 </DesignProcessNumber>
                                                 <DesignProcessTitle>
-                                                    {element.title}
+                                                    {designProcessPhase.title}
                                                 </DesignProcessTitle>
                                             </DesignProcessTitleContainer>
                                             <DesignProcessElementDesc>
-                                                {element.desc}
+                                                {designProcessPhase.description}
                                             </DesignProcessElementDesc>
                                         </DesignProcessElement>
                                     ))}
@@ -268,3 +236,11 @@ export default function About(): JSX.Element {
         </Fragment>
     );
 }
+
+export const query = graphql`
+    query {
+        aboutPageData {
+            ...aboutSectionsFields
+        }
+    }
+`;
