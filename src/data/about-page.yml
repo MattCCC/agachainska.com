@@ -1,0 +1,64 @@
+hero:
+  description: >
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+    sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Adipiscing elit, sed do eiusmod tempor et dolore magna aliqua.
+
+expertise: 
+  description: >
+    Sed ut perspiciatis unde omnis iste natus 
+    error sit voluptatem accusantium doloremque 
+    laudantium, totam rem aperiam, eaque ipsa quae 
+    ab illo inventore veritatis et quasi architecto 
+    beatae vitae dicta sunt explicabo. Nemo enim ipsam 
+    voluptatem quia voluptas sit aspernatur aut odit aut 
+    fugit, sed quia consequuntur magni dolores eos qui 
+    ratione voluptatem sequi nesciunt.    
+  
+  skills: 
+    - ux design
+    - ux design
+    - ux design
+    - ui design
+    - responsive design
+    - design systems
+
+designProcess: 
+  description: >
+    Sed ut perspiciatis unde omnis iste natus 
+    error sit voluptatem accusantium doloremque 
+    laudantium, totam rem aperiam, eaque ipsa quae 
+    ab illo inventore veritatis et quasi architecto 
+    beatae vitae dicta sunt explicabo. Nemo enim ipsam 
+    voluptatem quia voluptas sit aspernatur aut odit aut 
+    fugit, sed quia consequuntur magni dolores eos qui 
+    ratione voluptatem sequi nesciunt.
+  
+  designProcessPhases:
+    - phaseNum: "01"
+      title: discover
+      description: >
+        Sed ut perspiciatis unde omnis iste natus 
+        error sit voluptatem accusantium doloremque 
+        laudantium, totam rem aperiam.
+    
+    - phaseNum: "02"
+      title: define
+      description: >
+        Sed ut perspiciatis unde omnis iste natus 
+        error sit voluptatem accusantium doloremque 
+        laudantium, totam rem aperiam.
+        
+    - phaseNum: "03"
+      title: develop
+      description: >
+        Sed ut perspiciatis unde omnis iste natus 
+        error sit voluptatem accusantium doloremque 
+        laudantium, totam rem aperiam.
+
+    - phaseNum: "04"
+      title: deliver
+      description: >
+        Sed ut perspiciatis unde omnis iste natus 
+        error sit voluptatem accusantium doloremque 
+        laudantium, totam rem aperiam.

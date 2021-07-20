@@ -40,6 +40,10 @@ module.exports = {
                         return `Project`;
                     }
 
+                    if (name === `about-page-data`) {
+                        return `AboutPageData`;
+                    }
+
                     return name;
                 },
             },
@@ -56,6 +60,13 @@ module.exports = {
             options: {
                 path: `${__dirname}/src/data/projects.yml`,
                 name: `projects`,
+            },
+        },
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                path: `${__dirname}/src/data/about-page.yml`,
+                name: `about-page-data`,
             },
         },
         {

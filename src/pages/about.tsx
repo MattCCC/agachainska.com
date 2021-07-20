@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 
+import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 
 import { GridRow, MainContainer } from "@components/main-container";
@@ -111,18 +112,50 @@ const Skill = styled.li(() => [
     `
 ]);
 
+const DesignProcessTable = styled.ul(() => [
+    tw`grid grid-cols-1 grid-rows-4 border-black border-b border-l`
+]);
 
-export default function About(): JSX.Element {
+const DesignProcessElement = styled.li(() => [
+    tw`h-36 flex flex-col justify-center lg:flex-row lg:justify-between p-4 lg:p-5 border-black border-t border-r`,
+]);
+
+const DesignProcessTitleContainer = styled.div(() => [
+    tw`flex mb-2 lg:mb-0 lg:mt-2`
+]);
+
+const DesignProcessTitle = styled.h3(() => [
+    tw`prose-24px lg:prose-30px-h40 font-fbold capitalize inline-block`,
+    css`
+        margin-top: -2px;
+    `
+]);
+
+const DesignProcessNumber = styled.span(() => [
+    tw`font-fbold prose-18px-h24 lg:prose-20px mr-3`
+]);
+
+const DesignProcessElementDesc = styled.p(() => [
+    tw`font-base lg:self-center`,
+    css`
+        color: #808080;
+
+        ${up("lg")} {
+            width: 272px;
+        }
+    `
+]);
+
+interface Props extends PageProps {
+    data: {
+        aboutPageData: AboutPageData;
+    };
+}
+
+export default function About({ data }: Props): JSX.Element {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
-    const skillsList = [
-        "ux design",
-        "ux design",
-        "ux design",
-        "ui design",
-        "responsive design",
-        "design systems",
-    ];
+    const {hero, expertise, designProcess} = data.aboutPageData;
 
     return (
         <Fragment>
@@ -132,9 +165,7 @@ export default function About(): JSX.Element {
                         <PersonalPic />
                         <Info>
                             <AboutStyle>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua. Adipiscing elit, sed do eiusmod tempor et dolore magna aliqua.
+                                {hero.description}
                             </AboutStyle>
 
                             <SocialMediaLinksCon>
@@ -155,20 +186,48 @@ export default function About(): JSX.Element {
 
                             <DetailsContainer>
                                 <Details>
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-                                    sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                                    voluptatem sequi nesciunt.
+                                    {expertise.description}
                                 </Details>
 
                                 <SkillsTable>
-                                    {skillsList.map((element, index) => (
+                                    {expertise.skills.map((skill, index) => (
                                         <Skill key={index}>
-                                            {element}
+                                            {skill}
                                         </Skill>
                                     ))}
                                 </SkillsTable>
+                            </DetailsContainer>
+                        </ArticleSection>
+
+                        <ArticleSection id="design-process">
+                            <TitleContainer>
+                                <Title>
+                                    Design Process
+                                </Title>
+                            </TitleContainer>
+
+                            <DetailsContainer>
+                                <Details>
+                                    {designProcess.description}
+                                </Details>
+
+                                <DesignProcessTable>
+                                    {designProcess.designProcessPhases.map((designProcessPhase) => (
+                                        <DesignProcessElement key={designProcessPhase.phaseNum}>
+                                            <DesignProcessTitleContainer>
+                                                <DesignProcessNumber>
+                                                    {designProcessPhase.phaseNum}
+                                                </DesignProcessNumber>
+                                                <DesignProcessTitle>
+                                                    {designProcessPhase.title}
+                                                </DesignProcessTitle>
+                                            </DesignProcessTitleContainer>
+                                            <DesignProcessElementDesc>
+                                                {designProcessPhase.description}
+                                            </DesignProcessElementDesc>
+                                        </DesignProcessElement>
+                                    ))}
+                                </DesignProcessTable>
                             </DetailsContainer>
                         </ArticleSection>
                     </Article>
@@ -177,3 +236,11 @@ export default function About(): JSX.Element {
         </Fragment>
     );
 }
+
+export const query = graphql`
+    query {
+        aboutPageData {
+            ...aboutSectionsFields
+        }
+    }
+`;
