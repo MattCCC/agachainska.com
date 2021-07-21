@@ -4,6 +4,7 @@ import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 
 import { GridRow, MainContainer } from "@components/main-container";
+import { MotionCursor } from "@components/motion-cursor";
 import PersonalPic from "@components/personal-pic";
 import { SocialMedia } from "@components/social-media";
 import { socialMedia } from "@data/social-media";
@@ -159,6 +160,8 @@ export default function About({ data }: Props): JSX.Element {
 
     return (
         <Fragment>
+            <MotionCursor />
+
             <MainContainer>
                 <GridRow>
                     <HeroSection>
