@@ -46,7 +46,7 @@ const BadgeNumber = styled(StyledNumber)(() => [
 ]);
 
 const ProjectLink = styled.div(() => [
-    tw`flex flex-col cursor-pointer select-none`,
+    tw`flex flex-col cursor-pointer select-none lg:pt-3`,
 ]);
 
 const ProjectTitle = styled(H4)(() => [
@@ -54,6 +54,7 @@ const ProjectTitle = styled(H4)(() => [
         font-size: 24px;
 
         ${up("lg")} {
+            height: 47px;
             font-size: 30px;
         }
     `,
