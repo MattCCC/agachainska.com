@@ -38,7 +38,7 @@ const BadgeNumber = styled(StyledNumber)(() => [
         margin: -10px 30px -10px -40px;
 
         ${up("lg")} {
-            height: 92px;
+            height: 110px;
             width: auto;
             margin: -20px 0;
         }
