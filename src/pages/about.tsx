@@ -4,7 +4,9 @@ import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 
 import { GridRow, MainContainer } from "@components/main-container";
+import { MotionCursor } from "@components/motion-cursor";
 import PersonalPic from "@components/personal-pic";
+import SelectedProjects  from "@components/selected-projects";
 import { SocialMedia } from "@components/social-media";
 import { socialMedia } from "@data/social-media";
 import { useWindowSize } from "@hooks/use-window-size";
@@ -146,9 +148,16 @@ const DesignProcessElementDesc = styled.p(() => [
     `
 ]);
 
+const SelectedProjectsContainer = styled.div(() => [
+    tw`lg:col-start-1 lg:col-end-11 lg:ml-2 lg:mt-10`
+]);
+
 interface Props extends PageProps {
     data: {
         aboutPageData: AboutPageData;
+        projects: {
+            nodes: Project[];
+        };
     };
 }
 
@@ -156,9 +165,12 @@ export default function About({ data }: Props): JSX.Element {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
     const {hero, expertise, designProcess} = data.aboutPageData;
+    const projects = data.projects.nodes;
 
     return (
         <Fragment>
+            <MotionCursor />
+
             <MainContainer>
                 <GridRow>
                     <HeroSection>
@@ -230,6 +242,17 @@ export default function About({ data }: Props): JSX.Element {
                                 </DesignProcessTable>
                             </DetailsContainer>
                         </ArticleSection>
+
+                        <ArticleSection id="selected-projects">
+                            <TitleContainer>
+                                <Title>
+                                    selected projects
+                                </Title>
+                            </TitleContainer>
+                            <SelectedProjectsContainer>
+                                <SelectedProjects projects={projects} />
+                            </SelectedProjectsContainer>
+                        </ArticleSection>
                     </Article>
                 </GridRow>
             </MainContainer>
@@ -241,6 +264,13 @@ export const query = graphql`
     query {
         aboutPageData {
             ...aboutSectionsFields
+        }
+        
+        projects: allProject {
+            nodes {
+                ...ProjectFields
+                nameSlug: gatsbyPath(filePath: "/projects/{project.name}")
+            }
         }
     }
 `;
