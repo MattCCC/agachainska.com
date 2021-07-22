@@ -244,7 +244,7 @@ export const Timeline = memo(
                                             item
                                         )}
                                     >
-                                        {item.name}
+                                        {item.title}
                                     </ListItem>
                                 )
                             )}
