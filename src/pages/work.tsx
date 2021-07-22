@@ -245,9 +245,8 @@ const Work = memo(
                         <Tabs
                             hideForDesktop={true}
                             onTabChange={onTabChange}
-                            sections={timelineList}
-                            activeSectionId={state.activeSectionId}
-                            activeItemId={state.activeItemId}
+                            tabs={timelineList}
+                            activeTabId={state.activeSectionId}
                         />
                         {hasSmallWindowWidth &&
                             projectsByCategory.map(

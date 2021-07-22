@@ -19,27 +19,16 @@ interface TabStyled extends MotionProps {
     isActive?: boolean;
 }
 
-interface Item {
-    name: string;
-    id: string;
-    routeTo: string;
-    cover: string;
-    category: string;
-}
-
-interface Section {
+interface SingleTab {
     title: string;
     id: string;
-    category: string;
-    items?: Item[];
 }
 
 interface Props extends HTMLAttributes<HTMLElement> {
-    sections: Section[];
-    activeSectionId?: string;
-    activeItemId?: string;
+    tabs: SingleTab[];
+    activeTabId?: string;
     hideForDesktop?: boolean;
-    onTabChange?: (section: Section) => void;
+    onTabChange?: (tab: SingleTab) => void;
 }
 
 const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
@@ -73,49 +62,34 @@ const Pin = styled(motion.div)(() => [
 export const Tabs = memo(
     ({
         children,
-        sections,
-        activeSectionId = "",
-        activeItemId = "",
+        tabs,
+        activeTabId = "",
         onTabChange = (): null => null,
         ...props
     }: Props): JSX.Element => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
-        const activeSections: Section[] = sections.filter(
-            (section: Section) => section?.items && section?.items?.length > 0
-        );
-        const allItems: Item[] = activeSections.reduce(
-            (itemsList: Item[], currentValue: Section) => {
-                itemsList = [...itemsList, ...(currentValue.items || [])];
-
-                return itemsList;
-            },
-            []
-        );
 
         const [state, setState] = useState({
-            sectionId: activeSectionId || activeSections[0]?.id || "",
-            activeId: activeItemId || allItems[0]?.id || "",
+            tabId: activeTabId || tabs[0]?.id || "",
         });
 
-        const activeSectionIndex = sections?.findIndex(
-            (item) => item.id === state.sectionId
-        );
+        const activeTabIndex = tabs?.findIndex((tab) => tab.id === state.tabId);
 
-        const tabWidth = 100 / sections.length;
-        const pinX = tabWidth * (activeSectionIndex + 1) - tabWidth + "%";
+        const tabWidth = 100 / tabs.length;
+        const pinX = tabWidth * (activeTabIndex + 1) - tabWidth + "%";
 
         const onTabClick = useCallback(
-            (section: Section) => {
-                if (state.sectionId === section.id) {
+            (tab: SingleTab) => {
+                if (state.tabId === tab.id) {
                     return;
                 }
 
                 setState({
                     ...state,
-                    sectionId: section.id,
+                    tabId: tab.id,
                 });
 
-                onTabChange(section);
+                onTabChange(tab);
             },
             [onTabChange, state]
         );
@@ -124,18 +98,18 @@ export const Tabs = memo(
             <TabsWrapper ref={wrapperRef} {...props}>
                 <TabsList>
                     <AnimatePresence initial={false}>
-                        {sections.map((section: Section, index: number) => (
+                        {tabs.map((tab: SingleTab, index: number) => (
                             <Tab
                                 key={`tab-${index}`}
-                                isActive={section.id === state.sectionId}
-                                onClick={onTabClick.bind(null, section)}
+                                isActive={tab.id === state.tabId}
+                                onClick={onTabClick.bind(null, tab)}
                             >
-                                {section.title}
+                                {tab.title}
                             </Tab>
                         ))}
                         <Pin
                             animate={{ left: pinX }}
-                            style={{ width: `${100 / sections.length}%` }}
+                            style={{ width: `${100 / tabs.length}%` }}
                         />
                     </AnimatePresence>
                 </TabsList>
@@ -143,7 +117,6 @@ export const Tabs = memo(
         );
     },
     (prevProps, nextProps) =>
-        prevProps.sections.length === nextProps.sections.length &&
-        prevProps.activeSectionId === nextProps.activeSectionId &&
-        prevProps.activeItemId === nextProps.activeItemId
+        prevProps.tabs.length === nextProps.tabs.length &&
+        prevProps.activeTabId === nextProps.activeTabId
 );
