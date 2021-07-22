@@ -19,15 +19,9 @@ interface TabStyled extends MotionProps {
     isActive?: boolean;
 }
 
-interface Item {
-    name: string;
-    id: string;
-}
-
 interface Tab {
     title: string;
     id: string;
-    items?: Item[];
 }
 
 interface Props extends HTMLAttributes<HTMLElement> {
@@ -79,9 +73,7 @@ export const Tabs = memo(
             tabId: activeTabId || tabs[0]?.id || "",
         });
 
-        const activeTabIndex = tabs?.findIndex(
-            (item) => item.id === state.tabId
-        );
+        const activeTabIndex = tabs?.findIndex((tab) => tab.id === state.tabId);
 
         const tabWidth = 100 / tabs.length;
         const pinX = tabWidth * (activeTabIndex + 1) - tabWidth + "%";
