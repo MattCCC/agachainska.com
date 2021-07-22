@@ -61,7 +61,7 @@ interface ListItemStyle extends MotionProps {
 
 export interface Item {
     [x: string]: any;
-    name: string;
+    title: string;
     id: string;
 }
 
