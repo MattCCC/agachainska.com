@@ -10,6 +10,7 @@ import { ReactComponent as LondonEyeIllustration } from "@svg/London eye@1x.svg"
 import { ReactComponent as CaipirinhaIllustration } from "@svg/London eye@1x.svg";
 import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
 import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
+import { excludeProps } from "@utils/styled";
 
 interface Props {}
 
@@ -17,7 +18,10 @@ interface WavesProps {
     darkTheme: boolean;
 }
 
-const Waves = styled(WavesPattern)(({ darkTheme }: WavesProps) => [
+const Waves = styled(
+    WavesPattern,
+    excludeProps(["darkTheme"])
+)(({ darkTheme }: WavesProps) => [
     tw`absolute w-full`,
     darkTheme && tw`opacity-5`,
     css`
