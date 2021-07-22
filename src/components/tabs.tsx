@@ -19,16 +19,16 @@ interface TabStyled extends MotionProps {
     isActive?: boolean;
 }
 
-interface Tab {
+interface SingleTab {
     title: string;
     id: string;
 }
 
 interface Props extends HTMLAttributes<HTMLElement> {
-    tabs: Tab[];
+    tabs: SingleTab[];
     activeTabId?: string;
     hideForDesktop?: boolean;
-    onTabChange?: (tab: Tab) => void;
+    onTabChange?: (tab: SingleTab) => void;
 }
 
 const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
@@ -79,7 +79,7 @@ export const Tabs = memo(
         const pinX = tabWidth * (activeTabIndex + 1) - tabWidth + "%";
 
         const onTabClick = useCallback(
-            (tab: Tab) => {
+            (tab: SingleTab) => {
                 if (state.tabId === tab.id) {
                     return;
                 }
@@ -98,7 +98,7 @@ export const Tabs = memo(
             <TabsWrapper ref={wrapperRef} {...props}>
                 <TabsList>
                     <AnimatePresence initial={false}>
-                        {tabs.map((tab: Tab, index: number) => (
+                        {tabs.map((tab: SingleTab, index: number) => (
                             <Tab
                                 key={`tab-${index}`}
                                 isActive={tab.id === state.tabId}
