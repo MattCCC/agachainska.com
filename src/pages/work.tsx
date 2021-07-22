@@ -99,6 +99,7 @@ const Work = memo(
                 .filter((project: Project) => project.category === category)
                 .map((project: Project) => ({
                     ...project,
+                    title: project.name,
                     id: String(project.uid),
                     routeTo: project.nameSlug,
                 })),
