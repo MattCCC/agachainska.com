@@ -151,7 +151,7 @@ export default function Project({ data }: Props): JSX.Element {
                     hideForDesktop={true}
                     onTabChange={onTimelineItemChange}
                     tabs={designProcessTimeline[0].items}
-                    activeTabId={designProcessTimeline[0].id}
+                    activeTabId={activeItemId}
                 />
 
                 <ArticleSection id="challenge" ref={refChallenge}>

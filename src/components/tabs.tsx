@@ -5,6 +5,7 @@ import {
     useCallback,
     memo,
     HTMLAttributes,
+    useEffect,
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
@@ -42,7 +43,7 @@ const TabsList = styled.ul(() => [
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
     tw`w-full h-8 cursor-pointer select-none prose-20px opacity-40`,
-    tw`transition-opacity hover:opacity-100 text-melrose`,
+    tw`transition-opacity text-melrose`,
     isActive && tw`opacity-100`,
     css`
         line-height: 25px;
@@ -77,6 +78,22 @@ export const Tabs = memo(
 
         const tabWidth = 100 / tabs.length;
         const pinX = tabWidth * (activeTabIndex + 1) - tabWidth + "%";
+
+        useEffect(() => {
+            setState((prevState) => {
+                if ( activeTabId === prevState.tabId ) {
+                    return prevState;
+                }
+
+                return {
+                    ...prevState,
+                    tabId:
+                        activeTabId !== prevState.tabId
+                            ? activeTabId
+                            : prevState.tabId,
+                };
+            });
+        }, [activeTabId, state]);
 
         const onTabClick = useCallback(
             (tab: SingleTab) => {
