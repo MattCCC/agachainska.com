@@ -109,20 +109,25 @@ export const Tabs = memo(
         const pinX = tabWidth * (activeTabIndex + 1) - tabWidth + "%";
 
         useEffect(() => {
-            setState((prevState) => {
-                if ( activeTabId === prevState.tabId ) {
-                    return prevState;
-                }
+            if (tabsAreSticky) {
+                setState((prevState) => {
+                    if ( activeTabId === prevState.tabId ) {
+                        return prevState;
+                    }
 
-                return {
-                    ...prevState,
-                    tabId:
-                        activeTabId !== prevState.tabId
-                            ? activeTabId
-                            : prevState.tabId,
-                };
-            });
-        }, [activeTabId, state]);
+                    return {
+                        ...prevState,
+                        tabId:
+                            activeTabId !== prevState.tabId
+                                ? activeTabId
+                                : prevState.tabId,
+                    };
+                });
+            } else {
+                setState({tabId: tabs[0].id});
+            }
+
+        }, [activeTabId, state, tabs, tabsAreSticky]);
 
         useEffect(()=>{
             const currentElement = wrapperRef.current;
