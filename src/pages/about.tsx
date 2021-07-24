@@ -9,6 +9,7 @@ import { MotionCursor } from "@components/motion-cursor";
 import PersonalPic from "@components/personal-pic";
 import SelectedProjects  from "@components/selected-projects";
 import { SocialMedia } from "@components/social-media";
+import { Tabs } from "@components/tabs";
 import { Timeline } from "@components/timeline";
 import { aboutPageTimeline } from "@config/page-timlines";
 import { socialMedia } from "@data/social-media";
@@ -18,7 +19,7 @@ import {up} from "@utils/screens";
 
 
 const HeroSection = styled.section(() => [
-    tw`relative lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-screen`,
+    tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-screen`,
     css`
         margin-top: 110px;
     `
@@ -84,7 +85,7 @@ const ArticleSection = styled.section(() => [
     tw`lg:grid lg:grid-cols-12 lg:grid-rows-1 lg:items-center`,
     css`
         &:first-of-type {
-            margin-top: 165px;
+            margin-top: 48px;
         }
 
         ${up("lg")} {
@@ -202,6 +203,17 @@ export default function About({ data }: Props): JSX.Element {
     const refDesignProcess = useInViewEffect(intersection, options);
     const refSelectedProjects = useInViewEffect(intersection, options);
 
+    const tabsTimeline = aboutPageTimeline[0].items.map((item) => {
+        const titleArr = item.title.split(" ");
+        const lastWordInTitle = titleArr.length - 1;
+        const titleToDisplayOnMobile = titleArr[lastWordInTitle];
+
+        return {
+            ...item,
+            title: titleToDisplayOnMobile,
+        };
+    });
+
 
     return (
         <Fragment>
@@ -234,6 +246,13 @@ export default function About({ data }: Props): JSX.Element {
                                 sections={aboutPageTimeline}
                             />
                         </TimelineWrapper>
+
+                        <Tabs
+                            hideForDesktop={true}
+                            onTabChange={onTimelineItemChange}
+                            tabs={tabsTimeline}
+                            activeTabId={activeItemId}
+                        />
 
                         <ArticleSection id="expertise" ref={refExpertise}>
                             <TitleContainer>
