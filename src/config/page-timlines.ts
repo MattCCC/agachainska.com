@@ -9,3 +9,15 @@ export const designProcessTimeline = [
         ],
     },
 ];
+
+export const aboutPageTimeline = [
+    {
+        title: "Aga",
+        id: "aboutInfo",
+        items: [
+            { id: "expertise", title: "Expertise" },
+            { id: "designProcess", title: "Design Process" },
+            { id: "selectedProjects", title: "Selected Projects" },
+        ],
+    },
+];
