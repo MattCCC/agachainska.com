@@ -16,6 +16,10 @@ interface TabsStyled {
     hideForDesktop?: boolean;
 }
 
+interface TabsListContainer {
+    isSticky: boolean;
+}
+
 interface TabStyled extends MotionProps {
     isActive?: boolean;
 }
@@ -37,23 +41,26 @@ const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
     hideForDesktop && tw`lg:hidden`,
 ]);
 
-const TabsListContainer = styled.div(() => [
+const TabsListContainer = styled.div(({ isSticky = false }: TabsListContainer) => [
     tw`relative h-8 `,
     css`
         width: calc(100vw - 32px);
-
+    `,
+    isSticky &&
+    css`
         &:after {
             content: "";
             width: 100vw;
             height: 4rem;
             background: rgba(255,255,255,0.92);
+            box-shadow: 0px 14px 60px 0px rgba(0,0,0,0.25);
+            transition: all .2s ease-in;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: -1;
         }
-
     `
 ]);
 
@@ -90,6 +97,8 @@ export const Tabs = memo(
     }: Props): JSX.Element => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
 
+        const [tabsAreSticky, setTabsAreSticky] = useState(false);
+
         const [state, setState] = useState({
             tabId: activeTabId || tabs[0]?.id || "",
         });
@@ -115,6 +124,24 @@ export const Tabs = memo(
             });
         }, [activeTabId, state]);
 
+        useEffect(()=>{
+            const currentElement = wrapperRef.current;
+            const observer = new IntersectionObserver(
+                    ([e]) => setTabsAreSticky(e.isIntersecting),
+                    {rootMargin: "0px 0px -90% 0px", threshold: 1}
+                );
+
+            if (currentElement) {
+                observer.observe(currentElement);
+            }
+
+            return function(){
+                if (currentElement) {
+                    observer.unobserve(currentElement);
+                }
+            };
+        }, [wrapperRef]);
+
         const onTabClick = useCallback(
             (tab: SingleTab) => {
                 if (state.tabId === tab.id) {
@@ -133,7 +160,7 @@ export const Tabs = memo(
 
         return (
             <TabsWrapper ref={wrapperRef} {...props}>
-                <TabsListContainer>
+                <TabsListContainer isSticky={tabsAreSticky}>
                     <TabsList>
                         <AnimatePresence initial={false}>
                             {tabs.map((tab: SingleTab, index: number) => (
