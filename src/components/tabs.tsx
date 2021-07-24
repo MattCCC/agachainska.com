@@ -33,12 +33,32 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
-    tw`w-full overflow-hidden`,
+    tw`h-16 sticky mb-8 top-0 z-100 w-full flex items-center justify-center`,
     hideForDesktop && tw`lg:hidden`,
 ]);
 
+const TabsListContainer = styled.div(() => [
+    tw`relative h-8 `,
+    css`
+        width: calc(100vw - 32px);
+
+        &:after {
+            content: "";
+            width: 100vw;
+            height: 4rem;
+            background: rgba(255,255,255,0.92);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+    `
+]);
+
 const TabsList = styled.ul(() => [
-    tw`flex flex-row justify-between w-full mb-8`,
+    tw`flex flex-row justify-between`,
 ]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
@@ -113,23 +133,25 @@ export const Tabs = memo(
 
         return (
             <TabsWrapper ref={wrapperRef} {...props}>
-                <TabsList>
-                    <AnimatePresence initial={false}>
-                        {tabs.map((tab: SingleTab, index: number) => (
-                            <Tab
-                                key={`tab-${index}`}
-                                isActive={tab.id === state.tabId}
-                                onClick={onTabClick.bind(null, tab)}
-                            >
-                                {tab.title}
-                            </Tab>
-                        ))}
-                        <Pin
-                            animate={{ left: pinX }}
-                            style={{ width: `${100 / tabs.length}%` }}
-                        />
-                    </AnimatePresence>
-                </TabsList>
+                <TabsListContainer>
+                    <TabsList>
+                        <AnimatePresence initial={false}>
+                            {tabs.map((tab: SingleTab, index: number) => (
+                                <Tab
+                                    key={`tab-${index}`}
+                                    isActive={tab.id === state.tabId}
+                                    onClick={onTabClick.bind(null, tab)}
+                                >
+                                    {tab.title}
+                                </Tab>
+                            ))}
+                            <Pin
+                                animate={{ left: pinX }}
+                                style={{ width: `${100 / tabs.length}%` }}
+                            />
+                        </AnimatePresence>
+                    </TabsList>
+                </TabsListContainer>
             </TabsWrapper>
         );
     },
