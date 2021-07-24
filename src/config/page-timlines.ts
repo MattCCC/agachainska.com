@@ -16,8 +16,8 @@ export const aboutPageTimeline = [
         id: "aboutInfo",
         items: [
             { id: "expertise", title: "Expertise" },
-            { id: "designProcess", title: "Design Process" },
-            { id: "selectedProjects", title: "Selected Projects" },
+            { id: "design-process", title: "Design Process" },
+            { id: "selected-projects", title: "Selected Projects" },
         ],
     },
 ];
