@@ -3,9 +3,9 @@ export const designProcessTimeline = [
         title: "Design Process",
         id: "singleProject",
         items: [
-            { id: "challenge", name: "Challenge" },
-            { id: "approach", name: "Approach" },
-            { id: "results", name: "Results" },
+            { id: "challenge", title: "Challenge" },
+            { id: "approach", title: "Approach" },
+            { id: "results", title: "Results" },
         ],
     },
 ];

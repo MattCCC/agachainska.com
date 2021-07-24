@@ -11,6 +11,7 @@ import { GridRow } from "@components/main-container";
 import { MotionCursor } from "@components/motion-cursor";
 import { ParallaxBackground } from "@components/parallax-background";
 import { Quote } from "@components/quote";
+import { Tabs } from "@components/tabs";
 import { Timeline } from "@components/timeline";
 import { designProcessTimeline } from "@config/page-timlines";
 import { GallerySlider } from "@domain/single-project/gallery-slider";
@@ -145,6 +146,13 @@ export default function Project({ data }: Props): JSX.Element {
                         sections={designProcessTimeline}
                     />
                 </TimelineWrapper>
+
+                <Tabs
+                    hideForDesktop={true}
+                    onTabChange={onTimelineItemChange}
+                    tabs={designProcessTimeline[0].items}
+                    activeTabId={activeItemId}
+                />
 
                 <ArticleSection id="challenge" ref={refChallenge}>
                     <H2>Challenge</H2>
