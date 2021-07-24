@@ -92,7 +92,7 @@ export const HeroWrapper = styled.div(() => [
 ]);
 
 export const TableProject = styled.div(() => [
-    tw`grid max-w-full grid-flow-row grid-cols-1 grid-rows-4 lg:grid-cols-2 lg:grid-flow-col`,
+    tw`grid mb-20 max-w-full grid-flow-row grid-cols-1 grid-rows-4 lg:grid-cols-2 lg:grid-flow-col`,
     css`
         width: 820px;
         line-height: 24px;
