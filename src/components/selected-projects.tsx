@@ -18,6 +18,7 @@ export default function SelectedProjects({ projects }: Props): JSX.Element {
             {selectedProjects
             .map(({nameSlug, name, category}: Project, index: number) => (
                 <SingleProject
+                    key={name}
                     nameSlug={nameSlug}
                     name={name}
                     category={category}

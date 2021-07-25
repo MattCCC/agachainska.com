@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 
 import { graphql, PageProps } from "gatsby";
+import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
 import { GridRow, MainContainer } from "@components/main-container";
@@ -8,13 +9,17 @@ import { MotionCursor } from "@components/motion-cursor";
 import PersonalPic from "@components/personal-pic";
 import SelectedProjects  from "@components/selected-projects";
 import { SocialMedia } from "@components/social-media";
+import { Tabs } from "@components/tabs";
+import { Timeline } from "@components/timeline";
+import { aboutPageTimeline } from "@config/page-timlines";
 import { socialMedia } from "@data/social-media";
+import { useTimelineViewport } from "@hooks/use-timeline-viewport";
 import { useWindowSize } from "@hooks/use-window-size";
 import {up} from "@utils/screens";
 
 
 const HeroSection = styled.section(() => [
-    tw`relative lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-screen`,
+    tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-screen`,
     css`
         margin-top: 110px;
     `
@@ -56,15 +61,35 @@ const Article = styled.article(() => [
     tw`relative mb-6`
 ]);
 
+const TimelineWrapper = styled.aside(() => [
+    tw`sticky top-0 right-0 z-20 hidden ml-auto lg:block`,
+    css`
+        margin-bottom: -254px;
+        width: 220px;
+        transform: translateY(90px);
+
+        div[class*="ListItem"] {
+            height: 57px;
+            line-height: 16px;
+        }
+        
+        // every first element starting from the 3rd element
+        div[class*="ListItem"]:nth-child(1n + 3) {
+            width: 133px;
+        }
+    `,
+]);
+
+
 const ArticleSection = styled.section(() => [
     tw`lg:grid lg:grid-cols-12 lg:grid-rows-1 lg:items-center`,
     css`
-        &:first-child {
-            margin-top: 165px;
+        &:first-of-type {
+            margin-top: 48px;
         }
 
         ${up("lg")} {
-            &:first-child {
+            &:first-of-type {
                 margin-top: 0;
             }                
         }
@@ -167,6 +192,29 @@ export default function About({ data }: Props): JSX.Element {
     const {hero, expertise, designProcess} = data.aboutPageData;
     const projects = data.projects.nodes;
 
+    const [
+        activeItemId,
+        intersection,
+        options,
+        onTimelineItemChange,
+    ] = useTimelineViewport();
+
+    const refExpertise = useInViewEffect(intersection, options);
+    const refDesignProcess = useInViewEffect(intersection, options);
+    const refSelectedProjects = useInViewEffect(intersection, options);
+
+    const tabsTimeline = aboutPageTimeline[0].items.map((item) => {
+        const titleArr = item.title.split(" ");
+        const lastWordInTitle = titleArr.length - 1;
+        const titleToDisplayOnMobile = titleArr[lastWordInTitle];
+
+        return {
+            ...item,
+            title: titleToDisplayOnMobile,
+        };
+    });
+
+
     return (
         <Fragment>
             <MotionCursor />
@@ -189,7 +237,24 @@ export default function About({ data }: Props): JSX.Element {
                     </HeroSection>
 
                     <Article>
-                        <ArticleSection id="expertise">
+                        <TimelineWrapper>
+                            <Timeline
+                                style={{ height: "254px" }}
+                                activeItemId={activeItemId}
+                                activeSectionId={aboutPageTimeline[0].id}
+                                onTimelineItemChange={onTimelineItemChange}
+                                sections={aboutPageTimeline}
+                            />
+                        </TimelineWrapper>
+
+                        <Tabs
+                            hideForDesktop={true}
+                            onTabChange={onTimelineItemChange}
+                            tabs={tabsTimeline}
+                            activeTabId={activeItemId}
+                        />
+
+                        <ArticleSection id="expertise" ref={refExpertise}>
                             <TitleContainer>
                                 <Title>
                                     Expertise
@@ -211,7 +276,7 @@ export default function About({ data }: Props): JSX.Element {
                             </DetailsContainer>
                         </ArticleSection>
 
-                        <ArticleSection id="design-process">
+                        <ArticleSection id="design-process" ref={refDesignProcess}>
                             <TitleContainer>
                                 <Title>
                                     Design Process
@@ -243,7 +308,7 @@ export default function About({ data }: Props): JSX.Element {
                             </DetailsContainer>
                         </ArticleSection>
 
-                        <ArticleSection id="selected-projects">
+                        <ArticleSection id="selected-projects" ref={refSelectedProjects}>
                             <TitleContainer>
                                 <Title>
                                     selected projects

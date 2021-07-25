@@ -83,7 +83,12 @@ export default function Project({ data }: Props): JSX.Element {
     ] = useTimelineViewport();
     const refChallenge = useInViewEffect(intersection, options);
     const refApproach = useInViewEffect(intersection, options);
-    const refResults = useInViewEffect(intersection, options);
+    const refResults = useInViewEffect(intersection,
+        {
+            ...options,
+            rootMargin: "100% 0px 0px 0px"
+        }
+    );
 
     return (
         <Fragment>
