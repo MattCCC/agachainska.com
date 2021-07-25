@@ -127,7 +127,7 @@ export const Tabs = memo(
                 setState({tabId: tabs[0].id});
             }
 
-        }, [activeTabId, state, tabs, tabsAreSticky]);
+        }, [tabsAreSticky, activeTabId, tabs]);
 
         useEffect(()=>{
             const currentElement = wrapperRef.current;
