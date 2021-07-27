@@ -106,11 +106,14 @@ const SolidBackground = styled.div(({isMotionCursorVisible}: CursorProps) => [
     `,
 ]);
 
-const ProjectCover = styled.img(({isMotionCursorVisible}: CursorProps) => [
+const ProjectCover = styled.div(({isMotionCursorVisible}: CursorProps) => [
     tw`fixed z-50 hidden lg:block`,
     css`
         opacity: 0;
+        background: url(${projectCover}) center;
+        background-size: cover;
         width: 400px;
+        height: 215px;
         margin: 14px 0 0 -30px;
         transform: rotate(-10deg) scale(0.5);
         @keyframes showImg {
@@ -241,7 +244,6 @@ export const MotionCursor: FunctionComponent<Props> = ({
                 />
 
                 <ProjectCover
-                    src={projectCover}
                     style={cursorStyle}
                     isMotionCursorVisible={state.isMotionCursorVisible}
                 />
