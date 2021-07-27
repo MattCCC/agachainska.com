@@ -78,7 +78,7 @@ const SolidBackground = styled.div(({isMotionCursorVisible}: CursorProps) => [
         opacity: 0;
         width: 400px;
         height: 215px;
-        background: black;
+        background: #ff006e;
         margin: 14px 0 0 -30px;
         transform: rotate(-10deg) scale(0.5);
         transition: opacity ease-in-out;
@@ -91,7 +91,7 @@ const SolidBackground = styled.div(({isMotionCursorVisible}: CursorProps) => [
 
             50% {
                 opacity: 0.8;
-                transform: rotate(0deg) scale(1.05);
+                transform: rotate(0deg) scale(1.01);
             }
 
             100% {
