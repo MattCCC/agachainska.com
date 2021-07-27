@@ -15,14 +15,13 @@ import { useNavigation } from "@hooks/use-navigation";
 import { TrackMousePosition } from "@hooks/use-track-mouse-position";
 import { State, useStore, useStoreProp } from "@store/index";
 
-import projectCover from "/public/img/projects/placeholder-1.png";
-
 interface Props {
     onPositionUpdate?: (clientX: number, clientY: number) => void;
 }
 
 type CursorProps = {
     isMotionCursorVisible: State["isMotionCursorVisible"];
+    projectCoverLink?: string;
 } & Partial<State["motionCursorData"]>;
 
 const cursorSize = 80;
@@ -106,11 +105,11 @@ const SolidBackground = styled.div(({isMotionCursorVisible}: CursorProps) => [
     `,
 ]);
 
-const ProjectCover = styled.div(({isMotionCursorVisible}: CursorProps) => [
+const ProjectCover = styled.div(({isMotionCursorVisible, projectCoverLink}: CursorProps) => [
     tw`fixed z-50 hidden lg:block`,
     css`
         opacity: 0;
-        background: url(${projectCover}) center;
+        background: url(${projectCoverLink}) center;
         background-size: cover;
         width: 400px;
         height: 215px;
@@ -215,6 +214,7 @@ export const MotionCursor: FunctionComponent<Props> = ({
 }) => {
     const [state] = useStore();
     const { clientX, clientY } = TrackMousePosition();
+    const projectCover = state.motionCursorData.projectCover;
     const cursorStyle = {
         left: `${clientX || -state.motionCursorData.size || -cursorSize}px`,
         top: `${clientY || -state.motionCursorData.size || -cursorSize}px`,
@@ -237,17 +237,20 @@ export const MotionCursor: FunctionComponent<Props> = ({
                 <CursorLink {...state.motionCursorData}>{children}</CursorLink>
             </Cursor>
 
-            <ProjectHover>
-                <SolidBackground
-                    isMotionCursorVisible={state.isMotionCursorVisible}
-                    style={cursorStyle}
-                />
+            {projectCover && (
+                <ProjectHover>
+                    <SolidBackground
+                        isMotionCursorVisible={state.isMotionCursorVisible}
+                        style={cursorStyle}
+                    />
 
-                <ProjectCover
-                    style={cursorStyle}
-                    isMotionCursorVisible={state.isMotionCursorVisible}
-                />
-            </ProjectHover>
+                    <ProjectCover
+                        style={cursorStyle}
+                        isMotionCursorVisible={state.isMotionCursorVisible}
+                        projectCoverLink={projectCover}
+                    />
+                </ProjectHover>
+            )}
         </Fragment>
     );
 };

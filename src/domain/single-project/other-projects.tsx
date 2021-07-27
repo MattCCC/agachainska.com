@@ -15,12 +15,13 @@ export const OtherProjects = memo(
         <ProjectsList {...props}>
             {projectsByCategory.others
                 .slice(0, limit)
-                .map(({ nameSlug, name, category }: Project, index: number) => (
+                .map(({ nameSlug, name, category, cover }: Project, index: number) => (
                     <SingleProject
                         nameSlug={nameSlug}
                         name={name}
                         category={category}
                         index={index}
+                        cover={cover}
                     />
                 ))}
         </ProjectsList>

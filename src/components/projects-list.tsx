@@ -19,9 +19,10 @@ interface Props {
     name: string;
     category: string;
     index: number;
+    cover: string;
 }
 
-export const SingleProject = ({nameSlug, name, category, index}: Props): JSX.Element => (
+export const SingleProject = ({nameSlug, name, category, index, cover}: Props): JSX.Element => (
     <Fragment>
         <ProjectBadge
             key={index}
@@ -29,6 +30,7 @@ export const SingleProject = ({nameSlug, name, category, index}: Props): JSX.Ele
             nameSlug={nameSlug}
             name={name}
             category={category}
+            cover={cover}
         />
     </Fragment>
 );
