@@ -4,6 +4,7 @@ import { graphql, PageProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
+import { ParallaxBackground } from "@components/about-parallax-background";
 import { GridRow, MainContainer } from "@components/main-container";
 import { MotionCursor } from "@components/motion-cursor";
 import PersonalPic from "@components/personal-pic";
@@ -216,6 +217,7 @@ export default function About({ data }: Props): JSX.Element {
 
     return (
         <Fragment>
+            <ParallaxBackground />
             <MotionCursor />
 
             <MainContainer>
