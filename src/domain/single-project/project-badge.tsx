@@ -53,9 +53,9 @@ const ProjectLink = styled.div(() => [
 const ProjectTitle = styled(H4)(() => [
     css`
         font-size: 24px;
+        height: auto;
 
         ${up("lg")} {
-            height: 47px;
             font-size: 30px;
         }
     `,
