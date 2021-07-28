@@ -13,6 +13,7 @@ const initialState = {
         color: "black",
         size: 80,
         overlap: true,
+        projectCover: ""
     },
     showWavePattern: true,
     currentDelayedRoute: "",

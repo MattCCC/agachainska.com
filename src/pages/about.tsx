@@ -73,7 +73,6 @@ const TimelineWrapper = styled.aside(() => [
             line-height: 16px;
         }
         
-        // every first element starting from the 3rd element
         div[class*="ListItem"]:nth-child(1n + 3) {
             width: 133px;
         }

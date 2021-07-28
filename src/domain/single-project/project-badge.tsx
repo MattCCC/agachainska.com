@@ -14,6 +14,7 @@ interface Props {
     nameSlug: string;
     name: string;
     category: string;
+    cover?: string;
 }
 
 interface BadgeProps {
@@ -52,9 +53,9 @@ const ProjectLink = styled.div(() => [
 const ProjectTitle = styled(H4)(() => [
     css`
         font-size: 24px;
+        height: auto;
 
         ${up("lg")} {
-            height: 47px;
             font-size: 30px;
         }
     `,
@@ -71,7 +72,7 @@ const ProjectCaption = styled.p(() => [
 ]);
 
 export const ProjectBadge = memo(
-    ({ index, nameSlug, name, category }: Props): JSX.Element => {
+    ({ index, nameSlug, name, category, cover }: Props): JSX.Element => {
         const [, dispatch] = useStoreProp("currentDelayedRoute");
         const [mouseLeft, itemsRef] = useMouseLeave();
 
@@ -80,8 +81,9 @@ export const ProjectBadge = memo(
                 text: "explore",
                 route: nameSlug,
                 size: 80,
+                projectCover: cover,
             });
-        }, [mouseLeft, dispatch, nameSlug]);
+        }, [mouseLeft, dispatch, nameSlug, cover]);
 
         return (
             <Badge

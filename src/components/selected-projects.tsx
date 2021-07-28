@@ -16,13 +16,14 @@ export default function SelectedProjects({ projects }: Props): JSX.Element {
     return (
         <ProjectsList>
             {selectedProjects
-            .map(({nameSlug, name, category}: Project, index: number) => (
+            .map(({nameSlug, name, category, cover}: Project, index: number) => (
                 <SingleProject
                     key={name}
                     nameSlug={nameSlug}
                     name={name}
                     category={category}
                     index={index}
+                    cover={cover}
                 />
             ))}
         </ProjectsList>
