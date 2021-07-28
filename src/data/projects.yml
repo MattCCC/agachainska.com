@@ -26,6 +26,22 @@
     designDesc: "BRND WGN"
     projectManagement: "Project management:"
     projectManagementDesc: "November 2019, 7 days"
+  sections:
+    - section: "approach"
+      elements:
+        - name: "brand-elements"
+        - name: "full-size-image"
+          image: ""
+        - name: "two-imgs"
+          image: ""
+        - name: "full-page-image"
+          image: ""
+        - name: "quote"
+    - section: "results"
+      elements:
+        - name: "stats"
+    - section: "credits"
+    - section: "other-projects"
 
 - uid: 2
   category: UX/UI

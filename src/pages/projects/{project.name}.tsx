@@ -53,6 +53,33 @@ interface Props extends PageProps {
     };
 }
 
+const loadChallengeSection = (
+    challenge: Project["challenge"],
+    refChallenge: (node: Element | null) => void,
+    elements: ProjectSection["elements"]
+) => (
+    <ArticleSection id="challenge" ref={refChallenge}>
+        <H2>Challenge</H2>
+        <ContentContainer>
+            {elements
+                ? Object.keys(elements).forEach((key) => {
+                      const element = elements[key];
+
+                      // switch (element) {
+
+                      // }
+                  })
+                : ""}
+            <H3>Overview</H3>
+            <Paragraph>{challenge.overview}</Paragraph>
+            <H3>Project goals</H3>
+            <Paragraph>{challenge.projectGoals}</Paragraph>
+            <H3>Audience</H3>
+            <Paragraph>{challenge.audience}</Paragraph>
+        </ContentContainer>
+    </ArticleSection>
+);
+
 export default function Project({ data }: Props): JSX.Element {
     const {
         uid,
@@ -67,6 +94,7 @@ export default function Project({ data }: Props): JSX.Element {
         approach,
         stats,
         credits,
+        sections,
     } = data.project;
 
     const projects = data.projects.nodes;
@@ -83,12 +111,10 @@ export default function Project({ data }: Props): JSX.Element {
     ] = useTimelineViewport();
     const refChallenge = useInViewEffect(intersection, options);
     const refApproach = useInViewEffect(intersection, options);
-    const refResults = useInViewEffect(intersection,
-        {
-            ...options,
-            rootMargin: "100% 0px 0px 0px"
-        }
-    );
+    const refResults = useInViewEffect(intersection, {
+        ...options,
+        rootMargin: "100% 0px 0px 0px",
+    });
 
     return (
         <Fragment>
@@ -159,17 +185,20 @@ export default function Project({ data }: Props): JSX.Element {
                     activeTabId={activeItemId}
                 />
 
-                <ArticleSection id="challenge" ref={refChallenge}>
-                    <H2>Challenge</H2>
-                    <ContentContainer>
-                        <H3>Overview</H3>
-                        <Paragraph>{challenge.overview}</Paragraph>
-                        <H3>Project goals</H3>
-                        <Paragraph>{challenge.projectGoals}</Paragraph>
-                        <H3>Audience</H3>
-                        <Paragraph>{challenge.audience}</Paragraph>
-                    </ContentContainer>
-                </ArticleSection>
+                {sections.forEach(({ section, elements }) => {
+                    switch (section) {
+                        case "challenge":
+                            loadChallengeSection(
+                                challenge,
+                                refChallenge,
+                                elements
+                            );
+                            break;
+
+                        case "approach":
+                            break;
+                    }
+                })}
 
                 <ArticleSection id="approach" ref={refApproach}>
                     <H2>Approach</H2>
