@@ -1,5 +1,15 @@
 type ProjectCategory = "UX" | "UI" | "Others";
 
+interface ProjectSection {
+    section:
+        | "challenge"
+        | "approach"
+        | "results"
+        | "credits"
+        | "other-projects";
+    elements?: Record<string, string>;
+}
+
 interface Project {
     uid: number;
     name: string;
@@ -16,4 +26,5 @@ interface Project {
     approach: Record<string, string>;
     stats: Record<string, number>;
     credits: Record<string, string>;
+    sections: ProjectSection[];
 }

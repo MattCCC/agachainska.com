@@ -36,7 +36,7 @@ const ListItem = styled.a(({ variant }: Props) => [
             margin: 0 10px;
         }
     `,
-    tw`transition-all`,
+    tw`transition-all hover:bg-white hover:text-black`,
 ]);
 
 export function SocialMedia({
