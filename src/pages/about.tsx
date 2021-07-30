@@ -217,8 +217,11 @@ export default function About({ data }: Props): JSX.Element {
 
     return (
         <Fragment>
-            <ParallaxBackground />
             <MotionCursor />
+
+            {!hasSmallWindowWidth && (
+                <ParallaxBackground />
+            )}
 
             <MainContainer>
                 <GridRow>
