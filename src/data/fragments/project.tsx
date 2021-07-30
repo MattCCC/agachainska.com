@@ -34,5 +34,13 @@ export const ProjectFragment = graphql`
             projectManagement
             projectManagementDesc
         }
+        sections {
+            section
+            elements {
+                element
+                description
+                image
+            }
+        }
     }
 `;

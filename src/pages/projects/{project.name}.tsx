@@ -61,21 +61,33 @@ const loadChallengeSection = (
     <ArticleSection id="challenge" ref={refChallenge}>
         <H2>Challenge</H2>
         <ContentContainer>
-            {elements
-                ? Object.keys(elements).forEach((key) => {
-                      const element = elements[key];
+            {elements.map(({element, description}) => {
+                switch (element) {
+                    case "overview":
+                        return (
+                            <Fragment>
+                                <H3>Overview</H3>
+                                <Paragraph>{description}</Paragraph>
+                            </ Fragment>
+                        );
+                    case "project-goals":
+                        return (
+                            <Fragment>
+                                <H3>Project goals</H3>
+                                <Paragraph>{description}</Paragraph>
+                            </Fragment>
+                        );
+                    case "audience":
+                        return (
+                            <Fragment>
+                                <H3>Audience</H3>
+                                <Paragraph>{description}</Paragraph>
+                            </Fragment>
+                        );
+                }
 
-                      // switch (element) {
-
-                      // }
-                  })
-                : ""}
-            <H3>Overview</H3>
-            <Paragraph>{challenge.overview}</Paragraph>
-            <H3>Project goals</H3>
-            <Paragraph>{challenge.projectGoals}</Paragraph>
-            <H3>Audience</H3>
-            <Paragraph>{challenge.audience}</Paragraph>
+                return "";
+            })}
         </ContentContainer>
     </ArticleSection>
 );
@@ -185,19 +197,20 @@ export default function Project({ data }: Props): JSX.Element {
                     activeTabId={activeItemId}
                 />
 
-                {sections.forEach(({ section, elements }) => {
+                {sections.map(({ section, elements }) => {
                     switch (section) {
                         case "challenge":
-                            loadChallengeSection(
+                            return loadChallengeSection(
                                 challenge,
                                 refChallenge,
                                 elements
                             );
-                            break;
 
                         case "approach":
-                            break;
+                            return "";
                     }
+
+                    return "";
                 })}
 
                 <ArticleSection id="approach" ref={refApproach}>

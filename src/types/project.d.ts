@@ -7,7 +7,7 @@ interface ProjectSection {
         | "results"
         | "credits"
         | "other-projects";
-    elements?: Record<string, string>;
+    elements: Array<Record<string, string>>;
 }
 
 interface Project {

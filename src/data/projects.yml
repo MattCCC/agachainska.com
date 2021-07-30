@@ -27,19 +27,29 @@
     projectManagement: "Project management:"
     projectManagementDesc: "November 2019, 7 days"
   sections:
+    
+    - section: "challenge"
+      elements: 
+        - element: "overview"
+          description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+        - element: "project-goals"
+          description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+        - element: "audience"
+          description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    
     - section: "approach"
       elements:
-        - name: "brand-elements"
-        - name: "full-size-image"
+        - element: "brand-elements"
+        - element: "full-size-image"
           image: ""
-        - name: "two-imgs"
+        - element: "two-imgs"
           image: ""
-        - name: "full-page-image"
+        - element: "full-page-image"
           image: ""
-        - name: "quote"
+        - element: "quote"
     - section: "results"
       elements:
-        - name: "stats"
+        - element: "stats"
     - section: "credits"
     - section: "other-projects"
 
