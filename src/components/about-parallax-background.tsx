@@ -1,5 +1,10 @@
 import { FunctionComponent, Fragment } from "react";
 
+import {
+    useViewportScroll,
+    motion,
+    useTransform,
+  } from "framer-motion";
 import tw, { css, styled } from "twin.macro";
 
 import { ReactComponent as GreekEyeIllustration } from "@svg/Greek eye@1x.svg";
@@ -9,7 +14,7 @@ import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.
 
 
 const IllustrationsContainer = styled.div(() => [
-    tw`h-screen absolute w-full grid grid-cols-12`,
+    tw`h-screen absolute w-full`,
     css`
         margin: 0 auto;
         left: 50%;
@@ -17,110 +22,88 @@ const IllustrationsContainer = styled.div(() => [
     `
 ]);
 
-const GreekEye = styled(GreekEyeIllustration)(() => [
-    tw`absolute z-10`,
+const ParallaxCon = styled(motion.div)(() => [
     css`
-        width: 80px;
-        height: 80px;
-        left: 1167px;
-        top: 102px;
-    `,
+        position: absolute;
+    `
 ]);
 
-const LondonEye = styled(LondonEyeIllustration)(() => [
-    tw`absolute z-10`,
-    css`
-        width: 80px;
-        height: 80px;
-        left: 1268px;
-        top: 613px;
-    `,
-]);
+export const ParallaxBackground: FunctionComponent = () => {
 
-const PricklyPear = styled(PricklyPearIllustration)(() => [
-    tw`absolute z-10`,
-    css`
-        width: 80px;
-        height: 80px;
-        left: 652px;
-        top: 692px;
-    `,
-]);
+    const { scrollY } = useViewportScroll();
+    const y1 = useTransform(scrollY, [0, 1000], [0, 100]);
+    const y2 = useTransform(scrollY, [0, 2000], [0, -350]);
+    const y3 = useTransform(scrollY, [0, 300], [0, 400]);
 
-const GreekEyeTwo = styled(GreekEyeIllustration)(() => [
-    tw`absolute z-10`,
-    css`
-        width: 80px;
-        height: 80px;
-        left: 970px;
-        top: 975px;
-    `,
-]);
-
-
-const LondonEyeTwo = styled(LondonEyeIllustration)(() => [
-    tw`absolute z-10`,
-    css`
-        width: 80px;
-        height: 80px;
-        left: 1158px;
-        top: 1262px;
-    `,
-]);
-
-const Caipirinha = styled(CaipirinhaIllustration)(() => [
-    tw`absolute z-10`,
-    css`
-        width: 80px;
-        height: 80px;
-        left: 512px;
-        top: 1392px;
-    `,
-]);
-
-const PricklyPearTwo = styled(PricklyPearIllustration)(() => [
-    tw`absolute z-10`,
-    css`
-        width: 107px;
-        height: 107px;
-        left: 985px;
-        top: 1852px;
-    `,
-]);
-
-const GreekEyeThree = styled(GreekEyeIllustration)(() => [
-    tw`absolute z-10`,
-    css`
-        width: 80px;
-        height: 80px;
-        left: 1116px;
-        top: 2303px;
-    `,
-]);
+    const Illustrations = [
+        {
+            illustration: <GreekEyeIllustration />,
+            top: "102px",
+            left: "1167px",
+            y: y1
+        },
+        {
+            illustration: <LondonEyeIllustration />,
+            top: "613px",
+            left: "1268px",
+            y: y2
+        },
+        {
+            illustration: <PricklyPearIllustration />,
+            top: "692px",
+            left: "652px",
+            y: y1
+        },
+        {
+            illustration: <GreekEyeIllustration />,
+            top: "975px",
+            left: "970px",
+            y: y2
+        },
+        {
+            illustration: <LondonEyeIllustration />,
+            top: "1262px",
+            left: "1158px",
+            y: y1
+        },
+        {
+            illustration: <CaipirinhaIllustration />,
+            top: "1392px",
+            left: "512px",
+            y: y3
+        },
+        {
+            illustration: <PricklyPearIllustration />,
+            width: "107px",
+            height: "107px",
+            top: "1852px",
+            left: "985px",
+            y: y2
+        },
+        {
+            illustration: <GreekEyeIllustration />,
+            top: "2303px",
+            left: "1116px",
+            y: y2
+        },
+        {
+            illustration: <LondonEyeIllustration />,
+            top: "2073px",
+            left: "1206px",
+            y: y1
+        },
+    ];
 
 
-const LondonEyeThree = styled(LondonEyeIllustration)(() => [
-    tw`absolute z-10`,
-    css`
-        width: 80px;
-        height: 80px;
-        left: 1206px;
-        top: 2073px;
-    `,
-]);
-
-export const ParallaxBackground: FunctionComponent = () => (
-    <IllustrationsContainer>
-        <Fragment>
-            <GreekEye />
-            <LondonEye />
-            <PricklyPear />
-            <GreekEyeTwo />
-            <LondonEyeTwo />
-            <Caipirinha />
-            <PricklyPearTwo />
-            <GreekEyeThree />
-            <LondonEyeThree />
-        </Fragment>
-    </IllustrationsContainer>
+    return (
+        <IllustrationsContainer>
+            <Fragment>
+                {Illustrations.map(({illustration, top, left, y, width = "80px", height = "80px"}, index) => (
+                    <ParallaxCon style={{y, top, left, width, height}} key={index} >
+                        {illustration}
+                    </ParallaxCon>
+                ))}
+            </Fragment>
+        </IllustrationsContainer>
 );
+};
