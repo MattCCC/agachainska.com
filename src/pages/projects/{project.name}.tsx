@@ -92,6 +92,85 @@ const loadChallengeSection = (
     </ArticleSection>
 );
 
+const loadApproachSection = (
+    refApproach: (node: Element | null) => void,
+    elements: ProjectSection["elements"]
+) => (
+    <ArticleSection id="approach" ref={refApproach}>
+        <H2>Approach</H2>
+        <ContentContainer>
+            {elements.map(({element, description, image, imageOne, imageTwo}) => {
+                    switch (element) {
+                        case "brand-elements":
+                            return (
+                                <Fragment>
+                                    <H3>Brand elements</H3>
+                                    <Paragraph>{description}</Paragraph>
+                                </ Fragment>
+                            );
+                        case "full-size-image":
+                            return (
+                                <Fragment>
+                                    <FullSizeImageWrapper>
+                                        <ParallaxBackground
+                                            bgImgUrl={`${image}`}
+                                            contain={true}
+                                            scaleOnHover={true}
+                                        />
+                                    </FullSizeImageWrapper>
+                                </Fragment>
+                            );
+                        case "two-images":
+                            return (
+                                <Fragment>
+                                    <TwoImagesWrapper>
+                                        <ParallaxBackground
+                                            bgImgUrl={`${imageOne}`}
+                                            contain={true}
+                                            scaleOnHover={true}
+                                        />
+                                        <ParallaxBackground
+                                            bgImgUrl={`${imageTwo}`}
+                                            contain={true}
+                                            scaleOnHover={true}
+                                        />
+                                    </TwoImagesWrapper>
+                                </Fragment>
+                            );
+                    }
+
+                    return "";
+            })}
+        </ContentContainer>
+
+        {elements.map(({element, quote, image}) => {
+            switch (element) {
+                case "full-page-image":
+                    return (
+                        <FullPageContent widthPct={100}>
+                            <ParallaxBackground
+                                bgImgUrl={`${image}`}
+                            />
+                        </FullPageContent>
+                    );
+                case "slider":
+                    return (
+                        <GallerySlider gap={133} />
+                    );
+                case "quote":
+                    return (
+                        <ContentContainer variant="full">
+                            <Quote>{quote}</Quote>
+                        </ContentContainer>
+                    );
+            }
+
+            return "";
+        })}
+
+    </ArticleSection>
+);
+
 export default function Project({ data }: Props): JSX.Element {
     const {
         uid,
@@ -207,49 +286,16 @@ export default function Project({ data }: Props): JSX.Element {
                             );
 
                         case "approach":
-                            return "";
+                            return loadApproachSection(
+                                refApproach,
+                                elements
+                            );
                     }
 
                     return "";
                 })}
 
-                <ArticleSection id="approach" ref={refApproach}>
-                    <H2>Approach</H2>
-                    <ContentContainer>
-                        <H3>Brand elements</H3>
-                        <Paragraph>{approach.brandElements}</Paragraph>
-                        <FullSizeImageWrapper>
-                            <ParallaxBackground
-                                bgImgUrl="/img/placeholder-full.png"
-                                contain={true}
-                                scaleOnHover={true}
-                            />
-                        </FullSizeImageWrapper>
-
-                        <TwoImagesWrapper>
-                            <ParallaxBackground
-                                bgImgUrl="/img/placeholder-full.png"
-                                contain={true}
-                                scaleOnHover={true}
-                            />
-                            <ParallaxBackground
-                                bgImgUrl="/img/placeholder-full.png"
-                                contain={true}
-                                scaleOnHover={true}
-                            />
-                        </TwoImagesWrapper>
-                    </ContentContainer>
-
-                    <FullPageContent widthPct={100}>
-                        <ParallaxBackground bgImgUrl="/img/placeholder-2.png" />
-                    </FullPageContent>
-
-                    <GallerySlider gap={133} />
-
-                    <ContentContainer variant="full">
-                        <Quote>{approach.quote}</Quote>
-                    </ContentContainer>
-
+                <ArticleSection>
                     <ContentContainer
                         id="results"
                         ref={refResults}

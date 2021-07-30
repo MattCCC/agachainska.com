@@ -40,6 +40,9 @@ export const ProjectFragment = graphql`
                 element
                 description
                 image
+                imageOne
+                imageTwo
+                quote
             }
         }
     }
