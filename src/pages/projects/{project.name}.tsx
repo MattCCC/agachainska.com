@@ -266,11 +266,11 @@ const loadCreditsSection = (
 );
 
 const loadOtherProjectsSection = (
-   category: string,
+   elements: ProjectSection["elements"],
    projectsByCategory: ProjectsByCategory
 ) => (
     <ArticleSection id="another-projects">
-        <H2>Other {category} Projects</H2>
+        <H2>Other {elements[0].category} Projects</H2>
         <ContentContainer variant="full">
             <OtherProjects
                 projectsByCategory={projectsByCategory}
@@ -414,7 +414,7 @@ export default function Project({ data }: Props): JSX.Element {
 
                         case "other-projects":
                             return loadOtherProjectsSection(
-                                category,
+                                elements,
                                 projectsByCategory
                             );
                     }

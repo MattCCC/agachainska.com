@@ -52,6 +52,7 @@ export const ProjectFragment = graphql`
                 designDesc
                 projectManagement
                 projectManagementDesc
+                category
             }
         }
     }

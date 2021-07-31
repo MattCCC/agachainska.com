@@ -67,6 +67,8 @@
           projectManagement: "Project management:"
           projectManagementDesc: "November 2019, 7 days"
     - section: "other-projects"
+      elements: 
+        - category: UX/UI
 
 - uid: 2
   category: UX/UI
