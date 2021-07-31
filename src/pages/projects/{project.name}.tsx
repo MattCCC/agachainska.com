@@ -171,6 +171,73 @@ const loadApproachSection = (
     </ArticleSection>
 );
 
+const loadResultsSection = (
+    refResults: (node: Element | null) => void,
+    elements: ProjectSection["elements"],
+    refStats: (node: Element | null) => void,
+    animateStats: boolean
+) => (
+    <ArticleSection>
+        <ContentContainer
+            id="results"
+            ref={refResults}
+            variant="full"
+        >
+            {elements.map(({screens, iterations, prototypes}) => (
+                <Fragment>
+                    <TableStats ref={refStats}>
+                        <CellTitle>
+                            <StyledNumber
+                                value={screens}
+                                animate={animateStats}
+                            />
+                        </CellTitle>
+                        <StatsCaption className="space">
+                            Screens
+                        </StatsCaption>
+                        <CellTitle>
+                            <StyledNumber
+                                value={screens}
+                                animate={animateStats}
+                            />
+                        </CellTitle>
+                        <StatsCaption>Screens</StatsCaption>
+
+                        <CellTitle>
+                            <StyledNumber
+                                value={iterations}
+                                animate={animateStats}
+                            />
+                        </CellTitle>
+                        <StatsCaption className="space">
+                            Iterations
+                        </StatsCaption>
+                        <CellTitle>
+                            <StyledNumber
+                                value={iterations}
+                                animate={animateStats}
+                            />
+                        </CellTitle>
+                        <StatsCaption>Iterations</StatsCaption>
+
+                        <CellTitle>
+                            <StyledNumber
+                                value={prototypes}
+                                animate={animateStats}
+                            />
+                        </CellTitle>
+                        <StatsCaption className="space">
+                            Prototypes
+                        </StatsCaption>
+                    </TableStats>
+                </Fragment>
+            ))}
+
+        </ContentContainer>
+    </ArticleSection>
+
+);
+
 export default function Project({ data }: Props): JSX.Element {
     const {
         uid,
@@ -290,64 +357,19 @@ export default function Project({ data }: Props): JSX.Element {
                                 refApproach,
                                 elements
                             );
+
+                        case "results":
+                            return loadResultsSection(
+                                refResults,
+                                elements,
+                                refStats,
+                                animateStats
+                            );
                     }
 
                     return "";
                 })}
 
-                <ArticleSection>
-                    <ContentContainer
-                        id="results"
-                        ref={refResults}
-                        variant="full"
-                    >
-                        <TableStats ref={refStats}>
-                            <CellTitle>
-                                <StyledNumber
-                                    value={stats.screens}
-                                    animate={animateStats}
-                                />
-                            </CellTitle>
-                            <StatsCaption className="space">
-                                Screens
-                            </StatsCaption>
-                            <CellTitle>
-                                <StyledNumber
-                                    value={stats.screens}
-                                    animate={animateStats}
-                                />
-                            </CellTitle>
-                            <StatsCaption>Screens</StatsCaption>
-
-                            <CellTitle>
-                                <StyledNumber
-                                    value={stats.iterations}
-                                    animate={animateStats}
-                                />
-                            </CellTitle>
-                            <StatsCaption className="space">
-                                Iterations
-                            </StatsCaption>
-                            <CellTitle>
-                                <StyledNumber
-                                    value={stats.iterations}
-                                    animate={animateStats}
-                                />
-                            </CellTitle>
-                            <StatsCaption>Iterations</StatsCaption>
-
-                            <CellTitle>
-                                <StyledNumber
-                                    value={stats.prototypes}
-                                    animate={animateStats}
-                                />
-                            </CellTitle>
-                            <StatsCaption className="space">
-                                Prototypes
-                            </StatsCaption>
-                        </TableStats>
-                    </ContentContainer>
-                </ArticleSection>
 
                 <ArticleSection id="credits">
                     <H2>Credits</H2>

@@ -43,6 +43,9 @@ export const ProjectFragment = graphql`
                 imageOne
                 imageTwo
                 quote
+                screens
+                iterations
+                prototypes
             }
         }
     }
