@@ -54,7 +54,6 @@ interface Props extends PageProps {
 }
 
 const loadChallengeSection = (
-    challenge: Project["challenge"],
     refChallenge: (node: Element | null) => void,
     elements: ProjectSection["elements"]
 ) => (
@@ -289,10 +288,6 @@ export default function Project({ data }: Props): JSX.Element {
         agency,
         timeframe,
         roleInProject,
-        challenge,
-        approach,
-        stats,
-        credits,
         sections,
     } = data.project;
 
@@ -308,6 +303,24 @@ export default function Project({ data }: Props): JSX.Element {
         options,
         onTimelineItemChange,
     ] = useTimelineViewport();
+
+    const allowedTimelineSections = ["challenge", "approach", "results"];
+    const timelineWithSections = [
+        {
+            ...designProcessTimeline[0],
+            items: sections.filter(({section}) =>
+                    allowedTimelineSections.includes(section))
+
+                    .map(({section}) => {
+                        const lowerCasedSectionName = section.toLowerCase();
+
+                        return {
+                            id: lowerCasedSectionName,
+                            title: lowerCasedSectionName
+                        };
+                    })
+        },
+    ];
     const refChallenge = useInViewEffect(intersection, options);
     const refApproach = useInViewEffect(intersection, options);
     const refResults = useInViewEffect(intersection, {
@@ -371,16 +384,16 @@ export default function Project({ data }: Props): JSX.Element {
                     <Timeline
                         style={{ height: "254px" }}
                         activeItemId={activeItemId}
-                        activeSectionId={designProcessTimeline[0].id}
+                        activeSectionId={timelineWithSections[0].id}
                         onTimelineItemChange={onTimelineItemChange}
-                        sections={designProcessTimeline}
+                        sections={timelineWithSections}
                     />
                 </TimelineWrapper>
 
                 <Tabs
                     hideForDesktop={true}
                     onTabChange={onTimelineItemChange}
-                    tabs={designProcessTimeline[0].items}
+                    tabs={timelineWithSections[0].items}
                     activeTabId={activeItemId}
                 />
 
@@ -388,7 +401,6 @@ export default function Project({ data }: Props): JSX.Element {
                     switch (section) {
                         case "challenge":
                             return loadChallengeSection(
-                                challenge,
                                 refChallenge,
                                 elements
                             );
