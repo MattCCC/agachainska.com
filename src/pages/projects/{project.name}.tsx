@@ -238,6 +238,33 @@ const loadResultsSection = (
 
 );
 
+const loadCreditsSection = (
+    elements: ProjectSection["elements"]
+) => (
+    <ArticleSection id="credits">
+        <H2>Credits</H2>
+        <ContentContainer variant="full">
+            <TableCredits>
+                {elements.map(({concept,
+                                conceptDesc,
+                                design,
+                                designDesc,
+                                projectManagement,
+                                projectManagementDesc}) => (
+                    <Fragment>
+                        <CellTitle>{concept}</CellTitle>
+                        <div>{conceptDesc}</div>
+                        <CellTitle>{design}</CellTitle>
+                        <div>{designDesc}</div>
+                        <CellTitle>{projectManagement}</CellTitle>
+                        <div>{projectManagementDesc}</div>
+                    </Fragment>
+                ))}
+            </TableCredits>
+        </ContentContainer>
+    </ArticleSection>
+);
+
 export default function Project({ data }: Props): JSX.Element {
     const {
         uid,
@@ -365,25 +392,15 @@ export default function Project({ data }: Props): JSX.Element {
                                 refStats,
                                 animateStats
                             );
+
+                        case "credits":
+                            return loadCreditsSection(
+                                elements,
+                            );
                     }
 
                     return "";
                 })}
-
-
-                <ArticleSection id="credits">
-                    <H2>Credits</H2>
-                    <ContentContainer variant="full">
-                        <TableCredits>
-                            <CellTitle>{credits.concept}</CellTitle>
-                            <div>{credits.conceptDesc}</div>
-                            <CellTitle>{credits.design}</CellTitle>
-                            <div>{credits.designDesc}</div>
-                            <CellTitle>{credits.projectManagement}</CellTitle>
-                            <div>{credits.projectManagementDesc}</div>
-                        </TableCredits>
-                    </ContentContainer>
-                </ArticleSection>
 
                 <ArticleSection id="another-projects">
                     <H2>Other {category} Projects</H2>

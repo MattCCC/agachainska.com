@@ -59,6 +59,13 @@
           iterations: 6
           prototypes: 34
     - section: "credits"
+      elements: 
+        - concept: "UI Concept:"
+          conceptDesc: "RE/MAX Malta"
+          design: "UX Design:"
+          designDesc: "BRND WGN"
+          projectManagement: "Project management:"
+          projectManagementDesc: "November 2019, 7 days"
     - section: "other-projects"
 
 - uid: 2

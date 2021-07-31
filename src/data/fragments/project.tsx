@@ -46,6 +46,12 @@ export const ProjectFragment = graphql`
                 screens
                 iterations
                 prototypes
+                concept
+                conceptDesc
+                design
+                designDesc
+                projectManagement
+                projectManagementDesc
             }
         }
     }
