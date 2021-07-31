@@ -41,7 +41,7 @@ import {
 } from "@domain/single-project/styled";
 import { useIncrementStats } from "@domain/single-project/use-increment-stats";
 import { usePagination } from "@domain/single-project/use-pagination";
-import { useProjectsByCategory } from "@hooks/use-projects-by-category";
+import { ProjectsByCategory, useProjectsByCategory } from "@hooks/use-projects-by-category";
 import { useTimelineViewport } from "@hooks/use-timeline-viewport";
 
 interface Props extends PageProps {
@@ -265,6 +265,20 @@ const loadCreditsSection = (
     </ArticleSection>
 );
 
+const loadOtherProjectsSection = (
+   category: string,
+   projectsByCategory: ProjectsByCategory
+) => (
+    <ArticleSection id="another-projects">
+        <H2>Other {category} Projects</H2>
+        <ContentContainer variant="full">
+            <OtherProjects
+                projectsByCategory={projectsByCategory}
+            />
+        </ContentContainer>
+    </ArticleSection>
+);
+
 export default function Project({ data }: Props): JSX.Element {
     const {
         uid,
@@ -397,19 +411,16 @@ export default function Project({ data }: Props): JSX.Element {
                             return loadCreditsSection(
                                 elements,
                             );
+
+                        case "other-projects":
+                            return loadOtherProjectsSection(
+                                category,
+                                projectsByCategory
+                            );
                     }
 
                     return "";
                 })}
-
-                <ArticleSection id="another-projects">
-                    <H2>Other {category} Projects</H2>
-                    <ContentContainer variant="full">
-                        <OtherProjects
-                            projectsByCategory={projectsByCategory}
-                        />
-                    </ContentContainer>
-                </ArticleSection>
             </Article>
         </Fragment>
     );
