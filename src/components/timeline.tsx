@@ -38,7 +38,7 @@ const List = styled(motion.div)(() => [
 
 const ListItem = styled(motion.div)(({ isActive }: ListItemStyle) => [
     tw`relative align-middle ml-auto items-center h-full`,
-    tw`lg:text-primary-color flex text-right opacity-30 lg:p-5 select-none cursor-pointer`,
+    tw`lg:text-primary-color capitalize flex text-right opacity-30 lg:p-5 select-none cursor-pointer`,
     tw`hover:opacity-100 transition-opacity`,
     isActive && tw`opacity-100`,
 ]);

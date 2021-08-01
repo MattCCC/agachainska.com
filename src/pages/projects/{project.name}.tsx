@@ -41,7 +41,7 @@ import {
 } from "@domain/single-project/styled";
 import { useIncrementStats } from "@domain/single-project/use-increment-stats";
 import { usePagination } from "@domain/single-project/use-pagination";
-import { useProjectsByCategory } from "@hooks/use-projects-by-category";
+import { ProjectsByCategory, useProjectsByCategory } from "@hooks/use-projects-by-category";
 import { useTimelineViewport } from "@hooks/use-timeline-viewport";
 
 interface Props extends PageProps {
@@ -54,28 +54,226 @@ interface Props extends PageProps {
 }
 
 const loadChallengeSection = (
-    challenge: Project["challenge"],
     refChallenge: (node: Element | null) => void,
     elements: ProjectSection["elements"]
 ) => (
     <ArticleSection id="challenge" ref={refChallenge}>
         <H2>Challenge</H2>
         <ContentContainer>
-            {elements
-                ? Object.keys(elements).forEach((key) => {
-                      const element = elements[key];
+            {elements.map(({element, description}) => {
+                switch (element) {
+                    case "overview":
+                        return (
+                            <Fragment>
+                                <H3>Overview</H3>
+                                <Paragraph>{description}</Paragraph>
+                            </ Fragment>
+                        );
+                    case "project-goals":
+                        return (
+                            <Fragment>
+                                <H3>Project goals</H3>
+                                <Paragraph>{description}</Paragraph>
+                            </Fragment>
+                        );
+                    case "audience":
+                        return (
+                            <Fragment>
+                                <H3>Audience</H3>
+                                <Paragraph>{description}</Paragraph>
+                            </Fragment>
+                        );
+                }
 
-                      // switch (element) {
+                return "";
+            })}
+        </ContentContainer>
+    </ArticleSection>
+);
 
-                      // }
-                  })
-                : ""}
-            <H3>Overview</H3>
-            <Paragraph>{challenge.overview}</Paragraph>
-            <H3>Project goals</H3>
-            <Paragraph>{challenge.projectGoals}</Paragraph>
-            <H3>Audience</H3>
-            <Paragraph>{challenge.audience}</Paragraph>
+const loadApproachSection = (
+    refApproach: (node: Element | null) => void,
+    elements: ProjectSection["elements"]
+) => (
+    <ArticleSection id="approach" ref={refApproach}>
+        <H2>Approach</H2>
+        <ContentContainer>
+            {elements.map(({element, description, image, imageOne, imageTwo}) => {
+                    switch (element) {
+                        case "brand-elements":
+                            return (
+                                <Fragment>
+                                    <H3>Brand elements</H3>
+                                    <Paragraph>{description}</Paragraph>
+                                </ Fragment>
+                            );
+                        case "full-size-image":
+                            return (
+                                <Fragment>
+                                    <FullSizeImageWrapper>
+                                        <ParallaxBackground
+                                            bgImgUrl={`${image}`}
+                                            contain={true}
+                                            scaleOnHover={true}
+                                        />
+                                    </FullSizeImageWrapper>
+                                </Fragment>
+                            );
+                        case "two-images":
+                            return (
+                                <Fragment>
+                                    <TwoImagesWrapper>
+                                        <ParallaxBackground
+                                            bgImgUrl={`${imageOne}`}
+                                            contain={true}
+                                            scaleOnHover={true}
+                                        />
+                                        <ParallaxBackground
+                                            bgImgUrl={`${imageTwo}`}
+                                            contain={true}
+                                            scaleOnHover={true}
+                                        />
+                                    </TwoImagesWrapper>
+                                </Fragment>
+                            );
+                    }
+
+                    return "";
+            })}
+        </ContentContainer>
+
+        {elements.map(({element, quote, image}) => {
+            switch (element) {
+                case "full-page-image":
+                    return (
+                        <FullPageContent widthPct={100}>
+                            <ParallaxBackground
+                                bgImgUrl={`${image}`}
+                            />
+                        </FullPageContent>
+                    );
+                case "slider":
+                    return (
+                        <GallerySlider gap={133} />
+                    );
+                case "quote":
+                    return (
+                        <ContentContainer variant="full">
+                            <Quote>{quote}</Quote>
+                        </ContentContainer>
+                    );
+            }
+
+            return "";
+        })}
+
+    </ArticleSection>
+);
+
+const loadResultsSection = (
+    refResults: (node: Element | null) => void,
+    elements: ProjectSection["elements"],
+    refStats: (node: Element | null) => void,
+    animateStats: boolean
+) => (
+    <ArticleSection>
+        <ContentContainer
+            id="results"
+            ref={refResults}
+            variant="full"
+        >
+            {elements.map(({screens, iterations, prototypes}) => (
+                <Fragment>
+                    <TableStats ref={refStats}>
+                        <CellTitle>
+                            <StyledNumber
+                                value={screens}
+                                animate={animateStats}
+                            />
+                        </CellTitle>
+                        <StatsCaption className="space">
+                            Screens
+                        </StatsCaption>
+                        <CellTitle>
+                            <StyledNumber
+                                value={screens}
+                                animate={animateStats}
+                            />
+                        </CellTitle>
+                        <StatsCaption>Screens</StatsCaption>
+
+                        <CellTitle>
+                            <StyledNumber
+                                value={iterations}
+                                animate={animateStats}
+                            />
+                        </CellTitle>
+                        <StatsCaption className="space">
+                            Iterations
+                        </StatsCaption>
+                        <CellTitle>
+                            <StyledNumber
+                                value={iterations}
+                                animate={animateStats}
+                            />
+                        </CellTitle>
+                        <StatsCaption>Iterations</StatsCaption>
+
+                        <CellTitle>
+                            <StyledNumber
+                                value={prototypes}
+                                animate={animateStats}
+                            />
+                        </CellTitle>
+                        <StatsCaption className="space">
+                            Prototypes
+                        </StatsCaption>
+                    </TableStats>
+                </Fragment>
+            ))}
+
+        </ContentContainer>
+    </ArticleSection>
+
+);
+
+const loadCreditsSection = (
+    elements: ProjectSection["elements"]
+) => (
+    <ArticleSection id="credits">
+        <H2>Credits</H2>
+        <ContentContainer variant="full">
+            <TableCredits>
+                {elements.map(({concept,
+                                conceptDesc,
+                                design,
+                                designDesc,
+                                projectManagement,
+                                projectManagementDesc}) => (
+                    <Fragment>
+                        <CellTitle>{concept}</CellTitle>
+                        <div>{conceptDesc}</div>
+                        <CellTitle>{design}</CellTitle>
+                        <div>{designDesc}</div>
+                        <CellTitle>{projectManagement}</CellTitle>
+                        <div>{projectManagementDesc}</div>
+                    </Fragment>
+                ))}
+            </TableCredits>
+        </ContentContainer>
+    </ArticleSection>
+);
+
+const loadOtherProjectsSection = (
+   elements: ProjectSection["elements"],
+   projectsByCategory: ProjectsByCategory
+) => (
+    <ArticleSection id="another-projects">
+        <H2>Other {elements[0].category} Projects</H2>
+        <ContentContainer variant="full">
+            <OtherProjects
+                projectsByCategory={projectsByCategory}
+            />
         </ContentContainer>
     </ArticleSection>
 );
@@ -90,10 +288,6 @@ export default function Project({ data }: Props): JSX.Element {
         agency,
         timeframe,
         roleInProject,
-        challenge,
-        approach,
-        stats,
-        credits,
         sections,
     } = data.project;
 
@@ -109,6 +303,24 @@ export default function Project({ data }: Props): JSX.Element {
         options,
         onTimelineItemChange,
     ] = useTimelineViewport();
+
+    const allowedTimelineSections = ["challenge", "approach", "results"];
+    const timelineWithSections = [
+        {
+            ...designProcessTimeline[0],
+            items: sections.filter(({section}) =>
+                    allowedTimelineSections.includes(section))
+
+                    .map(({section}) => {
+                        const lowerCasedSectionName = section.toLowerCase();
+
+                        return {
+                            id: lowerCasedSectionName,
+                            title: lowerCasedSectionName
+                        };
+                    })
+        },
+    ];
     const refChallenge = useInViewEffect(intersection, options);
     const refApproach = useInViewEffect(intersection, options);
     const refResults = useInViewEffect(intersection, {
@@ -172,146 +384,55 @@ export default function Project({ data }: Props): JSX.Element {
                     <Timeline
                         style={{ height: "254px" }}
                         activeItemId={activeItemId}
-                        activeSectionId={designProcessTimeline[0].id}
+                        activeSectionId={timelineWithSections[0].id}
                         onTimelineItemChange={onTimelineItemChange}
-                        sections={designProcessTimeline}
+                        sections={timelineWithSections}
                     />
                 </TimelineWrapper>
 
                 <Tabs
                     hideForDesktop={true}
                     onTabChange={onTimelineItemChange}
-                    tabs={designProcessTimeline[0].items}
+                    tabs={timelineWithSections[0].items}
                     activeTabId={activeItemId}
                 />
 
-                {sections.forEach(({ section, elements }) => {
+                {sections.map(({ section, elements }) => {
                     switch (section) {
                         case "challenge":
-                            loadChallengeSection(
-                                challenge,
+                            return loadChallengeSection(
                                 refChallenge,
                                 elements
                             );
-                            break;
 
                         case "approach":
-                            break;
+                            return loadApproachSection(
+                                refApproach,
+                                elements
+                            );
+
+                        case "results":
+                            return loadResultsSection(
+                                refResults,
+                                elements,
+                                refStats,
+                                animateStats
+                            );
+
+                        case "credits":
+                            return loadCreditsSection(
+                                elements,
+                            );
+
+                        case "other-projects":
+                            return loadOtherProjectsSection(
+                                elements,
+                                projectsByCategory
+                            );
                     }
+
+                    return "";
                 })}
-
-                <ArticleSection id="approach" ref={refApproach}>
-                    <H2>Approach</H2>
-                    <ContentContainer>
-                        <H3>Brand elements</H3>
-                        <Paragraph>{approach.brandElements}</Paragraph>
-                        <FullSizeImageWrapper>
-                            <ParallaxBackground
-                                bgImgUrl="/img/placeholder-full.png"
-                                contain={true}
-                                scaleOnHover={true}
-                            />
-                        </FullSizeImageWrapper>
-
-                        <TwoImagesWrapper>
-                            <ParallaxBackground
-                                bgImgUrl="/img/placeholder-full.png"
-                                contain={true}
-                                scaleOnHover={true}
-                            />
-                            <ParallaxBackground
-                                bgImgUrl="/img/placeholder-full.png"
-                                contain={true}
-                                scaleOnHover={true}
-                            />
-                        </TwoImagesWrapper>
-                    </ContentContainer>
-
-                    <FullPageContent widthPct={100}>
-                        <ParallaxBackground bgImgUrl="/img/placeholder-2.png" />
-                    </FullPageContent>
-
-                    <GallerySlider gap={133} />
-
-                    <ContentContainer variant="full">
-                        <Quote>{approach.quote}</Quote>
-                    </ContentContainer>
-
-                    <ContentContainer
-                        id="results"
-                        ref={refResults}
-                        variant="full"
-                    >
-                        <TableStats ref={refStats}>
-                            <CellTitle>
-                                <StyledNumber
-                                    value={stats.screens}
-                                    animate={animateStats}
-                                />
-                            </CellTitle>
-                            <StatsCaption className="space">
-                                Screens
-                            </StatsCaption>
-                            <CellTitle>
-                                <StyledNumber
-                                    value={stats.screens}
-                                    animate={animateStats}
-                                />
-                            </CellTitle>
-                            <StatsCaption>Screens</StatsCaption>
-
-                            <CellTitle>
-                                <StyledNumber
-                                    value={stats.iterations}
-                                    animate={animateStats}
-                                />
-                            </CellTitle>
-                            <StatsCaption className="space">
-                                Iterations
-                            </StatsCaption>
-                            <CellTitle>
-                                <StyledNumber
-                                    value={stats.iterations}
-                                    animate={animateStats}
-                                />
-                            </CellTitle>
-                            <StatsCaption>Iterations</StatsCaption>
-
-                            <CellTitle>
-                                <StyledNumber
-                                    value={stats.prototypes}
-                                    animate={animateStats}
-                                />
-                            </CellTitle>
-                            <StatsCaption className="space">
-                                Prototypes
-                            </StatsCaption>
-                        </TableStats>
-                    </ContentContainer>
-                </ArticleSection>
-
-                <ArticleSection id="credits">
-                    <H2>Credits</H2>
-                    <ContentContainer variant="full">
-                        <TableCredits>
-                            <CellTitle>{credits.concept}</CellTitle>
-                            <div>{credits.conceptDesc}</div>
-                            <CellTitle>{credits.design}</CellTitle>
-                            <div>{credits.designDesc}</div>
-                            <CellTitle>{credits.projectManagement}</CellTitle>
-                            <div>{credits.projectManagementDesc}</div>
-                        </TableCredits>
-                    </ContentContainer>
-                </ArticleSection>
-
-                <ArticleSection id="another-projects">
-                    <H2>Other {category} Projects</H2>
-                    <ContentContainer variant="full">
-                        <OtherProjects
-                            projectsByCategory={projectsByCategory}
-                        />
-                    </ContentContainer>
-                </ArticleSection>
             </Article>
         </Fragment>
     );

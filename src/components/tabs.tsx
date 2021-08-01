@@ -70,7 +70,7 @@ const TabsList = styled.ul(() => [
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
     tw`w-full h-8 cursor-pointer select-none prose-20px opacity-40`,
-    tw`transition-opacity text-melrose`,
+    tw`transition-opacity capitalize text-melrose`,
     isActive && tw`opacity-100`,
     css`
         line-height: 25px;

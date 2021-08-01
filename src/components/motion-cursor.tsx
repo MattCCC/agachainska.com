@@ -28,7 +28,7 @@ const cursorSize = 80;
 
 const Cursor = styled.div(
     ({ isMotionCursorVisible, color, size, overlap }: CursorProps) => [
-        tw`fixed z-100 hidden lg:block text-white text-center uppercase rounded-full select-none cursor-pointer`,
+        tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full select-none cursor-pointer`,
         tw`border prose-12px`,
         color === "black" && tw`bg-black border-black`,
         color === "melrose" && tw`bg-melrose border-melrose`,
@@ -72,7 +72,7 @@ const CursorText = styled.div(() => [
 const ProjectHover = styled.div(() => []);
 
 const SolidBackground = styled.div(({isMotionCursorVisible}: CursorProps) => [
-    tw`fixed z-50 hidden lg:block`,
+    tw`fixed z-30 hidden lg:block`,
     css`
         opacity: 0;
         width: 400px;
@@ -106,7 +106,7 @@ const SolidBackground = styled.div(({isMotionCursorVisible}: CursorProps) => [
 ]);
 
 const ProjectCover = styled.div(({isMotionCursorVisible, projectCoverLink}: CursorProps) => [
-    tw`fixed z-50 hidden lg:block`,
+    tw`fixed z-30 hidden lg:block`,
     css`
         opacity: 0;
         background: url(${projectCoverLink}) center;
