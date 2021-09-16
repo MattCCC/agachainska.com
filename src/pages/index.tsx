@@ -56,7 +56,6 @@ const Desc = styled.h2(() => [
         max-height: 84px;
         width: 18rem;
         max-width: 100%;
-        line-height: 42px;
     `,
 ]);
 
