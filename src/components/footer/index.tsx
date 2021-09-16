@@ -6,6 +6,7 @@ import { BackgroundNoise } from "@components/background-noise";
 import { Contact } from "@components/footer/contact";
 import { SocialMedia } from "@components/social-media";
 import { socialMedia } from "@data/social-media";
+import { useLocation } from "@reach/router";
 import { useStoreProp } from "@store/index";
 import { ReactComponent as WavesPattern } from "@svg/bg-lines.svg";
 import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
@@ -112,6 +113,9 @@ export function Footer(): JSX.Element {
         e.preventDefault();
     }, []);
 
+    const currentUrlPath = useLocation().pathname;
+    const IsLightThemeAndNotHomepage = !darkTheme && currentUrlPath !== "/";
+
     return (
         <Fragment>
             {showFooter && (
@@ -157,7 +161,7 @@ export function Footer(): JSX.Element {
                 </MiniFooterWrapper>
             )}
 
-            {!darkTheme && (
+            {IsLightThemeAndNotHomepage && (
                 <Annotation showFooter={showFooter}>
                     Coded by
                     <AnnotationLink
