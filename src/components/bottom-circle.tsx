@@ -11,8 +11,10 @@ import { getRoutePath } from "@utils/route";
  * Styles
  */
 export const BottomCircleStyled = styled(Circle)(() => [
-    tw`absolute z-50 inset-x-2/4 block lg:hidden`,
+    tw`absolute z-50 inset-x-2/4 flex justify-center items-center lg:hidden`,
     css`
+        width: 60px;
+        height: 60px;
         bottom: 33px;
     `,
 ]);
