@@ -33,6 +33,14 @@ const Waves = styled(
 const GreekEye = styled(GreekEyeIllustration)(() => [
     tw`absolute z-10`,
     css`
+        @media screen and (max-width: 768px) {
+            width: 42px;
+            height: 42px;
+            top: 30%;
+            left: 53%;
+            
+        }
+    
         width: 80px;
         height: 80px;
         left: 426px;
@@ -43,6 +51,13 @@ const GreekEye = styled(GreekEyeIllustration)(() => [
 const LondonEye = styled(LondonEyeIllustration)(() => [
     tw`absolute z-10`,
     css`
+        @media screen and (max-width: 768px) {
+            width: 58px;
+            height: 58p;
+            top: 68%;
+            left: 10%;
+        }
+    
         width: 80px;
         height: 80px;
         left: 868px;
@@ -61,7 +76,7 @@ const PricklyPear = styled(PricklyPearIllustration)(() => [
 ]);
 
 const Caipirinha = styled(CaipirinhaIllustration)(() => [
-    tw`absolute z-10`,
+    tw`absolute z-10 hidden lg:block`,
     css`
         width: 80px;
         height: 80px;
