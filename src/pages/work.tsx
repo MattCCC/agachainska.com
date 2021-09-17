@@ -59,7 +59,7 @@ const TimelineWrapper = styled.aside(() => [
 const StyledNumber = styled(BigNumber)(() => [
     tw`absolute right-0 z-20 select-none`,
     css`
-        bottom: -33px;
+        bottom: 16px;
         height: 260px;
     `,
 ]);
@@ -67,8 +67,8 @@ const StyledNumber = styled(BigNumber)(() => [
 const StyledStar = styled(Star)(() => [
     tw`absolute z-20 select-none`,
     css`
-        right: -60px;
-        bottom: -65px;
+        right: -55px;
+        bottom: -15px;
         height: 260px;
         width: 260px;
     `,
