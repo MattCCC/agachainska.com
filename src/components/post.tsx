@@ -25,7 +25,10 @@ const PostImg = styled.img(() => [
 ]);
 
 const PostDescription = styled.div(() => [
-    tw`w-3/4 prose-16px-h24`
+    tw`w-3/4 prose-16px-h24`,
+    css`
+        margin-top: 10px;
+    `
 ]);
 
 const StyledNumber = styled(BigNumber)(() => [
