@@ -85,6 +85,14 @@ export const HeroWrapper = styled.div(() => [
         height: 200px;
         margin-bottom: 70px;
 
+        ${up("sm")} {
+            height: 320px;
+        }
+
+        ${up("md")} {
+            height: 390px;
+        }
+
         ${up("lg")} {
             margin-bottom: 90px;
             height: 462px;
