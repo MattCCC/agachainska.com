@@ -13,6 +13,7 @@ import { ParallaxBackground } from "@components/parallax-background";
 import { Quote } from "@components/quote";
 import { Tabs } from "@components/tabs";
 import { Timeline } from "@components/timeline";
+import ViewOnDeskStar from "@components/view-on-desktop-star";
 import { designProcessTimeline } from "@config/page-timlines";
 import { GallerySlider } from "@domain/single-project/gallery-slider";
 import { OtherProjects } from "@domain/single-project/other-projects";
@@ -331,6 +332,8 @@ export default function Project({ data }: Props): JSX.Element {
     return (
         <Fragment>
             <MotionCursor />
+
+            <ViewOnDeskStar />
 
             <MainSection topPadding={true}>
                 <HeroWrapper>
