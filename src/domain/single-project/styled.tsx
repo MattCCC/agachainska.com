@@ -46,6 +46,7 @@ export const MainTitleWrapper = styled.div(
 
 export const MainTitle = styled(MainTitleBottom)(
     ({ baseFontSize = 120, percentage = 62 }) => [
+        tw`uppercase`,
         css`
             top: -${Math.floor(percentage / 2 - 4)}px;
             margin-bottom: -${Math.floor(percentage / 2 - 4)}px;
