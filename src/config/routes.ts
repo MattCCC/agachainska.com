@@ -66,6 +66,7 @@ const routesList: RoutesList = {
         meta: {
             store: {
                 showMotionGrid: false,
+                showWavePattern: false,
             }
         },
     },
