@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>2E9152DB-EB55-4649-842E-0C9E5CC3BEFC</title>
+    <defs>
+        <circle id="path-1" cx="40.5" cy="40.5" r="36.5"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-1" y="-1" width="75" height="75">
+            <rect x="3" y="3" width="75" height="75" fill="white"></rect>
+            <use xlink:href="#path-1" fill="black"></use>
+        </mask>
+        <linearGradient x1="50%" y1="23.2481523%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#FFFD8E" offset="0%"></stop>
+            <stop stop-color="#EDA979" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#81E1FA" offset="0%"></stop>
+            <stop stop-color="#C2FFA5" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Illustrations" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="About---Desktop" transform="translate(-1049.000000, -102.000000)" stroke="#0B0B0B">
+            <g id="Illustrations-/-Greek-eye" transform="translate(1049.000000, 102.000000)">
+                <use id="Oval" mask="url(#mask-2)" stroke-width="2" stroke-dasharray="4" fill-rule="nonzero" xlink:href="#path-1"></use>
+                <circle id="Oval" fill="url(#linearGradient-3)" cx="40.5" cy="40.5" r="16"></circle>
+                <circle id="Oval-Copy" fill="url(#linearGradient-4)" cx="14.5" cy="13.5" r="9"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

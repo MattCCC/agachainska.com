@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="70px" height="70px" viewBox="0 0 70 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>BBB2D17A-05D2-4F5B-B477-8FC2A9222712</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#F9BD93" offset="0%"></stop>
+            <stop stop-color="#E89E6D" offset="100%"></stop>
+        </linearGradient>
+        <ellipse id="path-2" cx="35" cy="34.6666667" rx="30.625" ry="30.3333333"></ellipse>
+        <pattern id="pattern-3" width="5.55619792" height="5.55619792" x="-1.18119792" y="-1.22286458" patternUnits="userSpaceOnUse">
+            <use xlink:href="#image-4" transform="scale(0.173631185,0.173631185)"></use>
+        </pattern>
+        <image id="image-4" width="32" height="32" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGN5fIAKQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACPTkDJAAABSUlEQVRYCWNkgIL///8z3q23S/nHwJAMFNKGCl9lYmCYq9x4aA4jI+N/mFpq0owgwx602kr+/sGw5D/DfydshjMyMO5j5WCIUag+/BybPCViTCCf47McZDjIYWA1QLWUWIZNLxMo2HH5HFkDSA1ILbIYNdhM0DgnyixS1BJlIFARMI3BExwxemCJkxi1RKkBOWBAAcgBV0lwASlqiTKWCeiCuUSpBCoiRS2xZjKCsuGdOrs9hHICqCxQaTrkQu0CiQlkIKiQAVmAy9WwgojaloPsgxcsA1UU4/L0qPhoCIyGwMgJAXhBRG0vE1uw0cQBpLQxqd4eILWNSfUQuFNnm/rv//9ZxEQpsCZMo3oIkNJuBKmlugOAPiel3ahNCwcQE/pwNbRwACntRlDXj7oAaCBJbUyq5wJS25hUDwFS25hUDwFYhBJbFAMALZGXniNCyjUAAAAASUVORK5CYII="></image>
+    </defs>
+    <g id="Illustrations" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="About---Desktop" transform="translate(-832.000000, -1632.000000)">
+            <g id="Illustrations-/-Caipirinha-Copy-4" transform="translate(832.000000, 1632.000000)">
+                <g id="Oval" fill-rule="nonzero">
+                    <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+                    <ellipse stroke="#0B0B0B" stroke-width="1" fill="url(#pattern-3)" fill-rule="evenodd" cx="35" cy="34.6666667" rx="31.125" ry="30.8333333"></ellipse>
+                </g>
+                <path d="M4.375,42.4375 C14.5833333,42.1458333 23.7708333,40.8333333 31.9375,38.5 C40.1041667,36.1666667 50.75,31.5 63.875,24.5" id="Path-3" stroke="#0B0B0B"></path>
+                <path d="M23.1875,6.5625 C19.8444583,22.6667269 18.9694583,34.1875603 20.5625,41.125 C22.1555417,48.0624397 27.551375,56.3749397 36.75,66.0625" id="Path-4" stroke="#0B0B0B"></path>
+                <path d="M15.75,59.0625 C15.75,54.1041667 18.8125,50.4583333 24.9375,48.125 C34.125,44.625 41.125,52.0625 49,52.0625 C56.3715989,52.0625 61.6215989,49.4375 64.75,44.1875" id="Path-5" stroke="#0B0B0B"></path>
+                <path d="M6.5625,22.3125 C6.80349343,32.9453572 11.1784934,37.1745239 19.6875,35 C32.4510099,31.7382141 42.875,14.4375 45.9375,12.25 C47.9791667,10.7916667 50.4583333,10.0625 53.375,10.0625" id="Path-6" stroke="#0B0B0B"></path>
+            </g>
+        </g>
+    </g>
+</svg>

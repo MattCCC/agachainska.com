@@ -1,4 +1,4 @@
-import { FunctionComponent, Fragment } from "react";
+import { FunctionComponent } from "react";
 
 import {
     useViewportScroll,
@@ -7,9 +7,15 @@ import {
   } from "framer-motion";
 import tw, { css, styled } from "twin.macro";
 
-import { ReactComponent as GreekEyeIllustration } from "@svg/Greek eye@1x.svg";
+import { ReactComponent as Basketball } from "@svg/Basketball.svg";
+import { ReactComponent as Drink } from "@svg/Drink.svg";
 import { ReactComponent as LondonEyeIllustration } from "@svg/London eye@1x.svg";
-import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
+import { ReactComponent as Malta } from "@svg/Malta.svg";
+import { ReactComponent as Maracas } from "@svg/Maracas.svg";
+import { ReactComponent as PixelLove } from "@svg/Pixel love.svg";
+import { ReactComponent as Torun } from "@svg/Torun.svg";
+import { ReactComponent as Vectors } from "@svg/Vectors.svg";
+import { ReactComponent as Vinyl } from "@svg/Vinyl.svg";
 
 
 const IllustrationsContainer = styled.div(() => [
@@ -42,7 +48,7 @@ export const ParallaxBackground: FunctionComponent = () => {
 
     const Illustrations = [
         {
-            illustration: <GreekEyeIllustration />,
+            illustration: <Torun />,
             top: "50%",
             colStart: "10",
             y: y1
@@ -54,31 +60,31 @@ export const ParallaxBackground: FunctionComponent = () => {
             y: y2
         },
         {
-            illustration: <PricklyPearIllustration />,
+            illustration: <Drink />,
             top: "266%",
             colStart: "5",
             y: y1
         },
         {
-            illustration: <GreekEyeIllustration />,
+            illustration: <Vectors />,
             top: "425%",
             colStart: "8",
             y: y4
         },
         {
-            illustration: <LondonEyeIllustration />,
+            illustration: <Vinyl />,
             top: "582%",
             colStart: "10",
             y: y2
         },
         {
-            illustration: <LondonEyeIllustration />,
+            illustration: <Basketball />,
             top: "452%",
             colStart: "4",
             y: y3
         },
         {
-            illustration: <PricklyPearIllustration />,
+            illustration: <Malta />,
             width: "107px",
             height: "107px",
             top: "602%",
@@ -86,13 +92,13 @@ export const ParallaxBackground: FunctionComponent = () => {
             y: y2
         },
         {
-            illustration: <GreekEyeIllustration />,
+            illustration: <Maracas />,
             top: "738%",
             colStart: "11",
             y: y6
         },
         {
-            illustration: <LondonEyeIllustration />,
+            illustration: <PixelLove />,
             top: "837%",
             colStart: "9",
             y: y5
