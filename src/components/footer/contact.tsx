@@ -68,7 +68,7 @@ export const Contact = memo(
             <ContactWrapper {...getLinkProps("contact", location)}>
                 <MarqueeTextWrapper as="span" ref={itemsRef}>
                     <MarqueeTextContainer>
-                        <MarqueeText text="Build Something Awesome •" />
+                        <MarqueeText text="Let’s build something awesome together •" />
                     </MarqueeTextContainer>
                 </MarqueeTextWrapper>
             </ContactWrapper>

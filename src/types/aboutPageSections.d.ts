@@ -4,6 +4,7 @@ interface Hero {
 
 interface Expertise {
     description: string;
+    secondDescription: string;
     skills: string[];
 }
 

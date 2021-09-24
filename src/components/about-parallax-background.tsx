@@ -1,4 +1,4 @@
-import { FunctionComponent, Fragment } from "react";
+import { FunctionComponent } from "react";
 
 import {
     useViewportScroll,
@@ -7,9 +7,15 @@ import {
   } from "framer-motion";
 import tw, { css, styled } from "twin.macro";
 
-import { ReactComponent as GreekEyeIllustration } from "@svg/Greek eye@1x.svg";
+import { ReactComponent as Basketball } from "@svg/Basketball.svg";
+import { ReactComponent as Drink } from "@svg/Drink.svg";
 import { ReactComponent as LondonEyeIllustration } from "@svg/London eye@1x.svg";
-import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
+import { ReactComponent as Malta } from "@svg/Malta.svg";
+import { ReactComponent as Maracas } from "@svg/Maracas.svg";
+import { ReactComponent as PixelLove } from "@svg/Pixel love.svg";
+import { ReactComponent as Torun } from "@svg/Torun.svg";
+import { ReactComponent as Vectors } from "@svg/Vectors.svg";
+import { ReactComponent as Vinyl } from "@svg/Vinyl.svg";
 
 
 const IllustrationsContainer = styled.div(() => [
@@ -32,17 +38,17 @@ const ParallaxCon = styled(motion.div)(() => [
 export const ParallaxBackground: FunctionComponent = () => {
 
     const { scrollY } = useViewportScroll();
-    const y1 = useTransform(scrollY, [0, 1300], [0, 200]);
+    const y1 = useTransform(scrollY, [0, 1300], [0, 170]);
     const y2 = useTransform(scrollY, [0, 2000], [0, -150]);
     const y3 = useTransform(scrollY, [0, 3000], [0, 100]);
-    const y4 = useTransform(scrollY, [0, 1800], [0, 500]);
+    const y4 = useTransform(scrollY, [0, 1100], [0, -200]);
     const y5 = useTransform(scrollY, [0, 2200], [0, -250]);
     const y6 = useTransform(scrollY, [0, 4000], [0, 500]);
 
 
     const Illustrations = [
         {
-            illustration: <GreekEyeIllustration />,
+            illustration: <Torun />,
             top: "50%",
             colStart: "10",
             y: y1
@@ -54,46 +60,46 @@ export const ParallaxBackground: FunctionComponent = () => {
             y: y2
         },
         {
-            illustration: <PricklyPearIllustration />,
-            top: "266%",
+            illustration: <Drink />,
+            top: "380%",
             colStart: "5",
             y: y1
         },
         {
-            illustration: <GreekEyeIllustration />,
-            top: "425%",
+            illustration: <Vectors />,
+            top: "720%",
             colStart: "8",
             y: y4
         },
         {
-            illustration: <LondonEyeIllustration />,
-            top: "582%",
+            illustration: <Vinyl />,
+            top: "800%",
             colStart: "10",
             y: y2
         },
         {
-            illustration: <LondonEyeIllustration />,
-            top: "452%",
-            colStart: "4",
+            illustration: <Basketball />,
+            top: "900%",
+            colStart: "8",
             y: y3
         },
         {
-            illustration: <PricklyPearIllustration />,
+            illustration: <Malta />,
             width: "107px",
             height: "107px",
-            top: "602%",
+            top: "900%",
             colStart: "8",
             y: y2
         },
         {
-            illustration: <GreekEyeIllustration />,
-            top: "738%",
+            illustration: <Maracas />,
+            top: "850%",
             colStart: "11",
             y: y6
         },
         {
-            illustration: <LondonEyeIllustration />,
-            top: "837%",
+            illustration: <PixelLove />,
+            top: "1400%",
             colStart: "9",
             y: y5
         },

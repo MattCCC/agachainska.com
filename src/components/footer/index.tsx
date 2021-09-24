@@ -1,4 +1,4 @@
-import { Fragment, useCallback } from "react";
+import { Fragment } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -11,7 +11,6 @@ import { useStoreProp } from "@store/index";
 import { ReactComponent as WavesPattern } from "@svg/bg-lines.svg";
 import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
 import { up } from "@utils/screens";
-import { scrollTo } from "@utils/scroll-to";
 
 interface Props {
     showFooter: boolean;
@@ -91,14 +90,7 @@ const PricklyPear = styled(PricklyPearIllustration)(() => [
 ]);
 
 const Annotation = styled.div(({ showFooter }: Partial<Props>) => [
-    tw`container relative z-10 mx-auto text-center lg:-mt-10 text-primary-color lg:text-left`,
-    css`
-        ${tw`-mt-5`}
-
-        ${up("lg")} {
-            ${tw`-mt-20`}
-        }
-    `,
+    tw`container relative z-10 mx-auto my-7 text-center text-primary-color lg:my-0 lg:text-left`,
     showFooter && tw`text-white bottom-2`,
 ]);
 
@@ -107,11 +99,6 @@ const AnnotationLink = styled.a(() => [tw`inline-block ml-1 text-green`]);
 export function Footer(): JSX.Element {
     const [showFooter] = useStoreProp("showFooter");
     const [darkTheme] = useStoreProp("darkTheme");
-    const onBackToTopClicked = useCallback((e): void => {
-        scrollTo();
-
-        e.preventDefault();
-    }, []);
 
     const currentUrlPath = useLocation().pathname;
     const IsLightThemeAndNotHomepage = !darkTheme && currentUrlPath !== "/";
@@ -128,9 +115,16 @@ export function Footer(): JSX.Element {
                         <BottomFooter>
                             <FooterContainer>
                                 <FooterNav>
-                                    <a href="#top" onClick={onBackToTopClicked}>
-                                        <BackToTop>Back to top</BackToTop>
-                                    </a>
+                                    <Annotation showFooter={showFooter}>
+                                        Coded by
+                                        <AnnotationLink
+                                            href="https://deindesign.pl/"
+                                            rel="noreferrer"
+                                            target="_blank"
+                                        >
+                                            Matt
+                                        </AnnotationLink>
+                                    </Annotation>
                                     <SocialMedia items={socialMedia} />
                                 </FooterNav>
                             </FooterContainer>
@@ -139,7 +133,7 @@ export function Footer(): JSX.Element {
                 </FooterWrapper>
             )}
 
-            {darkTheme && (
+            {(darkTheme && !showFooter) && (
                 <MiniFooterWrapper>
                     <BottomFooter>
                         <FooterContainer>
@@ -161,7 +155,7 @@ export function Footer(): JSX.Element {
                 </MiniFooterWrapper>
             )}
 
-            {IsLightThemeAndNotHomepage && (
+            {(IsLightThemeAndNotHomepage && !showFooter) && (
                 <Annotation showFooter={showFooter}>
                     Coded by
                     <AnnotationLink

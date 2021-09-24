@@ -87,7 +87,7 @@ const TimelineWrapper = styled.aside(() => [
 
 
 const ArticleSection = styled.section(() => [
-    tw`lg:grid lg:grid-cols-12 lg:grid-rows-1 lg:items-center`,
+    tw`mb-20 lg:grid lg:grid-cols-12 lg:grid-rows-1 lg:items-center`,
     css`
         &:first-of-type {
             margin-top: 48px;
@@ -96,7 +96,9 @@ const ArticleSection = styled.section(() => [
         ${up("lg")} {
             &:first-of-type {
                 margin-top: 0;
-            }                
+            }
+
+            margin-bottom: 7.5rem;
         }
     `
 ]);
@@ -117,14 +119,19 @@ const Title = styled.h2(() => [
 ]);
 
 const DetailsContainer = styled.div(() => [
-    tw`mb-20 lg:col-start-1 lg:col-end-7`,
+    tw`lg:col-start-1 lg:col-end-7`,
     css`
         max-width: 606px;   
     `
 ]);
 
 const Details = styled.p(() => [
-    tw`prose-16px-h24 font-base mb-10`
+    tw`prose-16px-h24 font-base mb-10`,
+    css`
+        &:first-of-type {
+            margin-bottom: 1.5rem;
+        }
+    `
 ]);
 
 const SkillsTable = styled.ul(() => [
@@ -273,6 +280,10 @@ export default function About({ data }: Props): JSX.Element {
                             <DetailsContainer>
                                 <Details>
                                     {expertise.description}
+                                </Details>
+
+                                <Details>
+                                    {expertise.secondDescription}
                                 </Details>
 
                                 <SkillsTable>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="112px" height="113px" viewBox="0 0 112 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>23206CCA-C137-47D6-B269-68A3EDCD3D71</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFE8CE" offset="0%"></stop>
+            <stop stop-color="#FFCFA0" offset="100%"></stop>
+        </linearGradient>
+        <path d="M0,7.354303 C0,3.87199228 1.94357367,0 8.55172414,0 C15.1598746,0 17.1034483,3.87068579 17.1034483,7.354303 C17.1034483,10.4508516 14.4337671,14.6845768 12.8275862,23.9982519 C12.2890629,27.1209581 11.9003482,32.6689411 11.661442,40.6422008 L5.44200627,40.6422008 C5.19936808,32.6437669 4.81065335,27.0957839 4.27586207,23.9982519 C2.64738971,14.5660762 0,10.8379202 0,7.354303 Z" id="path-2"></path>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#FFE8CE" offset="0%"></stop>
+            <stop stop-color="#FFCFA0" offset="100%"></stop>
+        </linearGradient>
+        <ellipse id="path-5" cx="31" cy="30.7326631" rx="31" ry="30.7326631"></ellipse>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-7">
+            <stop stop-color="#8BE7FA" offset="0%"></stop>
+            <stop stop-color="#8FE1FA" offset="100%"></stop>
+        </linearGradient>
+        <path d="M-5.8125,16.3267273 C9.04166667,17.287123 20.9895833,17.7673209 30.03125,17.7673209 C39.0729167,17.7673209 52.6354167,17.287123 70.71875,16.3267273 L70.71875,48.0197861 L-5.8125,48.0197861 L-5.8125,16.3267273 Z" id="path-8"></path>
+        <pattern id="pattern-9" width="4.34306408" height="4.34306408" x="-10.1555641" y="11.9836632" patternUnits="userSpaceOnUse">
+            <use xlink:href="#image-10" transform="scale(0.135720752,0.135720752)"></use>
+        </pattern>
+        <image id="image-10" width="32" height="32" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGN5fIAKQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACPTkDJAAABQUlEQVRYCe1WMXKCUBD9u54indZ2jrlAxmOkM6YVTxLqTNJ5DMcLqOnSJnSeQlbeH2AoxOyOy1gEGpjP4/3dB/t4FMpDRCj5+n2hnOYSZIxlCvQtLJ/pZPRBRFJhPc8EsmSfPYRc1sXGT5fIi0K2gek5nQ6Pl+7fssbo/NrmII+FoUBgnQ+G7G2dN/cCBtjmmsc1451riSxYLScXncUPTvOABavhA4a1wK5wjFHTkluwWk7GnGvBFqyWkzBaq122+WsS4AVvj8OZtyFxJCxMJppNS9nxHjAduGFtLPey4pae++VegV6Bf6RAbUTePWuNrZMCLBnTPQ/E3Hgl4ELp+OMrM6a7AsvDzyKcwrvqlQ7Cq7sCltwIrHsBltwIrHsBKukbIPcCLLkRWPcCLLkRWPcpsGZMdwWsGdNdger70lrxGbCPtyeSIYgIAAAAAElFTkSuQmCC"></image>
+        <path d="M0.96875,36.9752353 L6.296875,24.9702888 L16.46875,41.297016 L25.671875,24.9702888 L35.84375,41.297016 L45.046875,24.9702888 L53.28125,41.297016 L62,24.0098931 L70.71875,50.9009733 C53.0453528,52.4902935 40.6130611,53.2906232 33.421875,53.3019626 C2.75070105,53.3503261 -13.508175,51.0018087 -14.046875,50.9009733 C-15.2810482,50.6699571 -10.2758399,46.0280445 0.96875,36.9752353 Z" id="path-11"></path>
+        <pattern id="pattern-12" width="15.0062378" height="24.0099805" x="-29.2362059" y="-8.74168211e-05" patternUnits="userSpaceOnUse">
+            <use xlink:href="#image-13" transform="scale(0.250103963,0.250103963)"></use>
+        </pattern>
+        <image id="image-13" width="60" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABgCAYAAABBsBH+AAAABGdBTUEAALGN5fIAKQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAPKADAAQAAAABAAAAYAAAAABV9OmsAAACAklEQVR4Ae2cQU7DMBBFk4iL9CRwJcQKsWHDkjuVk3CUorHkKLhxPHZmxHzxIyGKGk/93qMsUJP58+P7ertNj5PDMc/T18vb5clh9PDIZVmm9+HVjYWesxsvXX16eX69XKVE9YzBJ2SmzB5c7rZskckeJTxmWlhIwNaVo9ZNcbM1yyKWs/L+rL6nwjLMqnLkusK5AqcfDP5iR657B3y2cvS6d8BnK0evuws8Whmh7i7waGWEulXg3soodavAvZVR6h4Caysj1T0E1lZGqtsEblVGq9sEblVGq6sCrlVGrKsCrlVGrKsGLiuj1lUDl5VR6wpH1yH/4ZSvrkXBTn7o2c+/KdsjhefSAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QAA3QQBADc5B9rNvwvq/IryvE11f9wween7qX2eGAyytorNznK3HCAQugR+U8MySwdeVcN8m0+pWxnpOLWMzdzgpZWCCtKm/rytywwGlzDvcVCQ18tnJZN3zhs5W3712ZJUfowrLB0cp7dSGA0yYH3st7dWGAeyvX6sIA91au1YUC1lY+qgsFrK18VBcOuFW5VRcOuFW5VRcSuFZZUxcSuFZZUxcWuKysrQsLXFbW1pV10MfIfUW67uMRzc5I2R8WSJW8rsKdDAAAAABJRU5ErkJggg=="></image>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-14">
+            <stop stop-color="#F5A4FF" offset="0%"></stop>
+            <stop stop-color="#DD7EE9" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Illustrations" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="About---Desktop" transform="translate(-1138.000000, -2211.000000)">
+            <g id="Illustrations-/-Caipirinha-Copy-2" transform="translate(1140.093510, 2213.235630)">
+                <g id="Group-4" transform="translate(53.906490, 54.264370) rotate(-44.000000) translate(-53.906490, -54.264370) translate(22.906490, 8.764370)">
+                    <g id="Rectangle" transform="translate(23.686159, 50.357799)">
+                        <mask id="mask-3" fill="white">
+                            <use xlink:href="#path-2"></use>
+                        </mask>
+                        <path stroke="#0B0B0B" d="M8.55172414,-0.5 C11.6342433,-0.5 13.7424003,0.318848301 15.1449147,1.52498118 C16.9420594,3.07048783 17.6034483,5.27255077 17.6034483,7.354303 C17.6034483,8.79804326 17.0523689,10.4842843 16.2812967,12.7872256 C15.3831294,15.4697587 14.1932785,19.0212059 13.3203129,24.0832246 C12.7732034,27.2557194 12.3835944,32.9422435 12.1469543,41.1422008 L12.1469543,41.1422008 L4.95667899,41.1422008 C4.71608786,32.9165281 4.32643421,27.230033 3.78315157,24.0833187 C3.09053241,20.0716414 2.21207401,17.0997209 1.43487042,14.7423879 L1.43487042,14.7423879 L1.24166732,14.1620754 C1.11341425,13.7802238 0.988697161,13.4147811 0.868886667,13.0637102 C0.0734995054,10.7330525 -0.5,9.01549804 -0.5,7.354303 C-0.5,5.27319026 0.161452449,3.07086091 1.95888777,1.52510431 C3.36140807,0.318966342 5.46947299,-0.5 8.55172414,-0.5 L8.55172414,-0.5 Z"></path>
+                        <path d="M21.2680251,29.292789 L21.2680251,33.6607101 C15.7204548,34.8826973 11.4818699,35.4973778 8.55172414,35.4973778 C5.62157837,35.4973778 1.38299347,34.8826973 -4.1645768,33.6607101 L-4.1645768,33.6607101 L-4.1645768,29.292789 C1.37060428,30.7446685 5.60967063,31.4654863 8.55172414,31.4654863 C11.4937776,31.4654863 15.732844,30.7446685 21.2680251,29.292789 L21.2680251,29.292789 Z" stroke="#0B0B0B" fill="#E68DF1" mask="url(#mask-3)"></path>
+                    </g>
+                    <g id="Rectangle" transform="translate(-0.000000, 0.000000)">
+                        <mask id="mask-6" fill="white">
+                            <use xlink:href="#path-5"></use>
+                        </mask>
+                        <ellipse stroke="#0B0B0B" cx="31" cy="30.7326631" rx="31.5" ry="31.2326631"></ellipse>
+                        <g fill-rule="nonzero" mask="url(#mask-6)">
+                            <use fill="url(#linearGradient-7)" xlink:href="#path-8"></use>
+                            <path stroke="#0B0B0B" stroke-width="1" d="M-6.31245273,15.7932344 C8.77541971,16.7757827 20.889983,17.2673209 30.03125,17.2673209 C39.1545642,17.2673209 52.8837212,16.777853 71.2187296,15.7994015 L71.2187296,15.7994015 L71.21875,48.5197861 L-6.31250073,48.5197861 Z" fill="url(#pattern-9)" fill-rule="evenodd"></path>
+                        </g>
+                        <g id="Path-11" stroke-linejoin="round" mask="url(#mask-6)">
+                            <use fill="#B4ADFD" xlink:href="#path-11"></use>
+                            <use stroke="#0B0B0B" stroke-width="1" fill="url(#pattern-12)" xlink:href="#path-11"></use>
+                        </g>
+                        <ellipse id="Oval" stroke="#0B0B0B" fill="#FFECB5" mask="url(#mask-6)" cx="15.320838" cy="24.3081039" rx="3" ry="2.9698168"></ellipse>
+                        <ellipse id="Oval-Copy-3" stroke="#0B0B0B" fill="#FFECB5" mask="url(#mask-6)" cx="35.2193398" cy="24.3327853" rx="3" ry="2.9698168"></ellipse>
+                        <ellipse id="Oval-Copy-4" stroke="#0B0B0B" fill="#FFECB5" mask="url(#mask-6)" cx="53.3514982" cy="23.6134455" rx="3" ry="2.9698168"></ellipse>
+                        <ellipse id="Oval" stroke="#0B0B0B" fill="#FFECB5" mask="url(#mask-6)" cx="6.40625" cy="39.0044585" rx="3" ry="2.9698168"></ellipse>
+                        <ellipse id="Oval-Copy-3" stroke="#0B0B0B" fill="#FFECB5" mask="url(#mask-6)" cx="26.2264982" cy="38.9797771" rx="3" ry="2.9698168"></ellipse>
+                        <ellipse id="Oval-Copy-4" stroke="#0B0B0B" fill="#FFECB5" mask="url(#mask-6)" cx="44.6327482" cy="38.9797771" rx="3" ry="2.9698168"></ellipse>
+                        <ellipse id="Oval-Copy-4" stroke="#0B0B0B" fill="#FFECB5" mask="url(#mask-6)" cx="59.6875" cy="39.0044585" rx="3" ry="2.9698168"></ellipse>
+                        <ellipse id="Oval" stroke="#0B0B0B" fill="url(#linearGradient-14)" mask="url(#mask-6)" cx="30.9416097" cy="3.86798046" rx="18.390625" ry="4.30197861"></ellipse>
+                    </g>
+                </g>
+                <g id="Group" transform="translate(35.406490, 83.514370) rotate(-248.000000) translate(-35.406490, -83.514370) translate(31.850496, 79.146403)"></g>
+            </g>
+        </g>
+    </g>
+</svg>

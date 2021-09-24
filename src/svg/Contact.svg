@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Illustrations / Concept 1 / Contact</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#F5A4FF" offset="0%"></stop>
+            <stop stop-color="#61F1F8" offset="100%"></stop>
+        </linearGradient>
+        <path d="M40,4 C59.3299662,4 75,19.6700338 75,39 C75,57.6574727 60.4013274,72.9052426 42.0036855,73.9436066 L42,74 L15,75 L14.9995321,63.4944362 C8.81387256,57.1817922 5,48.5362849 5,39 C5,19.6700338 20.6700338,4 40,4 Z" id="path-2"></path>
+        <pattern id="pattern-3" width="46.0366007" height="9.20732015" x="-41.0366007" y="-5.20732015" patternUnits="userSpaceOnUse">
+            <use xlink:href="#image-4" transform="scale(0.460366007,0.460366007)"></use>
+        </pattern>
+        <image id="image-4" width="100" height="20" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAUCAYAAAB7wJiVAAAABGdBTUEAALGN5fIAKQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAZKADAAQAAAABAAAAFAAAAAD1oRy0AAAFxElEQVRYCe1YW2xUVRQ9+9w7j0JrO0asFTozUECU9keNNqDWojXGRFNKB6SQCGj88U9NeOhHP0rEiF/GDz/EGptGGEQCiVGqpVUUjY/EKBAtjzJTyqPAtBZKex9nu860U+uXHZkpULoz9zHn3nvOfq699yExTmJmemtV11zbVpWCuVIIrmQWhanPSdAFQRTFtXljtPgAEXHq2WS7vlF3MsCWWK4Er4aUi1kwaRmJhI3zTzjapD5uyTm4ftuM/nTkpx0RNhKB076Ll2yfYSsfC2++YqtICXGHYFGEyRZgpTIYoRQazhs7ORiIYfG9OD5dVBpsr6wnZ+zzm+F+S6Q76Ci7mkjVQN5FcFJPSm44J+MXx+kwdHkYVjsOXfUIg3sMl86RhxIGmZZX+qw8z1/WmnDYooZlJ8btyVigk4nbpRDt5JXtG5tDWCDztL+ezR+PxEOuK0pcoeZCmBIEXAkEm4HV8iFmPpjOhUN44J1QAJnDXLADZ3XwrvbUSxjrGz64B/+7MB5nJY+bJv/2wN2hjkw70Hsvdk+7mLDKFdPDQBAcohzIMn2Yt/GdqaG20yWGAEQOPr4MK/YKEglYuhNjx6Tgo1Iax1yv6nitKXx6fNOm99bWuu6QNWQ/CiXjUIuhvNkQaETJ6c017rdJWHCwnyFziylly4MLg99n2kDasQ4eis1HlISBMCHFIgz94p6C4LMAegbicC7k9SblZTLxfOJp68ru24Ys+0kwWgkj6JwEA4whxD8J7kJEHMUonIKOKsn6eoaJ+vxk9Em/1e+4OXZosNCOLBRJqIweEibg10wk/B7yDuTxoJuPNfIdQq5TVIw5Z+H/XZi3DFEWTmG/XhmK0FjfJki2+E1z9ysfz4zr8YmmCTPI5pVnC8kZqEE412LRCnimkRIWBUACHvI1lLHfkEbbHDXzyPIoWann2bi+ua4nz+m//IhQXAUkqAI/96TWGcH+A0CJZsMntwOawd/EUFYNojH1fMKqRg5YDXGeGDUC4AI+2SpJtJAS+zeUhX6letxdQ2qIxGdKpR5nUk+Bt6fBa45mBwoaQlTugpHe3xQNtma7esy4QSAIbYl0ViiWz6EAqAUcASOTkgGzxedEcqcUeXs2RG/VCfe6pHcj53J71ZVqIdRqGKMKMqCO0cahTpy2+U1PY7YgLWMG2bwiVsoOrwL81yHUddIaJqLvJHGTX5jbX44WX0wN3yjXt589VTzo2GsQ5euQc8JJvnWOQzEghGwqkDm7X4reriu6jND/NojuX47J+L2uq55BgqwFswtSHGlPQqvUZJDxIZpEnZhveEpG/orYY0rx84iYpShGfFooQNgV5L+9xPIzJeWXr0eLT12NsGkZZCQKlsBBlgCZKsBIwejiROdRxXxikGxavyP4bbaxdnTda3CjO3V3SK1AH1SHEvahf1VrpJtAbiGD9hm5079Ju1PnepbvXBAe40yPp9fk6SQGAsKhADxgNiaejwXnQfHzgJ3zAUX5Y+WH0rX374Of7JpHwTZURu7Y5zfD/TCkOShcVBXkRR/1z25GsloT4gRK7d+hxz8QTnHk1S6TxVn87yO/0cfWtP5AYNAOJIocXb6n26l3YfJWhGerz2O2Ziux3aiduub7h0OxckepKjhrFSLnPuQeNH3jp9FOHdWEjYgYQCQkgGO9aJ5iyA1/wsodSModinwdm6JF2ILIPOn9IKXsSngXPGxiOnXIOASP/QW5IeudOitRSlLNAcwXA21mAVGSW0DQJBCHczHugaNjZ2KqUx/NobiZ6tRTsYbwnurUR5Qx6iEp5WTyOtWpp6/NjBtk8nfq1Ojzehpfbb7zZPrq/u8vMmaQLZF4mcvOKpTGdVgWyWuEJkGnPuQ6a1nx2lSnrstZFCBfkRQfFIhpe66LTl2ru2FZ7H5BaimqsZqxnToenUQF89Fk7NSxM/ECvLgaBkl26pBzEA3xF4LlTkPm7b3aPbq/Aan4ThdJ647kAAAAAElFTkSuQmCC"></image>
+    </defs>
+    <g id="Illustrations-/-Concept-1-/-Contact" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Combined-Shape">
+            <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+            <path stroke="#0B0B0B" stroke-width="1" d="M40,4.5 C49.5269119,4.5 58.1519119,8.36154403 64.395184,14.604816 C70.638456,20.8480881 74.5,29.4730881 74.5,39 C74.5,48.1691079 70.9230861,56.5027938 65.0884624,62.6817505 C59.2204134,68.896105 51.068792,72.9311758 41.9841403,73.4439888 L41.9841403,73.4439888 L15.4999789,74.4800582 L15.4995237,63.289438 C9.31814887,57.0547049 5.5,48.4732386 5.5,39 C5.5,29.4730881 9.36154403,20.8480881 15.604816,14.604816 C21.8480881,8.36154403 30.4730881,4.5 40,4.5 Z" stroke-linejoin="square" fill-opacity="0.2" fill="url(#pattern-3)"></path>
+        </g>
+        <g id="Group" transform="translate(15.000000, 32.000000)" fill="#0B0B0B">
+            <circle id="Oval" cx="6" cy="6" r="6"></circle>
+            <circle id="Oval-Copy" cx="44" cy="6" r="6"></circle>
+            <circle id="Oval-Copy" cx="25" cy="6" r="6"></circle>
+        </g>
+    </g>
+</svg>

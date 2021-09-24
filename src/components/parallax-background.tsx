@@ -15,14 +15,15 @@ export const Background = styled.div(
         tw`w-full h-full`,
         css`
             background-image: url("${bgImgUrl}");
+            background-size: cover;
             background-repeat: no-repeat;
             background-color: rgba(255, 255, 255, 0.8);
-            background-size: contain;
             transition: transform 500ms cubic-bezier(0, 0.55, 0.45, 1);
             background-position: center;
 
             ${up("lg")} {
                 background-attachment: fixed;
+                background-size: contain;
                 transform: translateZ(0);
                 backface-visibility: inherit;
                 background-size: 100% 100%;

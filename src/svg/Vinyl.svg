@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>F88D85E1-D93C-4DCB-A65C-B1B71B91DB48</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#737373" offset="0%"></stop>
+            <stop stop-color="#0B0B0B" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-2" cx="40" cy="40" r="35"></circle>
+        <pattern id="pattern-3" width="6" height="3.6" x="-1" y="1.4" patternUnits="userSpaceOnUse">
+            <use xlink:href="#image-4" transform="scale(0.3,0.3)"></use>
+        </pattern>
+        <image id="image-4" width="20" height="12" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAABGdBTUEAALGN5fIAKQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAFKADAAQAAAABAAAADAAAAADBhQ6EAAAAlElEQVQoFY2SSw6AMAhEq4ln9IxuekE38io1tKECCZHPzICkpZRyiM9GraoTW7d1j9eIWdFIrG66BZNO8ZvAGIMukxOGOEjhZMVk/uS7TySaEWsYhAjwP1FpDzbjW74rpN+J+2DkAFZGz+M0vDtJOn3zWTSFT4FEOYtLbZoS4x1ag7S8jQLtnSl571Kh7yfaZO4P5AfwfTNfjpIFsAAAAABJRU5ErkJggg=="></image>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-5">
+            <stop stop-color="#F5A4FF" offset="0%"></stop>
+            <stop stop-color="#DD7EE9" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Illustrations" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="About---Desktop" transform="translate(-1048.000000, -1262.000000)">
+            <g id="Illustrations-/-Caipirinha-Copy" transform="translate(1048.000000, 1262.000000)">
+                <g id="Oval" fill-rule="nonzero">
+                    <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+                    <circle stroke="#0B0B0B" stroke-width="1" fill-opacity="0.5" fill="url(#pattern-3)" fill-rule="evenodd" cx="40" cy="40" r="35.5"></circle>
+                </g>
+                <path d="M49.5,6 C54.7035691,8.10530954 58.5369024,10.1053095 61,12 C63.4630976,13.8946905 66.1297643,16.8946905 69,21 L42,40.5 L38,39 L49.5,6 Z" id="Path-8" fill-opacity="0.2" fill="#FFFFFF"></path>
+                <path d="M21.5,39 C26.7035691,41.1053095 30.5369024,43.1053095 33,45 C35.4630976,46.8946905 38.1297643,49.8946905 41,54 L14,73.5 L10,72 L21.5,39 Z" id="Path-8" fill-opacity="0.2" fill="#FFFFFF" transform="translate(25.500000, 56.250000) scale(-1, -1) translate(-25.500000, -56.250000) "></path>
+                <circle id="Oval" stroke="#0B0B0B" opacity="0.5" cx="40" cy="40" r="31.5"></circle>
+                <circle id="Oval" stroke="#0B0B0B" opacity="0.5" cx="40.5" cy="39.5" r="27"></circle>
+                <circle id="Oval" stroke="#0B0B0B" opacity="0.5" cx="40.5" cy="41.5" r="22"></circle>
+                <circle id="Oval" stroke="#0B0B0B" opacity="0.5" cx="40.5" cy="40.5" r="17"></circle>
+                <circle id="Oval" stroke="#0B0B0B" fill="url(#linearGradient-5)" cx="40.5" cy="40.5" r="12"></circle>
+                <circle id="Oval" fill="#0B0B0B" cx="40.5" cy="40.5" r="2.5"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

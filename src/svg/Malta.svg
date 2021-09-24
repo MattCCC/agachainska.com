@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="107px" height="108px" viewBox="0 0 107 108" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>6AC794B5-60B6-4EF5-95F5-526EB4CD51D2</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#CCFCB4" offset="0%"></stop>
+            <stop stop-color="#A4EE81" offset="100%"></stop>
+        </linearGradient>
+        <ellipse id="path-2" cx="56.175" cy="59.0379747" rx="46.8125" ry="46.9620253"></ellipse>
+        <pattern id="pattern-3" width="3.2" height="3.2" x="6.1625" y="8.87594937" patternUnits="userSpaceOnUse">
+            <use xlink:href="#image-4" transform="scale(0.1,0.1)"></use>
+        </pattern>
+        <image id="image-4" width="32" height="32" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGN5fIAKQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACPTkDJAAABS0lEQVRYCWNkgIL///8z1p6LTGH49z+ZgeG/NkSY8SoDE+PcZqPlcxgZGf/D1FKTZgQZ1nomRvL7v19LgDY4YTMcqGgfJxNbTLXJkufY5CkRYwL5HJ/lIMNBDgOrAaqlxDJsepn/+t1MBToiD5skmpji/pfrnh6adeUcmjhFXCZInBNpBjh9EKmWSGVMiARHjA5Y4iRGLXFqgA4YWAB0ADCrEQ1IUUucoUygfE6cUqAqUtQSaSgjuAA6Hb4HVxkAMwdUFjSbrnShdoHEBDIQVMiALIBZhk7DCiJqWw6yB16wDFRRjO7ZUf5oCIyGwMgLAXhBRG2vE1uw0cQBpLQxqd4eAPmclDYmM7WDntQ2JtVDgNQ2JvUdAO/UEBO2/7Vp4ABiLEaooYEDSGk3Ml6lvgNIaTcC1VK9HCC1jUn1ECC1jUn1EIAlL2KLYgBgAqzH7Nj72QAAAABJRU5ErkJggg=="></image>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-5">
+            <stop stop-color="#FF77A0" offset="0%"></stop>
+            <stop stop-color="#FF447A" offset="100%"></stop>
+        </linearGradient>
+        <path d="M28.2781982,37.9698486 C38.9890706,37.9698486 41.0497559,35.2639241 41.0497559,24.5530518 C41.0497559,13.8421794 34.1171224,1.3375 23.40625,1.3375 C12.6953776,1.3375 4.0125,10.0203776 4.0125,20.73125 C4.0125,31.4421224 17.5673259,37.9698486 28.2781982,37.9698486 Z" id="path-6"></path>
+        <pattern id="pattern-7" width="11.0162435" height="11.0162435" x="-7.00374349" y="-9.67874349" patternUnits="userSpaceOnUse">
+            <use xlink:href="#image-8" transform="scale(0.344257609,0.344257609)"></use>
+        </pattern>
+        <image id="image-8" width="32" height="32" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGN5fIAKQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACPTkDJAAABOklEQVRYCe1WuwrCUAxNguA3OOsi/oOgOCs4u/n4KNHNWXD3Af6DuOjsNwhibKqtRawmGHGwXVpuT09yT28OB+F2MTMuS60enrELCJVwmWHDxOP6bjZCRI6wnncUsnW5XTgdTxNmqD8jR4RlLp/rVLfTw7P3n6yR7PxVcSGXxq4YDhv+pODjtySyp+08CRaMYJNrHs8U/nMlkwWrpASKD5zmi+hwarBKDClxX4MRBKOmZrdglaQkc67EggWr5UQZw1WxNX83CeIFtf2s4W1IJIRiMlIgrevIiLyLS73YWH5lxWmbztYzBTIF/keB2Ii8t6w1tq80YMmY7nnAmjHdFVgUm304w1D1SwkG7gpYcqNg3RuwZkz/BlTa30H+DVhyY4B1b8CSGwXrPgXWjOmugDVjuisQHS+tFV8A2UWyY5yrcmQAAAAASUVORK5CYII="></image>
+    </defs>
+    <g id="Illustrations" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="About---Desktop" transform="translate(-835.000000, -1986.000000)">
+            <g id="Illustrations-/-Caipirinha-Copy-6" transform="translate(835.000000, 1986.000000)">
+                <g id="Oval" fill-rule="nonzero">
+                    <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+                    <ellipse stroke="#0B0B0B" stroke-width="1" fill="url(#pattern-3)" fill-rule="evenodd" cx="56.175" cy="59.0379747" rx="47.3125" ry="47.4620253"></ellipse>
+                </g>
+                <g id="Oval" fill-rule="nonzero">
+                    <use fill="url(#linearGradient-5)" xlink:href="#path-6"></use>
+                    <path stroke="#0B0B0B" stroke-width="1" d="M23.40625,0.8375 C28.557761,0.8375 32.8740942,3.62457563 36.0047341,7.74391179 C39.5372735,12.3920725 41.5497559,18.7321936 41.5497559,24.5530518 C41.5497559,30.1711062 40.9449595,33.6256591 38.9736088,35.6966056 C37.0443939,37.7232875 33.7800459,38.4698486 28.2781982,38.4698486 C22.3811661,38.4698486 15.6373804,36.5215549 10.6920999,33.0083774 C6.43156342,29.981649 3.5125,25.8021178 3.5125,20.73125 C3.5125,15.2377426 5.73918381,10.2643051 9.33924447,6.66424447 C12.9393051,3.06418381 17.9127426,0.8375 23.40625,0.8375 Z" fill="url(#pattern-7)" fill-rule="evenodd"></path>
+                </g>
+                <line x1="36.78125" y1="46.8125" x2="40.79375" y2="54.8375" id="Path-9" stroke="#0B0B0B"></line>
+                <line x1="32.76875" y1="64.2" x2="36.78125" y2="72.225" id="Path-9" stroke="#0B0B0B"></line>
+                <line x1="70.21875" y1="37.45" x2="74.23125" y2="45.475" id="Path-9" stroke="#0B0B0B"></line>
+                <line x1="50.15625" y1="8.025" x2="54.16875" y2="16.05" id="Path-9" stroke="#0B0B0B"></line>
+                <line x1="75.56875" y1="56.175" x2="79.58125" y2="64.2" id="Path-9" stroke="#0B0B0B"></line>
+                <line x1="48.81875" y1="82.925" x2="52.83125" y2="90.95" id="Path-9" stroke="#0B0B0B"></line>
+                <line x1="66.20625" y1="82.925" x2="70.21875" y2="90.95" id="Path-9" stroke="#0B0B0B" transform="translate(68.212500, 86.937500) scale(-1, 1) translate(-68.212500, -86.937500) "></line>
+                <line x1="86.26875" y1="89.6125" x2="90.28125" y2="97.6375" id="Path-9" stroke="#0B0B0B"></line>
+                <line x1="56.84375" y1="97.6375" x2="60.85625" y2="105.6625" id="Path-9" stroke="#0B0B0B"></line>
+                <line x1="94.9625" y1="78.24375" x2="102.9875" y2="82.25625" id="Path-9" stroke="#0B0B0B"></line>
+                <line x1="20.73125" y1="52.1625" x2="24.74375" y2="60.1875" id="Path-9" stroke="#0B0B0B"></line>
+                <line x1="15.38125" y1="84.2625" x2="19.39375" y2="92.2875" id="Path-9" stroke="#0B0B0B" transform="translate(17.387500, 88.275000) scale(-1, 1) translate(-17.387500, -88.275000) "></line>
+                <line x1="12.70625" y1="61.525" x2="16.71875" y2="69.55" id="Path-9" stroke="#0B0B0B" transform="translate(14.712500, 65.537500) scale(-1, 1) translate(-14.712500, -65.537500) "></line>
+                <line x1="52.83125" y1="61.525" x2="56.84375" y2="69.55" id="Path-9" stroke="#0B0B0B" transform="translate(54.837500, 65.537500) scale(-1, 1) translate(-54.837500, -65.537500) "></line>
+                <line x1="52.83125" y1="33.4375" x2="56.84375" y2="41.4625" id="Path-9" stroke="#0B0B0B" transform="translate(54.837500, 37.450000) scale(-1, 1) translate(-54.837500, -37.450000) "></line>
+                <line x1="86.26875" y1="74.9" x2="90.28125" y2="82.925" id="Path-9" stroke="#0B0B0B" transform="translate(88.275000, 78.912500) scale(-1, 1) translate(-88.275000, -78.912500) "></line>
+                <line x1="86.26875" y1="40.125" x2="90.28125" y2="48.15" id="Path-9" stroke="#0B0B0B" transform="translate(88.275000, 44.137500) scale(-1, -1) translate(-88.275000, -44.137500) "></line>
+                <line x1="78.24375" y1="24.075" x2="82.25625" y2="32.1" id="Path-9" stroke="#0B0B0B" transform="translate(80.250000, 28.087500) scale(-1, 1) translate(-80.250000, -28.087500) "></line>
+                <line x1="70.21875" y1="10.7" x2="74.23125" y2="18.725" id="Path-9" stroke="#0B0B0B" transform="translate(72.225000, 14.712500) scale(-1, 1) translate(-72.225000, -14.712500) "></line>
+                <line x1="36.78125" y1="89.6125" x2="40.79375" y2="97.6375" id="Path-9" stroke="#0B0B0B"></line>
+                <line x1="92.95625" y1="58.85" x2="96.96875" y2="66.875" id="Path-9" stroke="#0B0B0B" transform="translate(94.962500, 62.862500) scale(-1, 1) translate(-94.962500, -62.862500) "></line>
+                <line x1="6.05155287" y1="43.7854842" x2="12.6734471" y2="49.8395158" id="Path-9" stroke="#0B0B0B"></line>
+            </g>
+        </g>
+    </g>
+</svg>

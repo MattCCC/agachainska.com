@@ -38,9 +38,12 @@ const FloatingLabel = styled.label(({ active, htmlFor }: LabelProps) => [
             opacity: 1;
             transform: translate3d(14px, -45%, 0) scale(0.8);
         `,
-    active && tw`bg-black`,
+    active && tw`bg-tertiary-color`,
     htmlFor === "textarea" && tw`p-4`,
-    htmlFor === "input" && tw`px-4 py-2`,
+    htmlFor === "input" &&
+    css`
+        padding: 0.55rem 1rem 0;
+    `,
 ]);
 
 const FloatingTextarea = styled.textarea(
