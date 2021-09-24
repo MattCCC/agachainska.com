@@ -38,10 +38,10 @@ const ParallaxCon = styled(motion.div)(() => [
 export const ParallaxBackground: FunctionComponent = () => {
 
     const { scrollY } = useViewportScroll();
-    const y1 = useTransform(scrollY, [0, 1300], [0, 200]);
+    const y1 = useTransform(scrollY, [0, 1300], [0, 170]);
     const y2 = useTransform(scrollY, [0, 2000], [0, -150]);
     const y3 = useTransform(scrollY, [0, 3000], [0, 100]);
-    const y4 = useTransform(scrollY, [0, 1800], [0, 500]);
+    const y4 = useTransform(scrollY, [0, 1100], [0, -200]);
     const y5 = useTransform(scrollY, [0, 2200], [0, -250]);
     const y6 = useTransform(scrollY, [0, 4000], [0, 500]);
 
@@ -61,45 +61,45 @@ export const ParallaxBackground: FunctionComponent = () => {
         },
         {
             illustration: <Drink />,
-            top: "266%",
+            top: "380%",
             colStart: "5",
             y: y1
         },
         {
             illustration: <Vectors />,
-            top: "425%",
+            top: "720%",
             colStart: "8",
             y: y4
         },
         {
             illustration: <Vinyl />,
-            top: "582%",
+            top: "800%",
             colStart: "10",
             y: y2
         },
         {
             illustration: <Basketball />,
-            top: "452%",
-            colStart: "4",
+            top: "900%",
+            colStart: "8",
             y: y3
         },
         {
             illustration: <Malta />,
             width: "107px",
             height: "107px",
-            top: "602%",
+            top: "900%",
             colStart: "8",
             y: y2
         },
         {
             illustration: <Maracas />,
-            top: "738%",
+            top: "850%",
             colStart: "11",
             y: y6
         },
         {
             illustration: <PixelLove />,
-            top: "837%",
+            top: "1400%",
             colStart: "9",
             y: y5
         },
