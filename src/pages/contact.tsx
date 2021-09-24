@@ -5,7 +5,7 @@ import { GridRow, MainContainer } from "@components/main-container";
 import { SocialMedia } from "@components/social-media";
 import { TextTextarea } from "@components/text-textarea";
 import { socialMedia } from "@data/social-media";
-import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
+import { ReactComponent as ContactIllustration } from "@svg/Contact.svg";
 import { up } from "@utils/screens";
 
 const H1 = styled.div(() => [
@@ -14,7 +14,7 @@ const H1 = styled.div(() => [
 
 const EmailLink = styled.a(() => [tw`inline-block ml-1 text-green`]);
 
-const PricklyPear = styled(PricklyPearIllustration)(() => [
+const ContactIllus = styled(ContactIllustration)(() => [
     tw`absolute z-10`,
     css`
         width: 36px;
@@ -39,7 +39,7 @@ export default function Contact(): JSX.Element {
             className="pb-52 lg:pb-16"
         >
             <MainContainer topPadding={true} as="section">
-                <PricklyPear />
+                <ContactIllus />
                 <GridRow start={1} end={6}>
                     <H1>
                         Let’s talk! Shoot me a message if you’d like to work together or just to say hello.
