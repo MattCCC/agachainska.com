@@ -31,6 +31,8 @@ const ContactIllus = styled(ContactIllustration)(() => [
     `,
 ]);
 
+const EMAIL_ADDRESS = "helloagachainska@gmail.com";
+
 export default function Contact(): JSX.Element {
     return (
         <form
@@ -80,8 +82,8 @@ export default function Contact(): JSX.Element {
                     <Button type="submit">Send</Button>
                     <span className="block mt-6 lg:inline-block lg:mt-0 lg:ml-6">
                         or find me at
-                        <EmailLink href="mailto:a.chainska@gmail.com">
-                            a.chainska@gmail.com
+                        <EmailLink href={`mailto:${EMAIL_ADDRESS}`}>
+                            { EMAIL_ADDRESS }
                         </EmailLink>
                     </span>
                 </GridRow>
