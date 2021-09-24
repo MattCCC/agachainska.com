@@ -7,6 +7,7 @@ export const AboutSectionsFragment = graphql`
         }
         expertise {
             description
+            secondDescription
             skills
         }
         designProcess {

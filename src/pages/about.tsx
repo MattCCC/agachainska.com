@@ -124,7 +124,12 @@ const DetailsContainer = styled.div(() => [
 ]);
 
 const Details = styled.p(() => [
-    tw`prose-16px-h24 font-base mb-10`
+    tw`prose-16px-h24 font-base mb-10`,
+    css`
+        &:first-of-type {
+            margin-bottom: 1.5rem;
+        }
+    `
 ]);
 
 const SkillsTable = styled.ul(() => [
@@ -273,6 +278,10 @@ export default function About({ data }: Props): JSX.Element {
                             <DetailsContainer>
                                 <Details>
                                     {expertise.description}
+                                </Details>
+
+                                <Details>
+                                    {expertise.secondDescription}
                                 </Details>
 
                                 <SkillsTable>
