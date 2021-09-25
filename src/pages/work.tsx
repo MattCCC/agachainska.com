@@ -263,7 +263,7 @@ const Work = memo(
                                 />
                             </SlideWrapper>
                         ) : (
-                            <OtherProjects />
+                            <OtherProjects otherProjects={otherProjects} activeSectionId={state.activeSectionId} />
                         ) }
 
                         <TimelineWrapper>
