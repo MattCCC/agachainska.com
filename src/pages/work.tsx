@@ -6,6 +6,7 @@ import tw, { css, styled } from "twin.macro";
 import { BigNumber } from "@components/big-number";
 import { MainContainer } from "@components/main-container";
 import { MotionCursor } from "@components/motion-cursor";
+import OtherProjects from "@components/other-projects";
 import { Post, PostItem } from "@components/post";
 import { Slider, SliderItem } from "@components/slider";
 import { Star } from "@components/star";
@@ -15,6 +16,7 @@ import { useNavigation } from "@hooks/use-navigation";
 import { useWindowSize } from "@hooks/use-window-size";
 import { useStoreProp } from "@store/index";
 import { groupBy } from "@utils/group-by";
+
 
 interface PageState {
     sliderIndex: number;
@@ -87,6 +89,8 @@ const Work = memo(
         const windowSize = useWindowSize();
         const hasSmallWindowWidth = windowSize.width < 1024;
 
+        const [showOtherProjects, setShowOtherProjects] = useState(false);
+
         const [, dispatch] = useStoreProp("showMotionGrid");
         const projects = data.projects.nodes || [];
         const categories = Object.keys(groupBy(projects, "category"));
@@ -96,7 +100,19 @@ const Work = memo(
             id: category,
             category,
             items: projects
-                .filter((project: Project) => project.category === category)
+                .filter((project: Project) => project.category === category && project.subCategory !== "Others")
+                .map((project: Project) => ({
+                    ...project,
+                    title: project.name,
+                    id: String(project.uid),
+                    routeTo: project.nameSlug,
+                }))
+        }));
+
+        const otherProjects = categories.map((category) => ({
+            category,
+            projects: projects
+                .filter((project: Project) => project.category === category && project.subCategory === "Others")
                 .map((project: Project) => ({
                     ...project,
                     title: project.name,
@@ -143,6 +159,8 @@ const Work = memo(
                     return;
                 }
 
+                setShowOtherProjects(false);
+
                 const sliderIndex = sliderItems.findIndex(
                     (sliderItem: SliderItem) => sliderItem.id === currentItem.id
                 );
@@ -158,6 +176,15 @@ const Work = memo(
             },
             [state, sliderItems, setState]
         );
+
+        const onOthersClick = () => {
+            setShowOtherProjects(true);
+
+            setState((prevState) => ({
+                ...prevState,
+                activeItemId: "others",
+            }));
+        };
 
         const onTabChange = useCallback(
             (currentTab: Section): void => {
@@ -197,6 +224,7 @@ const Work = memo(
 
                 <MainContainer topPadding={true}>
                     <ContentContainer>
+                    {!showOtherProjects ? (
                         <SlideWrapper>
                             <StyledNumber
                                 value={`${state.sliderIndex + 1}.`}
@@ -208,36 +236,41 @@ const Work = memo(
                                         : "none",
                                 }}
                             />
-                            <StyledStar
-                                text={
-                                    state?.currentProject?.shortDescription ||
-                                    ""
-                                }
-                                color={
-                                    state?.currentProject?.category &&
-                                    categoryColors[
-                                        state.currentProject.category
-                                    ]
-                                }
-                                displayStar={state.showStar}
-                            />
-                            <Slider
-                                sliderItems={sliderItems}
-                                onSliderTap={(e): any => onNavigate(e)}
-                                onSliderChange={setCurrentSlide}
-                                slideId={state.sliderIndex}
-                                onSliderMouseEnter={
-                                    onSliderContentMouseEventChange
-                                }
-                                onSliderMouseLeave={
-                                    onSliderContentMouseEventChange
-                                }
-                            />
-                        </SlideWrapper>
+                                <StyledStar
+                                    text={
+                                        state?.currentProject?.shortDescription ||
+                                        ""
+                                    }
+                                    color={
+                                        state?.currentProject?.category &&
+                                        categoryColors[
+                                            state.currentProject.category
+                                        ]
+                                    }
+                                    displayStar={state.showStar}
+                                />
+                                <Slider
+                                    sliderItems={sliderItems}
+                                    onSliderTap={(e): any => onNavigate(e)}
+                                    onSliderChange={setCurrentSlide}
+                                    slideId={state.sliderIndex}
+                                    onSliderMouseEnter={
+                                        onSliderContentMouseEventChange
+                                    }
+                                    onSliderMouseLeave={
+                                        onSliderContentMouseEventChange
+                                    }
+                                />
+                            </SlideWrapper>
+                        ) : (
+                            <OtherProjects />
+                        ) }
+
                         <TimelineWrapper>
                             <Timeline
                                 style={{ height: "27.76rem" }}
                                 onTimelineItemChange={setCurrentSlide}
+                                onOtherProjectsClick={onOthersClick}
                                 sections={timelineList}
                                 activeSectionId={state.activeSectionId}
                                 activeItemId={state.activeItemId}

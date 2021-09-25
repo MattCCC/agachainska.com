@@ -77,6 +77,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     activeSectionId?: string;
     activeItemId?: string;
     onTimelineItemChange?: (item: Item) => void;
+    onOtherProjectsClick?: () => void;
 }
 
 export const Timeline = memo(
@@ -85,6 +86,7 @@ export const Timeline = memo(
         activeSectionId = "",
         activeItemId = "",
         onTimelineItemChange = (): null => null,
+        onOtherProjectsClick = (): null => null,
         ...props
     }: Props): JSX.Element => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
@@ -153,6 +155,20 @@ export const Timeline = memo(
             [onTimelineItemChange, state]
         );
 
+        const onOthersClick = useCallback(() => {
+            if (state.activeItemId === "others") {
+                return;
+            }
+
+            setState((prevState) => ({
+                ...prevState,
+                activeItemId: "others",
+            }));
+
+            onOtherProjectsClick();
+
+        },[state, onOtherProjectsClick]);
+
         const onTimelineHeaderClick = useCallback(
             (section: Section): void => {
                 if (state.activeSectionId === section.id) {
@@ -209,27 +225,48 @@ export const Timeline = memo(
                                 ease: [0.04, 0.62, 0.23, 0.98],
                             }}
                         >
-                            <Pin
-                                animate={{
-                                    y: Math.max(
-                                        0,
-                                        (contentListHeight /
-                                            (section.items?.length ?? 1)) *
-                                            (section.items?.findIndex(
-                                                (item) =>
-                                                    item.id ===
-                                                    state.activeItemId
-                                            ) || 0)
-                                    ),
-                                }}
-                                style={{
-                                    height: Math.max(
-                                        0,
-                                        contentListHeight /
-                                            (section.items?.length ?? 1)
-                                    ),
-                                }}
-                            />
+                            {activeItemId !== "others" ? (
+                                <Pin
+                                    animate={{
+                                        y: Math.max(
+                                            0,
+                                            (contentListHeight /
+                                                (section.items?.length + 1 ?? 1)) *
+                                                (section.items?.findIndex(
+                                                    (item) =>
+                                                        item.id ===
+                                                        state.activeItemId
+                                                ) || 0)
+                                        ),
+                                    }}
+                                    style={{
+                                        height: Math.max(
+                                            0,
+                                            contentListHeight /
+                                                (section.items?.length + 1 ?? 1)
+                                        ),
+                                    }}
+                                />
+                            ) : (
+                                <Pin
+                                    animate={{
+                                        y: Math.max(
+                                            0,
+                                            (contentListHeight /
+                                                (section.items?.length + 1 ?? 1)) *
+                                                (section.items?.length || 0)
+                                        ),
+                                    }}
+                                    style={{
+                                        height: Math.max(
+                                            0,
+                                            contentListHeight /
+                                                (section.items?.length + 1 ?? 1)
+                                        ),
+                                    }}
+                                />
+                            )}
+
                             {section.items?.map(
                                 (item: Item, itemIndex: number) => (
                                     <ListItem
@@ -248,6 +285,17 @@ export const Timeline = memo(
                                     </ListItem>
                                 )
                             )}
+                            <ListItem
+                                key={"others"}
+                                isActive={
+                                    section.id ===
+                                        state.activeSectionId &&
+                                    "others" === state.activeItemId
+                                }
+                                onClick={onOthersClick}
+                            >
+                                Others
+                            </ListItem>
                         </List>
                     </AnimatePresence>
                 ))}
