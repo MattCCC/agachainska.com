@@ -5,10 +5,10 @@ import tw, { css, styled } from "twin.macro";
 import { BackgroundNoise } from "@components/background-noise";
 import { useStoreProp } from "@store/index";
 import { ReactComponent as WavesPattern } from "@svg/bg-lines.svg";
-import { ReactComponent as GreekEyeIllustration } from "@svg/Greek eye@1x.svg";
-import { ReactComponent as LondonEyeIllustration } from "@svg/London eye@1x.svg";
-import { ReactComponent as CaipirinhaIllustration } from "@svg/London eye@1x.svg";
-import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
+import { ReactComponent as GreeceIllustration } from "@svg/Greece.svg";
+import { ReactComponent as MaltaIllustration } from "@svg/Malta.svg";
+import { ReactComponent as PixelLoveIllustration } from "@svg/Pixel love.svg";
+import { ReactComponent as VectorsIllustration } from "@svg/Vectors.svg";
 import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
 import { excludeProps } from "@utils/styled";
 
@@ -30,7 +30,7 @@ const Waves = styled(
     `,
 ]);
 
-const GreekEye = styled(GreekEyeIllustration)(() => [
+const Vectors = styled(VectorsIllustration)(() => [
     tw`absolute z-10`,
     css`
         @media screen and (max-width: 768px) {
@@ -48,7 +48,7 @@ const GreekEye = styled(GreekEyeIllustration)(() => [
     `,
 ]);
 
-const LondonEye = styled(LondonEyeIllustration)(() => [
+const Greece = styled(GreeceIllustration)(() => [
     tw`absolute z-10`,
     css`
         @media screen and (max-width: 768px) {
@@ -65,7 +65,7 @@ const LondonEye = styled(LondonEyeIllustration)(() => [
     `,
 ]);
 
-const PricklyPear = styled(PricklyPearIllustration)(() => [
+const Malta = styled(MaltaIllustration)(() => [
     tw`absolute z-10`,
     css`
         width: 134px;
@@ -75,11 +75,11 @@ const PricklyPear = styled(PricklyPearIllustration)(() => [
     `,
 ]);
 
-const Caipirinha = styled(CaipirinhaIllustration)(() => [
+const PixelLove = styled(PixelLoveIllustration)(() => [
     tw`absolute z-10 hidden lg:block`,
     css`
-        width: 80px;
-        height: 80px;
+        width: 134px;
+        height: 134px;
         left: 174px;
         top: 634px;
     `,
@@ -102,10 +102,10 @@ export const Background: FunctionComponent<Props> = () => {
         <BackgroundNoise className="motion-grid">
             {showMotionGrid && (
                 <Fragment>
-                    <GreekEye className="motion-grid__item" />
-                    <LondonEye className="motion-grid__item" />
-                    <PricklyPear className="motion-grid__item" />
-                    <Caipirinha className="motion-grid__item" />
+                    <Vectors className="motion-grid__item" />
+                    <Greece className="motion-grid__item" />
+                    <Malta className="motion-grid__item" />
+                    <PixelLove className="motion-grid__item" />
                 </Fragment>
             )}
             {showWavePattern && <Waves darkTheme={darkTheme} />}
