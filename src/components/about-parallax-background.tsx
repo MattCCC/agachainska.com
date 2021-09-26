@@ -61,12 +61,16 @@ export const ParallaxBackground: FunctionComponent = () => {
         },
         {
             illustration: <Drink />,
+            width: "98px",
+            height: "98.36px",
             top: "380%",
             colStart: "5",
             y: y1
         },
         {
             illustration: <Vectors />,
+            width: "84px",
+            height: "84px",
             top: "720%",
             colStart: "8",
             y: y4
@@ -79,6 +83,8 @@ export const ParallaxBackground: FunctionComponent = () => {
         },
         {
             illustration: <Basketball />,
+            width: "70px",
+            height: "70px",
             top: "900%",
             colStart: "8",
             y: y3
@@ -93,6 +99,8 @@ export const ParallaxBackground: FunctionComponent = () => {
         },
         {
             illustration: <Maracas />,
+            width: "107.81px",
+            height: "108.53px",
             top: "850%",
             colStart: "11",
             y: y6
