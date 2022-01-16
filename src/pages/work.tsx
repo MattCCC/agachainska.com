@@ -224,18 +224,18 @@ const Work = memo(
 
                 <MainContainer topPadding={true}>
                     <ContentContainer>
-                    {!showOtherProjects ? (
-                        <SlideWrapper>
-                            <StyledNumber
-                                value={`${state.sliderIndex + 1}.`}
-                                viewBox="0 0 280 200"
-                                displayOnRight={true}
-                                style={{
-                                    display: state.showNumber
-                                        ? "block"
-                                        : "none",
-                                }}
-                            />
+                        {!showOtherProjects ? (
+                            <SlideWrapper>
+                                <StyledNumber
+                                    value={`${state.sliderIndex + 1}.`}
+                                    viewBox="0 0 280 200"
+                                    displayOnRight={true}
+                                    style={{
+                                        display: state.showNumber
+                                            ? "block"
+                                            : "none",
+                                    }}
+                                />
                                 <StyledStar
                                     text={
                                         state?.currentProject?.shortDescription ||
@@ -264,7 +264,7 @@ const Work = memo(
                             </SlideWrapper>
                         ) : (
                             <OtherProjects otherProjects={otherProjects} activeSectionId={state.activeSectionId} />
-                        ) }
+                        )}
 
                         <TimelineWrapper>
                             <Timeline
@@ -294,7 +294,8 @@ const Work = memo(
                                         }
                                     />
                                 )
-                            )}
+                            )
+                        }
                     </ContentContainer>
                 </MainContainer>
             </Fragment>
