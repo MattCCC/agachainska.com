@@ -26,6 +26,7 @@ interface PageState {
     clickEvent: Event;
     showStar: boolean;
     showNumber: boolean;
+    projectNumberToShow: number;
     currentProject?: Item | SliderItem;
 }
 
@@ -130,6 +131,7 @@ const Work = memo(
             sliderIndex: 0,
             showStar: false,
             showNumber: true,
+            projectNumberToShow: 0,
             currentProject: firstCategoryFirstItem,
             activeSectionId: firstCategory,
             activeItemId: firstCategoryFirstItem?.id ?? "1",
@@ -161,6 +163,17 @@ const Work = memo(
 
                 setShowOtherProjects(false);
 
+                let projectNumberToShow: number;
+
+                for (const category of timelineList) {
+                    const indexOfProject = category.items.findIndex((project) => project.id === currentItem.id);
+
+                    if (indexOfProject >= 0) {
+                        projectNumberToShow = indexOfProject;
+                        break;
+                    }
+                }
+
                 const sliderIndex = sliderItems.findIndex(
                     (sliderItem: SliderItem) => sliderItem.id === currentItem.id
                 );
@@ -169,12 +182,13 @@ const Work = memo(
                     ...prevState,
                     routeTo: currentItem.routeTo,
                     sliderIndex,
+                    projectNumberToShow,
                     activeSectionId: currentItem.category,
                     activeItemId: currentItem.id,
                     currentProject: currentItem,
                 }));
             },
-            [state, sliderItems, setState]
+            [state, sliderItems, timelineList, setState]
         );
 
         const onOthersClick = () => {
@@ -227,7 +241,7 @@ const Work = memo(
                         {!showOtherProjects ? (
                             <SlideWrapper>
                                 <StyledNumber
-                                    value={`${state.sliderIndex + 1}.`}
+                                    value={`${state.projectNumberToShow + 1}.`}
                                     viewBox="0 0 280 200"
                                     displayOnRight={true}
                                     style={{
