@@ -1,26 +1,25 @@
-import { useEffect } from "react";
-
-import { Item } from "@components/timeline";
+import { Post, PostItem } from "@components/post";
 
 interface OtherProject {
     category: string;
-    projects?: Item[];
+    projects?: Project[];
 }
 
 interface Props {
     otherProjects: OtherProject[];
-    activeSectionId: string;
+    lastProjectNumber: number;
 }
 
-export default function OtherProjects({otherProjects, activeSectionId}: Props) {
+export default function OtherProjects({otherProjects, lastProjectNumber}: Props) {
 
-    const currentCategoryProjects = otherProjects.filter((section) => section.category === activeSectionId).map((section) => section.projects);
-
-    useEffect(() => {
-        console.log(otherProjects);
-
-        console.log(currentCategoryProjects[0]);
-    });
-
-    return <div>The other projects</div>;
+    return <div>{otherProjects[0].projects?.map(
+        (post: PostItem, index: number) => (
+            <Post
+                key={index}
+                postNum={index + 1 + lastProjectNumber}
+                post={post}
+                onPostTap={() => null}
+            />
+        )
+    )}</div>;
 }

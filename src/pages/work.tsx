@@ -147,6 +147,8 @@ const Work = memo(
             []
         );
 
+        const currentCategoryOtherProjects = otherProjects.filter((project) => project.category === state.activeSectionId);
+
         const projectsByCategory: PostItem[] = sliderItems.filter(
             (post) => post.category === state.activeSectionId
         );
@@ -277,7 +279,10 @@ const Work = memo(
                                 />
                             </SlideWrapper>
                         ) : (
-                            <OtherProjects otherProjects={otherProjects} activeSectionId={state.activeSectionId} />
+                            <OtherProjects
+                                otherProjects={currentCategoryOtherProjects}
+                                lastProjectNumber={projectsByCategory.length}
+                            />
                         )}
 
                         <TimelineWrapper>
