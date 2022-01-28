@@ -166,8 +166,7 @@ export const Timeline = memo(
             }));
 
             onOtherProjectsClick();
-
-        },[state, onOtherProjectsClick]);
+        }, [state, onOtherProjectsClick]);
 
         const onTimelineHeaderClick = useCallback(
             (section: Section): void => {
@@ -231,7 +230,8 @@ export const Timeline = memo(
                                         y: Math.max(
                                             0,
                                             (contentListHeight /
-                                                (section.items?.length + 1 ?? 1)) *
+                                                (section.items?.length + 1 ??
+                                                    1)) *
                                                 (section.items?.findIndex(
                                                     (item) =>
                                                         item.id ===
@@ -253,7 +253,8 @@ export const Timeline = memo(
                                         y: Math.max(
                                             0,
                                             (contentListHeight /
-                                                (section.items?.length + 1 ?? 1)) *
+                                                (section.items?.length + 1 ??
+                                                    1)) *
                                                 (section.items?.length || 0)
                                         ),
                                     }}
@@ -288,8 +289,7 @@ export const Timeline = memo(
                             <ListItem
                                 key={"others"}
                                 isActive={
-                                    section.id ===
-                                        state.activeSectionId &&
+                                    section.id === state.activeSectionId &&
                                     "others" === state.activeItemId
                                 }
                                 onClick={onOthersClick}

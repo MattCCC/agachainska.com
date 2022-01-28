@@ -10,16 +10,20 @@ interface Props {
     lastProjectNumber: number;
 }
 
-export default function OtherProjects({otherProjects, lastProjectNumber}: Props) {
-
-    return <div>{otherProjects[0].projects?.map(
-        (post: PostItem, index: number) => (
-            <Post
-                key={index}
-                postNum={index + 1 + lastProjectNumber}
-                post={post}
-                onPostTap={() => null}
-            />
-        )
-    )}</div>;
+export default function OtherProjects({
+    otherProjects,
+    lastProjectNumber,
+}: Props) {
+    return (
+        <div>
+            {otherProjects[0].projects?.map((post: PostItem, index: number) => (
+                <Post
+                    key={index}
+                    postNum={index + 1 + lastProjectNumber}
+                    post={post}
+                    onPostTap={() => null}
+                />
+            ))}
+        </div>
+    );
 }

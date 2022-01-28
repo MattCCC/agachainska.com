@@ -71,7 +71,7 @@ const CursorText = styled.div(() => [
 
 const ProjectHover = styled.div(() => []);
 
-const SolidBackground = styled.div(({isMotionCursorVisible}: CursorProps) => [
+const SolidBackground = styled.div(({ isMotionCursorVisible }: CursorProps) => [
     tw`fixed z-30 hidden lg:block`,
     css`
         opacity: 0;
@@ -100,55 +100,57 @@ const SolidBackground = styled.div(({isMotionCursorVisible}: CursorProps) => [
         }
     `,
     isMotionCursorVisible &&
-    css`
-        animation: 0.9s show-solid-background forwards;
-    `,
+        css`
+            animation: 0.9s show-solid-background forwards;
+        `,
 ]);
 
-const ProjectCover = styled.div(({isMotionCursorVisible, projectCoverLink}: CursorProps) => [
-    tw`fixed z-30 hidden lg:block`,
-    css`
-        opacity: 0;
-        background: url(${projectCoverLink}) center;
-        background-size: cover;
-        width: 400px;
-        height: 215px;
-        margin: 14px 0 0 -30px;
-        transform: rotate(-10deg) scale(0.5);
-        @keyframes showImg {
-            from {
-                opacity: 0;
-                transform: rotate(-10deg) scale(0);
+const ProjectCover = styled.div(
+    ({ isMotionCursorVisible, projectCoverLink }: CursorProps) => [
+        tw`fixed z-30 hidden lg:block`,
+        css`
+            opacity: 0;
+            background: url(${projectCoverLink}) center;
+            background-size: cover;
+            width: 400px;
+            height: 215px;
+            margin: 14px 0 0 -30px;
+            transform: rotate(-10deg) scale(0.5);
+            @keyframes showImg {
+                from {
+                    opacity: 0;
+                    transform: rotate(-10deg) scale(0);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: rotate(0deg) scale(1);
+                }
             }
 
-            to {
-                opacity: 1;
-                transform: rotate(0deg) scale(1);
-            }
-        }
+            @keyframes hideImg {
+                from {
+                    opacity: 1;
+                    transform: scale(1);
+                }
 
-        @keyframes hideImg {
-            from {
-                opacity: 1;
-                transform: scale(1);
+                to {
+                    opacity: 0;
+                    transform: scale(1.1);
+                }
             }
-
-            to {
-                opacity: 0;
-                transform: scale(1.1);
-            }
-        }
-    `,
-    isMotionCursorVisible &&
-    css`
-        animation: .4s showImg forwards;
-        animation-delay: 0.1s;
-    `,
-    !isMotionCursorVisible &&
-    css`
-        animation: .3s hideImg forwards;
-    `
-]);
+        `,
+        isMotionCursorVisible &&
+            css`
+                animation: 0.4s showImg forwards;
+                animation-delay: 0.1s;
+            `,
+        !isMotionCursorVisible &&
+            css`
+                animation: 0.3s hideImg forwards;
+            `,
+    ]
+);
 
 const CursorLink: FunctionComponent<State["motionCursorData"]> = memo(
     ({ text, route, children }) => {

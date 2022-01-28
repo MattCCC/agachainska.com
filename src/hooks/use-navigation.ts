@@ -15,8 +15,8 @@ export interface DelayedLink extends LinkDelayedArgs {
 export const useNavigation = ({
     to,
     replace = false,
-    onDelayStart = ((_e, _to) => { }) as OnDelayCallback,
-    onDelayEnd = ((_e, _to) => { }) as OnDelayCallback,
+    onDelayStart = ((_e, _to) => {}) as OnDelayCallback,
+    onDelayEnd = ((_e, _to) => {}) as OnDelayCallback,
 }: DelayedLink): LinkDelayedCallback => {
     const location = useLocation();
     const [, dispatch] = useStore();

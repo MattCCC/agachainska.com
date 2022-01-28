@@ -133,7 +133,7 @@ export function Footer(): JSX.Element {
                 </FooterWrapper>
             )}
 
-            {(darkTheme && !showFooter) && (
+            {darkTheme && !showFooter && (
                 <MiniFooterWrapper>
                     <BottomFooter>
                         <FooterContainer>
@@ -155,7 +155,7 @@ export function Footer(): JSX.Element {
                 </MiniFooterWrapper>
             )}
 
-            {(IsLightThemeAndNotHomepage && !showFooter) && (
+            {IsLightThemeAndNotHomepage && !showFooter && (
                 <Annotation showFooter={showFooter}>
                     Coded by
                     <AnnotationLink

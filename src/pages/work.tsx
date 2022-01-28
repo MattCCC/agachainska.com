@@ -17,7 +17,6 @@ import { useWindowSize } from "@hooks/use-window-size";
 import { useStoreProp } from "@store/index";
 import { groupBy } from "@utils/group-by";
 
-
 interface PageState {
     sliderIndex: number;
     activeSectionId: string;
@@ -101,19 +100,27 @@ const Work = memo(
             id: category,
             category,
             items: projects
-                .filter((project: Project) => project.category === category && project.subCategory !== "Others")
+                .filter(
+                    (project: Project) =>
+                        project.category === category &&
+                        project.subCategory !== "Others"
+                )
                 .map((project: Project) => ({
                     ...project,
                     title: project.name,
                     id: String(project.uid),
                     routeTo: project.nameSlug,
-                }))
+                })),
         }));
 
         const otherProjects = categories.map((category) => ({
             category,
             projects: projects
-                .filter((project: Project) => project.category === category && project.subCategory === "Others")
+                .filter(
+                    (project: Project) =>
+                        project.category === category &&
+                        project.subCategory === "Others"
+                )
                 .map((project: Project) => ({
                     ...project,
                     title: project.name,
@@ -147,7 +154,9 @@ const Work = memo(
             []
         );
 
-        const currentCategoryOtherProjects = otherProjects.filter((project) => project.category === state.activeSectionId);
+        const currentCategoryOtherProjects = otherProjects.filter(
+            (project) => project.category === state.activeSectionId
+        );
 
         const projectsByCategory: PostItem[] = sliderItems.filter(
             (post) => post.category === state.activeSectionId
@@ -168,7 +177,9 @@ const Work = memo(
                 let projectNumberToShow: number;
 
                 for (const category of timelineList) {
-                    const indexOfProject = category.items.findIndex((project) => project.id === currentItem.id);
+                    const indexOfProject = category.items.findIndex(
+                        (project) => project.id === currentItem.id
+                    );
 
                     if (indexOfProject >= 0) {
                         projectNumberToShow = indexOfProject;
@@ -254,8 +265,8 @@ const Work = memo(
                                 />
                                 <StyledStar
                                     text={
-                                        state?.currentProject?.shortDescription ||
-                                        ""
+                                        state?.currentProject
+                                            ?.shortDescription || ""
                                     }
                                     color={
                                         state?.currentProject?.category &&
@@ -313,8 +324,7 @@ const Work = memo(
                                         }
                                     />
                                 )
-                            )
-                        }
+                            )}
                     </ContentContainer>
                 </MainContainer>
             </Fragment>

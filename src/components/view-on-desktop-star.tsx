@@ -1,21 +1,19 @@
 import tw, { css, styled } from "twin.macro";
 
-import { ReactComponent as ViewOnDesktopStar} from "@svg/view-on-desktop-star.svg";
+import { ReactComponent as ViewOnDesktopStar } from "@svg/view-on-desktop-star.svg";
 
-const ViewOnDeskCon = styled.div(() =>
-    tw`absolute z-50 lg:hidden`,
+const ViewOnDeskCon = styled.div(
+    () => tw`absolute z-50 lg:hidden`,
     css`
         top: 2%;
         left: 59%;
     `
 );
 
-const ViewOnDeskContentCon = styled.div(() =>
-    tw`relative`
-);
+const ViewOnDeskContentCon = styled.div(() => tw`relative`);
 
-const ViewOnDeskDesc = styled.p(() =>
-    tw`absolute text-center font-fbold`,
+const ViewOnDeskDesc = styled.p(
+    () => tw`absolute text-center font-fbold`,
     css`
         width: 95px;
         top: 50%;
@@ -28,12 +26,13 @@ const ViewOnDeskDesc = styled.p(() =>
 
 export default function ViewOnDeskStar() {
     return (
-    <ViewOnDeskCon>
-        <ViewOnDeskContentCon>
-        <ViewOnDesktopStar />
-        <ViewOnDeskDesc>
-            FOR BEST EXPERIENCE VIEW ON DESKTOP
-        </ViewOnDeskDesc>
-        </ViewOnDeskContentCon>
-    </ViewOnDeskCon>);
+        <ViewOnDeskCon>
+            <ViewOnDeskContentCon>
+                <ViewOnDesktopStar />
+                <ViewOnDeskDesc>
+                    FOR BEST EXPERIENCE VIEW ON DESKTOP
+                </ViewOnDeskDesc>
+            </ViewOnDeskContentCon>
+        </ViewOnDeskCon>
+    );
 }

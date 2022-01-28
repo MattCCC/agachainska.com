@@ -20,15 +20,13 @@ interface Props {
 
 const PostWrapper = styled.div(() => [tw`relative h-auto pt-11 pb-11`]);
 
-const PostImg = styled.img(() => [
-    tw`relative z-10 w-full overflow-hidden`,
-]);
+const PostImg = styled.img(() => [tw`relative z-10 w-full overflow-hidden`]);
 
 const PostDescription = styled.div(() => [
     tw`w-3/4 prose-16px-h24`,
     css`
         margin-top: 10px;
-    `
+    `,
 ]);
 
 const StyledNumber = styled(BigNumber)(() => [

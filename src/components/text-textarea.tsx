@@ -41,9 +41,9 @@ const FloatingLabel = styled.label(({ active, htmlFor }: LabelProps) => [
     active && tw`bg-tertiary-color`,
     htmlFor === "textarea" && tw`p-4`,
     htmlFor === "input" &&
-    css`
-        padding: 0.55rem 1rem 0;
-    `,
+        css`
+            padding: 0.55rem 1rem 0;
+        `,
 ]);
 
 const FloatingTextarea = styled.textarea(

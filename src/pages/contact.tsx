@@ -44,7 +44,8 @@ export default function Contact(): JSX.Element {
                 <ContactIllus />
                 <GridRow start={1} end={6}>
                     <H1>
-                        Let’s talk! Shoot me a message if you’d like to work together or just to say hello.
+                        Let’s talk! Shoot me a message if you’d like to work
+                        together or just to say hello.
                     </H1>
                     <div className="hidden lg:block">
                         <SocialMedia items={socialMedia} variant="big" />
@@ -83,7 +84,7 @@ export default function Contact(): JSX.Element {
                     <span className="block mt-6 lg:inline-block lg:mt-0 lg:ml-6">
                         or find me at
                         <EmailLink href={`mailto:${EMAIL_ADDRESS}`}>
-                            { EMAIL_ADDRESS }
+                            {EMAIL_ADDRESS}
                         </EmailLink>
                     </span>
                 </GridRow>

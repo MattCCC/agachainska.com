@@ -19,7 +19,7 @@ module.exports = {
             resolve: `gatsby-plugin-sass`,
             options: {
                 // Configure SASS to process Tailwind
-                postCssPlugins: [require('tailwindcss')],
+                postCssPlugins: [require("tailwindcss")],
             },
         },
         `gatsby-plugin-netlify`,
@@ -127,10 +127,10 @@ module.exports = {
             },
         },
         {
-            resolve: 'gatsby-plugin-offline',
+            resolve: "gatsby-plugin-offline",
             options: {
                 navigateFallbackWhitelist: [/\/$/],
-            }
+            },
         },
         `gatsby-plugin-force-trailing-slashes`,
         `gatsby-plugin-sitemap`,

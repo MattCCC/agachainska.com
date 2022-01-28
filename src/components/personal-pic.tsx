@@ -11,7 +11,6 @@ import personalPictureBlackBackground from "../svg/personal-pic-bg-black-mobile.
 import personalPicBlackBgDesk from "../svg/personal-pic-black-bg-desk.svg";
 import personalPicWhiteBgDesk from "../svg/personal-pic-white-bg-desk.svg";
 
-
 const PersonalPicContainerMobile = styled.div(() => [
     tw`relative flex justify-center items-center mb-8 bg-contain`,
     css`
@@ -32,9 +31,8 @@ const PersonalPicContainerMobile = styled.div(() => [
             transform: translate(-50%, -50%);
             z-index: -1;
         }
-    `
+    `,
 ]);
-
 
 const PersonalPicContainerDesktop = styled.div(() => [
     tw`relative col-start-1 col-span-3 flex justify-center items-center mb-0 bg-contain`,
@@ -56,15 +54,14 @@ const PersonalPicContainerDesktop = styled.div(() => [
             transform: translate(-50%, -50%);
             z-index: -1;
         }
-    `
+    `,
 ]);
-
 
 export default function PersonalPic() {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
 
-return(
+    return (
         <Fragment>
             {hasSmallWindowWidth ? (
                 <PersonalPicContainerMobile>

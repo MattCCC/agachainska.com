@@ -38,9 +38,8 @@ const Vectors = styled(VectorsIllustration)(() => [
             height: 42px;
             top: 30%;
             left: 53%;
-            
         }
-    
+
         width: 80px;
         height: 80px;
         left: 426px;
@@ -57,7 +56,7 @@ const Greece = styled(GreeceIllustration)(() => [
             top: 68%;
             left: 10%;
         }
-    
+
         width: 80px;
         height: 80px;
         left: 868px;
