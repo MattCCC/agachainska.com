@@ -26,8 +26,12 @@ const PostImg = styled.img(() => [tw`relative z-10 w-full overflow-hidden`]);
 const PostBg = styled.div(() => [
     tw`relative z-10 w-full overflow-hidden bg-cover`,
     css`
-        width: 398px;
-        height: 231px;
+        width: 348px;
+        height: 181px;
+        @media screen and (min-width: 1240px) {
+            width: 398px;
+            height: 231px;
+        }
     `
 ]);
 
