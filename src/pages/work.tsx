@@ -251,7 +251,7 @@ const Work = memo(
 
                 <MainContainer topPadding={true}>
                     <ContentContainer>
-                        {!showOtherProjects ? (
+                        {!showOtherProjects && !hasSmallWindowWidth ? (
                             <SlideWrapper>
                                 <StyledNumber
                                     value={`${state.projectNumberToShow + 1}.`}
@@ -290,6 +290,7 @@ const Work = memo(
                                 />
                             </SlideWrapper>
                         ) : (
+                            !hasSmallWindowWidth &&
                             <OtherProjects
                                 otherProjects={currentCategoryOtherProjects}
                                 lastProjectNumber={projectsByCategory.length}
