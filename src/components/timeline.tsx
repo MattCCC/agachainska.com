@@ -224,49 +224,27 @@ export const Timeline = memo(
                                 ease: [0.04, 0.62, 0.23, 0.98],
                             }}
                         >
-                            {activeItemId !== "others" ? (
-                                <Pin
-                                    animate={{
-                                        y: Math.max(
-                                            0,
-                                            (contentListHeight /
-                                                (section.items?.length + 1 ??
-                                                    1)) *
-                                                (section.items?.findIndex(
-                                                    (item) =>
-                                                        item.id ===
-                                                        state.activeItemId
-                                                ) || 0)
-                                        ),
-                                    }}
-                                    style={{
-                                        height: Math.max(
-                                            0,
-                                            contentListHeight /
-                                                (section.items?.length + 1 ?? 1)
-                                        ),
-                                    }}
-                                />
-                            ) : (
-                                <Pin
-                                    animate={{
-                                        y: Math.max(
-                                            0,
-                                            (contentListHeight /
-                                                (section.items?.length + 1 ??
-                                                    1)) *
-                                                (section.items?.length || 0)
-                                        ),
-                                    }}
-                                    style={{
-                                        height: Math.max(
-                                            0,
-                                            contentListHeight /
-                                                (section.items?.length + 1 ?? 1)
-                                        ),
-                                    }}
-                                />
-                            )}
+                        <Pin
+                        animate={{
+                            y: Math.max(
+                                0,
+                                (contentListHeight /
+                                    (section.items?.length ?? 1)) *
+                                    (section.items?.findIndex(
+                                        (item) =>
+                                            item.id ===
+                                            state.activeItemId
+                                    ) || 0)
+                            ),
+                        }}
+                        style={{
+                            height: Math.max(
+                                0,
+                                contentListHeight /
+                                    (section.items?.length ?? 1)
+                            ),
+                        }}
+                    />
 
                             {section.items?.map(
                                 (item: Item, itemIndex: number) => (
@@ -286,16 +264,6 @@ export const Timeline = memo(
                                     </ListItem>
                                 )
                             )}
-                            <ListItem
-                                key={"others"}
-                                isActive={
-                                    section.id === state.activeSectionId &&
-                                    "others" === state.activeItemId
-                                }
-                                onClick={onOthersClick}
-                            >
-                                Others
-                            </ListItem>
                         </List>
                     </AnimatePresence>
                 ))}

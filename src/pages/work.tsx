@@ -95,23 +95,54 @@ const Work = memo(
         const projects = data.projects.nodes || [];
         const categories = Object.keys(groupBy(projects, "category"));
 
-        const timelineList = categories.map((category) => ({
-            title: category,
-            id: category,
-            category,
-            items: projects
-                .filter(
-                    (project: Project) =>
-                        project.category === category &&
-                        project.subCategory !== "Others"
-                )
-                .map((project: Project) => ({
-                    ...project,
-                    title: project.name,
-                    id: String(project.uid),
-                    routeTo: project.nameSlug,
-                })),
-        }));
+        const timelineList = categories.map((category) => {
+            // Check if category has projects that have no case studies.
+            const hasOtherProjects = projects.findIndex((project) => project.category === category && project.subCategory === "Others");
+
+            const updatedCategory = {
+                title: category,
+                id: category,
+                category,
+                items: projects
+                    .filter(
+                        (project: Project) =>
+                            project.category === category &&
+                            project.subCategory !== "Others"
+                    )
+                    .map((project: Project) => ({
+                        ...project,
+                        title: project.name,
+                        id: String(project.uid),
+                        routeTo: project.nameSlug,
+                    })),
+            };
+
+            if (hasOtherProjects){
+                updatedCategory.items.push({
+                    id: "others",
+                    routeTo: "",
+                    uid: 99999,
+                    title: "Others",
+                    name: "Others",
+                    cover: "",
+                    subCategory: "",
+                    nameSlug: "",
+                    category: "Others",
+                    client: "",
+                    agency: "",
+                    timeframe: "",
+                    roleInProject: "",
+                    shortDescription: "",
+                    challenge: {},
+                    approach: {},
+                    stats: {},
+                    credits: {},
+                    sections: [],
+                });
+            }
+
+            return updatedCategory;
+});
 
         const otherProjects = categories.map((category) => ({
             category,
@@ -169,6 +200,12 @@ const Work = memo(
         const setCurrentSlide = useCallback(
             (currentItem: Item | SliderItem): void => {
                 if (state.activeItemId === currentItem.id) {
+                    return;
+                }
+
+                if ( currentItem.id === "others") {
+                    onOthersClick();
+
                     return;
                 }
 
