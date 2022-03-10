@@ -77,6 +77,7 @@ const routesList: RoutesList = {
             store: {
                 showMotionGrid: false,
                 showBackgroundGradient: false,
+                showFooter: false,
             },
         },
     },
