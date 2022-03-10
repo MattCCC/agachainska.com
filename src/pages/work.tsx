@@ -97,7 +97,11 @@ const Work = memo(
 
         const timelineList = categories.map((category) => {
             // Check if category has projects that have no case studies.
-            const hasOtherProjects = projects.findIndex((project) => project.category === category && project.subCategory === "Others");
+            const hasOtherProjects = projects.findIndex(
+                (project) =>
+                    project.category === category &&
+                    project.subCategory === "Others"
+            );
 
             const updatedCategory = {
                 title: category,
@@ -117,7 +121,7 @@ const Work = memo(
                     })),
             };
 
-            if (hasOtherProjects){
+            if (hasOtherProjects) {
                 updatedCategory.items.push({
                     id: "others",
                     routeTo: "",
@@ -142,7 +146,7 @@ const Work = memo(
             }
 
             return updatedCategory;
-});
+        });
 
         const otherProjects = categories.map((category) => ({
             category,
@@ -203,7 +207,7 @@ const Work = memo(
                     return;
                 }
 
-                if ( currentItem.id === "others") {
+                if (currentItem.id === "others") {
                     onOthersClick();
 
                     return;
@@ -327,11 +331,14 @@ const Work = memo(
                                 />
                             </SlideWrapper>
                         ) : (
-                            !hasSmallWindowWidth &&
-                            <OtherProjects
-                                otherProjects={currentCategoryOtherProjects}
-                                lastProjectNumber={projectsByCategory.length}
-                            />
+                            !hasSmallWindowWidth && (
+                                <OtherProjects
+                                    otherProjects={currentCategoryOtherProjects}
+                                    lastProjectNumber={
+                                        projectsByCategory.length
+                                    }
+                                />
+                            )
                         )}
 
                         <TimelineWrapper>

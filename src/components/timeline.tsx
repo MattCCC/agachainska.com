@@ -224,27 +224,27 @@ export const Timeline = memo(
                                 ease: [0.04, 0.62, 0.23, 0.98],
                             }}
                         >
-                        <Pin
-                        animate={{
-                            y: Math.max(
-                                0,
-                                (contentListHeight /
-                                    (section.items?.length ?? 1)) *
-                                    (section.items?.findIndex(
-                                        (item) =>
-                                            item.id ===
-                                            state.activeItemId
-                                    ) || 0)
-                            ),
-                        }}
-                        style={{
-                            height: Math.max(
-                                0,
-                                contentListHeight /
-                                    (section.items?.length ?? 1)
-                            ),
-                        }}
-                    />
+                            <Pin
+                                animate={{
+                                    y: Math.max(
+                                        0,
+                                        (contentListHeight /
+                                            (section.items?.length ?? 1)) *
+                                            (section.items?.findIndex(
+                                                (item) =>
+                                                    item.id ===
+                                                    state.activeItemId
+                                            ) || 0)
+                                    ),
+                                }}
+                                style={{
+                                    height: Math.max(
+                                        0,
+                                        contentListHeight /
+                                            (section.items?.length ?? 1)
+                                    ),
+                                }}
+                            />
 
                             {section.items?.map(
                                 (item: Item, itemIndex: number) => (

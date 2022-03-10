@@ -24,7 +24,7 @@ const OtherProjectsContainer = styled.div(() => [
         h1[class*="MainTitleTop"] {
             font-size: 52px;
         }
-    `
+    `,
 ]);
 
 export default function OtherProjects({

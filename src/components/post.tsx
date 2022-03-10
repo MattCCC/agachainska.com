@@ -32,7 +32,7 @@ const PostBg = styled.div(() => [
             width: 398px;
             height: 231px;
         }
-    `
+    `,
 ]);
 
 const PostDescription = styled.div(() => [
@@ -55,16 +55,27 @@ const Title = styled(MainTitleTop)(() => [
     tw`absolute top-0 z-50 uppercase select-none`,
 ]);
 
-export function Post({ post, postNum = -1, onPostTap, setImageAsBg = false }: Props): JSX.Element {
+export function Post({
+    post,
+    postNum = -1,
+    onPostTap,
+    setImageAsBg = false,
+}: Props): JSX.Element {
     return (
         <Fragment>
             <PostWrapper onClick={(e): void => onPostTap(e, post)}>
                 <Title percentage={63} data-text={post.name}>
                     {post.name}
                 </Title>
-                {setImageAsBg ? <PostBg style={{
-                    backgroundImage: `url(${post.cover})`
-                  }} /> : <PostImg src={post.cover || ""} />}
+                {setImageAsBg ? (
+                    <PostBg
+                        style={{
+                            backgroundImage: `url(${post.cover})`,
+                        }}
+                    />
+                ) : (
+                    <PostImg src={post.cover || ""} />
+                )}
                 <PostDescription>{post.shortDescription}</PostDescription>
                 {postNum && (
                     <StyledNumber
