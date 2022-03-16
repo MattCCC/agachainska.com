@@ -36,7 +36,7 @@ export default function OtherProjects({
             {otherProjects[0].projects?.map((post: PostItem, index: number) => (
                 <Post
                     key={index}
-                    postNum={index + 1 + lastProjectNumber}
+                    postNum={index + lastProjectNumber}
                     post={post}
                     onPostTap={() => null}
                     setImageAsBg={true}
