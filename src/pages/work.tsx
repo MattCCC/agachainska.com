@@ -1,4 +1,11 @@
-import { Fragment, useCallback, memo, useState, RefObject, useEffect } from "react";
+import {
+    Fragment,
+    useCallback,
+    memo,
+    useState,
+    RefObject,
+    useEffect,
+} from "react";
 
 import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
@@ -90,11 +97,9 @@ const Work = memo(
         const windowSize = useWindowSize();
         const hasSmallWindowWidth = windowSize.width < 1024;
 
-
         const [showOtherProjects, setShowOtherProjects] = useState(false);
         const [isSliderAnimating, setIsSliderAnimating] = useState(false);
         const [[page, direction], setPage] = useState([0, 0]);
-
 
         const [, dispatch] = useStoreProp("showMotionGrid");
         const projects = data.projects.nodes || [];
@@ -211,7 +216,6 @@ const Work = memo(
             setShowOtherProjects(true);
         }, [setIsSliderAnimating, setShowOtherProjects]);
 
-
         const setCurrentSlide = useCallback(
             (currentItem: Item | SliderItem): void => {
                 setIsSliderAnimating(false);
@@ -309,12 +313,7 @@ const Work = memo(
                     setCurrentSlide(sliderItems[currentSliderItem]);
                 }
             },
-            [
-                isSliderAnimating,
-                page,
-                sliderItems,
-                setCurrentSlide,
-            ]
+            [isSliderAnimating, page, sliderItems, setCurrentSlide]
         );
 
         const updateScroll = useCallback(
@@ -330,7 +329,6 @@ const Work = memo(
             [goTo]
         );
 
-
         useEffect(() => {
             if (state.sliderIndex === -1 || page === state.sliderIndex) {
                 return;
@@ -344,15 +342,15 @@ const Work = memo(
             page,
             goTo,
             setIsSliderAnimating,
-            setPage
+            setPage,
         ]);
 
         useEventListener(
             "wheel",
             (e) => {
-                    e.preventDefault();
+                e.preventDefault();
 
-                    updateScroll(e as WheelEvent);
+                updateScroll(e as WheelEvent);
             },
             (typeof document !== "undefined" &&
                 (document.body as unknown)) as RefObject<HTMLDivElement>,

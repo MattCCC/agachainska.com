@@ -222,7 +222,6 @@ export const Slider: FunctionComponent<Props> = ({
         [goTo]
     );
 
-
     useEffect(() => {
         if (slideId === -1 || page === slideId) {
             return;
@@ -239,7 +238,7 @@ export const Slider: FunctionComponent<Props> = ({
         goTo,
         orchestrateVectorAnimation,
         setIsAnimating,
-        setPage
+        setPage,
     ]);
 
     const [mouseLeft, sliderContentRef] = useMouseLeave();
