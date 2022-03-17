@@ -139,7 +139,7 @@ export const Tabs = memo(
                 observer.observe(currentElement);
             }
 
-            return function () {
+            return function() {
                 if (currentElement) {
                     observer.unobserve(currentElement);
                 }
