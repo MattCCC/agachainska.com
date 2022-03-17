@@ -218,8 +218,6 @@ const Work = memo(
 
         const setCurrentSlide = useCallback(
             (currentItem: Item | SliderItem): void => {
-                setIsSliderAnimating(false);
-
                 if (state.activeItemId === currentItem.id) {
                     return;
                 }
