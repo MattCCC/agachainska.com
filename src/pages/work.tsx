@@ -1,4 +1,4 @@
-import { Fragment, useCallback, memo, useState } from "react";
+import { Fragment, useCallback, memo, useState, RefObject, useEffect } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
@@ -8,10 +8,11 @@ import { MainContainer } from "@components/main-container";
 import { MotionCursor } from "@components/motion-cursor";
 import OtherProjects from "@components/other-projects";
 import { Post, PostItem } from "@components/post";
-import { Slider, SliderItem } from "@components/slider";
+import { Slider, SliderItem, wrap } from "@components/slider";
 import { Star } from "@components/star";
 import { Tabs } from "@components/tabs";
 import { Timeline, Item, Section } from "@components/timeline";
+import { useEventListener } from "@hooks/use-event-listener";
 import { useNavigation } from "@hooks/use-navigation";
 import { useWindowSize } from "@hooks/use-window-size";
 import { useStoreProp } from "@store/index";
@@ -89,7 +90,11 @@ const Work = memo(
         const windowSize = useWindowSize();
         const hasSmallWindowWidth = windowSize.width < 1024;
 
+
         const [showOtherProjects, setShowOtherProjects] = useState(false);
+        const [isSliderAnimating, setIsSliderAnimating] = useState(false);
+        const [[page, direction], setPage] = useState([0, 0]);
+
 
         const [, dispatch] = useStoreProp("showMotionGrid");
         const projects = data.projects.nodes || [];
@@ -123,15 +128,15 @@ const Work = memo(
 
             if (hasOtherProjects) {
                 updatedCategory.items.push({
-                    id: "others",
+                    id: `others${category}`,
                     routeTo: "",
                     uid: 99999,
                     title: "Others",
                     name: "Others",
                     cover: "",
-                    subCategory: "",
+                    subCategory: "Others",
                     nameSlug: "",
-                    category: "Others",
+                    category,
                     client: "",
                     agency: "",
                     timeframe: "",
@@ -201,19 +206,25 @@ const Work = memo(
             to: state.routeTo,
         });
 
+        const onOthersClick = useCallback(() => {
+            setIsSliderAnimating(false);
+            setShowOtherProjects(true);
+        }, [setIsSliderAnimating, setShowOtherProjects]);
+
+
         const setCurrentSlide = useCallback(
             (currentItem: Item | SliderItem): void => {
+                setIsSliderAnimating(false);
+
                 if (state.activeItemId === currentItem.id) {
                     return;
                 }
 
-                if (currentItem.id === "others") {
-                    onOthersClick();
-
-                    return;
-                }
-
                 setShowOtherProjects(false);
+
+                if (currentItem.id.includes("others")) {
+                    onOthersClick();
+                }
 
                 let projectNumberToShow: number;
 
@@ -242,17 +253,8 @@ const Work = memo(
                     currentProject: currentItem,
                 }));
             },
-            [state, sliderItems, timelineList, setState]
+            [state, sliderItems, onOthersClick, timelineList, setState]
         );
-
-        const onOthersClick = () => {
-            setShowOtherProjects(true);
-
-            setState((prevState) => ({
-                ...prevState,
-                activeItemId: "others",
-            }));
-        };
 
         const onTabChange = useCallback(
             (currentTab: Section): void => {
@@ -284,6 +286,77 @@ const Work = memo(
                 }));
             },
             [dispatch, state.routeTo]
+        );
+
+        const goTo = useCallback(
+            (newDirection: number = -1): void => {
+                if (isSliderAnimating) {
+                    return;
+                }
+
+                const newStateDirection = page + newDirection;
+
+                setPage([newStateDirection, newDirection]);
+                setIsSliderAnimating(true);
+
+                const currentSliderItem = wrap(
+                    0,
+                    sliderItems.length,
+                    newStateDirection
+                );
+
+                if (setCurrentSlide) {
+                    setCurrentSlide(sliderItems[currentSliderItem]);
+                }
+            },
+            [
+                isSliderAnimating,
+                page,
+                sliderItems,
+                setCurrentSlide,
+            ]
+        );
+
+        const updateScroll = useCallback(
+            (e: WheelEvent): void => {
+                const isUp = e.deltaY && e.deltaY < 0;
+
+                if (isUp) {
+                    goTo(1);
+                } else {
+                    goTo(-1);
+                }
+            },
+            [goTo]
+        );
+
+
+        useEffect(() => {
+            if (state.sliderIndex === -1 || page === state.sliderIndex) {
+                return;
+            }
+
+            setIsSliderAnimating(true);
+            setPage([state.sliderIndex, state.sliderIndex > 0 ? -1 : 1]);
+        }, [
+            sliderItems,
+            state.sliderIndex,
+            page,
+            goTo,
+            setIsSliderAnimating,
+            setPage
+        ]);
+
+        useEventListener(
+            "wheel",
+            (e) => {
+                    e.preventDefault();
+
+                    updateScroll(e as WheelEvent);
+            },
+            (typeof document !== "undefined" &&
+                (document.body as unknown)) as RefObject<HTMLDivElement>,
+            { passive: false }
         );
 
         return (
@@ -328,6 +401,11 @@ const Work = memo(
                                     onSliderMouseLeave={
                                         onSliderContentMouseEventChange
                                     }
+                                    page={page}
+                                    direction={direction}
+                                    goTo={goTo}
+                                    setIsAnimating={setIsSliderAnimating}
+                                    setPage={setPage}
                                 />
                             </SlideWrapper>
                         ) : (

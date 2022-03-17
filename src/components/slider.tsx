@@ -6,6 +6,7 @@ import {
     ElementRef,
     RefObject,
     FunctionComponent,
+    SetStateAction,
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
@@ -14,7 +15,6 @@ import useMouseLeave from "use-mouse-leave";
 import { animate, AnimatePresence, motion } from "@components/animation";
 import { Distortion } from "@components/distortion";
 import { MainTitleTop } from "@components/main-title";
-import { useEventListener } from "@hooks/use-event-listener";
 import { ReactComponent as NextIcon } from "@svg/down.svg";
 import { ReactComponent as PrevIcon } from "@svg/up.svg";
 
@@ -28,6 +28,11 @@ export interface SliderItem {
 interface Props {
     sliderItems: SliderItem[];
     slideId: number;
+    page: number;
+    direction: number;
+    goTo: (newDirection: number) => void;
+    setIsAnimating: (newValue: boolean) => void;
+    setPage: (newValue: SetStateAction<[number, number]>) => void;
     onSliderTap?: (e: any, currentItem: SliderItem) => void;
     onSliderChange?: (currentItem: SliderItem) => void;
     onSliderMouseEnter?: (mouseLeft: boolean) => void;
@@ -142,14 +147,16 @@ const NextIconStyled = styled(NextIcon)(() => [
 export const Slider: FunctionComponent<Props> = ({
     sliderItems,
     slideId = -1,
+    page,
+    direction,
+    goTo,
+    setIsAnimating,
+    setPage,
     onSliderTap = null,
     onSliderChange = null,
     onSliderMouseEnter = null,
     onSliderMouseLeave = null,
 }) => {
-    const [[page, direction], setPage] = useState([0, 0]);
-    const [isAnimating, setIsAnimating] = useState(false);
-
     const sliderRef = useRef<SliderRefHandle>(
         null
     ) as RefObject<HTMLDivElement>;
@@ -202,37 +209,6 @@ export const Slider: FunctionComponent<Props> = ({
         [setScales]
     );
 
-    const goTo = useCallback(
-        (newDirection: number = -1): void => {
-            if (isAnimating) {
-                return;
-            }
-
-            const newStateDirection = page + newDirection;
-
-            setIsAnimating(true);
-            setPage([newStateDirection, newDirection]);
-            orchestrateVectorAnimation(0, 100, newStateDirection);
-
-            const currentSliderItem = wrap(
-                0,
-                sliderItems.length,
-                newStateDirection
-            );
-
-            if (onSliderChange) {
-                onSliderChange(sliderItems[currentSliderItem]);
-            }
-        },
-        [
-            isAnimating,
-            page,
-            orchestrateVectorAnimation,
-            sliderItems,
-            onSliderChange,
-        ]
-    );
-
     const onDragEnd = useCallback(
         (_e, { offset, velocity }): void => {
             const swipe = swipePower(offset.x, velocity.x);
@@ -246,18 +222,6 @@ export const Slider: FunctionComponent<Props> = ({
         [goTo]
     );
 
-    const updateScroll = useCallback(
-        (e: WheelEvent): void => {
-            const isUp = e.deltaY && e.deltaY < 0;
-
-            if (isUp) {
-                goTo(1);
-            } else {
-                goTo(-1);
-            }
-        },
-        [goTo]
-    );
 
     useEffect(() => {
         if (slideId === -1 || page === slideId) {
@@ -274,23 +238,11 @@ export const Slider: FunctionComponent<Props> = ({
         page,
         goTo,
         orchestrateVectorAnimation,
+        setIsAnimating,
+        setPage
     ]);
 
     const [mouseLeft, sliderContentRef] = useMouseLeave();
-
-    useEventListener(
-        "wheel",
-        (e) => {
-            if (!mouseLeft) {
-                e.preventDefault();
-
-                updateScroll(e as WheelEvent);
-            }
-        },
-        (typeof document !== "undefined" &&
-            (document.body as unknown)) as RefObject<HTMLDivElement>,
-        { passive: false }
-    );
 
     useEffect((): void => {
         if (mouseLeft && onSliderMouseLeave) {
