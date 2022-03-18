@@ -211,10 +211,28 @@ const Work = memo(
             to: state.routeTo,
         });
 
+        // Cursor CTA
+        const onSliderContentMouseEventChange = useCallback(
+            (mouseDidLeave = false) => {
+                dispatch.showMotionCursor(!mouseDidLeave, {
+                    text: "explore",
+                    route: state.routeTo,
+                });
+
+                setState((prevState) => ({
+                    ...prevState,
+                    showStar: !mouseDidLeave,
+                    showNumber: mouseDidLeave,
+                }));
+            },
+            [dispatch, state.routeTo]
+        );
+
         const onOthersClick = useCallback(() => {
             setIsSliderAnimating(false);
+            onSliderContentMouseEventChange(true);
             setShowOtherProjects(true);
-        }, [setIsSliderAnimating, setShowOtherProjects]);
+        }, [setIsSliderAnimating, setShowOtherProjects, onSliderContentMouseEventChange]);
 
         const setCurrentSlide = useCallback(
             (currentItem: Item | SliderItem): void => {
@@ -271,23 +289,6 @@ const Work = memo(
                 }));
             },
             [state]
-        );
-
-        // Cursor CTA
-        const onSliderContentMouseEventChange = useCallback(
-            (mouseDidLeave = false) => {
-                dispatch.showMotionCursor(!mouseDidLeave, {
-                    text: "explore",
-                    route: state.routeTo,
-                });
-
-                setState((prevState) => ({
-                    ...prevState,
-                    showStar: !mouseDidLeave,
-                    showNumber: mouseDidLeave,
-                }));
-            },
-            [dispatch, state.routeTo]
         );
 
         const goTo = useCallback(
