@@ -347,9 +347,10 @@ const Work = memo(
         useEventListener(
             "wheel",
             (e) => {
-                e.preventDefault();
-
-                updateScroll(e as WheelEvent);
+                if(!showOtherProjects) {
+                    e.preventDefault();
+                    updateScroll(e as WheelEvent);
+                }
             },
             (typeof document !== "undefined" &&
                 (document.body as unknown)) as RefObject<HTMLDivElement>,
