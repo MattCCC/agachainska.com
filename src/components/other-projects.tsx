@@ -13,9 +13,9 @@ interface Props {
 }
 
 const OtherProjectsContainer = styled.div(() => [
-    tw`col-start-1 col-end-5 row-start-1 row-end-6 grid grid-cols-2 gap-x-28 gap-y-20 -mt-16`,
+    tw`grid grid-cols-2 col-start-1 col-end-5 row-start-1 row-end-6 -mt-16 gap-x-28 gap-y-20`,
     css`
-        div[class*="PostWrapper"]:nth-child(even) {
+        div[class*="PostWrapper"]:nth-of-type(even) {
             position: relative;
             top: 8rem;
             left: 30px;

@@ -12,39 +12,44 @@ import tw, { css, styled } from "twin.macro";
 
 import { motion, MotionProps, AnimatePresence } from "@components/animation";
 import { useElementSize } from "@hooks/use-element-size";
+import { excludeProps } from "@utils/styled";
 
-const TimelineWrapper = styled.div(() => [tw`text-right w-52 z-10`]);
+const TimelineWrapper = styled.div(() => [tw`z-10 text-right w-52`]);
 
-const Title = styled(motion.div)(
-    ({ isActive, hasMultipleSections }: TitleStyle) => [
-        tw`lg:prose-20px lg:text-primary-color opacity-30 font-bold select-none`,
-        tw`hover:opacity-100 transition-opacity`,
-        css`
-            padding-bottom: 7px;
-            height: 33px;
-        `,
-        isActive && tw`opacity-100`,
-        hasMultipleSections && tw`cursor-pointer`,
-    ]
-);
+const Title = styled(
+    motion.div,
+    excludeProps(["hasMultipleSections", "isActive"])
+)(({ isActive, hasMultipleSections }: TitleStyle) => [
+    tw`font-bold select-none lg:prose-20px lg:text-primary-color opacity-30`,
+    tw`transition-opacity hover:opacity-100`,
+    css`
+        padding-bottom: 7px;
+        height: 33px;
+    `,
+    isActive && tw`opacity-100`,
+    hasMultipleSections && tw`cursor-pointer`,
+]);
 
 const List = styled(motion.div)(() => [
-    tw`font-bold lg:prose-14px lg:text-gray-500 w-auto flex flex-col justify-evenly relative items-end overflow-hidden`,
+    tw`relative flex flex-col items-end w-auto overflow-hidden font-bold lg:prose-14px lg:text-gray-500 justify-evenly`,
     css`
         box-shadow: inset -2px 0 0 -1px rgba(0, 0, 0, 0.2);
         transition: opacity 0.3s ease-in-out;
     `,
 ]);
 
-const ListItem = styled(motion.div)(({ isActive }: ListItemStyle) => [
-    tw`relative align-middle ml-auto items-center h-full`,
-    tw`lg:text-primary-color capitalize flex text-right opacity-30 lg:p-5 select-none cursor-pointer`,
-    tw`hover:opacity-100 transition-opacity`,
+const ListItem = styled(
+    motion.div,
+    excludeProps(["isActive"])
+)(({ isActive }: ListItemStyle) => [
+    tw`relative items-center h-full ml-auto align-middle`,
+    tw`flex text-right capitalize cursor-pointer select-none lg:text-primary-color opacity-30 lg:p-5`,
+    tw`transition-opacity hover:opacity-100`,
     isActive && tw`opacity-100`,
 ]);
 
 const Pin = styled(motion.div)(() => [
-    tw`absolute right-0 top-0 bottom-0 w-px bg-primary-color`,
+    tw`absolute top-0 bottom-0 right-0 w-px bg-primary-color`,
     css`
         z-index: 2;
     `,

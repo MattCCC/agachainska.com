@@ -3,6 +3,7 @@ require("dotenv").config({
 });
 
 module.exports = {
+    trailingSlash: 'always',
     siteMetadata: {
         title: "Aga Chainska",
         titleTemplate: "%s · Aga Chainska",
@@ -21,6 +22,9 @@ module.exports = {
                 // Configure SASS to process Tailwind
                 postCssPlugins: [require("tailwindcss")],
             },
+        },
+        {
+            resolve: "gatsby-plugin-svgr",
         },
         `gatsby-plugin-netlify`,
         `gatsby-plugin-emotion`,
@@ -70,19 +74,6 @@ module.exports = {
             },
         },
         {
-            resolve: "gatsby-plugin-svgr",
-            options: {
-                prettier: true, // use prettier to format JS code output (default)
-                svgo: true, // use svgo to optimize SVGs (default)
-                svgoConfig: {
-                    plugins: [
-                        { removeViewBox: true }, // remove viewBox when possible (default)
-                        { cleanupIDs: true }, // remove unused IDs and minify remaining IDs (default)
-                    ],
-                },
-            },
-        },
-        {
             resolve: `gatsby-plugin-alias-imports`,
             options: {
                 alias: {
@@ -128,11 +119,7 @@ module.exports = {
         },
         {
             resolve: "gatsby-plugin-offline",
-            options: {
-                navigateFallbackWhitelist: [/\/$/],
-            },
         },
-        `gatsby-plugin-force-trailing-slashes`,
         `gatsby-plugin-sitemap`,
         `gatsby-plugin-react-helmet`,
     ],

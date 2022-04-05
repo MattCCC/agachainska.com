@@ -73,7 +73,7 @@ const TimelineWrapper = styled.aside(() => [
             line-height: 16px;
         }
 
-        div[class*="ListItem"]:nth-child(1n + 3) {
+        div[class*="ListItem"]:nth-of-type(1n + 3) {
             width: 133px;
         }
     `,
@@ -97,7 +97,7 @@ const ArticleSection = styled.section(() => [
 ]);
 
 const TitleContainer = styled.div(() => [
-    tw`border-b border-black border-solid mb-6 lg:col-start-1 lg:col-end-11 lg:grid lg:grid-cols-12`,
+    tw`mb-6 border-b border-black border-solid lg:col-start-1 lg:col-end-11 lg:grid lg:grid-cols-12`,
     css`
         padding-bottom: 5px;
 
@@ -108,7 +108,7 @@ const TitleContainer = styled.div(() => [
 ]);
 
 const Title = styled.h2(() => [
-    tw`prose-30px h-10 font-fbold uppercase -ml-px lg:prose-54px lg:col-start-1 lg:col-end-4 lg:h-auto`,
+    tw`h-10 -ml-px uppercase prose-30px font-fbold lg:prose-54px lg:col-start-1 lg:col-end-4 lg:h-auto`,
 ]);
 
 const DetailsContainer = styled.div(() => [
@@ -119,7 +119,7 @@ const DetailsContainer = styled.div(() => [
 ]);
 
 const Details = styled.p(() => [
-    tw`prose-16px-h24 font-base mb-10`,
+    tw`mb-10 prose-16px-h24 font-base`,
     css`
         &:first-of-type {
             margin-bottom: 1.5rem;
@@ -128,12 +128,11 @@ const Details = styled.p(() => [
 ]);
 
 const SkillsTable = styled.ul(() => [
-    tw`grid grid-cols-2 grid-rows-3 lg:grid-cols-3 lg:grid-rows-2 border-black border-b border-l`,
+    tw`grid grid-cols-2 grid-rows-3 border-b border-l border-black lg:grid-cols-3 lg:grid-rows-2`,
 ]);
 
 const Skill = styled.li(() => [
-    tw`flex items-center justify-center font-fbold text-center uppercase prose-18px lg:prose-20px 
-    leading-6 border-black border-t border-r`,
+    tw`flex items-center justify-center leading-6 text-center uppercase border-t border-r border-black font-fbold prose-18px lg:prose-20px`,
     css`
         height: 78px;
         padding: 8px;
@@ -145,11 +144,11 @@ const Skill = styled.li(() => [
 ]);
 
 const DesignProcessTable = styled.ul(() => [
-    tw`grid grid-cols-1 grid-rows-4 border-black border-b border-l`,
+    tw`grid grid-cols-1 grid-rows-4 border-b border-l border-black`,
 ]);
 
 const DesignProcessElement = styled.li(() => [
-    tw`h-36 flex flex-col justify-center lg:flex-row lg:justify-between p-4 lg:p-5 border-black border-t border-r`,
+    tw`flex flex-col justify-center p-4 border-t border-r border-black h-36 lg:flex-row lg:justify-between lg:p-5`,
 ]);
 
 const DesignProcessTitleContainer = styled.div(() => [
@@ -157,14 +156,14 @@ const DesignProcessTitleContainer = styled.div(() => [
 ]);
 
 const DesignProcessTitle = styled.h3(() => [
-    tw`prose-24px lg:prose-30px-h40 font-fbold capitalize inline-block`,
+    tw`inline-block capitalize prose-24px lg:prose-30px-h40 font-fbold`,
     css`
         margin-top: -2px;
     `,
 ]);
 
 const DesignProcessNumber = styled.span(() => [
-    tw`font-fbold prose-18px-h24 lg:prose-20px mr-3`,
+    tw`mr-3 font-fbold prose-18px-h24 lg:prose-20px`,
 ]);
 
 const DesignProcessElementDesc = styled.p(() => [
@@ -197,12 +196,8 @@ export default function About({ data }: Props): JSX.Element {
     const { hero, expertise, designProcess } = data.aboutPageData;
     const projects = data.projects.nodes;
 
-    const [
-        activeItemId,
-        intersection,
-        options,
-        onTimelineItemChange,
-    ] = useTimelineViewport();
+    const [activeItemId, intersection, options, onTimelineItemChange] =
+        useTimelineViewport();
 
     const refExpertise = useInViewEffect(intersection, options);
     const refDesignProcess = useInViewEffect(intersection, options);

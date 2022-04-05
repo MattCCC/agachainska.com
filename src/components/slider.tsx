@@ -87,8 +87,12 @@ const swipeConfidenceThreshold = 5;
 export const swipePower = (offset: number, velocity: number): number =>
     Math.abs(offset) * velocity;
 
-export const powerEasing = (power: number = 2) => (p: number): number =>
-    p < 0.5 ? Math.pow(p * 2, power) / 2 : 1 - Math.pow((1 - p) * 2, power) / 2;
+export const powerEasing =
+    (power: number = 2) =>
+    (p: number): number =>
+        p < 0.5
+            ? Math.pow(p * 2, power) / 2
+            : 1 - Math.pow((1 - p) * 2, power) / 2;
 
 export const wrap = (min: number, max: number, v: number): number => {
     const rangeSize = max - min;
@@ -174,7 +178,7 @@ export const Slider: FunctionComponent<Props> = ({
         }));
     }
 
-    // Orchestrate distorsion animation
+    // Orchestrate distortion animation
     const orchestrateVectorAnimation = useCallback(
         (from = 0, to = 100, slideNo = 0) => {
             requestAnimationFrame(() => {
