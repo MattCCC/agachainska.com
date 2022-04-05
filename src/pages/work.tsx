@@ -99,6 +99,7 @@ const Work = memo(
 
         const [showOtherProjects, setShowOtherProjects] = useState(false);
         const [isSliderAnimating, setIsSliderAnimating] = useState(false);
+        const [isEndOfPage, setIsEndOfPage] = useState(false);
         const [[page, direction], setPage] = useState([0, 0]);
 
         const [, dispatch] = useStoreProp("showMotionGrid");
@@ -319,13 +320,25 @@ const Work = memo(
             (e: WheelEvent): void => {
                 const isUp = e.deltaY && e.deltaY < 0;
 
+                if(showOtherProjects && isUp ) {
+                    goTo(-1);
+                    window.scrollTo(0, 0);
+
+                    return;
+                } else if (showOtherProjects && !isUp) {
+                    goTo(1);
+                    window.scrollTo(0, 0);
+
+                    return;
+                }
+
                 if (isUp) {
                     goTo(1);
                 } else {
                     goTo(-1);
                 }
             },
-            [goTo]
+            [goTo, showOtherProjects]
         );
 
         useEffect(() => {
@@ -347,8 +360,20 @@ const Work = memo(
         useEventListener(
             "wheel",
             (e) => {
+                const isUserAtEndOfPage = (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
+
+                if (showOtherProjects && !isEndOfPage && isUserAtEndOfPage) {
+                    setIsEndOfPage(true);
+                    console.log("switchingIsEndOfPage");
+                } else if (isEndOfPage) {
+                    e.preventDefault();
+                    setIsEndOfPage(false);
+                    console.log("isEndOfPage");
+                    updateScroll(e as WheelEvent);
+                }
                 if(!showOtherProjects) {
                     e.preventDefault();
+                    setIsEndOfPage(false);
                     updateScroll(e as WheelEvent);
                 }
             },
