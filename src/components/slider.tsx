@@ -1,5 +1,4 @@
 import {
-    useState,
     useEffect,
     useCallback,
     useRef,
@@ -169,15 +168,6 @@ export const Slider: FunctionComponent<Props> = ({
     // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
     const sliderIndex = wrap(0, sliderItems.length, page);
 
-    const [scales, setScales] = useState({} as Record<string, number>);
-
-    if (typeof scales[page] === "undefined") {
-        setScales((prevState) => ({
-            ...prevState,
-            ...{ [page]: 0 },
-        }));
-    }
-
     // Orchestrate distortion animation
     const orchestrateVectorAnimation = useCallback(
         (from = 0, to = 100, slideNo = 0) => {
@@ -187,17 +177,15 @@ export const Slider: FunctionComponent<Props> = ({
                     ease: powerEasing(2),
                     onUpdate: (v) => {
                         // Access element that is about to be removed from the DOM
-                        // This way we avoid 1 rendering roundtrip
-                        const el = document?.querySelector("feDisplacementMap");
+                        // This way we avoid rendering roundtrips
+                        const els =
+                            document?.querySelectorAll("feDisplacementMap");
 
-                        if (el) {
-                            el.scale.baseVal = v;
-                        }
-
-                        setScales((prevState) => ({
-                            ...prevState,
-                            ...{ [slideNo]: v },
-                        }));
+                        els.forEach((el) => {
+                            if (el) {
+                                el.scale.baseVal = v;
+                            }
+                        });
                     },
                     onComplete: () => {
                         // Avoid infinite loop since we call the orchestration recursively
@@ -210,7 +198,7 @@ export const Slider: FunctionComponent<Props> = ({
                 });
             });
         },
-        [setScales]
+        []
     );
 
     const onDragEnd = useCallback(
@@ -299,8 +287,7 @@ export const Slider: FunctionComponent<Props> = ({
                             id={String(page)}
                             imgUrl={sliderItems[sliderIndex]?.cover || ""}
                             key={`slide-${page}`}
-                            scale={scales[page]}
-                        ></Slide>
+                        />
                     </SlidesList>
                 </AnimatePresence>
             </SlideContent>
