@@ -5,7 +5,7 @@ import {
     ElementRef,
     RefObject,
     FunctionComponent,
-    SetStateAction,
+    useState,
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
@@ -14,6 +14,7 @@ import useMouseLeave from "use-mouse-leave";
 import { animate, AnimatePresence, motion } from "@components/animation";
 import { Distortion } from "@components/distortion";
 import { MainTitleTop } from "@components/main-title";
+import { useEventListener } from "@hooks/use-event-listener";
 import { ReactComponent as NextIcon } from "@svg/down.svg";
 import { ReactComponent as PrevIcon } from "@svg/up.svg";
 
@@ -27,11 +28,11 @@ export interface SliderItem {
 interface Props {
     sliderItems: SliderItem[];
     slideId: number;
-    page: number;
-    direction: number;
-    goTo: (newDirection: number) => void;
+    isAnimating: boolean;
+    showSlideTitle?: boolean;
+    mouseScrollOnSlide?: boolean;
+    customSlides?: Record<string, any>;
     setIsAnimating: (newValue: boolean) => void;
-    setPage: (newValue: SetStateAction<[number, number]>) => void;
     onSliderTap?: (e: any, currentItem: SliderItem) => void;
     onSliderChange?: (currentItem: SliderItem) => void;
     onSliderMouseEnter?: (mouseLeft: boolean) => void;
@@ -150,16 +151,18 @@ const NextIconStyled = styled(NextIcon)(() => [
 export const Slider: FunctionComponent<Props> = ({
     sliderItems,
     slideId = -1,
-    page,
-    direction,
-    goTo,
+    mouseScrollOnSlide = false,
+    showSlideTitle = false,
+    isAnimating,
     setIsAnimating,
-    setPage,
+    customSlides = {},
     onSliderTap = null,
     onSliderChange = null,
     onSliderMouseEnter = null,
     onSliderMouseLeave = null,
 }) => {
+    const [[page, direction], setPage] = useState([0, 0]);
+
     const sliderRef = useRef<SliderRefHandle>(
         null
     ) as RefObject<HTMLDivElement>;
@@ -201,39 +204,128 @@ export const Slider: FunctionComponent<Props> = ({
         []
     );
 
-    const onDragEnd = useCallback(
-        (_e, { offset, velocity }): void => {
-            const swipe = swipePower(offset.x, velocity.x);
+    const goToSlide = useCallback(
+        (newDirection: number = -1): void => {
+            if (isAnimating) {
+                return;
+            }
 
-            if (swipe < -swipeConfidenceThreshold) {
-                goTo(-1);
-            } else if (swipe > swipeConfidenceThreshold) {
-                goTo(1);
+            const newStateDirection = page + newDirection;
+
+            setIsAnimating(true);
+            setPage([newStateDirection, newDirection]);
+            orchestrateVectorAnimation(0, 100, newStateDirection);
+
+            const currentSliderItem = wrap(
+                0,
+                sliderItems.length,
+                newStateDirection
+            );
+
+            if (onSliderChange) {
+                onSliderChange(sliderItems[currentSliderItem]);
             }
         },
-        [goTo]
+        [
+            isAnimating,
+            page,
+            setIsAnimating,
+            setPage,
+            orchestrateVectorAnimation,
+            sliderItems,
+            onSliderChange,
+        ]
     );
 
+    const onDragEnd = useCallback(
+        (_e, { offset, velocity }): void => {
+            const swipe = swipePower(offset.x as number, velocity.x as number);
+
+            if (swipe < -swipeConfidenceThreshold) {
+                goToSlide(-1);
+            } else if (swipe > swipeConfidenceThreshold) {
+                goToSlide(1);
+            }
+        },
+        [goToSlide]
+    );
+
+    const updateScroll = useCallback(
+        (e: WheelEvent): void => {
+            const isUp = e.deltaY && e.deltaY < 0;
+
+            if (isUp) {
+                goToSlide(-1);
+            } else {
+                goToSlide(1);
+            }
+        },
+        [goToSlide]
+    );
+
+    const renderCustomSlide = useCallback(
+        (slideData, index) => {
+            const slideComponents = Object.keys(customSlides);
+
+            for (const slidePartialName of slideComponents) {
+                if (slideData.id.includes(slidePartialName)) {
+                    return (
+                        <div key={`slide-${index}`}>
+                            {customSlides[slidePartialName]}
+                        </div>
+                    );
+                }
+            }
+
+            return null;
+        },
+        [customSlides]
+    );
+
+    // Animate to particular slide
     useEffect(() => {
-        if (slideId === -1 || page === slideId) {
+        if (
+            slideId < 0 ||
+            page === slideId ||
+            slideId > sliderItems.length - 1
+        ) {
             return;
         }
 
         setIsAnimating(true);
         setPage([slideId, sliderIndex > 0 ? 1 : -1]);
         orchestrateVectorAnimation(0, 100, slideId);
+
+        if (onSliderChange) {
+            onSliderChange(sliderItems[slideId]);
+        }
     }, [
+        onSliderChange,
         sliderItems,
         sliderIndex,
         slideId,
         page,
-        goTo,
+        goToSlide,
         orchestrateVectorAnimation,
         setIsAnimating,
         setPage,
     ]);
 
     const [mouseLeft, sliderContentRef] = useMouseLeave();
+
+    useEventListener(
+        "wheel",
+        (e) => {
+            if (!mouseLeft && mouseScrollOnSlide) {
+                e.preventDefault();
+
+                updateScroll(e as WheelEvent);
+            }
+        },
+        (typeof document !== "undefined" &&
+            (document.body as unknown)) as RefObject<HTMLDivElement>,
+        { passive: false }
+    );
 
     useEffect((): void => {
         if (mouseLeft && onSliderMouseLeave) {
@@ -254,14 +346,16 @@ export const Slider: FunctionComponent<Props> = ({
 
     return (
         <SliderWrapper ref={sliderRef}>
-            <Title
-                percentage={59}
-                baseFontSize={120}
-                smBaseFontSize={120}
-                data-text={sliderItems[sliderIndex].name}
-            >
-                {sliderItems[sliderIndex].name}
-            </Title>
+            {showSlideTitle && (
+                <Title
+                    percentage={59}
+                    baseFontSize={120}
+                    smBaseFontSize={120}
+                    data-text={sliderItems[sliderIndex].name}
+                >
+                    {sliderItems[sliderIndex].name}
+                </Title>
+            )}
             <SlideContent ref={sliderContentRef}>
                 <AnimatePresence
                     initial={false}
@@ -283,19 +377,21 @@ export const Slider: FunctionComponent<Props> = ({
                         onDragEnd={onDragEnd}
                         onClick={onSliderClick}
                     >
-                        <Slide
-                            id={String(page)}
-                            imgUrl={sliderItems[sliderIndex]?.cover || ""}
-                            key={`slide-${page}`}
-                        />
+                        {renderCustomSlide(sliderItems[sliderIndex], page) || (
+                            <Slide
+                                id={String(page)}
+                                imgUrl={sliderItems[sliderIndex]?.cover || ""}
+                                key={`slide-${page}`}
+                            />
+                        )}
                     </SlidesList>
                 </AnimatePresence>
             </SlideContent>
             <Controls>
-                <Btn onClick={(): void => goTo(1)}>
+                <Btn onClick={(): void => goToSlide(1)}>
                     <NextIconStyled /> Next
                 </Btn>
-                <Btn onClick={(): void => goTo(-1)}>
+                <Btn onClick={(): void => goToSlide(-1)}>
                     <PrevIconStyled /> Previous
                 </Btn>
             </Controls>

@@ -1,21 +1,15 @@
-import {
-    Fragment,
-    useCallback,
-    memo,
-    useState,
-    RefObject,
-    useEffect,
-} from "react";
+import { Fragment, useCallback, memo, useState, RefObject } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
+import { useDebouncedCallback } from "use-debounce";
 
 import { BigNumber } from "@components/big-number";
 import { MainContainer } from "@components/main-container";
 import { MotionCursor } from "@components/motion-cursor";
 import OtherProjects from "@components/other-projects";
 import { Post, PostItem } from "@components/post";
-import { Slider, SliderItem, wrap } from "@components/slider";
+import { Slider, SliderItem } from "@components/slider";
 import { Star } from "@components/star";
 import { Tabs } from "@components/tabs";
 import { Timeline, Item, Section } from "@components/timeline";
@@ -92,18 +86,20 @@ const categoryColors = {
     [x: string]: string;
 };
 
+let isPageTop = false;
+let isPageBottom = false;
+
 const Work = memo(({ data }: Props): JSX.Element => {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
 
-    const [showOtherProjects, setShowOtherProjects] = useState(false);
+    const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
     const [isSliderAnimating, setIsSliderAnimating] = useState(false);
-    const [isEndOfPage, setIsEndOfPage] = useState(false);
-    const [[page, direction], setPage] = useState([0, 0]);
-
     const [, dispatch] = useStoreProp("showMotionGrid");
     const projects = data.projects.nodes || [];
-    const categories = Object.keys(groupBy(projects, "category"));
+    const categories = Object.keys(
+        groupBy(projects, "category")
+    ) as ProjectCategory[];
 
     const timelineList = categories.map((category) => {
         // Check if category has projects that have no case studies.
@@ -179,8 +175,9 @@ const Work = memo(({ data }: Props): JSX.Element => {
         ({ id }) => id === firstCategory
     )?.items[0];
 
+    const [sliderIndex, setSliderIndex] = useState(0);
+
     const [state, setState] = useState({
-        sliderIndex: 0,
         showStar: false,
         showNumber: true,
         projectNumberToShow: 0,
@@ -228,26 +225,26 @@ const Work = memo(({ data }: Props): JSX.Element => {
         [dispatch, state.routeTo]
     );
 
-    const onOthersClick = useCallback(() => {
+    const onOthersSelected = useCallback(() => {
         setIsSliderAnimating(false);
+        setIsShowingOtherProjects(true);
         onSliderContentMouseEventChange(true);
-        setShowOtherProjects(true);
     }, [
         setIsSliderAnimating,
-        setShowOtherProjects,
+        setIsShowingOtherProjects,
         onSliderContentMouseEventChange,
     ]);
 
-    const setCurrentSlide = useCallback(
+    const setCurrentSlideState = useCallback(
         (currentItem: Item | SliderItem): void => {
-            if (state.activeItemId === currentItem.id) {
+            if (!currentItem || state.activeItemId === currentItem.id) {
                 return;
             }
 
-            setShowOtherProjects(false);
-
             if (currentItem.id.includes("others")) {
-                onOthersClick();
+                onOthersSelected();
+            } else {
+                setIsShowingOtherProjects(false);
             }
 
             let projectNumberToShow: number;
@@ -263,21 +260,22 @@ const Work = memo(({ data }: Props): JSX.Element => {
                 }
             }
 
-            const sliderIndex = sliderItems.findIndex(
+            const newSliderIndex = sliderItems.findIndex(
                 (sliderItem: SliderItem) => sliderItem.id === currentItem.id
             );
+
+            setSliderIndex(newSliderIndex);
 
             setState((prevState) => ({
                 ...prevState,
                 routeTo: currentItem.routeTo,
-                sliderIndex,
                 projectNumberToShow,
                 activeSectionId: currentItem.category,
                 activeItemId: currentItem.id,
                 currentProject: currentItem,
             }));
         },
-        [state, sliderItems, onOthersClick, timelineList, setState]
+        [state, sliderItems, onOthersSelected, timelineList, setState]
     );
 
     const onTabChange = useCallback(
@@ -295,70 +293,37 @@ const Work = memo(({ data }: Props): JSX.Element => {
         [state]
     );
 
-    const goTo = useCallback(
-        (newDirection: number = -1): void => {
-            if (isSliderAnimating) {
-                return;
-            }
+    const updateScroll = useDebouncedCallback((e: WheelEvent): void => {
+        if (isSliderAnimating) {
+            e.preventDefault();
 
-            const newStateDirection = page + newDirection;
-
-            setPage([newStateDirection, newDirection]);
-            setIsSliderAnimating(true);
-
-            const currentSliderItem = wrap(
-                0,
-                sliderItems.length,
-                newStateDirection
-            );
-
-            if (setCurrentSlide) {
-                setCurrentSlide(sliderItems[currentSliderItem]);
-            }
-        },
-        [isSliderAnimating, page, sliderItems, setCurrentSlide]
-    );
-
-    const updateScroll = useCallback(
-        (e: WheelEvent): void => {
-            const isUp = e.deltaY && e.deltaY < 0;
-
-            if (showOtherProjects && isUp) {
-                goTo(-1);
-                window.scrollTo(0, 0);
-
-                return;
-            } else if (showOtherProjects && !isUp) {
-                goTo(1);
-                window.scrollTo(0, 0);
-
-                return;
-            }
-
-            if (isUp) {
-                goTo(1);
-            } else {
-                goTo(-1);
-            }
-        },
-        [goTo, showOtherProjects]
-    );
-
-    useEffect(() => {
-        if (state.sliderIndex === -1 || page === state.sliderIndex) {
             return;
         }
 
-        setIsSliderAnimating(true);
-        setPage([state.sliderIndex, state.sliderIndex > 0 ? -1 : 1]);
-    }, [
-        sliderItems,
-        state.sliderIndex,
-        page,
-        goTo,
-        setIsSliderAnimating,
-        setPage,
-    ]);
+        const isUp = e.deltaY && e.deltaY < 0;
+        const goTo = (newSlideDirection: number) => {
+            const newSlideIndex = sliderIndex + newSlideDirection;
+
+            if (newSlideIndex < 0 || newSlideIndex > sliderItems.length - 1) {
+                return;
+            }
+
+            if (isShowingOtherProjects) {
+                setIsShowingOtherProjects(false);
+                window.scrollTo(0, 0);
+            }
+
+            dispatch.showFooter(newSlideIndex === sliderItems.length - 1);
+
+            setSliderIndex(newSlideIndex);
+        };
+
+        if (isPageTop && isUp) {
+            goTo(-1);
+        } else if (isPageBottom && !isUp) {
+            goTo(1);
+        }
+    }, 30);
 
     useEventListener(
         "wheel",
@@ -367,20 +332,10 @@ const Work = memo(({ data }: Props): JSX.Element => {
                 window.innerHeight + window.scrollY >=
                 document.body.offsetHeight;
 
-            if (showOtherProjects && !isEndOfPage && isUserAtEndOfPage) {
-                setIsEndOfPage(true);
-                console.log("switchingIsEndOfPage");
-            } else if (isEndOfPage) {
-                e.preventDefault();
-                setIsEndOfPage(false);
-                console.log("isEndOfPage");
-                updateScroll(e as WheelEvent);
-            }
-            if (!showOtherProjects) {
-                e.preventDefault();
-                setIsEndOfPage(false);
-                updateScroll(e as WheelEvent);
-            }
+            isPageTop = window.scrollY <= 0;
+            isPageBottom = isUserAtEndOfPage;
+
+            updateScroll(e as WheelEvent);
         },
         (typeof document !== "undefined" &&
             (document.body as unknown)) as RefObject<HTMLDivElement>,
@@ -393,52 +348,70 @@ const Work = memo(({ data }: Props): JSX.Element => {
 
             <MainContainer topPadding={true}>
                 <ContentContainer>
-                    {!showOtherProjects && !hasSmallWindowWidth ? (
+                    {!isShowingOtherProjects && !hasSmallWindowWidth ? (
                         <SlideWrapper>
-                            <StyledNumber
-                                value={`${state.projectNumberToShow + 1}.`}
-                                viewBox="0 0 280 200"
-                                displayOnRight={true}
-                                style={{
-                                    display: state.showNumber
-                                        ? "block"
-                                        : "none",
-                                }}
-                            />
-                            <StyledStar
-                                text={
-                                    state?.currentProject?.shortDescription ||
-                                    ""
-                                }
-                                color={
-                                    state?.currentProject?.category &&
-                                    categoryColors[
-                                        state.currentProject.category
-                                    ]
-                                }
-                                displayStar={state.showStar}
-                            />
+                            {!isShowingOtherProjects && (
+                                <StyledNumber
+                                    value={`${state.projectNumberToShow + 1}.`}
+                                    viewBox="0 0 280 200"
+                                    displayOnRight={true}
+                                    style={{
+                                        display: state.showNumber
+                                            ? "block"
+                                            : "none",
+                                    }}
+                                />
+                            )}
+                            {!isShowingOtherProjects && (
+                                <StyledStar
+                                    text={
+                                        state?.currentProject
+                                            ?.shortDescription || ""
+                                    }
+                                    color={
+                                        state?.currentProject?.category &&
+                                        categoryColors[
+                                            state.currentProject.category
+                                        ]
+                                    }
+                                    displayStar={state.showStar}
+                                />
+                            )}
                             <Slider
                                 sliderItems={sliderItems}
                                 onSliderTap={(e): any => onNavigate(e)}
-                                onSliderChange={setCurrentSlide}
-                                slideId={state.sliderIndex}
+                                onSliderChange={setCurrentSlideState}
+                                slideId={sliderIndex}
+                                showSlideTitle={!isShowingOtherProjects}
+                                customSlides={{
+                                    others: (
+                                        <OtherProjects
+                                            isShowingOtherProjects={
+                                                isShowingOtherProjects
+                                            }
+                                            otherProjects={
+                                                currentCategoryOtherProjects
+                                            }
+                                            lastProjectNumber={
+                                                projectsByCategory.length
+                                            }
+                                        />
+                                    ),
+                                }}
                                 onSliderMouseEnter={
                                     onSliderContentMouseEventChange
                                 }
                                 onSliderMouseLeave={
                                     onSliderContentMouseEventChange
                                 }
-                                page={page}
-                                direction={direction}
-                                goTo={goTo}
+                                isAnimating={isSliderAnimating}
                                 setIsAnimating={setIsSliderAnimating}
-                                setPage={setPage}
                             />
                         </SlideWrapper>
                     ) : (
                         !hasSmallWindowWidth && (
                             <OtherProjects
+                                isShowingOtherProjects={isShowingOtherProjects}
                                 otherProjects={currentCategoryOtherProjects}
                                 lastProjectNumber={projectsByCategory.length}
                             />
@@ -448,8 +421,8 @@ const Work = memo(({ data }: Props): JSX.Element => {
                     <TimelineWrapper>
                         <Timeline
                             style={{ height: "27.76rem" }}
-                            onTimelineItemChange={setCurrentSlide}
-                            onOtherProjectsClick={onOthersClick}
+                            onTimelineItemChange={setCurrentSlideState}
+                            onOtherProjectsClick={onOthersSelected}
                             sections={timelineList}
                             activeSectionId={state.activeSectionId}
                             activeItemId={state.activeItemId}
