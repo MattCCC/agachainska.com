@@ -323,7 +323,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
         } else if (isPageBottom && !isUp) {
             goTo(1);
         }
-    }, 30);
+    }, 200);
 
     useEventListener(
         "wheel",
