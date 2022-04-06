@@ -6,7 +6,6 @@ import { BackgroundNoise } from "@components/background-noise";
 import { Contact } from "@components/footer/contact";
 import { SocialMedia } from "@components/social-media";
 import { socialMedia } from "@data/social-media";
-import { useLocation } from "@reach/router";
 import { useStoreProp } from "@store/index";
 import { ReactComponent as WavesPattern } from "@svg/bg-lines.svg";
 import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
@@ -98,9 +97,6 @@ export function Footer(): JSX.Element {
     const [showFooter] = useStoreProp("showFooter");
     const [darkTheme] = useStoreProp("darkTheme");
 
-    const currentUrlPath = useLocation().pathname;
-    const IsLightThemeAndNotHomepage = !darkTheme && currentUrlPath !== "/";
-
     return (
         <Fragment>
             {showFooter && (
@@ -151,19 +147,6 @@ export function Footer(): JSX.Element {
                         </FooterContainer>
                     </BottomFooter>
                 </MiniFooterWrapper>
-            )}
-
-            {IsLightThemeAndNotHomepage && !showFooter && (
-                <Annotation showFooter={showFooter}>
-                    Coded by
-                    <AnnotationLink
-                        href="https://deindesign.pl/"
-                        rel="noreferrer"
-                        target="_blank"
-                    >
-                        Matt
-                    </AnnotationLink>
-                </Annotation>
             )}
         </Fragment>
     );
