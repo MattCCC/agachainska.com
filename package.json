@@ -43,7 +43,7 @@
     "react-helmet": "6.1.0",
     "react-hook-inview": "4.4.1",
     "react-scroll-parallax": "^3.0.5",
-    "react-use-dimensions": "1.2.1",
+    "react-use-dimensions": "^1.2.1",
     "sass": "1.49.11",
     "use-context-selector": "1.3.9",
     "use-debounce": "^7.0.1",

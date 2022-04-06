@@ -21,7 +21,9 @@ export type StoreContext<S, A> = Context<Array<S | Actions<A>>>;
 export interface Store<S, M> {
     Provider: React.FC<React.PropsWithChildren<Record<string, unknown>>>;
     useStore: () => [S, Actions<M>];
-    useStoreProp: (v: keyof S) => [any, Actions<M>, S | Actions<M>];
+    useStoreProp: <K extends S[keyof S]>(
+        v: K
+    ) => [S[K], Actions<M>, S | Actions<M>];
 }
 
 /**
@@ -29,13 +31,12 @@ export interface Store<S, M> {
  * @param {string} type      State key
  * @returns {object}        Modified state
  */
-export const set = <T, T1, T2 = T>(type: keyof T): Funct<T2, T1> => (
-    prevState,
-    payload
-): any => ({
-    ...prevState,
-    [type]: payload,
-});
+export const set =
+    <T, T1, T2 = T>(type: keyof T): Funct<T2, T1> =>
+    (prevState, payload): any => ({
+        ...prevState,
+        [type]: payload,
+    });
 
 function getEmptyActions<S, M extends Mutations<S>>(mutations: M): Actions<M> {
     const actions: Actions<M> = Object.assign({}, mutations);
@@ -72,7 +73,10 @@ export function createStore<S, M extends Mutations<S>>(
     ): S {
         return {
             ...prevState,
-            ...mutations[action.type](prevState, ...(action.payload as any[])),
+            ...mutations[action.type](
+                prevState,
+                ...(action.payload as unknown[])
+            ),
         };
     }
 

@@ -15,7 +15,10 @@ export interface PostItem {
 interface Props {
     post: PostItem;
     postNum?: number;
-    onPostTap: (e: any, post: PostItem) => void;
+    onPostTap: (
+        e: React.MouseEvent<HTMLDivElement | HTMLAnchorElement, MouseEvent>,
+        post: PostItem
+    ) => void;
     setImageAsBg?: boolean;
 }
 

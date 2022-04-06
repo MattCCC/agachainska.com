@@ -379,7 +379,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
                             )}
                             <Slider
                                 sliderItems={sliderItems}
-                                onSliderTap={(e): any => onNavigate(e)}
+                                onSliderTap={(e) => onNavigate(e)}
                                 onSliderChange={setCurrentSlideState}
                                 slideId={sliderIndex}
                                 showSlideTitle={!isShowingOtherProjects}
@@ -441,8 +441,8 @@ const Work = memo(({ data }: Props): JSX.Element => {
                                     key={index}
                                     postNum={index + 1}
                                     post={post}
-                                    onPostTap={(e, { routeTo }): any =>
-                                        onNavigate(e, routeTo)
+                                    onPostTap={(e, { routeTo }) =>
+                                        onNavigate(e, routeTo as string)
                                     }
                                 />
                             )

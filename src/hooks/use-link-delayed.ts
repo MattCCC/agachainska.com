@@ -5,12 +5,12 @@ import { navigate } from "gatsby";
 import { isDev } from "@utils/detect-env";
 
 export type LinkDelayedCallback = (
-    e: React.MouseEvent<HTMLAnchorElement>,
+    e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
     to?: string
 ) => void;
 
 export type OnDelayCallback = (
-    e: React.MouseEvent<HTMLAnchorElement>,
+    e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
     to: string
 ) => void;
 
@@ -31,8 +31,8 @@ export const useLinkDelayed = ({
     location,
     replace = false,
     delay = 0,
-    onDelayStart = ((_e, _to) => {}) as OnDelayCallback,
-    onDelayEnd = ((_e, _to) => {}) as OnDelayCallback,
+    onDelayStart = ((_e, _to) => { }) as OnDelayCallback,
+    onDelayEnd = ((_e, _to) => { }) as OnDelayCallback,
 }: LinkDelayedArgs): LinkDelayedCallback => {
     const timeout = useRef<NodeJS.Timeout | null>(null);
 

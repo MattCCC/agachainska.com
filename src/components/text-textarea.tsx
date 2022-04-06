@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -90,7 +90,11 @@ export function TextTextarea({
         setActive(value && value.length > 0 ? true : false);
     }, [value]);
 
-    const onChange = useCallback((e) => setValue(e.target.value), []);
+    const onChange = useCallback(
+        (e: ChangeEvent<HTMLTextAreaElement>) =>
+            setValue(e.target?.value || ""),
+        []
+    );
 
     const onFocusCallback = useCallback(
         (e) => {

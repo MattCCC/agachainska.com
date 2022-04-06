@@ -33,7 +33,10 @@ interface Props {
     mouseScrollOnSlide?: boolean;
     customSlides?: Record<string, any>;
     setIsAnimating: (newValue: boolean) => void;
-    onSliderTap?: (e: any, currentItem: SliderItem) => void;
+    onSliderTap?: (
+        e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
+        currentItem: SliderItem
+    ) => void;
     onSliderChange?: (currentItem: SliderItem) => void;
     onSliderMouseEnter?: (mouseLeft: boolean) => void;
     onSliderMouseLeave?: (mouseLeft: boolean) => void;
@@ -336,7 +339,7 @@ export const Slider: FunctionComponent<Props> = ({
     }, [mouseLeft, onSliderMouseEnter, onSliderMouseLeave]);
 
     const onSliderClick = useCallback(
-        (e) => {
+        (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
             if (onSliderTap) {
                 onSliderTap(e, sliderItems[sliderIndex]);
             }

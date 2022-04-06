@@ -28,7 +28,7 @@ const cursorSize = 80;
 
 const Cursor = styled.div(
     ({ isMotionCursorVisible, color, size, overlap }: CursorProps) => [
-        tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full select-none cursor-pointer`,
+        tw`fixed z-40 hidden text-center text-white uppercase rounded-full cursor-pointer select-none lg:block`,
         tw`border prose-12px`,
         color === "black" && tw`bg-black border-black`,
         color === "melrose" && tw`bg-melrose border-melrose`,
@@ -173,7 +173,7 @@ const CursorLink: FunctionComponent<State["motionCursorData"]> = memo(
         }
 
         return (
-            <TextWrapper onClick={(e: any) => onNavigate(e, route)}>
+            <TextWrapper onClick={(e) => onNavigate(e, route)}>
                 <CursorText>
                     <Translate id={text} />
                 </CursorText>
@@ -186,10 +186,8 @@ export const useHideCursorPreserveVisibility = () => {
     const [isMotionCursorVisible, dispatch] = useStoreProp(
         "isMotionCursorVisible"
     );
-    const [
-        isMotionCursorVisibleCache,
-        setIsMotionCursorVisibleCache,
-    ] = useState(false);
+    const [isMotionCursorVisibleCache, setIsMotionCursorVisibleCache] =
+        useState(false);
 
     const onMouseEnter = useCallback((): void => {
         const isVisible = isMotionCursorVisible;

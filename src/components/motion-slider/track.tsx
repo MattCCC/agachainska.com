@@ -68,7 +68,7 @@ export const Track: FunctionComponent<Props> = ({
 
     const itemsPositions = state.items.map(
         (item) => item * -1 + trackDimensions.x || 0
-    );
+    ) as number[];
 
     const lastTwo = state.items.slice(-2);
     const lastItem = lastTwo[1] - lastTwo[0];
