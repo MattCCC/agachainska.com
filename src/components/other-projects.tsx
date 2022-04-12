@@ -3,7 +3,9 @@ import { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import tw, { css, styled } from "twin.macro";
 
-import { Post, PostItem } from "@components/post";
+import { PostItem } from "@components/post";
+
+import OtherProject from "./other-project";
 
 interface OtherProject {
     category: string;
@@ -43,7 +45,7 @@ const OtherProjectsAnimVariants = {
 const OtherProjectsContainer = styled(motion.div)(() => [
     tw`grid grid-cols-2 col-start-1 col-end-5 row-start-1 row-end-6 -mt-16 duration-150 gap-x-28 gap-y-20`,
     css`
-        div[class*="PostWrapper"]:nth-of-type(even) {
+        div[class*="other-project-container"]:nth-of-type(even) {
             position: relative;
             top: 8rem;
             left: 30px;
@@ -92,13 +94,7 @@ export default function OtherProjects({
             initial="initial"
         >
             {otherProjects[0].projects?.map((post: PostItem, index: number) => (
-                <Post
-                    key={index}
-                    postNum={index + lastProjectNumber}
-                    post={post}
-                    onPostTap={() => null}
-                    setImageAsBg={true}
-                />
+                <OtherProject otherProject={post} currentIndex={index} lastProjectNumber={lastProjectNumber} key={index + lastProjectNumber} />
             ))}
         </OtherProjectsContainer>
     );

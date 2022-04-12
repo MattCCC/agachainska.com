@@ -12,6 +12,7 @@ export const ProjectFragment = graphql`
         timeframe
         roleInProject
         shortDescription
+        dribbbleLink
         challenge {
             overview
             projectGoals

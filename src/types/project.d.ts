@@ -27,4 +27,5 @@ interface Project {
     stats: Record<string, number>;
     credits: Record<string, string>;
     sections: ProjectSection[];
+    dribbbleLink?: string;
 }
