@@ -11,7 +11,12 @@ const options: IntersectionObserverInit = {
 /**
  * Use Timeline Within viewport
  */
-export const useTimelineViewport = (): [string, IntersectionObserverCallback, IntersectionObserverInit, ((item: unknown) => void) | undefined] => {
+export const useTimelineViewport = (): [
+    string,
+    IntersectionObserverCallback,
+    IntersectionObserverInit,
+    ((item: unknown) => void) | undefined
+] => {
     const locationHash = typeof window !== "undefined" && window.location.hash;
 
     const [activeItemId, setActiveItemId] = useState(
@@ -24,10 +29,9 @@ export const useTimelineViewport = (): [string, IntersectionObserverCallback, In
         ([{ intersectionRatio, target }]): void => {
             pctInViewport[target.id] = intersectionRatio;
 
-            const selectedId = Object.keys(
-                pctInViewport
-            ).reduceRight((prev, curr) =>
-                pctInViewport[prev] > pctInViewport[curr] ? prev : curr
+            const selectedId = Object.keys(pctInViewport).reduceRight(
+                (prev, curr) =>
+                    pctInViewport[prev] > pctInViewport[curr] ? prev : curr
             );
 
             setActiveItemId(selectedId);

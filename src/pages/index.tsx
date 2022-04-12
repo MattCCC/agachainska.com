@@ -74,7 +74,9 @@ export default function Home(): JSX.Element {
 
     const onPositionUpdate = useCallback(
         (clientX: number, clientY: number) => {
-            const clientRect = (titleRef.current as HTMLHeadingElement).getBoundingClientRect();
+            const clientRect = (
+                titleRef.current as HTMLHeadingElement
+            ).getBoundingClientRect();
             const cursorMarginLeft = 31;
 
             setPosition({

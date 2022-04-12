@@ -290,12 +290,8 @@ export default function Project({ data }: Props): JSX.Element {
     const [navigation] = usePagination({ projectsByCategory, uid });
     const [refStats, animateStats] = useIncrementStats();
 
-    const [
-        activeItemId,
-        intersection,
-        options,
-        onTimelineItemChange,
-    ] = useTimelineViewport();
+    const [activeItemId, intersection, options, onTimelineItemChange] =
+        useTimelineViewport();
 
     const allowedTimelineSections = ["challenge", "approach", "results"];
     const timelineWithSections = [
@@ -428,7 +424,7 @@ export default function Project({ data }: Props): JSX.Element {
 }
 
 export const query = graphql`
-    query($id: String!) {
+    query ($id: String!) {
         project(id: { eq: $id }) {
             ...ProjectFields
         }

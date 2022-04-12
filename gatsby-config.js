@@ -3,7 +3,7 @@ require("dotenv").config({
 });
 
 module.exports = {
-    trailingSlash: 'always',
+    trailingSlash: "always",
     siteMetadata: {
         title: "Aga Chainska",
         titleTemplate: "%s · Aga Chainska",

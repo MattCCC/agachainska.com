@@ -94,7 +94,12 @@ export default function OtherProjects({
             initial="initial"
         >
             {otherProjects[0].projects?.map((post: PostItem, index: number) => (
-                <OtherProject otherProject={post} currentIndex={index} lastProjectNumber={lastProjectNumber} key={index + lastProjectNumber} />
+                <OtherProject
+                    otherProject={post}
+                    currentIndex={index}
+                    lastProjectNumber={lastProjectNumber}
+                    key={index + lastProjectNumber}
+                />
             ))}
         </OtherProjectsContainer>
     );
