@@ -75,7 +75,7 @@
     "gatsby-plugin-sass": "4.2.0",
     "gatsby-plugin-ts-config": "1.1.5",
     "gatsby-plugin-webpack-bundle-analyser-v2": "1.1.21",
-    "postcss": "8.2.9",
+    "postcss": "8.2.13",
     "postcss-loader": "5.2.0",
     "prettier": "2.2.1",
     "tailwindcss": "2.0.4",
