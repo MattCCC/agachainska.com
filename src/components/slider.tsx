@@ -18,6 +18,8 @@ import { useEventListener } from "@hooks/use-event-listener";
 import { ReactComponent as NextIcon } from "@svg/down.svg";
 import { ReactComponent as PrevIcon } from "@svg/up.svg";
 
+import OtherProjects, { OtherProject } from "./other-projects";
+
 export interface SliderItem {
     [x: string]: any;
     name: string;
@@ -31,6 +33,9 @@ interface Props {
     isAnimating: boolean;
     showSlideTitle?: boolean;
     mouseScrollOnSlide?: boolean;
+    isShowingOtherProjects: boolean;
+    otherProjects: OtherProject[];
+    lastProjectNumber: number;
     customSlides?: Record<string, any>;
     setIsAnimating: (newValue: boolean) => void;
     onSliderTap?: (
@@ -40,6 +45,18 @@ interface Props {
     onSliderChange?: (currentItem: SliderItem) => void;
     onSliderMouseEnter?: (mouseLeft: boolean) => void;
     onSliderMouseLeave?: (mouseLeft: boolean) => void;
+}
+
+interface SlideContentProps {
+    isShowingOtherProjects?: boolean;
+}
+
+interface SliderWrapperProps {
+    isShowingOtherProjects: boolean;
+}
+
+interface ControlsProps {
+    isShowingOtherProjects: boolean;
 }
 
 type SliderRefHandle = ElementRef<typeof Slider>;
@@ -103,13 +120,15 @@ export const wrap = (min: number, max: number, v: number): number => {
     return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
 };
 
-const SliderWrapper = styled.div(() => [tw`relative`]);
+const SliderWrapper = styled.div(({isShowingOtherProjects}: SliderWrapperProps) => [tw`relative`, isShowingOtherProjects && tw`h-screen`]);
 
-const SlideContent = styled.div(() => [
-    tw`relative overflow-hidden`,
-    css`
-        height: 27.76rem;
-    `,
+const SlideContent = styled.div(({isShowingOtherProjects}: SlideContentProps) => [
+    tw`relative`,
+    !isShowingOtherProjects && tw`overflow-hidden`,
+    !isShowingOtherProjects && css`
+        height: 27.76rem;`,
+
+
 ]);
 
 const Title = styled(MainTitleTop)(() => [
@@ -135,8 +154,8 @@ const Slide = styled(motion(Distortion, { forwardMotionProps: true }))(() => [
     `,
 ]);
 
-const Controls = styled.div(() => [
-    tw`relative flex pt-12 justify-items-center`,
+const Controls = styled.div(({isShowingOtherProjects}: ControlsProps) => [
+    tw`relative flex pt-12 justify-items-center`, isShowingOtherProjects && tw`absolute bottom-0`
 ]);
 
 const Btn = styled.div(() => [
@@ -159,6 +178,9 @@ export const Slider: FunctionComponent<Props> = ({
     isAnimating,
     setIsAnimating,
     customSlides = {},
+    isShowingOtherProjects,
+    otherProjects,
+    lastProjectNumber,
     onSliderTap = null,
     onSliderChange = null,
     onSliderMouseEnter = null,
@@ -348,7 +370,7 @@ export const Slider: FunctionComponent<Props> = ({
     );
 
     return (
-        <SliderWrapper ref={sliderRef}>
+        <SliderWrapper isShowingOtherProjects={isShowingOtherProjects} ref={sliderRef}>
             {showSlideTitle && (
                 <Title
                     percentage={59}
@@ -359,7 +381,7 @@ export const Slider: FunctionComponent<Props> = ({
                     {sliderItems[sliderIndex].name}
                 </Title>
             )}
-            <SlideContent ref={sliderContentRef}>
+            <SlideContent ref={sliderContentRef} isShowingOtherProjects={isShowingOtherProjects}>
                 <AnimatePresence
                     initial={false}
                     custom={direction}
@@ -380,7 +402,19 @@ export const Slider: FunctionComponent<Props> = ({
                         onDragEnd={onDragEnd}
                         onClick={onSliderClick}
                     >
-                        {renderCustomSlide(sliderItems[sliderIndex], page) || (
+                        {isShowingOtherProjects ? (
+                            <OtherProjects
+                                isShowingOtherProjects={
+                                    isShowingOtherProjects
+                                }
+                                otherProjects={
+                                    otherProjects
+                                }
+                                lastProjectNumber={
+                                    lastProjectNumber
+                                }
+                            />
+                        ) : (
                             <Slide
                                 id={String(page)}
                                 imgUrl={sliderItems[sliderIndex]?.cover || ""}
@@ -390,7 +424,7 @@ export const Slider: FunctionComponent<Props> = ({
                     </SlidesList>
                 </AnimatePresence>
             </SlideContent>
-            <Controls>
+            <Controls isShowingOtherProjects={isShowingOtherProjects}>
                 <Btn onClick={(): void => goToSlide(1)}>
                     <NextIconStyled /> Next
                 </Btn>

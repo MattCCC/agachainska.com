@@ -25,7 +25,7 @@ const Waves = styled(
     tw`absolute w-full`,
     darkTheme && tw`opacity-5`,
     css`
-        height: 100vh;
+        height: 200vh;
         top: 59.5px;
     `,
 ]);

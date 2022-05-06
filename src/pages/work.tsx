@@ -7,7 +7,6 @@ import { useDebouncedCallback } from "use-debounce";
 import { BigNumber } from "@components/big-number";
 import { MainContainer } from "@components/main-container";
 import { MotionCursor } from "@components/motion-cursor";
-import OtherProjects from "@components/other-projects";
 import { Post, PostItem } from "@components/post";
 import { Slider, SliderItem } from "@components/slider";
 import { Star } from "@components/star";
@@ -48,12 +47,17 @@ interface Props extends PageProps {
     };
 }
 
+interface SliderWrapperProps {
+    isShowingOtherProjects: boolean;
+}
+
 const ContentContainer = styled.section(() => [
     tw`relative col-start-1 col-end-13 lg:mt-16 lg:col-start-2 lg:grid lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col`,
 ]);
 
-const SlideWrapper = styled.div(() => [
+const SlideWrapper = styled.div(({isShowingOtherProjects}: SliderWrapperProps) => [
     tw`relative hidden col-span-5 col-start-1 col-end-5 row-span-5 row-start-1 row-end-6 lg:block`,
+    isShowingOtherProjects && tw`h-screen`
 ]);
 
 const TimelineWrapper = styled.aside(() => [
@@ -348,8 +352,8 @@ const Work = memo(({ data }: Props): JSX.Element => {
 
             <MainContainer topPadding={true}>
                 <ContentContainer>
-                    {!isShowingOtherProjects && !hasSmallWindowWidth ? (
-                        <SlideWrapper>
+                    {!hasSmallWindowWidth ? (
+                        <SlideWrapper isShowingOtherProjects={isShowingOtherProjects}>
                             {!isShowingOtherProjects && (
                                 <StyledNumber
                                     value={`${state.projectNumberToShow + 1}.`}
@@ -383,21 +387,9 @@ const Work = memo(({ data }: Props): JSX.Element => {
                                 onSliderChange={setCurrentSlideState}
                                 slideId={sliderIndex}
                                 showSlideTitle={!isShowingOtherProjects}
-                                customSlides={{
-                                    others: (
-                                        <OtherProjects
-                                            isShowingOtherProjects={
-                                                isShowingOtherProjects
-                                            }
-                                            otherProjects={
-                                                currentCategoryOtherProjects
-                                            }
-                                            lastProjectNumber={
-                                                projectsByCategory.length
-                                            }
-                                        />
-                                    ),
-                                }}
+                                isShowingOtherProjects={isShowingOtherProjects}
+                                otherProjects={currentCategoryOtherProjects}
+                                lastProjectNumber={projectsByCategory.length}
                                 onSliderMouseEnter={
                                     onSliderContentMouseEventChange
                                 }
@@ -408,15 +400,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
                                 setIsAnimating={setIsSliderAnimating}
                             />
                         </SlideWrapper>
-                    ) : (
-                        !hasSmallWindowWidth && (
-                            <OtherProjects
-                                isShowingOtherProjects={isShowingOtherProjects}
-                                otherProjects={currentCategoryOtherProjects}
-                                lastProjectNumber={projectsByCategory.length}
-                            />
-                        )
-                    )}
+                    ) : null}
 
                     <TimelineWrapper>
                         <Timeline

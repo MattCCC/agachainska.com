@@ -7,7 +7,7 @@ import { PostItem } from "@components/post";
 
 import OtherProject from "./other-project";
 
-interface OtherProject {
+export interface OtherProject {
     category: string;
     projects?: Project[];
 }
