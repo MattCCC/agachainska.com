@@ -236,7 +236,7 @@ export const Slider: FunctionComponent<Props> = ({
                 });
             });
         },
-        []
+        [setIsAnimating]
     );
 
     const goToSlide = useCallback(
@@ -296,25 +296,6 @@ export const Slider: FunctionComponent<Props> = ({
             }
         },
         [goToSlide]
-    );
-
-    const renderCustomSlide = useCallback(
-        (slideData, index) => {
-            const slideComponents = Object.keys(customSlides);
-
-            for (const slidePartialName of slideComponents) {
-                if (slideData.id.includes(slidePartialName)) {
-                    return (
-                        <div key={`slide-${index}`}>
-                            {customSlides[slidePartialName]}
-                        </div>
-                    );
-                }
-            }
-
-            return null;
-        },
-        [customSlides]
     );
 
     // Animate to particular slide

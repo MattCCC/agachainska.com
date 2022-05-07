@@ -37,7 +37,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
-    tw`h-16 sticky mb-8 top-0 z-100 w-full flex items-center justify-center`,
+    tw`sticky top-0 flex items-center justify-center w-full h-16 mb-8 z-100`,
     hideForDesktop && tw`lg:hidden`,
 ]);
 
@@ -70,7 +70,7 @@ const TabsList = styled.ul(() => [tw`flex flex-row justify-between`]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
     tw`w-full h-8 cursor-pointer select-none prose-20px opacity-40`,
-    tw`transition-opacity capitalize text-melrose`,
+    tw`capitalize transition-opacity text-melrose`,
     isActive && tw`opacity-100`,
     css`
         line-height: 25px;
@@ -139,7 +139,7 @@ export const Tabs = memo(
                 observer.observe(currentElement);
             }
 
-            return function () {
+            return function() {
                 if (currentElement) {
                     observer.unobserve(currentElement);
                 }

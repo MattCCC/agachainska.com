@@ -160,19 +160,6 @@ export const Timeline = memo(
             [onTimelineItemChange, state]
         );
 
-        const onOthersClick = useCallback(() => {
-            if (state.activeItemId === "others") {
-                return;
-            }
-
-            setState((prevState) => ({
-                ...prevState,
-                activeItemId: "others",
-            }));
-
-            onOtherProjectsClick();
-        }, [state, onOtherProjectsClick]);
-
         const onTimelineHeaderClick = useCallback(
             (section: Section): void => {
                 if (state.activeSectionId === section.id) {
