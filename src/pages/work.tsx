@@ -272,6 +272,8 @@ const Work = memo(({ data }: Props): JSX.Element => {
 
             setSliderIndex(newSliderIndex);
 
+            dispatch.showFooter(newSliderIndex === sliderItems.length - 1);
+
             setState((prevState) => ({
                 ...prevState,
                 routeTo: currentItem.routeTo,
@@ -281,7 +283,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
                 currentProject: currentItem,
             }));
         },
-        [state, sliderItems, onOthersSelected, timelineList, setState]
+        [state, sliderItems, onOthersSelected, timelineList, setState, dispatch]
     );
 
     const onTabChange = useCallback(
