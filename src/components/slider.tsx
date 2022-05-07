@@ -226,6 +226,8 @@ export const Slider: FunctionComponent<Props> = ({
                     onComplete: () => {
                         // Avoid infinite loop since we call the orchestration recursively
                         if (!to) {
+                            setIsAnimating(false);
+
                             return;
                         }
 
