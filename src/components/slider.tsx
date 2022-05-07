@@ -382,6 +382,20 @@ export const Slider: FunctionComponent<Props> = ({
                 </Title>
             )}
             <SlideContent ref={sliderContentRef} isShowingOtherProjects={isShowingOtherProjects}>
+
+                {isShowingOtherProjects ? (
+                        <OtherProjects
+                            isShowingOtherProjects={
+                                isShowingOtherProjects
+                            }
+                            otherProjects={
+                                otherProjects
+                            }
+                            lastProjectNumber={
+                                lastProjectNumber
+                            }
+                        />
+                    ) : (
                 <AnimatePresence
                     initial={false}
                     custom={direction}
@@ -402,27 +416,14 @@ export const Slider: FunctionComponent<Props> = ({
                         onDragEnd={onDragEnd}
                         onClick={onSliderClick}
                     >
-                        {isShowingOtherProjects ? (
-                            <OtherProjects
-                                isShowingOtherProjects={
-                                    isShowingOtherProjects
-                                }
-                                otherProjects={
-                                    otherProjects
-                                }
-                                lastProjectNumber={
-                                    lastProjectNumber
-                                }
-                            />
-                        ) : (
-                            <Slide
-                                id={String(page)}
-                                imgUrl={sliderItems[sliderIndex]?.cover || ""}
-                                key={`slide-${page}`}
-                            />
-                        )}
+                        <Slide
+                            id={String(page)}
+                            imgUrl={sliderItems[sliderIndex]?.cover || ""}
+                            key={`slide-${page}`}
+                        />
                     </SlidesList>
                 </AnimatePresence>
+                    )}
             </SlideContent>
             <Controls isShowingOtherProjects={isShowingOtherProjects}>
                 <Btn onClick={(): void => goToSlide(1)}>
