@@ -120,16 +120,23 @@ export const wrap = (min: number, max: number, v: number): number => {
     return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
 };
 
-const SliderWrapper = styled.div(({isShowingOtherProjects}: SliderWrapperProps) => [tw`relative`, isShowingOtherProjects && tw`h-screen`]);
+const SliderWrapper = styled.div(
+    ({ isShowingOtherProjects }: SliderWrapperProps) => [
+        tw`relative`,
+        isShowingOtherProjects && tw`h-screen`,
+    ]
+);
 
-const SlideContent = styled.div(({isShowingOtherProjects}: SlideContentProps) => [
-    tw`relative`,
-    !isShowingOtherProjects && tw`overflow-hidden`,
-    !isShowingOtherProjects && css`
-        height: 27.76rem;`,
-
-
-]);
+const SlideContent = styled.div(
+    ({ isShowingOtherProjects }: SlideContentProps) => [
+        tw`relative`,
+        !isShowingOtherProjects && tw`overflow-hidden`,
+        !isShowingOtherProjects &&
+            css`
+                height: 27.76rem;
+            `,
+    ]
+);
 
 const Title = styled(MainTitleTop)(() => [
     tw`absolute z-30 uppercase select-none`,
@@ -154,8 +161,9 @@ const Slide = styled(motion(Distortion, { forwardMotionProps: true }))(() => [
     `,
 ]);
 
-const Controls = styled.div(({isShowingOtherProjects}: ControlsProps) => [
-    tw`relative flex pt-12 justify-items-center`, isShowingOtherProjects && tw`absolute bottom-0`
+const Controls = styled.div(({ isShowingOtherProjects }: ControlsProps) => [
+    tw`relative flex pt-12 justify-items-center`,
+    isShowingOtherProjects && tw`absolute bottom-0`,
 ]);
 
 const Btn = styled.div(() => [
@@ -370,7 +378,10 @@ export const Slider: FunctionComponent<Props> = ({
     );
 
     return (
-        <SliderWrapper isShowingOtherProjects={isShowingOtherProjects} ref={sliderRef}>
+        <SliderWrapper
+            isShowingOtherProjects={isShowingOtherProjects}
+            ref={sliderRef}
+        >
             {showSlideTitle && (
                 <Title
                     percentage={59}
@@ -381,49 +392,45 @@ export const Slider: FunctionComponent<Props> = ({
                     {sliderItems[sliderIndex].name}
                 </Title>
             )}
-            <SlideContent ref={sliderContentRef} isShowingOtherProjects={isShowingOtherProjects}>
-
+            <SlideContent
+                ref={sliderContentRef}
+                isShowingOtherProjects={isShowingOtherProjects}
+            >
                 {isShowingOtherProjects ? (
-                        <OtherProjects
-                            isShowingOtherProjects={
-                                isShowingOtherProjects
-                            }
-                            otherProjects={
-                                otherProjects
-                            }
-                            lastProjectNumber={
-                                lastProjectNumber
-                            }
-                        />
-                    ) : (
-                <AnimatePresence
-                    initial={false}
-                    custom={direction}
-                    onExitComplete={(): void => setIsAnimating(false)}
-                >
-                    <SlidesList
-                        key={page}
+                    <OtherProjects
+                        isShowingOtherProjects={isShowingOtherProjects}
+                        otherProjects={otherProjects}
+                        lastProjectNumber={lastProjectNumber}
+                    />
+                ) : (
+                    <AnimatePresence
+                        initial={false}
                         custom={direction}
-                        variants={variants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={sliderTransition}
-                        dragPropagation={true}
-                        drag="y"
-                        dragConstraints={sliderDragConstraints}
-                        dragElastic={1}
-                        onDragEnd={onDragEnd}
-                        onClick={onSliderClick}
+                        onExitComplete={(): void => setIsAnimating(false)}
                     >
-                        <Slide
-                            id={String(page)}
-                            imgUrl={sliderItems[sliderIndex]?.cover || ""}
-                            key={`slide-${page}`}
-                        />
-                    </SlidesList>
-                </AnimatePresence>
-                    )}
+                        <SlidesList
+                            key={page}
+                            custom={direction}
+                            variants={variants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            transition={sliderTransition}
+                            dragPropagation={true}
+                            drag="y"
+                            dragConstraints={sliderDragConstraints}
+                            dragElastic={1}
+                            onDragEnd={onDragEnd}
+                            onClick={onSliderClick}
+                        >
+                            <Slide
+                                id={String(page)}
+                                imgUrl={sliderItems[sliderIndex]?.cover || ""}
+                                key={`slide-${page}`}
+                            />
+                        </SlidesList>
+                    </AnimatePresence>
+                )}
             </SlideContent>
             <Controls isShowingOtherProjects={isShowingOtherProjects}>
                 <Btn onClick={(): void => goToSlide(1)}>

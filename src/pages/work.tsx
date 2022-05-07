@@ -55,10 +55,12 @@ const ContentContainer = styled.section(() => [
     tw`relative col-start-1 col-end-13 lg:mt-16 lg:col-start-2 lg:grid lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col`,
 ]);
 
-const SlideWrapper = styled.div(({isShowingOtherProjects}: SliderWrapperProps) => [
-    tw`relative hidden col-span-5 col-start-1 col-end-5 row-span-5 row-start-1 row-end-6 lg:block`,
-    isShowingOtherProjects && tw`h-screen`
-]);
+const SlideWrapper = styled.div(
+    ({ isShowingOtherProjects }: SliderWrapperProps) => [
+        tw`relative hidden col-span-5 col-start-1 col-end-5 row-span-5 row-start-1 row-end-6 lg:block`,
+        isShowingOtherProjects && tw`h-screen`,
+    ]
+);
 
 const TimelineWrapper = styled.aside(() => [
     tw`justify-center hidden col-start-5 row-span-5 row-start-1 row-end-5 m-auto lg:block`,
@@ -353,7 +355,9 @@ const Work = memo(({ data }: Props): JSX.Element => {
             <MainContainer topPadding={true}>
                 <ContentContainer>
                     {!hasSmallWindowWidth ? (
-                        <SlideWrapper isShowingOtherProjects={isShowingOtherProjects}>
+                        <SlideWrapper
+                            isShowingOtherProjects={isShowingOtherProjects}
+                        >
                             {!isShowingOtherProjects && (
                                 <StyledNumber
                                     value={`${state.projectNumberToShow + 1}.`}
