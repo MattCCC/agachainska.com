@@ -26,7 +26,7 @@ function OtherProject({
     const onSliderContentMouseEventChange = useCallback(
         (mouseDidLeave = false) => {
             dispatch.showMotionCursor(!mouseDidLeave, {
-                text: "view dribbble shot",
+                text: "work.viewDribbbleShot",
                 route: otherProject.dribbbleLink,
             });
         },

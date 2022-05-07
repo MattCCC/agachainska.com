@@ -363,12 +363,17 @@ export const Slider: FunctionComponent<Props> = ({
     );
 
     useEffect((): void => {
-        if (mouseLeft && onSliderMouseLeave) {
+        if (mouseLeft && onSliderMouseLeave && !isShowingOtherProjects) {
             onSliderMouseLeave(true);
-        } else if (onSliderMouseEnter) {
+        } else if (onSliderMouseEnter && !isShowingOtherProjects) {
             onSliderMouseEnter(false);
         }
-    }, [mouseLeft, onSliderMouseEnter, onSliderMouseLeave]);
+    }, [
+        mouseLeft,
+        onSliderMouseEnter,
+        onSliderMouseLeave,
+        isShowingOtherProjects,
+    ]);
 
     const onSliderClick = useCallback(
         (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
