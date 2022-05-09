@@ -24,7 +24,7 @@ command = "yarn build"
 # # deploy contexts will inherit these settings.
 # [context.production]
 # command = "make publish"
-# environment = {ACCESS_TOKEN = "super secret", NODE_VERSION = "8.0.1"}
+# environment = {ACCESS_TOKEN = "super secret", NODE_VERSION = "14.15.0"}
 # publish = "output/"
 
 # # Deploy Preview context: all deploys generated from a pull/merge request will
