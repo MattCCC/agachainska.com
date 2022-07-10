@@ -133,7 +133,8 @@ const SlideContent = styled.div(
         !isShowingOtherProjects && tw`overflow-hidden`,
         !isShowingOtherProjects &&
             css`
-                height: 27.76rem;
+                height: 25.8125rem;
+                width: 58.0625rem;
             `,
     ]
 );
@@ -149,7 +150,8 @@ const Title = styled(MainTitleTop)(() => [
 const SlidesList = styled(motion.div)(() => [
     tw`absolute w-full max-w-full`,
     css`
-        height: 27.76rem;
+        height: 25.8125rem;
+        width: 58.0625rem;
     `,
 ]);
 
