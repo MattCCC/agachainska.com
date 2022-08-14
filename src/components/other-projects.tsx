@@ -46,10 +46,10 @@ const OtherProjectsContainer = styled(motion.div)(() => [
     tw`grid grid-cols-2 col-start-1 col-end-5 row-start-1 auto-rows-[240px] -mt-16 duration-150 gap-x-28 gap-y-0`,
     css`
         div[class*="other-project-container"]:nth-of-type(odd)::after {
-            content: '';
+            content: "";
             height: 5rem;
         }
-        
+
         div[class*="other-project-container"]:nth-of-type(even) {
             grid-row: span 2;
             grid-column-start: 2;
