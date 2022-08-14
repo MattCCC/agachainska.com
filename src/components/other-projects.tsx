@@ -43,12 +43,24 @@ const OtherProjectsAnimVariants = {
 };
 
 const OtherProjectsContainer = styled(motion.div)(() => [
-    tw`grid grid-cols-2 col-start-1 col-end-5 row-start-1 row-end-6 -mt-16 duration-150 gap-x-28 gap-y-20`,
+    tw`grid grid-cols-2 col-start-1 col-end-5 row-start-1 auto-rows-[240px] -mt-16 duration-150 gap-x-28 gap-y-0`,
     css`
+        div[class*="other-project-container"]:nth-of-type(odd)::after {
+            content: '';
+            height: 5rem;
+        }
+        
         div[class*="other-project-container"]:nth-of-type(even) {
+            grid-row: span 2;
+            grid-column-start: 2;
             position: relative;
-            top: 8rem;
+            padding-top: 8rem;
             left: 30px;
+        }
+
+        div[class*="other-project-container"]:not(:nth-child(1)):nth-of-type(odd) {
+            position: relative;
+            top: 225px;
         }
 
         h1[class*="MainTitleTop"] {

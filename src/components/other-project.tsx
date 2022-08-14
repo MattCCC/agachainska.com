@@ -12,7 +12,7 @@ interface Props {
     lastProjectNumber: number;
 }
 
-const OtherProjectContainer = styled.div(() => {});
+const OtherProjectContainer = styled.div(() => []);
 
 function OtherProject({
     otherProject,

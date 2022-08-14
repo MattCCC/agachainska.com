@@ -57,8 +57,8 @@ const ContentContainer = styled.section(() => [
 
 const SlideWrapper = styled.div(
     ({ isShowingOtherProjects }: SliderWrapperProps) => [
-        tw`relative hidden col-span-5 col-start-1 col-end-5 row-span-5 row-start-1 row-end-6 lg:block`,
-        isShowingOtherProjects && tw`h-screen`,
+        tw`relative hidden col-span-5 col-start-1 col-end-5 lg:block`,
+        isShowingOtherProjects && tw`h-full`,
     ]
 );
 

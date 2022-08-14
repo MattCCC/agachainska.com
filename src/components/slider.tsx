@@ -123,7 +123,7 @@ export const wrap = (min: number, max: number, v: number): number => {
 const SliderWrapper = styled.div(
     ({ isShowingOtherProjects }: SliderWrapperProps) => [
         tw`relative`,
-        isShowingOtherProjects && tw`h-screen`,
+        isShowingOtherProjects && tw`h-full`,
     ]
 );
 
