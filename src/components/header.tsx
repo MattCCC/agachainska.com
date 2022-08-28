@@ -31,7 +31,7 @@ const Navigation = styled.nav(() => [
 ]);
 
 const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
-    tw`relative font-medium select-none text-primary prose-18px`,
+    tw`relative font-medium leading-5 select-none text-primary prose-18`,
     css`
         line-height: 48px;
     `,

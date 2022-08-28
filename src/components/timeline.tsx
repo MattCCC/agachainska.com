@@ -20,7 +20,7 @@ const Title = styled(
     motion.div,
     excludeProps(["hasMultipleSections", "isActive"])
 )(({ isActive, hasMultipleSections }: TitleStyle) => [
-    tw`font-bold select-none lg:prose-20px lg:text-primary opacity-30`,
+    tw`font-bold select-none lg:prose-20 lg:leading-7 lg:text-primary opacity-30`,
     tw`transition-opacity hover:opacity-100`,
     css`
         padding-bottom: 7px;
@@ -31,7 +31,7 @@ const Title = styled(
 ]);
 
 const List = styled(motion.div)(() => [
-    tw`relative flex flex-col items-end w-auto overflow-hidden font-bold lg:prose-14px lg:text-gray-500 justify-evenly`,
+    tw`relative flex flex-col items-end w-auto overflow-hidden font-bold lg:prose-14 lg:leading-2 lg:text-gray-500 justify-evenly`,
     css`
         box-shadow: inset -2px 0 0 -1px rgba(0, 0, 0, 0.2);
         transition: opacity 0.3s ease-in-out;

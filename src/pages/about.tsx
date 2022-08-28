@@ -34,7 +34,9 @@ const Info = styled.div(() => [
     `,
 ]);
 
-const AboutStyle = styled.h2(() => [tw`prose-24px font-fbold lg:prose-30px`]);
+const AboutStyle = styled.h2(() => [
+    tw`leading-8 prose-24 font-fbold lg:prose-30 lg:leading-11`,
+]);
 
 const SocialMediaLinksCon = styled.div(() => [
     css`
@@ -108,7 +110,7 @@ const TitleContainer = styled.div(() => [
 ]);
 
 const Title = styled.h2(() => [
-    tw`h-10 -ml-px uppercase prose-30px font-fbold lg:prose-54px lg:col-start-1 lg:col-end-4 lg:h-auto`,
+    tw`h-10 -ml-px uppercase prose-30 leading-11 font-fbold lg:prose-54 lg:leading-16 lg:col-start-1 lg:col-end-4 lg:h-auto`,
 ]);
 
 const DetailsContainer = styled.div(() => [
@@ -119,7 +121,7 @@ const DetailsContainer = styled.div(() => [
 ]);
 
 const Details = styled.p(() => [
-    tw`mb-10 prose-16px-h24 font-base`,
+    tw`mb-10 leading-6 prose-16 font-base`,
     css`
         &:first-of-type {
             margin-bottom: 1.5rem;
@@ -132,7 +134,7 @@ const SkillsTable = styled.ul(() => [
 ]);
 
 const Skill = styled.li(() => [
-    tw`flex items-center justify-center leading-6 text-center uppercase border-t border-r border-black font-fbold prose-18px lg:prose-20px`,
+    tw`flex items-center justify-center leading-5 text-center uppercase border-t border-r border-black font-fbold prose-18 lg:prose-20 lg:leading-7`,
     css`
         height: 78px;
         padding: 8px;
@@ -156,14 +158,14 @@ const DesignProcessTitleContainer = styled.div(() => [
 ]);
 
 const DesignProcessTitle = styled.h3(() => [
-    tw`inline-block capitalize prose-24px lg:prose-30px-h40 font-fbold`,
+    tw`inline-block leading-8 capitalize prose-24 lg:prose-30 lg:leading-10 font-fbold`,
     css`
         margin-top: -2px;
     `,
 ]);
 
 const DesignProcessNumber = styled.span(() => [
-    tw`mr-3 font-fbold prose-18px-h24 lg:prose-20px`,
+    tw`mr-3 leading-6 font-fbold prose-18 lg:prose-20 lg:leading-7`,
 ]);
 
 const DesignProcessElementDesc = styled.p(() => [

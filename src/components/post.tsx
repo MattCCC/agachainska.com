@@ -39,7 +39,7 @@ const PostBg = styled.div(() => [
 ]);
 
 const PostDescription = styled.div(() => [
-    tw`w-3/4 prose-16px-h24`,
+    tw`w-3/4 leading-6 prose-16`,
     css`
         margin-top: 10px;
     `,

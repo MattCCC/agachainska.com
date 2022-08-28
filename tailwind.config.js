@@ -15,111 +15,34 @@ module.exports = {
         },
         extend: {
             lineHeight: {
+                '2': '0.5rem',
                 '11': '2.75rem',
                 '12': '3rem',
                 '13': '3.25rem',
                 '14': '3.5rem',
                 '15': '3.75rem',
                 '16': '4rem',
-                '64': '64px',
+                '17': '4.25rem',
+                '18': '4.5rem',
+                '19': '4.75rem',
+                '20': '5rem',
+                '21': '5.25rem',
+                '22': '5.5rem',
+                '23': '5.75rem',
+                '24': '6rem',
+                '32': '8rem',
+                '36': '9rem',
+                '37': '9.25rem',
+                '38': '9.5rem',
+                '39': '9.75rem',
+                '40': '10rem',
+                '44': '11rem',
+                '48': '12rem',
             },
             cursor: {
                 none: "none",
             },
             typography: {
-                // @deprecated: Use "px" suffix whenever both font size and line height are specified
-                "12px": {
-                    css: {
-                        fontSize: "12px",
-                        lineHeight: "12px",
-                    },
-                },
-                "14px": {
-                    css: {
-                        fontSize: "14px",
-                        lineHeight: "10px",
-                    },
-                },
-                "16px": {
-                    css: {
-                        fontSize: "16px",
-                        lineHeight: "20px",
-                    },
-                },
-                "16px-h24": {
-                    css: {
-                        fontSize: "16px",
-                        lineHeight: "24px",
-                    },
-                },
-                "18px": {
-                    css: {
-                        fontSize: "18px",
-                        lineHeight: "20px",
-                    },
-                },
-                "18px-h24": {
-                    css: {
-                        fontSize: "18px",
-                        lineHeight: "24px",
-                    },
-                },
-                "20px": {
-                    css: {
-                        fontSize: "20px",
-                        lineHeight: "26px",
-                    },
-                },
-                "24px": {
-                    css: {
-                        fontSize: "24px",
-                        lineHeight: "32px",
-                    },
-                },
-                "28px": {
-                    css: {
-                        fontSize: "28px",
-                        lineHeight: "34px",
-                    },
-                },
-                "30px": {
-                    css: {
-                        fontSize: "30px",
-                        lineHeight: "42px",
-                    },
-                },
-                "30px-h40": {
-                    css: {
-                        fontSize: "30px",
-                        lineHeight: "40px",
-                    },
-                },
-                "48px": {
-                    css: {
-                        fontSize: "48px",
-                        lineHeight: "56px",
-                    },
-                },
-                "54px": {
-                    css: {
-                        fontSize: "54px",
-                        lineHeight: "62px",
-                    },
-                },
-                "70px": {
-                    css: {
-                        fontSize: "70px",
-                        lineHeight: "80px",
-                    },
-                },
-                "140px": {
-                    css: {
-                        fontSize: "140px",
-                        lineHeight: "151px",
-                    },
-                },
-
-                // Classes without line height
                 0: {
                     css: {
                         fontSize: "0",
@@ -200,6 +123,11 @@ module.exports = {
                         fontSize: "36px",
                     },
                 },
+                48: {
+                    css: {
+                        fontSize: "48px",
+                    },
+                },
                 50: {
                     css: {
                         fontSize: "50px",
@@ -215,6 +143,11 @@ module.exports = {
                         fontSize: "60px",
                     },
                 },
+                70: {
+                    css: {
+                        fontSize: "70px",
+                    },
+                },
                 80: {
                     css: {
                         fontSize: "80px",
@@ -228,6 +161,11 @@ module.exports = {
                 120: {
                     css: {
                         fontSize: "120px",
+                    },
+                },
+                140: {
+                    css: {
+                        fontSize: "140px",
                     },
                 },
             },

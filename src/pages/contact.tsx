@@ -9,7 +9,7 @@ import { ReactComponent as ContactIllustration } from "@svg/Contact.svg";
 import { up } from "@utils/screens";
 
 const H1 = styled.div(() => [
-    tw`pt-12 mb-5 lg:mb-12 font-fbold prose-28px lg:prose-48px lg:pt-24`,
+    tw`pt-12 mb-5 leading-9 lg:mb-12 font-fbold prose-28 lg:prose-48 lg:leading-14 lg:pt-24`,
 ]);
 
 const EmailLink = styled.a(() => [tw`inline-block ml-1 text-green`]);

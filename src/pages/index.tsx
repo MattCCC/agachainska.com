@@ -25,7 +25,7 @@ import { getRoutePath } from "@utils/route";
 import { TranslateText } from "@utils/translate-text";
 
 const Title = styled.h1(() => [
-    tw`relative -mt-16 z-50 inline-block max-w-full font-bold select-none lg:pr-16 prose-70px lg:prose-140px`,
+    tw`relative z-50 inline-block max-w-full -mt-16 font-bold select-none lg:pr-16 prose-70 leading-20 lg:prose-140 lg:leading-38`,
     tw`subpixel-antialiased text-black bg-clip-text font-fbold cursor-none`,
     css`
         width: 634px;
@@ -51,7 +51,7 @@ const Title = styled.h1(() => [
 ]);
 
 const Desc = styled.h2(() => [
-    tw`inline-block select-none prose-24px lg:prose-30px`,
+    tw`inline-block leading-8 select-none prose-24 lg:prose-30 lg:leading-11`,
     css`
         max-height: 84px;
         width: 18rem;

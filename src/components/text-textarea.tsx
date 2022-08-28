@@ -27,7 +27,7 @@ const FloatingLabelTextareaContainer = styled.div(() => [
 ]);
 
 const FloatingLabel = styled.label(({ active, htmlFor }: LabelProps) => [
-    tw`absolute top-0 opacity-50 pointer-events-none select-none cursor-text prose-16px`,
+    tw`absolute top-0 leading-5 opacity-50 pointer-events-none select-none cursor-text prose-16`,
     css`
         transform: none;
         transition: all 0.2s ease-in-out;
