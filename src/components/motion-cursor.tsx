@@ -72,9 +72,8 @@ const CursorText = styled.div(() => [
 const ProjectHover = styled.div(() => []);
 
 const SolidBackground = styled.div(({ isMotionCursorVisible }: CursorProps) => [
-    tw`fixed z-30 hidden lg:block`,
+    tw`fixed z-30 hidden opacity-0 lg:block`,
     css`
-        opacity: 0;
         width: 400px;
         height: 215px;
         background: #ff006e;
