@@ -38,14 +38,14 @@ const gradient = (
 ): SerializedStyles => css`
     background-image: linear-gradient(
         ${deg}deg,
-        var(--black-color) ${(smBaseFontSize * percentage) / 100}px,
+        var(--black) ${(smBaseFontSize * percentage) / 100}px,
         transparent ${(smBaseFontSize * percentage) / 100}px
     );
 
     ${up("lg")} {
         background-image: linear-gradient(
             ${deg}deg,
-            var(--black-color) ${(baseFontSize * percentage) / 100}px,
+            var(--black) ${(baseFontSize * percentage) / 100}px,
             transparent ${(baseFontSize * percentage) / 100}px
         );
     }

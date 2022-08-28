@@ -32,7 +32,7 @@ const Title = styled.h1(() => [
         background-image: radial-gradient(
             40px circle at var(--x) var(--y),
             rgba(0, 0, 0, 0) 100%,
-            var(--black-color)
+            var(--black)
         );
         -webkit-text-fill-color: transparent;
 

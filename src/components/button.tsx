@@ -7,10 +7,10 @@ import { ReactComponent as BgShape } from "@svg/Rectangle@1x.svg";
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
 const CustomButton = styled.button(() => [
-    tw`relative select-none bg-tertiary-color`,
+    tw`relative select-none bg-tertiary`,
     css`
         span {
-            ${tw`relative z-10 block w-full h-full border border-white border-solid bg-tertiary-color`}
+            ${tw`relative z-10 block w-full h-full border border-white border-solid bg-tertiary`}
 
             padding-left: 25px;
             padding-right: 25px;
@@ -24,7 +24,7 @@ const CustomButton = styled.button(() => [
             }
 
             span {
-                ${tw`transition-all bg-primary-color text-tertiary-color`}
+                ${tw`transition-all bg-primary text-tertiary`}
             }
         }
     `,

@@ -87,7 +87,7 @@ const PricklyPear = styled(PricklyPearIllustration)(() => [
 ]);
 
 const Annotation = styled.div(({ showFooter }: Partial<Props>) => [
-    tw`container relative z-10 mx-auto text-center my-7 text-primary-color lg:my-0 lg:text-left`,
+    tw`container relative z-10 mx-auto text-center my-7 text-primary lg:my-0 lg:text-left`,
     showFooter && tw`text-white bottom-2`,
 ]);
 

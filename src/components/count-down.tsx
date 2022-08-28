@@ -41,7 +41,7 @@ const ProgressCircleWrapper = styled.svg(() => [
         transform: rotateY(0deg) rotateZ(-90deg);
 
         feDropShadow {
-            flood-color: var(--melrose-color);
+            flood-color: var(--melrose);
         }
     `,
 ]);
@@ -53,7 +53,7 @@ const ProgressCircle = styled.circle(() => [
         stroke-dashoffset: 0;
         stroke-linecap: round;
         stroke-width: 5px;
-        stroke: var(--melrose-color);
+        stroke: var(--melrose);
         fill: none;
         animation: countdown 10s linear 1;
     `,

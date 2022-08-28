@@ -74,8 +74,8 @@ const Tab = styled.li(({ isActive = false }: TabStyled) => [
     isActive && tw`opacity-100`,
     css`
         line-height: 25px;
-        box-shadow: inset 0px -2px 1px -1px var(--melrose-color);
-        text-shadow: 0 2px 4px 0 var(--melrose-color);
+        box-shadow: inset 0px -2px 1px -1px var(--melrose);
+        text-shadow: 0 2px 4px 0 var(--melrose);
     `,
 ]);
 
@@ -83,7 +83,7 @@ const Pin = styled(motion.div)(() => [
     tw`absolute left-0 h-px top-8 bg-melrose`,
     css`
         z-index: 2;
-        box-shadow: 0 2px 4px 0 var(--melrose-color);
+        box-shadow: 0 2px 4px 0 var(--melrose);
     `,
 ]);
 

@@ -25,15 +25,15 @@ const DarkTheme = (): ReactElement => (
     <Global
         styles={css`
             :root {
-                --primary-color: #fff;
-                --tertiary-color: #0b0b0b;
+                --primary: #fff;
+                --tertiary: #0b0b0b;
             }
         `}
     />
 );
 
 const Main = styled.main(({ hasGradient, showFooter, darkTheme }: Props) => [
-    tw`relative z-10 w-full h-full min-h-screen text-primary-color`,
+    tw`relative z-10 w-full h-full min-h-screen text-primary`,
     css`
         backface-visibility: hidden;
     `,

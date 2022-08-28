@@ -20,7 +20,7 @@ const Title = styled(
     motion.div,
     excludeProps(["hasMultipleSections", "isActive"])
 )(({ isActive, hasMultipleSections }: TitleStyle) => [
-    tw`font-bold select-none lg:prose-20px lg:text-primary-color opacity-30`,
+    tw`font-bold select-none lg:prose-20px lg:text-primary opacity-30`,
     tw`transition-opacity hover:opacity-100`,
     css`
         padding-bottom: 7px;
@@ -43,13 +43,13 @@ const ListItem = styled(
     excludeProps(["isActive"])
 )(({ isActive }: ListItemStyle) => [
     tw`relative items-center h-full ml-auto align-middle`,
-    tw`flex text-right capitalize cursor-pointer select-none lg:text-primary-color opacity-30 lg:p-5`,
+    tw`flex text-right capitalize cursor-pointer select-none lg:text-primary opacity-30 lg:p-5`,
     tw`transition-opacity hover:opacity-100`,
     isActive && tw`opacity-100`,
 ]);
 
 const Pin = styled(motion.div)(() => [
-    tw`absolute top-0 bottom-0 right-0 w-px bg-primary-color`,
+    tw`absolute top-0 bottom-0 right-0 w-px bg-primary`,
     css`
         z-index: 2;
     `,
