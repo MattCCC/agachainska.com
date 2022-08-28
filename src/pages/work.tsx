@@ -1,4 +1,11 @@
-import { Fragment, useCallback, memo, useState, RefObject } from "react";
+import {
+    Fragment,
+    useCallback,
+    memo,
+    useState,
+    RefObject,
+    useMemo,
+} from "react";
 
 import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
@@ -102,84 +109,99 @@ const Work = memo(({ data }: Props): JSX.Element => {
     const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
     const [isSliderAnimating, setIsSliderAnimating] = useState(false);
     const [, dispatch] = useStoreProp("showMotionGrid");
-    const projects = data.projects.nodes || [];
-    const categories = Object.keys(
-        groupBy(projects, "category")
-    ) as ProjectCategory[];
+    const projects = useMemo(
+        () => data.projects.nodes || [],
+        [data.projects.nodes]
+    );
 
-    const timelineList = categories.map((category) => {
-        // Check if category has projects that have no case studies.
-        const hasOtherProjects = projects.findIndex(
-            (project) =>
-                project.category === category &&
-                project.subCategory === "Others"
-        );
+    const categories = useMemo(
+        () => Object.keys(groupBy(projects, "category")) as ProjectCategory[],
+        [projects]
+    );
 
-        const updatedCategory = {
-            title: category,
-            id: category,
-            category,
-            items: projects
-                .filter(
-                    (project: Project) =>
+    const timelineList = useMemo(
+        () =>
+            categories.map((category) => {
+                // Check if category has projects that have no case studies.
+                const hasOtherProjects = projects.findIndex(
+                    (project) =>
                         project.category === category &&
-                        project.subCategory !== "Others"
-                )
-                .map((project: Project) => ({
-                    ...project,
-                    title: project.name,
-                    id: String(project.uid),
-                    routeTo: project.nameSlug,
-                })),
-        };
+                        project.subCategory === "Others"
+                );
 
-        if (hasOtherProjects) {
-            updatedCategory.items.push({
-                id: `others${category}`,
-                routeTo: "",
-                uid: 99999,
-                title: "Others",
-                name: "Others",
-                cover: "",
-                subCategory: "Others",
-                nameSlug: "",
+                const updatedCategory = {
+                    title: category,
+                    id: category,
+                    category,
+                    items: projects
+                        .filter(
+                            (project: Project) =>
+                                project.category === category &&
+                                project.subCategory !== "Others"
+                        )
+                        .map((project: Project) => ({
+                            ...project,
+                            title: project.name,
+                            id: String(project.uid),
+                            routeTo: project.nameSlug,
+                        })),
+                };
+
+                if (hasOtherProjects) {
+                    updatedCategory.items.push({
+                        id: `others${category}`,
+                        routeTo: "",
+                        uid: 99999,
+                        title: "Others",
+                        name: "Others",
+                        cover: "",
+                        subCategory: "Others",
+                        nameSlug: "",
+                        category,
+                        client: "",
+                        agency: "",
+                        timeframe: "",
+                        roleInProject: "",
+                        shortDescription: "",
+                        challenge: {},
+                        approach: {},
+                        stats: {},
+                        credits: {},
+                        sections: [],
+                    });
+                }
+
+                return updatedCategory;
+            }),
+        [categories, projects]
+    );
+
+    const otherProjects = useMemo(
+        () =>
+            categories.map((category) => ({
                 category,
-                client: "",
-                agency: "",
-                timeframe: "",
-                roleInProject: "",
-                shortDescription: "",
-                challenge: {},
-                approach: {},
-                stats: {},
-                credits: {},
-                sections: [],
-            });
-        }
-
-        return updatedCategory;
-    });
-
-    const otherProjects = categories.map((category) => ({
-        category,
-        projects: projects
-            .filter(
-                (project: Project) =>
-                    project.category === category &&
-                    project.subCategory === "Others"
-            )
-            .map((project: Project) => ({
-                ...project,
-                title: project.name,
-                id: String(project.uid),
-                routeTo: project.nameSlug,
+                projects: projects
+                    .filter(
+                        (project: Project) =>
+                            project.category === category &&
+                            project.subCategory === "Others"
+                    )
+                    .map((project: Project) => ({
+                        ...project,
+                        title: project.name,
+                        id: String(project.uid),
+                        routeTo: project.nameSlug,
+                    })),
             })),
-    }));
+        [categories, projects]
+    );
 
     const firstCategory = timelineList[0].category;
-    const firstCategoryFirstItem = timelineList.find(
-        ({ id }) => id === firstCategory
-    )?.items[0];
+
+    const firstCategoryFirstItem = useMemo(
+        () => timelineList.find(({ id }) => id === firstCategory)?.items[0],
+        [firstCategory, timelineList]
+    );
 
     const [sliderIndex, setSliderIndex] = useState(0);
 
@@ -193,21 +215,30 @@ const Work = memo(({ data }: Props): JSX.Element => {
         routeTo: firstCategoryFirstItem?.routeTo ?? "",
     } as PageState);
 
-    const sliderItems: TimelineItem[] = timelineList.reduce(
-        (itemsList: TimelineItem[], currentValue) => {
-            itemsList = [...itemsList, ...(currentValue.items || [])];
+    const sliderItems: TimelineItem[] = useMemo(
+        () =>
+            timelineList.reduce((itemsList: TimelineItem[], currentValue) => {
+                itemsList = [...itemsList, ...(currentValue.items || [])];
 
-            return itemsList;
-        },
-        []
+                return itemsList;
+            }, []),
+        [timelineList]
     );
 
-    const currentCategoryOtherProjects = otherProjects.filter(
-        (project) => project.category === state.activeSectionId
+    const currentCategoryOtherProjects = useMemo(
+        () =>
+            otherProjects.filter(
+                (project) => project.category === state.activeSectionId
+            ),
+        [otherProjects, state.activeSectionId]
     );
 
-    const projectsByCategory: PostItem[] = sliderItems.filter(
-        (post) => post.category === state.activeSectionId
+    const projectsByCategory: PostItem[] = useMemo(
+        () =>
+            sliderItems.filter(
+                (post) => post.category === state.activeSectionId
+            ),
+        [sliderItems, state.activeSectionId]
     );
 
     const onNavigate = useNavigation({
