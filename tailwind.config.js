@@ -27,7 +27,7 @@ module.exports = {
                 none: "none",
             },
             typography: {
-                // Use "px" suffix whenever both font size and line height are specified
+                // @deprecated: Use "px" suffix whenever both font size and line height are specified
                 "12px": {
                     css: {
                         fontSize: "12px",
