@@ -63,7 +63,7 @@ const SlideWrapper = styled.div(
 );
 
 const TimelineWrapper = styled.aside(() => [
-    tw`justify-center hidden col-start-5 row-span-5 row-start-1 row-end-5 m-auto lg:block`,
+    tw`justify-center hidden col-start-5 row-span-5 row-start-1 row-end-5 lg:block`,
 ]);
 
 const StyledNumber = styled(BigNumber)(() => [
