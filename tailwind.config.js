@@ -14,6 +14,15 @@ module.exports = {
             fbold: "'Larsseit-Bold'",
         },
         extend: {
+            lineHeight: {
+                '11': '2.75rem',
+                '12': '3rem',
+                '13': '3.25rem',
+                '14': '3.5rem',
+                '15': '3.75rem',
+                '16': '4rem',
+                '64': '64px',
+            },
             cursor: {
                 none: "none",
             },
@@ -111,6 +120,31 @@ module.exports = {
                 },
 
                 // Classes without line height
+                0: {
+                    css: {
+                        fontSize: "0",
+                    },
+                },
+                8: {
+                    css: {
+                        fontSize: "8px",
+                    },
+                },
+                10: {
+                    css: {
+                        fontSize: "10px",
+                    },
+                },
+                12: {
+                    css: {
+                        fontSize: "12px",
+                    },
+                },
+                14: {
+                    css: {
+                        fontSize: "14px",
+                    },
+                },
                 16: {
                     css: {
                         fontSize: "16px",
@@ -121,9 +155,59 @@ module.exports = {
                         fontSize: "18px",
                     },
                 },
+                20: {
+                    css: {
+                        fontSize: "20px",
+                    },
+                },
+                22: {
+                    css: {
+                        fontSize: "22px",
+                    },
+                },
                 24: {
                     css: {
                         fontSize: "24px",
+                    },
+                },
+                26: {
+                    css: {
+                        fontSize: "26px",
+                    },
+                },
+                28: {
+                    css: {
+                        fontSize: "28px",
+                    },
+                },
+                30: {
+                    css: {
+                        fontSize: "30px",
+                    },
+                },
+                32: {
+                    css: {
+                        fontSize: "32px",
+                    },
+                },
+                34: {
+                    css: {
+                        fontSize: "34px",
+                    },
+                },
+                36: {
+                    css: {
+                        fontSize: "36px",
+                    },
+                },
+                50: {
+                    css: {
+                        fontSize: "50px",
+                    },
+                },
+                54: {
+                    css: {
+                        fontSize: "54px",
                     },
                 },
                 60: {
