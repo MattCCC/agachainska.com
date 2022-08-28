@@ -14,7 +14,7 @@ export const screens = theme<Record<Screen, string>>("screens");
 
 // The maximum value is calculated as the minimum of the next one less 0.02px.
 // @see https://www.w3.org/TR/mediaqueries-4/#mq-min-max
-const getNextBpValue = (bp: string): string => `${Number(bp) - 0.02}px`;
+const getNextBpValue = (bp: string): string => `${parseInt(bp, 10) - 0.02}px`;
 
 export const up = (bp: Screen): string => {
     const screen = screens[bp];
