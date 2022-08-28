@@ -415,8 +415,6 @@ export default function Project({ data }: Props): JSX.Element {
                                 projectsByCategory
                             );
                     }
-
-                    return "";
                 })}
             </Article>
         </Fragment>

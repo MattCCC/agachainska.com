@@ -19,6 +19,7 @@ export const OtherProjects = memo(
                         index: number
                     ) => (
                         <SingleProject
+                            key={index}
                             nameSlug={nameSlug}
                             name={name}
                             category={category}
