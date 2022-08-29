@@ -63,28 +63,28 @@ const loadChallengeSection = (
     refChallenge: (node: Element | null) => void,
     elements: ProjectSection["elements"]
 ) => (
-    <ArticleSection id="challenge" ref={refChallenge}>
+    <ArticleSection key="challenge" id="challenge" ref={refChallenge}>
         <H2>Challenge</H2>
         <ContentContainer>
-            {elements.map(({ element, description }) => {
+            {elements.map(({ element, description }, index) => {
                 switch (element) {
                     case "overview":
                         return (
-                            <Fragment>
+                            <Fragment key={index}>
                                 <H3>Overview</H3>
                                 <Paragraph>{description}</Paragraph>
                             </Fragment>
                         );
                     case "project-goals":
                         return (
-                            <Fragment>
+                            <Fragment key={index}>
                                 <H3>Project goals</H3>
                                 <Paragraph>{description}</Paragraph>
                             </Fragment>
                         );
                     case "audience":
                         return (
-                            <Fragment>
+                            <Fragment key={index}>
                                 <H3>Audience</H3>
                                 <Paragraph>{description}</Paragraph>
                             </Fragment>
@@ -101,22 +101,25 @@ const loadApproachSection = (
     refApproach: (node: Element | null) => void,
     elements: ProjectSection["elements"]
 ) => (
-    <ArticleSection id="approach" ref={refApproach}>
+    <ArticleSection key="approach" id="approach" ref={refApproach}>
         <H2>Approach</H2>
         <ContentContainer>
             {elements.map(
-                ({ element, description, image, imageOne, imageTwo }) => {
+                (
+                    { element, description, image, imageOne, imageTwo },
+                    index
+                ) => {
                     switch (element) {
                         case "brand-elements":
                             return (
-                                <Fragment>
+                                <Fragment key={index}>
                                     <H3>Brand elements</H3>
                                     <Paragraph>{description}</Paragraph>
                                 </Fragment>
                             );
                         case "full-size-image":
                             return (
-                                <Fragment>
+                                <Fragment key={index}>
                                     <FullSizeImageWrapper>
                                         <ParallaxBackground
                                             bgImgUrl={`${image}`}
@@ -128,7 +131,7 @@ const loadApproachSection = (
                             );
                         case "two-images":
                             return (
-                                <Fragment>
+                                <Fragment key={index}>
                                     <TwoImagesWrapper>
                                         <ParallaxBackground
                                             bgImgUrl={`${imageOne}`}
@@ -150,21 +153,29 @@ const loadApproachSection = (
             )}
         </ContentContainer>
 
-        {elements.map(({ element, quote, image }) => {
+        {elements.map(({ element, quote, image }, index) => {
             switch (element) {
                 case "full-page-image":
                     return (
-                        <FullPageContent widthPct={100}>
-                            <ParallaxBackground bgImgUrl={`${image}`} />
-                        </FullPageContent>
+                        <Fragment key={index}>
+                            <FullPageContent widthPct={100}>
+                                <ParallaxBackground bgImgUrl={`${image}`} />
+                            </FullPageContent>
+                        </Fragment>
                     );
                 case "slider":
-                    return <GallerySlider gap={133} />;
+                    return (
+                        <Fragment key={index}>
+                            <GallerySlider gap={133} />;
+                        </Fragment>
+                    );
                 case "quote":
                     return (
-                        <ContentContainer variant="full">
-                            <Quote>{quote}</Quote>
-                        </ContentContainer>
+                        <Fragment key={index}>
+                            <ContentContainer variant="full">
+                                <Quote>{quote}</Quote>
+                            </ContentContainer>
+                        </Fragment>
                     );
             }
 
@@ -179,10 +190,10 @@ const loadResultsSection = (
     refStats: (node: Element | null) => void,
     animateStats: boolean
 ) => (
-    <ArticleSection>
+    <ArticleSection key="results">
         <ContentContainer id="results" ref={refResults} variant="full">
-            {elements.map(({ screens, iterations, prototypes }) => (
-                <Fragment>
+            {elements.map(({ screens, iterations, prototypes }, index) => (
+                <Fragment key={index}>
                     <TableStats ref={refStats}>
                         <CellTitle>
                             <StyledNumber
@@ -233,20 +244,23 @@ const loadResultsSection = (
 );
 
 const loadCreditsSection = (elements: ProjectSection["elements"]) => (
-    <ArticleSection id="credits">
+    <ArticleSection key="credits" id="credits">
         <H2>Credits</H2>
         <ContentContainer variant="full">
             <TableCredits>
                 {elements.map(
-                    ({
-                        concept,
-                        conceptDesc,
-                        design,
-                        designDesc,
-                        projectManagement,
-                        projectManagementDesc,
-                    }) => (
-                        <Fragment>
+                    (
+                        {
+                            concept,
+                            conceptDesc,
+                            design,
+                            designDesc,
+                            projectManagement,
+                            projectManagementDesc,
+                        },
+                        index
+                    ) => (
+                        <Fragment key={index}>
                             <CellTitle>{concept}</CellTitle>
                             <div>{conceptDesc}</div>
                             <CellTitle>{design}</CellTitle>
@@ -265,7 +279,7 @@ const loadOtherProjectsSection = (
     elements: ProjectSection["elements"],
     projectsByCategory: ProjectsByCategory
 ) => (
-    <ArticleSection id="another-projects">
+    <ArticleSection key="other-projects" id="another-projects">
         <H2>Other {elements[0].category} Projects</H2>
         <ContentContainer variant="full">
             <OtherProjects projectsByCategory={projectsByCategory} />
@@ -392,7 +406,7 @@ export default function Project({ data }: Props): JSX.Element {
                     activeTabId={activeItemId}
                 />
 
-                {sections.map(({ section, elements }) => {
+                {sections.map(({ section, elements }, index) => {
                     switch (section) {
                         case "challenge":
                             return loadChallengeSection(refChallenge, elements);
