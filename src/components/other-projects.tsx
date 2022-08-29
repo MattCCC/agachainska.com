@@ -7,13 +7,13 @@ import { PostItem } from "@components/post";
 
 import OtherProject from "./other-project";
 
-export interface OtherProject {
+export interface OtherProjectProp {
     category: string;
     projects?: Project[];
 }
 
 interface Props {
-    otherProjects: OtherProject[];
+    otherProjects: OtherProjectProp[];
     lastProjectNumber: number;
     isShowingOtherProjects: boolean;
 }
