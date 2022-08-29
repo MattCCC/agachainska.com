@@ -10,6 +10,7 @@ import { ReactComponent as MaltaIllustration } from "@svg/Malta.svg";
 import { ReactComponent as PixelLoveIllustration } from "@svg/Pixel love.svg";
 import { ReactComponent as VectorsIllustration } from "@svg/Vectors.svg";
 import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
+import { down } from "@utils/screens";
 import { excludeProps } from "@utils/styled";
 
 interface WavesProps {
@@ -31,7 +32,7 @@ const Waves = styled(
 const Vectors = styled(VectorsIllustration)(() => [
     tw`absolute z-10`,
     css`
-        @media screen and (max-width: 768px) {
+        ${down("md")} {
             width: 42px;
             height: 42px;
             top: 30%;
@@ -48,7 +49,7 @@ const Vectors = styled(VectorsIllustration)(() => [
 const Greece = styled(GreeceIllustration)(() => [
     tw`absolute z-10`,
     css`
-        @media screen and (max-width: 768px) {
+        ${down("md")} {
             width: 58px;
             height: 58p;
             top: 68%;

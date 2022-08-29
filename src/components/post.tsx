@@ -4,6 +4,7 @@ import tw, { css, styled } from "twin.macro";
 
 import { BigNumber } from "@components/big-number";
 import { MainTitleTop } from "@components/main-title";
+import { up } from "@utils/screens";
 
 export interface PostItem {
     [x: string]: any;
@@ -31,7 +32,7 @@ const PostBg = styled.div(() => [
     css`
         width: 348px;
         height: 181px;
-        @media screen and (min-width: 1240px) {
+        ${up("xl")} {
             width: 398px;
             height: 231px;
         }
