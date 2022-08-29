@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent } from "react";
+import { Fragment, PropsWithChildren } from "react";
 
 import tw, { styled, css } from "twin.macro";
 
@@ -40,6 +40,7 @@ export const SingleProject = ({
     </Fragment>
 );
 
-export const ProjectsList: FunctionComponent = ({ children, ...props }) => (
-    <Table {...props}>{children}</Table>
-);
+export const ProjectsList = ({
+    children,
+    ...props
+}: PropsWithChildren<Props>) => <Table {...props}>{children}</Table>;

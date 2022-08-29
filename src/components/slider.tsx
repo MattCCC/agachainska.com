@@ -4,7 +4,6 @@ import {
     useRef,
     ElementRef,
     RefObject,
-    FunctionComponent,
     useState,
 } from "react";
 
@@ -38,13 +37,15 @@ interface Props {
     lastProjectNumber: number;
     customSlides?: Record<string, any>;
     setIsAnimating: (newValue: boolean) => void;
-    onSliderTap?: (
-        e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
-        currentItem: SliderItem
-    ) => void;
-    onSliderChange?: (currentItem: SliderItem) => void;
-    onSliderMouseEnter?: (mouseLeft: boolean) => void;
-    onSliderMouseLeave?: (mouseLeft: boolean) => void;
+    onSliderTap?:
+        | ((
+              e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
+              currentItem: SliderItem
+          ) => void)
+        | null;
+    onSliderChange?: ((currentItem: SliderItem) => void) | null;
+    onSliderMouseEnter?: ((mouseLeft: boolean) => void) | null;
+    onSliderMouseLeave?: ((mouseLeft: boolean) => void) | null;
 }
 
 interface SlideContentProps {
@@ -180,7 +181,7 @@ const NextIconStyled = styled(NextIcon)(() => [
     tw`inline-block mr-4 text-center`,
 ]);
 
-export const Slider: FunctionComponent<Props> = ({
+export const Slider = ({
     sliderItems,
     slideId = -1,
     mouseScrollOnSlide = false,
@@ -195,7 +196,7 @@ export const Slider: FunctionComponent<Props> = ({
     onSliderChange = null,
     onSliderMouseEnter = null,
     onSliderMouseLeave = null,
-}) => {
+}: Props) => {
     const [[page, direction], setPage] = useState([0, 0]);
 
     const sliderRef = useRef<SliderRefHandle>(

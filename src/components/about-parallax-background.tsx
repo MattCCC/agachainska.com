@@ -1,6 +1,4 @@
-import { FunctionComponent } from "react";
-
-import { useViewportScroll, motion, useTransform } from "framer-motion";
+import { useScroll, motion, useTransform } from "framer-motion";
 import tw, { css, styled } from "twin.macro";
 
 import { ReactComponent as Basketball } from "@svg/Basketball.svg";
@@ -14,7 +12,7 @@ import { ReactComponent as Vectors } from "@svg/Vectors.svg";
 import { ReactComponent as Vinyl } from "@svg/Vinyl.svg";
 
 const IllustrationsContainer = styled.div(() => [
-    tw`h-screen absolute w-full grid grid-cols-12`,
+    tw`absolute grid w-full h-screen grid-cols-12`,
     css`
         max-width: 1260px;
         grid-gap: 30px;
@@ -30,8 +28,8 @@ const ParallaxCon = styled(motion.div)(() => [
     `,
 ]);
 
-export const ParallaxBackground: FunctionComponent = () => {
-    const { scrollY } = useViewportScroll();
+export const ParallaxBackground = () => {
+    const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 1300], [0, 170]);
     const y2 = useTransform(scrollY, [0, 2000], [0, -150]);
     const y3 = useTransform(scrollY, [0, 3000], [0, 100]);

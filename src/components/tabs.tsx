@@ -16,7 +16,7 @@ interface TabsStyled {
     hideForDesktop?: boolean;
 }
 
-interface TabsListContainer {
+interface PropsTabContainer {
     isSticky: boolean;
 }
 
@@ -42,7 +42,7 @@ const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
 ]);
 
 const TabsListContainer = styled.div(
-    ({ isSticky = false }: TabsListContainer) => [
+    ({ isSticky = false }: PropsTabContainer) => [
         tw`relative h-8 `,
         css`
             width: calc(100vw - 32px);
@@ -69,7 +69,7 @@ const TabsListContainer = styled.div(
 const TabsList = styled.ul(() => [tw`flex flex-row justify-between`]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
-    tw`w-full h-8 cursor-pointer select-none prose-20 leading-7 opacity-40`,
+    tw`w-full h-8 leading-7 cursor-pointer select-none prose-20 opacity-40`,
     tw`capitalize transition-opacity text-melrose`,
     isActive && tw`opacity-100`,
     css`
@@ -89,7 +89,6 @@ const Pin = styled(motion.div)(() => [
 
 export const Tabs = memo(
     ({
-        children,
         tabs,
         activeTabId = "",
         onTabChange = (): null => null,
@@ -139,6 +138,7 @@ export const Tabs = memo(
                 observer.observe(currentElement);
             }
 
+            // eslint-disable-next-line space-before-function-paren
             return function () {
                 if (currentElement) {
                     observer.unobserve(currentElement);

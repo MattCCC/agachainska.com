@@ -1,4 +1,4 @@
-import { FunctionComponent, memo } from "react";
+import { memo } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -7,11 +7,8 @@ import { Link } from "@components/link";
 import { ReactComponent as ArrowDown } from "@svg/arrow-down.svg";
 import { getRoutePath } from "@utils/route";
 
-/**
- * Styles
- */
 export const BottomCircleStyled = styled(Circle)(() => [
-    tw`absolute z-50 inset-x-2/4 flex justify-center items-center lg:hidden`,
+    tw`absolute z-50 flex items-center justify-center inset-x-2/4 lg:hidden`,
     css`
         width: 60px;
         height: 60px;
@@ -23,15 +20,7 @@ export const ArrowDownStyled = styled(ArrowDown)(() => [
     tw`inline-block text-center`,
 ]);
 
-/**
- * Interfaces
- */
-interface Props {}
-
-/**
- * Component
- */
-export const BottomCircle: FunctionComponent<Props> = memo(() => {
+export const BottomCircle = memo(() => {
     const workLink = getRoutePath("work");
 
     return (

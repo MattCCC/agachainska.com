@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent, useEffect } from "react";
+import { Fragment, useEffect } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -11,8 +11,6 @@ import { ReactComponent as PixelLoveIllustration } from "@svg/Pixel love.svg";
 import { ReactComponent as VectorsIllustration } from "@svg/Vectors.svg";
 import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
 import { excludeProps } from "@utils/styled";
-
-interface Props {}
 
 interface WavesProps {
     darkTheme: boolean;
@@ -84,7 +82,7 @@ const PixelLove = styled(PixelLoveIllustration)(() => [
     `,
 ]);
 
-export const Background: FunctionComponent<Props> = () => {
+export const Background = () => {
     const [showMotionGrid] = useStoreProp("showMotionGrid");
     const [showWavePattern] = useStoreProp("showWavePattern");
     const [darkTheme] = useStoreProp("darkTheme");

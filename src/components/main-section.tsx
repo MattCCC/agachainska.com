@@ -1,27 +1,27 @@
-import { FunctionComponent } from "react";
+import { PropsWithChildren } from "react";
 
 import tw, { styled } from "twin.macro";
 
 import { Variants, motion } from "@components/animation";
 
-const Section = styled.section(() => [tw`h-screen relative z-10`]);
+const Section = styled.section(() => [tw`relative z-10 h-screen`]);
 
 interface Props {
     initial?: string;
     animate?: string;
     exit?: string;
     className?: string;
-    variants?: Variants | undefined;
+    variants?: Variants;
 }
 
-export const MainSection: FunctionComponent<Props> = ({
+export const MainSection = ({
     initial = "",
     animate = "",
     exit = "",
     variants = {},
     children,
     ...props
-}) => (
+}: PropsWithChildren<Props>) => (
     <motion.div
         initial={initial}
         animate={animate}

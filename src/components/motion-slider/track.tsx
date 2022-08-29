@@ -2,8 +2,8 @@ import {
     useContext,
     useCallback,
     ReactNode,
-    FunctionComponent,
     useRef,
+    PropsWithChildren,
 } from "react";
 
 import { motion, PanInfo, Spring, useAnimation } from "framer-motion";
@@ -50,7 +50,7 @@ const TrackWrapper = styled(motion.div)(
     ]
 );
 
-export const Track: FunctionComponent<Props> = ({
+export const Track = ({
     children,
     padding,
     gap,
@@ -59,7 +59,7 @@ export const Track: FunctionComponent<Props> = ({
     allowSlideToLast,
     displayGrabCursor,
     style,
-}: Props) => {
+}: PropsWithChildren<Props>) => {
     const ref = useRef<HTMLElement | null>(null);
     const [trackRef, trackDimensions] = useDimensions({ liveMeasure: true });
     const windowDimensions = useWindowSize();

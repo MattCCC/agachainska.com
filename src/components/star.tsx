@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { FunctionComponent, memo, ReactNode } from "react";
+import { memo, ReactNode } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const StarWrapper = styled.div(({ displayStar = false }: Props) => [
-    tw`flex relative h-full w-full`,
+    tw`relative flex w-full h-full`,
 
     css`
         transition: all 300ms;
@@ -23,7 +23,7 @@ export const StarWrapper = styled.div(({ displayStar = false }: Props) => [
         `,
 ]);
 
-export const Svg = styled.svg(() => [tw`absolute h-full w-full`]);
+export const Svg = styled.svg(() => [tw`absolute w-full h-full`]);
 
 export const Text = styled.div(() => [
     tw`relative z-10 m-auto text-center`,
@@ -33,8 +33,8 @@ export const Text = styled.div(() => [
     `,
 ]);
 
-export const Star: FunctionComponent<Props> = memo(
-    ({ text = "", displayStar = true, color = "", children, ...props }) => (
+export const Star = memo(
+    ({ text = "", displayStar = true, color = "", ...props }: Props) => (
         <div {...props}>
             <StarWrapper displayStar={displayStar}>
                 <Svg viewBox="0 0 240 250" xmlns="http://www.w3.org/2000/svg">

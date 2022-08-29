@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
 import { Link as TranslatedLink } from "gatsby-plugin-intl";
 import { styled } from "twin.macro";
@@ -17,7 +17,7 @@ const LinkStyled = styled(
     excludeProps(["isCurrentPage"])
 )(() => []);
 
-export const Link: FunctionComponent<Props> = ({
+export const Link = ({
     to,
     replace = false,
     delay = 0,
@@ -25,7 +25,7 @@ export const Link: FunctionComponent<Props> = ({
     onDelayEnd = ((_e, _to) => {}) as OnDelayCallback,
     children,
     ...props
-}: Props) => {
+}: PropsWithChildren<Props>) => {
     const onClick = useNavigation({
         to,
         replace,

@@ -1,8 +1,8 @@
 import {
     CSSProperties,
     Fragment,
-    FunctionComponent,
     memo,
+    PropsWithChildren,
     useCallback,
     useEffect,
     useState,
@@ -16,7 +16,7 @@ import { TrackMousePosition } from "@hooks/use-track-mouse-position";
 import { State, useStore, useStoreProp } from "@store/index";
 
 interface Props {
-    onPositionUpdate?: (clientX: number, clientY: number) => void;
+    onPositionUpdate?: ((clientX: number, clientY: number) => void) | null;
 }
 
 type CursorProps = {
@@ -151,8 +151,12 @@ const ProjectCover = styled.div(
     ]
 );
 
-const CursorLink: FunctionComponent<State["motionCursorData"]> = memo(
-    ({ text, route, children }) => {
+const CursorLink = memo(
+    ({
+        text,
+        route,
+        children,
+    }: PropsWithChildren<State["motionCursorData"]>) => {
         const onNavigate = useNavigation({
             to: route,
         });
@@ -207,10 +211,10 @@ export const useHideCursorPreserveVisibility = () => {
     return [onMouseEnter, onMouseLeave];
 };
 
-export const MotionCursor: FunctionComponent<Props> = ({
+export const MotionCursor = ({
     onPositionUpdate = null,
     children,
-}) => {
+}: PropsWithChildren<Props>) => {
     const [state] = useStore();
     const { clientX, clientY } = TrackMousePosition();
     const projectCover = state.motionCursorData.projectCover;

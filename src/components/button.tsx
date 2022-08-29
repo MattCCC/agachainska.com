@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, FunctionComponent } from "react";
+import { ButtonHTMLAttributes, PropsWithChildren } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -40,10 +40,7 @@ const Background = styled(BgShape)(() => [
     `,
 ]);
 
-export const Button: FunctionComponent<Props> = ({
-    children,
-    ...props
-}: Props) => (
+export const Button = ({ children, ...props }: PropsWithChildren<Props>) => (
     <CustomButton {...props}>
         <Background />
         <span>{children}</span>

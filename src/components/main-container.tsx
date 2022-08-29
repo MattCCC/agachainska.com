@@ -1,4 +1,4 @@
-import { ElementType, FunctionComponent } from "react";
+import { ElementType, PropsWithChildren } from "react";
 
 import tw, { styled } from "twin.macro";
 
@@ -40,22 +40,22 @@ const Row = styled(
     end === 13 && tw`col-end-13`,
 ]);
 
-export const MainContainer: FunctionComponent<Props> = ({
+export const MainContainer = ({
     topPadding = false,
     as = "div",
     children,
-}) => (
+}: PropsWithChildren<Props>) => (
     <Grid topPadding={topPadding} as={as}>
         {children}
     </Grid>
 );
 
-export const GridRow: FunctionComponent<PropsRow> = ({
+export const GridRow = ({
     start = 1,
     end = 13,
     children,
     ...props
-}) => (
+}: PropsWithChildren<PropsRow>) => (
     <Row start={start} end={end} {...props}>
         {children}
     </Row>

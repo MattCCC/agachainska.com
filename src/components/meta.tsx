@@ -1,4 +1,4 @@
-import { FunctionComponent, memo } from "react";
+import { memo, PropsWithChildren } from "react";
 
 import { useStaticQuery, graphql } from "gatsby";
 import { Helmet } from "react-helmet";
@@ -8,12 +8,17 @@ import { useLocation } from "@reach/router";
 interface Props {
     title?: string;
     description?: string;
-    image?: string;
+    image?: string | null;
     article?: boolean;
 }
 
-export const Meta: FunctionComponent<Props> = memo(
-    ({ title = "", description = "", image = null, article = false }) => {
+export const Meta = memo(
+    ({
+        title = "",
+        description = "",
+        image = null,
+        article = false,
+    }: PropsWithChildren<Props>) => {
         const { pathname } = useLocation();
         const { site } = useStaticQuery(query);
 

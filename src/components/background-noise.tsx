@@ -1,6 +1,6 @@
 import {
     CSSProperties,
-    FunctionComponent,
+    PropsWithChildren,
     useEffect,
     useMemo,
     useState,
@@ -12,6 +12,7 @@ import {
     requestInterval,
     clearRequestInterval,
 } from "@essentials/request-interval";
+
 import { getRandomNumber } from "@utils/random-number";
 
 interface Props {
@@ -29,10 +30,10 @@ const NoiseWrapper = styled.div(() => [
     `,
 ]);
 
-export const BackgroundNoise: FunctionComponent<Props> = ({
+export const BackgroundNoise = ({
     className = "",
     children,
-}) => {
+}: PropsWithChildren<Props>) => {
     const defaultState = useMemo(() => ({ x: 0, y: 0 }), []);
     const [position, setPosition] = useState(defaultState);
     const backgroundStyle = {
