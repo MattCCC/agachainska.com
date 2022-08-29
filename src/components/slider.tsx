@@ -18,7 +18,7 @@ import { useEventListener } from "@hooks/use-event-listener";
 import { ReactComponent as NextIcon } from "@svg/down.svg";
 import { ReactComponent as PrevIcon } from "@svg/up.svg";
 
-import OtherProjects, { OtherProject } from "./other-projects";
+import OtherProjects, { OtherProjectProp } from "./other-projects";
 
 export interface SliderItem {
     [x: string]: any;
@@ -34,7 +34,7 @@ interface Props {
     showSlideTitle?: boolean;
     mouseScrollOnSlide?: boolean;
     isShowingOtherProjects: boolean;
-    otherProjects: OtherProject[];
+    otherProjects: OtherProjectProp[];
     lastProjectNumber: number;
     customSlides?: Record<string, any>;
     setIsAnimating: (newValue: boolean) => void;
@@ -275,7 +275,7 @@ export const Slider: FunctionComponent<Props> = ({
     );
 
     const onDragEnd = useCallback(
-        (_e, { offset, velocity }): void => {
+        (_e: Event, { offset, velocity }): void => {
             const swipe = swipePower(offset.x as number, velocity.x as number);
 
             if (swipe < -swipeConfidenceThreshold) {

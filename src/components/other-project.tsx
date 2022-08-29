@@ -12,7 +12,7 @@ interface Props {
     lastProjectNumber: number;
 }
 
-const OtherProjectContainer = styled.div(() => []);
+const OtherProjectWrapper = styled.div(() => []);
 
 function OtherProject({
     otherProject,
@@ -42,17 +42,14 @@ function OtherProject({
     }, [mouseLeft, onSliderContentMouseEventChange]);
 
     return (
-        <OtherProjectContainer
-            ref={otherProjectContent}
-            className="other-project-container"
-        >
+        <OtherProjectWrapper ref={otherProjectContent}>
             <Post
                 postNum={currentIndex + lastProjectNumber}
                 post={otherProject}
                 onPostTap={() => null}
                 setImageAsBg={true}
             />
-        </OtherProjectContainer>
+        </OtherProjectWrapper>
     );
 }
 

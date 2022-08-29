@@ -43,15 +43,13 @@ const OtherProjectsAnimVariants = {
 };
 
 const OtherProjectsContainer = styled(motion.div)(() => [
-    tw`grid grid-cols-2 col-start-1 col-end-5 row-start-1 -mt-16 duration-150 gap-x-28 gap-y-0`,
+    tw`grid grid-cols-2 -mt-16 duration-150 gap-x-28 gap-y-0`,
     css`
         & > div:nth-of-type(even) {
-            position: relative;
             padding-top: 6rem;
-            left: 30px;
         }
 
-        h1[class*="MainTitleTop"] {
+        h2[class*="MainTitleTop"] {
             font-size: 52px;
         }
     `,
