@@ -44,6 +44,7 @@ export const Meta = memo(
                 titleTemplate={titleTemplate}
                 defer={false}
             >
+                <title>{seo.title}</title>
                 <meta name="description" content={seo.description} />
                 <meta name="image" content={seo.image} />
 
