@@ -1,7 +1,5 @@
-import { gsap } from "gsap";
 import lerp from "lerp";
 
-import { mapNumber } from "./map-number";
 import getMousePosition from "./mouse-position";
 import { getRandomNumber } from "./random-number";
 import { getWindowSize } from "./window-size";
@@ -38,32 +36,33 @@ const initMousePositionTracking = (): void => {
 /**
  * Move an item according to cursor movement
  */
-const moveItem = (el: Element): void => {
+const moveItem = (el: HTMLElement): void => {
     const translationVals = { tx: 0, ty: 0 };
     const xstart = getRandomNumber(15, 60);
     const ystart = getRandomNumber(15, 60);
+    const xStart1 = xstart * 2;
+    const yStart1 = ystart * 2;
 
-    // Infinite loop
+    const v1 = (x: number, b: number): number => (x * xStart1) / b - xstart;
+    const v2 = (y: number, b: number): number => (y * yStart1) / b - ystart;
+
     const render = (): void => {
         // Calculate the amount to move.
         // Using linear interpolation to smooth things out.
         // Translation values will be in the range of [-start, start] for a cursor movement from 0 to the window's width/height
         translationVals.tx = lerp(
             translationVals.tx,
-            mapNumber(mousePosition.x, 0, windowSize.width, -xstart, xstart),
+            v1(mousePosition.x, windowSize.width),
             0.07
         );
 
         translationVals.ty = lerp(
             translationVals.ty,
-            mapNumber(mousePosition.y, 0, windowSize.height, -ystart, ystart),
+            v2(mousePosition.y, windowSize.height),
             0.07
         );
 
-        gsap.set(el, {
-            x: translationVals.tx,
-            y: translationVals.ty,
-        });
+        el.style.transform = `translate(${translationVals.tx}px, ${translationVals.ty}px)`;
 
         requestAnimationFrame(render);
     };
@@ -91,30 +90,7 @@ export const initMotionGrid = (
 
     const items = el.querySelectorAll(itemsSelector);
 
-    items.forEach((item) => moveItem(item));
-
-    gsap.timeline()
-        .set(items, { scale: 0.7, opacity: 0 }, 0)
-        .to(
-            items,
-            {
-                duration: 2,
-                ease: "Expo.easeOut",
-                scale: 1,
-                stagger: { amount: 0.6, grid: "auto", from: "center" },
-            },
-            0
-        )
-        .to(
-            items,
-            {
-                duration: 3,
-                ease: "Power1.easeOut",
-                opacity: 1,
-                stagger: { amount: 0.6, grid: "auto", from: "center" },
-            },
-            0
-        );
+    items.forEach((item) => moveItem(item as HTMLElement));
 };
 
 export const destroyMotionGrid = (): void => {
