@@ -13,6 +13,7 @@ import { useDebouncedCallback } from "use-debounce";
 
 import { BigNumber } from "@components/big-number";
 import { MainContainer } from "@components/main-container";
+import { Meta } from "@components/meta";
 import { MotionCursor } from "@components/motion-cursor";
 import { Post, PostItem } from "@components/post";
 import { Slider, SliderItem } from "@components/slider";
@@ -475,6 +476,8 @@ const Work = memo(({ data }: Props): JSX.Element => {
 });
 
 export default Work;
+
+export const Head = () => <Meta title="Work - Aga Chainska" />;
 
 export const query = graphql`
     {

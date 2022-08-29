@@ -3,7 +3,7 @@ export {
     animate,
     AnimatePresence,
     useAnimation,
-    AnimateSharedLayout,
+    LayoutGroup,
     usePresence,
     useCycle,
 } from "framer-motion";

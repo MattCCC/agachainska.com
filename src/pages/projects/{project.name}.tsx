@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 
 import { graphql, PageProps } from "gatsby";
+import type { HeadProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
 
 import { FullPageContent } from "@components/full-page-content";
@@ -8,6 +9,7 @@ import { H2 } from "@components/h2";
 import { H3 } from "@components/h3";
 import { Link } from "@components/link";
 import { GridRow } from "@components/main-container";
+import { Meta } from "@components/meta";
 import { MotionCursor } from "@components/motion-cursor";
 import { ParallaxBackground } from "@components/parallax-background";
 import { Quote } from "@components/quote";
@@ -434,3 +436,7 @@ export const query = graphql`
         }
     }
 `;
+
+export const Head = (props: HeadProps) => (
+    <Meta title={`${props.pageContext?.name || "Project"} - Aga Chainska`} />
+);

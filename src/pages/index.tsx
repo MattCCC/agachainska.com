@@ -15,6 +15,7 @@ import { BottomCircle } from "@components/bottom-circle";
 import { CountDown } from "@components/count-down";
 import { GridRow, MainContainer } from "@components/main-container";
 import { MainSection } from "@components/main-section";
+import { Meta } from "@components/meta";
 import { MotionCursor } from "@components/motion-cursor";
 import { pageContentVariants } from "@components/overlays";
 import { Translate } from "@components/translate";
@@ -132,3 +133,5 @@ export default function Home(): JSX.Element {
         </Fragment>
     );
 }
+
+export const Head = () => <Meta title="Aga Chainska" />;

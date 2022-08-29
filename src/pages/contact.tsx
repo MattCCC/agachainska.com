@@ -2,6 +2,7 @@ import tw, { css, styled } from "twin.macro";
 
 import { Button } from "@components/button";
 import { GridRow, MainContainer } from "@components/main-container";
+import { Meta } from "@components/meta";
 import { SocialMedia } from "@components/social-media";
 import { TextTextarea } from "@components/text-textarea";
 import { socialMedia } from "@data/social-media";
@@ -92,3 +93,5 @@ export default function Contact(): JSX.Element {
         </form>
     );
 }
+
+export const Head = () => <Meta title="Contact - Aga Chainska" />;

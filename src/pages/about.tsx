@@ -6,6 +6,7 @@ import tw, { css, styled } from "twin.macro";
 
 import { ParallaxBackground } from "@components/about-parallax-background";
 import { GridRow, MainContainer } from "@components/main-container";
+import { Meta } from "@components/meta";
 import { MotionCursor } from "@components/motion-cursor";
 import PersonalPic from "@components/personal-pic";
 import SelectedProjects from "@components/selected-projects";
@@ -45,7 +46,7 @@ const SocialMediaLinksCon = styled.div(() => [
             color: #000;
             border: 1px solid #000;
 
-            &:first-child {
+            &:first-of-type {
                 margin-left: 0;
             }
 
@@ -351,3 +352,5 @@ export const query = graphql`
         }
     }
 `;
+
+export const Head = () => <Meta title="About - Aga Chainska" />;

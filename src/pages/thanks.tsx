@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 
 import { GridRow, MainContainer } from "@components/main-container";
+import { Meta } from "@components/meta";
 
 export default function Thanks(): JSX.Element {
     return (
@@ -15,3 +16,5 @@ export default function Thanks(): JSX.Element {
         </Fragment>
     );
 }
+
+export const Head = () => <Meta title="Thank you - Aga Chainska" />;

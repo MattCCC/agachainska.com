@@ -1,8 +1,10 @@
+import { GatsbyConfig } from "gatsby";
+
 require("dotenv").config({
     path: `.env.${process.env.NODE_ENV}`,
 });
 
-module.exports = {
+const config: GatsbyConfig = {
     trailingSlash: "always",
     siteMetadata: {
         title: "Aga Chainska",
@@ -121,6 +123,7 @@ module.exports = {
             resolve: "gatsby-plugin-offline",
         },
         `gatsby-plugin-sitemap`,
-        `gatsby-plugin-react-helmet`,
     ],
 };
+
+export default config;

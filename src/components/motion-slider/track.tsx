@@ -12,6 +12,7 @@ import { css, styled } from "twin.macro";
 
 import { MotionProps } from "@components/animation";
 import { useWindowSize } from "@hooks/use-window-size";
+import { excludeProps } from "@utils/styled";
 
 import { Context } from "./context";
 import { ActionTypes } from "./reducers";
@@ -31,24 +32,25 @@ interface TrackWrapperProps {
     displayGrabCursor?: boolean;
 }
 
-const TrackWrapper = styled(motion.div)(
-    ({ padding, displayGrabCursor }: TrackWrapperProps) => [
+const TrackWrapper = styled(
+    motion.div,
+    excludeProps(["displayGrabCursor", "padding"])
+)(({ padding, displayGrabCursor }: TrackWrapperProps) => [
+    css`
+        display: flex;
+        flex-wrap: nowrap;
+        min-width: min-content;
+        padding: ${padding || 0}px;
+    `,
+    displayGrabCursor &&
         css`
-            display: flex;
-            flex-wrap: nowrap;
-            min-width: min-content;
-            padding: ${padding || 0}px;
-        `,
-        displayGrabCursor &&
-            css`
-                cursor: grab;
+            cursor: grab;
 
-                &:active {
-                    cursor: grabbing;
-                }
-            `,
-    ]
-);
+            &:active {
+                cursor: grabbing;
+            }
+        `,
+]);
 
 export const Track = ({
     children,
