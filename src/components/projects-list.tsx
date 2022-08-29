@@ -1,9 +1,8 @@
-import { Fragment, FunctionComponent } from "react";
+import { Fragment, PropsWithChildren } from "react";
 
 import tw, { styled, css } from "twin.macro";
 
 import { ProjectBadge } from "@domain/single-project/project-badge";
-
 
 const Table = styled.ol(() => [
     tw`grid max-w-full grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-flow-col gap-x-20 gap-y-8`,
@@ -22,7 +21,13 @@ interface Props {
     cover: string;
 }
 
-export const SingleProject = ({nameSlug, name, category, index, cover}: Props): JSX.Element => (
+export const SingleProject = ({
+    nameSlug,
+    name,
+    category,
+    index,
+    cover,
+}: Props): JSX.Element => (
     <Fragment>
         <ProjectBadge
             key={index}
@@ -35,8 +40,7 @@ export const SingleProject = ({nameSlug, name, category, index, cover}: Props): 
     </Fragment>
 );
 
-export const ProjectsList: FunctionComponent = ({children, ...props}) => (
-    <Table {...props}>
-        {children}
-    </Table>
-);
+export const ProjectsList = ({
+    children,
+    ...props
+}: PropsWithChildren<Props>) => <Table {...props}>{children}</Table>;

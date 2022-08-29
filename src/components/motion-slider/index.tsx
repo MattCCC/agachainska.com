@@ -1,4 +1,4 @@
-import { FunctionComponent, memo, ReactNode } from "react";
+import { memo, PropsWithChildren, ReactNode } from "react";
 
 import { Spring, useMotionValue } from "framer-motion";
 import { styled } from "twin.macro";
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
     overflow: hidden;
 `;
 
-export const MotionSlider: FunctionComponent<Props> = memo(
+export const MotionSlider = memo(
     ({
         padding = 0,
         gap = 40,
@@ -38,7 +38,7 @@ export const MotionSlider: FunctionComponent<Props> = memo(
         allowSlideToLast = false,
         displayGrabCursor = true,
         children,
-    }) => {
+    }: PropsWithChildren<Props>) => {
         const x = useMotionValue(0);
 
         return (

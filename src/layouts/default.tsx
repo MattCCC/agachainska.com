@@ -1,14 +1,14 @@
-import { Fragment, FunctionComponent, ReactElement } from "react";
+import { Fragment, PropsWithChildren, ReactElement } from "react";
 
 import tw, { styled, css } from "twin.macro";
+
+import { Global } from "@emotion/react";
 
 import { Background } from "@components/background";
 import { Footer } from "@components/footer";
 import { FullPageOverlay } from "@components/full-page-overlay";
 import { Header } from "@components/header";
-import { Overlays } from "@components/overlays";
-import { TopOverlay } from "@components/overlays";
-import { Global } from "@emotion/react";
+import { Overlays, TopOverlay } from "@components/overlays";
 import { useOnRouteChange } from "@hooks/use-on-route-change";
 import { useStoreProp } from "@store/index";
 import { up } from "@utils/screens";
@@ -25,15 +25,15 @@ const DarkTheme = (): ReactElement => (
     <Global
         styles={css`
             :root {
-                --primary-color: #fff;
-                --tertiary-color: #0b0b0b;
+                --primary: #fff;
+                --tertiary: #0b0b0b;
             }
         `}
     />
 );
 
 const Main = styled.main(({ hasGradient, showFooter, darkTheme }: Props) => [
-    tw`relative z-10 w-full h-full min-h-screen text-primary-color`,
+    tw`relative z-10 w-full h-full min-h-screen text-primary`,
     css`
         backface-visibility: hidden;
     `,
@@ -57,7 +57,7 @@ const Main = styled.main(({ hasGradient, showFooter, darkTheme }: Props) => [
     darkTheme && tw`bg-black`,
 ]);
 
-export const Layout: FunctionComponent<unknown> = ({ children }) => {
+export const Layout = ({ children }: PropsWithChildren<unknown>) => {
     const [showBackgroundGradient] = useStoreProp("showBackgroundGradient");
     const [darkTheme] = useStoreProp("darkTheme");
     const [showFooter] = useStoreProp("showFooter");

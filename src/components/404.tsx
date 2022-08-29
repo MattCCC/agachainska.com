@@ -13,7 +13,7 @@ export function ErrorContainer({ params }: Props): JSX.Element {
         <Fragment>
             <MainSection className="grid items-center grid-flow-col grid-cols-1 grid-rows-1">
                 <MainContainer topPadding={true}>
-                    <h1 className="font-bold text-center prose-140px">
+                    <h1 className="font-bold text-center prose-140 leading-38">
                         <Translate id="page.notfound" />
                     </h1>
                 </MainContainer>

@@ -4,6 +4,7 @@ import tw, { css, styled } from "twin.macro";
 
 import { BigNumber } from "@components/big-number";
 import { MainTitleTop } from "@components/main-title";
+import { up } from "@utils/screens";
 
 export interface PostItem {
     [x: string]: any;
@@ -15,20 +16,34 @@ export interface PostItem {
 interface Props {
     post: PostItem;
     postNum?: number;
-    onPostTap: (e: any, post: PostItem) => void;
+    onPostTap: (
+        e: React.MouseEvent<HTMLDivElement | HTMLAnchorElement, MouseEvent>,
+        post: PostItem
+    ) => void;
+    setImageAsBg?: boolean;
 }
 
 const PostWrapper = styled.div(() => [tw`relative h-auto pt-11 pb-11`]);
 
-const PostImg = styled.img(() => [
-    tw`relative z-10 w-full overflow-hidden`,
+const PostImg = styled.img(() => [tw`relative z-10 w-full overflow-hidden`]);
+
+const PostBg = styled.div(() => [
+    tw`relative z-10 w-full overflow-hidden bg-cover`,
+    css`
+        width: 348px;
+        height: 181px;
+        ${up("xl")} {
+            width: 398px;
+            height: 231px;
+        }
+    `,
 ]);
 
 const PostDescription = styled.div(() => [
-    tw`w-3/4 prose-16px-h24`,
+    tw`w-3/4 leading-6 prose-16`,
     css`
         margin-top: 10px;
-    `
+    `,
 ]);
 
 const StyledNumber = styled(BigNumber)(() => [
@@ -36,7 +51,7 @@ const StyledNumber = styled(BigNumber)(() => [
     css`
         bottom: 2.5rem;
         max-width: 100%;
-        height: 120px;
+        height: 135px;
     `,
 ]);
 
@@ -44,14 +59,27 @@ const Title = styled(MainTitleTop)(() => [
     tw`absolute top-0 z-50 uppercase select-none`,
 ]);
 
-export function Post({ post, postNum = -1, onPostTap }: Props): JSX.Element {
+export function Post({
+    post,
+    postNum = -1,
+    onPostTap,
+    setImageAsBg = false,
+}: Props): JSX.Element {
     return (
         <Fragment>
             <PostWrapper onClick={(e): void => onPostTap(e, post)}>
                 <Title percentage={63} data-text={post.name}>
                     {post.name}
                 </Title>
-                <PostImg src={post.cover || ""} />
+                {setImageAsBg ? (
+                    <PostBg
+                        style={{
+                            backgroundImage: `url(${post.cover})`,
+                        }}
+                    />
+                ) : (
+                    <PostImg src={post.cover || ""} />
+                )}
                 <PostDescription>{post.shortDescription}</PostDescription>
                 {postNum && (
                     <StyledNumber

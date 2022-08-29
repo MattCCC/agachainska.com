@@ -15,6 +15,7 @@ import { BottomCircle } from "@components/bottom-circle";
 import { CountDown } from "@components/count-down";
 import { GridRow, MainContainer } from "@components/main-container";
 import { MainSection } from "@components/main-section";
+import { Meta } from "@components/meta";
 import { MotionCursor } from "@components/motion-cursor";
 import { pageContentVariants } from "@components/overlays";
 import { Translate } from "@components/translate";
@@ -25,14 +26,14 @@ import { getRoutePath } from "@utils/route";
 import { TranslateText } from "@utils/translate-text";
 
 const Title = styled.h1(() => [
-    tw`relative -mt-16 z-50 inline-block max-w-full font-bold select-none lg:pr-16 prose-70px lg:prose-140px`,
+    tw`relative z-50 inline-block max-w-full -mt-16 font-bold select-none lg:pr-16 prose-70 leading-20 lg:prose-140 lg:leading-38`,
     tw`subpixel-antialiased text-black bg-clip-text font-fbold cursor-none`,
     css`
         width: 634px;
         background-image: radial-gradient(
             40px circle at var(--x) var(--y),
             rgba(0, 0, 0, 0) 100%,
-            var(--black-color)
+            var(--black)
         );
         -webkit-text-fill-color: transparent;
 
@@ -51,7 +52,7 @@ const Title = styled.h1(() => [
 ]);
 
 const Desc = styled.h2(() => [
-    tw`inline-block select-none prose-24px lg:prose-30px`,
+    tw`inline-block leading-8 select-none prose-24 lg:prose-30 lg:leading-11`,
     css`
         max-height: 84px;
         width: 18rem;
@@ -74,7 +75,9 @@ export default function Home(): JSX.Element {
 
     const onPositionUpdate = useCallback(
         (clientX: number, clientY: number) => {
-            const clientRect = (titleRef.current as HTMLHeadingElement).getBoundingClientRect();
+            const clientRect = (
+                titleRef.current as HTMLHeadingElement
+            ).getBoundingClientRect();
             const cursorMarginLeft = 31;
 
             setPosition({
@@ -130,3 +133,5 @@ export default function Home(): JSX.Element {
         </Fragment>
     );
 }
+
+export const Head = () => <Meta title="Aga Chainska" />;

@@ -101,7 +101,7 @@ export const HeroWrapper = styled.div(() => [
 ]);
 
 export const TableProject = styled.div(() => [
-    tw`grid mb-20 max-w-full grid-flow-row grid-cols-1 grid-rows-4 lg:grid-cols-2 lg:grid-flow-col`,
+    tw`grid max-w-full grid-flow-row grid-cols-1 grid-rows-4 mb-20 lg:grid-cols-2 lg:grid-flow-col`,
     css`
         width: 820px;
         line-height: 24px;
@@ -207,7 +207,7 @@ export const Controls = styled.div(() => [
 ]);
 
 export const Button = styled.button(() => [
-    tw`flex-row cursor-pointer select-none lg:prose-16px`,
+    tw`flex-row cursor-pointer select-none lg:prose-16 lg:leading-5`,
     css`
         &:last-child {
             margin-left: 40px;

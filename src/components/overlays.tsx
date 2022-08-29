@@ -1,10 +1,6 @@
 import { memo, useEffect, useState } from "react";
 
-import {
-    motion,
-    AnimateSharedLayout,
-    useAnimation,
-} from "@components/animation";
+import { motion, LayoutGroup, useAnimation } from "@components/animation";
 import { useStore } from "@store/index";
 
 const overlayStyleClasses = "fixed left-0 w-full h-full";
@@ -95,7 +91,7 @@ const scrollTo = (y: number = 0) => {
 
 export const TopOverlay = (): JSX.Element => (
     <motion.div
-        className="relative z-100 bg-white"
+        className="relative bg-white z-100"
         initial="initial"
         animate="enter"
         exit="exit"
@@ -151,7 +147,7 @@ export const Overlays = memo(
 
         return (
             <div id="overlays">
-                <AnimateSharedLayout>
+                <LayoutGroup>
                     <motion.div
                         layout
                         className={overlayStyleClasses}
@@ -198,7 +194,7 @@ export const Overlays = memo(
                             }}
                         />
                     </motion.div>
-                </AnimateSharedLayout>
+                </LayoutGroup>
             </div>
         );
     },

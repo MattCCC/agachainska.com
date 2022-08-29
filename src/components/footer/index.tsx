@@ -6,7 +6,6 @@ import { BackgroundNoise } from "@components/background-noise";
 import { Contact } from "@components/footer/contact";
 import { SocialMedia } from "@components/social-media";
 import { socialMedia } from "@data/social-media";
-import { useLocation } from "@reach/router";
 import { useStoreProp } from "@store/index";
 import { ReactComponent as WavesPattern } from "@svg/bg-lines.svg";
 import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
@@ -66,8 +65,6 @@ const FooterNavText = styled.div(() => [
     `,
 ]);
 
-const BackToTop = FooterNavText;
-
 const Waves = styled(WavesPattern)(() => [
     tw`absolute w-full h-full opacity-5`,
 ]);
@@ -90,7 +87,7 @@ const PricklyPear = styled(PricklyPearIllustration)(() => [
 ]);
 
 const Annotation = styled.div(({ showFooter }: Partial<Props>) => [
-    tw`container relative z-10 mx-auto my-7 text-center text-primary-color lg:my-0 lg:text-left`,
+    tw`container relative z-10 mx-auto text-center my-7 text-primary lg:my-0 lg:text-left`,
     showFooter && tw`text-white bottom-2`,
 ]);
 
@@ -99,9 +96,6 @@ const AnnotationLink = styled.a(() => [tw`inline-block ml-1 text-green`]);
 export function Footer(): JSX.Element {
     const [showFooter] = useStoreProp("showFooter");
     const [darkTheme] = useStoreProp("darkTheme");
-
-    const currentUrlPath = useLocation().pathname;
-    const IsLightThemeAndNotHomepage = !darkTheme && currentUrlPath !== "/";
 
     return (
         <Fragment>
@@ -133,7 +127,7 @@ export function Footer(): JSX.Element {
                 </FooterWrapper>
             )}
 
-            {(darkTheme && !showFooter) && (
+            {darkTheme && !showFooter && (
                 <MiniFooterWrapper>
                     <BottomFooter>
                         <FooterContainer>
@@ -153,19 +147,6 @@ export function Footer(): JSX.Element {
                         </FooterContainer>
                     </BottomFooter>
                 </MiniFooterWrapper>
-            )}
-
-            {(IsLightThemeAndNotHomepage && !showFooter) && (
-                <Annotation showFooter={showFooter}>
-                    Coded by
-                    <AnnotationLink
-                        href="https://deindesign.pl/"
-                        rel="noreferrer"
-                        target="_blank"
-                    >
-                        Matt
-                    </AnnotationLink>
-                </Annotation>
             )}
         </Fragment>
     );

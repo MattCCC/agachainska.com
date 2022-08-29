@@ -11,7 +11,14 @@
 
     ```shell
     cd aga-chainska.com/
+    yarn
     yarn develop
+    ```
+
+    Install package for ARM (m1):
+
+    ```shell
+    brew install vips
     ```
 
 1.  **Open the source code and start editing!**

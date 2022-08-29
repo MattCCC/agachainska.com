@@ -1,11 +1,11 @@
 import {
     ElementRef,
-    FunctionComponent,
     ReactNode,
     RefObject,
     useEffect,
     useRef,
     useMemo,
+    PropsWithChildren,
 } from "react";
 
 import { css, styled } from "twin.macro";
@@ -53,7 +53,7 @@ const smoothScrollingHandler = (
     requestAnimationFrame(() => smoothScrollingHandler(container, data));
 };
 
-export const SmoothScroll: FunctionComponent<Props> = ({ children }) => {
+export const SmoothScroll = ({ children }: PropsWithChildren<Props>) => {
     const windowDimensions = useWindowSize();
     const containerRef = useRef<RefHandle>(null) as RefObject<HTMLDivElement>;
     const data = useMemo(

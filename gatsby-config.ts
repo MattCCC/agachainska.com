@@ -1,8 +1,11 @@
+import { GatsbyConfig } from "gatsby";
+
 require("dotenv").config({
     path: `.env.${process.env.NODE_ENV}`,
 });
 
-module.exports = {
+const config: GatsbyConfig = {
+    trailingSlash: "always",
     siteMetadata: {
         title: "Aga Chainska",
         titleTemplate: "%s · Aga Chainska",
@@ -19,8 +22,11 @@ module.exports = {
             resolve: `gatsby-plugin-sass`,
             options: {
                 // Configure SASS to process Tailwind
-                postCssPlugins: [require('tailwindcss')],
+                postCssPlugins: [require("tailwindcss")],
             },
+        },
+        {
+            resolve: "gatsby-plugin-svgr",
         },
         `gatsby-plugin-netlify`,
         `gatsby-plugin-emotion`,
@@ -70,19 +76,6 @@ module.exports = {
             },
         },
         {
-            resolve: "gatsby-plugin-svgr",
-            options: {
-                prettier: true, // use prettier to format JS code output (default)
-                svgo: true, // use svgo to optimize SVGs (default)
-                svgoConfig: {
-                    plugins: [
-                        { removeViewBox: true }, // remove viewBox when possible (default)
-                        { cleanupIDs: true }, // remove unused IDs and minify remaining IDs (default)
-                    ],
-                },
-            },
-        },
-        {
             resolve: `gatsby-plugin-alias-imports`,
             options: {
                 alias: {
@@ -127,13 +120,10 @@ module.exports = {
             },
         },
         {
-            resolve: 'gatsby-plugin-offline',
-            options: {
-                navigateFallbackWhitelist: [/\/$/],
-            }
+            resolve: "gatsby-plugin-offline",
         },
-        `gatsby-plugin-force-trailing-slashes`,
         `gatsby-plugin-sitemap`,
-        `gatsby-plugin-react-helmet`,
     ],
 };
+
+export default config;

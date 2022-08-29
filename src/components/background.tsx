@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent, useEffect } from "react";
+import { Fragment, useEffect } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -10,9 +10,8 @@ import { ReactComponent as MaltaIllustration } from "@svg/Malta.svg";
 import { ReactComponent as PixelLoveIllustration } from "@svg/Pixel love.svg";
 import { ReactComponent as VectorsIllustration } from "@svg/Vectors.svg";
 import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
+import { down } from "@utils/screens";
 import { excludeProps } from "@utils/styled";
-
-interface Props {}
 
 interface WavesProps {
     darkTheme: boolean;
@@ -25,7 +24,7 @@ const Waves = styled(
     tw`absolute w-full`,
     darkTheme && tw`opacity-5`,
     css`
-        height: 100vh;
+        height: 200vh;
         top: 59.5px;
     `,
 ]);
@@ -33,14 +32,13 @@ const Waves = styled(
 const Vectors = styled(VectorsIllustration)(() => [
     tw`absolute z-10`,
     css`
-        @media screen and (max-width: 768px) {
+        ${down("md")} {
             width: 42px;
             height: 42px;
             top: 30%;
             left: 53%;
-            
         }
-    
+
         width: 80px;
         height: 80px;
         left: 426px;
@@ -51,13 +49,13 @@ const Vectors = styled(VectorsIllustration)(() => [
 const Greece = styled(GreeceIllustration)(() => [
     tw`absolute z-10`,
     css`
-        @media screen and (max-width: 768px) {
+        ${down("md")} {
             width: 58px;
             height: 58p;
             top: 68%;
             left: 10%;
         }
-    
+
         width: 80px;
         height: 80px;
         left: 868px;
@@ -85,7 +83,7 @@ const PixelLove = styled(PixelLoveIllustration)(() => [
     `,
 ]);
 
-export const Background: FunctionComponent<Props> = () => {
+export const Background = () => {
     const [showMotionGrid] = useStoreProp("showMotionGrid");
     const [showWavePattern] = useStoreProp("showWavePattern");
     const [darkTheme] = useStoreProp("darkTheme");

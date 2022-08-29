@@ -1,5 +1,3 @@
-import { FunctionComponent } from "react";
-
 import tw, { css, styled } from "twin.macro";
 
 import { up } from "@utils/screens";
@@ -50,7 +48,7 @@ export const BackgroundWrapper = styled.div(() => [
     tw`w-full h-full max-w-full overflow-hidden`,
 ]);
 
-export const ParallaxBackground: FunctionComponent<Props> = (props: Props) => (
+export const ParallaxBackground = (props: Props) => (
     <BackgroundWrapper>
         <Background {...props} />
     </BackgroundWrapper>

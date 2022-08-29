@@ -1,8 +1,8 @@
 import {
     CSSProperties,
     Fragment,
-    FunctionComponent,
     memo,
+    PropsWithChildren,
     useCallback,
     useEffect,
     useState,
@@ -16,7 +16,7 @@ import { TrackMousePosition } from "@hooks/use-track-mouse-position";
 import { State, useStore, useStoreProp } from "@store/index";
 
 interface Props {
-    onPositionUpdate?: (clientX: number, clientY: number) => void;
+    onPositionUpdate?: ((clientX: number, clientY: number) => void) | null;
 }
 
 type CursorProps = {
@@ -28,8 +28,8 @@ const cursorSize = 80;
 
 const Cursor = styled.div(
     ({ isMotionCursorVisible, color, size, overlap }: CursorProps) => [
-        tw`fixed z-40 hidden lg:block text-white text-center uppercase rounded-full select-none cursor-pointer`,
-        tw`border prose-12px`,
+        tw`fixed z-40 hidden text-center text-white uppercase rounded-full cursor-pointer select-none lg:block`,
+        tw`leading-3 border prose-12`,
         color === "black" && tw`bg-black border-black`,
         color === "melrose" && tw`bg-melrose border-melrose`,
         overlap &&
@@ -71,10 +71,9 @@ const CursorText = styled.div(() => [
 
 const ProjectHover = styled.div(() => []);
 
-const SolidBackground = styled.div(({isMotionCursorVisible}: CursorProps) => [
-    tw`fixed z-30 hidden lg:block`,
+const SolidBackground = styled.div(({ isMotionCursorVisible }: CursorProps) => [
+    tw`fixed z-30 hidden opacity-0 lg:block`,
     css`
-        opacity: 0;
         width: 400px;
         height: 215px;
         background: #ff006e;
@@ -100,58 +99,64 @@ const SolidBackground = styled.div(({isMotionCursorVisible}: CursorProps) => [
         }
     `,
     isMotionCursorVisible &&
-    css`
-        animation: 0.9s show-solid-background forwards;
-    `,
+        css`
+            animation: 0.9s show-solid-background forwards;
+        `,
 ]);
 
-const ProjectCover = styled.div(({isMotionCursorVisible, projectCoverLink}: CursorProps) => [
-    tw`fixed z-30 hidden lg:block`,
-    css`
-        opacity: 0;
-        background: url(${projectCoverLink}) center;
-        background-size: cover;
-        width: 400px;
-        height: 215px;
-        margin: 14px 0 0 -30px;
-        transform: rotate(-10deg) scale(0.5);
-        @keyframes showImg {
-            from {
-                opacity: 0;
-                transform: rotate(-10deg) scale(0);
+const ProjectCover = styled.div(
+    ({ isMotionCursorVisible, projectCoverLink }: CursorProps) => [
+        tw`fixed z-30 hidden lg:block`,
+        css`
+            opacity: 0;
+            background: url(${projectCoverLink}) center;
+            background-size: cover;
+            width: 400px;
+            height: 215px;
+            margin: 14px 0 0 -30px;
+            transform: rotate(-10deg) scale(0.5);
+            @keyframes showImg {
+                from {
+                    opacity: 0;
+                    transform: rotate(-10deg) scale(0);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: rotate(0deg) scale(1);
+                }
             }
 
-            to {
-                opacity: 1;
-                transform: rotate(0deg) scale(1);
-            }
-        }
+            @keyframes hideImg {
+                from {
+                    opacity: 1;
+                    transform: scale(1);
+                }
 
-        @keyframes hideImg {
-            from {
-                opacity: 1;
-                transform: scale(1);
+                to {
+                    opacity: 0;
+                    transform: scale(1.1);
+                }
             }
+        `,
+        isMotionCursorVisible &&
+            css`
+                animation: 0.4s showImg forwards;
+                animation-delay: 0.1s;
+            `,
+        !isMotionCursorVisible &&
+            css`
+                animation: 0.3s hideImg forwards;
+            `,
+    ]
+);
 
-            to {
-                opacity: 0;
-                transform: scale(1.1);
-            }
-        }
-    `,
-    isMotionCursorVisible &&
-    css`
-        animation: .4s showImg forwards;
-        animation-delay: 0.1s;
-    `,
-    !isMotionCursorVisible &&
-    css`
-        animation: .3s hideImg forwards;
-    `
-]);
-
-const CursorLink: FunctionComponent<State["motionCursorData"]> = memo(
-    ({ text, route, children }) => {
+const CursorLink = memo(
+    ({
+        text,
+        route,
+        children,
+    }: PropsWithChildren<State["motionCursorData"]>) => {
         const onNavigate = useNavigation({
             to: route,
         });
@@ -171,7 +176,7 @@ const CursorLink: FunctionComponent<State["motionCursorData"]> = memo(
         }
 
         return (
-            <TextWrapper onClick={(e: any) => onNavigate(e, route)}>
+            <TextWrapper onClick={(e) => onNavigate(e, route)}>
                 <CursorText>
                     <Translate id={text} />
                 </CursorText>
@@ -184,10 +189,8 @@ export const useHideCursorPreserveVisibility = () => {
     const [isMotionCursorVisible, dispatch] = useStoreProp(
         "isMotionCursorVisible"
     );
-    const [
-        isMotionCursorVisibleCache,
-        setIsMotionCursorVisibleCache,
-    ] = useState(false);
+    const [isMotionCursorVisibleCache, setIsMotionCursorVisibleCache] =
+        useState(false);
 
     const onMouseEnter = useCallback((): void => {
         const isVisible = isMotionCursorVisible;
@@ -208,10 +211,10 @@ export const useHideCursorPreserveVisibility = () => {
     return [onMouseEnter, onMouseLeave];
 };
 
-export const MotionCursor: FunctionComponent<Props> = ({
+export const MotionCursor = ({
     onPositionUpdate = null,
     children,
-}) => {
+}: PropsWithChildren<Props>) => {
     const [state] = useStore();
     const { clientX, clientY } = TrackMousePosition();
     const projectCover = state.motionCursorData.projectCover;

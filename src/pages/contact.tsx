@@ -2,6 +2,7 @@ import tw, { css, styled } from "twin.macro";
 
 import { Button } from "@components/button";
 import { GridRow, MainContainer } from "@components/main-container";
+import { Meta } from "@components/meta";
 import { SocialMedia } from "@components/social-media";
 import { TextTextarea } from "@components/text-textarea";
 import { socialMedia } from "@data/social-media";
@@ -9,7 +10,7 @@ import { ReactComponent as ContactIllustration } from "@svg/Contact.svg";
 import { up } from "@utils/screens";
 
 const H1 = styled.div(() => [
-    tw`pt-12 mb-5 lg:mb-12 font-fbold prose-28px lg:prose-48px lg:pt-24`,
+    tw`pt-12 mb-5 leading-9 lg:mb-12 font-fbold prose-28 lg:prose-48 lg:leading-14 lg:pt-24`,
 ]);
 
 const EmailLink = styled.a(() => [tw`inline-block ml-1 text-green`]);
@@ -44,7 +45,8 @@ export default function Contact(): JSX.Element {
                 <ContactIllus />
                 <GridRow start={1} end={6}>
                     <H1>
-                        Let’s talk! Shoot me a message if you’d like to work together or just to say hello.
+                        Let’s talk! Shoot me a message if you’d like to work
+                        together or just to say hello.
                     </H1>
                     <div className="hidden lg:block">
                         <SocialMedia items={socialMedia} variant="big" />
@@ -83,7 +85,7 @@ export default function Contact(): JSX.Element {
                     <span className="block mt-6 lg:inline-block lg:mt-0 lg:ml-6">
                         or find me at
                         <EmailLink href={`mailto:${EMAIL_ADDRESS}`}>
-                            { EMAIL_ADDRESS }
+                            {EMAIL_ADDRESS}
                         </EmailLink>
                     </span>
                 </GridRow>
@@ -91,3 +93,5 @@ export default function Contact(): JSX.Element {
         </form>
     );
 }
+
+export const Head = () => <Meta title="Contact - Aga Chainska" />;

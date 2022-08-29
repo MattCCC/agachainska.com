@@ -2,8 +2,8 @@ import {
     useContext,
     useCallback,
     ReactNode,
-    FunctionComponent,
     useRef,
+    PropsWithChildren,
 } from "react";
 
 import { motion, PanInfo, Spring, useAnimation } from "framer-motion";
@@ -12,6 +12,7 @@ import { css, styled } from "twin.macro";
 
 import { MotionProps } from "@components/animation";
 import { useWindowSize } from "@hooks/use-window-size";
+import { excludeProps } from "@utils/styled";
 
 import { Context } from "./context";
 import { ActionTypes } from "./reducers";
@@ -31,26 +32,30 @@ interface TrackWrapperProps {
     displayGrabCursor?: boolean;
 }
 
-const TrackWrapper = styled(motion.div)(
-    ({ padding, displayGrabCursor }: TrackWrapperProps) => [
+const TrackWrapper = styled(motion.div)(({ padding }: TrackWrapperProps) => [
+    css`
+        display: flex;
+        flex-wrap: nowrap;
+        min-width: min-content;
+        padding: ${padding || 0}px;
+    `,
+]);
+
+const Wrapper = styled(
+    "div",
+    excludeProps(["displayGrabCursor"])
+)(({ displayGrabCursor }: TrackWrapperProps) => [
+    displayGrabCursor &&
         css`
-            display: flex;
-            flex-wrap: nowrap;
-            min-width: min-content;
-            padding: ${padding || 0}px;
+            cursor: grab;
+
+            &:active {
+                cursor: grabbing;
+            }
         `,
-        displayGrabCursor &&
-            css`
-                cursor: grab;
+]);
 
-                &:active {
-                    cursor: grabbing;
-                }
-            `,
-    ]
-);
-
-export const Track: FunctionComponent<Props> = ({
+export const Track = ({
     children,
     padding,
     gap,
@@ -59,7 +64,7 @@ export const Track: FunctionComponent<Props> = ({
     allowSlideToLast,
     displayGrabCursor,
     style,
-}: Props) => {
+}: PropsWithChildren<Props>) => {
     const ref = useRef<HTMLElement | null>(null);
     const [trackRef, trackDimensions] = useDimensions({ liveMeasure: true });
     const windowDimensions = useWindowSize();
@@ -68,13 +73,13 @@ export const Track: FunctionComponent<Props> = ({
 
     const itemsPositions = state.items.map(
         (item) => item * -1 + trackDimensions.x || 0
-    );
+    ) as number[];
 
     const lastTwo = state.items.slice(-2);
     const lastItem = lastTwo[1] - lastTwo[0];
 
     const onDragEnd = useCallback(
-        (_event, info: PanInfo) => {
+        (_event: Event, info: PanInfo) => {
             const correctedVelocity = info.velocity.x * velocity;
             const direction =
                 correctedVelocity < 0 || info.offset.x < 0 ? 1 : -1;
@@ -141,27 +146,28 @@ export const Track: FunctionComponent<Props> = ({
     );
 
     return (
-        <TrackWrapper
-            ref={(el) => {
-                trackRef(el);
-                ref.current = el;
-            }}
-            style={style}
-            padding={padding}
-            displayGrabCursor={displayGrabCursor}
-            animate={controls}
-            drag="x"
-            dragConstraints={{
-                left: allowSlideToLast
-                    ? lastItem + gap - trackDimensions.width
-                    : windowDimensions.width -
-                      trackDimensions.width -
-                      trackDimensions.x * 2,
-                right: 0,
-            }}
-            onDragEnd={onDragEnd}
-        >
-            {children}
-        </TrackWrapper>
+        <Wrapper displayGrabCursor={displayGrabCursor}>
+            <TrackWrapper
+                ref={(el) => {
+                    trackRef(el);
+                    ref.current = el;
+                }}
+                style={style}
+                padding={padding}
+                animate={controls}
+                drag="x"
+                dragConstraints={{
+                    left: allowSlideToLast
+                        ? lastItem + gap - trackDimensions.width
+                        : windowDimensions.width -
+                          trackDimensions.width -
+                          trackDimensions.x * 2,
+                    right: 0,
+                }}
+                onDragEnd={onDragEnd}
+            >
+                {children}
+            </TrackWrapper>
+        </Wrapper>
     );
 };

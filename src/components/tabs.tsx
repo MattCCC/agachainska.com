@@ -16,7 +16,7 @@ interface TabsStyled {
     hideForDesktop?: boolean;
 }
 
-interface TabsListContainer {
+interface PropsTabContainer {
     isSticky: boolean;
 }
 
@@ -37,45 +37,45 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
-    tw`h-16 sticky mb-8 top-0 z-100 w-full flex items-center justify-center`,
+    tw`sticky top-0 flex items-center justify-center w-full h-16 mb-8 z-100`,
     hideForDesktop && tw`lg:hidden`,
 ]);
 
-const TabsListContainer = styled.div(({ isSticky = false }: TabsListContainer) => [
-    tw`relative h-8 `,
-    css`
-        width: calc(100vw - 32px);
-    `,
-    isSticky &&
-    css`
-        &:after {
-            content: "";
-            width: 100vw;
-            height: 4rem;
-            background: rgba(255,255,255,0.92);
-            box-shadow: 0px 14px 60px 0px rgba(0,0,0,0.25);
-            transition: all .2s ease-in;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-        }
-    `
-]);
+const TabsListContainer = styled.div(
+    ({ isSticky = false }: PropsTabContainer) => [
+        tw`relative h-8 `,
+        css`
+            width: calc(100vw - 32px);
+        `,
+        isSticky &&
+            css`
+                &:after {
+                    content: "";
+                    width: 100vw;
+                    height: 4rem;
+                    background: rgba(255, 255, 255, 0.92);
+                    box-shadow: 0px 14px 60px 0px rgba(0, 0, 0, 0.25);
+                    transition: all 0.2s ease-in;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: -1;
+                }
+            `,
+    ]
+);
 
-const TabsList = styled.ul(() => [
-    tw`flex flex-row justify-between`,
-]);
+const TabsList = styled.ul(() => [tw`flex flex-row justify-between`]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
-    tw`w-full h-8 cursor-pointer select-none prose-20px opacity-40`,
-    tw`transition-opacity capitalize text-melrose`,
+    tw`w-full h-8 leading-7 cursor-pointer select-none prose-20 opacity-40`,
+    tw`capitalize transition-opacity text-melrose`,
     isActive && tw`opacity-100`,
     css`
         line-height: 25px;
-        box-shadow: inset 0px -2px 1px -1px var(--melrose-color);
-        text-shadow: 0 2px 4px 0 var(--melrose-color);
+        box-shadow: inset 0px -2px 1px -1px var(--melrose);
+        text-shadow: 0 2px 4px 0 var(--melrose);
     `,
 ]);
 
@@ -83,13 +83,12 @@ const Pin = styled(motion.div)(() => [
     tw`absolute left-0 h-px top-8 bg-melrose`,
     css`
         z-index: 2;
-        box-shadow: 0 2px 4px 0 var(--melrose-color);
+        box-shadow: 0 2px 4px 0 var(--melrose);
     `,
 ]);
 
 export const Tabs = memo(
     ({
-        children,
         tabs,
         activeTabId = "",
         onTabChange = (): null => null,
@@ -111,7 +110,7 @@ export const Tabs = memo(
         useEffect(() => {
             if (tabsAreSticky) {
                 setState((prevState) => {
-                    if ( activeTabId === prevState.tabId ) {
+                    if (activeTabId === prevState.tabId) {
                         return prevState;
                     }
 
@@ -124,23 +123,23 @@ export const Tabs = memo(
                     };
                 });
             } else {
-                setState({tabId: tabs[0].id});
+                setState({ tabId: tabs[0].id });
             }
-
         }, [tabsAreSticky, activeTabId, tabs]);
 
-        useEffect(()=>{
+        useEffect(() => {
             const currentElement = wrapperRef.current;
             const observer = new IntersectionObserver(
-                    ([e]) => setTabsAreSticky(e.isIntersecting),
-                    {rootMargin: "0px 0px -90% 0px", threshold: 1}
-                );
+                ([e]) => setTabsAreSticky(e.isIntersecting),
+                { rootMargin: "0px 0px -90% 0px", threshold: 1 }
+            );
 
             if (currentElement) {
                 observer.observe(currentElement);
             }
 
-            return function(){
+            // eslint-disable-next-line space-before-function-paren
+            return function () {
                 if (currentElement) {
                     observer.unobserve(currentElement);
                 }

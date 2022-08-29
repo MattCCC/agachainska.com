@@ -14,9 +14,7 @@ interface Args {
     uid: number;
 }
 
-export const usePagination = ({ projectsByCategory,
-    uid }: Args
-): any => {
+export const usePagination = ({ projectsByCategory, uid }: Args): any => {
     const [navigation, setNavigation] = useState({
         hasPreviousButton: false,
         hasNextButton: false,

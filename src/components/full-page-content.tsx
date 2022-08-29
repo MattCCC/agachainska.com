@@ -1,5 +1,4 @@
-import { FunctionComponent } from "react";
-import { ReactNode } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -13,7 +12,7 @@ interface Props {
 
 export const FullPageContentWrapper = styled.figure(
     ({ widthPct = 100, border = true }: Props) => [
-        tw`overflow-hidden w-full max-w-full`,
+        tw`w-full max-w-full overflow-hidden`,
         border &&
             css`
                 border: 1px solid #979797;
@@ -22,7 +21,7 @@ export const FullPageContentWrapper = styled.figure(
             margin-bottom: 40px;
 
             ${up("lg")} {
-                ${tw`max-w-none relative`}
+                ${tw`relative max-w-none`}
 
                 width: ${widthPct}vw;
                 height: 80vh;
@@ -33,12 +32,12 @@ export const FullPageContentWrapper = styled.figure(
     ]
 );
 
-export const FullPageContent: FunctionComponent<Props> = ({
+export const FullPageContent = ({
     widthPct = 100,
     border = true,
     children,
     ...props
-}) => (
+}: PropsWithChildren<Props>) => (
     <FullPageContentWrapper widthPct={widthPct} border={border} {...props}>
         {children}
     </FullPageContentWrapper>

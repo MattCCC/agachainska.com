@@ -40,8 +40,11 @@ export const matchRoute = (locationPath: string) => {
     Object.entries(routes).some(([routeName, routeOptions]) => {
         const path = routeOptions.path;
         const isDynamic = path.indexOf("[") !== -1;
-        const regExp = routeOptions.pattern || path.replace(/\[[a-z-]+\]/ig, ".*?");
-        const isRouteMatching = isDynamic ? new RegExp(regExp).exec(locationPath) !== null : locationPath === path;
+        const regExp =
+            routeOptions.pattern || path.replace(/\[[a-z-]+\]/gi, ".*?");
+        const isRouteMatching = isDynamic
+            ? new RegExp(regExp).exec(locationPath) !== null
+            : locationPath === path;
 
         if (isRouteMatching) {
             foundRoute = routeName;

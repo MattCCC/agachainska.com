@@ -31,7 +31,7 @@ const Navigation = styled.nav(() => [
 ]);
 
 const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
-    tw`relative font-medium select-none text-primary-color prose-18px`,
+    tw`relative font-medium leading-5 select-none text-primary prose-18`,
     css`
         line-height: 48px;
     `,
@@ -43,7 +43,7 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
     `,
     css`
         &::before {
-            ${tw`absolute left-0 w-full bg-primary-color`}
+            ${tw`absolute left-0 w-full bg-primary`}
             bottom: 5px;
             content: "";
             height: 2px;

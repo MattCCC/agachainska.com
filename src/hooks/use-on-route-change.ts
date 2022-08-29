@@ -16,4 +16,3 @@ export const useOnRouteChange = () => {
         }, 0);
     }, [dispatch, location.pathname]);
 };
-

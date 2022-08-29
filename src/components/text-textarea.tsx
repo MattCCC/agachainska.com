@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -27,7 +27,7 @@ const FloatingLabelTextareaContainer = styled.div(() => [
 ]);
 
 const FloatingLabel = styled.label(({ active, htmlFor }: LabelProps) => [
-    tw`absolute top-0 opacity-50 pointer-events-none select-none cursor-text prose-16px`,
+    tw`absolute top-0 leading-5 opacity-50 pointer-events-none select-none cursor-text prose-16`,
     css`
         transform: none;
         transition: all 0.2s ease-in-out;
@@ -38,12 +38,12 @@ const FloatingLabel = styled.label(({ active, htmlFor }: LabelProps) => [
             opacity: 1;
             transform: translate3d(14px, -45%, 0) scale(0.8);
         `,
-    active && tw`bg-tertiary-color`,
+    active && tw`bg-tertiary`,
     htmlFor === "textarea" && tw`p-4`,
     htmlFor === "input" &&
-    css`
-        padding: 0.55rem 1rem 0;
-    `,
+        css`
+            padding: 0.55rem 1rem 0;
+        `,
 ]);
 
 const FloatingTextarea = styled.textarea(
@@ -90,7 +90,11 @@ export function TextTextarea({
         setActive(value && value.length > 0 ? true : false);
     }, [value]);
 
-    const onChange = useCallback((e) => setValue(e.target.value), []);
+    const onChange = useCallback(
+        (e: ChangeEvent<HTMLTextAreaElement>) =>
+            setValue(e.target?.value || ""),
+        []
+    );
 
     const onFocusCallback = useCallback(
         (e) => {

@@ -15,7 +15,7 @@ interface Props {
 const SocialMediaWrapper = styled.div(() => [tw`flex items-center`, css``]);
 
 const ListItem = styled.a(({ variant }: Props) => [
-    tw`inline-block text-center text-white border border-white select-none prose-18px`,
+    tw`inline-block leading-5 text-center text-white border border-white select-none prose-18`,
     variant === "normal" &&
         css`
             height: 40px;

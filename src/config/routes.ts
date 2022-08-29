@@ -23,7 +23,7 @@ export const defaultRouteMeta = {
         showWavePattern: true,
         showBackgroundGradient: true,
         darkTheme: false,
-    } as RouteMeta["store"]
+    } as RouteMeta["store"],
 };
 
 const routesList: RoutesList = {
@@ -34,8 +34,8 @@ const routesList: RoutesList = {
             store: {
                 showLogoOnDesktop: false,
                 showFooter: false,
-            }
-        }
+            },
+        },
     },
     contact: {
         id: "contact",
@@ -46,8 +46,8 @@ const routesList: RoutesList = {
                 showFooter: false,
                 showBackgroundGradient: false,
                 darkTheme: true,
-            }
-        }
+            },
+        },
     },
     thanks: {
         id: "thanks",
@@ -57,8 +57,8 @@ const routesList: RoutesList = {
                 showFooter: false,
                 showBackgroundGradient: false,
                 darkTheme: true,
-            }
-        }
+            },
+        },
     },
     about: {
         id: "about",
@@ -67,7 +67,7 @@ const routesList: RoutesList = {
             store: {
                 showMotionGrid: false,
                 showWavePattern: false,
-            }
+            },
         },
     },
     work: {
@@ -77,8 +77,9 @@ const routesList: RoutesList = {
             store: {
                 showMotionGrid: false,
                 showBackgroundGradient: false,
-            }
-        }
+                showFooter: false,
+            },
+        },
     },
     project: {
         id: "project",
@@ -89,8 +90,8 @@ const routesList: RoutesList = {
                 showMotionGrid: false,
                 showBackgroundGradient: false,
                 showWavePattern: false,
-            }
-        }
+            },
+        },
     },
 };
 

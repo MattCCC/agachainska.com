@@ -15,7 +15,7 @@ export const AboutSectionsFragment = graphql`
             designProcessPhases {
                 phaseNum
                 title
-                description 
+                description
             }
         }
     }

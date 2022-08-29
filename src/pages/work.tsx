@@ -1,16 +1,26 @@
-import { Fragment, useCallback, memo, useState } from "react";
+import {
+    Fragment,
+    useCallback,
+    memo,
+    useState,
+    RefObject,
+    useMemo,
+} from "react";
 
 import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
+import { useDebouncedCallback } from "use-debounce";
 
 import { BigNumber } from "@components/big-number";
 import { MainContainer } from "@components/main-container";
+import { Meta } from "@components/meta";
 import { MotionCursor } from "@components/motion-cursor";
 import { Post, PostItem } from "@components/post";
 import { Slider, SliderItem } from "@components/slider";
 import { Star } from "@components/star";
 import { Tabs } from "@components/tabs";
 import { Timeline, Item, Section } from "@components/timeline";
+import { useEventListener } from "@hooks/use-event-listener";
 import { useNavigation } from "@hooks/use-navigation";
 import { useWindowSize } from "@hooks/use-window-size";
 import { useStoreProp } from "@store/index";
@@ -24,6 +34,7 @@ interface PageState {
     clickEvent: Event;
     showStar: boolean;
     showNumber: boolean;
+    projectNumberToShow: number;
     currentProject?: Item | SliderItem;
 }
 
@@ -44,16 +55,23 @@ interface Props extends PageProps {
     };
 }
 
+interface SliderWrapperProps {
+    isShowingOtherProjects: boolean;
+}
+
 const ContentContainer = styled.section(() => [
-    tw`relative col-start-1 col-end-13 lg:mt-16 lg:col-start-2 lg:grid lg:grid-cols-5 lg:grid-rows-6 lg:gap-y-6 lg:grid-flow-col`,
+    tw`relative col-start-1 col-end-13 lg:mt-16 lg:col-start-2 lg:grid lg:grid-cols-5 lg:gap-y-6 lg:grid-flow-col`,
 ]);
 
-const SlideWrapper = styled.div(() => [
-    tw`relative hidden col-span-5 col-start-1 col-end-5 row-span-5 row-start-1 row-end-6 lg:block`,
-]);
+const SlideWrapper = styled.div(
+    ({ isShowingOtherProjects }: SliderWrapperProps) => [
+        tw`relative hidden col-span-5 col-start-1 col-end-5 lg:block`,
+        isShowingOtherProjects && tw`h-full`,
+    ]
+);
 
 const TimelineWrapper = styled.aside(() => [
-    tw`justify-center hidden col-start-5 row-span-5 row-start-1 row-end-5 m-auto lg:block`,
+    tw`justify-center hidden col-start-5 row-span-5 row-start-1 row-end-5 lg:block`,
 ]);
 
 const StyledNumber = styled(BigNumber)(() => [
@@ -82,194 +100,384 @@ const categoryColors = {
     [x: string]: string;
 };
 
-const Work = memo(
-    ({ data }: Props): JSX.Element => {
-        const windowSize = useWindowSize();
-        const hasSmallWindowWidth = windowSize.width < 1024;
+let isPageTop = false;
+let isPageBottom = false;
 
-        const [, dispatch] = useStoreProp("showMotionGrid");
-        const projects = data.projects.nodes || [];
-        const categories = Object.keys(groupBy(projects, "category"));
+const Work = memo(({ data }: Props): JSX.Element => {
+    const windowSize = useWindowSize();
+    const hasSmallWindowWidth = windowSize.width < 1024;
 
-        const timelineList = categories.map((category) => ({
-            title: category,
-            id: category,
-            category,
-            items: projects
-                .filter((project: Project) => project.category === category)
-                .map((project: Project) => ({
-                    ...project,
-                    title: project.name,
-                    id: String(project.uid),
-                    routeTo: project.nameSlug,
-                })),
-        }));
+    const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
+    const [isSliderAnimating, setIsSliderAnimating] = useState(false);
+    const [, dispatch] = useStoreProp("showMotionGrid");
+    const projects = useMemo(
+        () => data.projects.nodes || [],
+        [data.projects.nodes]
+    );
 
-        const firstCategory = timelineList[0].category;
-        const firstCategoryFirstItem = timelineList.find(
-            ({ id }) => id === firstCategory
-        )?.items[0];
+    const categories = useMemo(
+        () => Object.keys(groupBy(projects, "category")) as ProjectCategory[],
+        [projects]
+    );
 
-        const [state, setState] = useState({
-            sliderIndex: 0,
-            showStar: false,
-            showNumber: true,
-            currentProject: firstCategoryFirstItem,
-            activeSectionId: firstCategory,
-            activeItemId: firstCategoryFirstItem?.id ?? "1",
-            routeTo: firstCategoryFirstItem?.routeTo ?? "",
-        } as PageState);
+    const timelineList = useMemo(
+        () =>
+            categories.map((category) => {
+                // Check if category has projects that have no case studies.
+                const hasOtherProjects = projects.findIndex(
+                    (project) =>
+                        project.category === category &&
+                        project.subCategory === "Others"
+                );
 
-        const sliderItems: TimelineItem[] = timelineList.reduce(
-            (itemsList: TimelineItem[], currentValue) => {
+                const updatedCategory = {
+                    title: category,
+                    id: category,
+                    category,
+                    items: projects
+                        .filter(
+                            (project: Project) =>
+                                project.category === category &&
+                                project.subCategory !== "Others"
+                        )
+                        .map((project: Project) => ({
+                            ...project,
+                            title: project.name,
+                            id: String(project.uid),
+                            routeTo: project.nameSlug,
+                        })),
+                };
+
+                if (hasOtherProjects) {
+                    updatedCategory.items.push({
+                        id: `others${category}`,
+                        routeTo: "",
+                        uid: 99999,
+                        title: "Others",
+                        name: "Others",
+                        cover: "",
+                        subCategory: "Others",
+                        nameSlug: "",
+                        category,
+                        client: "",
+                        agency: "",
+                        timeframe: "",
+                        roleInProject: "",
+                        shortDescription: "",
+                        challenge: {},
+                        approach: {},
+                        stats: {},
+                        credits: {},
+                        sections: [],
+                    });
+                }
+
+                return updatedCategory;
+            }),
+        [categories, projects]
+    );
+
+    const otherProjects = useMemo(
+        () =>
+            categories.map((category) => ({
+                category,
+                projects: projects
+                    .filter(
+                        (project: Project) =>
+                            project.category === category &&
+                            project.subCategory === "Others"
+                    )
+                    .map((project: Project) => ({
+                        ...project,
+                        title: project.name,
+                        id: String(project.uid),
+                        routeTo: project.nameSlug,
+                    })),
+            })),
+        [categories, projects]
+    );
+
+    const firstCategory = timelineList[0].category;
+
+    const firstCategoryFirstItem = useMemo(
+        () => timelineList.find(({ id }) => id === firstCategory)?.items[0],
+        [firstCategory, timelineList]
+    );
+
+    const [sliderIndex, setSliderIndex] = useState(0);
+
+    const [state, setState] = useState({
+        showStar: false,
+        showNumber: true,
+        projectNumberToShow: 0,
+        currentProject: firstCategoryFirstItem,
+        activeSectionId: firstCategory,
+        activeItemId: firstCategoryFirstItem?.id ?? "1",
+        routeTo: firstCategoryFirstItem?.routeTo ?? "",
+    } as PageState);
+
+    const sliderItems: TimelineItem[] = useMemo(
+        () =>
+            timelineList.reduce((itemsList: TimelineItem[], currentValue) => {
                 itemsList = [...itemsList, ...(currentValue.items || [])];
 
                 return itemsList;
-            },
-            []
-        );
+            }, []),
+        [timelineList]
+    );
 
-        const projectsByCategory: PostItem[] = sliderItems.filter(
-            (post) => post.category === state.activeSectionId
-        );
+    const currentCategoryOtherProjects = useMemo(
+        () =>
+            otherProjects.filter(
+                (project) => project.category === state.activeSectionId
+            ),
+        [otherProjects, state.activeSectionId]
+    );
 
-        const onNavigate = useNavigation({
-            to: state.routeTo,
-        });
+    const projectsByCategory: PostItem[] = useMemo(
+        () =>
+            sliderItems.filter(
+                (post) => post.category === state.activeSectionId
+            ),
+        [sliderItems, state.activeSectionId]
+    );
 
-        const setCurrentSlide = useCallback(
-            (currentItem: Item | SliderItem): void => {
-                if (state.activeItemId === currentItem.id) {
-                    return;
-                }
+    const onNavigate = useNavigation({
+        to: state.routeTo,
+    });
 
-                const sliderIndex = sliderItems.findIndex(
-                    (sliderItem: SliderItem) => sliderItem.id === currentItem.id
+    // Cursor CTA
+    const onSliderContentMouseEventChange = useCallback(
+        (mouseDidLeave = false) => {
+            dispatch.showMotionCursor(!mouseDidLeave, {
+                text: "explore",
+                route: state.routeTo,
+            });
+
+            setState((prevState) => ({
+                ...prevState,
+                showStar: !mouseDidLeave,
+                showNumber: mouseDidLeave,
+            }));
+        },
+        [dispatch, state.routeTo]
+    );
+
+    const onOthersSelected = useCallback(() => {
+        setIsSliderAnimating(false);
+        setIsShowingOtherProjects(true);
+        onSliderContentMouseEventChange(true);
+    }, [
+        setIsSliderAnimating,
+        setIsShowingOtherProjects,
+        onSliderContentMouseEventChange,
+    ]);
+
+    const setCurrentSlideState = useCallback(
+        (currentItem: Item | SliderItem): void => {
+            if (!currentItem || state.activeItemId === currentItem.id) {
+                return;
+            }
+
+            if (currentItem.id.includes("others")) {
+                onOthersSelected();
+            } else {
+                setIsShowingOtherProjects(false);
+            }
+
+            let projectNumberToShow: number;
+
+            for (const category of timelineList) {
+                const indexOfProject = category.items.findIndex(
+                    (project) => project.id === currentItem.id
                 );
 
-                setState((prevState) => ({
-                    ...prevState,
-                    routeTo: currentItem.routeTo,
-                    sliderIndex,
-                    activeSectionId: currentItem.category,
-                    activeItemId: currentItem.id,
-                    currentProject: currentItem,
-                }));
-            },
-            [state, sliderItems, setState]
-        );
-
-        const onTabChange = useCallback(
-            (currentTab: Section): void => {
-                if (state.activeSectionId === currentTab.id) {
-                    return;
+                if (indexOfProject >= 0) {
+                    projectNumberToShow = indexOfProject;
+                    break;
                 }
+            }
 
-                setState((prevState) => ({
-                    ...prevState,
-                    activeSectionId: currentTab.category,
-                    activeItemId: currentTab.id,
-                }));
-            },
-            [state]
-        );
+            const newSliderIndex = sliderItems.findIndex(
+                (sliderItem: SliderItem) => sliderItem.id === currentItem.id
+            );
 
-        // Cursor CTA
-        const onSliderContentMouseEventChange = useCallback(
-            (mouseDidLeave = false) => {
-                dispatch.showMotionCursor(!mouseDidLeave, {
-                    text: "explore",
-                    route: state.routeTo,
-                });
+            setSliderIndex(newSliderIndex);
 
-                setState((prevState) => ({
-                    ...prevState,
-                    showStar: !mouseDidLeave,
-                    showNumber: mouseDidLeave,
-                }));
-            },
-            [dispatch, state.routeTo]
-        );
+            dispatch.showFooter(newSliderIndex === sliderItems.length - 1);
 
-        return (
-            <Fragment>
-                <MotionCursor />
+            setState((prevState) => ({
+                ...prevState,
+                routeTo: currentItem.routeTo,
+                projectNumberToShow,
+                activeSectionId: currentItem.category,
+                activeItemId: currentItem.id,
+                currentProject: currentItem,
+            }));
+        },
+        [state, sliderItems, onOthersSelected, timelineList, setState, dispatch]
+    );
 
-                <MainContainer topPadding={true}>
-                    <ContentContainer>
-                        <SlideWrapper>
-                            <StyledNumber
-                                value={`${state.sliderIndex + 1}.`}
-                                viewBox="0 0 280 200"
-                                displayOnRight={true}
-                                style={{
-                                    display: state.showNumber
-                                        ? "block"
-                                        : "none",
-                                }}
-                            />
-                            <StyledStar
-                                text={
-                                    state?.currentProject?.shortDescription ||
-                                    ""
-                                }
-                                color={
-                                    state?.currentProject?.category &&
-                                    categoryColors[
-                                        state.currentProject.category
-                                    ]
-                                }
-                                displayStar={state.showStar}
-                            />
+    const onTabChange = useCallback(
+        (currentTab: Section): void => {
+            if (state.activeSectionId === currentTab.id) {
+                return;
+            }
+
+            setState((prevState) => ({
+                ...prevState,
+                activeSectionId: currentTab.category,
+                activeItemId: currentTab.id,
+            }));
+        },
+        [state]
+    );
+
+    const updateScroll = useDebouncedCallback((e: WheelEvent): void => {
+        if (isSliderAnimating) {
+            e.preventDefault();
+
+            return;
+        }
+
+        const isUp = e.deltaY && e.deltaY < 0;
+        const goTo = (newSlideDirection: number) => {
+            const newSlideIndex = sliderIndex + newSlideDirection;
+
+            if (newSlideIndex < 0 || newSlideIndex > sliderItems.length - 1) {
+                return;
+            }
+
+            if (isShowingOtherProjects) {
+                setIsShowingOtherProjects(false);
+                window.scrollTo(0, 0);
+            }
+
+            dispatch.showFooter(newSlideIndex === sliderItems.length - 1);
+
+            setSliderIndex(newSlideIndex);
+        };
+
+        if (isPageTop && isUp) {
+            goTo(-1);
+        } else if (isPageBottom && !isUp) {
+            goTo(1);
+        }
+    }, 200);
+
+    useEventListener(
+        "wheel",
+        (e) => {
+            const isUserAtEndOfPage =
+                window.innerHeight + window.scrollY >=
+                document.body.offsetHeight;
+
+            isPageTop = window.scrollY <= 0;
+            isPageBottom = isUserAtEndOfPage;
+
+            updateScroll(e as WheelEvent);
+        },
+        (typeof document !== "undefined" &&
+            (document.body as unknown)) as RefObject<HTMLDivElement>,
+        { passive: false }
+    );
+
+    return (
+        <Fragment>
+            <MotionCursor />
+
+            <MainContainer topPadding={true}>
+                <ContentContainer>
+                    {!hasSmallWindowWidth ? (
+                        <SlideWrapper
+                            isShowingOtherProjects={isShowingOtherProjects}
+                        >
+                            {!isShowingOtherProjects && (
+                                <StyledNumber
+                                    value={`${state.projectNumberToShow + 1}.`}
+                                    viewBox="0 0 280 200"
+                                    displayOnRight={true}
+                                    style={{
+                                        display: state.showNumber
+                                            ? "block"
+                                            : "none",
+                                    }}
+                                />
+                            )}
+                            {!isShowingOtherProjects && (
+                                <StyledStar
+                                    text={
+                                        state?.currentProject
+                                            ?.shortDescription || ""
+                                    }
+                                    color={
+                                        state?.currentProject?.category &&
+                                        categoryColors[
+                                            state.currentProject.category
+                                        ]
+                                    }
+                                    displayStar={state.showStar}
+                                />
+                            )}
                             <Slider
                                 sliderItems={sliderItems}
-                                onSliderTap={(e): any => onNavigate(e)}
-                                onSliderChange={setCurrentSlide}
-                                slideId={state.sliderIndex}
+                                onSliderTap={(e) => onNavigate(e)}
+                                onSliderChange={setCurrentSlideState}
+                                slideId={sliderIndex}
+                                showSlideTitle={!isShowingOtherProjects}
+                                isShowingOtherProjects={isShowingOtherProjects}
+                                otherProjects={currentCategoryOtherProjects}
+                                lastProjectNumber={projectsByCategory.length}
                                 onSliderMouseEnter={
                                     onSliderContentMouseEventChange
                                 }
                                 onSliderMouseLeave={
                                     onSliderContentMouseEventChange
                                 }
+                                isAnimating={isSliderAnimating}
+                                setIsAnimating={setIsSliderAnimating}
                             />
                         </SlideWrapper>
-                        <TimelineWrapper>
-                            <Timeline
-                                style={{ height: "27.76rem" }}
-                                onTimelineItemChange={setCurrentSlide}
-                                sections={timelineList}
-                                activeSectionId={state.activeSectionId}
-                                activeItemId={state.activeItemId}
-                            />
-                        </TimelineWrapper>
-                        <Tabs
-                            hideForDesktop={true}
-                            onTabChange={onTabChange}
-                            tabs={timelineList}
-                            activeTabId={state.activeSectionId}
+                    ) : null}
+
+                    <TimelineWrapper>
+                        <Timeline
+                            style={{ height: "27.76rem" }}
+                            onTimelineItemChange={setCurrentSlideState}
+                            onOtherProjectsClick={onOthersSelected}
+                            sections={timelineList}
+                            activeSectionId={state.activeSectionId}
+                            activeItemId={state.activeItemId}
                         />
-                        {hasSmallWindowWidth &&
-                            projectsByCategory.map(
-                                (post: PostItem, index: number) => (
-                                    <Post
-                                        key={index}
-                                        postNum={index + 1}
-                                        post={post}
-                                        onPostTap={(e, { routeTo }): any =>
-                                            onNavigate(e, routeTo)
-                                        }
-                                    />
-                                )
-                            )}
-                    </ContentContainer>
-                </MainContainer>
-            </Fragment>
-        );
-    }
-);
+                    </TimelineWrapper>
+                    <Tabs
+                        hideForDesktop={true}
+                        onTabChange={onTabChange}
+                        tabs={timelineList}
+                        activeTabId={state.activeSectionId}
+                    />
+                    {hasSmallWindowWidth &&
+                        projectsByCategory.map(
+                            (post: PostItem, index: number) => (
+                                <Post
+                                    key={index}
+                                    postNum={index + 1}
+                                    post={post}
+                                    onPostTap={(e, { routeTo }) =>
+                                        onNavigate(e, routeTo as string)
+                                    }
+                                />
+                            )
+                        )}
+                </ContentContainer>
+            </MainContainer>
+        </Fragment>
+    );
+});
 
 export default Work;
+
+export const Head = () => <Meta title="Work - Aga Chainska" />;
 
 export const query = graphql`
     {

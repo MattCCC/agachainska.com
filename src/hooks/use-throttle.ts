@@ -6,7 +6,7 @@ export const useThrottle = (
     fnToThrottle: any,
     durationInMs: number = 200
 ): any =>
-    useCallback(() => throttle(fnToThrottle, durationInMs), [
-        fnToThrottle,
-        durationInMs,
-    ]);
+    useCallback(
+        () => throttle(fnToThrottle, durationInMs),
+        [fnToThrottle, durationInMs]
+    );

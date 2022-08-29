@@ -1,6 +1,7 @@
 import tw, { css, styled, TwStyle } from "twin.macro";
 
 import { SerializedStyles } from "@emotion/react";
+
 import { up } from "@utils/screens";
 
 interface MainTitleStyled {
@@ -38,14 +39,14 @@ const gradient = (
 ): SerializedStyles => css`
     background-image: linear-gradient(
         ${deg}deg,
-        var(--black-color) ${(smBaseFontSize * percentage) / 100}px,
+        var(--black) ${(smBaseFontSize * percentage) / 100}px,
         transparent ${(smBaseFontSize * percentage) / 100}px
     );
 
     ${up("lg")} {
         background-image: linear-gradient(
             ${deg}deg,
-            var(--black-color) ${(baseFontSize * percentage) / 100}px,
+            var(--black) ${(baseFontSize * percentage) / 100}px,
             transparent ${(baseFontSize * percentage) / 100}px
         );
     }
@@ -61,14 +62,7 @@ const beforeTitle = css`
     }
 `;
 
-export const SectionMainTitle = styled.h1(
-    ({ baseFontSize = 120, smBaseFontSize = 70 }: MainTitleStyled) => [
-        tw`overflow-hidden whitespace-nowrap overflow-ellipsis`,
-        title(smBaseFontSize, baseFontSize),
-    ]
-);
-
-export const MainTitleTop = styled.h1(
+export const MainTitleTop = styled.h2(
     ({
         baseFontSize = 70,
         smBaseFontSize = 70,

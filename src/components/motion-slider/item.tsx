@@ -1,6 +1,6 @@
 import {
-    FunctionComponent,
     memo,
+    PropsWithChildren,
     ReactNode,
     useContext,
     useEffect,
@@ -34,8 +34,14 @@ const ItemWrapper = styled(motion.div)(
     ]
 );
 
-export const Item: FunctionComponent<Props> = memo(
-    ({ children, gap = 0, padding = 0, index = 0, offset }) => {
+export const Item = memo(
+    ({
+        children,
+        gap = 0,
+        padding = 0,
+        index = 0,
+        offset,
+    }: PropsWithChildren<Props>) => {
         const { dispatch } = useContext(Context);
         const [itemRef, { x, width }] = useDimensios({ liveMeasure: false });
         const scaleOffest = -1 * (width + gap);

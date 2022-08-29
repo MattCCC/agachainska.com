@@ -9,12 +9,10 @@ interface Props {
     showOnDesktop?: boolean;
 }
 
-const LogoWrapper = styled.div(() => [
-    tw`flex items-center h-12 text-primary-color`,
-]);
+const LogoWrapper = styled.div(() => [tw`flex items-center h-12 text-primary`]);
 
 const SiteTitle = styled.div(({ showOnDesktop }: Props) => [
-    tw`hidden subpixel-antialiased select-none font-flight prose-24px text-primary-color`,
+    tw`hidden subpixel-antialiased leading-8 select-none font-flight prose-24 text-primary`,
     showOnDesktop && tw`lg:block`,
     css`
         line-height: 30px;
@@ -22,7 +20,7 @@ const SiteTitle = styled.div(({ showOnDesktop }: Props) => [
 ]);
 
 const LogoIcon = styled.div(() => [
-    tw`block text-center rounded-full select-none font-fbold text-tertiary-color bg-primary-color prose-18 lg:prose-18px lg:hidden`,
+    tw`block text-center rounded-full select-none font-fbold text-tertiary bg-primary prose-18 lg:leading-5 lg:hidden`,
     css`
         width: 48px;
         height: 48px;
