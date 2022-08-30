@@ -148,7 +148,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
                         })),
                 };
 
-                if (hasOtherProjects) {
+                if (hasOtherProjects && !hasSmallWindowWidth) {
                     updatedCategory.items.push({
                         id: `others${category}`,
                         routeTo: "",
