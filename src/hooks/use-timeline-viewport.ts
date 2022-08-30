@@ -39,7 +39,7 @@ export const useTimelineViewport = (): [
         [pctInViewport]
     );
 
-    const onTimelineItemChange = useCallback(({ id }): void => {
+    const onTimelineItemChange = useCallback(({ id }: any): void => {
         scrollTo("#" + id);
     }, []);
 
