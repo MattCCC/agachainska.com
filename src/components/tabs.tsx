@@ -17,7 +17,7 @@ interface TabsStyled {
 }
 
 interface PropsTabContainer {
-    isSticky: boolean;
+    isIntersecting: boolean;
 }
 
 interface TabStyled extends MotionProps {
@@ -42,12 +42,12 @@ const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
 ]);
 
 const TabsListContainer = styled.div(
-    ({ isSticky = false }: PropsTabContainer) => [
+    ({ isIntersecting = false }: PropsTabContainer) => [
         tw`relative h-8 `,
         css`
             width: calc(100vw - 32px);
         `,
-        isSticky &&
+        isIntersecting &&
             css`
                 &:after {
                     content: "";
@@ -176,7 +176,7 @@ export const Tabs = memo(
 
         return (
             <TabsWrapper ref={wrapperRef} {...props}>
-                <TabsListContainer isSticky={areTabsIntersectingContent}>
+                <TabsListContainer isIntersecting={areTabsIntersectingContent}>
                     <TabsList>
                         <AnimatePresence initial={false}>
                             {tabs.map((tab: SingleTab, index: number) => (
