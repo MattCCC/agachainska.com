@@ -120,18 +120,6 @@ export const Tabs = memo(
         }, [activeTabId, activeTabIndex, tabWidth]);
 
         useEffect(() => {
-            if (areTabsIntersectingContent) {
-                setTabId((prevTabId) => {
-                    if (activeTabId === prevTabId) {
-                        return prevTabId;
-                    }
-
-                    return activeTabId !== prevTabId ? activeTabId : prevTabId;
-                });
-            }
-        }, [areTabsIntersectingContent, activeTabId]);
-
-        useEffect(() => {
             const currentElement = wrapperRef.current;
             const observer = new IntersectionObserver(
                 ([e]) => {
@@ -154,14 +142,11 @@ export const Tabs = memo(
 
         const onTabClick = useCallback(
             (tab: SingleTab) => {
-                if (tabId.tabId === tab.id) {
+                if (tabId === tab.id) {
                     return;
                 }
 
-                setTabId({
-                    ...tabId,
-                    tabId: tab.id,
-                });
+                setTabId(tab.id);
 
                 onTabChange(tab);
             },
