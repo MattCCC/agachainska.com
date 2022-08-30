@@ -9,6 +9,7 @@ const initialState = {
     darkTheme: false,
     motionCursorData: {
         text: "",
+        target: "_self",
         route: "",
         color: "black",
         size: 80,

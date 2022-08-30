@@ -1,3 +1,5 @@
+import { useLocation } from "@reach/router";
+
 import { fullPageOverlayDuration } from "@components/full-page-overlay";
 import {
     LinkDelayedArgs,
@@ -5,7 +7,6 @@ import {
     OnDelayCallback,
     useLinkDelayed,
 } from "@hooks/use-link-delayed";
-import { useLocation } from "@reach/router";
 import { useStore } from "@store/index";
 
 export interface DelayedLink extends LinkDelayedArgs {

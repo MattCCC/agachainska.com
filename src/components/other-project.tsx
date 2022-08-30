@@ -28,6 +28,7 @@ function OtherProject({
             dispatch.showMotionCursor(!mouseDidLeave, {
                 text: "work.viewDribbbleShot",
                 route: otherProject.dribbbleLink,
+                target: "_blank",
             });
         },
         [dispatch, otherProject.dribbbleLink]

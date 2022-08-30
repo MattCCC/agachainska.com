@@ -148,7 +148,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
                         })),
                 };
 
-                if (hasOtherProjects) {
+                if (hasOtherProjects && !hasSmallWindowWidth) {
                     updatedCategory.items.push({
                         id: `others${category}`,
                         routeTo: "",
@@ -174,7 +174,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
 
                 return updatedCategory;
             }),
-        [categories, projects]
+        [categories, hasSmallWindowWidth, projects]
     );
 
     const otherProjects = useMemo(
