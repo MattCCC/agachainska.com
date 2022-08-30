@@ -174,7 +174,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
 
                 return updatedCategory;
             }),
-        [categories, projects]
+        [categories, hasSmallWindowWidth, projects]
     );
 
     const otherProjects = useMemo(
