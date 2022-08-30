@@ -98,18 +98,18 @@ export const Tabs = memo(
 
         const [areTabsIntersectingContent, setTabsIntersecting] =
             useState(false);
-
-        const [state, setState] = useState({
-            tabId: activeTabId || tabs[0]?.id || "",
-        });
-
+        const [tabId, setTabId] = useState("");
         const [pinX, setPinX] = useState("0%");
         const [tabWidth, setTabWidth] = useState(0);
         const [activeTabIndex, setActiveTabIndex] = useState(0);
 
         useEffect(() => {
-            setActiveTabIndex(tabs?.findIndex((tab) => tab.id === state.tabId));
-        }, [state.tabId, tabs]);
+            setTabId(activeTabId || tabs[0]?.id || "");
+        }, [activeTabId, tabs]);
+
+        useEffect(() => {
+            setActiveTabIndex(tabs?.findIndex((tab) => tab.id === tabId));
+        }, [tabId, tabs]);
 
         useEffect(() => {
             setTabWidth(100 / tabs.length);
@@ -121,18 +121,12 @@ export const Tabs = memo(
 
         useEffect(() => {
             if (areTabsIntersectingContent) {
-                setState((prevState) => {
-                    if (activeTabId === prevState.tabId) {
-                        return prevState;
+                setTabId((prevTabId) => {
+                    if (activeTabId === prevTabId) {
+                        return prevTabId;
                     }
 
-                    return {
-                        ...prevState,
-                        tabId:
-                            activeTabId !== prevState.tabId
-                                ? activeTabId
-                                : prevState.tabId,
-                    };
+                    return activeTabId !== prevTabId ? activeTabId : prevTabId;
                 });
             }
         }, [areTabsIntersectingContent, activeTabId]);
@@ -160,18 +154,18 @@ export const Tabs = memo(
 
         const onTabClick = useCallback(
             (tab: SingleTab) => {
-                if (state.tabId === tab.id) {
+                if (tabId.tabId === tab.id) {
                     return;
                 }
 
-                setState({
-                    ...state,
+                setTabId({
+                    ...tabId,
                     tabId: tab.id,
                 });
 
                 onTabChange(tab);
             },
-            [onTabChange, state]
+            [onTabChange, tabId]
         );
 
         return (
@@ -182,7 +176,7 @@ export const Tabs = memo(
                             {tabs.map((tab: SingleTab, index: number) => (
                                 <Tab
                                     key={`tab-${index}`}
-                                    isActive={tab.id === state.tabId}
+                                    isActive={tab.id === tabId.tabId}
                                     onClick={onTabClick.bind(null, tab)}
                                 >
                                     {tab.title}
