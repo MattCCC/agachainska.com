@@ -154,6 +154,7 @@ const ProjectCover = styled.div(
 const CursorLink = memo(
     ({
         text,
+        target,
         route,
         children,
     }: PropsWithChildren<State["motionCursorData"]>) => {
@@ -175,8 +176,23 @@ const CursorLink = memo(
             return <CursorText>{children}</CursorText>;
         }
 
+        if (target === "_blank") {
+            return (
+                <TextWrapper
+                    as="a"
+                    target={target}
+                    href={route}
+                    rel="nofollow noreferrer"
+                >
+                    <CursorText>
+                        <Translate id={text} />
+                    </CursorText>
+                </TextWrapper>
+            );
+        }
+
         return (
-            <TextWrapper onClick={(e) => onNavigate(e, route)}>
+            <TextWrapper as="a" onClick={(e) => onNavigate(e, route)}>
                 <CursorText>
                     <Translate id={text} />
                 </CursorText>
