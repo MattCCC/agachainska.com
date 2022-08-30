@@ -96,19 +96,31 @@ export const Tabs = memo(
     }: Props): JSX.Element => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
 
-        const [tabsAreSticky, setTabsAreSticky] = useState(false);
+        const [areTabsIntersectingContent, setTabsIntersecting] =
+            useState(false);
 
         const [state, setState] = useState({
             tabId: activeTabId || tabs[0]?.id || "",
         });
 
-        const activeTabIndex = tabs?.findIndex((tab) => tab.id === state.tabId);
-
-        const tabWidth = 100 / tabs.length;
-        const pinX = tabWidth * (activeTabIndex + 1) - tabWidth + "%";
+        const [pinX, setPinX] = useState("0%");
+        const [tabWidth, setTabWidth] = useState(0);
+        const [activeTabIndex, setActiveTabIndex] = useState(0);
 
         useEffect(() => {
-            if (tabsAreSticky) {
+            setActiveTabIndex(tabs?.findIndex((tab) => tab.id === state.tabId));
+        }, [state.tabId, tabs]);
+
+        useEffect(() => {
+            setTabWidth(100 / tabs.length);
+        }, [tabs]);
+
+        useEffect(() => {
+            setPinX(tabWidth * (activeTabIndex + 1) - tabWidth + "%");
+        }, [activeTabId, activeTabIndex, tabWidth]);
+
+        useEffect(() => {
+            if (areTabsIntersectingContent) {
                 setState((prevState) => {
                     if (activeTabId === prevState.tabId) {
                         return prevState;
@@ -122,15 +134,15 @@ export const Tabs = memo(
                                 : prevState.tabId,
                     };
                 });
-            } else {
-                setState({ tabId: tabs[0].id });
             }
-        }, [tabsAreSticky, activeTabId, tabs]);
+        }, [areTabsIntersectingContent, activeTabId]);
 
         useEffect(() => {
             const currentElement = wrapperRef.current;
             const observer = new IntersectionObserver(
-                ([e]) => setTabsAreSticky(e.isIntersecting),
+                ([e]) => {
+                    setTabsIntersecting(e.isIntersecting);
+                },
                 { rootMargin: "0px 0px -90% 0px", threshold: 1 }
             );
 
@@ -164,7 +176,7 @@ export const Tabs = memo(
 
         return (
             <TabsWrapper ref={wrapperRef} {...props}>
-                <TabsListContainer isSticky={tabsAreSticky}>
+                <TabsListContainer isSticky={areTabsIntersectingContent}>
                     <TabsList>
                         <AnimatePresence initial={false}>
                             {tabs.map((tab: SingleTab, index: number) => (
