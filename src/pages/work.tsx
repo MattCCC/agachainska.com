@@ -444,7 +444,6 @@ const Work = memo(({ data }: Props): JSX.Element => {
                         <Timeline
                             style={{ height: "27.76rem" }}
                             onTimelineItemChange={setCurrentSlideState}
-                            onOtherProjectsClick={onOthersSelected}
                             sections={timelineList}
                             activeSectionId={state.activeSectionId}
                             activeItemId={state.activeItemId}

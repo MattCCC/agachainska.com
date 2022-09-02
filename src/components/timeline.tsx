@@ -82,7 +82,6 @@ interface Props extends HTMLAttributes<HTMLElement> {
     activeSectionId?: string;
     activeItemId?: string;
     onTimelineItemChange?: (item: Item) => void;
-    onOtherProjectsClick?: () => void;
 }
 
 export const Timeline = memo(
@@ -91,7 +90,6 @@ export const Timeline = memo(
         activeSectionId = "",
         activeItemId = "",
         onTimelineItemChange = (): null => null,
-        onOtherProjectsClick = (): null => null,
         ...props
     }: Props): JSX.Element => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
