@@ -27,13 +27,14 @@ export const useTimelineViewport = (): [
         () => ({} as Record<string, Array<number | boolean>>),
         []
     );
+
     const pctViewPort = useMemo(
         () => (Number(window.innerWidth) * Number(window.innerHeight)) / 100,
         []
     );
 
     /**
-     * This intersection callback considers multiple elements being observedf
+     * This intersection callback considers multiple elements being observed
      */
     const intersection: IntersectionObserverCallback = useCallback(
         ([
