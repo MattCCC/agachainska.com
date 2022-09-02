@@ -329,7 +329,10 @@ export default function Project({ data }: Props): JSX.Element {
         },
     ];
 
-    const refChallenge = useInViewEffect(intersection, {...options, rootMargin: "0px 0px 50% 0px"});
+    const refChallenge = useInViewEffect(intersection, {
+        ...options,
+        rootMargin: "0px 0px 50% 0px",
+    });
     const refApproach = useInViewEffect(intersection, options);
     const refResults = useInViewEffect(intersection, {
         ...options,
@@ -407,7 +410,7 @@ export default function Project({ data }: Props): JSX.Element {
                     activeTabId={activeItemId}
                 />
 
-                {sections.map(({ section, elements }, index) => {
+                {sections.map(({ section, elements }) => {
                     switch (section) {
                         case "challenge":
                             return loadChallengeSection(refChallenge, elements);
@@ -427,6 +430,7 @@ export default function Project({ data }: Props): JSX.Element {
                             return loadCreditsSection(elements);
 
                         case "other-projects":
+                        default:
                             return loadOtherProjectsSection(
                                 elements,
                                 projectsByCategory
