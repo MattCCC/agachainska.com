@@ -1,11 +1,10 @@
 import { useCallback, useMemo, useState } from "react";
 
 import { scrollTo } from "@utils/scroll-to";
-import { thresholdArray } from "@utils/threshold-array";
 
 const options: IntersectionObserverInit = {
     rootMargin: "0px",
-    threshold: thresholdArray(20),
+    threshold: 0,
 };
 
 /**
