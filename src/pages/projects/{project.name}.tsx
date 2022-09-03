@@ -331,9 +331,12 @@ export default function Project({ data }: Props): JSX.Element {
 
     const refChallenge = useInViewEffect(intersection, {
         ...options,
-        rootMargin: "0px 0px 50% 0px",
+        rootMargin: "0px 0px 100% 0px",
     });
-    const refApproach = useInViewEffect(intersection, options);
+    const refApproach = useInViewEffect(intersection, {
+        ...options,
+        rootMargin: "0px 0px -200px 0px",
+    });
     const refResults = useInViewEffect(intersection, {
         ...options,
         rootMargin: "200% 0px 0px 0px",

@@ -202,9 +202,15 @@ export default function About({ data }: Props): JSX.Element {
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
 
-    const refExpertise = useInViewEffect(intersection, options);
+    const refExpertise = useInViewEffect(intersection, {
+        ...options,
+        rootMargin: "0px 0px 100% 0px",
+    });
     const refDesignProcess = useInViewEffect(intersection, options);
-    const refSelectedProjects = useInViewEffect(intersection, options);
+    const refSelectedProjects = useInViewEffect(intersection, {
+        ...options,
+        rootMargin: "200% 0px 0px 0px",
+    });
 
     const tabsTimeline = aboutPageTimeline[0].items.map((item) => {
         const titleArr = item.title.split(" ");
