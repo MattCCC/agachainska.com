@@ -29,7 +29,7 @@ export const useTimelineViewport = (): [
     );
 
     const pctViewPort = useMemo(
-        () => (Number(window.innerWidth) * Number(window.innerHeight)) / 100,
+        () => typeof window != "undefined" && (Number(window.innerWidth) * Number(window.innerHeight)) / 100,
         []
     );
 
