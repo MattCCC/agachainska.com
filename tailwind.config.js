@@ -2,6 +2,22 @@ require("dotenv").config({
     path: `.env.${process.env.NODE_ENV}`,
 });
 
+var typography = {
+    0: {
+        css: {
+            fontSize: "0",
+        },
+    }
+}
+
+for (var i = 0; i <= 140; i += 2) {
+    typography[i] = {
+        css: {
+            fontSize: String(i) + "px",
+        },
+    }
+}
+
 module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx}"],
     theme: {
@@ -42,133 +58,7 @@ module.exports = {
             cursor: {
                 none: "none",
             },
-            typography: {
-                0: {
-                    css: {
-                        fontSize: "0",
-                    },
-                },
-                8: {
-                    css: {
-                        fontSize: "8px",
-                    },
-                },
-                10: {
-                    css: {
-                        fontSize: "10px",
-                    },
-                },
-                12: {
-                    css: {
-                        fontSize: "12px",
-                    },
-                },
-                14: {
-                    css: {
-                        fontSize: "14px",
-                    },
-                },
-                16: {
-                    css: {
-                        fontSize: "16px",
-                    },
-                },
-                18: {
-                    css: {
-                        fontSize: "18px",
-                    },
-                },
-                20: {
-                    css: {
-                        fontSize: "20px",
-                    },
-                },
-                22: {
-                    css: {
-                        fontSize: "22px",
-                    },
-                },
-                24: {
-                    css: {
-                        fontSize: "24px",
-                    },
-                },
-                26: {
-                    css: {
-                        fontSize: "26px",
-                    },
-                },
-                28: {
-                    css: {
-                        fontSize: "28px",
-                    },
-                },
-                30: {
-                    css: {
-                        fontSize: "30px",
-                    },
-                },
-                32: {
-                    css: {
-                        fontSize: "32px",
-                    },
-                },
-                34: {
-                    css: {
-                        fontSize: "34px",
-                    },
-                },
-                36: {
-                    css: {
-                        fontSize: "36px",
-                    },
-                },
-                48: {
-                    css: {
-                        fontSize: "48px",
-                    },
-                },
-                50: {
-                    css: {
-                        fontSize: "50px",
-                    },
-                },
-                54: {
-                    css: {
-                        fontSize: "54px",
-                    },
-                },
-                60: {
-                    css: {
-                        fontSize: "60px",
-                    },
-                },
-                70: {
-                    css: {
-                        fontSize: "70px",
-                    },
-                },
-                80: {
-                    css: {
-                        fontSize: "80px",
-                    },
-                },
-                90: {
-                    css: {
-                        fontSize: "90px",
-                    },
-                },
-                120: {
-                    css: {
-                        fontSize: "120px",
-                    },
-                },
-                140: {
-                    css: {
-                        fontSize: "140px",
-                    },
-                },
-            },
+            typography: typography,
             colors: {
                 melrose: "var(--melrose)",
                 pink: "var(--pink)",
