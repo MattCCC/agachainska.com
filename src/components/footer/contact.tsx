@@ -3,9 +3,10 @@ import { memo, useEffect, useState } from "react";
 import tw, { css, styled } from "twin.macro";
 import useMouseLeave from "use-mouse-leave";
 
+import { useLocation } from "@reach/router";
+
 import { Link } from "@components/link";
 import { MarqueeText } from "@components/marquee-text";
-import { useLocation } from "@reach/router";
 import { useStoreProp } from "@store/index";
 import { getLinkProps } from "@utils/route";
 import { up } from "@utils/screens";

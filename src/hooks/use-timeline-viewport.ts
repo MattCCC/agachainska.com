@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useCallback, useMemo, useState } from "react";
 
 import { scrollTo } from "@utils/scroll-to";
@@ -53,33 +52,12 @@ export const useTimelineViewport = (): [
 
             pctInViewport[target.id] = [pctViewportOverlapped, isIntersecting];
 
-            console.log(
-                target.id,
-                "% viewport overlapped",
-                pctViewportOverlapped
-            );
-            console.log(
-                target.id,
-                "% of element in viewport",
-                intersectionRatio * 100
-            );
-
             const selectedId = Object.keys(pctInViewport).reduceRight(
                 (prev, curr) =>
                     pctInViewport[prev][0] >= pctInViewport[curr][0] &&
                     pctInViewport[prev][1]
                         ? prev
                         : curr
-            );
-
-            console.log(
-                "Intersection ratio change:",
-                target.id,
-                "->",
-                selectedId,
-                "ratio",
-                intersectionRatio,
-                pctInViewport
             );
 
             setActiveItemId(selectedId);

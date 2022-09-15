@@ -1,10 +1,11 @@
 import tw, { css, styled } from "twin.macro";
 
+import { useLocation } from "@reach/router";
+
 import { Link } from "@components/link";
 import { Logo } from "@components/logo";
 import { useHideCursorPreserveVisibility } from "@components/motion-cursor";
 import { Translate } from "@components/translate";
-import { useLocation } from "@reach/router";
 import { useStoreProp } from "@store/index";
 import { getLinkProps, LinkProps } from "@utils/route";
 import { up } from "@utils/screens";
