@@ -49,6 +49,7 @@ import {
     useProjectsByCategory,
 } from "@hooks/use-projects-by-category";
 import { useTimelineViewport } from "@hooks/use-timeline-viewport";
+import { useWindowSize } from "@hooks/use-window-size";
 
 interface Props extends PageProps {
     data: {
@@ -99,7 +100,8 @@ const loadChallengeSection = (
 
 const loadApproachSection = (
     refApproach: (node: Element | null) => void,
-    elements: ProjectSection["elements"]
+    elements: ProjectSection["elements"],
+    gallerySliderElementsGap: number
 ) => (
     <ArticleSection key="approach" id="approach" ref={refApproach}>
         <H2>Approach</H2>
@@ -166,7 +168,7 @@ const loadApproachSection = (
                 case "slider":
                     return (
                         <Fragment key={index}>
-                            <GallerySlider gap={133} />;
+                            <GallerySlider gap={gallerySliderElementsGap} />;
                         </Fragment>
                     );
                 case "quote":
@@ -303,6 +305,10 @@ export default function Project({ data }: Props): JSX.Element {
     const projects = data.projects.nodes;
     const [projectsByCategory] = useProjectsByCategory({ category, projects });
 
+    const windowSize = useWindowSize();
+    const hasSmallWindowWidth = windowSize.width < 1024;
+    const gallerySliderElementsGap = hasSmallWindowWidth ? 30 : 133;
+
     const [navigation] = usePagination({ projectsByCategory, uid });
     const [refStats, animateStats] = useIncrementStats();
 
@@ -419,7 +425,11 @@ export default function Project({ data }: Props): JSX.Element {
                             return loadChallengeSection(refChallenge, elements);
 
                         case "approach":
-                            return loadApproachSection(refApproach, elements);
+                            return loadApproachSection(
+                                refApproach,
+                                elements,
+                                gallerySliderElementsGap
+                            );
 
                         case "results":
                             return loadResultsSection(
