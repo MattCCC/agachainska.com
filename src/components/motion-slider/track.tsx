@@ -66,7 +66,7 @@ export const Track = ({
     style,
 }: PropsWithChildren<Props>) => {
     const ref = useRef<HTMLElement | null>(null);
-    const [trackRef, trackDimensions] = useDimensions({ liveMeasure: true });
+    const [trackRef, trackDimensions] = useDimensions({ liveMeasure: false });
     const windowDimensions = useWindowSize();
     const controls = useAnimation();
     const { state, dispatch } = useContext(Context);
