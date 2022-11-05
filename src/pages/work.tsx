@@ -164,10 +164,6 @@ const Work = memo(({ data }: Props): JSX.Element => {
                         timeframe: "",
                         roleInProject: "",
                         shortDescription: "",
-                        challenge: {},
-                        approach: {},
-                        stats: {},
-                        credits: {},
                         sections: [],
                     });
                 }

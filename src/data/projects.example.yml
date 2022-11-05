@@ -9,7 +9,7 @@
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for RE/MAX"
   sections:
-    - section: "challenge"
+    - section: "discover"
       showInTimeline: "yes"
       elements:
         - element: "overview"
@@ -18,7 +18,7 @@
           description: "Example Project goals description text."
         - element: "audience"
           description: "Example Audience description text."
-    - section: "approach"
+    - section: "define"
       showInTimeline: "yes"
       elements:
         - element: "brand-elements"
