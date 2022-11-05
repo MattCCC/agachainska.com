@@ -8,7 +8,7 @@ const MobileDeviceContainer = styled.div(() => [tw`relative h-[530px]`]);
 
 const MobileDevice = styled.iframe(() => [
     tw`absolute z-10 bg-white border-0 outline-none`,
-    tw`w-[245px] h-[530px] rounded-[20px] top-[13px] left-[18px]`,
+    tw`w-[245px] h-[532px] rounded-[20px] top-[13px] left-[18px]`,
     css`
         box-shadow: 0px 42px 102px -8px rgba(0, 0, 0, 0.36);
     `,
@@ -27,7 +27,7 @@ interface Props {
 }
 
 export const MobileDeviceMockup = memo(({ prototypeSrc }: Props) => (
-    <MobileDeviceContainer className="testing-con">
+    <MobileDeviceContainer>
         <MobileDevice src={prototypeSrc}></MobileDevice>
         <PhoneFrame />
     </MobileDeviceContainer>

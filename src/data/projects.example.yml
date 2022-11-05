@@ -1,0 +1,76 @@
+- uid: 1
+  category: UX/UI
+  subCategory:
+  name: RE/MAX
+  cover: "/img/projects/image-1.png"
+  client: RE/MAX Malta
+  agency: BRND WGN
+  timeframe: November 2019, 7 days
+  roleInProject: UI designer
+  shortDescription: "Custom Illustrations for RE/MAX"
+  challenge:
+    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
+  approach:
+    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
+    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
+  stats:
+    screens: 14
+    iterations: 6
+    prototypes: 34
+  credits:
+    concept: "UI Concept:"
+    conceptDesc: "RE/MAX Malta"
+    design: "UX Design:"
+    designDesc: "BRND WGN"
+    projectManagement: "Project management:"
+    projectManagementDesc: "November 2019, 7 days"
+  sections:
+    - section: "challenge"
+      elements:
+        - element: "overview"
+          description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+        - element: "project-goals"
+          description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+        - element: "audience"
+          description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+    - section: "approach"
+      elements:
+        - element: "brand-elements"
+          description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
+        - element: "full-size-image"
+          image: "/img/placeholder-full.png"
+        - element: "two-images"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
+        - element: "full-page-image"
+          image: "/img/placeholder-2.png"
+        - element: "slider"
+        - element: "quote"
+          quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
+        - element: "device"
+          type: "iPhoneX" # iPhoneX, iPhone13pro, iPhone8, laptop
+          link: "https://domain.com/yourimage.png"
+        - element: "devices"
+          types:
+            - type: "iPhone13pro"
+              link: "https://domain.com/yourimage.png"
+    - section: "results"
+      elements:
+        - element: "stats"
+          screens: 14
+          iterations: 6
+          prototypes: 34
+    - section: "credits"
+      elements:
+        - concept: "UI Concept:"
+          conceptDesc: "RE/MAX Malta"
+          design: "UX Design:"
+          designDesc: "BRND WGN"
+          projectManagement: "Project management:"
+          projectManagementDesc: "November 2019, 7 days"
+    - section: "other-projects"
+      elements:
+        - category: UX/UI
