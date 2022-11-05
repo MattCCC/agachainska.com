@@ -287,7 +287,7 @@ const loadOtherProjectsSection = (
     elements: ProjectSection["elements"],
     projectsByCategory: ProjectsByCategory
 ) => (
-    <ArticleSection key="other-projects" id="another-projects">
+    <ArticleSection key="Other UX/UI Projects" id="another-projects">
         <H2>Other {elements[0].category} Projects</H2>
         <ContentContainer variant="full">
             <OtherProjects projectsByCategory={projectsByCategory} />
@@ -433,6 +433,11 @@ export default function Project({ data }: Props): JSX.Element {
                 />
 
                 {sections.map(({ section, elements }, i) => {
+                    const sectionId = section
+                        .toLowerCase()
+                        .replaceAll(" ", "-")
+                        .replaceAll("/", "-");
+
                     switch (section) {
                         case "results":
                             return loadResultsSection(
@@ -445,7 +450,7 @@ export default function Project({ data }: Props): JSX.Element {
                         case "credits":
                             return loadCreditsSection(elements);
 
-                        case "other-projects":
+                        case "other-ux-ui-projects":
                             return loadOtherProjectsSection(
                                 elements,
                                 projectsByCategory
@@ -454,10 +459,8 @@ export default function Project({ data }: Props): JSX.Element {
                         default:
                             return (
                                 <ArticleSection
-                                    key={section
-                                        .toLowerCase()
-                                        .replace(" ", "-")}
-                                    id={section.toLowerCase().replace(" ", "-")}
+                                    key={sectionId}
+                                    id={sectionId}
                                     ref={intersectionRefs[i]}
                                 >
                                     <H2>{section}</H2>
