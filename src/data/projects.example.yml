@@ -10,6 +10,7 @@
   shortDescription: "Custom Illustrations for RE/MAX"
   sections:
     - section: "challenge"
+      showInTimeline: "yes"
       elements:
         - element: "overview"
           description: "Example Overview description text."
@@ -18,6 +19,7 @@
         - element: "audience"
           description: "Example Audience description text."
     - section: "approach"
+      showInTimeline: "yes"
       elements:
         - element: "brand-elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
@@ -40,12 +42,14 @@
             - type: "iPhone13pro"
               link: "https://domain.com/yourimage.png"
     - section: "results"
+      showInTimeline: "yes"
       elements:
         - element: "stats"
           screens: 14
           iterations: 6
           prototypes: 34
     - section: "credits"
+      showInTimeline: "no"
       elements:
         - concept: "UI Concept:"
           conceptDesc: "RE/MAX Malta"
@@ -54,5 +58,6 @@
           projectManagement: "Project management:"
           projectManagementDesc: "November 2019, 7 days"
     - section: "other-projects"
+      showInTimeline: "no"
       elements:
         - category: UX/UI
