@@ -49,10 +49,7 @@ const ListItem = styled(
 ]);
 
 const Pin = styled(motion.div)(() => [
-    tw`absolute top-0 bottom-0 right-0 w-px bg-primary`,
-    css`
-        z-index: 2;
-    `,
+    tw`absolute top-0 bottom-0 right-0 w-px bg-primary z-[2]`,
 ]);
 
 interface TitleStyle extends MotionProps {
