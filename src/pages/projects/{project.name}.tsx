@@ -63,8 +63,10 @@ interface Props extends PageProps {
 
 const sectionLoader = (
     elements: ProjectSection["elements"],
-    gallerySliderElementsGap: number = 0
-) => elements.map(
+    gallerySliderElementsGap: number = 0,
+    projectsByCategory: ProjectsByCategory | null = null
+) => {
+    return elements.map(
         (
             { element, description = "", image = "", images = [], quote = "" },
             index
@@ -120,18 +122,20 @@ const sectionLoader = (
                     return (
                         <ContentContainer key={index}>
                             <TwoImagesWrapper>
-                                {(images as unknown as Array<{ image: string }>).map(
-                                    function({ image }, j) {
-                                        return (
-                                            <ParallaxBackground
-                                                key={index + String(j)}
-                                                bgImgUrl={`${image}`}
-                                                contain={true}
-                                                scaleOnHover={true}
-                                            />
-                                        );
-                                    }
-                                )}
+                                {(
+                                    images as unknown as Array<{
+                                        image: string;
+                                    }>
+                                ).map(function ({ image }, j) {
+                                    return (
+                                        <ParallaxBackground
+                                            key={index + String(j)}
+                                            bgImgUrl={`${image}`}
+                                            contain={true}
+                                            scaleOnHover={true}
+                                        />
+                                    );
+                                })}
                             </TwoImagesWrapper>
                         </ContentContainer>
                     );
@@ -184,11 +188,26 @@ const sectionLoader = (
                         </Fragment>
                     );
 
+                case "other-projects":
+                    return (
+                        <Fragment key={index}>
+                            <ContentContainer variant="full">
+                                <OtherProjects
+                                    key={index}
+                                    projectsByCategory={
+                                        projectsByCategory as ProjectsByCategory
+                                    }
+                                />
+                            </ContentContainer>
+                        </Fragment>
+                    );
+
                 default:
                     return "";
             }
         }
     );
+};
 
 const loadResultsSection = (
     refResults: (node: Element | null) => void,
@@ -281,18 +300,6 @@ const loadCreditsSection = (elements: ProjectSection["elements"]) => (
     </ArticleSection>
 );
 
-const loadOtherProjectsSection = (
-    elements: ProjectSection["elements"],
-    projectsByCategory: ProjectsByCategory
-) => (
-    <ArticleSection key="Other UX/UI Projects" id="another-projects">
-        <H2>Other {elements[0].category} Projects</H2>
-        <ContentContainer variant="full">
-            <OtherProjects projectsByCategory={projectsByCategory} />
-        </ContentContainer>
-    </ArticleSection>
-);
-
 export default function Project({ data }: Props): JSX.Element {
     const {
         uid,
@@ -319,7 +326,7 @@ export default function Project({ data }: Props): JSX.Element {
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
 
-    const intersectionRootMargins = ["0px 0px 100% 0px"];
+    let intersectionRootMargins = ["0px 0px 100% 0px"];
 
     const timelineWithSections = {
         title: "Design Process",
@@ -436,7 +443,7 @@ export default function Project({ data }: Props): JSX.Element {
                         .replaceAll(" ", "-")
                         .replaceAll("/", "-");
 
-                    switch (section) {
+                    switch (sectionId) {
                         case "results":
                             return loadResultsSection(
                                 intersectionRefs[i],
@@ -448,12 +455,6 @@ export default function Project({ data }: Props): JSX.Element {
                         case "credits":
                             return loadCreditsSection(elements);
 
-                        case "other-ux-ui-projects":
-                            return loadOtherProjectsSection(
-                                elements,
-                                projectsByCategory
-                            );
-
                         default:
                             return (
                                 <ArticleSection
@@ -464,7 +465,8 @@ export default function Project({ data }: Props): JSX.Element {
                                     <H2>{section}</H2>
                                     {sectionLoader(
                                         elements,
-                                        gallerySliderElementsGap
+                                        gallerySliderElementsGap,
+                                        projectsByCategory
                                     )}
                                 </ArticleSection>
                             );
