@@ -4,14 +4,14 @@ import { graphql, PageProps } from "gatsby";
 import type { HeadProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
 
+import { DeviceMockup } from "@components/device-mockup";
+import { DevicesCarousel } from "@components/devices-carousel";
 import { FullPageContent } from "@components/full-page-content";
 import { H2 } from "@components/h2";
 import { H3 } from "@components/h3";
 import { Link } from "@components/link";
 import { GridRow } from "@components/main-container";
 import { Meta } from "@components/meta";
-import { MobileDeviceCarousel } from "@components/mobile-device-carousel";
-import { MobileDeviceMockup } from "@components/mobile-device-mockup";
 import { MotionCursor } from "@components/motion-cursor";
 import { ParallaxBackground } from "@components/parallax-background";
 import { Quote } from "@components/quote";
@@ -64,8 +64,7 @@ interface Props extends PageProps {
 const sectionLoader = (
     elements: ProjectSection["elements"],
     gallerySliderElementsGap: number = 0
-) => {
-    return elements.map(
+) => elements.map(
         (
             { element, description = "", image = "", images = [], quote = "" },
             index
@@ -121,8 +120,8 @@ const sectionLoader = (
                     return (
                         <ContentContainer key={index}>
                             <TwoImagesWrapper>
-                                {(images as unknown as { image: string }[]).map(
-                                    function ({ image }, j) {
+                                {(images as unknown as Array<{ image: string }>).map(
+                                    function({ image }, j) {
                                         return (
                                             <ParallaxBackground
                                                 key={index + String(j)}
@@ -166,7 +165,7 @@ const sectionLoader = (
                     return (
                         <Fragment key={index}>
                             <ContentContainer variant="full">
-                                <MobileDeviceMockup
+                                <DeviceMockup
                                     key={index}
                                     prototypeSrc={
                                         "https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FQaKvvMvwwFov4qwUMN79N1%2FPayMe%3Fnode-id%3D4%253A1113%26scaling%3Dscale-down-width%26page-id%3D2%253A475%26starting-point-node-id%3D4%253A600%26show-proto-sidebar%3D1&amp;hide-ui=1"
@@ -180,7 +179,7 @@ const sectionLoader = (
                     return (
                         <Fragment key={index}>
                             <ContentContainer variant="full">
-                                <MobileDeviceCarousel />
+                                <DevicesCarousel />
                             </ContentContainer>
                         </Fragment>
                     );
@@ -190,7 +189,6 @@ const sectionLoader = (
             }
         }
     );
-};
 
 const loadResultsSection = (
     refResults: (node: Element | null) => void,
@@ -321,7 +319,7 @@ export default function Project({ data }: Props): JSX.Element {
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
 
-    let intersectionRootMargins = ["0px 0px 100% 0px"];
+    const intersectionRootMargins = ["0px 0px 100% 0px"];
 
     const timelineWithSections = {
         title: "Design Process",

@@ -4,9 +4,9 @@ import tw, { css, styled } from "twin.macro";
 
 import { up } from "@utils/screens";
 
-import { MobileDeviceMockup } from "./mobile-device-mockup";
+import { DeviceMockup } from "./device-mockup";
 
-const MobileDeviceCarouselContainer = styled.div(() => [
+const DevicesCarouselContainer = styled.div(() => [
     tw`max-w-full flex justify-evenly lg:relative lg:max-w-none lg:w-[100vw]`,
     css`
         // ${up("lg")} {
@@ -25,10 +25,10 @@ const listOfPhones = [
 ];
 /* eslint-enable max-len */
 
-export const MobileDeviceCarousel = memo(() => (
-    <MobileDeviceCarouselContainer>
+export const DevicesCarousel = memo(() => (
+    <DevicesCarouselContainer>
         {listOfPhones.map((phone) => (
-            <MobileDeviceMockup prototypeSrc={phone} />
+            <DeviceMockup prototypeSrc={phone} />
         ))}
-    </MobileDeviceCarouselContainer>
+    </DevicesCarouselContainer>
 ));

@@ -26,7 +26,7 @@ interface Props {
     prototypeSrc: string;
 }
 
-export const MobileDeviceMockup = memo(({ prototypeSrc }: Props) => (
+export const DeviceMockup = memo(({ prototypeSrc }: Props) => (
     <MobileDeviceContainer>
         <MobileDevice src={prototypeSrc}></MobileDevice>
         <PhoneFrame />
