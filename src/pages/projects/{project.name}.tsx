@@ -108,6 +108,7 @@ const sectionLoader = (
                         <ContentContainer key={index}>
                             <FullSizeImageWrapper>
                                 <ParallaxBackground
+                                    key={index}
                                     bgImgUrl={`${image}`}
                                     contain={true}
                                     scaleOnHover={true}
@@ -121,9 +122,10 @@ const sectionLoader = (
                         <ContentContainer key={index}>
                             <TwoImagesWrapper>
                                 {(images as unknown as { image: string }[]).map(
-                                    function ({ image }) {
+                                    function ({ image }, j) {
                                         return (
                                             <ParallaxBackground
+                                                key={index + String(j)}
                                                 bgImgUrl={`${image}`}
                                                 contain={true}
                                                 scaleOnHover={true}
@@ -165,6 +167,7 @@ const sectionLoader = (
                         <Fragment key={index}>
                             <ContentContainer variant="full">
                                 <MobileDeviceMockup
+                                    key={index}
                                     prototypeSrc={
                                         "https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FQaKvvMvwwFov4qwUMN79N1%2FPayMe%3Fnode-id%3D4%253A1113%26scaling%3Dscale-down-width%26page-id%3D2%253A475%26starting-point-node-id%3D4%253A600%26show-proto-sidebar%3D1&amp;hide-ui=1"
                                     }
@@ -188,27 +191,6 @@ const sectionLoader = (
         }
     );
 };
-
-const loadChallengeSection = (
-    refChallenge: (node: Element | null) => void,
-    elements: ProjectSection["elements"]
-) => (
-    <ArticleSection key="challenge" id="challenge" ref={refChallenge}>
-        <H2>Challenge</H2>
-        {sectionLoader(elements)}
-    </ArticleSection>
-);
-
-const loadApproachSection = (
-    refApproach: (node: Element | null) => void,
-    elements: ProjectSection["elements"],
-    gallerySliderElementsGap: number
-) => (
-    <ArticleSection key="approach" id="approach" ref={refApproach}>
-        <H2>Approach</H2>
-        {sectionLoader(elements, gallerySliderElementsGap)}
-    </ArticleSection>
-);
 
 const loadResultsSection = (
     refResults: (node: Element | null) => void,
@@ -339,6 +321,8 @@ export default function Project({ data }: Props): JSX.Element {
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
 
+    let intersectionRootMargins = ["0px 0px 100% 0px"];
+
     const timelineWithSections = {
         title: "Design Process",
         id: "singleProject",
@@ -348,7 +332,11 @@ export default function Project({ data }: Props): JSX.Element {
                     showInTimeline && showInTimeline === "yes"
             )
 
-            .map(({ section }) => {
+            .map(({ section }, i) => {
+                if (i > 1) {
+                    intersectionRootMargins.push("0px 0px -200px 0px");
+                }
+
                 return {
                     id: section.toLowerCase(),
                     title: section,
@@ -356,20 +344,21 @@ export default function Project({ data }: Props): JSX.Element {
             }),
     };
 
-    const refChallenge = useInViewEffect(intersection, {
-        ...options,
-        rootMargin: "0px 0px 100% 0px",
-    });
+    // Last item needs different intersection so to include the footer
+    intersectionRootMargins.pop();
 
-    const refApproach = useInViewEffect(intersection, {
-        ...options,
-        rootMargin: "0px 0px -200px 0px",
-    });
+    intersectionRootMargins.push("200% 0px 0px 0px");
 
-    const refResults = useInViewEffect(intersection, {
-        ...options,
-        rootMargin: "200% 0px 0px 0px",
-    });
+    const intersectionRefs = [] as any[];
+
+    for (const rootMargin of intersectionRootMargins) {
+        intersectionRefs.push(
+            useInViewEffect(intersection, {
+                ...options,
+                rootMargin,
+            })
+        );
+    }
 
     return (
         <Fragment>
@@ -391,6 +380,7 @@ export default function Project({ data }: Props): JSX.Element {
                     </MainTitleWrapper>
                     <ParallaxBackground bgImgUrl={cover} />
                 </HeroWrapper>
+
                 <GridRow start={2} end={12}>
                     {(navigation.hasPreviousButton ||
                         navigation.hasNextButton) && (
@@ -442,21 +432,11 @@ export default function Project({ data }: Props): JSX.Element {
                     activeTabId={activeItemId}
                 />
 
-                {sections.map(({ section, elements }) => {
+                {sections.map(({ section, elements }, i) => {
                     switch (section) {
-                        case "challenge":
-                            return loadChallengeSection(refChallenge, elements);
-
-                        case "approach":
-                            return loadApproachSection(
-                                refApproach,
-                                elements,
-                                gallerySliderElementsGap
-                            );
-
                         case "results":
                             return loadResultsSection(
-                                refResults,
+                                intersectionRefs[i],
                                 elements,
                                 refStats,
                                 animateStats
@@ -466,10 +446,26 @@ export default function Project({ data }: Props): JSX.Element {
                             return loadCreditsSection(elements);
 
                         case "other-projects":
-                        default:
                             return loadOtherProjectsSection(
                                 elements,
                                 projectsByCategory
+                            );
+
+                        default:
+                            return (
+                                <ArticleSection
+                                    key={section
+                                        .toLowerCase()
+                                        .replace(" ", "-")}
+                                    id={section.toLowerCase().replace(" ", "-")}
+                                    ref={intersectionRefs[i]}
+                                >
+                                    <H2>{section}</H2>
+                                    {sectionLoader(
+                                        elements,
+                                        gallerySliderElementsGap
+                                    )}
+                                </ArticleSection>
                             );
                     }
                 })}
