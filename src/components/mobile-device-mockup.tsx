@@ -27,7 +27,7 @@ interface Props {
 }
 
 export const MobileDeviceMockup = memo(({ prototypeSrc }: Props) => (
-    <MobileDeviceContainer className="testing-con">
+    <MobileDeviceContainer>
         <MobileDevice src={prototypeSrc}></MobileDevice>
         <PhoneFrame />
     </MobileDeviceContainer>
