@@ -1,12 +1,8 @@
 type ProjectCategory = "UX" | "UI" | "Others";
 
 interface ProjectSection {
-    section:
-        | "challenge"
-        | "approach"
-        | "results"
-        | "credits"
-        | "other-projects";
+    section: string;
+    showInTimeline?: "yes" | "no";
     elements: Array<Record<string, string>>;
 }
 
