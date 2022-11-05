@@ -18,7 +18,6 @@ import { Quote } from "@components/quote";
 import { Tabs } from "@components/tabs";
 import { Timeline } from "@components/timeline";
 import ViewOnDeskStar from "@components/view-on-desktop-star";
-import { designProcessTimeline } from "@config/page-timlines";
 import { GallerySlider } from "@domain/single-project/gallery-slider";
 import { OtherProjects } from "@domain/single-project/other-projects";
 import {
@@ -340,34 +339,33 @@ export default function Project({ data }: Props): JSX.Element {
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
 
-    const allowedTimelineSections = ["challenge", "approach", "results"];
-    const timelineWithSections = [
-        {
-            ...designProcessTimeline[0],
-            items: sections
-                .filter(({ section }) =>
-                    allowedTimelineSections.includes(section)
-                )
+    const timelineWithSections = {
+        title: "Design Process",
+        id: "singleProject",
+        items: sections
+            .filter(
+                ({ showInTimeline }) =>
+                    showInTimeline && showInTimeline === "yes"
+            )
 
-                .map(({ section }) => {
-                    const lowerCasedSectionName = section.toLowerCase();
-
-                    return {
-                        id: lowerCasedSectionName,
-                        title: lowerCasedSectionName,
-                    };
-                }),
-        },
-    ];
+            .map(({ section }) => {
+                return {
+                    id: section.toLowerCase(),
+                    title: section,
+                };
+            }),
+    };
 
     const refChallenge = useInViewEffect(intersection, {
         ...options,
         rootMargin: "0px 0px 100% 0px",
     });
+
     const refApproach = useInViewEffect(intersection, {
         ...options,
         rootMargin: "0px 0px -200px 0px",
     });
+
     const refResults = useInViewEffect(intersection, {
         ...options,
         rootMargin: "200% 0px 0px 0px",
@@ -431,16 +429,16 @@ export default function Project({ data }: Props): JSX.Element {
                     <Timeline
                         style={{ height: "254px" }}
                         activeItemId={activeItemId}
-                        activeSectionId={timelineWithSections[0].id}
+                        activeSectionId={timelineWithSections.id}
                         onTimelineItemChange={onTimelineItemChange}
-                        sections={timelineWithSections}
+                        sections={[timelineWithSections]}
                     />
                 </TimelineWrapper>
 
                 <Tabs
                     hideForDesktop={true}
                     onTabChange={onTimelineItemChange}
-                    tabs={timelineWithSections[0].items}
+                    tabs={timelineWithSections.items}
                     activeTabId={activeItemId}
                 />
 
