@@ -10,6 +10,8 @@ import { H3 } from "@components/h3";
 import { Link } from "@components/link";
 import { GridRow } from "@components/main-container";
 import { Meta } from "@components/meta";
+import { MobileDeviceCarousel } from "@components/mobile-device-carousel";
+import { MobileDeviceMockup } from "@components/mobile-device-mockup";
 import { MotionCursor } from "@components/motion-cursor";
 import { ParallaxBackground } from "@components/parallax-background";
 import { Quote } from "@components/quote";
@@ -64,39 +66,47 @@ const loadChallengeSection = (
     refChallenge: (node: Element | null) => void,
     elements: ProjectSection["elements"]
 ) => (
-    <ArticleSection key="challenge" id="challenge" ref={refChallenge}>
-        <H2>Challenge</H2>
-        <ContentContainer>
-            {elements.map(({ element, description }, index) => {
-                switch (element) {
-                    case "overview":
-                        return (
-                            <Fragment key={index}>
-                                <H3>Overview</H3>
-                                <Paragraph>{description}</Paragraph>
-                            </Fragment>
-                        );
-                    case "project-goals":
-                        return (
-                            <Fragment key={index}>
-                                <H3>Project goals</H3>
-                                <Paragraph>{description}</Paragraph>
-                            </Fragment>
-                        );
-                    case "audience":
-                        return (
-                            <Fragment key={index}>
-                                <H3>Audience</H3>
-                                <Paragraph>{description}</Paragraph>
-                            </Fragment>
-                        );
-                }
+        <div>
+            <ArticleSection key="screens-mockup" id="screens-mockup">
+                <ContentContainer variant="full">
+                    <MobileDeviceMockup prototypeSrc={"https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FQaKvvMvwwFov4qwUMN79N1%2FPayMe%3Fnode-id%3D4%253A1113%26scaling%3Dscale-down-width%26page-id%3D2%253A475%26starting-point-node-id%3D4%253A600%26show-proto-sidebar%3D1&amp;hide-ui=1"}/>
+                    <MobileDeviceCarousel />
+                </ContentContainer>
+            </ArticleSection>
+            <ArticleSection key="challenge" id="challenge" ref={refChallenge}>
+                <H2>Challenge</H2>
+                <ContentContainer>
+                    {elements.map(({ element, description }, index) => {
+                        switch (element) {
+                            case "overview":
+                                return (
+                                    <Fragment key={index}>
+                                        <H3>Overview</H3>
+                                        <Paragraph>{description}</Paragraph>
+                                    </Fragment>
+                                );
+                            case "project-goals":
+                                return (
+                                    <Fragment key={index}>
+                                        <H3>Project goals</H3>
+                                        <Paragraph>{description}</Paragraph>
+                                    </Fragment>
+                                );
+                            case "audience":
+                                return (
+                                    <Fragment key={index}>
+                                        <H3>Audience</H3>
+                                        <Paragraph>{description}</Paragraph>
+                                    </Fragment>
+                                );
+                        }
 
-                return "";
-            })}
-        </ContentContainer>
-    </ArticleSection>
-);
+                        return "";
+                    })}
+                </ContentContainer>
+            </ArticleSection>
+        </div>
+        );
 
 const loadApproachSection = (
     refApproach: (node: Element | null) => void,
