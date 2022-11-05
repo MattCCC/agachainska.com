@@ -1,8 +1,9 @@
 import tw, { css, styled } from "twin.macro";
 
+import { useLocation } from "@reach/router";
+
 import { Link } from "@components/link";
 import { Translate } from "@components/translate";
-import { useLocation } from "@reach/router";
 import { getLinkProps } from "@utils/route";
 
 interface Props {

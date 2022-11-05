@@ -6,14 +6,18 @@ import useMouseLeave from "use-mouse-leave";
 import { FullPageContent } from "@components/full-page-content";
 import { MotionSlider } from "@components/motion-slider";
 import { useStoreProp } from "@store/index";
+import { up } from "@utils/screens";
 
 const SliderWrapper = styled.div(() => [tw`cursor-none lg:ml-72`]);
 
 const Element = styled.div(() => [
     tw`max-w-full`,
     css`
-        width: 820px;
-        height: 550px;
+        width: 250px;
+        ${up("lg")} {
+            width: 820px;
+            height: 550px;
+        }
         background: rgba(255, 255, 255, 0.99);
     `,
 ]);

@@ -17,7 +17,7 @@ interface TabsStyled {
 }
 
 interface PropsTabContainer {
-    isSticky: boolean;
+    isIntersecting: boolean;
 }
 
 interface TabStyled extends MotionProps {
@@ -42,12 +42,12 @@ const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
 ]);
 
 const TabsListContainer = styled.div(
-    ({ isSticky = false }: PropsTabContainer) => [
+    ({ isIntersecting = false }: PropsTabContainer) => [
         tw`relative h-8 `,
         css`
             width: calc(100vw - 32px);
         `,
-        isSticky &&
+        isIntersecting &&
             css`
                 &:after {
                     content: "";
@@ -96,41 +96,35 @@ export const Tabs = memo(
     }: Props): JSX.Element => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
 
-        const [tabsAreSticky, setTabsAreSticky] = useState(false);
-
-        const [state, setState] = useState({
-            tabId: activeTabId || tabs[0]?.id || "",
-        });
-
-        const activeTabIndex = tabs?.findIndex((tab) => tab.id === state.tabId);
-
-        const tabWidth = 100 / tabs.length;
-        const pinX = tabWidth * (activeTabIndex + 1) - tabWidth + "%";
+        const [areTabsIntersectingContent, setTabsIntersecting] =
+            useState(false);
+        const [tabId, setTabId] = useState("");
+        const [pinX, setPinX] = useState("0%");
+        const [tabWidth, setTabWidth] = useState(0);
+        const [activeTabIndex, setActiveTabIndex] = useState(0);
 
         useEffect(() => {
-            if (tabsAreSticky) {
-                setState((prevState) => {
-                    if (activeTabId === prevState.tabId) {
-                        return prevState;
-                    }
+            setTabId(activeTabId || tabs[0]?.id || "");
+        }, [activeTabId, tabs]);
 
-                    return {
-                        ...prevState,
-                        tabId:
-                            activeTabId !== prevState.tabId
-                                ? activeTabId
-                                : prevState.tabId,
-                    };
-                });
-            } else {
-                setState({ tabId: tabs[0].id });
-            }
-        }, [tabsAreSticky, activeTabId, tabs]);
+        useEffect(() => {
+            setActiveTabIndex(tabs?.findIndex((tab) => tab.id === tabId));
+        }, [tabId, tabs]);
+
+        useEffect(() => {
+            setTabWidth(100 / tabs.length);
+        }, [tabs]);
+
+        useEffect(() => {
+            setPinX(tabWidth * (activeTabIndex + 1) - tabWidth + "%");
+        }, [activeTabId, activeTabIndex, tabWidth]);
 
         useEffect(() => {
             const currentElement = wrapperRef.current;
             const observer = new IntersectionObserver(
-                ([e]) => setTabsAreSticky(e.isIntersecting),
+                ([e]) => {
+                    setTabsIntersecting(e.isIntersecting);
+                },
                 { rootMargin: "0px 0px -90% 0px", threshold: 1 }
             );
 
@@ -148,29 +142,26 @@ export const Tabs = memo(
 
         const onTabClick = useCallback(
             (tab: SingleTab) => {
-                if (state.tabId === tab.id) {
+                if (tabId === tab.id) {
                     return;
                 }
 
-                setState({
-                    ...state,
-                    tabId: tab.id,
-                });
+                setTabId(tab.id);
 
                 onTabChange(tab);
             },
-            [onTabChange, state]
+            [onTabChange, tabId]
         );
 
         return (
             <TabsWrapper ref={wrapperRef} {...props}>
-                <TabsListContainer isSticky={tabsAreSticky}>
+                <TabsListContainer isIntersecting={areTabsIntersectingContent}>
                     <TabsList>
                         <AnimatePresence initial={false}>
                             {tabs.map((tab: SingleTab, index: number) => (
                                 <Tab
                                     key={`tab-${index}`}
-                                    isActive={tab.id === state.tabId}
+                                    isActive={tab.id === tabId.tabId}
                                     onClick={onTabClick.bind(null, tab)}
                                 >
                                     {tab.title}
