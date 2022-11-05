@@ -13,7 +13,6 @@ import SelectedProjects from "@components/selected-projects";
 import { SocialMedia } from "@components/social-media";
 import { Tabs } from "@components/tabs";
 import { Timeline } from "@components/timeline";
-import { aboutPageTimeline } from "@config/page-timlines";
 import { socialMedia } from "@data/social-media";
 import { useTimelineViewport } from "@hooks/use-timeline-viewport";
 import { useWindowSize } from "@hooks/use-window-size";
@@ -193,6 +192,16 @@ interface Props extends PageProps {
     };
 }
 
+const aboutPageTimeline = {
+    title: "Aga",
+    id: "aboutInfo",
+    items: [
+        { id: "expertise", title: "Expertise" },
+        { id: "design-process", title: "Design Process" },
+        { id: "selected-projects", title: "Selected Projects" },
+    ],
+};
+
 export default function About({ data }: Props): JSX.Element {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
@@ -212,7 +221,7 @@ export default function About({ data }: Props): JSX.Element {
         rootMargin: "200% 0px 0px 0px",
     });
 
-    const tabsTimeline = aboutPageTimeline[0].items.map((item) => {
+    const tabsTimeline = aboutPageTimeline.items.map((item) => {
         const titleArr = item.title.split(" ");
         const lastWordInTitle = titleArr.length - 1;
         const titleToDisplayOnMobile = titleArr[lastWordInTitle];
@@ -252,9 +261,9 @@ export default function About({ data }: Props): JSX.Element {
                             <Timeline
                                 style={{ height: "254px" }}
                                 activeItemId={activeItemId}
-                                activeSectionId={aboutPageTimeline[0].id}
+                                activeSectionId={aboutPageTimeline.id}
                                 onTimelineItemChange={onTimelineItemChange}
-                                sections={aboutPageTimeline}
+                                sections={[aboutPageTimeline]}
                             />
                         </TimelineWrapper>
 
