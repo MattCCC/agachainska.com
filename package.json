@@ -5,13 +5,12 @@
   "version": "0.1.0",
   "license": "0BSD",
   "scripts": {
-    "watch": "yarn develop",
-    "dev": "yarn develop",
+    "watch": "npm run dev",
+    "dev": "gatsby develop -p8002",
     "build": "gatsby build",
-    "develop": "gatsby develop -p8002",
-    "format": "yarn lint --fix && prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "format": "npm run lint --fix && prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "lint": "node_modules/.bin/eslint --ext .tsx,.ts,.js,.jsx ./src",
-    "start": "yarn develop",
+    "start": "npm run dev",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
