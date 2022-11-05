@@ -178,7 +178,8 @@
     - section: "Other UX/UI Projects"
       showInTimeline: "no"
       elements:
-        - category: Illustrations
+        - element: "other-projects"
+          category: Illustrations
 
 - uid: 4
   category: Illustrations
@@ -236,7 +237,8 @@
     - section: "Other UX/UI Projects"
       showInTimeline: "no"
       elements:
-        - category: Illustrations
+        - element: "other-projects"
+          category: Illustrations
 
 - uid: 5
   category: Illustrations
@@ -294,7 +296,8 @@
     - section: "Other UX/UI Projects"
       showInTimeline: "no"
       elements:
-        - category: Illustrations
+        - element: "other-projects"
+          category: Illustrations
 
 - uid: 6
   category: Illustrations
@@ -352,7 +355,8 @@
     - section: "Other UX/UI Projects"
       showInTimeline: "no"
       elements:
-        - category: Illustrations
+        - element: "other-projects"
+          category: Illustrations
 
 - uid: 7
   category: Illustrations
@@ -410,7 +414,8 @@
     - section: "Other UX/UI Projects"
       showInTimeline: "no"
       elements:
-        - category: Illustrations
+        - element: "other-projects"
+          category: Illustrations
 
 - uid: 8
   category: UX/UI
