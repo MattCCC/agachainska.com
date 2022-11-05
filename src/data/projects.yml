@@ -12,6 +12,15 @@
     - section: "discover"
       showInTimeline: "yes"
       elements:
+        - element: "device"
+          type: "iPhoneX"
+          link: "/img/screenShot.png"
+        - element: "devices"
+          types:
+            - type: "iPhoneX"
+              link: "/img/screenShot.png"
+            - type: "iPhoneX"
+              link: "/img/screenShot.png"
         - element: "overview"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
         - element: "project-goals"
@@ -34,15 +43,6 @@
         - element: "slider"
         - element: "quote"
           quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
-        - element: "device"
-          type: "iPhoneX"
-          link: "/img/screenShot.png"
-        - element: "devices"
-          types:
-            - type: "iPhoneX"
-              link: "/img/screenShot.png"
-            - type: "iPhoneX"
-              link: "/img/screenShot.png"
     - section: "results"
       showInTimeline: "yes"
       elements:
