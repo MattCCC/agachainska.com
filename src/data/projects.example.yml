@@ -57,7 +57,7 @@
           designDesc: "BRND WGN"
           projectManagement: "Project management:"
           projectManagementDesc: "November 2019, 7 days"
-    - section: "other-projects"
+    - section: "Other UX/UI Projects"
       showInTimeline: "no"
       elements:
         - category: UX/UI
