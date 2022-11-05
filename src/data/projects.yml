@@ -1,7 +1,7 @@
 - uid: 1
   category: UX/UI
   subCategory:
-  name: RE/MAX
+  name: RE/MAX 1
   cover: "/img/projects/image-1.png"
   client: RE/MAX Malta
   agency: BRND WGN
@@ -9,7 +9,7 @@
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for RE/MAX"
   sections:
-    - section: "challenge"
+    - section: "asddsa"
       showInTimeline: "yes"
       elements:
         - element: "overview"
@@ -39,10 +39,10 @@
           link: "/img/screenShot.png"
         - element: "devices"
           types:
-          - type: "iPhoneX"
-            link: "/img/screenShot.png"
-          - type: "iPhoneX"
-            link: "/img/screenShot.png"
+            - type: "iPhoneX"
+              link: "/img/screenShot.png"
+            - type: "iPhoneX"
+              link: "/img/screenShot.png"
     - section: "results"
       showInTimeline: "yes"
       elements:
