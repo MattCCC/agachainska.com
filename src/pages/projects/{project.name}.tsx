@@ -62,54 +62,134 @@ interface Props extends PageProps {
     };
 }
 
+const sectionLoader = (
+    elements: ProjectSection["elements"],
+    gallerySliderElementsGap: number = 0
+) => {
+    return elements.map(
+        (
+            { element, description = "", image = "", images = [], quote = "" },
+            index
+        ) => {
+            switch (element) {
+                case "overview":
+                    return (
+                        <ContentContainer key={index}>
+                            <H3>Overview</H3>
+                            <Paragraph>{description}</Paragraph>
+                        </ContentContainer>
+                    );
+
+                case "project-goals":
+                    return (
+                        <ContentContainer key={index}>
+                            <H3>Project goals</H3>
+                            <Paragraph>{description}</Paragraph>
+                        </ContentContainer>
+                    );
+
+                case "audience":
+                    return (
+                        <ContentContainer key={index}>
+                            <H3>Audience</H3>
+                            <Paragraph>{description}</Paragraph>
+                        </ContentContainer>
+                    );
+
+                case "brand-elements":
+                    return (
+                        <ContentContainer key={index}>
+                            <H3>Brand elements</H3>
+                            <Paragraph>{description}</Paragraph>
+                        </ContentContainer>
+                    );
+
+                case "full-size-image":
+                    return (
+                        <ContentContainer key={index}>
+                            <FullSizeImageWrapper>
+                                <ParallaxBackground
+                                    bgImgUrl={`${image}`}
+                                    contain={true}
+                                    scaleOnHover={true}
+                                />
+                            </FullSizeImageWrapper>
+                        </ContentContainer>
+                    );
+
+                case "two-images":
+                    return (
+                        <ContentContainer key={index}>
+                            <TwoImagesWrapper>
+                                {(images as unknown as { image: string }[]).map(
+                                    function ({ image }) {
+                                        return (
+                                            <ParallaxBackground
+                                                bgImgUrl={`${image}`}
+                                                contain={true}
+                                                scaleOnHover={true}
+                                            />
+                                        );
+                                    }
+                                )}
+                            </TwoImagesWrapper>
+                        </ContentContainer>
+                    );
+
+                case "full-page-image":
+                    return (
+                        <Fragment key={index}>
+                            <FullPageContent widthPct={100}>
+                                <ParallaxBackground bgImgUrl={`${image}`} />
+                            </FullPageContent>
+                        </Fragment>
+                    );
+
+                case "slider":
+                    return (
+                        <Fragment key={index}>
+                            <GallerySlider gap={gallerySliderElementsGap} />
+                        </Fragment>
+                    );
+
+                case "quote":
+                    return (
+                        <Fragment key={index}>
+                            <ContentContainer variant="full">
+                                <Quote>{quote}</Quote>
+                            </ContentContainer>
+                        </Fragment>
+                    );
+
+                case "mobile-device":
+                    return (
+                        <Fragment key={index}>
+                            <ContentContainer variant="full">
+                                <MobileDeviceMockup
+                                    prototypeSrc={
+                                        "https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FQaKvvMvwwFov4qwUMN79N1%2FPayMe%3Fnode-id%3D4%253A1113%26scaling%3Dscale-down-width%26page-id%3D2%253A475%26starting-point-node-id%3D4%253A600%26show-proto-sidebar%3D1&amp;hide-ui=1"
+                                    }
+                                />
+                                <MobileDeviceCarousel />
+                            </ContentContainer>
+                        </Fragment>
+                    );
+
+                default:
+                    return "";
+            }
+        }
+    );
+};
+
 const loadChallengeSection = (
     refChallenge: (node: Element | null) => void,
     elements: ProjectSection["elements"]
 ) => (
-    <div>
-        <ArticleSection key="screens-mockup" id="screens-mockup">
-            <ContentContainer variant="full">
-                <MobileDeviceMockup
-                    prototypeSrc={
-                        "https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FQaKvvMvwwFov4qwUMN79N1%2FPayMe%3Fnode-id%3D4%253A1113%26scaling%3Dscale-down-width%26page-id%3D2%253A475%26starting-point-node-id%3D4%253A600%26show-proto-sidebar%3D1&amp;hide-ui=1"
-                    }
-                />
-                <MobileDeviceCarousel />
-            </ContentContainer>
-        </ArticleSection>
-        <ArticleSection key="challenge" id="challenge" ref={refChallenge}>
-            <H2>Challenge</H2>
-            <ContentContainer>
-                {elements.map(({ element, description }, index) => {
-                    switch (element) {
-                        case "overview":
-                            return (
-                                <Fragment key={index}>
-                                    <H3>Overview</H3>
-                                    <Paragraph>{description}</Paragraph>
-                                </Fragment>
-                            );
-                        case "project-goals":
-                            return (
-                                <Fragment key={index}>
-                                    <H3>Project goals</H3>
-                                    <Paragraph>{description}</Paragraph>
-                                </Fragment>
-                            );
-                        case "audience":
-                            return (
-                                <Fragment key={index}>
-                                    <H3>Audience</H3>
-                                    <Paragraph>{description}</Paragraph>
-                                </Fragment>
-                            );
-                    }
-
-                    return "";
-                })}
-            </ContentContainer>
-        </ArticleSection>
-    </div>
+    <ArticleSection key="challenge" id="challenge" ref={refChallenge}>
+        <H2>Challenge</H2>
+        {sectionLoader(elements)}
+    </ArticleSection>
 );
 
 const loadApproachSection = (
@@ -119,82 +199,7 @@ const loadApproachSection = (
 ) => (
     <ArticleSection key="approach" id="approach" ref={refApproach}>
         <H2>Approach</H2>
-        <ContentContainer>
-            {elements.map(({ element, description, image, images }, index) => {
-                switch (element) {
-                    case "brand-elements":
-                        return (
-                            <Fragment key={index}>
-                                <H3>Brand elements</H3>
-                                <Paragraph>{description}</Paragraph>
-                            </Fragment>
-                        );
-
-                    case "full-size-image":
-                        return (
-                            <Fragment key={index}>
-                                <FullSizeImageWrapper>
-                                    <ParallaxBackground
-                                        bgImgUrl={`${image}`}
-                                        contain={true}
-                                        scaleOnHover={true}
-                                    />
-                                </FullSizeImageWrapper>
-                            </Fragment>
-                        );
-
-                    case "two-images":
-                        return (
-                            <Fragment key={index}>
-                                <TwoImagesWrapper>
-                                    {(
-                                        images as unknown as { image: string }[]
-                                    ).map(function ({ image }) {
-                                        return (
-                                            <ParallaxBackground
-                                                bgImgUrl={`${image}`}
-                                                contain={true}
-                                                scaleOnHover={true}
-                                            />
-                                        );
-                                    })}
-                                </TwoImagesWrapper>
-                            </Fragment>
-                        );
-                }
-
-                return "";
-            })}
-        </ContentContainer>
-
-        {elements.map(({ element, quote, image }, index) => {
-            switch (element) {
-                case "full-page-image":
-                    return (
-                        <Fragment key={index}>
-                            <FullPageContent widthPct={100}>
-                                <ParallaxBackground bgImgUrl={`${image}`} />
-                            </FullPageContent>
-                        </Fragment>
-                    );
-                case "slider":
-                    return (
-                        <Fragment key={index}>
-                            <GallerySlider gap={gallerySliderElementsGap} />;
-                        </Fragment>
-                    );
-                case "quote":
-                    return (
-                        <Fragment key={index}>
-                            <ContentContainer variant="full">
-                                <Quote>{quote}</Quote>
-                            </ContentContainer>
-                        </Fragment>
-                    );
-            }
-
-            return "";
-        })}
+        {sectionLoader(elements, gallerySliderElementsGap)}
     </ArticleSection>
 );
 
@@ -481,6 +486,6 @@ export const query = graphql`
     }
 `;
 
-export const Head = (props: HeadProps) => (
+export const Head = (props: HeadProps<{}, { name: string }>) => (
     <Meta title={`${props.pageContext?.name || "Project"} - Aga Chainska`} />
 );
