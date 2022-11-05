@@ -18,10 +18,6 @@ interface Project {
     timeframe: string;
     roleInProject: string;
     shortDescription: string;
-    challenge: Record<string, string>;
-    approach: Record<string, string>;
-    stats: Record<string, number>;
-    credits: Record<string, string>;
     sections: ProjectSection[];
     dribbbleLink?: string;
 }

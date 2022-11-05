@@ -13,30 +13,9 @@ export const ProjectFragment = graphql`
         roleInProject
         shortDescription
         dribbbleLink
-        challenge {
-            overview
-            projectGoals
-            audience
-        }
-        approach {
-            brandElements
-            quote
-        }
-        stats {
-            screens
-            iterations
-            prototypes
-        }
-        credits {
-            concept
-            conceptDesc
-            design
-            designDesc
-            projectManagement
-            projectManagementDesc
-        }
         sections {
             section
+            showInTimeline
             elements {
                 element
                 description
