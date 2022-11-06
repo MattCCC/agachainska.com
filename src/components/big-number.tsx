@@ -44,8 +44,6 @@ export function BigNumber({
 
             const num = Number(count);
 
-            console.log("🚀 ~ num", num);
-
             setCount(String(num + 1));
 
             if (num === value) {
