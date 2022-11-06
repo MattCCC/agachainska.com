@@ -5,6 +5,7 @@ import {
     useState,
     RefObject,
     useMemo,
+    useEffect
 } from "react";
 
 import { graphql, PageProps } from "gatsby";
@@ -110,6 +111,7 @@ const Work = memo(({ data }: Props) => {
     const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
     const [isSliderAnimating, setIsSliderAnimating] = useState(false);
     const [, dispatch] = useStoreProp("showMotionGrid");
+    const [backgroundColor, dispatchbackgroundColor] = useStoreProp("backgroundColor");
     const projects = useMemo(
         () => data.projects.nodes || [],
         [data.projects.nodes]
@@ -153,6 +155,7 @@ const Work = memo(({ data }: Props) => {
                         id: `others${category}`,
                         routeTo: "",
                         uid: 99999,
+                        bgColor: "",
                         title: "Others",
                         name: "Others",
                         cover: "",
@@ -211,6 +214,16 @@ const Work = memo(({ data }: Props) => {
         activeItemId: firstCategoryFirstItem?.id ?? "1",
         routeTo: firstCategoryFirstItem?.routeTo ?? "",
     } as PageState);
+
+    const bgColor = ((timelineList.find((section) => section.category === state.activeSectionId)?.items || []).at(0) || {}).bgColor;
+
+    useEffect(() => {
+        if (bgColor && backgroundColor !== bgColor) {
+            dispatchbackgroundColor.replaceInState({
+                backgroundColor: bgColor,
+            })
+        }
+    }, [bgColor, backgroundColor, dispatchbackgroundColor]);
 
     const sliderItems: TimelineItem[] = useMemo(
         () =>
@@ -292,6 +305,12 @@ const Work = memo(({ data }: Props) => {
                     projectNumberToShow = indexOfProject;
                     break;
                 }
+            }
+
+            if (currentItem.bgColor) {
+                dispatchbackgroundColor.replaceInState({
+                    backgroundColor: currentItem.bgColor,
+                });
             }
 
             const newSliderIndex = sliderItems.findIndex(
@@ -408,9 +427,7 @@ const Work = memo(({ data }: Props) => {
                                     }
                                     color={
                                         state?.currentProject?.category &&
-                                        categoryColors[
-                                            state.currentProject.category
-                                        ]
+                                        state?.currentProject?.starColor
                                     }
                                     displayStar={state.showStar}
                                 />

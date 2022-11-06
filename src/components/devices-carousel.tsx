@@ -1,23 +1,47 @@
-import { memo } from "react";
+import { useStoreProp } from "@store/index";
+import { memo, useEffect } from "react";
 
 import tw, { css, styled } from "twin.macro";
+import useMouseLeave from "use-mouse-leave";
 
 import { DeviceMockup } from "./device-mockup";
+import { FullPageContent } from "./full-page-content";
+import { MotionSlider } from "./motion-slider";
 
-const DevicesCarouselContainer = styled.div(() => [
-    tw`max-w-full flex justify-evenly lg:relative lg:max-w-none lg:w-[100vw]`,
+const SliderWrapper = styled.div(() => [
+    tw`cursor-none lg:ml-[13rem]`,
     css`
-        margin: 10rem auto 90px -50vw;
-        left: calc(50% - 8px);
+        & > div {
+            ${tw`overflow-visible`}
+        }
     `,
 ]);
 
 export const DevicesCarousel = memo(
-    ({ list }: { list: ProjectSectionElementDevice[] }) => (
-        <DevicesCarouselContainer>
-            {list.map(({ type, link }, i) => (
-                <DeviceMockup key={i} type={type} link={link} />
-            ))}
-        </DevicesCarouselContainer>
-    )
+    ({ list }: { list: ProjectSectionElementDevice[] }) => {
+        const [, dispatch] = useStoreProp("currentDelayedRoute");
+        const [mouseLeft, itemsRef] = useMouseLeave();
+
+        useEffect(() => {
+            dispatch.showMotionCursor(!mouseLeft, {
+                text: "drag",
+                route: "",
+                color: mouseLeft ? "black" : "melrose",
+                size: 80,
+                overlap: mouseLeft,
+            });
+        }, [mouseLeft, dispatch]);
+
+        return (
+            <FullPageContent widthPct={100} heightPct={"670px"} border={false}>
+                <SliderWrapper ref={itemsRef}>
+                    <MotionSlider displayGrabCursor={false}>
+                        {list.map(({ type, link }, i) => (
+                            <DeviceMockup key={i} type={type} link={link} />
+                        ))}
+                    </MotionSlider>
+                </SliderWrapper>
+            </FullPageContent>
+        );
+    }
 );

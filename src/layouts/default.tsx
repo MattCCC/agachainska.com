@@ -16,6 +16,7 @@ import { up } from "@utils/screens";
 interface Props {
     hasGradient: boolean;
     showFooter: boolean;
+    backgroundColor: string;
     darkTheme: boolean;
 }
 
@@ -32,19 +33,23 @@ const DarkTheme = (): ReactElement => (
     />
 );
 
-const Main = styled.main(({ hasGradient, showFooter, darkTheme }: Props) => [
+const Main = styled.main(({ hasGradient, backgroundColor, showFooter, darkTheme }: Props) => [
     tw`relative z-10 w-full h-full min-h-screen text-primary`,
     css`
         backface-visibility: hidden;
     `,
     showFooter &&
-        css`
+    css`
             ${up("lg")} {
                 margin-bottom: ${footerHeight};
             }
         `,
+    backgroundColor &&
+    css`
+            background: ${backgroundColor};
+        `,
     hasGradient &&
-        css`
+    css`
             background: linear-gradient(
                 314.58deg,
                 rgb(249, 255, 246) 0%,
@@ -53,16 +58,19 @@ const Main = styled.main(({ hasGradient, showFooter, darkTheme }: Props) => [
                 rgb(255, 247, 255) 100%
             );
         `,
-    !hasGradient && !darkTheme && tw`bg-white`,
-    darkTheme && tw`bg-black`,
+    !backgroundColor && !hasGradient && !darkTheme && tw`bg-white`,
+    !backgroundColor && darkTheme && tw`bg-black`,
 ]);
 
 export const Layout = ({ children }: PropsWithChildren<unknown>) => {
-    const [showBackgroundGradient] = useStoreProp("showBackgroundGradient");
+    const [showbackgroundColor] = useStoreProp("showbackgroundColor");
+    const [backgroundColor] = useStoreProp("backgroundColor");
     const [darkTheme] = useStoreProp("darkTheme");
     const [showFooter] = useStoreProp("showFooter");
 
     useOnRouteChange();
+
+    console.log('backgroundColor main layout', backgroundColor)
 
     return (
         <Fragment>
@@ -73,7 +81,8 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
             <FullPageOverlay />
             <Header />
             <Main
-                hasGradient={showBackgroundGradient}
+                hasGradient={showbackgroundColor}
+                backgroundColor={backgroundColor}
                 showFooter={showFooter}
                 darkTheme={darkTheme}
             >

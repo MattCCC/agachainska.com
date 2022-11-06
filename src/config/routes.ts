@@ -21,7 +21,7 @@ export const defaultRouteMeta = {
         showFooter: true,
         showLogoOnDesktop: true,
         showWavePattern: true,
-        showBackgroundGradient: true,
+        showbackgroundColor: true,
         darkTheme: false,
     } as RouteMeta["store"],
 };
@@ -34,6 +34,7 @@ const routesList: RoutesList = {
             store: {
                 showLogoOnDesktop: false,
                 showFooter: false,
+                backgroundColor: "",
             },
         },
     },
@@ -44,7 +45,8 @@ const routesList: RoutesList = {
             store: {
                 showMotionGrid: false,
                 showFooter: false,
-                showBackgroundGradient: false,
+                showbackgroundColor: false,
+                backgroundColor: "",
                 darkTheme: true,
             },
         },
@@ -55,7 +57,8 @@ const routesList: RoutesList = {
         meta: {
             store: {
                 showFooter: false,
-                showBackgroundGradient: false,
+                showbackgroundColor: false,
+                backgroundColor: "",
                 darkTheme: true,
             },
         },
@@ -67,6 +70,7 @@ const routesList: RoutesList = {
             store: {
                 showMotionGrid: false,
                 showWavePattern: false,
+                backgroundColor: "",
             },
         },
     },
@@ -76,7 +80,7 @@ const routesList: RoutesList = {
         meta: {
             store: {
                 showMotionGrid: false,
-                showBackgroundGradient: false,
+                showbackgroundColor: false,
                 showFooter: false,
             },
         },
@@ -88,7 +92,8 @@ const routesList: RoutesList = {
         meta: {
             store: {
                 showMotionGrid: false,
-                showBackgroundGradient: false,
+                showbackgroundColor: false,
+                backgroundColor: "",
                 showWavePattern: false,
             },
         },

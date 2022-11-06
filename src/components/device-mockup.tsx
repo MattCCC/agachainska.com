@@ -4,10 +4,12 @@ import tw, { css, styled } from "twin.macro";
 
 import MobileFrame from "../img/iphone-x.png";
 
-const MobileDeviceContainer = styled.div(() => [tw`relative h-[530px]`]);
+const MobileDeviceContainer = styled.div(() => [
+    tw`relative w-[245px] h-[560px]`,
+]);
 
 const MobileDevice = styled.iframe(() => [
-    tw`absolute z-10 bg-white border-0 outline-none`,
+    tw`absolute z-10 bg-white border-0 outline-none cursor-grabbing`,
     tw`w-[245px] h-[532px] rounded-[20px] top-[13px] left-[18px]`,
     css`
         box-shadow: 0px 42px 102px -8px rgba(0, 0, 0, 0.36);

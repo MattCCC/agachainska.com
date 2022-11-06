@@ -51,6 +51,7 @@ import {
 } from "@hooks/use-projects-by-category";
 import { useTimelineViewport } from "@hooks/use-timeline-viewport";
 import { useWindowSize } from "@hooks/use-window-size";
+import tw, { styled } from "twin.macro";
 
 interface Props extends PageProps {
     data: {
@@ -60,6 +61,8 @@ interface Props extends PageProps {
         };
     };
 }
+
+const DeviceMockupWrapper = styled.div(() => [tw`mb-[40px] lg:mb-[80px]`]);
 
 const sectionLoader = (
     elements: ProjectSection["elements"],
@@ -80,7 +83,6 @@ const sectionLoader = (
             },
             index
         ) => {
-            console.log("🚀 ~ list", list);
             switch (element) {
                 case "overview":
                     return (
@@ -182,11 +184,13 @@ const sectionLoader = (
                     return (
                         <Fragment key={index}>
                             <ContentContainer variant="full">
-                                <DeviceMockup
-                                    key={index}
-                                    type={type}
-                                    link={link}
-                                />
+                                <DeviceMockupWrapper>
+                                    <DeviceMockup
+                                        key={index}
+                                        type={type}
+                                        link={link}
+                                    />
+                                </DeviceMockupWrapper>
                             </ContentContainer>
                         </Fragment>
                     );
@@ -194,9 +198,7 @@ const sectionLoader = (
                 case "devices":
                     return (
                         <Fragment key={index}>
-                            <ContentContainer variant="full">
-                                <DevicesCarousel key={index} list={list} />
-                            </ContentContainer>
+                            <DevicesCarousel key={index} list={list} />
                         </Fragment>
                     );
 
