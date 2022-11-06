@@ -26,7 +26,7 @@ type CursorProps = {
 
 const cursorSize = 80;
 
-const Cursor = styled.div(
+export const Cursor = styled.div(
     ({ isMotionCursorVisible, color, size, overlap }: CursorProps) => [
         tw`fixed z-40 hidden text-center text-white uppercase rounded-full cursor-pointer select-none lg:block`,
         tw`leading-3 border prose-12`,
@@ -41,6 +41,8 @@ const Cursor = styled.div(
                 margin-left: -${size || cursorSize}px;
             `,
         css`
+            top: var(--top);
+            left: var(--left);
             width: ${size || cursorSize}px;
             height: ${size || cursorSize}px;
             transform: translate(-50%, -50%);
@@ -202,8 +204,8 @@ export const MotionCursor = ({
     const { clientX, clientY } = TrackMousePosition();
     const projectCover = state.motionCursorData.projectCover;
     const cursorStyle = {
-        left: `${clientX || -state.motionCursorData.size || -cursorSize}px`,
-        top: `${clientY || -state.motionCursorData.size || -cursorSize}px`,
+        "--left": `${clientX || -state.motionCursorData.size || -cursorSize}px`,
+        "--top": `${clientY || -state.motionCursorData.size || -cursorSize}px`,
     } as CSSProperties;
 
     useEffect(() => {
