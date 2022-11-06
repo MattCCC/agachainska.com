@@ -2,7 +2,10 @@ import { memo, useEffect, useState } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import MobileFrame from "../img/iphone-x.png";
+import IphoneX from "../img/iphone-x.png";
+import Iphone8 from "../img/iphone-8.png";
+import Iphone13Pro from "../img/iphone-13-pro.png";
+import MacbookPro from "../img/macbook-pro.png";
 
 const MobileDeviceContainer = styled.div(() => [
     tw`relative w-[245px] h-[560px]`,
@@ -16,10 +19,10 @@ const MobileDevice = styled.iframe(() => [
     `,
 ]);
 
-const PhoneFrame = styled.div(() => [
+const DeviceFrame = styled.div((deviceFrameToUse: ReactElement) => [
     tw`w-[293px] h-[555px] absolute pointer-events-none z-20`,
     css`
-        background: url(${MobileFrame}) no-repeat;
+        background: url(${deviceFrameToUse}) no-repeat;
         background-size: contain;
     `,
 ]);
@@ -46,16 +49,36 @@ const renderSwitch = ({
 
     switch (type) {
         case "iPhoneX":
-            return <MobileDevice as={tag} src={link}></MobileDevice>;
+            return (
+                <>
+                    <MobileDevice as={tag} src={link}></MobileDevice>
+                    <DeviceFrame deviceFrameToUse={IphoneX} />
+                </>
+            );
 
         case "iPhone13pro":
-            return <MobileDevice as={tag} src={link}></MobileDevice>;
+            return (
+                <>
+                    <MobileDevice as={tag} src={link}></MobileDevice>
+                    <DeviceFrame deviceFrameToUse={Iphone13Pro} />
+                </>
+            );
 
         case "iPhone8":
-            return <MobileDevice as={tag} src={link}></MobileDevice>;
+            return (
+                <>
+                    <MobileDevice as={tag} src={link}></MobileDevice>
+                    <DeviceFrame deviceFrameToUse={Iphone8} />
+                </>
+            );
 
         case "laptop":
-            return <MobileDevice as={tag} src={link}></MobileDevice>;
+            return (
+                <>
+                    <MobileDevice as={tag} src={link}></MobileDevice>
+                    <DeviceFrame deviceFrameToUse={MacbookPro} />
+                </>
+            );
     }
 };
 
@@ -75,7 +98,6 @@ export const DeviceMockup = memo(({ type, link }: Props) => {
     return (
         <MobileDeviceContainer>
             {renderSwitch({ isImage, type, link })}
-            <PhoneFrame />
         </MobileDeviceContainer>
     );
 });
