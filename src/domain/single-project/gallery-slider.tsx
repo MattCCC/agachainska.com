@@ -22,38 +22,33 @@ const Element = styled.div(() => [
     `,
 ]);
 
-export const GallerySlider = memo(({ ...props }: Record<string, any>) => {
-    const [, dispatch] = useStoreProp("currentDelayedRoute");
-    const [mouseLeft, itemsRef] = useMouseLeave();
+export const GallerySlider = memo(
+    ({ images, ...props }: { images: string[] }) => {
+        const [, dispatch] = useStoreProp("currentDelayedRoute");
+        const [mouseLeft, itemsRef] = useMouseLeave();
 
-    useEffect(() => {
-        dispatch.showMotionCursor(!mouseLeft, {
-            text: "drag",
-            route: "",
-            color: mouseLeft ? "black" : "melrose",
-            size: 80,
-            overlap: mouseLeft,
-        });
-    }, [mouseLeft, dispatch]);
+        useEffect(() => {
+            dispatch.showMotionCursor(!mouseLeft, {
+                text: "drag",
+                route: "",
+                color: mouseLeft ? "black" : "melrose",
+                size: 80,
+                overlap: mouseLeft,
+            });
+        }, [mouseLeft, dispatch]);
 
-    return (
-        <FullPageContent widthPct={100} border={false}>
-            <SliderWrapper ref={itemsRef}>
-                <MotionSlider {...props} displayGrabCursor={false}>
-                    <Element>
-                        <img src="/img/placeholder-full.png" alt="" />
-                    </Element>
-                    <Element>
-                        <img src="/img/placeholder-full.png" alt="" />
-                    </Element>
-                    <Element>
-                        <img src="/img/placeholder-full.png" alt="" />
-                    </Element>
-                    <Element>
-                        <img src="/img/placeholder-full.png" alt="" />
-                    </Element>
-                </MotionSlider>
-            </SliderWrapper>
-        </FullPageContent>
-    );
-});
+        return (
+            <FullPageContent widthPct={100} border={false}>
+                <SliderWrapper ref={itemsRef}>
+                    <MotionSlider {...props} displayGrabCursor={false}>
+                        {images.map((src) => (
+                            <Element>
+                                <img src={src} alt="" />
+                            </Element>
+                        ))}
+                    </MotionSlider>
+                </SliderWrapper>
+            </FullPageContent>
+        );
+    }
+);

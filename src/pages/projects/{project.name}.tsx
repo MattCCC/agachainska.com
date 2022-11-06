@@ -122,11 +122,7 @@ const sectionLoader = (
                     return (
                         <ContentContainer key={index}>
                             <TwoImagesWrapper>
-                                {(
-                                    images as unknown as Array<{
-                                        image: string;
-                                    }>
-                                ).map(function ({ image }, j) {
+                                {images.map(function ({ image }, j) {
                                     return (
                                         <ParallaxBackground
                                             key={index + String(j)}
@@ -152,7 +148,10 @@ const sectionLoader = (
                 case "slider":
                     return (
                         <Fragment key={index}>
-                            <GallerySlider gap={gallerySliderElementsGap} />
+                            <GallerySlider
+                                images={images}
+                                gap={gallerySliderElementsGap}
+                            />
                         </Fragment>
                     );
 
