@@ -14,22 +14,26 @@ interface Props extends SVGProps<SVGSVGElement> {
 }
 
 export function BigNumber({
-    value = 0,
+    value = 1,
     animate = false,
     displayOnRight = false,
     viewBox = "0 0 200 200",
     ...props
 }: Props) {
     const [count, setCount] = useState("0");
+
     const [delay, setDelay] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
-    const viewBoxWidth = Number(viewBox.split(" ")[2]);
+    const viewBoxWidth = useMemo(
+        () => Number(viewBox.split(" ")[2]),
+        [viewBox]
+    );
     const id = useMemo(() => getRandomNumber(1, 9 ** 9), []);
 
     useEffect(() => {
         setCount(String(animate ? 0 : value));
-        setDelay(1000 / (animate ? Number(value) : 1));
-        setIsRunning(true);
+        setDelay(1000 / Number(value || 1));
+        setIsRunning(animate);
     }, [animate, value]);
 
     useInterval(
