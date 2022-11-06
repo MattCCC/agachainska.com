@@ -18,6 +18,12 @@ export const ProjectFragment = graphql`
             showInTimeline
             elements {
                 element
+                type
+                link
+                list {
+                    type
+                    link
+                }
                 description
                 image
                 images {
