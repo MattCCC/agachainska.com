@@ -2,7 +2,7 @@ import { memo } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import MobileFrame from "../img/iPhoneX.png";
+import iPhoneXImage from "../img/iPhoneX.png";
 
 const MobileDeviceContainer = styled.div(() => [tw`relative h-[530px]`]);
 
@@ -17,7 +17,7 @@ const MobileDevice = styled.iframe(() => [
 const PhoneFrame = styled.div(() => [
     tw`w-[293px] h-[555px] absolute pointer-events-none z-20`,
     css`
-        background: url(${MobileFrame}) no-repeat;
+        background: url(${iPhoneXImage}) no-repeat;
         background-size: contain;
     `,
 ]);

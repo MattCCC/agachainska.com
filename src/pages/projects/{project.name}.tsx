@@ -80,6 +80,7 @@ const sectionLoader = (
             },
             index
         ) => {
+            console.log("🚀 ~ list", list);
             switch (element) {
                 case "overview":
                     return (
@@ -148,8 +149,11 @@ const sectionLoader = (
                 case "full-page-image":
                     return (
                         <Fragment key={index}>
-                            <FullPageContent widthPct={100}>
-                                <ParallaxBackground bgImgUrl={`${image}`} />
+                            <FullPageContent key={index} widthPct={100}>
+                                <ParallaxBackground
+                                    key={index}
+                                    bgImgUrl={`${image}`}
+                                />
                             </FullPageContent>
                         </Fragment>
                     );
@@ -158,6 +162,7 @@ const sectionLoader = (
                     return (
                         <Fragment key={index}>
                             <GallerySlider
+                                key={index}
                                 images={images}
                                 gap={gallerySliderElementsGap}
                             />
@@ -190,7 +195,7 @@ const sectionLoader = (
                     return (
                         <Fragment key={index}>
                             <ContentContainer variant="full">
-                                <DevicesCarousel list={list} />
+                                <DevicesCarousel key={index} list={list} />
                             </ContentContainer>
                         </Fragment>
                     );
