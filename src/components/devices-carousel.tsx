@@ -2,18 +2,14 @@ import { memo } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import { up } from "@utils/screens";
-
 import { DeviceMockup } from "./device-mockup";
 
 const DevicesCarouselContainer = styled.div(() => [
     tw`max-w-full flex justify-evenly lg:relative lg:max-w-none lg:w-[100vw]`,
     css`
-        // ${up("lg")} {
-            margin: 10rem auto 90px -50vw;
-            left: calc(50% - 8px);
-        // }
-    `
+        margin: 10rem auto 90px -50vw;
+        left: calc(50% - 8px);
+    `,
 ]);
 
 /* eslint-disable max-len */

@@ -6,7 +6,7 @@
         "styled-components-a11y"
     ],
     "extends": [
-        "plugin:react-app/recommended",
+        "plugin:@next/next/core-web-vitals",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
