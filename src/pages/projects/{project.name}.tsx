@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { graphql, PageProps } from "gatsby";
 import type { HeadProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
+import tw, { styled } from "twin.macro";
 
 import { DeviceMockup } from "@components/device-mockup";
 import { DevicesCarousel } from "@components/devices-carousel";
@@ -51,7 +52,6 @@ import {
 } from "@hooks/use-projects-by-category";
 import { useTimelineViewport } from "@hooks/use-timeline-viewport";
 import { useWindowSize } from "@hooks/use-window-size";
-import tw, { styled } from "twin.macro";
 
 interface Props extends PageProps {
     data: {
@@ -134,16 +134,14 @@ const sectionLoader = (
                     return (
                         <ContentContainer key={index}>
                             <TwoImagesWrapper>
-                                {images.map(function ({ image }, j) {
-                                    return (
-                                        <ParallaxBackground
-                                            key={index + String(j)}
-                                            bgImgUrl={`${image}`}
-                                            contain={true}
-                                            scaleOnHover={true}
-                                        />
-                                    );
-                                })}
+                                {images.map(({ image: img }, j) => (
+                                    <ParallaxBackground
+                                        key={index + String(j)}
+                                        bgImgUrl={`${img}`}
+                                        contain={true}
+                                        scaleOnHover={true}
+                                    />
+                                ))}
                             </TwoImagesWrapper>
                         </ContentContainer>
                     );
@@ -331,7 +329,7 @@ export default function Project({ data }: Props) {
 
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
-    const gallerySliderElementsGap = hasSmallWindowWidth ? 30 : 133;
+    const gallerySliderElementsGap = hasSmallWindowWidth ? 30 : 40;
 
     const [navigation] = usePagination({ projectsByCategory, uid });
     const [refStats, animateStats] = useIncrementStats();
@@ -371,6 +369,7 @@ export default function Project({ data }: Props) {
 
     for (const rootMargin of intersectionRootMargins) {
         intersectionRefs.push(
+            // eslint-disable-next-line react-hooks/rules-of-hooks
             useInViewEffect(intersection, {
                 ...options,
                 rootMargin,
@@ -459,7 +458,9 @@ export default function Project({ data }: Props) {
                     switch (sectionId) {
                         case "results":
                             return loadResultsSection(
-                                intersectionRefs[i],
+                                intersectionRefs[i] as unknown as (
+                                    node: Element | null
+                                ) => void,
                                 elements,
                                 refStats,
                                 animateStats
@@ -504,6 +505,6 @@ export const query = graphql`
     }
 `;
 
-export const Head = (props: HeadProps<{}, { name: string }>) => (
-    <Meta title={`${props.pageContext?.name || "Project"} - Aga Chainska`} />
-);
+export const Head = (
+    props: HeadProps<Record<string, unknown>, { name: string }>
+) => <Meta title={`${props.pageContext?.name || "Project"} - Aga Chainska`} />;

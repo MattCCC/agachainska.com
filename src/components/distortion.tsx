@@ -13,7 +13,7 @@ interface Props {
  * Apply distortion at particular image
  */
 export const Distortion = memo(
-    forwardRef(({ id = "", imgUrl = "", scale = 0, ...rest }: Props, _ref) => {
+    forwardRef(({ id = "", imgUrl = "", scale = 0, ...rest }: Props) => {
         const restProps = Object.fromEntries(
             Object.entries(rest).filter(([key]) => !key.includes("layoutId"))
         );

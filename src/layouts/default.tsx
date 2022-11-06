@@ -33,34 +33,36 @@ const DarkTheme = (): ReactElement => (
     />
 );
 
-const Main = styled.main(({ hasGradient, backgroundColor, showFooter, darkTheme }: Props) => [
-    tw`relative z-10 w-full h-full min-h-screen text-primary`,
-    css`
-        backface-visibility: hidden;
-    `,
-    showFooter &&
-    css`
-            ${up("lg")} {
-                margin-bottom: ${footerHeight};
-            }
+const Main = styled.main(
+    ({ hasGradient, backgroundColor, showFooter, darkTheme }: Props) => [
+        tw`relative z-10 w-full h-full min-h-screen text-primary`,
+        css`
+            backface-visibility: hidden;
         `,
-    backgroundColor &&
-    css`
-            background: ${backgroundColor};
-        `,
-    hasGradient &&
-    css`
-            background: linear-gradient(
-                314.58deg,
-                rgb(249, 255, 246) 0%,
-                rgb(243, 253, 255) 30.9%,
-                rgb(248, 246, 255) 61.63%,
-                rgb(255, 247, 255) 100%
-            );
-        `,
-    !backgroundColor && !hasGradient && !darkTheme && tw`bg-white`,
-    !backgroundColor && darkTheme && tw`bg-black`,
-]);
+        showFooter &&
+            css`
+                ${up("lg")} {
+                    margin-bottom: ${footerHeight};
+                }
+            `,
+        backgroundColor &&
+            css`
+                background: ${backgroundColor};
+            `,
+        hasGradient &&
+            css`
+                background: linear-gradient(
+                    314.58deg,
+                    rgb(249, 255, 246) 0%,
+                    rgb(243, 253, 255) 30.9%,
+                    rgb(248, 246, 255) 61.63%,
+                    rgb(255, 247, 255) 100%
+                );
+            `,
+        !backgroundColor && !hasGradient && !darkTheme && tw`bg-white`,
+        !backgroundColor && darkTheme && tw`bg-black`,
+    ]
+);
 
 export const Layout = ({ children }: PropsWithChildren<unknown>) => {
     const [showbackgroundColor] = useStoreProp("showbackgroundColor");
@@ -69,8 +71,6 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
     const [showFooter] = useStoreProp("showFooter");
 
     useOnRouteChange();
-
-    console.log('backgroundColor main layout', backgroundColor)
 
     return (
         <Fragment>

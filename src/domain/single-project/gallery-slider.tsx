@@ -35,7 +35,7 @@ export const GallerySlider = memo(
         return (
             <FullPageContent widthPct={100} border={false}>
                 <SliderWrapper ref={itemsRef}>
-                    <MotionSlider displayGrabCursor={false}>
+                    <MotionSlider gap={gap} displayGrabCursor={false}>
                         {images.map(({ image }, i) => (
                             <Element key={i}>
                                 <img src={image} alt="" />

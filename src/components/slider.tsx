@@ -35,7 +35,6 @@ interface Props {
     isShowingOtherProjects: boolean;
     otherProjects: OtherProjectProp[];
     lastProjectNumber: number;
-    customSlides?: Record<string, any>;
     setIsAnimating: (newValue: boolean) => void;
     onSliderTap?:
         | ((
@@ -188,7 +187,6 @@ export const Slider = ({
     showSlideTitle = false,
     isAnimating,
     setIsAnimating,
-    customSlides = {},
     isShowingOtherProjects,
     otherProjects,
     lastProjectNumber,

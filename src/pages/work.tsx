@@ -220,7 +220,7 @@ const Work = memo(({ data }: Props) => {
                     // TODO: active item should be selected instead of the first one
                     .at(0) || {}
             ).bgColor || "#FFF",
-        [timelineList]
+        [timelineList, state.activeSectionId]
     );
 
     useEffect(() => {
@@ -332,7 +332,15 @@ const Work = memo(({ data }: Props) => {
                 currentProject: currentItem,
             }));
         },
-        [state, sliderItems, onOthersSelected, timelineList, setState, dispatch]
+        [
+            state,
+            sliderItems,
+            onOthersSelected,
+            timelineList,
+            setState,
+            dispatch,
+            dispatchbackgroundColor,
+        ]
     );
 
     const onTabChange = useCallback(

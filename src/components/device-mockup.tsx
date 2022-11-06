@@ -2,9 +2,9 @@ import { memo, useEffect, useState, Fragment } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import IphoneX from "../img/iphone-x.png";
-import Iphone8 from "../img/iphone-8.png";
 import Iphone13Pro from "../img/iphone-13-pro.png";
+import Iphone8 from "../img/iphone-8.png";
+import IphoneX from "../img/iphone-x.png";
 import MacbookPro from "../img/macbook-pro.png";
 
 const MobileDeviceContainer = styled.div(() => [
@@ -111,14 +111,14 @@ export const DeviceMockup = memo(({ type, link }: Props) => {
     const [isImage, setIsImage] = useState(false);
 
     useEffect(() => {
-        const getData = async () => {
-            const isImageUrl = await isImageURL(link);
+        const getData = () => {
+            const isImageUrl = isImageURL(link);
 
             setIsImage(isImageUrl);
         };
 
         getData();
-    }, []);
+    }, [link]);
 
     return (
         <MobileDeviceContainer>
