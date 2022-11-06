@@ -215,8 +215,8 @@ const loadResultsSection = (
     refStats: (node: Element | null) => void,
     animateStats: boolean
 ) => (
-    <ArticleSection key="results">
-        <ContentContainer id="results" ref={refResults} variant="full">
+    <ArticleSection key="results" id="results" ref={refResults}>
+        <ContentContainer variant="full">
             {elements.map(({ screens, iterations, prototypes }, index) => (
                 <Fragment key={index}>
                     <TableStats ref={refStats}>
@@ -338,7 +338,7 @@ export default function Project({ data }: Props): JSX.Element {
             )
 
             .map(({ section }, i) => {
-                if (i > 1) {
+                if (i > 0) {
                     intersectionRootMargins.push("0px 0px -200px 0px");
                 }
 
