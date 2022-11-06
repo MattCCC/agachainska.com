@@ -93,7 +93,7 @@ const Annotation = styled.div(({ showFooter }: Partial<Props>) => [
 
 const AnnotationLink = styled.a(() => [tw`inline-block ml-1 text-green`]);
 
-export function Footer(): JSX.Element {
+export function Footer() {
     const [showFooter] = useStoreProp("showFooter");
     const [darkTheme] = useStoreProp("darkTheme");
 

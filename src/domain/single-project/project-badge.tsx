@@ -72,7 +72,7 @@ const ProjectCaption = styled.p(() => [
 ]);
 
 export const ProjectBadge = memo(
-    ({ index, nameSlug, name, category, cover }: Props): JSX.Element => {
+    ({ index, nameSlug, name, category, cover }: Props) => {
         const [, dispatch] = useStoreProp("currentDelayedRoute");
         const [mouseLeft, itemsRef] = useMouseLeave();
 

@@ -88,7 +88,7 @@ export const Timeline = memo(
         activeItemId = "",
         onTimelineItemChange = (): null => null,
         ...props
-    }: Props): JSX.Element => {
+    }: Props) => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
         const sectionTitleRef = useRef() as RefObject<HTMLDivElement>;
         const availableSections: Section[] = sections.filter(

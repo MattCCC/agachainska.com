@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { GridRow, MainContainer } from "@components/main-container";
 import { Meta } from "@components/meta";
 
-export default function Thanks(): JSX.Element {
+export default function Thanks() {
     return (
         <Fragment>
             <MainContainer topPadding={true}>

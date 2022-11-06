@@ -60,7 +60,7 @@ const Desc = styled.h2(() => [
     `,
 ]);
 
-export default function Home(): JSX.Element {
+export default function Home() {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
     const workLink = getRoutePath("work");
     const defaultState = useMemo(() => ({ x: 0, y: 0 }), []);

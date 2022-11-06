@@ -1,7 +1,7 @@
 import { memo, PropsWithChildren, ReactNode } from "react";
 
 import { Spring, useMotionValue } from "framer-motion";
-import { styled } from "twin.macro";
+import tw, { styled } from "twin.macro";
 
 import { MotionProps } from "@components/animation";
 
@@ -20,9 +20,7 @@ export interface Props extends MotionProps {
     transition?: Spring;
 }
 
-const Wrapper = styled.div`
-    overflow: hidden;
-`;
+const Wrapper = styled.div(() => [tw`overflow-hidden`]);
 
 export const MotionSlider = memo(
     ({

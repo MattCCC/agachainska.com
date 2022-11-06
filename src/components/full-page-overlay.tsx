@@ -32,7 +32,7 @@ const OverlayFullPageVariants = {
 };
 
 export const FullPageOverlay = memo(
-    (): JSX.Element => {
+    () => {
         const [state] = useStore();
         const overlayControls = useAnimation();
 

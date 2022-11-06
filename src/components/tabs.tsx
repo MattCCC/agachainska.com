@@ -93,7 +93,7 @@ export const Tabs = memo(
         activeTabId = "",
         onTabChange = (): null => null,
         ...props
-    }: Props): JSX.Element => {
+    }: Props) => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
 
         const [areTabsIntersectingContent, setTabsIntersecting] =

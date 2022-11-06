@@ -103,7 +103,7 @@ const categoryColors = {
 let isPageTop = false;
 let isPageBottom = false;
 
-const Work = memo(({ data }: Props): JSX.Element => {
+const Work = memo(({ data }: Props) => {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
 

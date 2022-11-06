@@ -34,7 +34,7 @@ const ContactIllus = styled(ContactIllustration)(() => [
 
 const EMAIL_ADDRESS = "helloagachainska@gmail.com";
 
-export default function Contact(): JSX.Element {
+export default function Contact() {
     return (
         <form
             action="https://formsubmit.co/a.chainska@gmail.com"
