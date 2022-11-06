@@ -68,7 +68,16 @@ const sectionLoader = (
 ) =>
     elements.map(
         (
-            { element, description = "", image = "", images = [], quote = "" },
+            {
+                element,
+                description = "",
+                image = "",
+                images = [],
+                quote = "",
+                type = "",
+                link = "",
+                list = [],
+            },
             index
         ) => {
             switch (element) {
@@ -170,9 +179,8 @@ const sectionLoader = (
                             <ContentContainer variant="full">
                                 <DeviceMockup
                                     key={index}
-                                    prototypeSrc={
-                                        "https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FQaKvvMvwwFov4qwUMN79N1%2FPayMe%3Fnode-id%3D4%253A1113%26scaling%3Dscale-down-width%26page-id%3D2%253A475%26starting-point-node-id%3D4%253A600%26show-proto-sidebar%3D1&amp;hide-ui=1"
-                                    }
+                                    type={type}
+                                    link={link}
                                 />
                             </ContentContainer>
                         </Fragment>
@@ -182,7 +190,7 @@ const sectionLoader = (
                     return (
                         <Fragment key={index}>
                             <ContentContainer variant="full">
-                                <DevicesCarousel />
+                                <DevicesCarousel list={list} />
                             </ContentContainer>
                         </Fragment>
                     );

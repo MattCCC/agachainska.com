@@ -22,13 +22,27 @@ const PhoneFrame = styled.div(() => [
     `,
 ]);
 
-interface Props {
-    prototypeSrc: string;
-}
+interface Props extends ProjectSectionElementDevice {}
 
-export const DeviceMockup = memo(({ prototypeSrc }: Props) => (
+const renderSwitch = (type: string, src: string) => {
+    switch (type) {
+        case "iPhoneX":
+            return <MobileDevice src={src}></MobileDevice>;
+
+        case "iPhone13pro":
+            return <MobileDevice src={src}></MobileDevice>;
+
+        case "iPhone8":
+            return <MobileDevice src={src}></MobileDevice>;
+
+        case "laptop":
+            return <MobileDevice src={src}></MobileDevice>;
+    }
+};
+
+export const DeviceMockup = memo(({ type, link }: Props) => (
     <MobileDeviceContainer>
-        <MobileDevice src={prototypeSrc}></MobileDevice>
+        {renderSwitch(type, link)}
         <PhoneFrame />
     </MobileDeviceContainer>
 ));
