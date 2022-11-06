@@ -24,7 +24,7 @@ export const FullPageContentWrapper = styled.figure(
                 ${tw`relative max-w-none`}
 
                 width: ${widthPct}vw;
-                height: 80vh;
+                height: max(560px, 80vh);
                 margin: 0 auto 90px -${widthPct / 2}vw;
                 left: calc(50% - 8px);
             }

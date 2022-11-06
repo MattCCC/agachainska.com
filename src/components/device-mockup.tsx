@@ -5,7 +5,7 @@ import tw, { css, styled } from "twin.macro";
 import MobileFrame from "../img/iphone-x.png";
 
 const MobileDeviceContainer = styled.div(() => [
-    tw`relative w-[245px] h-[530px]`,
+    tw`relative w-[245px] h-[560px]`,
 ]);
 
 const MobileDevice = styled.iframe(() => [
