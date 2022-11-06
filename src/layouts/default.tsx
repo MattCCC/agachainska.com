@@ -1,4 +1,4 @@
-import { Fragment, PropsWithChildren, ReactElement } from "react";
+import { Fragment, PropsWithChildren } from "react";
 
 import tw, { styled, css } from "twin.macro";
 
@@ -21,7 +21,7 @@ interface Props {
 
 const footerHeight = `${690 + 120}px`;
 
-const DarkTheme = (): ReactElement => (
+const DarkTheme = () => (
     <Global
         styles={css`
             :root {
