@@ -54,6 +54,7 @@ const TabsListContainer = styled.div(
                     width: 100vw;
                     height: 4rem;
                     background: rgba(255, 255, 255, 0.92);
+                    backdrop-filter: blur(60px);
                     box-shadow: 0px 14px 60px 0px rgba(0, 0, 0, 0.25);
                     transition: all 0.2s ease-in;
                     position: absolute;
@@ -93,7 +94,7 @@ export const Tabs = memo(
         activeTabId = "",
         onTabChange = (): null => null,
         ...props
-    }: Props): JSX.Element => {
+    }: Props) => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
 
         const [areTabsIntersectingContent, setTabsIntersecting] =
@@ -161,7 +162,7 @@ export const Tabs = memo(
                             {tabs.map((tab: SingleTab, index: number) => (
                                 <Tab
                                     key={`tab-${index}`}
-                                    isActive={tab.id === tabId.tabId}
+                                    isActive={tab.id === tabId}
                                     onClick={onTabClick.bind(null, tab)}
                                 >
                                     {tab.title}

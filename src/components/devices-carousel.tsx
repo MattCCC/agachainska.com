@@ -3,22 +3,23 @@ import { memo, useEffect } from "react";
 import tw, { css, styled } from "twin.macro";
 import useMouseLeave from "use-mouse-leave";
 
-import { FullPageContent } from "@components/full-page-content";
-import { MotionSlider } from "@components/motion-slider";
 import { useStoreProp } from "@store/index";
 
-const SliderWrapper = styled.div(() => [tw`cursor-none lg:ml-72`]);
+import { DeviceMockup } from "./device-mockup";
+import { FullPageContent } from "./full-page-content";
+import { MotionSlider } from "./motion-slider";
 
-const Element = styled.div(() => [
-    tw`max-w-full`,
-    tw`w-[250px] lg:w-[820px] lg:h-[550px]`,
+const SliderWrapper = styled.div(() => [
+    tw`cursor-none lg:ml-[13rem]`,
     css`
-        background: rgba(255, 255, 255, 0.99);
+        & > div {
+            ${tw`overflow-visible`}
+        }
     `,
 ]);
 
-export const GallerySlider = memo(
-    ({ images, gap }: { images: ProjectSectionImage[]; gap: number }) => {
+export const DevicesCarousel = memo(
+    ({ list }: { list: ProjectSectionElementDevice[] }) => {
         const [, dispatch] = useStoreProp("currentDelayedRoute");
         const [mouseLeft, itemsRef] = useMouseLeave();
 
@@ -33,13 +34,11 @@ export const GallerySlider = memo(
         }, [mouseLeft, dispatch]);
 
         return (
-            <FullPageContent widthPct={100} border={false}>
+            <FullPageContent widthPct={100} heightPct={"670px"} border={false}>
                 <SliderWrapper ref={itemsRef}>
-                    <MotionSlider gap={gap} displayGrabCursor={false}>
-                        {images.map(({ image }, i) => (
-                            <Element key={i}>
-                                <img src={image} alt="" />
-                            </Element>
+                    <MotionSlider displayGrabCursor={false}>
+                        {list.map(({ type, link }, i) => (
+                            <DeviceMockup key={i} type={type} link={link} />
                         ))}
                     </MotionSlider>
                 </SliderWrapper>

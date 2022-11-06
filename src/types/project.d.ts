@@ -1,13 +1,38 @@
 type ProjectCategory = "UX" | "UI" | "Others";
 
+interface ProjectSectionImage {
+    image: string;
+}
+
+interface ProjectSectionElementDevice {
+    type: string;
+    link: string;
+}
+
+interface ProjectSectionElement {
+    element: string;
+    images?: ProjectSectionImage[];
+    description?: string;
+    image?: string;
+    quote?: string;
+    concept: string;
+    conceptDesc: string;
+    design: string;
+    designDesc: string;
+    projectManagement: string;
+    projectManagementDesc: string;
+    screens: number;
+    iterations: number;
+    prototypes: number;
+    type: string;
+    link: string;
+    list?: ProjectSectionElementDevice[];
+}
+
 interface ProjectSection {
-    section:
-        | "challenge"
-        | "approach"
-        | "results"
-        | "credits"
-        | "other-projects";
-    elements: Array<Record<string, string>>;
+    section: string;
+    showInTimeline?: "yes" | "no";
+    elements: ProjectSectionElement[];
 }
 
 interface Project {
@@ -24,10 +49,6 @@ interface Project {
     timeframe: string;
     roleInProject: string;
     shortDescription: string;
-    challenge: Record<string, string>;
-    approach: Record<string, string>;
-    stats: Record<string, number>;
-    credits: Record<string, string>;
     sections: ProjectSection[];
     dribbbleLink?: string;
 }

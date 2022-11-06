@@ -45,7 +45,7 @@ const Text = styled.span(() => [
     `,
 ]);
 
-export function MarqueeText({ text = "" }: Props): JSX.Element {
+export function MarqueeText({ text = "" }: Props) {
     return (
         <Fragment>
             <GlobalBase />

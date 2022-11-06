@@ -50,29 +50,12 @@ const ProjectLink = styled.div(() => [
     tw`flex flex-col cursor-pointer select-none lg:pt-3`,
 ]);
 
-const ProjectTitle = styled(H4)(() => [
-    css`
-        font-size: 24px;
-        height: auto;
+const ProjectTitle = styled(H4)(() => [tw`h-auto prose-24 lg:prose-30`]);
 
-        ${up("lg")} {
-            font-size: 30px;
-        }
-    `,
-]);
-
-const ProjectCaption = styled.p(() => [
-    css`
-        font-size: 16px;
-
-        ${up("lg")} {
-            font-size: 24px;
-        }
-    `,
-]);
+const ProjectCaption = styled.p(() => [tw`prose-16 lg:prose-24`]);
 
 export const ProjectBadge = memo(
-    ({ index, nameSlug, name, category, cover }: Props): JSX.Element => {
+    ({ index, nameSlug, name, category, cover }: Props) => {
         const [, dispatch] = useStoreProp("currentDelayedRoute");
         const [mouseLeft, itemsRef] = useMouseLeave();
 

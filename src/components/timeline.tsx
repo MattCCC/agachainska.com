@@ -13,7 +13,6 @@ import tw, { css, styled } from "twin.macro";
 import { motion, MotionProps, AnimatePresence } from "@components/animation";
 import { useElementSize } from "@hooks/use-element-size";
 import { excludeProps } from "@utils/styled";
-import { useStoreProp } from "@store/index";
 
 const TimelineWrapper = styled.div(() => [tw`z-10 text-right w-52`]);
 
@@ -50,10 +49,7 @@ const ListItem = styled(
 ]);
 
 const Pin = styled(motion.div)(() => [
-    tw`absolute top-0 bottom-0 right-0 w-px bg-primary`,
-    css`
-        z-index: 2;
-    `,
+    tw`absolute top-0 bottom-0 right-0 w-px bg-primary z-[2]`,
 ]);
 
 interface TitleStyle extends MotionProps {
@@ -92,7 +88,7 @@ export const Timeline = memo(
         activeItemId = "",
         onTimelineItemChange = (): null => null,
         ...props
-    }: Props): JSX.Element => {
+    }: Props) => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
         const sectionTitleRef = useRef() as RefObject<HTMLDivElement>;
         const availableSections: Section[] = sections.filter(
@@ -221,18 +217,18 @@ export const Timeline = memo(
                                         0,
                                         (contentListHeight /
                                             (section.items?.length ?? 1)) *
-                                        (section.items?.findIndex(
-                                            (item) =>
-                                                item.id ===
-                                                state.activeItemId
-                                        ) || 0)
+                                            (section.items?.findIndex(
+                                                (item) =>
+                                                    item.id ===
+                                                    state.activeItemId
+                                            ) || 0)
                                     ),
                                 }}
                                 style={{
                                     height: Math.max(
                                         0,
                                         contentListHeight /
-                                        (section.items?.length ?? 1)
+                                            (section.items?.length ?? 1)
                                     ),
                                 }}
                             />
@@ -243,7 +239,7 @@ export const Timeline = memo(
                                         key={itemIndex}
                                         isActive={
                                             section.id ===
-                                            state.activeSectionId &&
+                                                state.activeSectionId &&
                                             item.id === state.activeItemId
                                         }
                                         onClick={onTimelineItemClick.bind(

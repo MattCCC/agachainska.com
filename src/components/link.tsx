@@ -21,8 +21,8 @@ export const Link = ({
     to,
     replace = false,
     delay = 0,
-    onDelayStart = ((_e, _to) => {}) as OnDelayCallback,
-    onDelayEnd = ((_e, _to) => {}) as OnDelayCallback,
+    onDelayStart = (() => {}) as OnDelayCallback,
+    onDelayEnd = (() => {}) as OnDelayCallback,
     children,
     ...props
 }: PropsWithChildren<Props>) => {

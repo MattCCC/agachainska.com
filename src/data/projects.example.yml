@@ -1,0 +1,63 @@
+- uid: 1
+  category: UX/UI
+  subCategory:
+  name: RE/MAX
+  cover: "/img/projects/image-1.png"
+  client: RE/MAX Malta
+  agency: BRND WGN
+  timeframe: November 2019, 7 days
+  roleInProject: UI designer
+  shortDescription: "Custom Illustrations for RE/MAX"
+  sections:
+    - section: "discover"
+      showInTimeline: "yes"
+      elements:
+        - element: "overview"
+          description: "Example Overview description text."
+        - element: "project-goals"
+          description: "Example Project goals description text."
+        - element: "audience"
+          description: "Example Audience description text."
+    - section: "define"
+      showInTimeline: "yes"
+      elements:
+        - element: "brand-elements"
+          description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
+        - element: "full-size-image"
+          image: "/img/placeholder-full.png"
+        - element: "two-images"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
+        - element: "full-page-image"
+          image: "/img/placeholder-2.png"
+        - element: "slider"
+        - element: "quote"
+          quote: "Your quote text.’"
+        - element: "device"
+          type: "iPhoneX" # iPhoneX, iPhone13pro, iPhone8, laptop
+          link: "https://domain.com/yourimage.png"
+        - element: "devices"
+          types:
+            - type: "iPhone13pro"
+              link: "https://domain.com/yourimage.png"
+    - section: "results"
+      showInTimeline: "yes"
+      elements:
+        - element: "stats"
+          screens: 14
+          iterations: 6
+          prototypes: 34
+    - section: "credits"
+      showInTimeline: "no"
+      elements:
+        - concept: "UI Concept:"
+          conceptDesc: "RE/MAX Malta"
+          design: "UX Design:"
+          designDesc: "BRND WGN"
+          projectManagement: "Project management:"
+          projectManagementDesc: "November 2019, 7 days"
+    - section: "Other UX/UI Projects"
+      showInTimeline: "no"
+      elements:
+        - category: UX/UI

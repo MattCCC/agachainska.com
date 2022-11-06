@@ -26,7 +26,7 @@ type CursorProps = {
 
 const cursorSize = 80;
 
-const Cursor = styled.div(
+export const Cursor = styled.div(
     ({ isMotionCursorVisible, color, size, overlap }: CursorProps) => [
         tw`fixed z-40 hidden text-center text-white uppercase rounded-full cursor-pointer select-none lg:block`,
         tw`leading-3 border prose-12`,
@@ -41,6 +41,8 @@ const Cursor = styled.div(
                 margin-left: -${size || cursorSize}px;
             `,
         css`
+            top: var(--top);
+            left: var(--left);
             width: ${size || cursorSize}px;
             height: ${size || cursorSize}px;
             transform: translate(-50%, -50%);
@@ -71,43 +73,12 @@ const CursorText = styled.div(() => [
 
 const ProjectHover = styled.div(() => []);
 
-const SolidBackground = styled.div(({ isMotionCursorVisible }: CursorProps) => [
-    tw`fixed z-30 hidden opacity-0 lg:block`,
-    css`
-        width: 400px;
-        height: 215px;
-        background: #ff006e;
-        margin: 14px 0 0 -30px;
-        transform: rotate(-10deg) scale(0.5);
-        transition: opacity ease-in-out;
-
-        @keyframes show-solid-background {
-            0% {
-                opacity: 0;
-                transform: rotate(-10deg) scale(0.3);
-            }
-
-            50% {
-                opacity: 0.8;
-                transform: rotate(0deg) scale(1.01);
-            }
-
-            100% {
-                opacity: 0.4;
-                transform: scale(0.9);
-            }
-        }
-    `,
-    isMotionCursorVisible &&
-        css`
-            animation: 0.9s show-solid-background forwards;
-        `,
-]);
-
 const ProjectCover = styled.div(
     ({ isMotionCursorVisible, projectCoverLink }: CursorProps) => [
         tw`fixed z-30 hidden lg:block`,
         css`
+            top: var(--top);
+            left: var(--left);
             opacity: 0;
             background: url(${projectCoverLink}) center;
             background-size: cover;
@@ -235,8 +206,8 @@ export const MotionCursor = ({
     const { clientX, clientY } = TrackMousePosition();
     const projectCover = state.motionCursorData.projectCover;
     const cursorStyle = {
-        left: `${clientX || -state.motionCursorData.size || -cursorSize}px`,
-        top: `${clientY || -state.motionCursorData.size || -cursorSize}px`,
+        "--left": `${clientX || -state.motionCursorData.size || -cursorSize}px`,
+        "--top": `${clientY || -state.motionCursorData.size || -cursorSize}px`,
     } as CSSProperties;
 
     useEffect(() => {
@@ -258,11 +229,6 @@ export const MotionCursor = ({
 
             {projectCover && (
                 <ProjectHover>
-                    <SolidBackground
-                        isMotionCursorVisible={state.isMotionCursorVisible}
-                        style={cursorStyle}
-                    />
-
                     <ProjectCover
                         style={cursorStyle}
                         isMotionCursorVisible={state.isMotionCursorVisible}

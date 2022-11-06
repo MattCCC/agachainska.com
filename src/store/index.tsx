@@ -51,7 +51,6 @@ const actions = {
     },
 
     replaceInState(prevState: State, newState: Partial<State>) {
-        console.log('backgroundColor', newState.backgroundColor)
         return {
             ...prevState,
             ...newState,

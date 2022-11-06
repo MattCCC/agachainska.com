@@ -62,7 +62,7 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
         `,
 ]);
 
-export function Header(): JSX.Element {
+export function Header() {
     const [showLogoOnDesktop] = useStoreProp("showLogoOnDesktop");
     const [onMouseEnter, onMouseLeave] = useHideCursorPreserveVisibility();
     const location = useLocation();

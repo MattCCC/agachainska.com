@@ -1,10 +1,4 @@
-import {
-    createContext,
-    Dispatch,
-    FC,
-    useReducer,
-    PropsWithChildren,
-} from "react";
+import { createContext, Dispatch, useReducer, PropsWithChildren } from "react";
 
 import { Actions, reducer, State } from "./reducers";
 
@@ -21,9 +15,7 @@ export const Context = createContext<{
     dispatch: () => null,
 });
 
-export const ContextProvider: FC = ({
-    children,
-}: PropsWithChildren<unknown>) => {
+export const ContextProvider = ({ children }: PropsWithChildren) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     return (

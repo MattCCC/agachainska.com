@@ -82,7 +82,7 @@ export function TextTextarea({
     onFocus,
     className,
     ...props
-}: Props): JSX.Element {
+}: Props) {
     const [value, setValue] = useState("");
     const [active, setActive] = useState(false);
 

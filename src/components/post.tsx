@@ -64,7 +64,7 @@ export function Post({
     postNum = -1,
     onPostTap,
     setImageAsBg = false,
-}: Props): JSX.Element {
+}: Props) {
     return (
         <Fragment>
             <PostWrapper onClick={(e): void => onPostTap(e, post)}>

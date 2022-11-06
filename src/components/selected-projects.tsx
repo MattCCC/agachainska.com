@@ -6,7 +6,7 @@ interface Props {
     projects: Project[];
 }
 
-export default function SelectedProjects({ projects }: Props): JSX.Element {
+export default function SelectedProjects({ projects }: Props) {
     const selectedProjects = projects.filter((project) =>
         selectedProjectsUids.includes(project.uid)
     );

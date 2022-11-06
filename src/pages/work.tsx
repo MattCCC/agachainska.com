@@ -5,7 +5,7 @@ import {
     useState,
     RefObject,
     useMemo,
-    useEffect
+    useEffect,
 } from "react";
 
 import { graphql, PageProps } from "gatsby";
@@ -93,25 +93,18 @@ const StyledStar = styled(Star)(() => [
     `,
 ]);
 
-const categoryColors = {
-    "UX/UI": "#F5A4FF",
-    // eslint-disable-next-line quote-props
-    Illustrations: "#C0A4FF",
-} as {
-    [x: string]: string;
-};
-
 let isPageTop = false;
 let isPageBottom = false;
 
-const Work = memo(({ data }: Props): JSX.Element => {
+const Work = memo(({ data }: Props) => {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
 
     const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
     const [isSliderAnimating, setIsSliderAnimating] = useState(false);
     const [, dispatch] = useStoreProp("showMotionGrid");
-    const [backgroundColor, dispatchbackgroundColor] = useStoreProp("backgroundColor");
+    const [backgroundColor, dispatchbackgroundColor] =
+        useStoreProp("backgroundColor");
     const projects = useMemo(
         () => data.projects.nodes || [],
         [data.projects.nodes]
@@ -162,15 +155,12 @@ const Work = memo(({ data }: Props): JSX.Element => {
                         subCategory: "Others",
                         nameSlug: "",
                         category,
+                        starColor: "",
                         client: "",
                         agency: "",
                         timeframe: "",
                         roleInProject: "",
                         shortDescription: "",
-                        challenge: {},
-                        approach: {},
-                        stats: {},
-                        credits: {},
                         sections: [],
                     });
                 }
@@ -219,15 +209,25 @@ const Work = memo(({ data }: Props): JSX.Element => {
         routeTo: firstCategoryFirstItem?.routeTo ?? "",
     } as PageState);
 
-    const bgColor = ((timelineList.find((section) => section.category === state.activeSectionId)?.items || []).at(0) || {}).bgColor;
+    const defaultBgColor = useMemo(
+        () =>
+            (
+                (
+                    timelineList.find(
+                        (section) => section.category === state.activeSectionId
+                    )?.items || []
+                )
+                    // TODO: active item should be selected instead of the first one
+                    .at(0) || {}
+            ).bgColor || "#FFF",
+        [timelineList, state.activeSectionId]
+    );
 
     useEffect(() => {
-        if (bgColor && backgroundColor !== bgColor) {
-            dispatchbackgroundColor.replaceInState({
-                backgroundColor: bgColor,
-            })
-        }
-    }, [bgColor, backgroundColor, dispatchbackgroundColor]);
+        dispatchbackgroundColor.replaceInState({
+            backgroundColor: backgroundColor || defaultBgColor,
+        });
+    }, [defaultBgColor, backgroundColor, dispatchbackgroundColor]);
 
     const sliderItems: TimelineItem[] = useMemo(
         () =>
@@ -311,11 +311,9 @@ const Work = memo(({ data }: Props): JSX.Element => {
                 }
             }
 
-            if (currentItem.bgColor) {
-                dispatchbackgroundColor.replaceInState({
-                    backgroundColor: currentItem.bgColor,
-                });
-            }
+            dispatchbackgroundColor.replaceInState({
+                backgroundColor: currentItem.bgColor,
+            });
 
             const newSliderIndex = sliderItems.findIndex(
                 (sliderItem: SliderItem) => sliderItem.id === currentItem.id
@@ -334,7 +332,15 @@ const Work = memo(({ data }: Props): JSX.Element => {
                 currentProject: currentItem,
             }));
         },
-        [state, sliderItems, onOthersSelected, timelineList, setState, dispatch]
+        [
+            state,
+            sliderItems,
+            onOthersSelected,
+            timelineList,
+            setState,
+            dispatch,
+            dispatchbackgroundColor,
+        ]
     );
 
     const onTabChange = useCallback(

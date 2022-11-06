@@ -20,9 +20,7 @@ const intlConfig = {
     redirect: false,
 };
 
-export const wrapRootElement = ({
-    element,
-}: WrapRootElementNodeArgs): JSX.Element => (
+export const wrapRootElement = ({ element }: WrapRootElementNodeArgs) => (
     <Fragment>
         <ParallaxProvider>
             <LocationProvider>

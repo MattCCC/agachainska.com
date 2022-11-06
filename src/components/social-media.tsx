@@ -39,10 +39,7 @@ const ListItem = styled.a(({ variant }: Props) => [
     tw`transition-all hover:bg-white hover:text-black`,
 ]);
 
-export function SocialMedia({
-    variant = "normal",
-    items = [],
-}: Props): JSX.Element {
+export function SocialMedia({ variant = "normal", items = [] }: Props) {
     return (
         <SocialMediaWrapper>
             {items.map((item, itemIndex: number) => (
