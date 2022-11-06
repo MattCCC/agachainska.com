@@ -18,30 +18,30 @@ export const ProjectFragment = graphql`
         sections {
             section
             showInTimeline
+            showSectionTitle
             elements {
                 element
+                description
+                image
+                quote
+                category
                 type
                 link
                 list {
                     type
                     link
                 }
-                description
-                image
+                stats {
+                    title
+                    stat
+                }
                 images {
                     image
                 }
-                quote
-                screens
-                iterations
-                prototypes
-                concept
-                conceptDesc
-                design
-                designDesc
-                projectManagement
-                projectManagementDesc
-                category
+                content {
+                    title
+                    text
+                }
             }
         }
     }

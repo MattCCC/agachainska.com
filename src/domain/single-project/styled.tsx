@@ -33,15 +33,7 @@ export const ContentContainer = styled.div(
 );
 
 export const MainTitleWrapper = styled.div(
-    tw`absolute`,
-    css`
-        max-width: 90%;
-        bottom: -43px;
-
-        ${up("lg")} {
-            bottom: -74px;
-        }
-    `
+    tw`absolute max-w-[90%] bottom-[-43px] lg:bottom-[-74px]`
 );
 
 export const MainTitle = styled(MainTitleBottom)(
@@ -59,11 +51,7 @@ export const MainTitle = styled(MainTitleBottom)(
     ]
 );
 
-export const Paragraph = styled.p(() => [
-    css`
-        margin-bottom: 40px;
-    `,
-]);
+export const Paragraph = styled.p(() => [tw`mb-[40px]`]);
 
 export const StyledNumber = styled(BigNumber)(() => [
     css`
@@ -81,23 +69,7 @@ export const StyledNumber = styled(BigNumber)(() => [
 
 export const HeroWrapper = styled.div(() => [
     tw`relative w-full col-start-1 col-end-13 lg:col-start-2 lg:col-end-12`,
-    css`
-        height: 200px;
-        margin-bottom: 70px;
-
-        ${up("sm")} {
-            height: 320px;
-        }
-
-        ${up("md")} {
-            height: 390px;
-        }
-
-        ${up("lg")} {
-            margin-bottom: 90px;
-            height: 462px;
-        }
-    `,
+    tw`mb-[70px] h-[200px] sm:h-[320px] md:h-[390px] lg:h-[462px] lg:mb-[90px]`,
 ]);
 
 export const TableProject = styled.div(() => [
@@ -117,36 +89,21 @@ export const TableCredits = styled.div(() => [
 ]);
 
 export const TableStats = styled.div(() => [
-    tw`grid max-w-full grid-flow-row grid-cols-1 lg:grid-cols-3 lg:grid-flow-col`,
-    css`
-        grid-template-rows: repeat(4, minmax(0, max-content));
-        width: 820px;
-        line-height: 24px;
-    `,
+    tw`grid max-w-full grid-flow-row grid-cols-1 lg:grid-cols-3 lg:grid-flow-row`,
+    tw`w-[820px] leading-[24px]`,
 ]);
 
-export const StatsCaption = styled(H4)(() => [
+export const SingleStat = styled.div(() => [
     css`
-        padding-left: 25%;
-
-        ${up("lg")} {
-            padding-left: 10px;
-        }
-
         &.space {
-            ${up("lg")} {
-                margin-bottom: 150px;
-            }
+            ${tw`lg:mb-[150px]`}
         }
     `,
 ]);
 
-export const CellTitle = styled.div(() => [
-    tw`font-fbold`,
-    css`
-        margin-top: 12px;
-    `,
-]);
+export const StatsCaption = styled(H4)(() => [tw`pl-[25%] lg:pl-[10px]`]);
+
+export const CellTitle = styled.div(() => [tw`font-fbold`, tw`mt-[12px]`]);
 
 export const Article = styled.article(() => [tw`relative`]);
 
@@ -173,27 +130,12 @@ export const TimelineWrapper = styled.aside(() => [
  */
 export const FullSizeImageWrapper = styled.figure(() => [
     tw`overflow-hidden`,
-    css`
-        margin-bottom: 90px;
-
-        ${up("lg")} {
-            height: 546px;
-            width: 820px;
-        }
-    `,
+    tw`mb-[90px] lg:h-[546px] lg:w-[820px]`,
 ]);
 
 export const TwoImagesWrapper = styled.figure(() => [
     tw`grid grid-flow-col grid-cols-2 gap-6 overflow-hidden`,
-    css`
-        margin-bottom: 90px;
-        height: 220px;
-
-        ${up("lg")} {
-            height: 562px;
-            width: 820px;
-        }
-    `,
+    tw`mb-[90px] h-[220px] lg:h-[562px] lg:w-[820px]`,
 ]);
 
 /**

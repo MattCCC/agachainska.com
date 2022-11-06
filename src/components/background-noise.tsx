@@ -23,9 +23,10 @@ const NoiseWrapper = styled.div(() => [
     css`
         backface-visibility: hidden;
         transform: scale(1);
-        background: url("/svg/bg-pattern.svg") repeat;
+        background: url("/img/bg-pattern.png") repeat;
         background-position: var(--x) var(--y);
         will-change: background-position;
+        opacity: 0.04;
     `,
 ]);
 

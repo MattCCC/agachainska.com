@@ -4,6 +4,8 @@ require("dotenv").config({
     path: `.env.${process.env.NODE_ENV}`,
 });
 
+const siteUrl = `https://agachainska.com`;
+
 const config: GatsbyConfig = {
     trailingSlash: "always",
     siteMetadata: {
@@ -12,8 +14,8 @@ const config: GatsbyConfig = {
         description: "Aga Chainska Personal Website.",
         image: "/img/slider-pattern.png",
         twitterUsername: "@aga",
-        url: `https://aga-chainska.com`,
-        siteUrl: `https://aga-chainska.com`,
+        url: siteUrl,
+        siteUrl: siteUrl,
     },
     plugins: [
         "gatsby-plugin-webpack-bundle-analyser-v2",
@@ -111,7 +113,7 @@ const config: GatsbyConfig = {
             options: {
                 name: `Aga Chainska`,
                 short_name: `Aga Chainska`,
-                icon: `static/img/slider-pattern.png`,
+                icon: `/img/slider-pattern.png`,
                 start_url: `/`,
                 background_color: `#f7f7f7`,
                 theme_color: `#191919`,

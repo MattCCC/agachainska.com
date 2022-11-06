@@ -9,29 +9,31 @@ interface ProjectSectionElementDevice {
     link: string;
 }
 
-interface ProjectSectionElement {
+interface ProjectSectionElementStat {
+    title: number;
+    stat: number;
+}
+
+interface ProjectSectionElementCredit {
+    title: string;
+    text: string;
+}
+
+interface ProjectSectionElement extends ProjectSectionElementDevice {
     element: string;
-    images?: ProjectSectionImage[];
     description?: string;
     image?: string;
     quote?: string;
-    concept: string;
-    conceptDesc: string;
-    design: string;
-    designDesc: string;
-    projectManagement: string;
-    projectManagementDesc: string;
-    screens: number;
-    iterations: number;
-    prototypes: number;
-    type: string;
-    link: string;
+    images?: ProjectSectionImage[];
+    content: ProjectSectionElementCredit[];
+    stats?: ProjectSectionElementStat[];
     list?: ProjectSectionElementDevice[];
 }
 
 interface ProjectSection {
     section: string;
     showInTimeline?: "yes" | "no";
+    showSectionTitle?: "yes" | "no";
     elements: ProjectSectionElement[];
 }
 
