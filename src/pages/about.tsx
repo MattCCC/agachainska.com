@@ -17,6 +17,7 @@ import { socialMedia } from "data/social-media";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import { up } from "utils/screens";
+import { Button } from "components/button";
 
 const HeroSection = styled.section(() => [
     tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-screen`,
@@ -183,6 +184,27 @@ const SelectedProjectsContainer = styled.div(() => [
     tw`lg:col-start-1 lg:col-end-11 lg:ml-2 lg:mt-10`,
 ]);
 
+const SeeAllProjectsBtn = styled(Button)(() => [
+    tw`w-[160px] h-[37px] col-start-13`,
+    css`
+        span {
+            ${tw`bg-primary text-tertiary`}
+        }
+
+        &:hover {
+            span {
+                ${tw`transition-all bg-white text-primary`}
+            }
+        }
+
+        svg,
+        rect {
+            width: 160px;
+            height: 37px;
+        }
+    `,
+]);
+
 interface Props extends PageProps {
     data: {
         aboutPageData: AboutPageData;
@@ -341,6 +363,9 @@ export default function About({ data }: Props) {
                         >
                             <TitleContainer>
                                 <Title>selected projects</Title>
+                                <SeeAllProjectsBtn>
+                                    See all projects
+                                </SeeAllProjectsBtn>
                             </TitleContainer>
                             <SelectedProjectsContainer>
                                 <SelectedProjects projects={projects} />
