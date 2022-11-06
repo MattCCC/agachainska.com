@@ -33,15 +33,7 @@ export const ContentContainer = styled.div(
 );
 
 export const MainTitleWrapper = styled.div(
-    tw`absolute max-w-[90%] bottom-[-43px] lg:`,
-    css`
-        max-width: 90%;
-        bottom: ;
-
-        ${up("lg")} {
-            bottom: -74px;
-        }
-    `
+    tw`absolute max-w-[90%] bottom-[-43px] lg:bottom-[-74px]`
 );
 
 export const MainTitle = styled(MainTitleBottom)(
