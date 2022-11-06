@@ -194,9 +194,7 @@ const sectionLoader = (
                 case "devices":
                     return (
                         <Fragment key={index}>
-                            <ContentContainer variant="full">
-                                <DevicesCarousel key={index} list={list} />
-                            </ContentContainer>
+                            <DevicesCarousel key={index} list={list} />
                         </Fragment>
                     );
 
