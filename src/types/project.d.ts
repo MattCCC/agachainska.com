@@ -32,6 +32,7 @@ interface ProjectSectionElement {
 interface ProjectSection {
     section: string;
     showInTimeline?: "yes" | "no";
+    showSectionTitle?: "yes" | "no";
     elements: ProjectSectionElement[];
 }
 

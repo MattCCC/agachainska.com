@@ -1,16 +1,17 @@
-- uid: 1
+- uid: 1 # unique random number. Should be different for each project
   category: UX/UI
-  subCategory:
+  subCategory: # either empty or "Others" if project should be shown in "Others" on Work page
   name: RE/MAX
   cover: "/img/projects/image-1.png"
   client: RE/MAX Malta
   agency: BRND WGN
-  timeframe: November 2019, 7 days
+  timeframe: November 2019, 7 days # Project timeframe
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for RE/MAX"
   sections:
     - section: "discover"
-      showInTimeline: "yes"
+      showInTimeline: "yes" # whether to show the section in the timeline on Single Project page
+      showSectionTitle: "yes"
       elements:
         - element: "overview"
           description: "Example Overview description text."
@@ -20,6 +21,7 @@
           description: "Example Audience description text."
     - section: "define"
       showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "brand-elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
@@ -43,6 +45,7 @@
               link: "https://domain.com/yourimage.png"
     - section: "results"
       showInTimeline: "yes"
+      showSectionTitle: "no"
       elements:
         - element: "stats"
           screens: 14
@@ -50,8 +53,10 @@
           prototypes: 34
     - section: "credits"
       showInTimeline: "no"
+      showSectionTitle: "no"
       elements:
-        - concept: "UI Concept:"
+        - element: "credits"
+          concept: "UI Concept:"
           conceptDesc: "RE/MAX Malta"
           design: "UX Design:"
           designDesc: "BRND WGN"
@@ -59,5 +64,6 @@
           projectManagementDesc: "November 2019, 7 days"
     - section: "Other UX/UI Projects"
       showInTimeline: "no"
+      showSectionTitle: "no"
       elements:
         - category: UX/UI

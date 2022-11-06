@@ -81,6 +81,15 @@ const sectionLoader = (
                 type = "",
                 link = "",
                 list = [],
+                screens = 0,
+                iterations = 0,
+                prototypes = 0,
+                concept = "",
+                conceptDesc = "",
+                design = "",
+                designDesc = "",
+                projectManagement = "",
+                projectManagementDesc = "",
             },
             index
         ) => {
@@ -201,6 +210,79 @@ const sectionLoader = (
                         </Fragment>
                     );
 
+                case "stats":
+                    const [refStats, animateStats] = useIncrementStats();
+
+                    return (
+                        <Fragment key={index}>
+                            <ContentContainer variant="full">
+                                <Fragment key={index}>
+                                    <TableStats ref={refStats}>
+                                        <CellTitle>
+                                            <StyledNumber
+                                                value={screens}
+                                                animate={animateStats}
+                                            />
+                                        </CellTitle>
+                                        <StatsCaption className="space">
+                                            Screens
+                                        </StatsCaption>
+                                        <CellTitle>
+                                            <StyledNumber
+                                                value={screens}
+                                                animate={animateStats}
+                                            />
+                                        </CellTitle>
+                                        <StatsCaption>Screens</StatsCaption>
+
+                                        <CellTitle>
+                                            <StyledNumber
+                                                value={iterations}
+                                                animate={animateStats}
+                                            />
+                                        </CellTitle>
+                                        <StatsCaption className="space">
+                                            Iterations
+                                        </StatsCaption>
+                                        <CellTitle>
+                                            <StyledNumber
+                                                value={iterations}
+                                                animate={animateStats}
+                                            />
+                                        </CellTitle>
+                                        <StatsCaption>Iterations</StatsCaption>
+
+                                        <CellTitle>
+                                            <StyledNumber
+                                                value={prototypes}
+                                                animate={animateStats}
+                                            />
+                                        </CellTitle>
+                                        <StatsCaption className="space">
+                                            Prototypes
+                                        </StatsCaption>
+                                    </TableStats>
+                                </Fragment>
+                            </ContentContainer>
+                        </Fragment>
+                    );
+
+                case "credits":
+                    return (
+                        <Fragment key={index}>
+                            <ContentContainer variant="full">
+                                <TableCredits>
+                                    <CellTitle>{concept}</CellTitle>
+                                    <div>{conceptDesc}</div>
+                                    <CellTitle>{design}</CellTitle>
+                                    <div>{designDesc}</div>
+                                    <CellTitle>{projectManagement}</CellTitle>
+                                    <div>{projectManagementDesc}</div>
+                                </TableCredits>
+                            </ContentContainer>
+                        </Fragment>
+                    );
+
                 case "other-projects":
                     return (
                         <Fragment key={index}>
@@ -220,97 +302,6 @@ const sectionLoader = (
             }
         }
     );
-
-const loadResultsSection = (
-    refResults: (node: Element | null) => void,
-    elements: ProjectSection["elements"],
-    refStats: (node: Element | null) => void,
-    animateStats: boolean
-) => (
-    <ArticleSection key="results" id="results" ref={refResults}>
-        <ContentContainer variant="full">
-            {elements.map(({ screens, iterations, prototypes }, index) => (
-                <Fragment key={index}>
-                    <TableStats ref={refStats}>
-                        <CellTitle>
-                            <StyledNumber
-                                value={screens}
-                                animate={animateStats}
-                            />
-                        </CellTitle>
-                        <StatsCaption className="space">Screens</StatsCaption>
-                        <CellTitle>
-                            <StyledNumber
-                                value={screens}
-                                animate={animateStats}
-                            />
-                        </CellTitle>
-                        <StatsCaption>Screens</StatsCaption>
-
-                        <CellTitle>
-                            <StyledNumber
-                                value={iterations}
-                                animate={animateStats}
-                            />
-                        </CellTitle>
-                        <StatsCaption className="space">
-                            Iterations
-                        </StatsCaption>
-                        <CellTitle>
-                            <StyledNumber
-                                value={iterations}
-                                animate={animateStats}
-                            />
-                        </CellTitle>
-                        <StatsCaption>Iterations</StatsCaption>
-
-                        <CellTitle>
-                            <StyledNumber
-                                value={prototypes}
-                                animate={animateStats}
-                            />
-                        </CellTitle>
-                        <StatsCaption className="space">
-                            Prototypes
-                        </StatsCaption>
-                    </TableStats>
-                </Fragment>
-            ))}
-        </ContentContainer>
-    </ArticleSection>
-);
-
-const loadCreditsSection = (elements: ProjectSection["elements"]) => (
-    <ArticleSection key="credits" id="credits">
-        <H2>Credits</H2>
-        <ContentContainer variant="full">
-            <TableCredits>
-                {elements.map(
-                    (
-                        {
-                            concept,
-                            conceptDesc,
-                            design,
-                            designDesc,
-                            projectManagement,
-                            projectManagementDesc,
-                        },
-                        index
-                    ) => (
-                        <Fragment key={index}>
-                            <CellTitle>{concept}</CellTitle>
-                            <div>{conceptDesc}</div>
-                            <CellTitle>{design}</CellTitle>
-                            <div>{designDesc}</div>
-                            <CellTitle>{projectManagement}</CellTitle>
-                            <div>{projectManagementDesc}</div>
-                        </Fragment>
-                    )
-                )}
-            </TableCredits>
-        </ContentContainer>
-    </ArticleSection>
-);
 
 export default function Project({ data }: Props) {
     const {
@@ -333,7 +324,6 @@ export default function Project({ data }: Props) {
     const gallerySliderElementsGap = hasSmallWindowWidth ? 30 : 40;
 
     const [navigation] = usePagination({ projectsByCategory, uid });
-    const [refStats, animateStats] = useIncrementStats();
 
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
@@ -450,42 +440,30 @@ export default function Project({ data }: Props) {
                     activeTabId={activeItemId}
                 />
 
-                {sections.map(({ section, elements }, i) => {
+                {sections.map(({ section, elements, showSectionTitle }, i) => {
                     const sectionId = section
                         .toLowerCase()
                         .replaceAll(" ", "-")
                         .replaceAll("/", "-");
 
-                    switch (sectionId) {
-                        case "results":
-                            return loadResultsSection(
-                                intersectionRefs[i] as unknown as (
-                                    node: Element | null
-                                ) => void,
+                    return (
+                        <ArticleSection
+                            key={sectionId}
+                            id={sectionId}
+                            ref={intersectionRefs[i]}
+                        >
+                            {showSectionTitle && showSectionTitle === "yes" ? (
+                                <H2>{section}</H2>
+                            ) : (
+                                ""
+                            )}
+                            {sectionLoader(
                                 elements,
-                                refStats,
-                                animateStats
-                            );
-
-                        case "credits":
-                            return loadCreditsSection(elements);
-
-                        default:
-                            return (
-                                <ArticleSection
-                                    key={sectionId}
-                                    id={sectionId}
-                                    ref={intersectionRefs[i]}
-                                >
-                                    <H2>{section}</H2>
-                                    {sectionLoader(
-                                        elements,
-                                        gallerySliderElementsGap,
-                                        projectsByCategory
-                                    )}
-                                </ArticleSection>
-                            );
-                    }
+                                gallerySliderElementsGap,
+                                projectsByCategory
+                            )}
+                        </ArticleSection>
+                    );
                 })}
             </Article>
         </Fragment>

@@ -18,6 +18,7 @@ export const ProjectFragment = graphql`
         sections {
             section
             showInTimeline
+            showSectionTitle
             elements {
                 element
                 type
