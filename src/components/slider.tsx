@@ -274,8 +274,17 @@ export const Slider = ({
     );
 
     const onDragEnd = useCallback(
-        (_e: Event, { offset, velocity }): void => {
-            const swipe = swipePower(offset.x as number, velocity.x as number);
+        (
+            _e: Event,
+            {
+                offset,
+                velocity,
+            }: {
+                offset: { x: number; y: number };
+                velocity: { x: number; y: number };
+            }
+        ): void => {
+            const swipe = swipePower(offset.x, velocity.x);
 
             if (swipe < -swipeConfidenceThreshold) {
                 goToSlide(-1);
@@ -422,12 +431,16 @@ export const Slider = ({
                 )}
             </SlideContent>
             <Controls isShowingOtherProjects={isShowingOtherProjects}>
-                <Btn onClick={(): void => goToSlide(1)}>
-                    <NextIconStyled /> Next
-                </Btn>
-                <Btn onClick={(): void => goToSlide(-1)}>
-                    <PrevIconStyled /> Previous
-                </Btn>
+                {page < sliderItems.length - 1 && (
+                    <Btn onClick={(): void => goToSlide(1)}>
+                        <NextIconStyled /> Next
+                    </Btn>
+                )}
+                {page > 0 && (
+                    <Btn onClick={(): void => goToSlide(-1)}>
+                        <PrevIconStyled /> Previous
+                    </Btn>
+                )}
             </Controls>
         </SliderWrapper>
     );
