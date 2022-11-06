@@ -10,7 +10,7 @@ import {
 
 import { css, styled } from "twin.macro";
 
-import { useWindowSize } from "@hooks/use-window-size";
+import { useWindowSize } from "hooks/use-window-size";
 
 interface Props {
     children: ReactNode;

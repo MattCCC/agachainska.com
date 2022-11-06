@@ -1,6 +1,6 @@
 import deepmerge from "deepmerge";
 
-import routes, { defaultRouteMeta } from "@config/routes";
+import routes, { defaultRouteMeta } from "config/routes";
 
 export interface LinkProps {
     to: string;

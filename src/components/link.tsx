@@ -3,9 +3,9 @@ import { PropsWithChildren, ReactNode } from "react";
 import { Link as TranslatedLink } from "gatsby-plugin-intl";
 import { styled } from "twin.macro";
 
-import { LinkDelayedArgs, OnDelayCallback } from "@hooks/use-link-delayed";
-import { useNavigation } from "@hooks/use-navigation";
-import { excludeProps } from "@utils/styled";
+import { LinkDelayedArgs, OnDelayCallback } from "hooks/use-link-delayed";
+import { useNavigation } from "hooks/use-navigation";
+import { excludeProps } from "utils/styled";
 
 export interface Props extends LinkDelayedArgs {
     to: string;

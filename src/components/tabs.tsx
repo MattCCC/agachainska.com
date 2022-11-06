@@ -10,7 +10,7 @@ import {
 
 import tw, { css, styled } from "twin.macro";
 
-import { motion, MotionProps, AnimatePresence } from "@components/animation";
+import { motion, MotionProps, AnimatePresence } from "components/animation";
 
 interface TabsStyled {
     hideForDesktop?: boolean;

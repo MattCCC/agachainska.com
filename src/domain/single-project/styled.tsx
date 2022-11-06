@@ -1,13 +1,13 @@
 import tw, { css, styled } from "twin.macro";
 
-import { BigNumber } from "@components/big-number";
-import { H4 } from "@components/h4";
-import { MainContainer } from "@components/main-container";
-import { MainTitleBottom } from "@components/main-title";
-import { ReactComponent as PrevIcon } from "@svg/down.svg";
-import { ReactComponent as NextIcon } from "@svg/up.svg";
-import { up } from "@utils/screens";
-import { includeProps } from "@utils/styled";
+import { BigNumber } from "components/big-number";
+import { H4 } from "components/h4";
+import { MainContainer } from "components/main-container";
+import { MainTitleBottom } from "components/main-title";
+import { ReactComponent as PrevIcon } from "svg/down.svg";
+import { ReactComponent as NextIcon } from "svg/up.svg";
+import { up } from "utils/screens";
+import { includeProps } from "utils/styled";
 
 interface ContentContainerProps {
     variant?: string;

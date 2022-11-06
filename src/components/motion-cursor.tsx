@@ -10,10 +10,10 @@ import {
 
 import tw, { css, styled } from "twin.macro";
 
-import { Translate } from "@components/translate";
-import { useNavigation } from "@hooks/use-navigation";
-import { TrackMousePosition } from "@hooks/use-track-mouse-position";
-import { State, useStore, useStoreProp } from "@store/index";
+import { Translate } from "components/translate";
+import { useNavigation } from "hooks/use-navigation";
+import { TrackMousePosition } from "hooks/use-track-mouse-position";
+import { State, useStore, useStoreProp } from "store/index";
 
 interface Props {
     onPositionUpdate?: ((clientX: number, clientY: number) => void) | null;

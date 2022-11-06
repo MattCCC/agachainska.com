@@ -3,7 +3,7 @@ import { memo, useEffect } from "react";
 import tw, { css, styled } from "twin.macro";
 import useMouseLeave from "use-mouse-leave";
 
-import { useStoreProp } from "@store/index";
+import { useStoreProp } from "store/index";
 
 import { DeviceMockup } from "./device-mockup";
 import { FullPageContent } from "./full-page-content";

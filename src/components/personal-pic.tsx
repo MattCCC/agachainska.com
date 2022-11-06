@@ -2,7 +2,7 @@ import { Fragment } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import { useWindowSize } from "@hooks/use-window-size";
+import { useWindowSize } from "hooks/use-window-size";
 
 import personalPicDesktop from "../img/personal-pic-desktop.png";
 import personalPicMobile from "../img/personal-pic-rectangle.png";

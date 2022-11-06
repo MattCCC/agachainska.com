@@ -10,12 +10,12 @@ import {
 import tw, { css, styled } from "twin.macro";
 import useMouseLeave from "use-mouse-leave";
 
-import { animate, AnimatePresence, motion } from "@components/animation";
-import { Distortion } from "@components/distortion";
-import { MainTitleTop } from "@components/main-title";
-import { useEventListener } from "@hooks/use-event-listener";
-import { ReactComponent as NextIcon } from "@svg/down.svg";
-import { ReactComponent as PrevIcon } from "@svg/up.svg";
+import { animate, AnimatePresence, motion } from "components/animation";
+import { Distortion } from "components/distortion";
+import { MainTitleTop } from "components/main-title";
+import { useEventListener } from "hooks/use-event-listener";
+import { ReactComponent as NextIcon } from "svg/down.svg";
+import { ReactComponent as PrevIcon } from "svg/up.svg";
 
 import OtherProjects, { OtherProjectProp } from "./other-projects";
 

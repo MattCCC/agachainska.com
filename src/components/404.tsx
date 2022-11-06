@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 
-import { MainContainer } from "@components/main-container";
-import { MainSection } from "@components/main-section";
-import { Translate } from "@components/translate";
+import { MainContainer } from "components/main-container";
+import { MainSection } from "components/main-section";
+import { Translate } from "components/translate";
 
 export function ErrorContainer() {
     return (

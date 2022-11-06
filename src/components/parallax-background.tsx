@@ -1,6 +1,6 @@
 import tw, { css, styled } from "twin.macro";
 
-import { up } from "@utils/screens";
+import { up } from "utils/screens";
 
 interface Props {
     bgImgUrl: string;

@@ -3,8 +3,8 @@ import { useCallback, useEffect } from "react";
 import { styled } from "twin.macro";
 import useMouseLeave from "use-mouse-leave";
 
-import { Post, PostItem } from "@components/post";
-import { useStoreProp } from "@store/index";
+import { Post, PostItem } from "components/post";
+import { useStoreProp } from "store/index";
 
 interface Props {
     otherProject: PostItem;

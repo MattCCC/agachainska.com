@@ -4,19 +4,19 @@ import { graphql, PageProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
-import { ParallaxBackground } from "@components/about-parallax-background";
-import { GridRow, MainContainer } from "@components/main-container";
-import { Meta } from "@components/meta";
-import { MotionCursor } from "@components/motion-cursor";
-import PersonalPic from "@components/personal-pic";
-import SelectedProjects from "@components/selected-projects";
-import { SocialMedia } from "@components/social-media";
-import { Tabs } from "@components/tabs";
-import { Timeline } from "@components/timeline";
-import { socialMedia } from "@data/social-media";
-import { useTimelineViewport } from "@hooks/use-timeline-viewport";
-import { useWindowSize } from "@hooks/use-window-size";
-import { up } from "@utils/screens";
+import { ParallaxBackground } from "components/about-parallax-background";
+import { GridRow, MainContainer } from "components/main-container";
+import { Meta } from "components/meta";
+import { MotionCursor } from "components/motion-cursor";
+import PersonalPic from "components/personal-pic";
+import SelectedProjects from "components/selected-projects";
+import { SocialMedia } from "components/social-media";
+import { Tabs } from "components/tabs";
+import { Timeline } from "components/timeline";
+import { socialMedia } from "data/social-media";
+import { useTimelineViewport } from "hooks/use-timeline-viewport";
+import { useWindowSize } from "hooks/use-window-size";
+import { up } from "utils/screens";
 
 const HeroSection = styled.section(() => [
     tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-screen`,

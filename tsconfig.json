@@ -28,18 +28,18 @@
         // "downlevelIteration": true,            /* Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'. */
         "isolatedModules": true /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */,
         "paths": {
-            "@config/*": ["./src/config/*"],
-            "@components/*": ["./src/components/*"],
-            "@data/*": ["./src/data/*"],
-            "@domain/*": ["./src/domain/*"],
-            "@layouts/*": ["./src/layouts/*"],
-            "@styles/*": ["./src/styles/*"],
-            "@store/*": ["./src/store/*"],
-            "@pages/*": ["./src/pages/*"],
-            "@utils/*": ["./src/utils/*"],
-            "@svg/*": ["./src/svg/*"],
-            "@hooks/*": ["./src/hooks/*"],
-            "@translations/*": ["./src/translations/*"]
+            "config/*": ["./src/config/*"],
+            "components/*": ["./src/components/*"],
+            "data/*": ["./src/data/*"],
+            "domain/*": ["./src/domain/*"],
+            "layouts/*": ["./src/layouts/*"],
+            "styles/*": ["./src/styles/*"],
+            "store/*": ["./src/store/*"],
+            "pages/*": ["./src/pages/*"],
+            "utils/*": ["./src/utils/*"],
+            "svg/*": ["./src/svg/*"],
+            "hooks/*": ["./src/hooks/*"],
+            "translations/*": ["./src/translations/*"]
         },
         /* Strict Type-Checking Options */
         "strict": true /* Enable all strict type-checking options. */,

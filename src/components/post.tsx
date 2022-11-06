@@ -2,9 +2,9 @@ import { Fragment } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import { BigNumber } from "@components/big-number";
-import { MainTitleTop } from "@components/main-title";
-import { up } from "@utils/screens";
+import { BigNumber } from "components/big-number";
+import { MainTitleTop } from "components/main-title";
+import { up } from "utils/screens";
 
 export interface PostItem {
     [x: string]: any;

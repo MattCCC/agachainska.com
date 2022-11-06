@@ -1,8 +1,8 @@
+import { ProjectBadge } from "domain/single-project/project-badge";
+
 import { Fragment, PropsWithChildren } from "react";
 
 import tw, { styled, css } from "twin.macro";
-
-import { ProjectBadge } from "@domain/single-project/project-badge";
 
 const Table = styled.ol(() => [
     tw`grid max-w-full grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-flow-col gap-x-20 gap-y-8`,

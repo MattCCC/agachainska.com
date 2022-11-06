@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import tw, { css, styled } from "twin.macro";
 
-import { PostItem } from "@components/post";
+import { PostItem } from "components/post";
 
 import OtherProject from "./other-project";
 

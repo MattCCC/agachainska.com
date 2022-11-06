@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 
-import { GridRow, MainContainer } from "@components/main-container";
-import { Meta } from "@components/meta";
+import { GridRow, MainContainer } from "components/main-container";
+import { Meta } from "components/meta";
 
 export default function Thanks() {
     return (

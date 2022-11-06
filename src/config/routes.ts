@@ -1,4 +1,4 @@
-import { State } from "@store/index";
+import { State } from "store/index";
 
 export interface RoutesList {
     [x: string]: RouteStruct;

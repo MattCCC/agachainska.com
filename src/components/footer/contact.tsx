@@ -4,12 +4,11 @@ import tw, { css, styled } from "twin.macro";
 import useMouseLeave from "use-mouse-leave";
 
 import { useLocation } from "@reach/router";
-
-import { Link } from "@components/link";
-import { MarqueeText } from "@components/marquee-text";
-import { useStoreProp } from "@store/index";
-import { getLinkProps } from "@utils/route";
-import { up } from "@utils/screens";
+import { Link } from "components/link";
+import { MarqueeText } from "components/marquee-text";
+import { useStoreProp } from "store/index";
+import { getLinkProps } from "utils/route";
+import { up } from "utils/screens";
 
 const ContactWrapper = styled(Link)(() => [
     tw`relative block cursor-pointer select-none`,

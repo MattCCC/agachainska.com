@@ -1,4 +1,4 @@
-import { selectedProjectsUids } from "@data/selected-projects";
+import { selectedProjectsUids } from "data/selected-projects";
 
 import { ProjectsList, SingleProject } from "./projects-list";
 

@@ -1,4 +1,4 @@
-import { set, createStore, mergeState } from "@utils/store";
+import { set, createStore, mergeState } from "utils/store";
 
 const initialState = {
     showMotionGrid: true,
