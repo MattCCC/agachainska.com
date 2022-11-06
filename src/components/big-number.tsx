@@ -48,6 +48,14 @@ export function BigNumber({
         }
     }, delay);
 
+    let x = 0;
+    let textAnchor = "start";
+
+    if (displayOnRight) {
+        x = viewBoxWidth - 5;
+        textAnchor = "end";
+    }
+
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -92,15 +100,9 @@ export function BigNumber({
                             fill={`url(#pattern-${id})`}
                             stroke="#000"
                             strokeWidth="1.5"
-                            textAnchor={displayOnRight ? "end" : "start"}
+                            textAnchor={textAnchor}
                         >
-                            <tspan
-                                x={
-                                    (displayOnRight ? viewBoxWidth - 5 : 0) +
-                                    8.129
-                                }
-                                y="179"
-                            >
+                            <tspan x={x + 8.129} y="179">
                                 {count}
                             </tspan>
                         </text>
@@ -108,12 +110,9 @@ export function BigNumber({
                             fill="#FFF"
                             stroke="#0B0B0B"
                             strokeWidth="1.5"
-                            textAnchor={displayOnRight ? "end" : "start"}
+                            textAnchor={textAnchor}
                         >
-                            <tspan
-                                x={displayOnRight ? viewBoxWidth - 5 : 0}
-                                y="179"
-                            >
+                            <tspan x={x} y="179">
                                 {count}
                             </tspan>
                         </text>
