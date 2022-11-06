@@ -23,7 +23,6 @@ export const DevicesCarousel = memo(
         const [mouseLeft, itemsRef] = useMouseLeave();
 
         useEffect(() => {
-            console.log("🚀 ~ useEffect ~ mouseLeft", mouseLeft);
             dispatch.showMotionCursor(!mouseLeft, {
                 text: "drag",
                 route: "",
