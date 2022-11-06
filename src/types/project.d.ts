@@ -1,21 +1,27 @@
 type ProjectCategory = "UX" | "UI" | "Others";
 
-interface ProjectImage {
+interface ProjectSectionImage {
     image: string;
 }
 
-interface ProjectElement {
+interface ProjectSectionElement {
     element: string;
-    images?: ProjectImage[];
+    images?: ProjectSectionImage[];
     description?: string;
     image?: string;
     quote?: string;
+    concept: string;
+    conceptDesc: string;
+    design: string;
+    designDesc: string;
+    projectManagement: string;
+    projectManagementDesc: string;
 }
 
 interface ProjectSection {
     section: string;
     showInTimeline?: "yes" | "no";
-    elements: ProjectElement[];
+    elements: ProjectSectionElement[];
 }
 
 interface Project {
