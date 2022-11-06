@@ -2,7 +2,7 @@ import { memo } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import MobileFrame from "../img/iPhoneX.png";
+import MobileFrame from "../img/iphone-x.png";
 
 const MobileDeviceContainer = styled.div(() => [tw`relative h-[530px]`]);
 
