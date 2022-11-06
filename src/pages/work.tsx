@@ -217,8 +217,7 @@ const Work = memo(({ data }: Props) => {
                         (section) => section.category === state.activeSectionId
                     )?.items || []
                 )
-                    // TODO: active item should be selected instead of the first one
-                    .at(0) || {}
+                    .at(Number(state.activeItemId)) || {}
             ).bgColor || "#FFF",
         [timelineList, state.activeSectionId]
     );
