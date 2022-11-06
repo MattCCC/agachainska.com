@@ -77,6 +77,8 @@ const ProjectCover = styled.div(
     ({ isMotionCursorVisible, projectCoverLink }: CursorProps) => [
         tw`fixed z-30 hidden lg:block`,
         css`
+            top: var(--top);
+            left: var(--left);
             opacity: 0;
             background: url(${projectCoverLink}) center;
             background-size: cover;
