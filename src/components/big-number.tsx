@@ -46,10 +46,10 @@ export function BigNumber({
 
         const num = Number(count);
 
-        setCount(String(num + 1));
-
         if (num === value) {
             setDelay(null);
+        } else {
+            setCount(String(num + 1));
         }
     }, delay);
 
