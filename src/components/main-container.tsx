@@ -2,7 +2,7 @@ import { ElementType, PropsWithChildren } from "react";
 
 import tw, { styled } from "twin.macro";
 
-import { excludeProps } from "@utils/styled";
+import { excludeProps } from "utils/styled";
 
 interface Props {
     topPadding?: boolean;

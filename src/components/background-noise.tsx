@@ -12,8 +12,7 @@ import {
     requestInterval,
     clearRequestInterval,
 } from "@essentials/request-interval";
-
-import { getRandomNumber } from "@utils/random-number";
+import { getRandomNumber } from "utils/random-number";
 
 interface Props {
     className?: string;

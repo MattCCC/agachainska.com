@@ -3,7 +3,7 @@ import { memo, PropsWithChildren, ReactNode } from "react";
 import { Spring, useMotionValue } from "framer-motion";
 import tw, { styled } from "twin.macro";
 
-import { MotionProps } from "@components/animation";
+import { MotionProps } from "components/animation";
 
 import { ContextProvider } from "./context";
 import { Item } from "./item";

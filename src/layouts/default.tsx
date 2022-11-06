@@ -3,15 +3,14 @@ import { Fragment, PropsWithChildren, ReactElement } from "react";
 import tw, { styled, css } from "twin.macro";
 
 import { Global } from "@emotion/react";
-
-import { Background } from "@components/background";
-import { Footer } from "@components/footer";
-import { FullPageOverlay } from "@components/full-page-overlay";
-import { Header } from "@components/header";
-import { Overlays, TopOverlay } from "@components/overlays";
-import { useOnRouteChange } from "@hooks/use-on-route-change";
-import { useStoreProp } from "@store/index";
-import { up } from "@utils/screens";
+import { Background } from "components/background";
+import { Footer } from "components/footer";
+import { FullPageOverlay } from "components/full-page-overlay";
+import { Header } from "components/header";
+import { Overlays, TopOverlay } from "components/overlays";
+import { useOnRouteChange } from "hooks/use-on-route-change";
+import { useStoreProp } from "store/index";
+import { up } from "utils/screens";
 
 interface Props {
     hasGradient: boolean;

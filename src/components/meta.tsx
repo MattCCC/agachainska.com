@@ -1,8 +1,7 @@
 import { Fragment, memo, PropsWithChildren } from "react";
 
 import { useLocation } from "@reach/router";
-
-import { useSiteMetadata } from "@hooks/use-site-metadata";
+import { useSiteMetadata } from "hooks/use-site-metadata";
 
 interface Props {
     title?: string;

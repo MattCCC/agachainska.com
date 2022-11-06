@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from "react";
 
-import { motion, LayoutGroup, useAnimation } from "@components/animation";
-import { useStore } from "@store/index";
+import { motion, LayoutGroup, useAnimation } from "components/animation";
+import { useStore } from "store/index";
 
 const overlayStyleClasses = "fixed left-0 w-full h-full";
 

@@ -2,14 +2,14 @@ import { Fragment } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import { BackgroundNoise } from "@components/background-noise";
-import { Contact } from "@components/footer/contact";
-import { SocialMedia } from "@components/social-media";
-import { socialMedia } from "@data/social-media";
-import { useStoreProp } from "@store/index";
-import { ReactComponent as WavesPattern } from "@svg/bg-lines.svg";
-import { ReactComponent as PricklyPearIllustration } from "@svg/Prickly pear@1x.svg";
-import { up } from "@utils/screens";
+import { BackgroundNoise } from "components/background-noise";
+import { Contact } from "components/footer/contact";
+import { SocialMedia } from "components/social-media";
+import { socialMedia } from "data/social-media";
+import { useStoreProp } from "store/index";
+import { ReactComponent as WavesPattern } from "svg/bg-lines.svg";
+import { ReactComponent as PricklyPearIllustration } from "svg/Prickly pear@1x.svg";
+import { up } from "utils/screens";
 
 interface Props {
     showFooter: boolean;

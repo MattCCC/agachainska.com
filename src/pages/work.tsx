@@ -12,20 +12,20 @@ import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 import { useDebouncedCallback } from "use-debounce";
 
-import { BigNumber } from "@components/big-number";
-import { MainContainer } from "@components/main-container";
-import { Meta } from "@components/meta";
-import { MotionCursor } from "@components/motion-cursor";
-import { Post, PostItem } from "@components/post";
-import { Slider, SliderItem } from "@components/slider";
-import { Star } from "@components/star";
-import { Tabs } from "@components/tabs";
-import { Timeline, Item, Section } from "@components/timeline";
-import { useEventListener } from "@hooks/use-event-listener";
-import { useNavigation } from "@hooks/use-navigation";
-import { useWindowSize } from "@hooks/use-window-size";
-import { useStoreProp } from "@store/index";
-import { groupBy } from "@utils/group-by";
+import { BigNumber } from "components/big-number";
+import { MainContainer } from "components/main-container";
+import { Meta } from "components/meta";
+import { MotionCursor } from "components/motion-cursor";
+import { Post, PostItem } from "components/post";
+import { Slider, SliderItem } from "components/slider";
+import { Star } from "components/star";
+import { Tabs } from "components/tabs";
+import { Timeline, Item, Section } from "components/timeline";
+import { useEventListener } from "hooks/use-event-listener";
+import { useNavigation } from "hooks/use-navigation";
+import { useWindowSize } from "hooks/use-window-size";
+import { useStoreProp } from "store/index";
+import { groupBy } from "utils/group-by";
 
 interface PageState {
     sliderIndex: number;

@@ -5,10 +5,10 @@ import { WrapRootElementNodeArgs } from "gatsby";
 import { IntlContextProvider, IntlProvider } from "gatsby-plugin-intl";
 import { ParallaxProvider } from "react-scroll-parallax";
 
-import { Layout } from "@layouts/default";
+import { Layout } from "layouts/default";
 import { LocationProvider } from "@reach/router";
-import { globalStore } from "@store/index";
-import messages from "@translations/en.json";
+import { globalStore } from "store/index";
+import messages from "translations/en.json";
 import React from "react";
 
 const locales = ["en"];

@@ -1,26 +1,5 @@
-import { Fragment } from "react";
-
-import { graphql, PageProps } from "gatsby";
-import type { HeadProps } from "gatsby";
-import { useInViewEffect } from "react-hook-inview";
-import tw, { styled } from "twin.macro";
-
-import { DeviceMockup } from "@components/device-mockup";
-import { DevicesCarousel } from "@components/devices-carousel";
-import { FullPageContent } from "@components/full-page-content";
-import { H2 } from "@components/h2";
-import { H3 } from "@components/h3";
-import { Link } from "@components/link";
-import { GridRow } from "@components/main-container";
-import { Meta } from "@components/meta";
-import { MotionCursor } from "@components/motion-cursor";
-import { ParallaxBackground } from "@components/parallax-background";
-import { Quote } from "@components/quote";
-import { Tabs } from "@components/tabs";
-import { Timeline } from "@components/timeline";
-import ViewOnDeskStar from "@components/view-on-desktop-star";
-import { GallerySlider } from "@domain/single-project/gallery-slider";
-import { OtherProjects } from "@domain/single-project/other-projects";
+import { GallerySlider } from "domain/single-project/gallery-slider";
+import { OtherProjects } from "domain/single-project/other-projects";
 import {
     MainSection,
     Button,
@@ -43,15 +22,37 @@ import {
     StatsCaption,
     TableCredits,
     MainTitle,
-} from "@domain/single-project/styled";
-import { useIncrementStats } from "@domain/single-project/use-increment-stats";
-import { usePagination } from "@domain/single-project/use-pagination";
+} from "domain/single-project/styled";
+import { useIncrementStats } from "domain/single-project/use-increment-stats";
+import { usePagination } from "domain/single-project/use-pagination";
+
+import { Fragment } from "react";
+
+import { graphql, PageProps } from "gatsby";
+import type { HeadProps } from "gatsby";
+import { useInViewEffect } from "react-hook-inview";
+import tw, { styled } from "twin.macro";
+
+import { DeviceMockup } from "components/device-mockup";
+import { DevicesCarousel } from "components/devices-carousel";
+import { FullPageContent } from "components/full-page-content";
+import { H2 } from "components/h2";
+import { H3 } from "components/h3";
+import { Link } from "components/link";
+import { GridRow } from "components/main-container";
+import { Meta } from "components/meta";
+import { MotionCursor } from "components/motion-cursor";
+import { ParallaxBackground } from "components/parallax-background";
+import { Quote } from "components/quote";
+import { Tabs } from "components/tabs";
+import { Timeline } from "components/timeline";
+import ViewOnDeskStar from "components/view-on-desktop-star";
 import {
     ProjectsByCategory,
     useProjectsByCategory,
-} from "@hooks/use-projects-by-category";
-import { useTimelineViewport } from "@hooks/use-timeline-viewport";
-import { useWindowSize } from "@hooks/use-window-size";
+} from "hooks/use-projects-by-category";
+import { useTimelineViewport } from "hooks/use-timeline-viewport";
+import { useWindowSize } from "hooks/use-window-size";
 
 interface Props extends PageProps {
     data: {

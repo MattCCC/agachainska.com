@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 
 import { navigate } from "gatsby";
 
-import { isDev } from "@utils/detect-env";
+import { isDev } from "utils/detect-env";
 
 export type LinkDelayedCallback = (
     e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,

@@ -1,14 +1,13 @@
 import tw, { css, styled } from "twin.macro";
 
 import { useLocation } from "@reach/router";
-
-import { Link } from "@components/link";
-import { Logo } from "@components/logo";
-import { useHideCursorPreserveVisibility } from "@components/motion-cursor";
-import { Translate } from "@components/translate";
-import { useStoreProp } from "@store/index";
-import { getLinkProps, LinkProps } from "@utils/route";
-import { up } from "@utils/screens";
+import { Link } from "components/link";
+import { Logo } from "components/logo";
+import { useHideCursorPreserveVisibility } from "components/motion-cursor";
+import { Translate } from "components/translate";
+import { useStoreProp } from "store/index";
+import { getLinkProps, LinkProps } from "utils/route";
+import { up } from "utils/screens";
 
 const HeaderWrapper = styled.header(() => [
     tw`absolute top-0 z-50 flex flex-wrap items-center justify-between mx-auto max-w-screen-2xl`,

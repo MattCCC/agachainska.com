@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { ProjectsByCategory } from "@hooks/use-projects-by-category";
+import { ProjectsByCategory } from "hooks/use-projects-by-category";
 
 interface Pagination {
     hasPreviousButton: boolean;

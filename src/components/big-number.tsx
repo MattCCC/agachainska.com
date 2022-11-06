@@ -3,8 +3,7 @@
 import { SVGProps, useEffect, useMemo, useState } from "react";
 
 import useInterval from "@use-it/interval";
-
-import { getRandomNumber } from "@utils/random-number";
+import { getRandomNumber } from "utils/random-number";
 
 interface Props extends SVGProps<SVGSVGElement> {
     value: number | string;

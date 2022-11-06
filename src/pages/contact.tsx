@@ -1,13 +1,13 @@
 import tw, { css, styled } from "twin.macro";
 
-import { Button } from "@components/button";
-import { GridRow, MainContainer } from "@components/main-container";
-import { Meta } from "@components/meta";
-import { SocialMedia } from "@components/social-media";
-import { TextTextarea } from "@components/text-textarea";
-import { socialMedia } from "@data/social-media";
-import { ReactComponent as ContactIllustration } from "@svg/Contact.svg";
-import { up } from "@utils/screens";
+import { Button } from "components/button";
+import { GridRow, MainContainer } from "components/main-container";
+import { Meta } from "components/meta";
+import { SocialMedia } from "components/social-media";
+import { TextTextarea } from "components/text-textarea";
+import { socialMedia } from "data/social-media";
+import { ReactComponent as ContactIllustration } from "svg/Contact.svg";
+import { up } from "utils/screens";
 
 const H1 = styled.div(() => [
     tw`pt-12 mb-5 leading-9 lg:mb-12 font-fbold prose-28 lg:prose-48 lg:leading-14 lg:pt-24`,

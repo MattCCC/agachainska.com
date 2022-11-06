@@ -3,9 +3,9 @@ import { memo, useEffect } from "react";
 import tw, { css, styled } from "twin.macro";
 import useMouseLeave from "use-mouse-leave";
 
-import { FullPageContent } from "@components/full-page-content";
-import { MotionSlider } from "@components/motion-slider";
-import { useStoreProp } from "@store/index";
+import { FullPageContent } from "components/full-page-content";
+import { MotionSlider } from "components/motion-slider";
+import { useStoreProp } from "store/index";
 
 const SliderWrapper = styled.div(() => [tw`cursor-none lg:ml-72`]);
 

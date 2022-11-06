@@ -1,7 +1,7 @@
 import { memo } from "react";
 
-import { SingleProject, ProjectsList } from "@components/projects-list";
-import { ProjectsByCategory } from "@hooks/use-projects-by-category";
+import { SingleProject, ProjectsList } from "components/projects-list";
+import { ProjectsByCategory } from "hooks/use-projects-by-category";
 
 interface Props {
     limit?: number;
