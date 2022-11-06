@@ -113,7 +113,7 @@ const config: GatsbyConfig = {
             options: {
                 name: `Aga Chainska`,
                 short_name: `Aga Chainska`,
-                icon: `/img/slider-pattern.png`,
+                icon: `static/img/slider-pattern.png`,
                 start_url: `/`,
                 background_color: `#f7f7f7`,
                 theme_color: `#191919`,
