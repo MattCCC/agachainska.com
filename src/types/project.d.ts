@@ -40,6 +40,8 @@ interface Project {
     name: string;
     cover: string;
     subCategory: string;
+    bgColor: string;
+    starColor: string;
     nameSlug: string;
     category: ProjectCategory;
     client: string;

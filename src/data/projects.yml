@@ -1,7 +1,9 @@
 - uid: 1
   category: UX/UI
   subCategory:
-  name: RE/MAX 1
+  bgColor: "#D90B0B"
+  starColor: "#F5A4FF"
+  name: RE/MAX
   cover: "/img/projects/image-1.png"
   client: RE/MAX Malta
   agency: BRND WGN
@@ -75,6 +77,8 @@
 - uid: 2
   category: UX/UI
   subCategory:
+  bgColor: "#D90B0B"
+  starColor: "#F5A4FF"
   name: Danish Bakery
   cover: "/img/projects/image-2.jpg"
   client: Danish Bakery Malta
@@ -136,6 +140,8 @@
 - uid: 3
   category: Illustrations
   subCategory:
+  bgColor: "#20F508"
+  starColor: "#C0A4FF"
   name: Twitch
   cover: "/img/projects/placeholder-1.png"
   client: Twitch Malta
@@ -197,6 +203,8 @@
 - uid: 4
   category: Illustrations
   subCategory: Others
+  bgColor: "#20F508"
+  starColor: "#C0A4FF"
   name: RE/MAX
   cover: "/img/projects/image-1.png"
   client: Twitch Malta
@@ -259,6 +267,8 @@
 - uid: 5
   category: Illustrations
   subCategory: Others
+  bgColor: "#20F508"
+  starColor: "#C0A4FF"
   name: YELLOW WEBSITE
   cover: "/img/projects/image-2.jpg"
   client: Twitch Malta
@@ -321,6 +331,8 @@
 - uid: 6
   category: Illustrations
   subCategory: Others
+  bgColor: "#20F508"
+  starColor: "#C0A4FF"
   name: VELLOW WEBSITE
   cover: "/img/projects/placeholder-1.png"
   client: Twitch Malta
@@ -383,6 +395,8 @@
 - uid: 7
   category: Illustrations
   subCategory: Others
+  bgColor: "#20F508"
+  starColor: "#C0A4FF"
   name: WELLOW WEBSITE
   cover: "/img/projects/image-1.png"
   client: Twitch Malta
@@ -445,6 +459,8 @@
 - uid: 8
   category: UX/UI
   subCategory: Others
+  bgColor: "#D90B0B"
+  starColor: "#F5A4FF"
   name: Addidas
   cover: "/img/projects/image-2.jpg"
   client: Addidas Malta
@@ -507,6 +523,8 @@
 - uid: 9
   category: UX/UI
   subCategory: Others
+  bgColor: "#D90B0B"
+  starColor: "#F5A4FF"
   name: Nike
   cover: "/img/projects/placeholder-1.png"
   client: Nike Malta
@@ -569,6 +587,8 @@
 - uid: 10
   category: UX/UI
   subCategory: Others
+  bgColor: "#D90B0B"
+  starColor: "#F5A4FF"
   name: Pepsi
   cover: "/img/projects/image-1.png"
   client: Pepsi Malta
@@ -630,6 +650,8 @@
 - uid: 11
   category: UX/UI
   subCategory: Others
+  bgColor: "#D90B0B"
+  starColor: "#F5A4FF"
   name: Topshop
   cover: "/img/projects/image-2.jpg"
   client: Topshop Malta

@@ -13,6 +13,7 @@ import tw, { css, styled } from "twin.macro";
 import { motion, MotionProps, AnimatePresence } from "@components/animation";
 import { useElementSize } from "@hooks/use-element-size";
 import { excludeProps } from "@utils/styled";
+import { useStoreProp } from "@store/index";
 
 const TimelineWrapper = styled.div(() => [tw`z-10 text-right w-52`]);
 
@@ -217,18 +218,18 @@ export const Timeline = memo(
                                         0,
                                         (contentListHeight /
                                             (section.items?.length ?? 1)) *
-                                            (section.items?.findIndex(
-                                                (item) =>
-                                                    item.id ===
-                                                    state.activeItemId
-                                            ) || 0)
+                                        (section.items?.findIndex(
+                                            (item) =>
+                                                item.id ===
+                                                state.activeItemId
+                                        ) || 0)
                                     ),
                                 }}
                                 style={{
                                     height: Math.max(
                                         0,
                                         contentListHeight /
-                                            (section.items?.length ?? 1)
+                                        (section.items?.length ?? 1)
                                     ),
                                 }}
                             />
@@ -239,7 +240,7 @@ export const Timeline = memo(
                                         key={itemIndex}
                                         isActive={
                                             section.id ===
-                                                state.activeSectionId &&
+                                            state.activeSectionId &&
                                             item.id === state.activeItemId
                                         }
                                         onClick={onTimelineItemClick.bind(
