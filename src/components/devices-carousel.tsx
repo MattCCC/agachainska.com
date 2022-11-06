@@ -1,14 +1,21 @@
 import { useStoreProp } from "@store/index";
 import { memo, useEffect } from "react";
 
-import tw, { styled } from "twin.macro";
+import tw, { css, styled } from "twin.macro";
 import useMouseLeave from "use-mouse-leave";
 
 import { DeviceMockup } from "./device-mockup";
 import { FullPageContent } from "./full-page-content";
 import { MotionSlider } from "./motion-slider";
 
-const SliderWrapper = styled.div(() => [tw`cursor-none lg:ml-[13rem]`]);
+const SliderWrapper = styled.div(() => [
+    tw`cursor-none lg:ml-[13rem]`,
+    css`
+        & > div {
+            ${tw`overflow-visible`}
+        }
+    `,
+]);
 
 export const DevicesCarousel = memo(
     ({ list }: { list: ProjectSectionElementDevice[] }) => {
@@ -27,7 +34,7 @@ export const DevicesCarousel = memo(
         }, [mouseLeft, dispatch]);
 
         return (
-            <FullPageContent widthPct={100} border={false}>
+            <FullPageContent widthPct={100} heightPct={100} border={false}>
                 <SliderWrapper ref={itemsRef}>
                     <MotionSlider displayGrabCursor={false}>
                         {list.map(({ type, link }, i) => (
