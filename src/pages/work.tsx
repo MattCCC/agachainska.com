@@ -68,6 +68,11 @@ const SlideWrapper = styled.div(
     ({ isShowingOtherProjects }: SliderWrapperProps) => [
         tw`relative hidden col-span-5 col-start-1 col-end-5 lg:block`,
         isShowingOtherProjects && tw`h-full`,
+        css`
+            svg {
+                ${tw`cursor-none`}
+            }
+        `,
     ]
 );
 
@@ -263,6 +268,7 @@ const Work = memo(({ data }: Props) => {
             dispatch.showMotionCursor(!mouseDidLeave, {
                 text: "explore",
                 route: state.routeTo,
+                overlap: false,
             });
 
             setState((prevState) => ({

@@ -8,7 +8,8 @@ import {
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
-import useMouseLeave from "use-mouse-leave";
+
+import useMouse from "@react-hook/mouse-position";
 
 import { animate, AnimatePresence, motion } from "components/animation";
 import { Distortion } from "components/distortion";
@@ -337,12 +338,31 @@ export const Slider = ({
         setPage,
     ]);
 
-    const [mouseLeft, sliderContentRef] = useMouseLeave();
+    const sliderContentRef = useRef(null);
+    const mouse = useMouse(sliderContentRef, {
+        enterDelay: 30,
+        leaveDelay: 30,
+    });
+
+    useEffect(() => {
+        const isMouseOver = Boolean(mouse.elementWidth);
+
+        if (!isMouseOver && onSliderMouseLeave && !isShowingOtherProjects) {
+            onSliderMouseLeave(true);
+        } else if (onSliderMouseEnter && !isShowingOtherProjects) {
+            onSliderMouseEnter(false);
+        }
+    }, [
+        isShowingOtherProjects,
+        mouse.elementWidth,
+        onSliderMouseEnter,
+        onSliderMouseLeave,
+    ]);
 
     useEventListener(
         "wheel",
         (e) => {
-            if (!mouseLeft && mouseScrollOnSlide) {
+            if (Boolean(mouse.elementWidth) && mouseScrollOnSlide) {
                 e.preventDefault();
 
                 updateScroll(e as WheelEvent);
@@ -352,19 +372,6 @@ export const Slider = ({
             (document.body as unknown)) as RefObject<HTMLDivElement>,
         { passive: false }
     );
-
-    useEffect((): void => {
-        if (mouseLeft && onSliderMouseLeave && !isShowingOtherProjects) {
-            onSliderMouseLeave(true);
-        } else if (onSliderMouseEnter && !isShowingOtherProjects) {
-            onSliderMouseEnter(false);
-        }
-    }, [
-        mouseLeft,
-        onSliderMouseEnter,
-        onSliderMouseLeave,
-        isShowingOtherProjects,
-    ]);
 
     const onSliderClick = useCallback(
         (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
