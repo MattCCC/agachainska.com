@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useState, Fragment } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -19,10 +19,34 @@ const MobileDevice = styled.iframe(() => [
     `,
 ]);
 
-const DeviceFrame = styled.div((deviceFrameToUse: ReactElement) => [
+const DeviceFrameIphoneX = styled.div(() => [
     tw`w-[293px] h-[555px] absolute pointer-events-none z-20`,
     css`
-        background: url(${deviceFrameToUse}) no-repeat;
+        background: url(${IphoneX}) no-repeat;
+        background-size: contain;
+    `,
+]);
+
+const DeviceFrameIphone8 = styled.div(() => [
+    tw`w-[293px] h-[555px] absolute pointer-events-none z-20`,
+    css`
+        background: url(${Iphone8}) no-repeat;
+        background-size: contain;
+    `,
+]);
+
+const DeviceFrameIphone13Pro = styled.div(() => [
+    tw`w-[293px] h-[555px] absolute pointer-events-none z-20`,
+    css`
+        background: url(${Iphone13Pro}) no-repeat;
+        background-size: contain;
+    `,
+]);
+
+const DeviceFrameMacbookPro = styled.div(() => [
+    tw`w-[293px] h-[555px] absolute pointer-events-none z-20`,
+    css`
+        background: url(${MacbookPro}) no-repeat;
         background-size: contain;
     `,
 ]);
@@ -50,34 +74,35 @@ const renderSwitch = ({
     switch (type) {
         case "iPhoneX":
             return (
-                <>
+                <Fragment>
                     <MobileDevice as={tag} src={link}></MobileDevice>
-                    <DeviceFrame deviceFrameToUse={IphoneX} />
-                </>
+                    <DeviceFrameIphoneX />
+                </Fragment>
             );
 
         case "iPhone13pro":
             return (
-                <>
+                <Fragment>
                     <MobileDevice as={tag} src={link}></MobileDevice>
-                    <DeviceFrame deviceFrameToUse={Iphone13Pro} />
-                </>
+                    <DeviceFrameIphone13Pro />
+                </Fragment>
             );
 
         case "iPhone8":
             return (
-                <>
+                <Fragment>
                     <MobileDevice as={tag} src={link}></MobileDevice>
-                    <DeviceFrame deviceFrameToUse={Iphone8} />
-                </>
+                    <DeviceFrameIphone8 />
+                </Fragment>
             );
 
         case "laptop":
+        default:
             return (
-                <>
+                <Fragment>
                     <MobileDevice as={tag} src={link}></MobileDevice>
-                    <DeviceFrame deviceFrameToUse={MacbookPro} />
-                </>
+                    <DeviceFrameMacbookPro />
+                </Fragment>
             );
     }
 };
