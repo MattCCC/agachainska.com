@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -24,25 +24,56 @@ const PhoneFrame = styled.div(() => [
 
 interface Props extends ProjectSectionElementDevice {}
 
-const renderSwitch = (type: string, src: string) => {
+/**
+ * TODO: Package
+ */
+function isImageURL(url: string) {
+    return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+}
+
+const renderSwitch = ({
+    type,
+    link,
+    isImage,
+}: {
+    type: string;
+    link: string;
+    isImage: boolean;
+}) => {
+    const tag = isImage ? "img" : "iframe";
+
     switch (type) {
         case "iPhoneX":
-            return <MobileDevice src={src}></MobileDevice>;
+            return <MobileDevice as={tag} src={link}></MobileDevice>;
 
         case "iPhone13pro":
-            return <MobileDevice src={src}></MobileDevice>;
+            return <MobileDevice as={tag} src={link}></MobileDevice>;
 
         case "iPhone8":
-            return <MobileDevice src={src}></MobileDevice>;
+            return <MobileDevice as={tag} src={link}></MobileDevice>;
 
         case "laptop":
-            return <MobileDevice src={src}></MobileDevice>;
+            return <MobileDevice as={tag} src={link}></MobileDevice>;
     }
 };
 
-export const DeviceMockup = memo(({ type, link }: Props) => (
-    <MobileDeviceContainer>
-        {renderSwitch(type, link)}
-        <PhoneFrame />
-    </MobileDeviceContainer>
-));
+export const DeviceMockup = memo(({ type, link }: Props) => {
+    const [isImage, setIsImage] = useState(false);
+
+    useEffect(() => {
+        const getData = async () => {
+            const isImageUrl = await isImageURL(link);
+
+            setIsImage(isImageUrl);
+        };
+
+        getData();
+    }, []);
+
+    return (
+        <MobileDeviceContainer>
+            {renderSwitch({ isImage, type, link })}
+            <PhoneFrame />
+        </MobileDeviceContainer>
+    );
+});
