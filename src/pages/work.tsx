@@ -93,14 +93,6 @@ const StyledStar = styled(Star)(() => [
     `,
 ]);
 
-const categoryColors = {
-    "UX/UI": "#F5A4FF",
-    // eslint-disable-next-line quote-props
-    Illustrations: "#C0A4FF",
-} as {
-    [x: string]: string;
-};
-
 let isPageTop = false;
 let isPageBottom = false;
 
