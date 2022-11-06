@@ -216,10 +216,9 @@ const Work = memo(({ data }: Props) => {
                     timelineList.find(
                         (section) => section.category === state.activeSectionId
                     )?.items || []
-                )
-                    .at(Number(state.activeItemId)) || {}
+                ).at(Number(state.activeItemId)) || {}
             ).bgColor || "#FFF",
-        [timelineList, state.activeSectionId]
+        [timelineList, state.activeItemId, state.activeSectionId]
     );
 
     useEffect(() => {

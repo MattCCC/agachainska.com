@@ -5,6 +5,7 @@ import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
 import { ParallaxBackground } from "components/about-parallax-background";
+import { Button } from "components/button";
 import { GridRow, MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
@@ -17,7 +18,6 @@ import { socialMedia } from "data/social-media";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import { up } from "utils/screens";
-import { Button } from "components/button";
 
 const HeroSection = styled.section(() => [
     tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-screen`,

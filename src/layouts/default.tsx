@@ -3,6 +3,7 @@ import { Fragment, PropsWithChildren } from "react";
 import tw, { styled, css } from "twin.macro";
 
 import { Global } from "@emotion/react";
+
 import { Background } from "components/background";
 import { Footer } from "components/footer";
 import { FullPageOverlay } from "components/full-page-overlay";

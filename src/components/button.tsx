@@ -3,6 +3,7 @@ import { ButtonHTMLAttributes, PropsWithChildren } from "react";
 import tw, { css, styled } from "twin.macro";
 
 import { ReactComponent as BgShape } from "/img/button-bg.png";
+
 import { ReactComponent as BgShapeTwo } from "./img/button-bg.png";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {}

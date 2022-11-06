@@ -1,5 +1,3 @@
-import { StyledNumber } from "domain/single-project/styled";
-
 import { memo, useEffect } from "react";
 
 import tw, { css, styled } from "twin.macro";
@@ -7,6 +5,7 @@ import useMouseLeave from "use-mouse-leave";
 
 import { H4 } from "components/h4";
 import { Link } from "components/link";
+import { StyledNumber } from "domain/single-project/styled";
 import { useStoreProp } from "store/index";
 import { up } from "utils/screens";
 
