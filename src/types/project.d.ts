@@ -4,6 +4,11 @@ interface ProjectSectionImage {
     image: string;
 }
 
+interface ProjectSectionElementList {
+    type: string;
+    link: string;
+}
+
 interface ProjectSectionElement {
     element: string;
     images?: ProjectSectionImage[];
@@ -19,6 +24,7 @@ interface ProjectSectionElement {
     screens: number;
     iterations: number;
     prototypes: number;
+    list?: ProjectSectionElementList[];
 }
 
 interface ProjectSection {
