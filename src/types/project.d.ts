@@ -16,6 +16,9 @@ interface ProjectSectionElement {
     designDesc: string;
     projectManagement: string;
     projectManagementDesc: string;
+    screens: number;
+    iterations: number;
+    prototypes: number;
 }
 
 interface ProjectSection {

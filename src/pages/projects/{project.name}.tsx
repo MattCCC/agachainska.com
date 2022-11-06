@@ -65,8 +65,8 @@ const sectionLoader = (
     elements: ProjectSection["elements"],
     gallerySliderElementsGap: number = 0,
     projectsByCategory: ProjectsByCategory | null = null
-) => {
-    return elements.map(
+) =>
+    elements.map(
         (
             { element, description = "", image = "", images = [], quote = "" },
             index
@@ -206,7 +206,6 @@ const sectionLoader = (
             }
         }
     );
-};
 
 const loadResultsSection = (
     refResults: (node: Element | null) => void,
@@ -325,7 +324,7 @@ export default function Project({ data }: Props): JSX.Element {
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
 
-    let intersectionRootMargins = ["0px 0px 100% 0px"];
+    const intersectionRootMargins = ["0px 0px 100% 0px"];
 
     const timelineWithSections = {
         title: "Design Process",
