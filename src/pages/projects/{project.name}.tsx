@@ -298,7 +298,7 @@ const loadCreditsSection = (elements: ProjectSection["elements"]) => (
     </ArticleSection>
 );
 
-export default function Project({ data }: Props): JSX.Element {
+export default function Project({ data }: Props) {
     const {
         uid,
         name,

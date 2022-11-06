@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const OtherProjects = memo(
-    ({ projectsByCategory, limit = 4, ...props }: Props): JSX.Element => (
+    ({ projectsByCategory, limit = 4, ...props }: Props) => (
         <ProjectsList {...props}>
             {projectsByCategory.others
                 .slice(0, limit)

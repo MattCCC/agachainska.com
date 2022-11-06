@@ -3,7 +3,7 @@ import { PageProps } from "gatsby";
 import { ErrorContainer } from "@components/404";
 import { Meta } from "@components/meta";
 
-export default function ProjectCatchAll({ params }: PageProps): JSX.Element {
+export default function ProjectCatchAll({ params }: PageProps) {
     return <ErrorContainer params={params} />;
 }
 

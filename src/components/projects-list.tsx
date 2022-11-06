@@ -27,7 +27,7 @@ export const SingleProject = ({
     category,
     index,
     cover,
-}: Props): JSX.Element => (
+}: Props) => (
     <Fragment>
         <ProjectBadge
             key={index}

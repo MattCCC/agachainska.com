@@ -40,7 +40,7 @@ const MarqueeTextContainer = styled.span(() => [
     `,
 ]);
 
-export const Contact = memo((): JSX.Element => {
+export const Contact = memo(() => {
     const location = useLocation();
     const [, dispatch] = useStoreProp("currentDelayedRoute");
     const [mouseLeft, itemsRef] = useMouseLeave();

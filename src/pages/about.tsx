@@ -202,7 +202,7 @@ const aboutPageTimeline = {
     ],
 };
 
-export default function About({ data }: Props): JSX.Element {
+export default function About({ data }: Props) {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
     const { hero, expertise, designProcess } = data.aboutPageData;

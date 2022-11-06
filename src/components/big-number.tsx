@@ -19,7 +19,7 @@ export function BigNumber({
     displayOnRight = false,
     viewBox = "0 0 200 200",
     ...props
-}: Props): JSX.Element {
+}: Props) {
     const [count, setCount] = useState("0");
     const [delay, setDelay] = useState(0);
     const [isRunning, setIsRunning] = useState(false);

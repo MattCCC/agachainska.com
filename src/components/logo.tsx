@@ -29,7 +29,7 @@ const LogoIcon = styled.div(() => [
     `,
 ]);
 
-export function Logo({ showOnDesktop = true }: Props): JSX.Element {
+export function Logo({ showOnDesktop = true }: Props) {
     const location = useLocation();
     const homeLink = getLinkProps("home", location);
 
