@@ -1,9 +1,9 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 import tw, { css, styled } from "twin.macro";
-import useMouseLeave from "use-mouse-leave";
 
 import { useLocation } from "@reach/router";
+import useMouse from "@react-hook/mouse-position";
 
 import { Link } from "components/link";
 import { MarqueeText } from "components/marquee-text";
@@ -12,7 +12,7 @@ import { getLinkProps } from "utils/route";
 import { up } from "utils/screens";
 
 const ContactWrapper = styled(Link)(() => [
-    tw`relative block cursor-pointer select-none`,
+    tw`relative block select-none cursor-none`,
 
     css`
         height: 430px;
@@ -42,35 +42,35 @@ const MarqueeTextContainer = styled.span(() => [
 
 export const Contact = memo(() => {
     const location = useLocation();
-    // const [, dispatch] = useStoreProp("currentDelayedRoute");
-    // const [mouseLeft, itemsRef] = useMouseLeave();
-    // const [mouseStateIncrement, setMouseStateIncrement] = useState(0);
+    const mouseoverItemRef = useRef(null);
+    const mouse = useMouse(mouseoverItemRef, {
+        enterDelay: 30,
+        leaveDelay: 30,
+    });
 
-    // useEffect(() => {
-    //     // Ensure that mouse left isn't triggered on mount
-    //     if (!mouseLeft || mouseStateIncrement > 0) {
-    //         if (!mouseStateIncrement) {
-    //             setMouseStateIncrement(mouseStateIncrement + 1);
+    const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
 
-    //             return;
-    //         }
+    useEffect(() => {
+        const isMouseOver = Boolean(mouse.elementWidth);
 
-    //         dispatch.showMotionCursor(!mouseLeft, {
-    //             text: "contact",
-    //             route: "/contact/",
-    //             size: 80,
-    //             color: mouseLeft ? "black" : "melrose",
-    //         });
-    //     }
-    // }, [mouseLeft, mouseStateIncrement, dispatch]);
+        showMotionCursor(isMouseOver, {
+            text: "contact",
+            route: "/contact/",
+            size: 80,
+            overlap: false,
+            color: isMouseOver ? "melrose" : "block",
+        });
+    }, [mouse.elementWidth, showMotionCursor]);
 
     return (
-        <ContactWrapper {...getLinkProps("contact", location)}>
-            <MarqueeTextWrapper as="span">
-                <MarqueeTextContainer>
-                    <MarqueeText text="Let’s build something awesome together •" />
-                </MarqueeTextContainer>
-            </MarqueeTextWrapper>
-        </ContactWrapper>
+        <div ref={mouseoverItemRef}>
+            <ContactWrapper {...getLinkProps("contact", location)}>
+                <MarqueeTextWrapper as="span">
+                    <MarqueeTextContainer>
+                        <MarqueeText text="Let’s build something awesome together •" />
+                    </MarqueeTextContainer>
+                </MarqueeTextWrapper>
+            </ContactWrapper>
+        </div>
     );
 });

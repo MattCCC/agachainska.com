@@ -26,7 +26,7 @@ type CursorProps = {
 
 const cursorSize = 80;
 
-export const Cursor = styled.div(
+const Cursor = styled.div(
     ({ isMotionCursorVisible, color, size, overlap }: CursorProps) => [
         tw`fixed z-40 hidden text-center text-white uppercase rounded-full cursor-pointer select-none lg:block`,
         tw`leading-3 border prose-12`,
@@ -62,6 +62,8 @@ export const Cursor = styled.div(
 );
 
 const TextWrapper = styled.div(() => [tw`flex w-full h-full`]);
+
+const LinkWrapper = styled.a(() => [tw`flex w-full h-full`]);
 
 const CursorText = styled.div(() => [
     tw`m-auto`,
@@ -149,8 +151,7 @@ const CursorLink = memo(
 
         if (target === "_blank") {
             return (
-                <TextWrapper
-                    as="a"
+                <LinkWrapper
                     target={target}
                     href={route}
                     rel="nofollow noreferrer"
@@ -158,7 +159,7 @@ const CursorLink = memo(
                     <CursorText>
                         <Translate id={text} />
                     </CursorText>
-                </TextWrapper>
+                </LinkWrapper>
             );
         }
 
