@@ -17,7 +17,6 @@ const config: GatsbyConfig = {
     },
     plugins: [
         "gatsby-plugin-webpack-bundle-analyser-v2",
-        `gatsby-plugin-ts-config`,
         {
             resolve: `gatsby-plugin-sass`,
             options: {

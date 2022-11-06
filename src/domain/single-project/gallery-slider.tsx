@@ -18,14 +18,7 @@ const Element = styled.div(() => [
 ]);
 
 export const GallerySlider = memo(
-    ({
-        images,
-        gap,
-        ...props
-    }: {
-        images: ProjectSectionImage[];
-        gap: number;
-    }) => {
+    ({ images, gap }: { images: ProjectSectionImage[]; gap: number }) => {
         const [, dispatch] = useStoreProp("currentDelayedRoute");
         const [mouseLeft, itemsRef] = useMouseLeave();
 
@@ -42,9 +35,9 @@ export const GallerySlider = memo(
         return (
             <FullPageContent widthPct={100} border={false}>
                 <SliderWrapper ref={itemsRef}>
-                    <MotionSlider {...props} displayGrabCursor={false}>
-                        {images.map(({ image }) => (
-                            <Element>
+                    <MotionSlider displayGrabCursor={false}>
+                        {images.map(({ image }, i) => (
+                            <Element key={i}>
                                 <img src={image} alt="" />
                             </Element>
                         ))}

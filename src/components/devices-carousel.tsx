@@ -15,8 +15,8 @@ const DevicesCarouselContainer = styled.div(() => [
 export const DevicesCarousel = memo(
     ({ list }: { list: ProjectSectionElementDevice[] }) => (
         <DevicesCarouselContainer>
-            {list.map(({ type, link }) => (
-                <DeviceMockup type={type} link={link} />
+            {list.map(({ type, link }, i) => (
+                <DeviceMockup key={i} type={type} link={link} />
             ))}
         </DevicesCarouselContainer>
     )
