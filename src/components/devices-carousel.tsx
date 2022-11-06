@@ -34,7 +34,7 @@ export const DevicesCarousel = memo(
         }, [mouseLeft, dispatch]);
 
         return (
-            <FullPageContent widthPct={100} heightPct={100} border={false}>
+            <FullPageContent widthPct={100} heightPct={"670px"} border={false}>
                 <SliderWrapper ref={itemsRef}>
                     <MotionSlider displayGrabCursor={false}>
                         {list.map(({ type, link }, i) => (
