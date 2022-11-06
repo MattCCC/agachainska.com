@@ -38,7 +38,7 @@
           type: "iPhoneX" # iPhoneX, iPhone13pro, iPhone8, laptop
           link: "https://domain.com/yourimage.png"
         - element: "devices"
-          types:
+          list:
             - type: "iPhone13pro"
               link: "https://domain.com/yourimage.png"
     - section: "results"
