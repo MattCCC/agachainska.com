@@ -80,7 +80,6 @@ const sectionLoader = (
             },
             index
         ) => {
-            console.log("🚀 ~ list", list);
             switch (element) {
                 case "overview":
                     return (
