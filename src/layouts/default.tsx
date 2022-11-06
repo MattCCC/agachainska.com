@@ -21,7 +21,7 @@ interface Props {
 const DarkTheme = () => (
     <Global
         styles={css`
-            :root {
+            :root body {
                 --primary: #fff;
                 --tertiary: #0b0b0b;
             }
@@ -65,7 +65,6 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
 
     return (
         <Fragment>
-            <div id="internal-announcer"></div>
             {darkTheme && <DarkTheme />}
             <TopOverlay />
             <Overlays />
