@@ -42,31 +42,31 @@ const MarqueeTextContainer = styled.span(() => [
 
 export const Contact = memo(() => {
     const location = useLocation();
-    const [, dispatch] = useStoreProp("currentDelayedRoute");
-    const [mouseLeft, itemsRef] = useMouseLeave();
-    const [mouseStateIncrement, setMouseStateIncrement] = useState(0);
+    // const [, dispatch] = useStoreProp("currentDelayedRoute");
+    // const [mouseLeft, itemsRef] = useMouseLeave();
+    // const [mouseStateIncrement, setMouseStateIncrement] = useState(0);
 
-    useEffect(() => {
-        // Ensure that mouse left isn't triggered on mount
-        if (!mouseLeft || mouseStateIncrement > 0) {
-            if (!mouseStateIncrement) {
-                setMouseStateIncrement(mouseStateIncrement + 1);
+    // useEffect(() => {
+    //     // Ensure that mouse left isn't triggered on mount
+    //     if (!mouseLeft || mouseStateIncrement > 0) {
+    //         if (!mouseStateIncrement) {
+    //             setMouseStateIncrement(mouseStateIncrement + 1);
 
-                return;
-            }
+    //             return;
+    //         }
 
-            dispatch.showMotionCursor(!mouseLeft, {
-                text: "contact",
-                route: "/contact/",
-                size: 80,
-                color: mouseLeft ? "black" : "melrose",
-            });
-        }
-    }, [mouseLeft, mouseStateIncrement, dispatch]);
+    //         dispatch.showMotionCursor(!mouseLeft, {
+    //             text: "contact",
+    //             route: "/contact/",
+    //             size: 80,
+    //             color: mouseLeft ? "black" : "melrose",
+    //         });
+    //     }
+    // }, [mouseLeft, mouseStateIncrement, dispatch]);
 
     return (
         <ContactWrapper {...getLinkProps("contact", location)}>
-            <MarqueeTextWrapper as="span" ref={itemsRef}>
+            <MarqueeTextWrapper as="span">
                 <MarqueeTextContainer>
                     <MarqueeText text="Let’s build something awesome together •" />
                 </MarqueeTextContainer>
