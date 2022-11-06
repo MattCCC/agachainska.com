@@ -209,21 +209,23 @@ const Work = memo(({ data }: Props) => {
         routeTo: firstCategoryFirstItem?.routeTo ?? "",
     } as PageState);
 
-    const bgColor = (
-        (
-            timelineList.find(
-                (section) => section.category === state.activeSectionId
-            )?.items || []
-        ).at(0) || {}
-    ).bgColor;
+    const defaultBgColor = useMemo(
+        () =>
+            (
+                (
+                    timelineList.find(
+                        (section) => section.category === state.activeSectionId
+                    )?.items || []
+                ).at(0) || {}
+            ).bgColor || "#FFF",
+        [timelineList]
+    );
 
     useEffect(() => {
-        if (bgColor && backgroundColor !== bgColor) {
-            dispatchbackgroundColor.replaceInState({
-                backgroundColor: bgColor,
-            });
-        }
-    }, [bgColor, backgroundColor, dispatchbackgroundColor]);
+        dispatchbackgroundColor.replaceInState({
+            backgroundColor: backgroundColor || defaultBgColor,
+        });
+    }, [defaultBgColor, backgroundColor, dispatchbackgroundColor]);
 
     const sliderItems: TimelineItem[] = useMemo(
         () =>
@@ -307,11 +309,9 @@ const Work = memo(({ data }: Props) => {
                 }
             }
 
-            if (currentItem.bgColor) {
-                dispatchbackgroundColor.replaceInState({
-                    backgroundColor: currentItem.bgColor,
-                });
-            }
+            dispatchbackgroundColor.replaceInState({
+                backgroundColor: currentItem.bgColor,
+            });
 
             const newSliderIndex = sliderItems.findIndex(
                 (sliderItem: SliderItem) => sliderItem.id === currentItem.id
