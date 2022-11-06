@@ -5,7 +5,7 @@ import {
     useState,
     RefObject,
     useMemo,
-    useEffect
+    useEffect,
 } from "react";
 
 import { graphql, PageProps } from "gatsby";
@@ -111,7 +111,8 @@ const Work = memo(({ data }: Props) => {
     const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
     const [isSliderAnimating, setIsSliderAnimating] = useState(false);
     const [, dispatch] = useStoreProp("showMotionGrid");
-    const [backgroundColor, dispatchbackgroundColor] = useStoreProp("backgroundColor");
+    const [backgroundColor, dispatchbackgroundColor] =
+        useStoreProp("backgroundColor");
     const projects = useMemo(
         () => data.projects.nodes || [],
         [data.projects.nodes]
@@ -162,6 +163,7 @@ const Work = memo(({ data }: Props) => {
                         subCategory: "Others",
                         nameSlug: "",
                         category,
+                        starColor: "",
                         client: "",
                         agency: "",
                         timeframe: "",
@@ -215,13 +217,19 @@ const Work = memo(({ data }: Props) => {
         routeTo: firstCategoryFirstItem?.routeTo ?? "",
     } as PageState);
 
-    const bgColor = ((timelineList.find((section) => section.category === state.activeSectionId)?.items || []).at(0) || {}).bgColor;
+    const bgColor = (
+        (
+            timelineList.find(
+                (section) => section.category === state.activeSectionId
+            )?.items || []
+        ).at(0) || {}
+    ).bgColor;
 
     useEffect(() => {
         if (bgColor && backgroundColor !== bgColor) {
             dispatchbackgroundColor.replaceInState({
                 backgroundColor: bgColor,
-            })
+            });
         }
     }, [bgColor, backgroundColor, dispatchbackgroundColor]);
 

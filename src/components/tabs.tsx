@@ -162,7 +162,7 @@ export const Tabs = memo(
                             {tabs.map((tab: SingleTab, index: number) => (
                                 <Tab
                                     key={`tab-${index}`}
-                                    isActive={tab.id === tabId.tabId}
+                                    isActive={tab.id === tabId}
                                     onClick={onTabClick.bind(null, tab)}
                                 >
                                     {tab.title}
