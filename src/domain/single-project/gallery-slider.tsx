@@ -23,7 +23,14 @@ const Element = styled.div(() => [
 ]);
 
 export const GallerySlider = memo(
-    ({ images, ...props }: { images: ProjectSectionImage[] }) => {
+    ({
+        images,
+        gap,
+        ...props
+    }: {
+        images: ProjectSectionImage[];
+        gap: number;
+    }) => {
         const [, dispatch] = useStoreProp("currentDelayedRoute");
         const [mouseLeft, itemsRef] = useMouseLeave();
 
