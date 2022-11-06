@@ -82,12 +82,7 @@ const sectionLoader = (
                 type = "",
                 link = "",
                 list = [],
-                concept = "",
-                conceptDesc = "",
-                design = "",
-                designDesc = "",
-                projectManagement = "",
-                projectManagementDesc = "",
+                content = [],
                 stats = [],
             },
             index
@@ -246,12 +241,12 @@ const sectionLoader = (
                         <Fragment key={index}>
                             <ContentContainer variant="full">
                                 <TableCredits>
-                                    <CellTitle>{concept}</CellTitle>
-                                    <div>{conceptDesc}</div>
-                                    <CellTitle>{design}</CellTitle>
-                                    <div>{designDesc}</div>
-                                    <CellTitle>{projectManagement}</CellTitle>
-                                    <div>{projectManagementDesc}</div>
+                                    {content.map(({ title, text }, j) => (
+                                        <Fragment key={`credits-${index}-${j}`}>
+                                            <CellTitle>{title}</CellTitle>
+                                            <div>{text}</div>
+                                        </Fragment>
+                                    ))}
                                 </TableCredits>
                             </ContentContainer>
                         </Fragment>

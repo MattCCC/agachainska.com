@@ -21,6 +21,10 @@ export const ProjectFragment = graphql`
             showSectionTitle
             elements {
                 element
+                description
+                image
+                quote
+                category
                 type
                 link
                 list {
@@ -31,19 +35,13 @@ export const ProjectFragment = graphql`
                     title
                     stat
                 }
-                description
-                image
                 images {
                     image
                 }
-                quote
-                concept
-                conceptDesc
-                design
-                designDesc
-                projectManagement
-                projectManagementDesc
-                category
+                content {
+                    title
+                    text
+                }
             }
         }
     }
