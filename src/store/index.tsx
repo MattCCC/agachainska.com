@@ -5,7 +5,8 @@ const initialState = {
     isMotionCursorVisible: false,
     showFooter: false,
     showLogoOnDesktop: false,
-    showBackgroundGradient: false,
+    showbackgroundColor: false,
+    backgroundColor: "",
     darkTheme: false,
     motionCursorData: {
         text: "",
@@ -27,7 +28,8 @@ const actions = {
     showWavePattern: set<State, boolean>("showWavePattern"),
     showFooter: set<State, boolean>("showFooter"),
     showLogoOnDesktop: set<State, boolean>("showLogoOnDesktop"),
-    showBackgroundGradient: set<State, boolean>("showBackgroundGradient"),
+    showbackgroundColor: set<State, boolean>("showbackgroundColor"),
+    backgroundColor: set<State, string>("backgroundColor"),
     setDarkTheme: set<State, boolean>("darkTheme"),
     setCurrentDelayedRoute: set<State, string>("currentDelayedRoute"),
 
@@ -49,6 +51,7 @@ const actions = {
     },
 
     replaceInState(prevState: State, newState: Partial<State>) {
+        console.log('backgroundColor', newState.backgroundColor)
         return {
             ...prevState,
             ...newState,

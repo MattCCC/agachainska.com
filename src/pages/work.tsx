@@ -5,6 +5,7 @@ import {
     useState,
     RefObject,
     useMemo,
+    useEffect
 } from "react";
 
 import { graphql, PageProps } from "gatsby";
@@ -110,6 +111,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
     const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
     const [isSliderAnimating, setIsSliderAnimating] = useState(false);
     const [, dispatch] = useStoreProp("showMotionGrid");
+    const [backgroundColor, dispatchbackgroundColor] = useStoreProp("backgroundColor");
     const projects = useMemo(
         () => data.projects.nodes || [],
         [data.projects.nodes]
@@ -153,6 +155,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
                         id: `others${category}`,
                         routeTo: "",
                         uid: 99999,
+                        bgColor: "",
                         title: "Others",
                         name: "Others",
                         cover: "",
@@ -215,6 +218,16 @@ const Work = memo(({ data }: Props): JSX.Element => {
         activeItemId: firstCategoryFirstItem?.id ?? "1",
         routeTo: firstCategoryFirstItem?.routeTo ?? "",
     } as PageState);
+
+    const bgColor = ((timelineList.find((section) => section.category === state.activeSectionId)?.items || []).at(0) || {}).bgColor;
+
+    useEffect(() => {
+        if (bgColor && backgroundColor !== bgColor) {
+            dispatchbackgroundColor.replaceInState({
+                backgroundColor: bgColor,
+            })
+        }
+    }, [bgColor, backgroundColor, dispatchbackgroundColor]);
 
     const sliderItems: TimelineItem[] = useMemo(
         () =>
@@ -296,6 +309,12 @@ const Work = memo(({ data }: Props): JSX.Element => {
                     projectNumberToShow = indexOfProject;
                     break;
                 }
+            }
+
+            if (currentItem.bgColor) {
+                dispatchbackgroundColor.replaceInState({
+                    backgroundColor: currentItem.bgColor,
+                });
             }
 
             const newSliderIndex = sliderItems.findIndex(
@@ -413,7 +432,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
                                     color={
                                         state?.currentProject?.category &&
                                         categoryColors[
-                                            state.currentProject.category
+                                        state.currentProject.category
                                         ]
                                     }
                                     displayStar={state.showStar}
