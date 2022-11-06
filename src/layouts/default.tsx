@@ -10,7 +10,6 @@ import { Header } from "components/header";
 import { Overlays, TopOverlay } from "components/overlays";
 import { useOnRouteChange } from "hooks/use-on-route-change";
 import { useStoreProp } from "store/index";
-import { up } from "utils/screens";
 
 interface Props {
     hasGradient: boolean;
@@ -18,8 +17,6 @@ interface Props {
     backgroundColor: string;
     darkTheme: boolean;
 }
-
-const footerHeight = `${690 + 120}px`;
 
 const DarkTheme = () => (
     <Global
@@ -38,12 +35,7 @@ const Main = styled.main(
         css`
             backface-visibility: hidden;
         `,
-        showFooter &&
-            css`
-                ${up("lg")} {
-                    margin-bottom: ${footerHeight};
-                }
-            `,
+        showFooter && tw`lg:mb-[810px]`,
         backgroundColor &&
             css`
                 background: ${backgroundColor};
