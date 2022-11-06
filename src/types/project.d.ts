@@ -16,6 +16,7 @@ interface Project {
     cover: string;
     subCategory: string;
     bgColor: string;
+    starColor: string;
     nameSlug: string;
     category: ProjectCategory;
     client: string;

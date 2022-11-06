@@ -431,9 +431,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
                                     }
                                     color={
                                         state?.currentProject?.category &&
-                                        categoryColors[
-                                        state.currentProject.category
-                                        ]
+                                        state?.currentProject?.starColor
                                     }
                                     displayStar={state.showStar}
                                 />

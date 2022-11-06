@@ -2,6 +2,7 @@
   category: UX/UI
   subCategory:
   bgColor: "#D90B0B"
+  starColor: "#F5A4FF"
   name: RE/MAX
   cover: "/img/projects/image-1.png"
   client: RE/MAX Malta
@@ -72,6 +73,7 @@
   category: UX/UI
   subCategory:
   bgColor: "#D90B0B"
+  starColor: "#F5A4FF"
   name: Danish Bakery
   cover: "/img/projects/image-2.jpg"
   client: Danish Bakery Malta
@@ -142,6 +144,7 @@
   category: Illustrations
   subCategory:
   bgColor: "#20F508"
+  starColor: "#C0A4FF"
   name: Twitch
   cover: "/img/projects/placeholder-1.png"
   client: Twitch Malta
@@ -212,6 +215,7 @@
   category: Illustrations
   subCategory: Others
   bgColor: "#20F508"
+  starColor: "#C0A4FF"
   name: RE/MAX
   cover: "/img/projects/image-1.png"
   client: Twitch Malta
@@ -283,6 +287,7 @@
   category: Illustrations
   subCategory: Others
   bgColor: "#20F508"
+  starColor: "#C0A4FF"
   name: YELLOW WEBSITE
   cover: "/img/projects/image-2.jpg"
   client: Twitch Malta
@@ -354,6 +359,7 @@
   category: Illustrations
   subCategory: Others
   bgColor: "#20F508"
+  starColor: "#C0A4FF"
   name: VELLOW WEBSITE
   cover: "/img/projects/placeholder-1.png"
   client: Twitch Malta
@@ -425,6 +431,7 @@
   category: Illustrations
   subCategory: Others
   bgColor: "#20F508"
+  starColor: "#C0A4FF"
   name: WELLOW WEBSITE
   cover: "/img/projects/image-1.png"
   client: Twitch Malta
@@ -496,6 +503,7 @@
   category: UX/UI
   subCategory: Others
   bgColor: "#D90B0B"
+  starColor: "#F5A4FF"
   name: Addidas
   cover: "/img/projects/image-2.jpg"
   client: Addidas Malta
@@ -567,6 +575,7 @@
   category: UX/UI
   subCategory: Others
   bgColor: "#D90B0B"
+  starColor: "#F5A4FF"
   name: Nike
   cover: "/img/projects/placeholder-1.png"
   client: Nike Malta
@@ -638,6 +647,7 @@
   category: UX/UI
   subCategory: Others
   bgColor: "#D90B0B"
+  starColor: "#F5A4FF"
   name: Pepsi
   cover: "/img/projects/image-1.png"
   client: Pepsi Malta
@@ -709,6 +719,7 @@
   category: UX/UI
   subCategory: Others
   bgColor: "#D90B0B"
+  starColor: "#F5A4FF"
   name: Topshop
   cover: "/img/projects/image-2.jpg"
   client: Topshop Malta
