@@ -54,6 +54,7 @@ const TabsListContainer = styled.div(
                     width: 100vw;
                     height: 4rem;
                     background: rgba(255, 255, 255, 0.92);
+                    backdrop-filter: blur(60px);
                     box-shadow: 0px 14px 60px 0px rgba(0, 0, 0, 0.25);
                     transition: all 0.2s ease-in;
                     position: absolute;
