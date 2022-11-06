@@ -9,6 +9,11 @@ interface ProjectSectionElementDevice {
     link: string;
 }
 
+interface ProjectSectionElementStat {
+    title: number;
+    stat: number;
+}
+
 interface ProjectSectionElement {
     element: string;
     images?: ProjectSectionImage[];
@@ -21,11 +26,9 @@ interface ProjectSectionElement {
     designDesc: string;
     projectManagement: string;
     projectManagementDesc: string;
-    screens: number;
-    iterations: number;
-    prototypes: number;
     type: string;
     link: string;
+    stats?: ProjectSectionElementStat[];
     list?: ProjectSectionElementDevice[];
 }
 

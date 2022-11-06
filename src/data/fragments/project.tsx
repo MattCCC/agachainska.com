@@ -27,15 +27,16 @@ export const ProjectFragment = graphql`
                     type
                     link
                 }
+                stats {
+                    title
+                    stat
+                }
                 description
                 image
                 images {
                     image
                 }
                 quote
-                screens
-                iterations
-                prototypes
                 concept
                 conceptDesc
                 design

@@ -59,9 +59,17 @@
       showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
       showInTimeline: "no"
       showSectionTitle: "yes"
@@ -128,9 +136,17 @@
       showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
       showInTimeline: "no"
       showSectionTitle: "yes"
@@ -197,9 +213,17 @@
       showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
       showInTimeline: "no"
       showSectionTitle: "yes"
@@ -267,9 +291,17 @@
       showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
       showInTimeline: "no"
       showSectionTitle: "yes"
@@ -337,9 +369,17 @@
       showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
       showInTimeline: "no"
       showSectionTitle: "yes"
@@ -407,9 +447,17 @@
       showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
       showInTimeline: "no"
       showSectionTitle: "yes"
@@ -477,9 +525,17 @@
       showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
       showInTimeline: "no"
       showSectionTitle: "yes"
@@ -547,9 +603,17 @@
       showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
       showInTimeline: "no"
       showSectionTitle: "yes"
@@ -617,9 +681,17 @@
       showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
       showInTimeline: "no"
       showSectionTitle: "yes"
@@ -687,9 +759,17 @@
       showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
       showInTimeline: "no"
       showSectionTitle: "yes"
@@ -756,9 +836,17 @@
       showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
       showInTimeline: "no"
       showSectionTitle: "yes"

@@ -11,7 +11,7 @@
   sections:
     - section: "discover"
       showInTimeline: "yes" # whether to show the section in the timeline on Single Project page
-      showSectionTitle: "yes"
+      showSectionTitle: "yes" # whether to display section title on Single Project page
       elements:
         - element: "overview"
           description: "Example Overview description text."
@@ -48,12 +48,16 @@
       showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
     - section: "credits"
       showInTimeline: "no"
-      showSectionTitle: "no"
+      showSectionTitle: "yes"
       elements:
         - element: "credits"
           concept: "UI Concept:"
@@ -64,6 +68,6 @@
           projectManagementDesc: "November 2019, 7 days"
     - section: "Other UX/UI Projects"
       showInTimeline: "no"
-      showSectionTitle: "no"
+      showSectionTitle: "yes"
       elements:
         - category: UX/UI

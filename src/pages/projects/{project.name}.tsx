@@ -22,6 +22,7 @@ import {
     StatsCaption,
     TableCredits,
     MainTitle,
+    SingleStat,
 } from "domain/single-project/styled";
 import { useIncrementStats } from "domain/single-project/use-increment-stats";
 import { usePagination } from "domain/single-project/use-pagination";
@@ -81,15 +82,13 @@ const sectionLoader = (
                 type = "",
                 link = "",
                 list = [],
-                screens = 0,
-                iterations = 0,
-                prototypes = 0,
                 concept = "",
                 conceptDesc = "",
                 design = "",
                 designDesc = "",
                 projectManagement = "",
                 projectManagementDesc = "",
+                stats = [],
             },
             index
         ) => {
@@ -218,49 +217,24 @@ const sectionLoader = (
                             <ContentContainer variant="full">
                                 <Fragment key={index}>
                                     <TableStats ref={refStats}>
-                                        <CellTitle>
-                                            <StyledNumber
-                                                value={screens}
-                                                animate={animateStats}
-                                            />
-                                        </CellTitle>
-                                        <StatsCaption className="space">
-                                            Screens
-                                        </StatsCaption>
-                                        <CellTitle>
-                                            <StyledNumber
-                                                value={screens}
-                                                animate={animateStats}
-                                            />
-                                        </CellTitle>
-                                        <StatsCaption>Screens</StatsCaption>
-
-                                        <CellTitle>
-                                            <StyledNumber
-                                                value={iterations}
-                                                animate={animateStats}
-                                            />
-                                        </CellTitle>
-                                        <StatsCaption className="space">
-                                            Iterations
-                                        </StatsCaption>
-                                        <CellTitle>
-                                            <StyledNumber
-                                                value={iterations}
-                                                animate={animateStats}
-                                            />
-                                        </CellTitle>
-                                        <StatsCaption>Iterations</StatsCaption>
-
-                                        <CellTitle>
-                                            <StyledNumber
-                                                value={prototypes}
-                                                animate={animateStats}
-                                            />
-                                        </CellTitle>
-                                        <StatsCaption className="space">
-                                            Prototypes
-                                        </StatsCaption>
+                                        {stats.map(({ title, stat }, j) => (
+                                            <SingleStat
+                                                key={`stat-${index}-${j}`}
+                                                className={
+                                                    j < 3 ? "space" : "big"
+                                                }
+                                            >
+                                                <CellTitle>
+                                                    <StyledNumber
+                                                        value={stat}
+                                                        animate={animateStats}
+                                                    />
+                                                </CellTitle>
+                                                <StatsCaption>
+                                                    {title}
+                                                </StatsCaption>
+                                            </SingleStat>
+                                        ))}
                                     </TableStats>
                                 </Fragment>
                             </ContentContainer>
