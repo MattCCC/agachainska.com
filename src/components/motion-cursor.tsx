@@ -28,7 +28,7 @@ const cursorSize = 80;
 
 const Cursor = styled.div(
     ({ isMotionCursorVisible, color, size, overlap }: CursorProps) => [
-        tw`fixed z-40 hidden text-center text-white uppercase rounded-full select-none cursor-none lg:block`,
+        tw`fixed z-40 hidden text-center text-white uppercase rounded-full select-none lg:block`,
         tw`leading-3 border prose-12`,
         color === "black" && tw`bg-black border-black`,
         color === "melrose" && tw`bg-melrose border-melrose`,
