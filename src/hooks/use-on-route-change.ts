@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 
 import { useLocation } from "@reach/router";
-import { useStoreProp } from "@store/index";
-import { findRouteMeta } from "@utils/route";
+
+import { useStoreProp } from "store/index";
+import { findRouteMeta } from "utils/route";
 
 export const useOnRouteChange = () => {
     const location = useLocation();

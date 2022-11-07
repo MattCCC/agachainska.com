@@ -5,26 +5,27 @@ import {
     useState,
     RefObject,
     useMemo,
+    useEffect,
 } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 import { useDebouncedCallback } from "use-debounce";
 
-import { BigNumber } from "@components/big-number";
-import { MainContainer } from "@components/main-container";
-import { Meta } from "@components/meta";
-import { MotionCursor } from "@components/motion-cursor";
-import { Post, PostItem } from "@components/post";
-import { Slider, SliderItem } from "@components/slider";
-import { Star } from "@components/star";
-import { Tabs } from "@components/tabs";
-import { Timeline, Item, Section } from "@components/timeline";
-import { useEventListener } from "@hooks/use-event-listener";
-import { useNavigation } from "@hooks/use-navigation";
-import { useWindowSize } from "@hooks/use-window-size";
-import { useStoreProp } from "@store/index";
-import { groupBy } from "@utils/group-by";
+import { BigNumber } from "components/big-number";
+import { MainContainer } from "components/main-container";
+import { Meta } from "components/meta";
+import { MotionCursor } from "components/motion-cursor";
+import { Post, PostItem } from "components/post";
+import { Slider, SliderItem } from "components/slider";
+import { Star } from "components/star";
+import { Tabs } from "components/tabs";
+import { Timeline, Item, Section } from "components/timeline";
+import { useEventListener } from "hooks/use-event-listener";
+import { useNavigation } from "hooks/use-navigation";
+import { useWindowSize } from "hooks/use-window-size";
+import { useStoreProp } from "store/index";
+import { groupBy } from "utils/group-by";
 
 interface PageState {
     sliderIndex: number;
@@ -67,6 +68,11 @@ const SlideWrapper = styled.div(
     ({ isShowingOtherProjects }: SliderWrapperProps) => [
         tw`relative hidden col-span-5 col-start-1 col-end-5 lg:block`,
         isShowingOtherProjects && tw`h-full`,
+        css`
+            svg {
+                ${tw`cursor-none`}
+            }
+        `,
     ]
 );
 
@@ -92,24 +98,18 @@ const StyledStar = styled(Star)(() => [
     `,
 ]);
 
-const categoryColors = {
-    "UX/UI": "#F5A4FF",
-    // eslint-disable-next-line quote-props
-    Illustrations: "#C0A4FF",
-} as {
-    [x: string]: string;
-};
-
 let isPageTop = false;
 let isPageBottom = false;
 
-const Work = memo(({ data }: Props): JSX.Element => {
+const Work = memo(({ data }: Props) => {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
 
     const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
     const [isSliderAnimating, setIsSliderAnimating] = useState(false);
     const [, dispatch] = useStoreProp("showMotionGrid");
+    const [backgroundColor, dispatchbackgroundColor] =
+        useStoreProp("backgroundColor");
     const projects = useMemo(
         () => data.projects.nodes || [],
         [data.projects.nodes]
@@ -153,21 +153,19 @@ const Work = memo(({ data }: Props): JSX.Element => {
                         id: `others${category}`,
                         routeTo: "",
                         uid: 99999,
+                        bgColor: "",
                         title: "Others",
                         name: "Others",
                         cover: "",
                         subCategory: "Others",
                         nameSlug: "",
                         category,
+                        starColor: "",
                         client: "",
                         agency: "",
                         timeframe: "",
                         roleInProject: "",
                         shortDescription: "",
-                        challenge: {},
-                        approach: {},
-                        stats: {},
-                        credits: {},
                         sections: [],
                     });
                 }
@@ -216,6 +214,24 @@ const Work = memo(({ data }: Props): JSX.Element => {
         routeTo: firstCategoryFirstItem?.routeTo ?? "",
     } as PageState);
 
+    const defaultBgColor = useMemo(
+        () =>
+            (
+                (
+                    timelineList.find(
+                        (section) => section.category === state.activeSectionId
+                    )?.items || []
+                ).at(Number(state.activeItemId)) || {}
+            ).bgColor || "#FFF",
+        [timelineList, state.activeItemId, state.activeSectionId]
+    );
+
+    useEffect(() => {
+        dispatchbackgroundColor.replaceInState({
+            backgroundColor: backgroundColor || defaultBgColor,
+        });
+    }, [defaultBgColor, backgroundColor, dispatchbackgroundColor]);
+
     const sliderItems: TimelineItem[] = useMemo(
         () =>
             timelineList.reduce((itemsList: TimelineItem[], currentValue) => {
@@ -252,6 +268,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
             dispatch.showMotionCursor(!mouseDidLeave, {
                 text: "explore",
                 route: state.routeTo,
+                overlap: false,
             });
 
             setState((prevState) => ({
@@ -298,6 +315,10 @@ const Work = memo(({ data }: Props): JSX.Element => {
                 }
             }
 
+            dispatchbackgroundColor.replaceInState({
+                backgroundColor: currentItem.bgColor,
+            });
+
             const newSliderIndex = sliderItems.findIndex(
                 (sliderItem: SliderItem) => sliderItem.id === currentItem.id
             );
@@ -315,7 +336,15 @@ const Work = memo(({ data }: Props): JSX.Element => {
                 currentProject: currentItem,
             }));
         },
-        [state, sliderItems, onOthersSelected, timelineList, setState, dispatch]
+        [
+            state,
+            sliderItems,
+            onOthersSelected,
+            timelineList,
+            setState,
+            dispatch,
+            dispatchbackgroundColor,
+        ]
     );
 
     const onTabChange = useCallback(
@@ -412,9 +441,7 @@ const Work = memo(({ data }: Props): JSX.Element => {
                                     }
                                     color={
                                         state?.currentProject?.category &&
-                                        categoryColors[
-                                            state.currentProject.category
-                                        ]
+                                        state?.currentProject?.starColor
                                     }
                                     displayStar={state.showStar}
                                 />
@@ -444,7 +471,6 @@ const Work = memo(({ data }: Props): JSX.Element => {
                         <Timeline
                             style={{ height: "27.76rem" }}
                             onTimelineItemChange={setCurrentSlideState}
-                            onOtherProjectsClick={onOthersSelected}
                             sections={timelineList}
                             activeSectionId={state.activeSectionId}
                             activeItemId={state.activeItemId}

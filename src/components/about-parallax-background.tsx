@@ -1,15 +1,15 @@
 import { useScroll, motion, useTransform } from "framer-motion";
 import tw, { css, styled } from "twin.macro";
 
-import { ReactComponent as Basketball } from "@svg/Basketball.svg";
-import { ReactComponent as Drink } from "@svg/Drink.svg";
-import { ReactComponent as LondonEyeIllustration } from "@svg/London eye@1x.svg";
-import { ReactComponent as Malta } from "@svg/Malta.svg";
-import { ReactComponent as Maracas } from "@svg/Maracas.svg";
-import { ReactComponent as PixelLove } from "@svg/Pixel love.svg";
-import { ReactComponent as Torun } from "@svg/Torun.svg";
-import { ReactComponent as Vectors } from "@svg/Vectors.svg";
-import { ReactComponent as Vinyl } from "@svg/Vinyl.svg";
+import { ReactComponent as Basketball } from "svg/Basketball.svg";
+import { ReactComponent as Drink } from "svg/Drink.svg";
+import { ReactComponent as LondonEyeIllustration } from "svg/London eye@1x.svg";
+import { ReactComponent as Malta } from "svg/Malta.svg";
+import { ReactComponent as Peach } from "svg/Peach.svg";
+import { ReactComponent as PixelLove } from "svg/Pixel love.svg";
+import { ReactComponent as Torun } from "svg/Torun.svg";
+import { ReactComponent as Vectors } from "svg/Vectors.svg";
+import { ReactComponent as Vinyl } from "svg/Vinyl.svg";
 
 const IllustrationsContainer = styled.div(() => [
     tw`absolute grid w-full h-screen grid-cols-12`,
@@ -89,7 +89,7 @@ export const ParallaxBackground = () => {
             y: y2,
         },
         {
-            illustration: <Maracas />,
+            illustration: <Peach />,
             width: "107.81px",
             height: "108.53px",
             top: "850%",

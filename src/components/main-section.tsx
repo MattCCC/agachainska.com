@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 
 import tw, { styled } from "twin.macro";
 
-import { Variants, motion } from "@components/animation";
+import { Variants, motion } from "components/animation";
 
 const Section = styled.section(() => [tw`relative z-10 h-screen`]);
 

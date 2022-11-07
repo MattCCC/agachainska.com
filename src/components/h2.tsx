@@ -1,6 +1,6 @@
 import tw, { css, styled } from "twin.macro";
 
-import { up } from "@utils/screens";
+import { up } from "utils/screens";
 
 export const H2 = styled.h2(() => [
     tw`uppercase border-b border-solid font-fbold border-primary`,

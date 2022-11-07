@@ -10,14 +10,14 @@ import {
 
 import tw, { css, styled } from "twin.macro";
 
-import { motion, MotionProps, AnimatePresence } from "@components/animation";
+import { motion, MotionProps, AnimatePresence } from "components/animation";
 
 interface TabsStyled {
     hideForDesktop?: boolean;
 }
 
 interface PropsTabContainer {
-    isSticky: boolean;
+    isIntersecting: boolean;
 }
 
 interface TabStyled extends MotionProps {
@@ -42,18 +42,19 @@ const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
 ]);
 
 const TabsListContainer = styled.div(
-    ({ isSticky = false }: PropsTabContainer) => [
+    ({ isIntersecting = false }: PropsTabContainer) => [
         tw`relative h-8 `,
         css`
             width: calc(100vw - 32px);
         `,
-        isSticky &&
+        isIntersecting &&
             css`
                 &:after {
                     content: "";
                     width: 100vw;
                     height: 4rem;
                     background: rgba(255, 255, 255, 0.92);
+                    backdrop-filter: blur(60px);
                     box-shadow: 0px 14px 60px 0px rgba(0, 0, 0, 0.25);
                     transition: all 0.2s ease-in;
                     position: absolute;
@@ -93,23 +94,23 @@ export const Tabs = memo(
         activeTabId = "",
         onTabChange = (): null => null,
         ...props
-    }: Props): JSX.Element => {
+    }: Props) => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
 
         const [areTabsIntersectingContent, setTabsIntersecting] =
             useState(false);
-
-        const [state, setState] = useState({
-            tabId: activeTabId || tabs[0]?.id || "",
-        });
-
+        const [tabId, setTabId] = useState("");
         const [pinX, setPinX] = useState("0%");
         const [tabWidth, setTabWidth] = useState(0);
         const [activeTabIndex, setActiveTabIndex] = useState(0);
 
         useEffect(() => {
-            setActiveTabIndex(tabs?.findIndex((tab) => tab.id === state.tabId));
-        }, [state.tabId, tabs]);
+            setTabId(activeTabId || tabs[0]?.id || "");
+        }, [activeTabId, tabs]);
+
+        useEffect(() => {
+            setActiveTabIndex(tabs?.findIndex((tab) => tab.id === tabId));
+        }, [tabId, tabs]);
 
         useEffect(() => {
             setTabWidth(100 / tabs.length);
@@ -118,24 +119,6 @@ export const Tabs = memo(
         useEffect(() => {
             setPinX(tabWidth * (activeTabIndex + 1) - tabWidth + "%");
         }, [activeTabId, activeTabIndex, tabWidth]);
-
-        useEffect(() => {
-            if (areTabsIntersectingContent) {
-                setState((prevState) => {
-                    if (activeTabId === prevState.tabId) {
-                        return prevState;
-                    }
-
-                    return {
-                        ...prevState,
-                        tabId:
-                            activeTabId !== prevState.tabId
-                                ? activeTabId
-                                : prevState.tabId,
-                    };
-                });
-            }
-        }, [areTabsIntersectingContent, activeTabId]);
 
         useEffect(() => {
             const currentElement = wrapperRef.current;
@@ -160,29 +143,26 @@ export const Tabs = memo(
 
         const onTabClick = useCallback(
             (tab: SingleTab) => {
-                if (state.tabId === tab.id) {
+                if (tabId === tab.id) {
                     return;
                 }
 
-                setState({
-                    ...state,
-                    tabId: tab.id,
-                });
+                setTabId(tab.id);
 
                 onTabChange(tab);
             },
-            [onTabChange, state]
+            [onTabChange, tabId]
         );
 
         return (
             <TabsWrapper ref={wrapperRef} {...props}>
-                <TabsListContainer isSticky={areTabsIntersectingContent}>
+                <TabsListContainer isIntersecting={areTabsIntersectingContent}>
                     <TabsList>
                         <AnimatePresence initial={false}>
                             {tabs.map((tab: SingleTab, index: number) => (
                                 <Tab
                                     key={`tab-${index}`}
-                                    isActive={tab.id === state.tabId}
+                                    isActive={tab.id === tabId}
                                     onClick={onTabClick.bind(null, tab)}
                                 >
                                     {tab.title}

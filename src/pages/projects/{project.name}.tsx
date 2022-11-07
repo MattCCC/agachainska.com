@@ -3,22 +3,24 @@ import { Fragment } from "react";
 import { graphql, PageProps } from "gatsby";
 import type { HeadProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
+import tw, { styled } from "twin.macro";
 
-import { FullPageContent } from "@components/full-page-content";
-import { H2 } from "@components/h2";
-import { H3 } from "@components/h3";
-import { Link } from "@components/link";
-import { GridRow } from "@components/main-container";
-import { Meta } from "@components/meta";
-import { MotionCursor } from "@components/motion-cursor";
-import { ParallaxBackground } from "@components/parallax-background";
-import { Quote } from "@components/quote";
-import { Tabs } from "@components/tabs";
-import { Timeline } from "@components/timeline";
-import ViewOnDeskStar from "@components/view-on-desktop-star";
-import { designProcessTimeline } from "@config/page-timlines";
-import { GallerySlider } from "@domain/single-project/gallery-slider";
-import { OtherProjects } from "@domain/single-project/other-projects";
+import { DeviceMockup } from "components/device-mockup";
+import { DevicesCarousel } from "components/devices-carousel";
+import { FullPageContent } from "components/full-page-content";
+import { H2 } from "components/h2";
+import { H3 } from "components/h3";
+import { Link } from "components/link";
+import { GridRow } from "components/main-container";
+import { Meta } from "components/meta";
+import { MotionCursor } from "components/motion-cursor";
+import { ParallaxBackground } from "components/parallax-background";
+import { Quote } from "components/quote";
+import { Tabs } from "components/tabs";
+import { Timeline } from "components/timeline";
+import ViewOnDeskStar from "components/view-on-desktop-star";
+import { GallerySlider } from "domain/single-project/gallery-slider";
+import { OtherProjects } from "domain/single-project/other-projects";
 import {
     MainSection,
     Button,
@@ -41,14 +43,16 @@ import {
     StatsCaption,
     TableCredits,
     MainTitle,
-} from "@domain/single-project/styled";
-import { useIncrementStats } from "@domain/single-project/use-increment-stats";
-import { usePagination } from "@domain/single-project/use-pagination";
+    SingleStat,
+} from "domain/single-project/styled";
+import { useIncrementStats } from "domain/single-project/use-increment-stats";
+import { usePagination } from "domain/single-project/use-pagination";
 import {
     ProjectsByCategory,
     useProjectsByCategory,
-} from "@hooks/use-projects-by-category";
-import { useTimelineViewport } from "@hooks/use-timeline-viewport";
+} from "hooks/use-projects-by-category";
+import { useTimelineViewport } from "hooks/use-timeline-viewport";
+import { useWindowSize } from "hooks/use-window-size";
 
 interface Props extends PageProps {
     data: {
@@ -59,116 +63,115 @@ interface Props extends PageProps {
     };
 }
 
-const loadChallengeSection = (
-    refChallenge: (node: Element | null) => void,
-    elements: ProjectSection["elements"]
-) => (
-    <ArticleSection key="challenge" id="challenge" ref={refChallenge}>
-        <H2>Challenge</H2>
-        <ContentContainer>
-            {elements.map(({ element, description }, index) => {
-                switch (element) {
-                    case "overview":
-                        return (
-                            <Fragment key={index}>
-                                <H3>Overview</H3>
-                                <Paragraph>{description}</Paragraph>
-                            </Fragment>
-                        );
-                    case "project-goals":
-                        return (
-                            <Fragment key={index}>
-                                <H3>Project goals</H3>
-                                <Paragraph>{description}</Paragraph>
-                            </Fragment>
-                        );
-                    case "audience":
-                        return (
-                            <Fragment key={index}>
-                                <H3>Audience</H3>
-                                <Paragraph>{description}</Paragraph>
-                            </Fragment>
-                        );
-                }
+const DeviceMockupWrapper = styled.div(() => [tw`mb-[40px] lg:mb-[80px]`]);
 
-                return "";
-            })}
-        </ContentContainer>
-    </ArticleSection>
-);
-
-const loadApproachSection = (
-    refApproach: (node: Element | null) => void,
-    elements: ProjectSection["elements"]
-) => (
-    <ArticleSection key="approach" id="approach" ref={refApproach}>
-        <H2>Approach</H2>
-        <ContentContainer>
-            {elements.map(
-                (
-                    { element, description, image, imageOne, imageTwo },
-                    index
-                ) => {
-                    switch (element) {
-                        case "brand-elements":
-                            return (
-                                <Fragment key={index}>
-                                    <H3>Brand elements</H3>
-                                    <Paragraph>{description}</Paragraph>
-                                </Fragment>
-                            );
-                        case "full-size-image":
-                            return (
-                                <Fragment key={index}>
-                                    <FullSizeImageWrapper>
-                                        <ParallaxBackground
-                                            bgImgUrl={`${image}`}
-                                            contain={true}
-                                            scaleOnHover={true}
-                                        />
-                                    </FullSizeImageWrapper>
-                                </Fragment>
-                            );
-                        case "two-images":
-                            return (
-                                <Fragment key={index}>
-                                    <TwoImagesWrapper>
-                                        <ParallaxBackground
-                                            bgImgUrl={`${imageOne}`}
-                                            contain={true}
-                                            scaleOnHover={true}
-                                        />
-                                        <ParallaxBackground
-                                            bgImgUrl={`${imageTwo}`}
-                                            contain={true}
-                                            scaleOnHover={true}
-                                        />
-                                    </TwoImagesWrapper>
-                                </Fragment>
-                            );
-                    }
-
-                    return "";
-                }
-            )}
-        </ContentContainer>
-
-        {elements.map(({ element, quote, image }, index) => {
+const sectionLoader = (
+    elements: ProjectSection["elements"],
+    gallerySliderElementsGap: number = 0,
+    projectsByCategory: ProjectsByCategory | null = null
+) =>
+    elements.map(
+        (
+            {
+                element,
+                description = "",
+                image = "",
+                images = [],
+                quote = "",
+                type = "",
+                link = "",
+                list = [],
+                content = [],
+                stats = [],
+            },
+            index
+        ) => {
             switch (element) {
+                case "overview":
+                    return (
+                        <ContentContainer key={index}>
+                            <H3>Overview</H3>
+                            <Paragraph>{description}</Paragraph>
+                        </ContentContainer>
+                    );
+
+                case "project-goals":
+                    return (
+                        <ContentContainer key={index}>
+                            <H3>Project goals</H3>
+                            <Paragraph>{description}</Paragraph>
+                        </ContentContainer>
+                    );
+
+                case "audience":
+                    return (
+                        <ContentContainer key={index}>
+                            <H3>Audience</H3>
+                            <Paragraph>{description}</Paragraph>
+                        </ContentContainer>
+                    );
+
+                case "brand-elements":
+                    return (
+                        <ContentContainer key={index}>
+                            <H3>Brand elements</H3>
+                            <Paragraph>{description}</Paragraph>
+                        </ContentContainer>
+                    );
+
+                case "full-size-image":
+                    return (
+                        <ContentContainer key={index}>
+                            <FullSizeImageWrapper>
+                                <ParallaxBackground
+                                    key={index}
+                                    bgImgUrl={`${image}`}
+                                    contain={true}
+                                    scaleOnHover={true}
+                                />
+                            </FullSizeImageWrapper>
+                        </ContentContainer>
+                    );
+
+                case "two-images":
+                    return (
+                        <ContentContainer key={index}>
+                            <TwoImagesWrapper>
+                                {images.map(({ image: img }, j) => (
+                                    <ParallaxBackground
+                                        key={index + String(j)}
+                                        bgImgUrl={`${img}`}
+                                        contain={true}
+                                        scaleOnHover={true}
+                                    />
+                                ))}
+                            </TwoImagesWrapper>
+                        </ContentContainer>
+                    );
+
                 case "full-page-image":
                     return (
                         <Fragment key={index}>
-                            <FullPageContent widthPct={100}>
-                                <ParallaxBackground bgImgUrl={`${image}`} />
+                            <FullPageContent key={index} widthPct={100}>
+                                <ParallaxBackground
+                                    key={index}
+                                    bgImgUrl={`${image}`}
+                                />
                             </FullPageContent>
                         </Fragment>
                     );
+
                 case "slider":
                     return (
                         <Fragment key={index}>
-                            <GallerySlider gap={133} />;
+                            <GallerySlider
+                                key={index}
+                                images={images}
+                                gap={gallerySliderElementsGap}
+                            />
                         </Fragment>
                     );
+
                 case "quote":
                     return (
                         <Fragment key={index}>
@@ -177,117 +180,98 @@ const loadApproachSection = (
                             </ContentContainer>
                         </Fragment>
                     );
-            }
 
-            return "";
-        })}
-    </ArticleSection>
-);
-
-const loadResultsSection = (
-    refResults: (node: Element | null) => void,
-    elements: ProjectSection["elements"],
-    refStats: (node: Element | null) => void,
-    animateStats: boolean
-) => (
-    <ArticleSection key="results">
-        <ContentContainer id="results" ref={refResults} variant="full">
-            {elements.map(({ screens, iterations, prototypes }, index) => (
-                <Fragment key={index}>
-                    <TableStats ref={refStats}>
-                        <CellTitle>
-                            <StyledNumber
-                                value={screens}
-                                animate={animateStats}
-                            />
-                        </CellTitle>
-                        <StatsCaption className="space">Screens</StatsCaption>
-                        <CellTitle>
-                            <StyledNumber
-                                value={screens}
-                                animate={animateStats}
-                            />
-                        </CellTitle>
-                        <StatsCaption>Screens</StatsCaption>
-
-                        <CellTitle>
-                            <StyledNumber
-                                value={iterations}
-                                animate={animateStats}
-                            />
-                        </CellTitle>
-                        <StatsCaption className="space">
-                            Iterations
-                        </StatsCaption>
-                        <CellTitle>
-                            <StyledNumber
-                                value={iterations}
-                                animate={animateStats}
-                            />
-                        </CellTitle>
-                        <StatsCaption>Iterations</StatsCaption>
-
-                        <CellTitle>
-                            <StyledNumber
-                                value={prototypes}
-                                animate={animateStats}
-                            />
-                        </CellTitle>
-                        <StatsCaption className="space">
-                            Prototypes
-                        </StatsCaption>
-                    </TableStats>
-                </Fragment>
-            ))}
-        </ContentContainer>
-    </ArticleSection>
-);
-
-const loadCreditsSection = (elements: ProjectSection["elements"]) => (
-    <ArticleSection key="credits" id="credits">
-        <H2>Credits</H2>
-        <ContentContainer variant="full">
-            <TableCredits>
-                {elements.map(
-                    (
-                        {
-                            concept,
-                            conceptDesc,
-                            design,
-                            designDesc,
-                            projectManagement,
-                            projectManagementDesc,
-                        },
-                        index
-                    ) => (
+                case "device":
+                    return (
                         <Fragment key={index}>
-                            <CellTitle>{concept}</CellTitle>
-                            <div>{conceptDesc}</div>
-                            <CellTitle>{design}</CellTitle>
-                            <div>{designDesc}</div>
-                            <CellTitle>{projectManagement}</CellTitle>
-                            <div>{projectManagementDesc}</div>
+                            <ContentContainer variant="full">
+                                <DeviceMockupWrapper>
+                                    <DeviceMockup
+                                        key={index}
+                                        type={type}
+                                        link={link}
+                                    />
+                                </DeviceMockupWrapper>
+                            </ContentContainer>
                         </Fragment>
-                    )
-                )}
-            </TableCredits>
-        </ContentContainer>
-    </ArticleSection>
-);
+                    );
 
-const loadOtherProjectsSection = (
-    elements: ProjectSection["elements"],
-    projectsByCategory: ProjectsByCategory
-) => (
-    <ArticleSection key="other-projects" id="another-projects">
-        <H2>Other {elements[0].category} Projects</H2>
-        <ContentContainer variant="full">
-            <OtherProjects projectsByCategory={projectsByCategory} />
-        </ContentContainer>
-    </ArticleSection>
-);
+                case "devices":
+                    return (
+                        <Fragment key={index}>
+                            <DevicesCarousel key={index} list={list} />
+                        </Fragment>
+                    );
 
-export default function Project({ data }: Props): JSX.Element {
+                case "stats":
+                    const [refStats, animateStats] = useIncrementStats();
+
+                    return (
+                        <Fragment key={index}>
+                            <ContentContainer variant="full">
+                                <Fragment key={index}>
+                                    <TableStats ref={refStats}>
+                                        {stats.map(({ title, stat }, j) => (
+                                            <SingleStat
+                                                key={`stat-${index}-${j}`}
+                                                className={
+                                                    j < 3 ? "space" : "big"
+                                                }
+                                            >
+                                                <CellTitle>
+                                                    <StyledNumber
+                                                        value={stat}
+                                                        animate={animateStats}
+                                                    />
+                                                </CellTitle>
+                                                <StatsCaption>
+                                                    {title}
+                                                </StatsCaption>
+                                            </SingleStat>
+                                        ))}
+                                    </TableStats>
+                                </Fragment>
+                            </ContentContainer>
+                        </Fragment>
+                    );
+
+                case "credits":
+                    return (
+                        <Fragment key={index}>
+                            <ContentContainer variant="full">
+                                <TableCredits>
+                                    {content.map(({ title, text }, j) => (
+                                        <Fragment key={`credits-${index}-${j}`}>
+                                            <CellTitle>{title}</CellTitle>
+                                            <div>{text}</div>
+                                        </Fragment>
+                                    ))}
+                                </TableCredits>
+                            </ContentContainer>
+                        </Fragment>
+                    );
+
+                case "other-projects":
+                    return (
+                        <Fragment key={index}>
+                            <ContentContainer variant="full">
+                                <OtherProjects
+                                    key={index}
+                                    projectsByCategory={
+                                        projectsByCategory as ProjectsByCategory
+                                    }
+                                />
+                            </ContentContainer>
+                        </Fragment>
+                    );
+
+                default:
+                    return "";
+            }
+        }
+    );
+
+export default function Project({ data }: Props) {
     const {
         uid,
         name,
@@ -303,37 +287,54 @@ export default function Project({ data }: Props): JSX.Element {
     const projects = data.projects.nodes;
     const [projectsByCategory] = useProjectsByCategory({ category, projects });
 
+    const windowSize = useWindowSize();
+    const hasSmallWindowWidth = windowSize.width < 1024;
+    const gallerySliderElementsGap = hasSmallWindowWidth ? 30 : 40;
+
     const [navigation] = usePagination({ projectsByCategory, uid });
-    const [refStats, animateStats] = useIncrementStats();
 
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
 
-    const allowedTimelineSections = ["challenge", "approach", "results"];
-    const timelineWithSections = [
-        {
-            ...designProcessTimeline[0],
-            items: sections
-                .filter(({ section }) =>
-                    allowedTimelineSections.includes(section)
-                )
+    const intersectionRootMargins = ["0px 0px 100% 0px"];
 
-                .map(({ section }) => {
-                    const lowerCasedSectionName = section.toLowerCase();
+    const timelineWithSections = {
+        title: "Design Process",
+        id: "singleProject",
+        items: sections
+            .filter(
+                ({ showInTimeline }) =>
+                    showInTimeline && showInTimeline === "yes"
+            )
 
-                    return {
-                        id: lowerCasedSectionName,
-                        title: lowerCasedSectionName,
-                    };
-                }),
-        },
-    ];
-    const refChallenge = useInViewEffect(intersection, options);
-    const refApproach = useInViewEffect(intersection, options);
-    const refResults = useInViewEffect(intersection, {
-        ...options,
-        rootMargin: "100% 0px 0px 0px",
-    });
+            .map(({ section }, i) => {
+                if (i > 0) {
+                    intersectionRootMargins.push("0px 0px -200px 0px");
+                }
+
+                return {
+                    id: section.toLowerCase(),
+                    title: section,
+                };
+            }),
+    };
+
+    // Last item needs different intersection so to include the footer
+    intersectionRootMargins.pop();
+
+    intersectionRootMargins.push("200% 0px 0px 0px");
+
+    const intersectionRefs = [] as any[];
+
+    for (const rootMargin of intersectionRootMargins) {
+        intersectionRefs.push(
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            useInViewEffect(intersection, {
+                ...options,
+                rootMargin,
+            })
+        );
+    }
 
     return (
         <Fragment>
@@ -355,6 +356,7 @@ export default function Project({ data }: Props): JSX.Element {
                     </MainTitleWrapper>
                     <ParallaxBackground bgImgUrl={cover} />
                 </HeroWrapper>
+
                 <GridRow start={2} end={12}>
                     {(navigation.hasPreviousButton ||
                         navigation.hasNextButton) && (
@@ -393,44 +395,43 @@ export default function Project({ data }: Props): JSX.Element {
                     <Timeline
                         style={{ height: "254px" }}
                         activeItemId={activeItemId}
-                        activeSectionId={timelineWithSections[0].id}
+                        activeSectionId={timelineWithSections.id}
                         onTimelineItemChange={onTimelineItemChange}
-                        sections={timelineWithSections}
+                        sections={[timelineWithSections]}
                     />
                 </TimelineWrapper>
 
                 <Tabs
                     hideForDesktop={true}
                     onTabChange={onTimelineItemChange}
-                    tabs={timelineWithSections[0].items}
+                    tabs={timelineWithSections.items}
                     activeTabId={activeItemId}
                 />
 
-                {sections.map(({ section, elements }, index) => {
-                    switch (section) {
-                        case "challenge":
-                            return loadChallengeSection(refChallenge, elements);
+                {sections.map(({ section, elements, showSectionTitle }, i) => {
+                    const sectionId = section
+                        .toLowerCase()
+                        .replaceAll(" ", "-")
+                        .replaceAll("/", "-");
 
-                        case "approach":
-                            return loadApproachSection(refApproach, elements);
-
-                        case "results":
-                            return loadResultsSection(
-                                refResults,
+                    return (
+                        <ArticleSection
+                            key={sectionId}
+                            id={sectionId}
+                            ref={intersectionRefs[i]}
+                        >
+                            {showSectionTitle && showSectionTitle === "yes" ? (
+                                <H2>{section}</H2>
+                            ) : (
+                                ""
+                            )}
+                            {sectionLoader(
                                 elements,
-                                refStats,
-                                animateStats
-                            );
-
-                        case "credits":
-                            return loadCreditsSection(elements);
-
-                        case "other-projects":
-                            return loadOtherProjectsSection(
-                                elements,
+                                gallerySliderElementsGap,
                                 projectsByCategory
-                            );
-                    }
+                            )}
+                        </ArticleSection>
+                    );
                 })}
             </Article>
         </Fragment>
@@ -451,6 +452,6 @@ export const query = graphql`
     }
 `;
 
-export const Head = (props: HeadProps) => (
-    <Meta title={`${props.pageContext?.name || "Project"} - Aga Chainska`} />
-);
+export const Head = (
+    props: HeadProps<Record<string, unknown>, { name: string }>
+) => <Meta title={`${props.pageContext?.name || "Project"} - Aga Chainska`} />;

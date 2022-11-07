@@ -1,6 +1,6 @@
 import tw, { css, styled } from "twin.macro";
 
-import { up } from "@utils/screens";
+import { up } from "utils/screens";
 
 export const H3 = styled.h3(() => [
     tw`font-fbold`,

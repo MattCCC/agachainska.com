@@ -13,7 +13,7 @@
 publish = "public/"
 
 # Default build command.
-command = "yarn build"
+command = "npm run build"
 
 # # Directory with the serverless functions, including background functions,
 # # to deploy to AWS. This is relative to the base directory if one has been set, 

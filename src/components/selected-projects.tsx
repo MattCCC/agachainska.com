@@ -1,12 +1,12 @@
-import { selectedProjectsUids } from "@data/selected-projects";
+import { selectedProjectsUids } from "data/selected-projects";
 
-import { ProjectsList, SingleProject } from "./projects-list";
+import { ProjectsList, SingleProject } from "./single-project";
 
 interface Props {
     projects: Project[];
 }
 
-export default function SelectedProjects({ projects }: Props): JSX.Element {
+export default function SelectedProjects({ projects }: Props) {
     const selectedProjects = projects.filter((project) =>
         selectedProjectsUids.includes(project.uid)
     );

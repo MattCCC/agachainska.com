@@ -2,7 +2,7 @@ import tw, { css, styled, TwStyle } from "twin.macro";
 
 import { SerializedStyles } from "@emotion/react";
 
-import { up } from "@utils/screens";
+import { up } from "utils/screens";
 
 interface MainTitleStyled {
     baseFontSize?: number;

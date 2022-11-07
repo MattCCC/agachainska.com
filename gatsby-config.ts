@@ -4,6 +4,8 @@ require("dotenv").config({
     path: `.env.${process.env.NODE_ENV}`,
 });
 
+const siteUrl = `https://agachainska.com`;
+
 const config: GatsbyConfig = {
     trailingSlash: "always",
     siteMetadata: {
@@ -12,12 +14,11 @@ const config: GatsbyConfig = {
         description: "Aga Chainska Personal Website.",
         image: "/img/slider-pattern.png",
         twitterUsername: "@aga",
-        url: `https://aga-chainska.com`,
-        siteUrl: `https://aga-chainska.com`,
+        url: siteUrl,
+        siteUrl: siteUrl,
     },
     plugins: [
         "gatsby-plugin-webpack-bundle-analyser-v2",
-        `gatsby-plugin-ts-config`,
         {
             resolve: `gatsby-plugin-sass`,
             options: {
@@ -79,21 +80,21 @@ const config: GatsbyConfig = {
             resolve: `gatsby-plugin-alias-imports`,
             options: {
                 alias: {
-                    "@src": "src",
-                    "@config": "src/config",
-                    "@components": "src/components",
-                    "@data": "src/data",
-                    "@domain": "src/domain",
-                    "@layouts": "src/layouts",
-                    "@pages": "src/pages",
-                    "@store": "src/store",
-                    "@styles": "src/styles",
-                    "@templates": "src/templates",
-                    "@posts": "content/posts",
-                    "@utils": "src/utils",
-                    "@svg": "src/svg",
-                    "@hooks": "src/hooks",
-                    "@translations": "src/translations",
+                    src: "src",
+                    config: "src/config",
+                    components: "src/components",
+                    data: "src/data",
+                    domain: "src/domain",
+                    layouts: "src/layouts",
+                    pages: "src/pages",
+                    store: "src/store",
+                    styles: "src/styles",
+                    templates: "src/templates",
+                    posts: "content/posts",
+                    utils: "src/utils",
+                    svg: "src/svg",
+                    hooks: "src/hooks",
+                    translations: "src/translations",
                 },
                 extensions: ["js", "jsx", "ts", "tsx"],
             },

@@ -5,25 +5,26 @@ import {
     useCallback,
     useRef,
     useState,
+    useEffect,
+    useMemo,
 } from "react";
-import { useEffect, useMemo } from "react";
 
 import { navigate } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 
-import { BottomCircle } from "@components/bottom-circle";
-import { CountDown } from "@components/count-down";
-import { GridRow, MainContainer } from "@components/main-container";
-import { MainSection } from "@components/main-section";
-import { Meta } from "@components/meta";
-import { MotionCursor } from "@components/motion-cursor";
-import { pageContentVariants } from "@components/overlays";
-import { Translate } from "@components/translate";
-import { useLockBodyScroll } from "@hooks/use-lock-body-scroll";
-import { useStore } from "@store/index";
-import { isDev } from "@utils/detect-env";
-import { getRoutePath } from "@utils/route";
-import { TranslateText } from "@utils/translate-text";
+import { BottomCircle } from "components/bottom-circle";
+import { CountDown } from "components/count-down";
+import { GridRow, MainContainer } from "components/main-container";
+import { MainSection } from "components/main-section";
+import { Meta } from "components/meta";
+import { MotionCursor } from "components/motion-cursor";
+import { pageContentVariants } from "components/overlays";
+import { Translate } from "components/translate";
+import { useLockBodyScroll } from "hooks/use-lock-body-scroll";
+import { useStoreProp } from "store/index";
+import { isDev } from "utils/detect-env";
+import { getRoutePath } from "utils/route";
+import { TranslateText } from "utils/translate-text";
 
 const Title = styled.h1(() => [
     tw`relative z-50 inline-block max-w-full -mt-16 font-bold select-none lg:pr-16 prose-70 leading-20 lg:prose-140 lg:leading-38`,
@@ -60,11 +61,11 @@ const Desc = styled.h2(() => [
     `,
 ]);
 
-export default function Home(): JSX.Element {
+export default function Home() {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
     const workLink = getRoutePath("work");
     const defaultState = useMemo(() => ({ x: 0, y: 0 }), []);
-    const [, dispatch] = useStore();
+    const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
     const [position, setPosition] = useState(defaultState);
     const titleStyle = {
         "--x": `${position.x}px`,
@@ -95,18 +96,16 @@ export default function Home(): JSX.Element {
     }, [workLink]);
 
     useEffect(() => {
-        setTimeout(() => {
-            dispatch.showMotionCursor(true, {
-                text: "viewWork",
-                route: workLink.to,
-            });
-        }, 0);
-    }, [dispatch, workLink.to]);
+        showMotionCursor(true, {
+            text: "viewWork",
+            route: workLink.to,
+        });
+    }, [showMotionCursor, workLink.to]);
 
     return (
         <Fragment>
             <MainSection
-                className="grid items-center grid-flow-col grid-cols-1 grid-rows-1"
+                className="grid items-center grid-flow-col grid-cols-1 grid-rows-1 cursor-none"
                 initial="exit"
                 animate="enter"
                 exit="exit"

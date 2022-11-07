@@ -1,5 +1,5 @@
 {
-    "site.title": "Aga-chainska.com",
+    "site.title": "Agachainska.com",
     "header.title": "Aga Chainska",
     "header.logo.title": "AC",
     "header.link.work": "Work",
@@ -8,6 +8,7 @@
     "home.title": "Aga Chainska",
     "viewWork": "View Work",
     "explore": "Explore",
+    "seeAllProjects": "See all projects",
     "contact": "Contact",
     "drag": "Drag",
     "home.description": "UX/UI designer with passion for illustration",

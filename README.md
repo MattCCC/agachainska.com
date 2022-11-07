@@ -10,9 +10,8 @@
     Navigate into your new site’s directory and start it up.
 
     ```shell
-    cd aga-chainska.com/
-    yarn
-    yarn develop
+    npm install
+    npm run dev
     ```
 
     Install package for ARM (m1):

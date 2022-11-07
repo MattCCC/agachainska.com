@@ -4,14 +4,6 @@
 
 @import "./typography.css";
 
-:root {
-    --primary: #0b0b0b;
-    --secondary: #4a4a4a;
-    --tertiary: #fff;
-    --black: #000000;
-    --melrose: #c0a4ff;
-    --pink: #f5a4ff;
-    --green: #61f1f8;
-}
+@import "./variables.scss";
 
 @import "./layout.scss";

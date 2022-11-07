@@ -1,7 +1,7 @@
 import { memo } from "react";
 
-import { SingleProject, ProjectsList } from "@components/projects-list";
-import { ProjectsByCategory } from "@hooks/use-projects-by-category";
+import { SingleProject, ProjectsList } from "components/single-project";
+import { ProjectsByCategory } from "hooks/use-projects-by-category";
 
 interface Props {
     limit?: number;
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const OtherProjects = memo(
-    ({ projectsByCategory, limit = 4, ...props }: Props): JSX.Element => (
+    ({ projectsByCategory, limit = 4, ...props }: Props) => (
         <ProjectsList {...props}>
             {projectsByCategory.others
                 .slice(0, limit)

@@ -4,20 +4,25 @@ import { graphql, PageProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
-import { ParallaxBackground } from "@components/about-parallax-background";
-import { GridRow, MainContainer } from "@components/main-container";
-import { Meta } from "@components/meta";
-import { MotionCursor } from "@components/motion-cursor";
-import PersonalPic from "@components/personal-pic";
-import SelectedProjects from "@components/selected-projects";
-import { SocialMedia } from "@components/social-media";
-import { Tabs } from "@components/tabs";
-import { Timeline } from "@components/timeline";
-import { aboutPageTimeline } from "@config/page-timlines";
-import { socialMedia } from "@data/social-media";
-import { useTimelineViewport } from "@hooks/use-timeline-viewport";
-import { useWindowSize } from "@hooks/use-window-size";
-import { up } from "@utils/screens";
+import { useLocation } from "@reach/router";
+
+import { ParallaxBackground } from "components/about-parallax-background";
+import { Button } from "components/button";
+import { Link } from "components/link";
+import { GridRow, MainContainer } from "components/main-container";
+import { Meta } from "components/meta";
+import { MotionCursor } from "components/motion-cursor";
+import PersonalPic from "components/personal-pic";
+import SelectedProjects from "components/selected-projects";
+import { SocialMedia } from "components/social-media";
+import { Tabs } from "components/tabs";
+import { Timeline } from "components/timeline";
+import { Translate } from "components/translate";
+import { socialMedia } from "data/social-media";
+import { useTimelineViewport } from "hooks/use-timeline-viewport";
+import { useWindowSize } from "hooks/use-window-size";
+import { getLinkProps } from "utils/route";
+import { up } from "utils/screens";
 
 const HeroSection = styled.section(() => [
     tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-screen`,
@@ -181,7 +186,18 @@ const DesignProcessElementDesc = styled.p(() => [
 ]);
 
 const SelectedProjectsContainer = styled.div(() => [
-    tw`lg:col-start-1 lg:col-end-11 lg:ml-2 lg:mt-10`,
+    tw`lg:col-start-1 lg:col-end-11 lg:ml-2 lg:mt-10 cursor-none!`,
+]);
+
+const SeeAllProjectsLink = styled(Link)(() => [tw`col-start-13 self-end`]);
+
+const SeeAllProjectsBtn = styled(Button)(() => [
+    tw`w-[160px] h-[37px]`,
+    css`
+        span {
+            ${tw`bg-primary text-tertiary border-none`}
+        }
+    `,
 ]);
 
 interface Props extends PageProps {
@@ -193,7 +209,17 @@ interface Props extends PageProps {
     };
 }
 
-export default function About({ data }: Props): JSX.Element {
+const aboutPageTimeline = {
+    title: "Aga",
+    id: "aboutInfo",
+    items: [
+        { id: "expertise", title: "Expertise" },
+        { id: "design-process", title: "Design Process" },
+        { id: "selected-projects", title: "Selected Projects" },
+    ],
+};
+
+export default function About({ data }: Props) {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
     const { hero, expertise, designProcess } = data.aboutPageData;
@@ -202,11 +228,17 @@ export default function About({ data }: Props): JSX.Element {
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
 
-    const refExpertise = useInViewEffect(intersection, options);
+    const refExpertise = useInViewEffect(intersection, {
+        ...options,
+        rootMargin: "0px 0px 100% 0px",
+    });
     const refDesignProcess = useInViewEffect(intersection, options);
-    const refSelectedProjects = useInViewEffect(intersection, options);
+    const refSelectedProjects = useInViewEffect(intersection, {
+        ...options,
+        rootMargin: "200% 0px 0px 0px",
+    });
 
-    const tabsTimeline = aboutPageTimeline[0].items.map((item) => {
+    const tabsTimeline = aboutPageTimeline.items.map((item) => {
         const titleArr = item.title.split(" ");
         const lastWordInTitle = titleArr.length - 1;
         const titleToDisplayOnMobile = titleArr[lastWordInTitle];
@@ -216,6 +248,8 @@ export default function About({ data }: Props): JSX.Element {
             title: titleToDisplayOnMobile,
         };
     });
+
+    const location = useLocation();
 
     return (
         <Fragment>
@@ -246,9 +280,9 @@ export default function About({ data }: Props): JSX.Element {
                             <Timeline
                                 style={{ height: "254px" }}
                                 activeItemId={activeItemId}
-                                activeSectionId={aboutPageTimeline[0].id}
+                                activeSectionId={aboutPageTimeline.id}
                                 onTimelineItemChange={onTimelineItemChange}
-                                sections={aboutPageTimeline}
+                                sections={[aboutPageTimeline]}
                             />
                         </TimelineWrapper>
 
@@ -326,6 +360,12 @@ export default function About({ data }: Props): JSX.Element {
                         >
                             <TitleContainer>
                                 <Title>selected projects</Title>
+                                <SeeAllProjectsBtn
+                                    as={SeeAllProjectsLink}
+                                    {...getLinkProps("work", location)}
+                                >
+                                    <Translate id="seeAllProjects" />
+                                </SeeAllProjectsBtn>
                             </TitleContainer>
                             <SelectedProjectsContainer>
                                 <SelectedProjects projects={projects} />

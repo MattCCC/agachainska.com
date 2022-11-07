@@ -2,8 +2,6 @@ import { ButtonHTMLAttributes, PropsWithChildren } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import { ReactComponent as BgShape } from "@svg/Rectangle@1x.svg";
-
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
 const CustomButton = styled.button(() => [
@@ -19,7 +17,7 @@ const CustomButton = styled.button(() => [
         }
 
         &:hover {
-            svg {
+            div {
                 ${tw`opacity-0`}
             }
 
@@ -30,9 +28,11 @@ const CustomButton = styled.button(() => [
     `,
 ]);
 
-const Background = styled(BgShape)(() => [
-    tw`absolute z-0`,
+const Background = styled.div(() => [
+    tw`absolute z-0 border border-black`,
     css`
+        background: url("/img/button-bg.png") no-repeat;
+        background-size: cover;
         width: 100%;
         height: 100%;
         left: 6px;

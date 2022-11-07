@@ -1,10 +1,12 @@
-import { useCallback, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-import { styled } from "twin.macro";
-import useMouseLeave from "use-mouse-leave";
+import tw, { styled } from "twin.macro";
 
-import { Post, PostItem } from "@components/post";
-import { useStoreProp } from "@store/index";
+import useMouse from "@react-hook/mouse-position";
+
+import { Post, PostItem } from "components/post";
+import { useNavigation } from "hooks/use-navigation";
+import { useStoreProp } from "store/index";
 
 interface Props {
     otherProject: PostItem;
@@ -12,42 +14,40 @@ interface Props {
     lastProjectNumber: number;
 }
 
-const OtherProjectWrapper = styled.div(() => []);
+const OtherProjectWrapper = styled.div(() => [tw`cursor-none`]);
 
 function OtherProject({
     otherProject,
     currentIndex,
     lastProjectNumber,
 }: Props) {
-    const [mouseLeft, otherProjectContent] = useMouseLeave();
+    const mouseoverItemRef = useRef(null);
+    const mouse = useMouse(mouseoverItemRef, {
+        enterDelay: 30,
+        leaveDelay: 30,
+    });
 
-    const [, dispatch] = useStoreProp("showMotionGrid");
+    const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
+    const onNavigate = useNavigation({
+        to: otherProject.dribbbleLink,
+    });
 
-    const onSliderContentMouseEventChange = useCallback(
-        (mouseDidLeave = false) => {
-            dispatch.showMotionCursor(!mouseDidLeave, {
-                text: "work.viewDribbbleShot",
-                route: otherProject.dribbbleLink,
-                target: "_blank",
-            });
-        },
-        [dispatch, otherProject.dribbbleLink]
-    );
+    useEffect(() => {
+        const isMouseOver = Boolean(mouse.elementWidth);
 
-    useEffect((): void => {
-        if (mouseLeft) {
-            onSliderContentMouseEventChange(true);
-        } else if (onSliderContentMouseEventChange) {
-            onSliderContentMouseEventChange(false);
-        }
-    }, [mouseLeft, onSliderContentMouseEventChange]);
+        showMotionCursor(isMouseOver, {
+            text: "work.viewDribbbleShot",
+            target: "_blank",
+            overlap: false,
+        });
+    }, [mouse.elementWidth, showMotionCursor]);
 
     return (
-        <OtherProjectWrapper ref={otherProjectContent}>
+        <OtherProjectWrapper ref={mouseoverItemRef}>
             <Post
                 postNum={currentIndex + lastProjectNumber}
                 post={otherProject}
-                onPostTap={() => null}
+                onPostTap={(e) => onNavigate(e)}
                 setImageAsBg={true}
             />
         </OtherProjectWrapper>

@@ -82,7 +82,7 @@ export function createStore<S, M extends Mutations<S>>(
 
     function Provider({
         children,
-    }: React.PropsWithChildren<Record<string, unknown>>): JSX.Element {
+    }: React.PropsWithChildren<Record<string, unknown>>) {
         const [state, dispatch] = useReducer(reducer, initialState);
 
         actions = useMemo(() => {
@@ -131,7 +131,7 @@ export function useStoreProvider(
 ): FC<PropsWithChildren<Record<string, unknown>>> {
     function Provider({
         children,
-    }: React.PropsWithChildren<Record<string, unknown>>): JSX.Element {
+    }: React.PropsWithChildren<Record<string, unknown>>) {
         let wrapped = children;
 
         stores.forEach(({ Provider: ProviderWrapper }) => {

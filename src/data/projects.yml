@@ -1,6 +1,8 @@
 - uid: 1
   category: UX/UI
   subCategory:
+  bgColor: "#fff"
+  starColor: "#F5A4FF"
   name: RE/MAX
   cover: "/img/projects/image-1.png"
   client: RE/MAX Malta
@@ -8,68 +10,90 @@
   timeframe: November 2019, 7 days
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for RE/MAX"
-  challenge:
-    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
-  approach:
-    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
-    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
-  stats:
-    screens: 14
-    iterations: 6
-    prototypes: 34
-  credits:
-    concept: "UI Concept:"
-    conceptDesc: "RE/MAX Malta"
-    design: "UX Design:"
-    designDesc: "BRND WGN"
-    projectManagement: "Project management:"
-    projectManagementDesc: "November 2019, 7 days"
   sections:
-    - section: "challenge"
+    - section: "discover"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
+        - element: "device"
+          type: "iPhoneX"
+          link: "https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FQaKvvMvwwFov4qwUMN79N1%2FPayMe%3Fnode-id%3D4%253A1113%26scaling%3Dscale-down-width%26page-id%3D2%253A475%26starting-point-node-id%3D4%253A600%26show-proto-sidebar%3D1&amp;hide-ui=1"
+        - element: "devices"
+          list:
+            - type: "iPhoneX"
+              link: "/img/screenshot.png"
+            - type: "iPhoneX"
+              link: "https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FQaKvvMvwwFov4qwUMN79N1%2FPayMe%3Fnode-id%3D4%253A1113%26scaling%3Dscale-down-width%26page-id%3D2%253A475%26starting-point-node-id%3D4%253A600%26show-proto-sidebar%3D1&amp;hide-ui=1"
+            - type: "iPhoneX"
+              link: "/img/screenshot.png"
+            - type: "iPhoneX"
+              link: "/img/screenshot.png"
         - element: "overview"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
         - element: "project-goals"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
         - element: "audience"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    - section: "approach"
+    - section: "define"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "brand-elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
         - element: "full-size-image"
           image: "/img/placeholder-full.png"
         - element: "two-images"
-          imageOne: "/img/placeholder-full.png"
-          imageTwo: "/img/placeholder-full.png"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "full-page-image"
           image: "/img/placeholder-2.png"
         - element: "slider"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "quote"
           quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
     - section: "results"
+      showInTimeline: "yes"
+      showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - concept: "UI Concept:"
-          conceptDesc: "RE/MAX Malta"
-          design: "UX Design:"
-          designDesc: "BRND WGN"
-          projectManagement: "Project management:"
-          projectManagementDesc: "November 2019, 7 days"
-    - section: "other-projects"
+        - element: "credits"
+          content:
+            - title: "UI Concept:"
+              text: "RE/MAX Malta"
+            - title: "UX Design:"
+              text: "BRND WGN"
+            - title: "Project management:"
+              text: "November 2019, 7 days"
+    - section: "Other UX/UI Projects"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - category: UX/UI
+        - element: "other-projects"
+          category: UX/UI
 
 - uid: 2
   category: UX/UI
   subCategory:
+  bgColor: "#fff"
+  starColor: "#F5A4FF"
   name: Danish Bakery
   cover: "/img/projects/image-2.jpg"
   client: Danish Bakery Malta
@@ -77,26 +101,10 @@
   timeframe: November 2019, 7 days
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for Danish Bakery"
-  challenge:
-    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
-  approach:
-    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
-    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
-  stats:
-    screens: 14
-    iterations: 6
-    prototypes: 34
-  credits:
-    concept: "UI Concept:"
-    conceptDesc: "Danish Bakery Malta"
-    design: "UX Design:"
-    designDesc: "BRND WGN"
-    projectManagement: "Project management:"
-    projectManagementDesc: "November 2019, 7 days"
   sections:
-    - section: "challenge"
+    - section: "discover"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "overview"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
@@ -104,41 +112,66 @@
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
         - element: "audience"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    - section: "approach"
+    - section: "define"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "brand-elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
         - element: "full-size-image"
           image: "/img/placeholder-full.png"
         - element: "two-images"
-          imageOne: "/img/placeholder-full.png"
-          imageTwo: "/img/placeholder-full.png"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "full-page-image"
           image: "/img/placeholder-2.png"
         - element: "slider"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "quote"
           quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
     - section: "results"
+      showInTimeline: "yes"
+      showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - concept: "UI Concept:"
-          conceptDesc: "Danish Bakery Malta"
-          design: "UX Design:"
-          designDesc: "BRND WGN"
-          projectManagement: "Project management:"
-          projectManagementDesc: "November 2019, 7 days"
-    - section: "other-projects"
+        - element: "credits"
+          content:
+            - title: "UI Concept:"
+              text: "RE/MAX Malta"
+            - title: "UX Design:"
+              text: "BRND WGN"
+            - title: "Project management:"
+              text: "November 2019, 7 days"
+    - section: "Other UX/UI Projects"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - category: UX/UI
+        - element: "other-projects"
+          category: UX/UI
 
 - uid: 3
   category: Illustrations
   subCategory:
+  bgColor: "#FFF9FE"
+  starColor: "#C0A4FF"
   name: Twitch
   cover: "/img/projects/placeholder-1.png"
   client: Twitch Malta
@@ -146,26 +179,10 @@
   timeframe: November 2019, 7 days
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
-  challenge:
-    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
-  approach:
-    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
-    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
-  stats:
-    screens: 14
-    iterations: 6
-    prototypes: 34
-  credits:
-    concept: "UI Concept:"
-    conceptDesc: "Twitch Malta"
-    design: "UX Design:"
-    designDesc: "BRND WGN"
-    projectManagement: "Project management:"
-    projectManagementDesc: "November 2019, 7 days"
   sections:
-    - section: "challenge"
+    - section: "discover"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "overview"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
@@ -173,41 +190,66 @@
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
         - element: "audience"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    - section: "approach"
+    - section: "define"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "brand-elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
         - element: "full-size-image"
           image: "/img/placeholder-full.png"
         - element: "two-images"
-          imageOne: "/img/placeholder-full.png"
-          imageTwo: "/img/placeholder-full.png"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "full-page-image"
           image: "/img/placeholder-2.png"
         - element: "slider"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "quote"
           quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
     - section: "results"
+      showInTimeline: "yes"
+      showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - concept: "UI Concept:"
-          conceptDesc: "Twitch Malta"
-          design: "UX Design:"
-          designDesc: "BRND WGN"
-          projectManagement: "Project management:"
-          projectManagementDesc: "November 2019, 7 days"
-    - section: "other-projects"
+        - element: "credits"
+          content:
+            - title: "UI Concept:"
+              text: "RE/MAX Malta"
+            - title: "UX Design:"
+              text: "BRND WGN"
+            - title: "Project management:"
+              text: "November 2019, 7 days"
+    - section: "Other UX/UI Projects"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - category: Illustrations
+        - element: "other-projects"
+          category: Illustrations
 
 - uid: 4
   category: Illustrations
   subCategory: Others
+  bgColor: "#FFF9FE"
+  starColor: "#C0A4FF"
   name: RE/MAX
   cover: "/img/projects/image-1.png"
   client: Twitch Malta
@@ -216,26 +258,10 @@
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   dribbbleLink: "https://dribbble.com/shots/17728344-RE-MAX-Malta-Website"
-  challenge:
-    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
-  approach:
-    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
-    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
-  stats:
-    screens: 14
-    iterations: 6
-    prototypes: 34
-  credits:
-    concept: "UI Concept:"
-    conceptDesc: "Twitch Malta"
-    design: "UX Design:"
-    designDesc: "BRND WGN"
-    projectManagement: "Project management:"
-    projectManagementDesc: "November 2019, 7 days"
   sections:
-    - section: "challenge"
+    - section: "discover"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "overview"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
@@ -243,41 +269,66 @@
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
         - element: "audience"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    - section: "approach"
+    - section: "define"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "brand-elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
         - element: "full-size-image"
           image: "/img/placeholder-full.png"
         - element: "two-images"
-          imageOne: "/img/placeholder-full.png"
-          imageTwo: "/img/placeholder-full.png"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "full-page-image"
           image: "/img/placeholder-2.png"
         - element: "slider"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "quote"
           quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
     - section: "results"
+      showInTimeline: "yes"
+      showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - concept: "UI Concept:"
-          conceptDesc: "Twitch Malta"
-          design: "UX Design:"
-          designDesc: "BRND WGN"
-          projectManagement: "Project management:"
-          projectManagementDesc: "November 2019, 7 days"
-    - section: "other-projects"
+        - element: "credits"
+          content:
+            - title: "UI Concept:"
+              text: "RE/MAX Malta"
+            - title: "UX Design:"
+              text: "BRND WGN"
+            - title: "Project management:"
+              text: "November 2019, 7 days"
+    - section: "Other UX/UI Projects"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - category: Illustrations
+        - element: "other-projects"
+          category: Illustrations
 
 - uid: 5
   category: Illustrations
   subCategory: Others
+  bgColor: "#FFF9FE"
+  starColor: "#C0A4FF"
   name: YELLOW WEBSITE
   cover: "/img/projects/image-2.jpg"
   client: Twitch Malta
@@ -286,26 +337,10 @@
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   dribbbleLink: "https://dribbble.com/shots/17728344-RE-MAX-Malta-Website"
-  challenge:
-    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
-  approach:
-    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
-    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
-  stats:
-    screens: 14
-    iterations: 6
-    prototypes: 34
-  credits:
-    concept: "UI Concept:"
-    conceptDesc: "Twitch Malta"
-    design: "UX Design:"
-    designDesc: "BRND WGN"
-    projectManagement: "Project management:"
-    projectManagementDesc: "November 2019, 7 days"
   sections:
-    - section: "challenge"
+    - section: "discover"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "overview"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
@@ -313,41 +348,66 @@
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
         - element: "audience"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    - section: "approach"
+    - section: "define"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "brand-elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
         - element: "full-size-image"
           image: "/img/placeholder-full.png"
         - element: "two-images"
-          imageOne: "/img/placeholder-full.png"
-          imageTwo: "/img/placeholder-full.png"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "full-page-image"
           image: "/img/placeholder-2.png"
         - element: "slider"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "quote"
           quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
     - section: "results"
+      showInTimeline: "yes"
+      showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - concept: "UI Concept:"
-          conceptDesc: "Twitch Malta"
-          design: "UX Design:"
-          designDesc: "BRND WGN"
-          projectManagement: "Project management:"
-          projectManagementDesc: "November 2019, 7 days"
-    - section: "other-projects"
+        - element: "credits"
+          content:
+            - title: "UI Concept:"
+              text: "RE/MAX Malta"
+            - title: "UX Design:"
+              text: "BRND WGN"
+            - title: "Project management:"
+              text: "November 2019, 7 days"
+    - section: "Other UX/UI Projects"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - category: Illustrations
+        - element: "other-projects"
+          category: Illustrations
 
 - uid: 6
   category: Illustrations
   subCategory: Others
+  bgColor: "#FFF9FE"
+  starColor: "#C0A4FF"
   name: VELLOW WEBSITE
   cover: "/img/projects/placeholder-1.png"
   client: Twitch Malta
@@ -356,26 +416,10 @@
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   dribbbleLink: "https://dribbble.com/shots/17728344-RE-MAX-Malta-Website"
-  challenge:
-    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
-  approach:
-    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
-    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
-  stats:
-    screens: 14
-    iterations: 6
-    prototypes: 34
-  credits:
-    concept: "UI Concept:"
-    conceptDesc: "Twitch Malta"
-    design: "UX Design:"
-    designDesc: "BRND WGN"
-    projectManagement: "Project management:"
-    projectManagementDesc: "November 2019, 7 days"
   sections:
-    - section: "challenge"
+    - section: "discover"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "overview"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
@@ -383,41 +427,66 @@
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
         - element: "audience"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    - section: "approach"
+    - section: "define"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "brand-elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
         - element: "full-size-image"
           image: "/img/placeholder-full.png"
         - element: "two-images"
-          imageOne: "/img/placeholder-full.png"
-          imageTwo: "/img/placeholder-full.png"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "full-page-image"
           image: "/img/placeholder-2.png"
         - element: "slider"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "quote"
           quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
     - section: "results"
+      showInTimeline: "yes"
+      showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - concept: "UI Concept:"
-          conceptDesc: "Twitch Malta"
-          design: "UX Design:"
-          designDesc: "BRND WGN"
-          projectManagement: "Project management:"
-          projectManagementDesc: "November 2019, 7 days"
-    - section: "other-projects"
+        - element: "credits"
+          content:
+            - title: "UI Concept:"
+              text: "RE/MAX Malta"
+            - title: "UX Design:"
+              text: "BRND WGN"
+            - title: "Project management:"
+              text: "November 2019, 7 days"
+    - section: "Other UX/UI Projects"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - category: Illustrations
+        - element: "other-projects"
+          category: Illustrations
 
 - uid: 7
   category: Illustrations
   subCategory: Others
+  bgColor: "#FFF9FE"
+  starColor: "#C0A4FF"
   name: WELLOW WEBSITE
   cover: "/img/projects/image-1.png"
   client: Twitch Malta
@@ -426,26 +495,10 @@
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   dribbbleLink: "https://dribbble.com/shots/17728344-RE-MAX-Malta-Website"
-  challenge:
-    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
-  approach:
-    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
-    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
-  stats:
-    screens: 14
-    iterations: 6
-    prototypes: 34
-  credits:
-    concept: "UI Concept:"
-    conceptDesc: "Twitch Malta"
-    design: "UX Design:"
-    designDesc: "BRND WGN"
-    projectManagement: "Project management:"
-    projectManagementDesc: "November 2019, 7 days"
   sections:
-    - section: "challenge"
+    - section: "discover"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "overview"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
@@ -453,41 +506,66 @@
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
         - element: "audience"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    - section: "approach"
+    - section: "define"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "brand-elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
         - element: "full-size-image"
           image: "/img/placeholder-full.png"
         - element: "two-images"
-          imageOne: "/img/placeholder-full.png"
-          imageTwo: "/img/placeholder-full.png"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "full-page-image"
           image: "/img/placeholder-2.png"
         - element: "slider"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "quote"
           quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
     - section: "results"
+      showInTimeline: "yes"
+      showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - concept: "UI Concept:"
-          conceptDesc: "Twitch Malta"
-          design: "UX Design:"
-          designDesc: "BRND WGN"
-          projectManagement: "Project management:"
-          projectManagementDesc: "November 2019, 7 days"
-    - section: "other-projects"
+        - element: "credits"
+          content:
+            - title: "UI Concept:"
+              text: "RE/MAX Malta"
+            - title: "UX Design:"
+              text: "BRND WGN"
+            - title: "Project management:"
+              text: "November 2019, 7 days"
+    - section: "Other UX/UI Projects"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - category: Illustrations
+        - element: "other-projects"
+          category: Illustrations
 
 - uid: 8
   category: UX/UI
   subCategory: Others
+  bgColor: "#fff"
+  starColor: "#F5A4FF"
   name: Addidas
   cover: "/img/projects/image-2.jpg"
   client: Addidas Malta
@@ -496,26 +574,10 @@
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   dribbbleLink: "https://dribbble.com/shots/17728344-RE-MAX-Malta-Website"
-  challenge:
-    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
-  approach:
-    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
-    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
-  stats:
-    screens: 14
-    iterations: 6
-    prototypes: 34
-  credits:
-    concept: "UI Concept:"
-    conceptDesc: "Addidas Malta"
-    design: "UX Design:"
-    designDesc: "BRND WGN"
-    projectManagement: "Project management:"
-    projectManagementDesc: "November 2019, 7 days"
   sections:
-    - section: "challenge"
+    - section: "discover"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "overview"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
@@ -523,41 +585,66 @@
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
         - element: "audience"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    - section: "approach"
+    - section: "define"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "brand-elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
         - element: "full-size-image"
           image: "/img/placeholder-full.png"
         - element: "two-images"
-          imageOne: "/img/placeholder-full.png"
-          imageTwo: "/img/placeholder-full.png"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "full-page-image"
           image: "/img/placeholder-2.png"
         - element: "slider"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "quote"
           quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
     - section: "results"
+      showInTimeline: "yes"
+      showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - concept: "UI Concept:"
-          conceptDesc: "Addidas Malta"
-          design: "UX Design:"
-          designDesc: "BRND WGN"
-          projectManagement: "Project management:"
-          projectManagementDesc: "November 2019, 7 days"
-    - section: "other-projects"
+        - element: "credits"
+          content:
+            - title: "UI Concept:"
+              text: "RE/MAX Malta"
+            - title: "UX Design:"
+              text: "BRND WGN"
+            - title: "Project management:"
+              text: "November 2019, 7 days"
+    - section: "Other UX/UI Projects"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - category: UX/UI
+        - element: "other-projects"
+          category: UX/UI
 
 - uid: 9
   category: UX/UI
   subCategory: Others
+  bgColor: "#fff"
+  starColor: "#F5A4FF"
   name: Nike
   cover: "/img/projects/placeholder-1.png"
   client: Nike Malta
@@ -566,26 +653,10 @@
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   dribbbleLink: "https://dribbble.com/shots/17620075-Social-tokens"
-  challenge:
-    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
-  approach:
-    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
-    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
-  stats:
-    screens: 14
-    iterations: 6
-    prototypes: 34
-  credits:
-    concept: "UI Concept:"
-    conceptDesc: "Nike Malta"
-    design: "UX Design:"
-    designDesc: "BRND WGN"
-    projectManagement: "Project management:"
-    projectManagementDesc: "November 2019, 7 days"
   sections:
-    - section: "challenge"
+    - section: "discover"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "overview"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
@@ -593,41 +664,66 @@
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
         - element: "audience"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    - section: "approach"
+    - section: "define"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "brand-elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
         - element: "full-size-image"
           image: "/img/placeholder-full.png"
         - element: "two-images"
-          imageOne: "/img/placeholder-full.png"
-          imageTwo: "/img/placeholder-full.png"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "full-page-image"
           image: "/img/placeholder-2.png"
         - element: "slider"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "quote"
           quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
     - section: "results"
+      showInTimeline: "yes"
+      showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - concept: "UI Concept:"
-          conceptDesc: "Nike Malta"
-          design: "UX Design:"
-          designDesc: "BRND WGN"
-          projectManagement: "Project management:"
-          projectManagementDesc: "November 2019, 7 days"
-    - section: "other-projects"
+        - element: "credits"
+          content:
+            - title: "UI Concept:"
+              text: "RE/MAX Malta"
+            - title: "UX Design:"
+              text: "BRND WGN"
+            - title: "Project management:"
+              text: "November 2019, 7 days"
+    - section: "Other UX/UI Projects"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - category: UX/UI
+        - element: "other-projects"
+          category: UX/UI
 
 - uid: 10
   category: UX/UI
   subCategory: Others
+  bgColor: "#fff"
+  starColor: "#F5A4FF"
   name: Pepsi
   cover: "/img/projects/image-1.png"
   client: Pepsi Malta
@@ -636,26 +732,10 @@
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   dribbbleLink: "https://dribbble.com/shots/17728344-RE-MAX-Malta-Website"
-  challenge:
-    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
-  approach:
-    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
-    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
-  stats:
-    screens: 14
-    iterations: 6
-    prototypes: 34
-  credits:
-    concept: "UI Concept:"
-    conceptDesc: "Pepsi Malta"
-    design: "UX Design:"
-    designDesc: "BRND WGN"
-    projectManagement: "Project management:"
-    projectManagementDesc: "November 2019, 7 days"
   sections:
-    - section: "challenge"
+    - section: "discover"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "overview"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
@@ -663,41 +743,65 @@
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
         - element: "audience"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    - section: "approach"
+    - section: "define"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "brand-elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
         - element: "full-size-image"
           image: "/img/placeholder-full.png"
         - element: "two-images"
-          imageOne: "/img/placeholder-full.png"
-          imageTwo: "/img/placeholder-full.png"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "full-page-image"
           image: "/img/placeholder-2.png"
         - element: "slider"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "quote"
           quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
     - section: "results"
+      showInTimeline: "yes"
+      showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - concept: "UI Concept:"
-          conceptDesc: "Pepsi Malta"
-          design: "UX Design:"
-          designDesc: "BRND WGN"
-          projectManagement: "Project management:"
-          projectManagementDesc: "November 2019, 7 days"
-    - section: "other-projects"
+        - element: "credits"
+          content:
+            - title: "UI Concept:"
+              text: "RE/MAX Malta"
+            - title: "UX Design:"
+              text: "BRND WGN"
+            - title: "Project management:"
+              text: "November 2019, 7 days"
+    - section: "Other UX/UI Projects"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - category: UX/UI
+        - element: "other-projects"
 
 - uid: 11
   category: UX/UI
   subCategory: Others
+  bgColor: "#fff"
+  starColor: "#F5A4FF"
   name: Topshop
   cover: "/img/projects/image-2.jpg"
   client: Topshop Malta
@@ -706,26 +810,10 @@
   roleInProject: UI designer
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   dribbbleLink: "https://dribbble.com/shots/17620075-Social-tokens"
-  challenge:
-    overview: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    projectGoals: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    audience: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
-  approach:
-    brandElements: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines. "
-    quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
-  stats:
-    screens: 14
-    iterations: 6
-    prototypes: 34
-  credits:
-    concept: "UI Concept:"
-    conceptDesc: "Topshop Malta"
-    design: "UX Design:"
-    designDesc: "BRND WGN"
-    projectManagement: "Project management:"
-    projectManagementDesc: "November 2019, 7 days"
   sections:
-    - section: "challenge"
+    - section: "discover"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "overview"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
@@ -733,34 +821,57 @@
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
         - element: "audience"
           description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-    - section: "approach"
+    - section: "define"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
       elements:
         - element: "brand-elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
         - element: "full-size-image"
           image: "/img/placeholder-full.png"
         - element: "two-images"
-          imageOne: "/img/placeholder-full.png"
-          imageTwo: "/img/placeholder-full.png"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "full-page-image"
           image: "/img/placeholder-2.png"
         - element: "slider"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "quote"
           quote: "‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’"
     - section: "results"
+      showInTimeline: "yes"
+      showSectionTitle: "no"
       elements:
         - element: "stats"
-          screens: 14
-          iterations: 6
-          prototypes: 34
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
     - section: "credits"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - concept: "UI Concept:"
-          conceptDesc: "Topshop Malta"
-          design: "UX Design:"
-          designDesc: "BRND WGN"
-          projectManagement: "Project management:"
-          projectManagementDesc: "November 2019, 7 days"
-    - section: "other-projects"
+        - element: "credits"
+          content:
+            - title: "UI Concept:"
+              text: "RE/MAX Malta"
+            - title: "UX Design:"
+              text: "BRND WGN"
+            - title: "Project management:"
+              text: "November 2019, 7 days"
+    - section: "Other UX/UI Projects"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
       elements:
-        - category: UX/UI
+        - element: "other-projects"
+          category: UX/UI

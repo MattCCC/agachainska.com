@@ -10,9 +10,9 @@ import {
 
 import tw, { css, styled } from "twin.macro";
 
-import { motion, MotionProps, AnimatePresence } from "@components/animation";
-import { useElementSize } from "@hooks/use-element-size";
-import { excludeProps } from "@utils/styled";
+import { motion, MotionProps, AnimatePresence } from "components/animation";
+import { useElementSize } from "hooks/use-element-size";
+import { excludeProps } from "utils/styled";
 
 const TimelineWrapper = styled.div(() => [tw`z-10 text-right w-52`]);
 
@@ -49,10 +49,7 @@ const ListItem = styled(
 ]);
 
 const Pin = styled(motion.div)(() => [
-    tw`absolute top-0 bottom-0 right-0 w-px bg-primary`,
-    css`
-        z-index: 2;
-    `,
+    tw`absolute top-0 bottom-0 right-0 w-px bg-primary z-[2]`,
 ]);
 
 interface TitleStyle extends MotionProps {
@@ -82,7 +79,6 @@ interface Props extends HTMLAttributes<HTMLElement> {
     activeSectionId?: string;
     activeItemId?: string;
     onTimelineItemChange?: (item: Item) => void;
-    onOtherProjectsClick?: () => void;
 }
 
 export const Timeline = memo(
@@ -91,9 +87,8 @@ export const Timeline = memo(
         activeSectionId = "",
         activeItemId = "",
         onTimelineItemChange = (): null => null,
-        onOtherProjectsClick = (): null => null,
         ...props
-    }: Props): JSX.Element => {
+    }: Props) => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
         const sectionTitleRef = useRef() as RefObject<HTMLDivElement>;
         const availableSections: Section[] = sections.filter(

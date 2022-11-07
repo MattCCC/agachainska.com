@@ -8,14 +8,15 @@ import {
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
-import useMouseLeave from "use-mouse-leave";
 
-import { animate, AnimatePresence, motion } from "@components/animation";
-import { Distortion } from "@components/distortion";
-import { MainTitleTop } from "@components/main-title";
-import { useEventListener } from "@hooks/use-event-listener";
-import { ReactComponent as NextIcon } from "@svg/down.svg";
-import { ReactComponent as PrevIcon } from "@svg/up.svg";
+import useMouse from "@react-hook/mouse-position";
+
+import { animate, AnimatePresence, motion } from "components/animation";
+import { Distortion } from "components/distortion";
+import { MainTitleTop } from "components/main-title";
+import { useEventListener } from "hooks/use-event-listener";
+import { ReactComponent as NextIcon } from "svg/down.svg";
+import { ReactComponent as PrevIcon } from "svg/up.svg";
 
 import OtherProjects, { OtherProjectProp } from "./other-projects";
 
@@ -35,7 +36,6 @@ interface Props {
     isShowingOtherProjects: boolean;
     otherProjects: OtherProjectProp[];
     lastProjectNumber: number;
-    customSlides?: Record<string, any>;
     setIsAnimating: (newValue: boolean) => void;
     onSliderTap?:
         | ((
@@ -188,7 +188,6 @@ export const Slider = ({
     showSlideTitle = false,
     isAnimating,
     setIsAnimating,
-    customSlides = {},
     isShowingOtherProjects,
     otherProjects,
     lastProjectNumber,
@@ -276,8 +275,17 @@ export const Slider = ({
     );
 
     const onDragEnd = useCallback(
-        (_e: Event, { offset, velocity }): void => {
-            const swipe = swipePower(offset.x as number, velocity.x as number);
+        (
+            _e: Event,
+            {
+                offset,
+                velocity,
+            }: {
+                offset: { x: number; y: number };
+                velocity: { x: number; y: number };
+            }
+        ): void => {
+            const swipe = swipePower(offset.x, velocity.x);
 
             if (swipe < -swipeConfidenceThreshold) {
                 goToSlide(-1);
@@ -330,12 +338,31 @@ export const Slider = ({
         setPage,
     ]);
 
-    const [mouseLeft, sliderContentRef] = useMouseLeave();
+    const sliderContentRef = useRef(null);
+    const mouse = useMouse(sliderContentRef, {
+        enterDelay: 30,
+        leaveDelay: 30,
+    });
+
+    useEffect(() => {
+        const isMouseOver = Boolean(mouse.elementWidth);
+
+        if (!isMouseOver && onSliderMouseLeave && !isShowingOtherProjects) {
+            onSliderMouseLeave(true);
+        } else if (onSliderMouseEnter && !isShowingOtherProjects) {
+            onSliderMouseEnter(false);
+        }
+    }, [
+        isShowingOtherProjects,
+        mouse.elementWidth,
+        onSliderMouseEnter,
+        onSliderMouseLeave,
+    ]);
 
     useEventListener(
         "wheel",
         (e) => {
-            if (!mouseLeft && mouseScrollOnSlide) {
+            if (Boolean(mouse.elementWidth) && mouseScrollOnSlide) {
                 e.preventDefault();
 
                 updateScroll(e as WheelEvent);
@@ -345,19 +372,6 @@ export const Slider = ({
             (document.body as unknown)) as RefObject<HTMLDivElement>,
         { passive: false }
     );
-
-    useEffect((): void => {
-        if (mouseLeft && onSliderMouseLeave && !isShowingOtherProjects) {
-            onSliderMouseLeave(true);
-        } else if (onSliderMouseEnter && !isShowingOtherProjects) {
-            onSliderMouseEnter(false);
-        }
-    }, [
-        mouseLeft,
-        onSliderMouseEnter,
-        onSliderMouseLeave,
-        isShowingOtherProjects,
-    ]);
 
     const onSliderClick = useCallback(
         (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -424,12 +438,16 @@ export const Slider = ({
                 )}
             </SlideContent>
             <Controls isShowingOtherProjects={isShowingOtherProjects}>
-                <Btn onClick={(): void => goToSlide(1)}>
-                    <NextIconStyled /> Next
-                </Btn>
-                <Btn onClick={(): void => goToSlide(-1)}>
-                    <PrevIconStyled /> Previous
-                </Btn>
+                {page < sliderItems.length - 1 && (
+                    <Btn onClick={(): void => goToSlide(1)}>
+                        <NextIconStyled /> Next
+                    </Btn>
+                )}
+                {page > 0 && (
+                    <Btn onClick={(): void => goToSlide(-1)}>
+                        <PrevIconStyled /> Previous
+                    </Btn>
+                )}
             </Controls>
         </SliderWrapper>
     );

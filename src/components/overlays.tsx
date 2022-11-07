@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from "react";
 
-import { motion, LayoutGroup, useAnimation } from "@components/animation";
-import { useStore } from "@store/index";
+import { motion, LayoutGroup, useAnimation } from "components/animation";
+import { useStore } from "store/index";
 
 const overlayStyleClasses = "fixed left-0 w-full h-full";
 
@@ -89,7 +89,7 @@ const scrollTo = (y: number = 0) => {
     });
 };
 
-export const TopOverlay = (): JSX.Element => (
+export const TopOverlay = () => (
     <motion.div
         className="relative bg-white z-100"
         initial="initial"
@@ -111,7 +111,7 @@ export const TopOverlay = (): JSX.Element => (
 );
 
 export const Overlays = memo(
-    (): JSX.Element => {
+    () => {
         const [state] = useStore();
         const [palette, setPalette] = useState([] as string[]);
         const multiOverlays = !state.currentDelayedRoute;

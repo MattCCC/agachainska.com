@@ -1,0 +1,74 @@
+- uid: 1 # unique random number. Should be different for each project
+  category: UX/UI
+  subCategory: # either empty or "Others" if project should be shown in "Others" on Work page
+  name: RE/MAX
+  cover: "/img/projects/image-1.png"
+  client: RE/MAX Malta
+  agency: BRND WGN
+  timeframe: November 2019, 7 days # Project timeframe
+  roleInProject: UI designer
+  shortDescription: "Custom Illustrations for RE/MAX"
+  sections:
+    - section: "discover"
+      showInTimeline: "yes" # whether to show the section in the timeline on Single Project page
+      showSectionTitle: "yes" # whether to display section title on Single Project page
+      elements:
+        - element: "overview"
+          description: "Example Overview description text."
+        - element: "project-goals"
+          description: "Example Project goals description text."
+        - element: "audience"
+          description: "Example Audience description text."
+    - section: "define"
+      showInTimeline: "yes"
+      showSectionTitle: "yes"
+      elements:
+        - element: "brand-elements"
+          description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
+        - element: "full-size-image"
+          image: "/img/placeholder-full.png"
+        - element: "two-images"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
+        - element: "full-page-image"
+          image: "/img/placeholder-2.png"
+        - element: "slider"
+        - element: "quote"
+          quote: "Your quote text.’"
+        - element: "device"
+          type: "iPhoneX" # iPhoneX, iPhone13pro, iPhone8, laptop
+          link: "https://domain.com/yourimage.png"
+        - element: "devices"
+          list:
+            - type: "iPhone13pro"
+              link: "https://domain.com/yourimage.png"
+    - section: "results"
+      showInTimeline: "yes"
+      showSectionTitle: "no"
+      elements:
+        - element: "stats"
+          stats:
+            - title: "Screens"
+              stat: 14
+            - title: "Iterations"
+              stat: 6
+            - title: "Prototypes"
+              stat: 34
+    - section: "credits"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
+      elements:
+        - element: "credits"
+          content:
+            - title: "UI Concept:"
+              text: "RE/MAX Malta"
+            - title: "UX Design:"
+              text: "BRND WGN"
+            - title: "Project management:"
+              text: "November 2019, 7 days"
+    - section: "Other UX/UI Projects"
+      showInTimeline: "no"
+      showSectionTitle: "yes"
+      elements:
+        - category: UX/UI

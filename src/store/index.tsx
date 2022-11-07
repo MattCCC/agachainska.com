@@ -1,11 +1,12 @@
-import { set, createStore, mergeState } from "@utils/store";
+import { set, createStore, mergeState } from "utils/store";
 
 const initialState = {
     showMotionGrid: true,
     isMotionCursorVisible: false,
     showFooter: false,
     showLogoOnDesktop: false,
-    showBackgroundGradient: false,
+    showbackgroundColor: false,
+    backgroundColor: "",
     darkTheme: false,
     motionCursorData: {
         text: "",
@@ -27,7 +28,8 @@ const actions = {
     showWavePattern: set<State, boolean>("showWavePattern"),
     showFooter: set<State, boolean>("showFooter"),
     showLogoOnDesktop: set<State, boolean>("showLogoOnDesktop"),
-    showBackgroundGradient: set<State, boolean>("showBackgroundGradient"),
+    showbackgroundColor: set<State, boolean>("showbackgroundColor"),
+    backgroundColor: set<State, string>("backgroundColor"),
     setDarkTheme: set<State, boolean>("darkTheme"),
     setCurrentDelayedRoute: set<State, string>("currentDelayedRoute"),
 

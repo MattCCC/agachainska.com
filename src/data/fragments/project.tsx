@@ -5,6 +5,8 @@ export const ProjectFragment = graphql`
         uid
         category
         subCategory
+        bgColor
+        starColor
         name
         cover
         client
@@ -13,47 +15,33 @@ export const ProjectFragment = graphql`
         roleInProject
         shortDescription
         dribbbleLink
-        challenge {
-            overview
-            projectGoals
-            audience
-        }
-        approach {
-            brandElements
-            quote
-        }
-        stats {
-            screens
-            iterations
-            prototypes
-        }
-        credits {
-            concept
-            conceptDesc
-            design
-            designDesc
-            projectManagement
-            projectManagementDesc
-        }
         sections {
             section
+            showInTimeline
+            showSectionTitle
             elements {
                 element
                 description
                 image
-                imageOne
-                imageTwo
                 quote
-                screens
-                iterations
-                prototypes
-                concept
-                conceptDesc
-                design
-                designDesc
-                projectManagement
-                projectManagementDesc
                 category
+                type
+                link
+                list {
+                    type
+                    link
+                }
+                stats {
+                    title
+                    stat
+                }
+                images {
+                    image
+                }
+                content {
+                    title
+                    text
+                }
             }
         }
     }

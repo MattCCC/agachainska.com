@@ -1,4 +1,4 @@
-import { ReactElement, Fragment } from "react";
+import { Fragment } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -8,7 +8,7 @@ interface Props {
     text: string;
 }
 
-const GlobalBase = (): ReactElement => (
+const GlobalBase = () => (
     <Global
         styles={css`
             @keyframes marqueeEffect {
@@ -45,7 +45,7 @@ const Text = styled.span(() => [
     `,
 ]);
 
-export function MarqueeText({ text = "" }: Props): JSX.Element {
+export function MarqueeText({ text = "" }: Props) {
     return (
         <Fragment>
             <GlobalBase />

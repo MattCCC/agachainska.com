@@ -2,16 +2,16 @@ import { Fragment, useEffect } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import { BackgroundNoise } from "@components/background-noise";
-import { useStoreProp } from "@store/index";
-import { ReactComponent as WavesPattern } from "@svg/bg-lines.svg";
-import { ReactComponent as GreeceIllustration } from "@svg/Greece.svg";
-import { ReactComponent as MaltaIllustration } from "@svg/Malta.svg";
-import { ReactComponent as PixelLoveIllustration } from "@svg/Pixel love.svg";
-import { ReactComponent as VectorsIllustration } from "@svg/Vectors.svg";
-import { destroyMotionGrid, initMotionGrid } from "@utils/motion-grid";
-import { down } from "@utils/screens";
-import { excludeProps } from "@utils/styled";
+import { BackgroundNoise } from "components/background-noise";
+import { useStoreProp } from "store/index";
+import { ReactComponent as WavesPattern } from "svg/bg-lines.svg";
+import { ReactComponent as GreeceIllustration } from "svg/Greece.svg";
+import { ReactComponent as MaltaIllustration } from "svg/Malta.svg";
+import { ReactComponent as PixelLoveIllustration } from "svg/Pixel love.svg";
+import { ReactComponent as VectorsIllustration } from "svg/Vectors.svg";
+import { destroyMotionGrid, initMotionGrid } from "utils/motion-grid";
+import { down } from "utils/screens";
+import { excludeProps } from "utils/styled";
 
 interface WavesProps {
     darkTheme: boolean;
@@ -83,6 +83,14 @@ const PixelLove = styled(PixelLoveIllustration)(() => [
     `,
 ]);
 
+const MotionGridWrapper = styled.div(() => [
+    tw`absolute top-0 left-0 right-0 z-0 w-full h-full min-h-screen overflow-hidden`,
+    css`
+        backface-visibility: hidden;
+        transform: scale(1);
+    `,
+]);
+
 export const Background = () => {
     const [showMotionGrid] = useStoreProp("showMotionGrid");
     const [showWavePattern] = useStoreProp("showWavePattern");
@@ -97,16 +105,20 @@ export const Background = () => {
     }, [showMotionGrid]);
 
     return (
-        <BackgroundNoise className="motion-grid">
-            {showMotionGrid && (
-                <Fragment>
-                    <Vectors className="motion-grid__item" />
-                    <Greece className="motion-grid__item" />
-                    <Malta className="motion-grid__item" />
-                    <PixelLove className="motion-grid__item" />
-                </Fragment>
-            )}
-            {showWavePattern && <Waves darkTheme={darkTheme} />}
-        </BackgroundNoise>
+        <Fragment>
+            <BackgroundNoise />
+
+            <MotionGridWrapper className="motion-grid">
+                {showMotionGrid && (
+                    <Fragment>
+                        <Vectors className="motion-grid__item" />
+                        <Greece className="motion-grid__item" />
+                        <Malta className="motion-grid__item" />
+                        <PixelLove className="motion-grid__item" />
+                    </Fragment>
+                )}
+                {showWavePattern && <Waves darkTheme={darkTheme} />}
+            </MotionGridWrapper>
+        </Fragment>
     );
 };

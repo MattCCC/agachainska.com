@@ -1,55 +1,57 @@
-import { memo, useEffect } from "react";
+import { memo, useEffect, useRef } from "react";
 
 import tw, { css, styled } from "twin.macro";
-import useMouseLeave from "use-mouse-leave";
 
-import { FullPageContent } from "@components/full-page-content";
-import { MotionSlider } from "@components/motion-slider";
-import { useStoreProp } from "@store/index";
+import useMouse from "@react-hook/mouse-position";
+
+import { FullPageContent } from "components/full-page-content";
+import { MotionSlider } from "components/motion-slider";
+import { useStoreProp } from "store/index";
 
 const SliderWrapper = styled.div(() => [tw`cursor-none lg:ml-72`]);
 
 const Element = styled.div(() => [
     tw`max-w-full`,
+    tw`w-[250px] lg:w-[820px] lg:h-[550px]`,
     css`
-        width: 820px;
-        height: 550px;
         background: rgba(255, 255, 255, 0.99);
     `,
 ]);
 
-export const GallerySlider = memo(({ ...props }: Record<string, any>) => {
-    const [, dispatch] = useStoreProp("currentDelayedRoute");
-    const [mouseLeft, itemsRef] = useMouseLeave();
-
-    useEffect(() => {
-        dispatch.showMotionCursor(!mouseLeft, {
-            text: "drag",
-            route: "",
-            color: mouseLeft ? "black" : "melrose",
-            size: 80,
-            overlap: mouseLeft,
+export const GallerySlider = memo(
+    ({ images, gap }: { images: ProjectSectionImage[]; gap: number }) => {
+        const mouseoverItemRef = useRef(null);
+        const mouse = useMouse(mouseoverItemRef, {
+            enterDelay: 30,
+            leaveDelay: 30,
         });
-    }, [mouseLeft, dispatch]);
 
-    return (
-        <FullPageContent widthPct={100} border={false}>
-            <SliderWrapper ref={itemsRef}>
-                <MotionSlider {...props} displayGrabCursor={false}>
-                    <Element>
-                        <img src="/img/placeholder-full.png" alt="" />
-                    </Element>
-                    <Element>
-                        <img src="/img/placeholder-full.png" alt="" />
-                    </Element>
-                    <Element>
-                        <img src="/img/placeholder-full.png" alt="" />
-                    </Element>
-                    <Element>
-                        <img src="/img/placeholder-full.png" alt="" />
-                    </Element>
-                </MotionSlider>
-            </SliderWrapper>
-        </FullPageContent>
-    );
-});
+        const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
+
+        useEffect(() => {
+            const isMouseOver = Boolean(mouse.elementWidth);
+
+            showMotionCursor(isMouseOver, {
+                text: "drag",
+                route: "",
+                color: !isMouseOver ? "black" : "melrose",
+                size: 80,
+                overlap: false,
+            });
+        }, [mouse.elementWidth, showMotionCursor]);
+
+        return (
+            <FullPageContent widthPct={100} border={false}>
+                <SliderWrapper ref={mouseoverItemRef}>
+                    <MotionSlider gap={gap} displayGrabCursor={false}>
+                        {images.map(({ image }, i) => (
+                            <Element key={i}>
+                                <img src={image} alt="" />
+                            </Element>
+                        ))}
+                    </MotionSlider>
+                </SliderWrapper>
+            </FullPageContent>
+        );
+    }
+);

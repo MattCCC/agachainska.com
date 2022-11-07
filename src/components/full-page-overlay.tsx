@@ -1,7 +1,7 @@
 import { memo, useEffect } from "react";
 
-import { motion, useAnimation } from "@components/animation";
-import { useStore } from "@store/index";
+import { motion, useAnimation } from "components/animation";
+import { useStore } from "store/index";
 
 export const duration = 1;
 export const fullPageOverlayDuration = 0.6;
@@ -32,7 +32,7 @@ const OverlayFullPageVariants = {
 };
 
 export const FullPageOverlay = memo(
-    (): JSX.Element => {
+    () => {
         const [state] = useStore();
         const overlayControls = useAnimation();
 
