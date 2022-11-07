@@ -151,118 +151,94 @@ const sectionLoader = (
 
                 case "full-page-image":
                     return (
-                        <Fragment key={index}>
-                            <FullPageContent key={index} widthPct={100}>
-                                <ParallaxBackground
-                                    key={index}
-                                    bgImgUrl={`${image}`}
-                                />
-                            </FullPageContent>
-                        </Fragment>
+                        <FullPageContent key={index} widthPct={100}>
+                            <ParallaxBackground
+                                key={index}
+                                bgImgUrl={`${image}`}
+                            />
+                        </FullPageContent>
                     );
 
                 case "slider":
                     return (
-                        <Fragment key={index}>
-                            <GallerySlider
-                                key={index}
-                                images={images}
-                                gap={gallerySliderElementsGap}
-                            />
-                        </Fragment>
+                        <GallerySlider
+                            key={index}
+                            images={images}
+                            gap={gallerySliderElementsGap}
+                        />
                     );
 
                 case "quote":
                     return (
-                        <Fragment key={index}>
-                            <ContentContainer variant="full">
-                                <Quote>{quote}</Quote>
-                            </ContentContainer>
-                        </Fragment>
+                        <ContentContainer variant="full" key={index}>
+                            <Quote>{quote}</Quote>
+                        </ContentContainer>
                     );
 
                 case "device":
                     return (
-                        <Fragment key={index}>
-                            <ContentContainer variant="full">
-                                <DeviceMockupWrapper>
-                                    <DeviceMockup
-                                        key={index}
-                                        type={type}
-                                        link={link}
-                                    />
-                                </DeviceMockupWrapper>
-                            </ContentContainer>
-                        </Fragment>
+                        <ContentContainer variant="full" key={index}>
+                            <DeviceMockupWrapper>
+                                <DeviceMockup
+                                    key={index}
+                                    type={type}
+                                    link={link}
+                                />
+                            </DeviceMockupWrapper>
+                        </ContentContainer>
                     );
 
                 case "devices":
-                    return (
-                        <Fragment key={index}>
-                            <DevicesCarousel key={index} list={list} />
-                        </Fragment>
-                    );
+                    return <DevicesCarousel key={index} list={list} />;
 
                 case "stats":
                     const [refStats, animateStats] = useIncrementStats();
 
                     return (
-                        <Fragment key={index}>
-                            <ContentContainer variant="full">
-                                <Fragment key={index}>
-                                    <TableStats ref={refStats}>
-                                        {stats.map(({ title, stat }, j) => (
-                                            <SingleStat
-                                                key={`stat-${index}-${j}`}
-                                                className={
-                                                    j < 3 ? "space" : "big"
-                                                }
-                                            >
-                                                <CellTitle>
-                                                    <StyledNumber
-                                                        value={stat}
-                                                        animate={animateStats}
-                                                    />
-                                                </CellTitle>
-                                                <StatsCaption>
-                                                    {title}
-                                                </StatsCaption>
-                                            </SingleStat>
-                                        ))}
-                                    </TableStats>
-                                </Fragment>
-                            </ContentContainer>
-                        </Fragment>
+                        <ContentContainer variant="full" key={index}>
+                            <TableStats ref={refStats}>
+                                {stats.map(({ title, stat }, j) => (
+                                    <SingleStat
+                                        key={`stat-${index}-${j}`}
+                                        className={j < 3 ? "space" : "big"}
+                                    >
+                                        <CellTitle>
+                                            <StyledNumber
+                                                value={stat}
+                                                animate={animateStats}
+                                            />
+                                        </CellTitle>
+                                        <StatsCaption>{title}</StatsCaption>
+                                    </SingleStat>
+                                ))}
+                            </TableStats>
+                        </ContentContainer>
                     );
 
                 case "credits":
                     return (
-                        <Fragment key={index}>
-                            <ContentContainer variant="full">
-                                <TableCredits>
-                                    {content.map(({ title, text }, j) => (
-                                        <Fragment key={`credits-${index}-${j}`}>
-                                            <CellTitle>{title}</CellTitle>
-                                            <div>{text}</div>
-                                        </Fragment>
-                                    ))}
-                                </TableCredits>
-                            </ContentContainer>
-                        </Fragment>
+                        <ContentContainer variant="full" key={index}>
+                            <TableCredits>
+                                {content.map(({ title, text }, j) => (
+                                    <Fragment key={`credits-${index}-${j}`}>
+                                        <CellTitle>{title}</CellTitle>
+                                        <div>{text}</div>
+                                    </Fragment>
+                                ))}
+                            </TableCredits>
+                        </ContentContainer>
                     );
 
                 case "other-projects":
                     return (
-                        <Fragment key={index}>
-                            <ContentContainer variant="full">
-                                <OtherProjects
-                                    key={index}
-                                    projectsByCategory={
-                                        projectsByCategory as ProjectsByCategory
-                                    }
-                                />
-                            </ContentContainer>
-                        </Fragment>
+                        <ContentContainer variant="full" key={index}>
+                            <OtherProjects
+                                key={index}
+                                projectsByCategory={
+                                    projectsByCategory as ProjectsByCategory
+                                }
+                            />
+                        </ContentContainer>
                     );
 
                 default:
