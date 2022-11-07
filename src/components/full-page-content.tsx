@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode } from "react";
+import { ReactNode } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -11,7 +11,7 @@ interface Props {
     children: ReactNode;
 }
 
-export const FullPageContentWrapper = styled.figure(
+export const FullPageContent = styled.figure(
     ({ widthPct = 100, heightPct = "80vh", border = true }: Props) => [
         tw`w-full max-w-full overflow-hidden`,
         border &&
@@ -31,21 +31,4 @@ export const FullPageContentWrapper = styled.figure(
             }
         `,
     ]
-);
-
-export const FullPageContent = ({
-    widthPct = 100,
-    heightPct = "80vh",
-    border = true,
-    children,
-    ...props
-}: PropsWithChildren<Props>) => (
-    <FullPageContentWrapper
-        widthPct={widthPct}
-        heightPct={heightPct}
-        border={border}
-        {...props}
-    >
-        {children}
-    </FullPageContentWrapper>
 );
