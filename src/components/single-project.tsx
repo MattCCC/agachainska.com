@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef } from "react";
 
-import tw, { css, styled } from "twin.macro";
+import tw, { styled, css } from "twin.macro";
 
 import useMouse from "@react-hook/mouse-position";
 
@@ -10,12 +10,21 @@ import { StyledNumber } from "domain/single-project/styled";
 import { useStoreProp } from "store/index";
 import { up } from "utils/screens";
 
+export const ProjectsList = styled.ol(() => [
+    tw`grid max-w-full grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-flow-col gap-x-20 gap-y-8`,
+    css`
+        grid-template-rows: repeat(3, minmax(0, max-content));
+        line-height: 24px;
+        margin-bottom: 80px;
+    `,
+]);
+
 interface Props {
-    index: number;
     nameSlug: string;
     name: string;
     category: string;
-    cover?: string;
+    index: number;
+    cover: string;
 }
 
 interface BadgeProps {
@@ -54,7 +63,7 @@ const ProjectTitle = styled(H4)(() => [tw`h-auto prose-24 lg:prose-30`]);
 
 const ProjectCaption = styled.p(() => [tw`prose-16 lg:prose-24`]);
 
-export const ProjectBadge = memo(
+export const SingleProject = memo(
     ({ index, nameSlug, name, category, cover }: Props) => {
         const itemsRef = useRef(null);
         const mouse = useMouse(itemsRef, {

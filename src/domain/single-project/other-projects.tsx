@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-import { SingleProject, ProjectsList } from "components/projects-list";
+import { SingleProject, ProjectsList } from "components/single-project";
 import { ProjectsByCategory } from "hooks/use-projects-by-category";
 
 interface Props {
