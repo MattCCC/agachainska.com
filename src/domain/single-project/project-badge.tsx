@@ -24,7 +24,7 @@ interface BadgeProps {
 }
 
 const Badge = styled.li(({ rowNo, colNo }: BadgeProps) => [
-    tw`flex`,
+    tw`flex flex-row items-stretch`,
     colNo === 1 && tw`lg:col-start-1`,
     colNo === 2 && tw`lg:col-start-2`,
     rowNo === 1 && tw`lg:row-start-1`,
@@ -34,20 +34,19 @@ const Badge = styled.li(({ rowNo, colNo }: BadgeProps) => [
 ]);
 
 const BadgeNumber = styled(StyledNumber)(() => [
-    tw`w-auto select-none cursor-none`,
+    tw`w-[110px] select-none cursor-none`,
     css`
         height: 70px;
         margin: -10px 30px -10px -40px;
 
         ${up("lg")} {
             height: 110px;
-            width: auto;
             margin: -20px 0;
         }
     `,
 ]);
 
-const ProjectLink = styled.div(() => [
+const ProjectLink = styled.span(() => [
     tw`flex flex-col select-none cursor-none lg:pt-3`,
 ]);
 
@@ -85,7 +84,7 @@ export const ProjectBadge = memo(
             >
                 <BadgeNumber value={`${index + 1}.`} />
 
-                <Link to={nameSlug}>
+                <Link to={nameSlug} tw="inline-block w-full">
                     <ProjectLink>
                         <ProjectTitle>{name}</ProjectTitle>
                         <ProjectCaption>{category}</ProjectCaption>
