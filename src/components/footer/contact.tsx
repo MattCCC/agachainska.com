@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -8,6 +8,8 @@ import useMouse from "@react-hook/mouse-position";
 import { Link } from "components/link";
 import { MarqueeText } from "components/marquee-text";
 import { useStoreProp } from "store/index";
+import { ReactComponent as WavesPattern } from "svg/bg-lines.svg";
+import { ReactComponent as PricklyPearIllustration } from "svg/Prickly pear@1x.svg";
 import { getLinkProps } from "utils/route";
 import { up } from "utils/screens";
 
@@ -40,6 +42,27 @@ const MarqueeTextContainer = styled.span(() => [
     `,
 ]);
 
+const Waves = styled(WavesPattern)(() => [
+    tw`absolute w-full h-full opacity-5`,
+]);
+
+const PricklyPear = styled(PricklyPearIllustration)(() => [
+    tw`absolute z-10`,
+    css`
+        width: 50px;
+        height: 50px;
+        left: 45px;
+        top: 29px;
+
+        ${up("lg")} {
+            width: 100px;
+            height: 100px;
+            left: 48%;
+            top: 129px;
+        }
+    `,
+]);
+
 export const Contact = memo(() => {
     const location = useLocation();
     const mouseoverItemRef = useRef(null);
@@ -65,6 +88,8 @@ export const Contact = memo(() => {
     return (
         <div ref={mouseoverItemRef}>
             <ContactWrapper {...getLinkProps("contact", location)}>
+                <Waves />
+                <PricklyPear />
                 <MarqueeTextWrapper as="span">
                     <MarqueeTextContainer>
                         <MarqueeText text="Let’s build something awesome together •" />

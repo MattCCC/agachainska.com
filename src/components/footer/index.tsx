@@ -7,8 +7,6 @@ import { Contact } from "components/footer/contact";
 import { SocialMedia } from "components/social-media";
 import { socialMedia } from "data/social-media";
 import { useStoreProp } from "store/index";
-import { ReactComponent as WavesPattern } from "svg/bg-lines.svg";
-import { ReactComponent as PricklyPearIllustration } from "svg/Prickly pear@1x.svg";
 import { up } from "utils/screens";
 
 interface Props {
@@ -65,27 +63,6 @@ const FooterNavText = styled.div(() => [
     `,
 ]);
 
-const Waves = styled(WavesPattern)(() => [
-    tw`absolute w-full h-full opacity-5`,
-]);
-
-const PricklyPear = styled(PricklyPearIllustration)(() => [
-    tw`absolute z-10`,
-    css`
-        width: 50px;
-        height: 50px;
-        left: 45px;
-        top: 29px;
-
-        ${up("lg")} {
-            width: 100px;
-            height: 100px;
-            left: 48%;
-            top: 129px;
-        }
-    `,
-]);
-
 const Annotation = styled.div(({ showFooter }: Partial<Props>) => [
     tw`container relative z-10 mx-auto text-center my-7 text-primary lg:my-0 lg:text-left`,
     showFooter && tw`text-white bottom-2`,
@@ -103,8 +80,6 @@ export function Footer() {
                 <FooterWrapper showFooter={showFooter}>
                     <BackgroundNoise />
                     <div className="relative">
-                        <Waves />
-                        <PricklyPear />
                         <Contact />
                         <BottomFooter>
                             <FooterContainer>
