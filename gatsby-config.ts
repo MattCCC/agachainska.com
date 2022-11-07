@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { GatsbyConfig } from "gatsby";
 
 require("dotenv").config({
     path: `.env.${process.env.NODE_ENV}`,
 });
 
-const siteUrl = `https://agachainska.com`;
+const siteUrl = "https://agachainska.com";
 
 const config: GatsbyConfig = {
     trailingSlash: "always",
@@ -15,12 +16,12 @@ const config: GatsbyConfig = {
         image: "/img/slider-pattern.png",
         twitterUsername: "@aga",
         url: siteUrl,
-        siteUrl: siteUrl,
+        siteUrl,
     },
     plugins: [
         "gatsby-plugin-webpack-bundle-analyser-v2",
         {
-            resolve: `gatsby-plugin-sass`,
+            resolve: "gatsby-plugin-sass",
             options: {
                 // Configure SASS to process Tailwind
                 postCssPlugins: [require("tailwindcss")],
@@ -29,26 +30,26 @@ const config: GatsbyConfig = {
         {
             resolve: "gatsby-plugin-svgr",
         },
-        `gatsby-plugin-netlify`,
-        `gatsby-plugin-emotion`,
+        "gatsby-plugin-netlify",
+        "gatsby-plugin-emotion",
         "gatsby-plugin-postcss",
-        `gatsby-plugin-image`,
-        `gatsby-plugin-sharp`,
-        `gatsby-transformer-sharp`, // Needed for dynamic images
-        `gatsby-transformer-remark`,
+        "gatsby-plugin-image",
+        "gatsby-plugin-sharp",
+        "gatsby-transformer-sharp", // Needed for dynamic images
+        "gatsby-transformer-remark",
         {
-            resolve: `gatsby-transformer-yaml`,
+            resolve: "gatsby-transformer-yaml",
             options: {
                 // Conditionally set the typeName so that we both use a lowercased and capitalized type name
-                typeName: ({ node }) => {
+                typeName: ({ node }: any) => {
                     const name = node.sourceInstanceName;
 
-                    if (name === `projects`) {
-                        return `Project`;
+                    if (name === "projects") {
+                        return "Project";
                     }
 
-                    if (name === `about-page-data`) {
-                        return `AboutPageData`;
+                    if (name === "about-page-data") {
+                        return "AboutPageData";
                     }
 
                     return name;
@@ -56,28 +57,28 @@ const config: GatsbyConfig = {
             },
         },
         {
-            resolve: `gatsby-source-filesystem`,
+            resolve: "gatsby-source-filesystem",
             options: {
-                name: `pages`,
+                name: "pages",
                 path: `${__dirname}/src/pages/`,
             },
         },
         {
-            resolve: `gatsby-source-filesystem`,
+            resolve: "gatsby-source-filesystem",
             options: {
                 path: `${__dirname}/src/data/projects.yml`,
-                name: `projects`,
+                name: "projects",
             },
         },
         {
-            resolve: `gatsby-source-filesystem`,
+            resolve: "gatsby-source-filesystem",
             options: {
                 path: `${__dirname}/src/data/about-page.yml`,
-                name: `about-page-data`,
+                name: "about-page-data",
             },
         },
         {
-            resolve: `gatsby-plugin-alias-imports`,
+            resolve: "gatsby-plugin-alias-imports",
             options: {
                 alias: {
                     src: "src",
@@ -100,30 +101,30 @@ const config: GatsbyConfig = {
             },
         },
         {
-            resolve: `gatsby-plugin-intl`,
+            resolve: "gatsby-plugin-intl",
             options: {
                 path: `${__dirname}/src/translations`,
-                languages: [`en`],
-                defaultLanguage: `en`,
+                languages: ["en"],
+                defaultLanguage: "en",
                 redirect: false,
             },
         },
         {
-            resolve: `gatsby-plugin-manifest`,
+            resolve: "gatsby-plugin-manifest",
             options: {
-                name: `Aga Chainska`,
-                short_name: `Aga Chainska`,
-                icon: `static/img/slider-pattern.png`,
-                start_url: `/`,
-                background_color: `#f7f7f7`,
-                theme_color: `#191919`,
-                display: `minimal-ui`,
+                name: "Aga Chainska",
+                short_name: "Aga Chainska",
+                icon: "static/img/slider-pattern.png",
+                start_url: "/",
+                background_color: "#f7f7f7",
+                theme_color: "#191919",
+                display: "minimal-ui",
             },
         },
         {
             resolve: "gatsby-plugin-offline",
         },
-        `gatsby-plugin-sitemap`,
+        "gatsby-plugin-sitemap",
     ],
 };
 
