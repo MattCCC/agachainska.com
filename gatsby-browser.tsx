@@ -6,9 +6,9 @@ import { IntlContextProvider, IntlProvider } from "gatsby-plugin-intl";
 import { ParallaxProvider } from "react-scroll-parallax";
 
 import { LocationProvider } from "@reach/router";
+
 import { Layout } from "layouts/default";
 import { globalStore } from "store/index";
-
 import messages from "translations/en.json";
 
 const locales = ["en"];
