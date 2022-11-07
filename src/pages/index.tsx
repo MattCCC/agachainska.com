@@ -5,8 +5,9 @@ import {
     useCallback,
     useRef,
     useState,
+    useEffect,
+    useMemo,
 } from "react";
-import { useEffect, useMemo } from "react";
 
 import { navigate } from "gatsby";
 import tw, { css, styled } from "twin.macro";
@@ -20,7 +21,7 @@ import { MotionCursor } from "components/motion-cursor";
 import { pageContentVariants } from "components/overlays";
 import { Translate } from "components/translate";
 import { useLockBodyScroll } from "hooks/use-lock-body-scroll";
-import { useStore } from "store/index";
+import { useStoreProp } from "store/index";
 import { isDev } from "utils/detect-env";
 import { getRoutePath } from "utils/route";
 import { TranslateText } from "utils/translate-text";
@@ -64,7 +65,7 @@ export default function Home() {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
     const workLink = getRoutePath("work");
     const defaultState = useMemo(() => ({ x: 0, y: 0 }), []);
-    const [, dispatch] = useStore();
+    const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
     const [position, setPosition] = useState(defaultState);
     const titleStyle = {
         "--x": `${position.x}px`,
@@ -95,18 +96,16 @@ export default function Home() {
     }, [workLink]);
 
     useEffect(() => {
-        setTimeout(() => {
-            dispatch.showMotionCursor(true, {
-                text: "viewWork",
-                route: workLink.to,
-            });
-        }, 0);
-    }, [dispatch, workLink.to]);
+        showMotionCursor(true, {
+            text: "viewWork",
+            route: workLink.to,
+        });
+    }, [showMotionCursor, workLink.to]);
 
     return (
         <Fragment>
             <MainSection
-                className="grid items-center grid-flow-col grid-cols-1 grid-rows-1"
+                className="grid items-center grid-flow-col grid-cols-1 grid-rows-1 cursor-none"
                 initial="exit"
                 animate="enter"
                 exit="exit"

@@ -68,6 +68,11 @@ const SlideWrapper = styled.div(
     ({ isShowingOtherProjects }: SliderWrapperProps) => [
         tw`relative hidden col-span-5 col-start-1 col-end-5 lg:block`,
         isShowingOtherProjects && tw`h-full`,
+        css`
+            svg {
+                ${tw`cursor-none`}
+            }
+        `,
     ]
 );
 
@@ -216,11 +221,9 @@ const Work = memo(({ data }: Props) => {
                     timelineList.find(
                         (section) => section.category === state.activeSectionId
                     )?.items || []
-                )
-                    // TODO: active item should be selected instead of the first one
-                    .at(0) || {}
+                ).at(Number(state.activeItemId)) || {}
             ).bgColor || "#FFF",
-        [timelineList, state.activeSectionId]
+        [timelineList, state.activeItemId, state.activeSectionId]
     );
 
     useEffect(() => {
@@ -265,6 +268,7 @@ const Work = memo(({ data }: Props) => {
             dispatch.showMotionCursor(!mouseDidLeave, {
                 text: "explore",
                 route: state.routeTo,
+                overlap: false,
             });
 
             setState((prevState) => ({

@@ -1,6 +1,6 @@
 import { selectedProjectsUids } from "data/selected-projects";
 
-import { ProjectsList, SingleProject } from "./projects-list";
+import { ProjectsList, SingleProject } from "./single-project";
 
 interface Props {
     projects: Project[];

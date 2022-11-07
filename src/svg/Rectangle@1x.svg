@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="87px" height="35px" viewBox="0 0 87 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="160px" height="67px" viewBox="0 0 87 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>AE98F1F8-9582-40B0-B3F3-635186959C58@1x</title>
     <defs>
         <pattern id="pattern-1" width="423.311258" height="423.311258" x="-419.311258" y="-417.311258" patternUnits="userSpaceOnUse">
@@ -10,7 +10,7 @@
     <g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Contact---Desktop" transform="translate(-747.000000, -499.000000)" fill="url(#pattern-1)" stroke="#0D0D0D">
             <g id="Button" transform="translate(743.000000, 493.000000)">
-                <rect id="Rectangle" x="4.5" y="6.5" width="86" height="34"></rect>
+                <rect id="Rectangle" x="4.5" y="6.5"></rect>
             </g>
         </g>
     </g>

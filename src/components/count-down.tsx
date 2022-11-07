@@ -1,4 +1,4 @@
-import { memo, ReactElement, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -9,7 +9,7 @@ interface Props {
     onFinishedCallback?: (() => void) | null;
 }
 
-const GlobalBase = (): ReactElement => (
+const GlobalBase = () => (
     <Global
         styles={css`
             @keyframes countdown {

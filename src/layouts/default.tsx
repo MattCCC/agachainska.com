@@ -1,8 +1,9 @@
-import { Fragment, PropsWithChildren, ReactElement } from "react";
+import { Fragment, PropsWithChildren } from "react";
 
 import tw, { styled, css } from "twin.macro";
 
 import { Global } from "@emotion/react";
+
 import { Background } from "components/background";
 import { Footer } from "components/footer";
 import { FullPageOverlay } from "components/full-page-overlay";
@@ -10,7 +11,6 @@ import { Header } from "components/header";
 import { Overlays, TopOverlay } from "components/overlays";
 import { useOnRouteChange } from "hooks/use-on-route-change";
 import { useStoreProp } from "store/index";
-import { up } from "utils/screens";
 
 interface Props {
     hasGradient: boolean;
@@ -19,12 +19,10 @@ interface Props {
     darkTheme: boolean;
 }
 
-const footerHeight = `${690 + 120}px`;
-
-const DarkTheme = (): ReactElement => (
+const DarkTheme = () => (
     <Global
         styles={css`
-            :root {
+            :root body {
                 --primary: #fff;
                 --tertiary: #0b0b0b;
             }
@@ -38,12 +36,7 @@ const Main = styled.main(
         css`
             backface-visibility: hidden;
         `,
-        showFooter &&
-            css`
-                ${up("lg")} {
-                    margin-bottom: ${footerHeight};
-                }
-            `,
+        showFooter && tw`lg:mb-[810px]`,
         backgroundColor &&
             css`
                 background: ${backgroundColor};
@@ -73,7 +66,6 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
 
     return (
         <Fragment>
-            <div id="internal-announcer"></div>
             {darkTheme && <DarkTheme />}
             <TopOverlay />
             <Overlays />

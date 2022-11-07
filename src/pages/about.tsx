@@ -5,6 +5,7 @@ import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
 import { ParallaxBackground } from "components/about-parallax-background";
+import { Button } from "components/button";
 import { GridRow, MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
@@ -180,7 +181,28 @@ const DesignProcessElementDesc = styled.p(() => [
 ]);
 
 const SelectedProjectsContainer = styled.div(() => [
-    tw`lg:col-start-1 lg:col-end-11 lg:ml-2 lg:mt-10`,
+    tw`lg:col-start-1 lg:col-end-11 lg:ml-2 lg:mt-10 cursor-none!`,
+]);
+
+const SeeAllProjectsBtn = styled(Button)(() => [
+    tw`w-[160px] h-[37px] col-start-13`,
+    css`
+        span {
+            ${tw`bg-primary text-tertiary`}
+        }
+
+        &:hover {
+            span {
+                ${tw`transition-all bg-white text-primary`}
+            }
+        }
+
+        svg,
+        rect {
+            width: 160px;
+            height: 37px;
+        }
+    `,
 ]);
 
 interface Props extends PageProps {
@@ -341,6 +363,9 @@ export default function About({ data }: Props) {
                         >
                             <TitleContainer>
                                 <Title>selected projects</Title>
+                                <SeeAllProjectsBtn>
+                                    See all projects
+                                </SeeAllProjectsBtn>
                             </TitleContainer>
                             <SelectedProjectsContainer>
                                 <SelectedProjects projects={projects} />

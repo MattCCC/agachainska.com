@@ -1,7 +1,8 @@
-import { memo, useEffect } from "react";
+import { memo, useEffect, useRef } from "react";
 
 import tw, { css, styled } from "twin.macro";
-import useMouseLeave from "use-mouse-leave";
+
+import useMouse from "@react-hook/mouse-position";
 
 import { useStoreProp } from "store/index";
 
@@ -20,22 +21,29 @@ const SliderWrapper = styled.div(() => [
 
 export const DevicesCarousel = memo(
     ({ list }: { list: ProjectSectionElementDevice[] }) => {
-        const [, dispatch] = useStoreProp("currentDelayedRoute");
-        const [mouseLeft, itemsRef] = useMouseLeave();
+        const mouseoverItemRef = useRef(null);
+        const mouse = useMouse(mouseoverItemRef, {
+            enterDelay: 30,
+            leaveDelay: 30,
+        });
+
+        const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
 
         useEffect(() => {
-            dispatch.showMotionCursor(!mouseLeft, {
+            const isMouseOver = Boolean(mouse.elementWidth);
+
+            showMotionCursor(isMouseOver, {
                 text: "drag",
                 route: "",
-                color: mouseLeft ? "black" : "melrose",
+                color: !isMouseOver ? "black" : "melrose",
                 size: 80,
-                overlap: mouseLeft,
+                overlap: !isMouseOver,
             });
-        }, [mouseLeft, dispatch]);
+        }, [mouse.elementWidth, showMotionCursor]);
 
         return (
             <FullPageContent widthPct={100} heightPct={"670px"} border={false}>
-                <SliderWrapper ref={itemsRef}>
+                <SliderWrapper ref={mouseoverItemRef}>
                     <MotionSlider displayGrabCursor={false}>
                         {list.map(({ type, link }, i) => (
                             <DeviceMockup key={i} type={type} link={link} />
