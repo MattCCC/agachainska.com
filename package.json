@@ -43,8 +43,7 @@
     "react-use-dimensions": "^1.2.1",
     "sass": "1.56.0",
     "use-context-selector": "1.4.1",
-    "use-debounce": "^8.0.4",
-    "use-mouse-leave": "1.0.0"
+    "use-debounce": "^8.0.4"
   },
   "devDependencies": {
     "@emotion/react": "11.10.5",

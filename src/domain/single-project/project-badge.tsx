@@ -1,7 +1,8 @@
-import { memo, useEffect } from "react";
+import { memo, useEffect, useRef } from "react";
 
 import tw, { css, styled } from "twin.macro";
-import useMouseLeave from "use-mouse-leave";
+
+import useMouse from "@react-hook/mouse-position";
 
 import { H4 } from "components/h4";
 import { Link } from "components/link";
@@ -33,7 +34,7 @@ const Badge = styled.li(({ rowNo, colNo }: BadgeProps) => [
 ]);
 
 const BadgeNumber = styled(StyledNumber)(() => [
-    tw`w-auto select-none`,
+    tw`w-auto select-none cursor-none`,
     css`
         height: 70px;
         margin: -10px 30px -10px -40px;
@@ -47,7 +48,7 @@ const BadgeNumber = styled(StyledNumber)(() => [
 ]);
 
 const ProjectLink = styled.div(() => [
-    tw`flex flex-col cursor-pointer select-none lg:pt-3`,
+    tw`flex flex-col select-none cursor-none lg:pt-3`,
 ]);
 
 const ProjectTitle = styled(H4)(() => [tw`h-auto prose-24 lg:prose-30`]);
@@ -56,17 +57,25 @@ const ProjectCaption = styled.p(() => [tw`prose-16 lg:prose-24`]);
 
 export const ProjectBadge = memo(
     ({ index, nameSlug, name, category, cover }: Props) => {
-        const [, dispatch] = useStoreProp("currentDelayedRoute");
-        const [mouseLeft, itemsRef] = useMouseLeave();
+        const itemsRef = useRef(null);
+        const mouse = useMouse(itemsRef, {
+            enterDelay: 30,
+            leaveDelay: 30,
+        });
+
+        const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
 
         useEffect(() => {
-            dispatch.showMotionCursor(!mouseLeft, {
+            const isMouseOver = Boolean(mouse.elementWidth);
+
+            showMotionCursor(isMouseOver, {
                 text: "explore",
                 route: nameSlug,
                 size: 80,
                 projectCover: cover,
+                overlap: false,
             });
-        }, [mouseLeft, dispatch, nameSlug, cover]);
+        }, [cover, mouse.elementWidth, nameSlug, showMotionCursor]);
 
         return (
             <Badge
