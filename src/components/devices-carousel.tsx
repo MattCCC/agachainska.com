@@ -42,7 +42,12 @@ export const DevicesCarousel = memo(
         }, [mouse.elementWidth, showMotionCursor]);
 
         return (
-            <FullPageContent widthPct={100} heightPct={"670px"} border={false}>
+            <FullPageContent
+                widthPct={100}
+                heightPct={"670px"}
+                border={false}
+                style={{ height: "680px", marginBottom: "0" }}
+            >
                 <SliderWrapper ref={mouseoverItemRef}>
                     <MotionSlider displayGrabCursor={false}>
                         {list.map(({ type, link }, i) => (
