@@ -181,7 +181,7 @@ const DesignProcessElementDesc = styled.p(() => [
 ]);
 
 const SelectedProjectsContainer = styled.div(() => [
-    tw`lg:col-start-1 lg:col-end-11 lg:ml-2 lg:mt-10`,
+    tw`lg:col-start-1 lg:col-end-11 lg:ml-2 lg:mt-10 cursor-none!`,
 ]);
 
 const SeeAllProjectsBtn = styled(Button)(() => [
