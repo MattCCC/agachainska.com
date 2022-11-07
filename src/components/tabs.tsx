@@ -70,20 +70,18 @@ const TabsListContainer = styled.div(
 const TabsList = styled.ul(() => [tw`flex flex-row justify-between`]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
-    tw`w-full h-8 leading-7 cursor-pointer select-none prose-20 opacity-40`,
-    tw`capitalize transition-opacity text-melrose`,
+    tw`w-full h-8 capitalize transition-opacity cursor-pointer select-none text-melrose opacity-40`,
+    tw`leading-[25px] text-[20px]`,
     isActive && tw`opacity-100`,
     css`
-        line-height: 25px;
         box-shadow: inset 0px -2px 1px -1px var(--melrose);
         text-shadow: 0 2px 4px 0 var(--melrose);
     `,
 ]);
 
 const Pin = styled(motion.div)(() => [
-    tw`absolute left-0 h-px top-8 bg-melrose`,
+    tw`absolute left-0 h-px top-8 bg-melrose z-[2]`,
     css`
-        z-index: 2;
         box-shadow: 0 2px 4px 0 var(--melrose);
     `,
 ]);
