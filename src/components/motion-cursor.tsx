@@ -28,7 +28,7 @@ const cursorSize = 80;
 
 const Cursor = styled.div(
     ({ isMotionCursorVisible, color, size, overlap }: CursorProps) => [
-        tw`fixed z-40 hidden text-center text-white uppercase rounded-full cursor-pointer select-none lg:block`,
+        tw`fixed z-40 hidden text-center text-white uppercase rounded-full select-none cursor-none lg:block`,
         tw`leading-3 border prose-12`,
         color === "black" && tw`bg-black border-black`,
         color === "melrose" && tw`bg-melrose border-melrose`,
@@ -50,7 +50,7 @@ const Cursor = styled.div(
             will-change: left, top;
 
             a {
-                cursor: pointer;
+                cursor: none;
             }
         `,
         !isMotionCursorVisible &&
@@ -66,7 +66,7 @@ const TextWrapper = styled.div(() => [tw`flex w-full h-full`]);
 const LinkWrapper = styled.a(() => [tw`flex w-full h-full`]);
 
 const CursorText = styled.div(() => [
-    tw`m-auto`,
+    tw`m-auto cursor-none`,
     css`
         width: 80%;
         line-height: 16px;
@@ -77,7 +77,7 @@ const ProjectHover = styled.div(() => []);
 
 const ProjectCover = styled.div(
     ({ isMotionCursorVisible, projectCoverLink }: CursorProps) => [
-        tw`fixed z-30 hidden lg:block`,
+        tw`fixed z-30 hidden lg:block cursor-none`,
         css`
             top: var(--top);
             left: var(--left);
