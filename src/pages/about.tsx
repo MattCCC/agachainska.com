@@ -4,8 +4,11 @@ import { graphql, PageProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
+import { useLocation } from "@reach/router";
+
 import { ParallaxBackground } from "components/about-parallax-background";
 import { Button } from "components/button";
+import { Link } from "components/link";
 import { GridRow, MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
@@ -14,9 +17,11 @@ import SelectedProjects from "components/selected-projects";
 import { SocialMedia } from "components/social-media";
 import { Tabs } from "components/tabs";
 import { Timeline } from "components/timeline";
+import { Translate } from "components/translate";
 import { socialMedia } from "data/social-media";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
+import { getLinkProps } from "utils/route";
 import { up } from "utils/screens";
 
 const HeroSection = styled.section(() => [
@@ -184,23 +189,13 @@ const SelectedProjectsContainer = styled.div(() => [
     tw`lg:col-start-1 lg:col-end-11 lg:ml-2 lg:mt-10 cursor-none!`,
 ]);
 
+const SeeAllProjectsLink = styled(Link)(() => [tw`col-start-13 self-end`]);
+
 const SeeAllProjectsBtn = styled(Button)(() => [
-    tw`w-[160px] h-[37px] col-start-13`,
+    tw`w-[160px] h-[37px]`,
     css`
         span {
-            ${tw`bg-primary text-tertiary`}
-        }
-
-        &:hover {
-            span {
-                ${tw`transition-all bg-white text-primary`}
-            }
-        }
-
-        svg,
-        rect {
-            width: 160px;
-            height: 37px;
+            ${tw`bg-primary text-tertiary border-none`}
         }
     `,
 ]);
@@ -253,6 +248,8 @@ export default function About({ data }: Props) {
             title: titleToDisplayOnMobile,
         };
     });
+
+    const location = useLocation();
 
     return (
         <Fragment>
@@ -363,8 +360,11 @@ export default function About({ data }: Props) {
                         >
                             <TitleContainer>
                                 <Title>selected projects</Title>
-                                <SeeAllProjectsBtn>
-                                    See all projects
+                                <SeeAllProjectsBtn
+                                    as={SeeAllProjectsLink}
+                                    {...getLinkProps("work", location)}
+                                >
+                                    <Translate id="seeAllProjects" />
                                 </SeeAllProjectsBtn>
                             </TitleContainer>
                             <SelectedProjectsContainer>
