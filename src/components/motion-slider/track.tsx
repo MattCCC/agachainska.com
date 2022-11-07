@@ -4,11 +4,12 @@ import {
     ReactNode,
     useRef,
     PropsWithChildren,
+    useMemo,
 } from "react";
 
 import { motion, PanInfo, Spring, useAnimation } from "framer-motion";
 import useDimensions from "react-use-dimensions";
-import { css, styled } from "twin.macro";
+import tw, { styled } from "twin.macro";
 
 import { MotionProps } from "components/animation";
 import { useWindowSize } from "hooks/use-window-size";
@@ -32,27 +33,11 @@ interface TrackWrapperProps {
     displayGrabCursor?: boolean;
 }
 
-const TrackWrapper = styled(motion.div)(({ padding }: TrackWrapperProps) => [
-    css`
-        display: flex;
-        flex-wrap: nowrap;
-        min-width: min-content;
-        padding: ${padding || 0}px;
-    `,
-]);
-
 const Wrapper = styled(
     "div",
     excludeProps(["displayGrabCursor"])
 )(({ displayGrabCursor }: TrackWrapperProps) => [
-    displayGrabCursor &&
-        css`
-            cursor: grab;
-
-            &:active {
-                cursor: grabbing;
-            }
-        `,
+    displayGrabCursor && tw`cursor-grab active:cursor-grabbing`,
 ]);
 
 export const Track = ({
@@ -71,12 +56,31 @@ export const Track = ({
     const controls = useAnimation();
     const { state, dispatch } = useContext(Context);
 
-    const itemsPositions = state.items.map(
-        (item) => item * -1 + trackDimensions.x || 0
-    ) as number[];
+    const itemsPositions = useMemo(
+        () =>
+            state.items.map(
+                (item) => item * -1 + trackDimensions.x || 0
+            ) as number[],
+        [state.items, trackDimensions.x]
+    );
 
-    const lastTwo = state.items.slice(-2);
-    const lastItem = lastTwo[1] - lastTwo[0];
+    const left = useMemo(() => {
+        const lastTwoItems = state.items.slice(-2);
+        const lastItem = lastTwoItems[1] - lastTwoItems[0];
+
+        return allowSlideToLast
+            ? lastItem + gap - trackDimensions.width
+            : windowDimensions.width -
+                  trackDimensions.width -
+                  trackDimensions.x * 2;
+    }, [
+        allowSlideToLast,
+        gap,
+        state.items,
+        trackDimensions.width,
+        trackDimensions.x,
+        windowDimensions.width,
+    ]);
 
     const onDragEnd = useCallback(
         (_event: Event, info: PanInfo) => {
@@ -147,27 +151,30 @@ export const Track = ({
 
     return (
         <Wrapper displayGrabCursor={displayGrabCursor}>
-            <TrackWrapper
+            <motion.div
+                style={{
+                    padding,
+                    ...style,
+                    ...{
+                        display: "flex",
+                        flexWrap: "nowrap",
+                        minWidth: "min-content",
+                    },
+                }}
                 ref={(el) => {
                     trackRef(el);
                     ref.current = el;
                 }}
-                style={style}
-                padding={padding}
                 animate={controls}
                 drag="x"
                 dragConstraints={{
-                    left: allowSlideToLast
-                        ? lastItem + gap - trackDimensions.width
-                        : windowDimensions.width -
-                          trackDimensions.width -
-                          trackDimensions.x * 2,
+                    left,
                     right: 0,
                 }}
                 onDragEnd={onDragEnd}
             >
                 {children}
-            </TrackWrapper>
+            </motion.div>
         </Wrapper>
     );
 };
