@@ -4,20 +4,11 @@ import tw, { styled, css } from "twin.macro";
 
 import useMouse from "@react-hook/mouse-position";
 
+import { BigNumber } from "components/big-number";
 import { H4 } from "components/h4";
 import { Link } from "components/link";
-import { StyledNumber } from "domain/single-project/styled";
 import { useStoreProp } from "store/index";
 import { up } from "utils/screens";
-
-export const ProjectsList = styled.ol(() => [
-    tw`grid max-w-full grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-flow-col gap-x-20 gap-y-8`,
-    css`
-        grid-template-rows: repeat(3, minmax(0, max-content));
-        line-height: 24px;
-        margin-bottom: 80px;
-    `,
-]);
 
 interface Props {
     nameSlug: string;
@@ -31,6 +22,20 @@ interface BadgeProps {
     rowNo: number;
     colNo: number;
 }
+
+export const ProjectsList = styled.ol(() => [
+    tw`grid max-w-full grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-flow-col gap-x-20 gap-y-8`,
+    css`
+        grid-template-rows: repeat(3, minmax(0, max-content));
+        line-height: 24px;
+        margin-bottom: 80px;
+    `,
+]);
+
+const StyledNumber = styled(BigNumber)(() => [
+    tw`max-w-full translate-x-1/2`,
+    tw`w-[150px] lg:w-[136px] lg:h-[117px] lg:transform-none`,
+]);
 
 const Badge = styled.li(({ rowNo, colNo }: BadgeProps) => [
     tw`flex flex-row items-stretch`,
