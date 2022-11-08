@@ -1,4 +1,4 @@
-import { useReducer, useMemo, FC, PropsWithChildren, Context } from "react";
+import { useReducer, useMemo } from "react";
 
 import { createContext, useContextSelector } from "use-context-selector";
 
@@ -15,16 +15,6 @@ export type Payload<M> = M extends (state: any, ...args: infer P) => any
 export type Actions<M> = {
     [name in keyof M]: (...args: Payload<M[name]>) => void;
 };
-
-export type StoreContext<S, A> = Context<Array<S | Actions<A>>>;
-
-export interface Store<S, M> {
-    Provider: React.FC<React.PropsWithChildren<Record<string, unknown>>>;
-    useStore: () => [S, Actions<M>];
-    useStoreProp: <K extends S[keyof S]>(
-        v: K
-    ) => [S[K], Actions<M>, S | Actions<M>];
-}
 
 /**
  * Toggle state boolean
@@ -57,12 +47,12 @@ function getEmptyActions<S, M extends Mutations<S>>(mutations: M): Actions<M> {
 export function createStore<S, M extends Mutations<S>>(
     initialState: S,
     mutations: M
-): Store<S, M> {
+) {
     const context = createContext([
         initialState,
         getEmptyActions<S, M>(mutations),
     ]);
-    let actions: Actions<M> | null = null;
+    let actions: Actions<M> = {} as unknown as Actions<M>;
 
     function reducer(
         prevState: S,
@@ -108,40 +98,19 @@ export function createStore<S, M extends Mutations<S>>(
         return useContextSelector(context, (state) => state);
     }
 
-    function useStoreProp(prop: keyof M) {
-        const state = useContextSelector(
+    function useStoreProp<K extends S[keyof S]>(
+        prop: K
+    ): [S[K], Actions<M>, Actions<M>] {
+        const selectedStateValue = useContextSelector(
             context,
-            (v) => (v[0] as Actions<M>)[prop]
+            (v) => (v[0] as any)[prop]
         );
-        const setState = useContextSelector(context, (v) => v[1]);
+        const setState = useContextSelector(context, (v) => v[1] as Actions<M>);
 
-        return [state, actions, setState];
+        return [selectedStateValue, actions, setState];
     }
 
-    return { Provider, useStore, useStoreProp } as any;
-}
-
-/**
- * A custom hook to combine multiple stores and returns a single Provider.
- * @param stores List of stores
- * @returns A single Provider component that provides all the stores
- */
-export function useStoreProvider(
-    ...stores: Array<Store<any, any>>
-): FC<PropsWithChildren<Record<string, unknown>>> {
-    function Provider({
-        children,
-    }: React.PropsWithChildren<Record<string, unknown>>) {
-        let wrapped = children;
-
-        stores.forEach(({ Provider: ProviderWrapper }) => {
-            wrapped = <ProviderWrapper>{wrapped}</ProviderWrapper>;
-        });
-
-        return <>{wrapped}</>;
-    }
-
-    return Provider;
+    return { Provider, useStore, useStoreProp };
 }
 
 /**
