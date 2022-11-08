@@ -1,19 +1,19 @@
-import { forwardRef, memo } from "react";
+import { memo } from "react";
 
 /**
- * Interfaces
- */
-interface Props {
-    id?: string;
-    imgUrl: string;
-    scale?: number;
-}
-
-/**
- * Apply distortion at particular image
+ * Apply distortion to a provided image
  */
 export const Distortion = memo(
-    forwardRef(({ id = "", imgUrl = "", scale = 0, ...rest }: Props) => {
+    ({
+        id = "",
+        imgUrl = "",
+        scale = 0,
+        ...rest
+    }: {
+        id?: string;
+        imgUrl: string;
+        scale?: number;
+    }) => {
         const restProps = Object.fromEntries(
             Object.entries(rest).filter(([key]) => !key.includes("layoutId"))
         );
@@ -58,5 +58,5 @@ export const Distortion = memo(
                 </g>
             </svg>
         );
-    })
+    }
 );
