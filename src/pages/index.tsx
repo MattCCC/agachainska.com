@@ -27,19 +27,13 @@ import { getRoutePath } from "utils/route";
 import { TranslateText } from "utils/translate-text";
 
 const Title = styled.h1(() => [
-    tw`relative z-50 inline-block max-w-full -mt-16 font-bold select-none lg:pr-16 prose-70 leading-20 lg:prose-140 lg:leading-38`,
-    tw`subpixel-antialiased text-black bg-clip-text font-fbold cursor-none`,
+    tw`relative z-50 inline-block max-w-full -mt-16 font-bold select-none lg:pr-16 prose-70 leading-20 lg:prose-140 lg:leading-38 lg:prose-text-fill-transparent`,
+    tw`subpixel-antialiased text-black bg-clip-text font-fbold lg:cursor-none lg:prose-bg-intro`,
     css`
         width: 634px;
-        background-image: radial-gradient(
-            40px circle at var(--x) var(--y),
-            rgba(0, 0, 0, 0) 100%,
-            var(--black)
-        );
-        -webkit-text-fill-color: transparent;
 
         &:before {
-            ${tw`absolute top-0 left-0 text-white`}
+            ${tw`absolute top-0 left-0 hidden text-white lg:block`}
             content: attr(data-text);
             clip-path: circle(40px at var(--x, -100%) var(--y, -100%));
             -webkit-text-stroke-width: 1px;
@@ -105,7 +99,7 @@ export default function Home() {
     return (
         <Fragment>
             <MainSection
-                className="grid items-center grid-flow-col grid-cols-1 grid-rows-1 cursor-none"
+                className="grid items-center grid-flow-col grid-cols-1 grid-rows-1 lg:cursor-none"
                 initial="exit"
                 animate="enter"
                 exit="exit"
