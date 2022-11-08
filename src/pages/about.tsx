@@ -7,21 +7,18 @@ import tw, { css, styled } from "twin.macro";
 import { useLocation } from "@reach/router";
 
 import { ParallaxBackground } from "components/about-parallax-background";
-import { Button } from "components/button";
-import { Link } from "components/link";
 import { GridRow, MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
 import PersonalPic from "components/personal-pic";
+import SeeAllProjectsLink from "components/see-all-projects-link";
 import SelectedProjects from "components/selected-projects";
 import { SocialMedia } from "components/social-media";
 import { Tabs } from "components/tabs";
 import { Timeline } from "components/timeline";
-import { Translate } from "components/translate";
 import { socialMedia } from "data/social-media";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
-import { getLinkProps } from "utils/route";
 import { up } from "utils/screens";
 
 const HeroSection = styled.section(() => [
@@ -187,15 +184,9 @@ const DesignProcessElementDesc = styled.p(() => [
 
 const SelectedProjectsContainer = styled.div(() => [
     tw`lg:col-start-1 lg:col-end-11 lg:ml-2 lg:mt-10 cursor-none!`,
-]);
-
-const SeeAllProjectsLink = styled(Link)(() => [tw`col-start-13 self-end`]);
-
-const SeeAllProjectsBtn = styled(Button)(() => [
-    tw`w-[160px] h-[37px]`,
     css`
-        span {
-            ${tw`bg-primary text-tertiary border-none`}
+        ol {
+            ${tw`mb-10`}
         }
     `,
 ]);
@@ -361,16 +352,17 @@ export default function About({ data }: Props) {
                             <TitleContainer>
                                 <Title>selected projects</Title>
                                 <SeeAllProjectsLink
-                                    {...getLinkProps("work", location)}
-                                >
-                                    <SeeAllProjectsBtn as="span">
-                                        <Translate id="seeAllProjects" />
-                                    </SeeAllProjectsBtn>
-                                </SeeAllProjectsLink>
+                                    screenSize="lg"
+                                    currentLocation={location}
+                                />
                             </TitleContainer>
                             <SelectedProjectsContainer>
                                 <SelectedProjects projects={projects} />
                             </SelectedProjectsContainer>
+                            <SeeAllProjectsLink
+                                screenSize="sm"
+                                currentLocation={location}
+                            />
                         </ArticleSection>
                     </Article>
                 </GridRow>
