@@ -68,23 +68,8 @@ const MainTitleWrapper = styled.div(
 );
 
 const MainTitle = styled(MainTitleBottom)(() => [
-    tw`uppercase`,
+    tw`uppercase bg-project-title-gradient lg:bg-project-title-gradient-lg`,
     tw`text-[70px] leading-[70px] top-[-27px] mb-[-27px] lg:top-[-46px] lg:mb-[-46px] lg:text-[120px] lg:leading-[130px]`,
-    css`
-        background-image: linear-gradient(
-            0deg,
-            var(--black) 43.4px,
-            transparent 43.4px
-        );
-
-        ${up("lg")} {
-            background-image: linear-gradient(
-                0deg,
-                var(--black) 74.4px,
-                transparent 74.4px
-            );
-        }
-    `,
 ]);
 
 const Paragraph = styled.p(() => [tw`mb-[40px]`]);

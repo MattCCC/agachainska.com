@@ -141,15 +141,8 @@ const SlideContent = styled.div(
 );
 
 const Title = styled(MainTitleTop)(() => [
-    tw`absolute z-30 uppercase select-none`,
+    tw`absolute z-30 uppercase select-none bg-slider-title-gradient`,
     tw`text-[120px] leading-[130px] top-[-4.35rem]`,
-    css`
-        background-image: linear-gradient(
-            180deg,
-            var(--black) 70.8px,
-            transparent 70.8px
-        );
-    `,
 ]);
 
 const SlidesList = styled(motion.div)(() => [

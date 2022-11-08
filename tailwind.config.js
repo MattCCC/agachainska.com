@@ -14,6 +14,16 @@ module.exports = {
             fbold: "'Larsseit-Bold'",
         },
         extend: {
+            backgroundImage: {
+                "project-title-gradient":
+                    "linear-gradient(0deg, var(--black) 43.4px, transparent 43.4px)",
+                "project-title-gradient-lg":
+                    "linear-gradient(0deg,var(--black) 74.4px,transparent 74.4px)",
+                "post-title-gradient":
+                    "linear-gradient(180deg,var(--black) 44.1px,transparent 44.1px)",
+                "slider-title-gradient":
+                    "linear-gradient(180deg,var(--black) 70.8px,transparent 70.8px)",
+            },
             lineHeight: {
                 2: "0.5rem",
                 11: "2.75rem",

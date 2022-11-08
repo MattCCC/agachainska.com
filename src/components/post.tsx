@@ -56,15 +56,8 @@ const StyledNumber = styled(BigNumber)(() => [
 ]);
 
 const Title = styled(MainTitleTop)(() => [
-    tw`absolute top-0 z-50 uppercase select-none`,
+    tw`absolute top-0 z-50 uppercase select-none bg-post-title-gradient`,
     tw`text-[70px] leading-[70px] lg:text-[54px] lg:leading-[80px]`,
-    css`
-        background-image: linear-gradient(
-            180deg,
-            var(--black) 44.1px,
-            transparent 44.1px
-        );
-    `,
 ]);
 
 export function Post({
