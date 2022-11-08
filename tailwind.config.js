@@ -23,6 +23,8 @@ module.exports = {
                     "linear-gradient(180deg,var(--black) 44.1px,transparent 44.1px)",
                 "slider-title-gradient":
                     "linear-gradient(180deg,var(--black) 70.8px,transparent 70.8px)",
+                "intro-title-gradient":
+                    "radial-gradient(40px circle at var(--x) var(--y),rgba(0, 0, 0, 0) 100%,var(--black))",
             },
             lineHeight: {
                 2: "0.5rem",
@@ -53,17 +55,6 @@ module.exports = {
                 none: "none",
             },
             typography: {
-                // TODO: move out of typography. Use another plugin for custom classes
-                "bg-intro": {
-                    css: {
-                        "background-image": "radial-gradient(40px circle at var(--x) var(--y),rgba(0, 0, 0, 0) 100%,var(--black))",
-                    },
-                },
-                "text-fill-transparent": {
-                    css: {
-                        "-webkit-text-fill-color": "transparent",
-                    },
-                },
                 0: {
                     css: {
                         fontSize: "0",
