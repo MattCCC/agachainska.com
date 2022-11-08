@@ -5,7 +5,7 @@ interface MousePosition {
     clientY: number;
 }
 
-export const TrackMousePosition = (): MousePosition => {
+export const useTrackMousePosition = (): MousePosition => {
     const defaultState = useMemo(() => ({ clientX: 0, clientY: 0 }), []);
     const [position, setPosition] = useState(defaultState);
 

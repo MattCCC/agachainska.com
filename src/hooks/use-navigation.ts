@@ -7,7 +7,7 @@ import {
     OnDelayCallback,
     useLinkDelayed,
 } from "hooks/use-link-delayed";
-import { useStore } from "store/index";
+import { useStoreProp } from "store/index";
 
 export interface DelayedLink extends LinkDelayedArgs {
     to: string;
@@ -20,16 +20,17 @@ export const useNavigation = ({
     onDelayEnd = (() => {}) as OnDelayCallback,
 }: DelayedLink): LinkDelayedCallback => {
     const location = useLocation();
-    const [, dispatch] = useStore();
+    const [, { setCurrentDelayedRoute }] = useStoreProp("currentDelayedRoute");
+    const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
 
     const startDelay: OnDelayCallback = (e, toRoute) => {
-        dispatch.setCurrentDelayedRoute(toRoute);
-        dispatch.showMotionCursor(false);
+        setCurrentDelayedRoute(toRoute);
+        showMotionCursor(false);
         onDelayStart(e, toRoute);
     };
 
     const endDelay: OnDelayCallback = (e, toRoute) => {
-        dispatch.setCurrentDelayedRoute("");
+        setCurrentDelayedRoute("");
         onDelayEnd(e, toRoute);
     };
 
