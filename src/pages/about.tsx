@@ -360,12 +360,13 @@ export default function About({ data }: Props) {
                         >
                             <TitleContainer>
                                 <Title>selected projects</Title>
-                                <SeeAllProjectsBtn
-                                    as={SeeAllProjectsLink}
+                                <SeeAllProjectsLink
                                     {...getLinkProps("work", location)}
                                 >
-                                    <Translate id="seeAllProjects" />
-                                </SeeAllProjectsBtn>
+                                    <SeeAllProjectsBtn as="span">
+                                        <Translate id="seeAllProjects" />
+                                    </SeeAllProjectsBtn>
+                                </SeeAllProjectsLink>
                             </TitleContainer>
                             <SelectedProjectsContainer>
                                 <SelectedProjects projects={projects} />
