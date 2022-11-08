@@ -58,7 +58,7 @@ export const DevicesCarousel = memo(
         const numItems = list.length;
         const [x, setX] = useState(1);
 
-        const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
+        const [, { showMotionCursor }] = useStoreProp("isMotionCursorVisible");
 
         const onSlideChange = useCallback((activeItem: number) => {
             setX(activeItem + 1);
