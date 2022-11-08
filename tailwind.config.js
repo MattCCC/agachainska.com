@@ -43,6 +43,17 @@ module.exports = {
                 none: "none",
             },
             typography: {
+                // TODO: move out of typography. Use another plugin for custom classes
+                "bg-intro": {
+                    css: {
+                        "background-image": "radial-gradient(40px circle at var(--x) var(--y),rgba(0, 0, 0, 0) 100%,var(--black))",
+                    },
+                },
+                "text-fill-transparent": {
+                    css: {
+                        "-webkit-text-fill-color": "transparent",
+                    },
+                },
                 0: {
                     css: {
                         fontSize: "0",

@@ -18,6 +18,7 @@ export interface Props extends MotionProps {
     allowSlideToLast?: boolean;
     displayGrabCursor?: boolean;
     transition?: Spring;
+    onSlideChange?: (activeSlide: number) => unknown;
 }
 
 const Wrapper = styled.div(() => [tw`overflow-hidden`]);
@@ -35,6 +36,7 @@ export const MotionSlider = memo(
         } as Spring,
         allowSlideToLast = false,
         displayGrabCursor = true,
+        onSlideChange = () => null,
         children,
     }: PropsWithChildren<Props>) => {
         const x = useMotionValue(0);
@@ -50,6 +52,7 @@ export const MotionSlider = memo(
                         allowSlideToLast={allowSlideToLast}
                         displayGrabCursor={displayGrabCursor}
                         style={{ x }}
+                        onSlideChange={onSlideChange}
                     >
                         {children &&
                             (children as any[]).map(
