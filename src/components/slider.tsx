@@ -142,9 +142,13 @@ const SlideContent = styled.div(
 
 const Title = styled(MainTitleTop)(() => [
     tw`absolute z-30 uppercase select-none`,
+    tw`text-[120px] leading-[130px] top-[-4.35rem]`,
     css`
-        top: -4.35rem;
-        line-height: 130px;
+        background-image: linear-gradient(
+            180deg,
+            var(--black) 70.8px,
+            transparent 70.8px
+        );
     `,
 ]);
 
@@ -388,12 +392,7 @@ export const Slider = ({
             ref={sliderRef}
         >
             {showSlideTitle && (
-                <Title
-                    percentage={59}
-                    baseFontSize={120}
-                    smBaseFontSize={120}
-                    data-text={sliderItems[sliderIndex].name}
-                >
+                <Title data-text={sliderItems[sliderIndex].name}>
                     {sliderItems[sliderIndex].name}
                 </Title>
             )}
