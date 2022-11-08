@@ -14,7 +14,7 @@ const MobileDeviceContainer = styled.div(() => [
 const MobileDevice = styled.iframe(() => [
     tw`absolute z-10 bg-white border-0 outline-none cursor-grabbing`,
     tw`w-[245px] h-[532px] rounded-[20px] top-[13px] left-[18px]`,
-    tw`shadow-[0px_42px_102px_-8px_rgba(0,0,0,0.36)]`,
+    tw`shadow-[0px_4px_12px_-1px_rgba(0,0,0,0.36)] lg:shadow-[0px_42px_102px_-8px_rgba(0,0,0,0.36)]`,
 ]);
 
 const DeviceFrameIphoneX = styled.div(() => [

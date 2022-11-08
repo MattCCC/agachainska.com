@@ -26,6 +26,7 @@ interface Props extends MotionProps {
     transition: Spring;
     allowSlideToLast?: boolean;
     displayGrabCursor?: boolean;
+    onSlideChange?: (activeSlide: number) => unknown;
 }
 
 interface TrackWrapperProps {
@@ -48,6 +49,7 @@ export const Track = ({
     transition,
     allowSlideToLast,
     displayGrabCursor,
+    onSlideChange = () => null,
     style,
 }: PropsWithChildren<Props>) => {
     const ref = useRef<HTMLElement | null>(null);
@@ -114,6 +116,8 @@ export const Track = ({
                 payload: { activeItem: activeSlide },
             });
 
+            onSlideChange(activeSlide);
+
             controls.start({
                 x: allowSlideToLast
                     ? closestPosition
@@ -138,7 +142,7 @@ export const Track = ({
             dispatch,
             gap,
             itemsPositions,
-            ref,
+            onSlideChange,
             trackDimensions.width,
             trackDimensions.x,
             transition.damping,

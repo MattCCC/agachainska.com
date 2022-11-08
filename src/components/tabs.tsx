@@ -79,7 +79,7 @@ const Tab = styled.li(({ isActive = false }: TabStyled) => [
     `,
 ]);
 
-const Pin = styled(motion.div)(() => [
+const Progress = styled(motion.div)(() => [
     tw`absolute left-0 h-px top-8 bg-melrose z-[2]`,
     css`
         box-shadow: 0 2px 4px 0 var(--melrose);
@@ -166,7 +166,7 @@ export const Tabs = memo(
                                     {tab.title}
                                 </Tab>
                             ))}
-                            <Pin
+                            <Progress
                                 animate={{ left: pinX }}
                                 style={{ width: `${100 / tabs.length}%` }}
                             />
