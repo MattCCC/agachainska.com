@@ -14,6 +14,18 @@ module.exports = {
             fbold: "'Larsseit-Bold'",
         },
         extend: {
+            backgroundImage: {
+                "project-title-gradient":
+                    "linear-gradient(0deg, var(--black) 43.4px, transparent 43.4px)",
+                "project-title-gradient-lg":
+                    "linear-gradient(0deg,var(--black) 74.4px,transparent 74.4px)",
+                "post-title-gradient":
+                    "linear-gradient(180deg,var(--black) 44.1px,transparent 44.1px)",
+                "slider-title-gradient":
+                    "linear-gradient(180deg,var(--black) 70.8px,transparent 70.8px)",
+                "intro-title-gradient":
+                    "radial-gradient(40px circle at var(--x) var(--y),rgba(0, 0, 0, 0) 100%,var(--black))",
+            },
             lineHeight: {
                 2: "0.5rem",
                 11: "2.75rem",
@@ -43,17 +55,6 @@ module.exports = {
                 none: "none",
             },
             typography: {
-                // TODO: move out of typography. Use another plugin for custom classes
-                "bg-intro": {
-                    css: {
-                        "background-image": "radial-gradient(40px circle at var(--x) var(--y),rgba(0, 0, 0, 0) 100%,var(--black))",
-                    },
-                },
-                "text-fill-transparent": {
-                    css: {
-                        "-webkit-text-fill-color": "transparent",
-                    },
-                },
                 0: {
                     css: {
                         fontSize: "0",

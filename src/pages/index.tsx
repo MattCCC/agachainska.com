@@ -27,8 +27,9 @@ import { getRoutePath } from "utils/route";
 import { TranslateText } from "utils/translate-text";
 
 const Title = styled.h1(() => [
-    tw`relative z-50 inline-block max-w-full -mt-16 font-bold select-none lg:pr-16 prose-70 leading-20 lg:prose-140 lg:leading-38 lg:prose-text-fill-transparent`,
-    tw`subpixel-antialiased text-black bg-clip-text font-fbold lg:cursor-none lg:prose-bg-intro`,
+    tw`relative z-50 inline-block max-w-full -mt-16 font-bold select-none lg:pr-16 prose-70 leading-20 lg:prose-140 lg:leading-38`,
+    tw`subpixel-antialiased text-black bg-clip-text font-fbold lg:cursor-none lg:bg-intro-title-gradient`,
+    tw`lg:[-webkit-text-fill-color:transparent]`,
     css`
         width: 634px;
 

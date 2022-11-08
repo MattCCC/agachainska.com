@@ -56,7 +56,8 @@ const StyledNumber = styled(BigNumber)(() => [
 ]);
 
 const Title = styled(MainTitleTop)(() => [
-    tw`absolute top-0 z-50 uppercase select-none`,
+    tw`absolute top-0 z-50 uppercase select-none bg-post-title-gradient`,
+    tw`text-[70px] leading-[70px] lg:text-[54px] lg:leading-[80px]`,
 ]);
 
 export function Post({
@@ -68,9 +69,7 @@ export function Post({
     return (
         <Fragment>
             <PostWrapper onClick={(e): void => onPostTap(e, post)}>
-                <Title percentage={63} data-text={post.name}>
-                    {post.name}
-                </Title>
+                <Title data-text={post.name}>{post.name}</Title>
                 {setImageAsBg ? (
                     <PostBg
                         style={{

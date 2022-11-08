@@ -3,15 +3,19 @@ import { Fragment } from "react";
 import { graphql, PageProps } from "gatsby";
 import type { HeadProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
-import tw, { styled } from "twin.macro";
+import tw, { css, styled } from "twin.macro";
 
+import { BigNumber } from "components/big-number";
 import { DeviceMockup } from "components/device-mockup";
 import { DevicesCarousel } from "components/devices-carousel";
 import { FullPageContent } from "components/full-page-content";
 import { H2 } from "components/h2";
 import { H3 } from "components/h3";
+import { H4 } from "components/h4";
 import { Link } from "components/link";
 import { GridRow } from "components/main-container";
+import { MainContainer } from "components/main-container";
+import { MainTitleBottom } from "components/main-title";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
 import { ParallaxBackground } from "components/parallax-background";
@@ -21,30 +25,6 @@ import { Timeline } from "components/timeline";
 import ViewOnDeskStar from "components/view-on-desktop-star";
 import { GallerySlider } from "domain/single-project/gallery-slider";
 import { OtherProjects } from "domain/single-project/other-projects";
-import {
-    MainSection,
-    Button,
-    CellTitle,
-    ContentContainer,
-    Controls,
-    NextIconStyled,
-    PrevIconStyled,
-    TableProject,
-    Article,
-    TimelineWrapper,
-    ArticleSection,
-    Paragraph,
-    FullSizeImageWrapper,
-    TwoImagesWrapper,
-    HeroWrapper,
-    TableStats,
-    StyledNumber,
-    MainTitleWrapper,
-    StatsCaption,
-    TableCredits,
-    MainTitle,
-    SingleStat,
-} from "domain/single-project/styled";
 import { useIncrementStats } from "domain/single-project/use-increment-stats";
 import { usePagination } from "domain/single-project/use-pagination";
 import {
@@ -53,6 +33,10 @@ import {
 } from "hooks/use-projects-by-category";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
+import { ReactComponent as PrevIcon } from "svg/down.svg";
+import { ReactComponent as NextIcon } from "svg/up.svg";
+import { up } from "utils/screens";
+import { includeProps } from "utils/styled";
 
 interface Props extends PageProps {
     data: {
@@ -62,6 +46,120 @@ interface Props extends PageProps {
         };
     };
 }
+interface ContentContainerProps {
+    variant?: string;
+}
+
+const MainSection = styled(
+    MainContainer,
+    includeProps(["topPadding"])
+)(() => [tw`absolute z-10 col-start-2 col-end-13`]);
+
+const ContentContainer = styled.div(
+    ({ variant = "3/4" }: ContentContainerProps) => [
+        tw`max-w-full`,
+        variant === "3/4" && tw`w-[613px]`,
+        variant === "full" && tw`w-[820px]`,
+    ]
+);
+
+const MainTitleWrapper = styled.div(
+    tw`absolute max-w-[90%] bottom-[-43px] lg:bottom-[-74px]`
+);
+
+const MainTitle = styled(MainTitleBottom)(() => [
+    tw`uppercase bg-project-title-gradient lg:bg-project-title-gradient-lg`,
+    tw`text-[70px] leading-[70px] top-[-27px] mb-[-27px] lg:top-[-46px] lg:mb-[-46px] lg:text-[120px] lg:leading-[130px]`,
+]);
+
+const Paragraph = styled.p(() => [tw`mb-[40px]`]);
+
+const StyledNumber = styled(BigNumber)(() => [
+    tw`max-w-full translate-x-1/2`,
+    tw`w-[150px] lg:w-[136px] lg:h-[117px] lg:transform-none`,
+]);
+
+const HeroWrapper = styled.div(() => [
+    tw`relative w-full col-start-1 col-end-13 lg:col-start-2 lg:col-end-12`,
+    tw`mb-[70px] h-[200px] sm:h-[320px] md:h-[390px] lg:h-[462px] lg:mb-[90px]`,
+]);
+
+const TableProject = styled.div(() => [
+    tw`grid max-w-full grid-flow-row grid-cols-1 grid-rows-4 mb-20 lg:grid-cols-2 lg:grid-flow-col`,
+    tw`w-[820px] leading-[24px]`,
+]);
+
+const TableCredits = styled.div(() => [
+    tw`grid max-w-full grid-flow-row grid-cols-1 grid-rows-2 lg:grid-cols-3 lg:grid-flow-col`,
+    tw`w-[820px] leading-[24px]`,
+]);
+
+const TableStats = styled.div(() => [
+    tw`grid max-w-full grid-flow-row grid-cols-1 lg:grid-cols-3 lg:grid-flow-row`,
+    tw`w-[820px] leading-[24px]`,
+]);
+
+const SingleStat = styled.div(() => [
+    css`
+        &.space {
+            ${tw`lg:mb-[150px]`}
+        }
+    `,
+]);
+
+const StatsCaption = styled(H4)(() => [tw`pl-[25%] lg:pl-[10px]`]);
+
+const CellTitle = styled.div(() => [tw`font-fbold`, tw`mt-[12px]`]);
+
+const Article = styled.article(() => [tw`relative`]);
+
+const ArticleSection = styled.section(() => [
+    tw`relative z-10 mx-auto`,
+    tw`max-w-[1069px] px-[15px] pb-[1px]`,
+]);
+
+const TimelineWrapper = styled.aside(() => [
+    tw`sticky top-0 right-0 z-20 hidden ml-auto lg:block lg:col-start-11`,
+    tw`w-[220px] mb-[-254px] mr-[84px] translate-y-[90px]`,
+]);
+
+/**
+ * Images
+ */
+const FullSizeImageWrapper = styled.figure(() => [
+    tw`overflow-hidden`,
+    tw`mb-[90px] lg:h-[546px] lg:w-[820px]`,
+]);
+
+const TwoImagesWrapper = styled.figure(() => [
+    tw`grid grid-flow-col grid-cols-2 gap-6 overflow-hidden`,
+    tw`mb-[90px] h-[220px] lg:h-[562px] lg:w-[820px]`,
+]);
+
+/**
+ * Pagination
+ */
+const Controls = styled.div(() => [
+    tw`relative z-10 content-end justify-end hidden ml-auto lg:flex`,
+    tw`top-[-70px]`,
+]);
+
+const Button = styled.button(() => [
+    tw`flex-row cursor-pointer select-none lg:prose-16 lg:leading-5`,
+    css`
+        &:last-child {
+            margin-left: 40px;
+        }
+    `,
+]);
+
+const PrevIconStyled = styled(PrevIcon)(() => [
+    tw`inline-block mr-4 text-center transform rotate-90`,
+]);
+
+const NextIconStyled = styled(NextIcon)(() => [
+    tw`inline-block ml-4 text-center transform rotate-90`,
+]);
 
 const DeviceMockupWrapper = styled.div(() => [tw`mb-[40px] lg:mb-[80px]`]);
 
@@ -321,14 +419,7 @@ export default function Project({ data }: Props) {
             <MainSection topPadding={true}>
                 <HeroWrapper>
                     <MainTitleWrapper>
-                        <MainTitle
-                            percentage={62}
-                            baseFontSize={120}
-                            smBaseFontSize={70}
-                            data-text={name}
-                        >
-                            {name}
-                        </MainTitle>
+                        <MainTitle data-text={name}>{name}</MainTitle>
                     </MainTitleWrapper>
                     <ParallaxBackground bgImgUrl={cover} />
                 </HeroWrapper>

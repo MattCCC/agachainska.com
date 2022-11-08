@@ -48,10 +48,6 @@ const OtherProjectsContainer = styled(motion.div)(() => [
         & > div:nth-of-type(even) {
             padding-top: 6rem;
         }
-
-        h2[class*="MainTitleTop"] {
-            font-size: 52px;
-        }
     `,
 ]);
 
