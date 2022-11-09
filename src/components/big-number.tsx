@@ -15,7 +15,7 @@ export function BigNumber({
     value = 1,
     animate = false,
     displayOnRight = false,
-    viewBox = "0 0 200 200",
+    viewBox = "0 0 213 200",
     ...props
 }: Props) {
     const [count, setCount] = useState("0");

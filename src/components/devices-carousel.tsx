@@ -4,7 +4,7 @@ import tw, { css, styled } from "twin.macro";
 
 import useMouse from "@react-hook/mouse-position";
 
-import { motion, AnimatePresence } from "components/animation";
+import { motion } from "components/animation";
 import { useStoreProp } from "store/index";
 
 import { DeviceMockup } from "./device-mockup";
@@ -21,7 +21,7 @@ const SliderWrapper = styled.div(() => [
 ]);
 
 const ProgressWrapper = styled.div(() => [
-    tw`relative w-full max-w-[510px] pb-[1px]`,
+    tw`relative w-full max-w-[510px] pb-[1px] lg:ml-[13rem]`,
 ]);
 
 const Background = styled.div(() => [
@@ -58,7 +58,7 @@ export const DevicesCarousel = memo(
         const numItems = list.length;
         const [x, setX] = useState(1);
 
-        const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
+        const [, { showMotionCursor }] = useStoreProp("isMotionCursorVisible");
 
         const onSlideChange = useCallback((activeItem: number) => {
             setX(activeItem + 1);
@@ -94,21 +94,19 @@ export const DevicesCarousel = memo(
                     </MotionSlider>
                 </SliderWrapper>
 
-                <AnimatePresence initial={false}>
-                    <ProgressWrapper key={x}>
-                        <ProgressText>
-                            {x}/{numItems}
-                        </ProgressText>
+                <ProgressWrapper key={x}>
+                    <ProgressText>
+                        {x}/{numItems}
+                    </ProgressText>
 
-                        <Background />
-                        <Progress
-                            animate={{
-                                left: `${(100 / numItems) * (x - 1)}%`,
-                            }}
-                            style={{ width: `${100 / numItems}%` }}
-                        />
-                    </ProgressWrapper>
-                </AnimatePresence>
+                    <Background />
+                    <Progress
+                        animate={{
+                            left: `${(100 / numItems) * (x - 1)}%`,
+                        }}
+                        style={{ width: `${100 / numItems}%` }}
+                    />
+                </ProgressWrapper>
             </FullPageContent>
         );
     }

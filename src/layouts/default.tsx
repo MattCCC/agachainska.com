@@ -1,4 +1,4 @@
-import { Fragment, PropsWithChildren } from "react";
+import { PropsWithChildren, StrictMode } from "react";
 
 import tw, { styled, css } from "twin.macro";
 
@@ -65,7 +65,7 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
     useOnRouteChange();
 
     return (
-        <Fragment>
+        <StrictMode>
             {darkTheme && <DarkTheme />}
             <TopOverlay />
             <Overlays />
@@ -81,6 +81,6 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
                 {children}
             </Main>
             <Footer />
-        </Fragment>
+        </StrictMode>
     );
 };

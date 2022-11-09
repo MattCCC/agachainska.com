@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from "react";
 
 import { motion, LayoutGroup, useAnimation } from "components/animation";
-import { useStore } from "store/index";
+import { useStoreProp } from "store/index";
 
 const overlayStyleClasses = "fixed left-0 w-full h-full";
 
@@ -76,7 +76,7 @@ const removeLocationHash = () => {
 
     if (hasHash) {
         window.location.replace(
-            window.location.href.substr(0, window.location.href.indexOf("#"))
+            window.location.href.substring(0, window.location.href.indexOf("#"))
         );
     }
 };
@@ -112,9 +112,9 @@ export const TopOverlay = () => (
 
 export const Overlays = memo(
     () => {
-        const [state] = useStore();
+        const [currentDelayedRoute] = useStoreProp("currentDelayedRoute");
         const [palette, setPalette] = useState([] as string[]);
-        const multiOverlays = !state.currentDelayedRoute;
+        const multiOverlays = !currentDelayedRoute;
         const animationControls = useAnimation();
         const motionProps = {
             className: overlayStyleClasses,
