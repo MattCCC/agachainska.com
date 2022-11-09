@@ -1,7 +1,7 @@
 import { memo, useEffect } from "react";
 
 import { motion, useAnimation } from "components/animation";
-import { useStore } from "store/index";
+import { useStoreProp } from "store/index";
 
 export const duration = 1;
 export const fullPageOverlayDuration = 0.6;
@@ -33,12 +33,12 @@ const OverlayFullPageVariants = {
 
 export const FullPageOverlay = memo(
     () => {
-        const [state] = useStore();
+        const [currentDelayedRoute] = useStoreProp("currentDelayedRoute");
         const overlayControls = useAnimation();
 
         // Orchestrate animation when switching the route
         useEffect(() => {
-            if (state.currentDelayedRoute) {
+            if (currentDelayedRoute) {
                 (async (): Promise<void> => {
                     document.body.style.overflow = "hidden";
 
@@ -51,7 +51,7 @@ export const FullPageOverlay = memo(
                     }, fullPageOverlayDuration * 1000);
                 })();
             }
-        }, [overlayControls, state.currentDelayedRoute]);
+        }, [overlayControls, currentDelayedRoute]);
 
         return (
             <motion.div

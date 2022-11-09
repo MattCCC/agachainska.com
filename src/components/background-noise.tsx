@@ -37,6 +37,7 @@ export const BackgroundNoise = ({
 }: PropsWithChildren<Props>) => {
     const defaultState = useMemo(() => ({ x: 0, y: 0 }), []);
     const [position, setPosition] = useState(defaultState);
+
     const backgroundStyle = {
         "--x": `${position.x}px`,
         "--y": `${position.y}px`,

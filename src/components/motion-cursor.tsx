@@ -12,8 +12,8 @@ import tw, { css, styled } from "twin.macro";
 
 import { Translate } from "components/translate";
 import { useNavigation } from "hooks/use-navigation";
-import { TrackMousePosition } from "hooks/use-track-mouse-position";
-import { State, useStore, useStoreProp } from "store/index";
+import { useTrackMousePosition } from "hooks/use-track-mouse-position";
+import { State, useStoreProp } from "store/index";
 
 interface Props {
     onPositionUpdate?: ((clientX: number, clientY: number) => void) | null;
@@ -203,12 +203,13 @@ export const MotionCursor = ({
     onPositionUpdate = null,
     children,
 }: PropsWithChildren<Props>) => {
-    const [state] = useStore();
-    const { clientX, clientY } = TrackMousePosition();
-    const projectCover = state.motionCursorData.projectCover;
+    const [motionCursorData] = useStoreProp("motionCursorData");
+    const [isMotionCursorVisible] = useStoreProp("isMotionCursorVisible");
+    const { clientX, clientY } = useTrackMousePosition();
+    const projectCover = motionCursorData.projectCover;
     const cursorStyle = {
-        "--left": `${clientX || -state.motionCursorData.size || -cursorSize}px`,
-        "--top": `${clientY || -state.motionCursorData.size || -cursorSize}px`,
+        "--left": `${clientX || -motionCursorData.size || -cursorSize}px`,
+        "--top": `${clientY || -motionCursorData.size || -cursorSize}px`,
     } as CSSProperties;
 
     useEffect(() => {
@@ -220,19 +221,19 @@ export const MotionCursor = ({
     return (
         <Fragment>
             <Cursor
-                isMotionCursorVisible={state.isMotionCursorVisible}
-                {...state.motionCursorData}
+                isMotionCursorVisible={isMotionCursorVisible}
+                {...motionCursorData}
                 style={cursorStyle}
                 className="cursor"
             >
-                <CursorLink {...state.motionCursorData}>{children}</CursorLink>
+                <CursorLink {...motionCursorData}>{children}</CursorLink>
             </Cursor>
 
             {projectCover && (
                 <ProjectHover>
                     <ProjectCover
                         style={cursorStyle}
-                        isMotionCursorVisible={state.isMotionCursorVisible}
+                        isMotionCursorVisible={isMotionCursorVisible}
                         projectCoverLink={projectCover}
                     />
                 </ProjectHover>
