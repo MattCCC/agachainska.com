@@ -10,11 +10,8 @@ export const useTrackMousePosition = (): MousePosition => {
     const [position, setPosition] = useState(defaultState);
 
     useEffect(() => {
-        const setMousePosition = (e: typeof defaultState): void => {
-            setPosition({
-                clientX: e.clientX,
-                clientY: e.clientY,
-            });
+        const setMousePosition = (pos: MousePosition): void => {
+            setPosition(pos);
         };
 
         window.addEventListener("mousemove", setMousePosition);

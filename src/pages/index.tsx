@@ -1,51 +1,20 @@
-import {
-    CSSProperties,
-    Fragment,
-    RefObject,
-    useCallback,
-    useRef,
-    useState,
-    useEffect,
-    useMemo,
-} from "react";
+import { Fragment, useCallback, useEffect } from "react";
 
 import { navigate } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 
 import { BottomCircle } from "components/bottom-circle";
 import { CountDown } from "components/count-down";
+import HomepageTitle from "components/homepage-title";
 import { GridRow, MainContainer } from "components/main-container";
 import { MainSection } from "components/main-section";
 import { Meta } from "components/meta";
-import { MotionCursor } from "components/motion-cursor";
 import { pageContentVariants } from "components/overlays";
 import { Translate } from "components/translate";
 import { useLockBodyScroll } from "hooks/use-lock-body-scroll";
 import { useStoreProp } from "store/index";
 import { isDev } from "utils/detect-env";
 import { getRoutePath } from "utils/route";
-import { TranslateText } from "utils/translate-text";
-
-const Title = styled.h1(() => [
-    tw`relative z-50 inline-block max-w-full -mt-16 font-bold select-none lg:pr-16 prose-70 leading-20 lg:prose-140 lg:leading-38`,
-    tw`subpixel-antialiased text-black bg-clip-text font-fbold lg:cursor-none lg:bg-intro-title-gradient`,
-    tw`lg:[-webkit-text-fill-color:transparent]`,
-    css`
-        width: 634px;
-
-        &:before {
-            ${tw`absolute top-0 left-0 hidden text-white lg:block`}
-            content: attr(data-text);
-            clip-path: circle(40px at var(--x, -100%) var(--y, -100%));
-            -webkit-text-stroke-width: 1px;
-            -webkit-text-stroke-color: rgba(0, 0, 0, 0.8);
-        }
-
-        &:hover + .cursor {
-            ${tw`text-transparent bg-transparent cursor-none`}
-        }
-    `,
-]);
 
 const Desc = styled.h2(() => [
     tw`inline-block leading-8 select-none prose-24 lg:prose-30 lg:leading-11`,
@@ -57,32 +26,10 @@ const Desc = styled.h2(() => [
 ]);
 
 export default function Home() {
-    const titleRef = useRef() as RefObject<HTMLHeadingElement>;
     const workLink = getRoutePath("work");
-    const defaultState = useMemo(() => ({ x: 0, y: 0 }), []);
     const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
-    const [position, setPosition] = useState(defaultState);
-    const titleStyle = {
-        "--x": `${position.x}px`,
-        "--y": `${position.y}px`,
-    } as CSSProperties;
 
     useLockBodyScroll();
-
-    const onPositionUpdate = useCallback(
-        (clientX: number, clientY: number) => {
-            const clientRect = (
-                titleRef.current as HTMLHeadingElement
-            ).getBoundingClientRect();
-            const cursorMarginLeft = 31;
-
-            setPosition({
-                x: clientX - clientRect.left - cursorMarginLeft,
-                y: clientY - clientRect.top,
-            });
-        },
-        [titleRef]
-    );
 
     const onCountDownFinished = useCallback(() => {
         if (!isDev()) {
@@ -108,14 +55,7 @@ export default function Home() {
             >
                 <MainContainer>
                     <GridRow>
-                        <Title
-                            data-text={TranslateText("home.title")}
-                            style={titleStyle}
-                            ref={titleRef}
-                        >
-                            <Translate id="home.title" />
-                        </Title>
-                        <MotionCursor onPositionUpdate={onPositionUpdate} />
+                        <HomepageTitle />
                         <Desc>
                             <Translate id="home.description" />
                         </Desc>
