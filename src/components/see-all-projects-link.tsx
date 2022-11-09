@@ -1,6 +1,8 @@
 import { Link } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 
+import { useLocation } from "@reach/router";
+
 import { getLinkProps } from "utils/route";
 
 import { Button } from "./button";
@@ -8,7 +10,6 @@ import { Translate } from "./translate";
 
 interface Props {
     screenSize: "sm" | "lg";
-    currentLocation: Location;
 }
 
 const SeeAllProjectsBtn = styled(Button)(() => [
@@ -34,15 +35,12 @@ const SeeAllProjectsLinkDesktop = styled(Link)(() => [
     tw`hidden col-start-13 self-end lg:inline`,
 ]);
 
-export default function SeeAllProjectsLink({
-    screenSize,
-    currentLocation,
-}: Props) {
+export default function SeeAllProjectsLink({ screenSize }: Props) {
+    const location = useLocation();
+
     if (screenSize === "sm") {
         return (
-            <SeeAllProjectsLinkMobile
-                {...getLinkProps("work", currentLocation)}
-            >
+            <SeeAllProjectsLinkMobile {...getLinkProps("work", location)}>
                 <SeeAllProjectsBtn as="span">
                     <Translate id="seeAllProjects" />
                 </SeeAllProjectsBtn>
@@ -51,7 +49,7 @@ export default function SeeAllProjectsLink({
     }
 
     return (
-        <SeeAllProjectsLinkDesktop {...getLinkProps("work", currentLocation)}>
+        <SeeAllProjectsLinkDesktop {...getLinkProps("work", location)}>
             <SeeAllProjectsBtn as="span">
                 <Translate id="seeAllProjects" />
             </SeeAllProjectsBtn>

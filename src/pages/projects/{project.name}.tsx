@@ -20,6 +20,7 @@ import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
 import { ParallaxBackground } from "components/parallax-background";
 import { Quote } from "components/quote";
+import SeeAllProjectsLink from "components/see-all-projects-link";
 import { Tabs } from "components/tabs";
 import { Timeline } from "components/timeline";
 import ViewOnDeskStar from "components/view-on-desktop-star";
@@ -151,6 +152,10 @@ const Button = styled.button(() => [
             margin-left: 40px;
         }
     `,
+]);
+
+const SeeAllProjectsLinkDesktopContainer = styled.div(() => [
+    tw`flex justify-end -mt-32 mb-32`,
 ]);
 
 const PrevIconStyled = styled(PrevIcon)(() => [
@@ -330,6 +335,9 @@ const sectionLoader = (
                 case "other-projects":
                     return (
                         <ContentContainer variant="full" key={index}>
+                            <SeeAllProjectsLinkDesktopContainer>
+                                <SeeAllProjectsLink screenSize="lg" />
+                            </SeeAllProjectsLinkDesktopContainer>
                             <OtherProjects
                                 key={index}
                                 projectsByCategory={
