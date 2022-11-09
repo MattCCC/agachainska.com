@@ -51,13 +51,6 @@ const DeviceFrameMacbookPro = styled.div(() => [
 
 interface Props extends ProjectSectionElementDevice {}
 
-/**
- * TODO: Package
- */
-function isImageURL(url: string) {
-    return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
-}
-
 const renderSwitch = ({
     type,
     link,
