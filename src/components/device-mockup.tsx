@@ -62,6 +62,37 @@ const DeviceFrameMacbookPro = styled.div(() => [
     `,
 ]);
 
+const RingIcon = styled.div(() => [
+    tw`relative inline-block w-[40px] h-[40px]`,
+    css`
+        div {
+            ${tw`absolute w-[32px] h-[32px] rounded-[50%] border-4 border-solid border-[#191919_transparent_transparent_transparent]`}
+            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+
+            &:nth-of-type(1) {
+                animation-delay: -0.45s;
+            }
+
+            &:nth-of-type(2) {
+                animation-delay: -0.3s;
+            }
+
+            &:nth-of-type(3) {
+                animation-delay: -0.15s;
+            }
+
+            @keyframes lds-ring {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        }
+    `,
+]);
+
 interface Props extends ProjectSectionElementDevice {}
 
 const renderSwitch = ({
@@ -81,8 +112,17 @@ const renderSwitch = ({
     return (
         <Fragment>
             <DeviceResourceWrapper ref={ref}>
-                {((isVisible && tag === "iframe") || tag !== "iframe") && (
+                {(isVisible && tag === "iframe") || tag !== "iframe" ? (
                     <DeviceResource as={tag} src={link} />
+                ) : (
+                    <div tw="flex items-center justify-center">
+                        <RingIcon>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </RingIcon>
+                    </div>
                 )}
             </DeviceResourceWrapper>
 
