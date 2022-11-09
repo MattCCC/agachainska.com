@@ -4,7 +4,7 @@ import tw, { css, styled } from "twin.macro";
 
 import useMouse from "@react-hook/mouse-position";
 
-import { motion } from "components/animation";
+import { motion, AnimatePresence } from "components/animation";
 import { useStoreProp } from "store/index";
 
 import { DeviceMockup } from "./device-mockup";
@@ -101,6 +101,9 @@ export const DevicesCarousel = memo(
 
                     <Background />
                     <Progress
+                        initial={{
+                            left: `${(100 / numItems) * (x - 1)}%`,
+                        }}
                         animate={{
                             left: `${(100 / numItems) * (x - 1)}%`,
                         }}
