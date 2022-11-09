@@ -7,7 +7,7 @@ import {
     MutableRefObject,
 } from "react";
 
-import { useInView } from "react-hook-inview";
+import { useInView } from "framer-motion";
 import tw, { css, styled } from "twin.macro";
 
 import isImageURL from "utils/is-image-url";
@@ -73,16 +73,17 @@ const renderSwitch = ({
     type: string;
     link: string;
     isImage: boolean;
-    inViewData: [(node: Element | null) => void, MutableRefObject<boolean>];
+    inViewData: [MutableRefObject<null>, boolean];
 }) => {
     const tag = isImage ? "img" : "iframe";
-    const [ref, lockRef] = inViewData;
+    const [ref, isVisible] = inViewData;
 
     return (
         <Fragment>
             <DeviceResourceWrapper ref={ref}>
-                {((lockRef.current && tag === "iframe") ||
-                    tag !== "iframe") && <DeviceResource as={tag} src={link} />}
+                {((isVisible && tag === "iframe") || tag !== "iframe") && (
+                    <DeviceResource as={tag} src={link} />
+                )}
             </DeviceResourceWrapper>
 
             {type === "iPhoneX" && <DeviceFrameIphoneX />}
@@ -95,14 +96,10 @@ const renderSwitch = ({
 
 export const DeviceMockup = memo(({ type, link }: Props) => {
     const [isImage, setIsImage] = useState(false);
-    const [ref, isVisible] = useInView({
-        threshold: 1,
+    const ref = useRef(null);
+    const isVisible = useInView(ref, {
+        once: true,
     });
-    const lockRef = useRef(false);
-
-    if (isVisible) {
-        lockRef.current = true;
-    }
 
     useEffect(() => {
         const getData = () => {
@@ -120,7 +117,7 @@ export const DeviceMockup = memo(({ type, link }: Props) => {
                 isImage,
                 type,
                 link,
-                inViewData: [ref, lockRef],
+                inViewData: [ref, isVisible],
             })}
         </DeviceContainer>
     );
