@@ -37,7 +37,7 @@ const StyledNumber = styled(BigNumber)(() => [
     tw`w-[150px] lg:w-[136px] lg:h-[117px] lg:transform-none`,
 ]);
 
-const Badge = styled.li(({ rowNo, colNo }: BadgeProps) => [
+const ProjectWrapper = styled.li(({ rowNo, colNo }: BadgeProps) => [
     tw`flex flex-row items-stretch`,
     colNo === 1 && tw`lg:col-start-1`,
     colNo === 2 && tw`lg:col-start-2`,
@@ -91,7 +91,7 @@ export const SingleProject = memo(
         }, [cover, mouse.elementWidth, nameSlug, showMotionCursor]);
 
         return (
-            <Badge
+            <ProjectWrapper
                 ref={itemsRef}
                 rowNo={index + 1}
                 colNo={index % 2 === 0 ? 1 : 2}
@@ -104,7 +104,7 @@ export const SingleProject = memo(
                         <ProjectCaption>{category}</ProjectCaption>
                     </ProjectLink>
                 </Link>
-            </Badge>
+            </ProjectWrapper>
         );
     }
 );
