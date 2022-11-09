@@ -35,7 +35,6 @@ import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import { ReactComponent as PrevIcon } from "svg/down.svg";
 import { ReactComponent as NextIcon } from "svg/up.svg";
-import { up } from "utils/screens";
 import { includeProps } from "utils/styled";
 
 interface Props extends PageProps {

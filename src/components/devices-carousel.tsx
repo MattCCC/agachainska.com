@@ -4,7 +4,7 @@ import tw, { css, styled } from "twin.macro";
 
 import useMouse from "@react-hook/mouse-position";
 
-import { motion, AnimatePresence } from "components/animation";
+import { motion } from "components/animation";
 import { useStoreProp } from "store/index";
 
 import { DeviceMockup } from "./device-mockup";
