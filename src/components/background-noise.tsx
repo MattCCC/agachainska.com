@@ -45,10 +45,10 @@ export const BackgroundNoise = ({
 
     useEffect(() => {
         const intervalId = requestInterval(() => {
-            setPosition({
+            setPosition(() => ({
                 x: getRandomNumber(0, 100),
                 y: 0,
-            });
+            }));
         }, 150);
 
         return (): void => {
