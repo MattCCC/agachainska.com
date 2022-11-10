@@ -20,7 +20,7 @@ import { useWindowSize } from "hooks/use-window-size";
 import { up } from "utils/screens";
 
 const HeroSection = styled.section(() => [
-    tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-[min(600px,100vh)]`,
+    tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-[max(600px,100vh)]`,
     css`
         margin-top: 110px;
     `,
