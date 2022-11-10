@@ -58,6 +58,8 @@ const actions = {
     },
 };
 
+export type Actions = typeof actions;
+
 const globalStore = createStore(initialState, actions);
 const useStore = globalStore.useStore;
 const useStoreProp = globalStore.useStoreProp;

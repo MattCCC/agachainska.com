@@ -113,9 +113,8 @@ export function createStore<S, M extends Mutations<S>>(
             context,
             (v) => (v[0] as Actions<M>)[prop]
         );
-        const setState = useContextSelector(context, (v) => v[1]);
 
-        return [state, actions, setState];
+        return [state, actions];
     }
 
     return { Provider, useStore, useStoreProp } as any;

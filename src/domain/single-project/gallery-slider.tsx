@@ -18,40 +18,43 @@ const Element = styled.div(() => [
     `,
 ]);
 
-export const GallerySlider = memo(
-    ({ images, gap }: { images: ProjectSectionImage[]; gap: number }) => {
-        const mouseoverItemRef = useRef(null);
-        const mouse = useMouse(mouseoverItemRef, {
-            enterDelay: 30,
-            leaveDelay: 30,
+interface Props {
+    images: ProjectSectionImage[];
+    gap: number;
+}
+
+export const GallerySlider = memo(({ images, gap }: Props) => {
+    const mouseoverItemRef = useRef(null);
+    const mouse = useMouse(mouseoverItemRef, {
+        enterDelay: 30,
+        leaveDelay: 30,
+    });
+
+    const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
+
+    useEffect(() => {
+        const isMouseOver = Boolean(mouse.elementWidth);
+
+        showMotionCursor(isMouseOver, {
+            text: "drag",
+            route: "",
+            color: !isMouseOver ? "black" : "melrose",
+            size: 80,
+            overlap: false,
         });
+    }, [mouse.elementWidth, showMotionCursor]);
 
-        const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
-
-        useEffect(() => {
-            const isMouseOver = Boolean(mouse.elementWidth);
-
-            showMotionCursor(isMouseOver, {
-                text: "drag",
-                route: "",
-                color: !isMouseOver ? "black" : "melrose",
-                size: 80,
-                overlap: false,
-            });
-        }, [mouse.elementWidth, showMotionCursor]);
-
-        return (
-            <FullPageContent widthPct={100} border={false}>
-                <SliderWrapper ref={mouseoverItemRef}>
-                    <MotionSlider gap={gap} displayGrabCursor={false}>
-                        {images.map(({ image }, i) => (
-                            <Element key={i}>
-                                <img src={image} alt="" />
-                            </Element>
-                        ))}
-                    </MotionSlider>
-                </SliderWrapper>
-            </FullPageContent>
-        );
-    }
-);
+    return (
+        <FullPageContent widthPct={100} border={false}>
+            <SliderWrapper ref={mouseoverItemRef}>
+                <MotionSlider gap={gap} displayGrabCursor={false}>
+                    {images.map(({ image }, i) => (
+                        <Element key={i}>
+                            <img src={image} alt="" />
+                        </Element>
+                    ))}
+                </MotionSlider>
+            </SliderWrapper>
+        </FullPageContent>
+    );
+});

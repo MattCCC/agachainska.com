@@ -101,6 +101,9 @@ export const DevicesCarousel = memo(
 
                     <Background />
                     <Progress
+                        initial={{
+                            left: `${(100 / numItems) * (x - 1)}%`,
+                        }}
                         animate={{
                             left: `${(100 / numItems) * (x - 1)}%`,
                         }}

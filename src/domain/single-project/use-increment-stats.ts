@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 
-import { useInView } from "react-hook-inview";
+import { useInView } from "framer-motion";
 
 /**
  * Increment stats animation
  */
-export const useIncrementStats = (): [
-    (node: Element | null) => void,
-    boolean
-] => {
+export const useIncrementStats = (): [MutableRefObject<null>, boolean] => {
     const [animateStats, setAnimateStats] = useState(false);
-    const [refStats, isVisible] = useInView();
+    const refStats = useRef(null);
+    const isVisible = useInView(refStats);
 
     useEffect(() => {
         setAnimateStats(isVisible);

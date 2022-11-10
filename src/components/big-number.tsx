@@ -1,4 +1,4 @@
-import { SVGProps, useEffect, useMemo, useState } from "react";
+import { CSSProperties, SVGProps, useEffect, useMemo, useState } from "react";
 
 import useInterval from "@use-it/interval";
 
@@ -9,6 +9,62 @@ interface Props extends SVGProps<SVGSVGElement> {
     animate?: boolean;
     displayOnRight?: boolean;
     viewBox?: string;
+    preserveAspectRatio?: string;
+    style?: CSSProperties;
+}
+
+function SvgWrapper({
+    viewBox,
+    preserveAspectRatio,
+    style,
+    svgId,
+    children,
+    ...props
+}: Partial<Props> & { svgId: number }) {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            viewBox={viewBox}
+            preserveAspectRatio={preserveAspectRatio}
+            style={style}
+            {...props}
+        >
+            <defs>
+                <pattern
+                    id={"pattern-" + svgId}
+                    width="787.894"
+                    height="787.894"
+                    x="-779.765"
+                    y="-787.894"
+                    patternUnits="userSpaceOnUse"
+                >
+                    <use
+                        transform="scale(1.53886)"
+                        xlinkHref={"#shade-" + svgId}
+                    ></use>
+                </pattern>
+                <image
+                    id={"shade-" + svgId}
+                    width="512"
+                    height="512"
+                    xlinkHref={"/img/bg-pattern.png"}
+                ></image>
+            </defs>
+            <g
+                fill="none"
+                fillRule="nonzero"
+                stroke="none"
+                strokeWidth="1"
+                fontFamily="Larsseit-Bold, Larsseit"
+                fontSize="180"
+                fontWeight="bold"
+                letterSpacing="7.714"
+            >
+                {children}
+            </g>
+        </svg>
+    );
 }
 
 export function BigNumber({
@@ -16,6 +72,8 @@ export function BigNumber({
     animate = false,
     displayOnRight = false,
     viewBox = "0 0 213 200",
+    preserveAspectRatio = "xMidYMid",
+    style = {},
     ...props
 }: Props) {
     const [count, setCount] = useState("0");
@@ -31,7 +89,7 @@ export function BigNumber({
             setCount(value > 0 ? "1" : "0");
             setDelay(1000 / Number(value || 1));
         } else {
-            setCount(String(value));
+            setCount(() => String(value));
         }
     }, [animate, value]);
 
@@ -45,7 +103,7 @@ export function BigNumber({
         if (num === value) {
             setDelay(null);
         } else {
-            setCount(String(num + 1));
+            setCount(() => String(num + 1));
         }
     }, delay);
 
@@ -58,68 +116,33 @@ export function BigNumber({
     }
 
     return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
+        <SvgWrapper
             viewBox={viewBox}
+            preserveAspectRatio={preserveAspectRatio}
+            svgId={id}
+            style={style}
             {...props}
         >
-            <defs>
-                <pattern
-                    id={"pattern-" + id}
-                    width="787.894"
-                    height="787.894"
-                    x="-779.765"
-                    y="-787.894"
-                    patternUnits="userSpaceOnUse"
-                >
-                    <use
-                        transform="scale(1.53886)"
-                        xlinkHref={"#shade-" + id}
-                    ></use>
-                </pattern>
-                <image
-                    id={"shade-" + id}
-                    width="512"
-                    height="512"
-                    xlinkHref={"/img/bg-pattern.png"}
-                ></image>
-            </defs>
-            <g
-                fill="none"
-                fillRule="evenodd"
-                stroke="none"
-                strokeWidth="1"
-                fontFamily="Larsseit-Bold, Larsseit"
-                fontSize="180"
-                fontWeight="bold"
-                letterSpacing="7.714"
+            <text
+                fill={`url(#pattern-${id})`}
+                stroke="#000"
+                strokeWidth="1.5"
+                textAnchor={textAnchor}
             >
-                <g fillRule="nonzero">
-                    <g>
-                        <text
-                            fill={`url(#pattern-${id})`}
-                            stroke="#000"
-                            strokeWidth="1.5"
-                            textAnchor={textAnchor}
-                        >
-                            <tspan x={x + 8.129} y="179">
-                                {count}
-                            </tspan>
-                        </text>
-                        <text
-                            fill="#FFF"
-                            stroke="#0B0B0B"
-                            strokeWidth="1.5"
-                            textAnchor={textAnchor}
-                        >
-                            <tspan x={x} y="179">
-                                {count}
-                            </tspan>
-                        </text>
-                    </g>
-                </g>
-            </g>
-        </svg>
+                <tspan x={x + 8.129} y="179">
+                    {count}
+                </tspan>
+            </text>
+            <text
+                fill="#FFF"
+                stroke="#0B0B0B"
+                strokeWidth="1.5"
+                textAnchor={textAnchor}
+            >
+                <tspan x={x} y="179">
+                    {count}
+                </tspan>
+            </text>
+        </SvgWrapper>
     );
 }

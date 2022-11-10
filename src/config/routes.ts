@@ -17,7 +17,7 @@ export interface RouteStruct {
 
 export const defaultRouteMeta = {
     store: {
-        showMotionGrid: true,
+        showMotionGrid: false,
         showFooter: true,
         showLogoOnDesktop: true,
         showWavePattern: true,
@@ -32,6 +32,7 @@ const routesList: RoutesList = {
         path: "/",
         meta: {
             store: {
+                showMotionGrid: true,
                 showLogoOnDesktop: false,
                 showFooter: false,
                 backgroundColor: "",
@@ -56,6 +57,7 @@ const routesList: RoutesList = {
         path: "/thanks/",
         meta: {
             store: {
+                showMotionGrid: true,
                 showFooter: false,
                 showbackgroundColor: false,
                 backgroundColor: "",

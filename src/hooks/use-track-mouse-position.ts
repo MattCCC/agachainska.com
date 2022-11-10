@@ -11,7 +11,7 @@ export const useTrackMousePosition = (): MousePosition => {
 
     useEffect(() => {
         const setMousePosition = (pos: MousePosition): void => {
-            setPosition(pos);
+            setPosition(() => pos);
         };
 
         window.addEventListener("mousemove", setMousePosition);
