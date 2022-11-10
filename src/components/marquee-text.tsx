@@ -1,33 +1,6 @@
-import { Fragment } from "react";
+import { memo } from "react";
 
 import tw, { css, styled } from "twin.macro";
-
-import { Global } from "@emotion/react";
-
-interface Props {
-    text: string;
-}
-
-const GlobalBase = () => (
-    <Global
-        styles={css`
-            @keyframes marqueeEffect {
-                0% {
-                    transform: translate3d(0, 0, 0);
-                }
-                100% {
-                    transform: translate3d(-50%, 0, 0);
-                }
-            }
-        `}
-    />
-);
-
-const TextWrapper = styled.span(() => [
-    css`
-        width: 10000px;
-    `,
-]);
 
 const TextContainer = styled.span(() => [
     tw`inline-block select-none`,
@@ -35,6 +8,15 @@ const TextContainer = styled.span(() => [
         transform: translate3d(0, 0, 0);
         backface-visibility: hidden;
         animation: 20s linear infinite marqueeEffect;
+
+        @keyframes marqueeEffect {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            100% {
+                transform: translate3d(-50%, 0, 0);
+            }
+        }
     `,
 ]);
 
@@ -45,18 +27,11 @@ const Text = styled.span(() => [
     `,
 ]);
 
-export function MarqueeText({ text = "" }: Props) {
-    return (
-        <Fragment>
-            <GlobalBase />
-            <TextWrapper>
-                <TextContainer>
-                    <Text>{text}</Text>
-                    <Text>{text}</Text>
-                    <Text>{text}</Text>
-                    <Text>{text}</Text>
-                </TextContainer>
-            </TextWrapper>
-        </Fragment>
-    );
-}
+export const MarqueeText = memo(({ text = "" }: { text: string }) => (
+    <TextContainer>
+        <Text>{text}</Text>
+        <Text>{text}</Text>
+        <Text>{text}</Text>
+        <Text>{text}</Text>
+    </TextContainer>
+));
