@@ -142,6 +142,7 @@ export const Overlays = memo(
         return (
             <div id="overlays">
                 <LayoutGroup>
+                    <TopOverlay />
                     <motion.div
                         layout
                         className={overlayStyleClasses}
