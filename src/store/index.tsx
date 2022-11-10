@@ -1,7 +1,7 @@
 import { set, createStore, mergeState } from "utils/store";
 
 const initialState = {
-    showMotionGrid: true,
+    showMotionGrid: false,
     isMotionCursorVisible: false,
     showFooter: false,
     showLogoOnDesktop: false,
