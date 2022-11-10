@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect } from "react";
 
 import { useLocation } from "@reach/router";
 
@@ -7,9 +7,9 @@ import { findRouteMeta } from "utils/route";
 
 export const useOnRouteChange = () => {
     const location = useLocation();
-    const [, dispatch] = useStoreProp("showFooter");
+    const [, dispatch] = useStoreProp("currentDelayedRoute");
 
-    useMemo(() => {
+    useEffect(() => {
         setTimeout(() => {
             const newState = findRouteMeta(location.pathname)?.store || {};
 
