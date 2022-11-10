@@ -2,6 +2,12 @@ import { memo } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
+const TextWrapper = styled.div(() => [
+    css`
+        transform: translateZ(0px);
+    `,
+]);
+
 const TextContainer = styled.span(() => [
     tw`inline-block select-none`,
     css`
@@ -28,10 +34,12 @@ const Text = styled.span(() => [
 ]);
 
 export const MarqueeText = memo(({ text = "" }: { text: string }) => (
-    <TextContainer>
-        <Text>{text}</Text>
-        <Text>{text}</Text>
-        <Text>{text}</Text>
-        <Text>{text}</Text>
-    </TextContainer>
+    <TextWrapper>
+        <TextContainer>
+            <Text>{text}</Text>
+            <Text>{text}</Text>
+            <Text>{text}</Text>
+            <Text>{text}</Text>
+        </TextContainer>
+    </TextWrapper>
 ));
