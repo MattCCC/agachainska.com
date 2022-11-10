@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { useMemo } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import type { HeadProps } from "gatsby";
@@ -162,6 +163,32 @@ const NextIconStyled = styled(NextIcon)(() => [
 
 const DeviceMockupWrapper = styled.div(() => [tw`mb-[40px] lg:mb-[80px]`]);
 
+interface StatsProps {
+    stats: ProjectSectionElementStat[];
+    index: number;
+}
+
+function Stats({ stats, index }: StatsProps) {
+    const [refStats, animateStats] = useIncrementStats();
+
+    return (
+        <TableStats ref={refStats}>
+            {stats.map(({ title, stat }, j) => (
+                <SingleStat
+                    key={`stat-${index}-${j}`}
+                    className={j < 3 ? "space" : "big"}
+                >
+                    <CellTitle>
+                        <StyledNumber value={stat} animate={animateStats} />
+                    </CellTitle>
+
+                    <StatsCaption>{title}</StatsCaption>
+                </SingleStat>
+            ))}
+        </TableStats>
+    );
+}
+
 const sectionLoader = (
     elements: ProjectSection["elements"],
     gallerySliderElementsGap: number = 0,
@@ -289,26 +316,9 @@ const sectionLoader = (
                     return <DevicesCarousel key={index} list={list} />;
 
                 case "stats":
-                    const [refStats, animateStats] = useIncrementStats();
-
                     return (
                         <ContentContainer variant="full" key={index}>
-                            <TableStats ref={refStats}>
-                                {stats.map(({ title, stat }, j) => (
-                                    <SingleStat
-                                        key={`stat-${index}-${j}`}
-                                        className={j < 3 ? "space" : "big"}
-                                    >
-                                        <CellTitle>
-                                            <StyledNumber
-                                                value={stat}
-                                                animate={animateStats}
-                                            />
-                                        </CellTitle>
-                                        <StatsCaption>{title}</StatsCaption>
-                                    </SingleStat>
-                                ))}
-                            </TableStats>
+                            <Stats stats={stats} index={index} />
                         </ContentContainer>
                     );
 
@@ -369,12 +379,10 @@ export default function Project({ data }: Props) {
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
 
-    const intersectionRootMargins = ["0px 0px 100% 0px"];
+    const intersectionRootMargins = useMemo(() => ["0px 0px 100% 0px"], []);
 
-    const timelineWithSections = {
-        title: "Design Process",
-        id: "singleProject",
-        items: sections
+    const timelineItems = useMemo(() => {
+        const filteredItems = sections
             .filter(
                 ({ showInTimeline }) =>
                     showInTimeline && showInTimeline === "yes"
@@ -389,13 +397,21 @@ export default function Project({ data }: Props) {
                     id: section.toLowerCase(),
                     title: section,
                 };
-            }),
+            });
+
+        // Last item needs different intersection so to include the footer
+        intersectionRootMargins.pop();
+
+        intersectionRootMargins.push("200% 0px 0px 0px");
+
+        return filteredItems;
+    }, [intersectionRootMargins, sections]);
+
+    const timelineWithSections = {
+        title: "Design Process",
+        id: "singleProject",
+        items: timelineItems,
     };
-
-    // Last item needs different intersection so to include the footer
-    intersectionRootMargins.pop();
-
-    intersectionRootMargins.push("200% 0px 0px 0px");
 
     const intersectionRefs = [] as any[];
 
