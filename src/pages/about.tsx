@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
@@ -204,22 +204,27 @@ export default function About({ data }: PageProps<Props>) {
         ...options,
         rootMargin: "0px 0px 100% 0px",
     });
+
     const refDesignProcess = useInViewEffect(intersection, options);
+
     const refSelectedProjects = useInViewEffect(intersection, {
         ...options,
         rootMargin: "200% 0px 0px 0px",
     });
 
-    const tabsTimeline = aboutPageTimeline.items.map((item) => {
-        const titleArr = item.title.split(" ");
-        const lastWordInTitle = titleArr.length - 1;
-        const titleToDisplayOnMobile = titleArr[lastWordInTitle];
+    const tabsTimeline = useMemo(
+        () =>
+            aboutPageTimeline.items.map((item) => {
+                const titleArr = item.title.split(" ");
+                const lastWordInTitle = titleArr.length - 1;
 
-        return {
-            ...item,
-            title: titleToDisplayOnMobile,
-        };
-    });
+                return {
+                    ...item,
+                    title: titleArr[lastWordInTitle],
+                };
+            }),
+        []
+    );
 
     return (
         <Fragment>
