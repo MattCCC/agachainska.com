@@ -19,8 +19,22 @@ interface ProjectSectionElementCredit {
     text: string;
 }
 
+type ProjectSectionElementText =
+    | "text"
+    | "full-size-image"
+    | "two-images"
+    | "full-page-image"
+    | "slider"
+    | "quote"
+    | "device"
+    | "devices"
+    | "stats"
+    | "credits"
+    | "other-projects";
+
 interface ProjectSectionElement extends ProjectSectionElementDevice {
-    element: string;
+    element: ProjectSectionElementText;
+    title?: string;
     description?: string;
     image?: string;
     quote?: string;
@@ -37,20 +51,27 @@ interface ProjectSection {
     elements: ProjectSectionElement[];
 }
 
+interface ProjectKeyInfo {
+    elements: ProjectKeyInfoElement[];
+}
+
+interface ProjectKeyInfoElement {
+    title: string;
+    text: string;
+}
+
 interface Project {
     uid: number;
     name: string;
     cover: string;
-    subCategory: string;
-    bgColor: string;
+    workPageColor: string;
     starColor: string;
     nameSlug: string;
     category: ProjectCategory;
-    client: string;
-    agency: string;
-    timeframe: string;
-    roleInProject: string;
     shortDescription: string;
     sections: ProjectSection[];
     dribbbleLink?: string;
+    subCategory?: string;
+    timelineTitle?: string;
+    keyInfo?: ProjectKeyInfo;
 }

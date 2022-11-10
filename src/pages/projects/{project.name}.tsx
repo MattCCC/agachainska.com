@@ -39,12 +39,10 @@ import { ReactComponent as PrevIcon } from "svg/down.svg";
 import { ReactComponent as NextIcon } from "svg/up.svg";
 import { includeProps } from "utils/styled";
 
-interface Props extends PageProps {
-    data: {
-        project: Project;
-        projects: {
-            nodes: Project[];
-        };
+interface Props {
+    project: Project;
+    projects: {
+        nodes: Project[];
     };
 }
 interface ContentContainerProps {
@@ -85,17 +83,17 @@ const HeroWrapper = styled.div(() => [
     tw`mb-[70px] h-[200px] sm:h-[320px] md:h-[390px] lg:h-[462px] lg:mb-[90px]`,
 ]);
 
-const TableProject = styled.div(() => [
-    tw`grid max-w-full grid-flow-row grid-cols-1 grid-rows-4 mb-20 lg:grid-cols-2 lg:grid-flow-col`,
+const KeyInfoTable = styled.div(() => [
+    tw`grid max-w-full grid-flow-row grid-cols-1 lg:grid-cols-2`,
     tw`w-[820px] leading-[24px]`,
 ]);
 
-const TableCredits = styled.div(() => [
+const CreditsTable = styled.div(() => [
     tw`grid max-w-full grid-flow-row grid-cols-1 grid-rows-2 lg:grid-cols-3 lg:grid-flow-col`,
     tw`w-[820px] leading-[24px]`,
 ]);
 
-const TableStats = styled.div(() => [
+const StatsTable = styled.div(() => [
     tw`grid max-w-full grid-flow-row grid-cols-1 lg:grid-cols-3 lg:grid-flow-row`,
     tw`w-[820px] leading-[24px]`,
 ]);
@@ -124,9 +122,6 @@ const TimelineWrapper = styled.aside(() => [
     tw`w-[220px] mb-[-254px] mr-[84px] translate-y-[90px]`,
 ]);
 
-/**
- * Images
- */
 const FullSizeImageWrapper = styled.figure(() => [
     tw`overflow-hidden`,
     tw`mb-[90px] lg:h-[546px] lg:w-[820px]`,
@@ -137,15 +132,12 @@ const TwoImagesWrapper = styled.figure(() => [
     tw`mb-[90px] h-[220px] lg:h-[562px] lg:w-[820px]`,
 ]);
 
-/**
- * Pagination
- */
-const Controls = styled.div(() => [
+const PaginationControls = styled.div(() => [
     tw`relative z-10 content-end justify-end hidden ml-auto lg:flex`,
     tw`top-[-70px]`,
 ]);
 
-const Button = styled.button(() => [
+const PaginationButton = styled.button(() => [
     tw`flex-row cursor-pointer select-none lg:prose-16 lg:leading-5`,
     css`
         &:last-child {
@@ -155,7 +147,7 @@ const Button = styled.button(() => [
 ]);
 
 const SeeAllProjectsLinkDesktopContainer = styled.div(() => [
-    tw`flex justify-end -mt-32 mb-32`,
+    tw`flex justify-end mb-32 -mt-32`,
 ]);
 
 const PrevIconStyled = styled(PrevIcon)(() => [
@@ -177,7 +169,7 @@ function Stats({ stats, index }: StatsProps) {
     const [refStats, animateStats] = useIncrementStats();
 
     return (
-        <TableStats ref={refStats}>
+        <StatsTable ref={refStats}>
             {stats.map(({ title, stat }, j) => (
                 <SingleStat
                     key={`stat-${index}-${j}`}
@@ -190,7 +182,7 @@ function Stats({ stats, index }: StatsProps) {
                     <StatsCaption>{title}</StatsCaption>
                 </SingleStat>
             ))}
-        </TableStats>
+        </StatsTable>
     );
 }
 
@@ -203,12 +195,13 @@ const sectionLoader = (
         (
             {
                 element,
+                title = "",
                 description = "",
                 image = "",
-                images = [],
                 quote = "",
                 type = "",
                 link = "",
+                images = [],
                 list = [],
                 content = [],
                 stats = [],
@@ -216,34 +209,10 @@ const sectionLoader = (
             index
         ) => {
             switch (element) {
-                case "overview":
+                case "text":
                     return (
                         <ContentContainer key={index}>
-                            <H3>Overview</H3>
-                            <Paragraph>{description}</Paragraph>
-                        </ContentContainer>
-                    );
-
-                case "project-goals":
-                    return (
-                        <ContentContainer key={index}>
-                            <H3>Project goals</H3>
-                            <Paragraph>{description}</Paragraph>
-                        </ContentContainer>
-                    );
-
-                case "audience":
-                    return (
-                        <ContentContainer key={index}>
-                            <H3>Audience</H3>
-                            <Paragraph>{description}</Paragraph>
-                        </ContentContainer>
-                    );
-
-                case "brand-elements":
-                    return (
-                        <ContentContainer key={index}>
-                            <H3>Brand elements</H3>
+                            <H3>{title}</H3>
                             <Paragraph>{description}</Paragraph>
                         </ContentContainer>
                     );
@@ -330,14 +299,18 @@ const sectionLoader = (
                 case "credits":
                     return (
                         <ContentContainer variant="full" key={index}>
-                            <TableCredits>
-                                {content.map(({ title, text }, j) => (
-                                    <Fragment key={`credits-${index}-${j}`}>
-                                        <CellTitle>{title}</CellTitle>
-                                        <div>{text}</div>
-                                    </Fragment>
-                                ))}
-                            </TableCredits>
+                            <CreditsTable>
+                                {content.map(
+                                    ({ title: creditsTitle, text }, j) => (
+                                        <Fragment key={`credits-${index}-${j}`}>
+                                            <CellTitle>
+                                                {creditsTitle}
+                                            </CellTitle>
+                                            <div>{text}</div>
+                                        </Fragment>
+                                    )
+                                )}
+                            </CreditsTable>
                         </ContentContainer>
                     );
 
@@ -362,16 +335,14 @@ const sectionLoader = (
         }
     );
 
-export default function Project({ data }: Props) {
+export default function Project({ data }: PageProps<Props>) {
     const {
         uid,
         name,
         cover,
-        client,
         category,
-        agency,
-        timeframe,
-        roleInProject,
+        timelineTitle = "",
+        keyInfo,
         sections,
     } = data.project;
 
@@ -415,8 +386,8 @@ export default function Project({ data }: Props) {
         return filteredItems;
     }, [intersectionRootMargins, sections]);
 
-    const timelineWithSections = {
-        title: "Design Process",
+    const timelineSection = {
+        title: timelineTitle || "",
         id: "singleProject",
         items: timelineItems,
     };
@@ -450,53 +421,58 @@ export default function Project({ data }: Props) {
                 <GridRow start={2} end={12}>
                     {(navigation.hasPreviousButton ||
                         navigation.hasNextButton) && (
-                        <Controls>
+                        <PaginationControls>
                             {navigation.hasPreviousButton && (
                                 <Link to={navigation.previousTo}>
-                                    <Button>
+                                    <PaginationButton>
                                         <PrevIconStyled /> Previous
-                                    </Button>
+                                    </PaginationButton>
                                 </Link>
                             )}
                             {navigation.hasNextButton && (
                                 <Link to={navigation.nextTo}>
-                                    <Button>
+                                    <PaginationButton>
                                         Next <NextIconStyled />
-                                    </Button>
+                                    </PaginationButton>
                                 </Link>
                             )}
-                        </Controls>
+                        </PaginationControls>
                     )}
-                    <TableProject>
-                        <CellTitle>Client:</CellTitle>
-                        <div>{client}</div>
-                        <CellTitle>Project timeframe & duration:</CellTitle>
-                        <div>{timeframe}</div>
-                        <CellTitle>Agency:</CellTitle>
-                        <div>{agency}</div>
-                        <CellTitle>My role in the project:</CellTitle>
-                        <div>{roleInProject}</div>
-                    </TableProject>
+
+                    {keyInfo && keyInfo.elements && (
+                        <KeyInfoTable>
+                            {(keyInfo.elements || []).map(({ title, text }) => (
+                                <div tw="mb-4">
+                                    <CellTitle>{title}</CellTitle>
+                                    <div>{text}</div>
+                                </div>
+                            ))}
+                        </KeyInfoTable>
+                    )}
                 </GridRow>
             </MainSection>
 
             <Article>
-                <TimelineWrapper>
-                    <Timeline
-                        style={{ height: "254px" }}
-                        activeItemId={activeItemId}
-                        activeSectionId={timelineWithSections.id}
-                        onTimelineItemChange={onTimelineItemChange}
-                        sections={[timelineWithSections]}
-                    />
-                </TimelineWrapper>
+                {timelineItems.length && (
+                    <Fragment>
+                        <TimelineWrapper>
+                            <Timeline
+                                style={{ height: "254px" }}
+                                activeItemId={activeItemId}
+                                activeSectionId={timelineSection.id}
+                                onTimelineItemChange={onTimelineItemChange}
+                                sections={[timelineSection]}
+                            />
+                        </TimelineWrapper>
 
-                <Tabs
-                    hideForDesktop={true}
-                    onTabChange={onTimelineItemChange}
-                    tabs={timelineWithSections.items}
-                    activeTabId={activeItemId}
-                />
+                        <Tabs
+                            hideForDesktop={true}
+                            onTabChange={onTimelineItemChange}
+                            tabs={timelineItems}
+                            activeTabId={activeItemId}
+                        />
+                    </Fragment>
+                )}
 
                 {sections.map(({ section, elements, showSectionTitle }, i) => {
                     const sectionId = section
@@ -515,11 +491,12 @@ export default function Project({ data }: Props) {
                             ) : (
                                 ""
                             )}
-                            {sectionLoader(
-                                elements,
-                                gallerySliderElementsGap,
-                                projectsByCategory
-                            )}
+                            {elements &&
+                                sectionLoader(
+                                    elements,
+                                    gallerySliderElementsGap,
+                                    projectsByCategory
+                                )}
                         </ArticleSection>
                     );
                 })}

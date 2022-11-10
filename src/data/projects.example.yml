@@ -3,27 +3,41 @@
   subCategory: # either empty or "Others" if project should be shown in "Others" on Work page
   name: RE/MAX
   cover: "/img/projects/image-1.png"
-  client: RE/MAX Malta
-  agency: BRND WGN
-  timeframe: November 2019, 7 days # Project timeframe
-  roleInProject: UI designer
-  shortDescription: "Custom Illustrations for RE/MAX"
+  shortDescription: "Custom Illustrations for RE/MAX" # Short description visible on Work Page (inside of the stars)
+  timelineTitle: "Design Process" # Timeline title on Single Project Page
+  dribbbleLink: "https://dribbble.com/shots/17728344-RE-MAX-Malta-Website"
+  workPageColor: "#FFF9FE" # background color of the Work Page when this particular project is selected
+  starColor: "#C0A4FF" # star color
+  keyInfo:
+    elements:
+      - title: "Client"
+        text: "RE/MAX Malta"
+      - title: "Agency"
+        text: "BRND WGN"
+      - title: "Project timeframe & duration"
+        text: "November 2019, 7 days"
+      - title: "My role in the project"
+        text: "UI designer"
   sections:
     - section: "discover"
       showInTimeline: "yes" # whether to show the section in the timeline on Single Project page
       showSectionTitle: "yes" # whether to display section title on Single Project page
       elements:
-        - element: "overview"
+        - element: "text"
+          title: "Overview"
           description: "Example Overview description text."
-        - element: "project-goals"
+        - element: "text"
+          title: "Project goals"
           description: "Example Project goals description text."
-        - element: "audience"
+        - element: "text"
+          title: "Audience"
           description: "Example Audience description text."
     - section: "define"
       showInTimeline: "yes"
       showSectionTitle: "yes"
       elements:
-        - element: "brand-elements"
+        - element: "text"
+          title: "Brand elements"
           description: "RE/MAX’s brand elements such as logo are implemented across the website. Colours and fonts are aligned with the brand guidelines."
         - element: "full-size-image"
           image: "/img/placeholder-full.png"

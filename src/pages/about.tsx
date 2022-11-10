@@ -188,12 +188,10 @@ const SelectedProjectsContainer = styled.div(() => [
     tw`lg:col-start-1 lg:col-end-11 lg:ml-2 lg:mt-10 cursor-none!`,
 ]);
 
-interface Props extends PageProps {
-    data: {
-        aboutPageData: AboutPageData;
-        projects: {
-            nodes: Project[];
-        };
+interface Props {
+    aboutPageData: AboutPageData;
+    projects: {
+        nodes: Project[];
     };
 }
 
@@ -207,7 +205,7 @@ const aboutPageTimeline = {
     ],
 };
 
-export default function About({ data }: Props) {
+export default function About({ data }: PageProps<Props>) {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
     const { hero, expertise, designProcess } = data.aboutPageData;

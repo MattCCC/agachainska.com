@@ -5,22 +5,26 @@ export const ProjectFragment = graphql`
         uid
         category
         subCategory
-        bgColor
+        workPageColor
         starColor
         name
         cover
-        client
-        agency
-        timeframe
-        roleInProject
         shortDescription
+        timelineTitle
         dribbbleLink
+        keyInfo {
+            elements {
+                title
+                text
+            }
+        }
         sections {
             section
             showInTimeline
             showSectionTitle
             elements {
                 element
+                title
                 description
                 image
                 quote
