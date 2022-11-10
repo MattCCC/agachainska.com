@@ -1,7 +1,5 @@
 import tw, { css, styled } from "twin.macro";
 
-import { up } from "utils/screens";
-
 interface Item {
     name: string;
     url: string;
@@ -29,13 +27,7 @@ const ListItem = styled.a(({ variant }: Props) => [
             width: 61px;
         `,
     variant === "big" && tw`prose-24`,
-    css`
-        margin: 0 20px;
-
-        ${up("lg")} {
-            margin: 0 10px;
-        }
-    `,
+    tw`m-[0_20px] lg:m-[0_10px]`,
     tw`transition-all hover:bg-white hover:text-black`,
 ]);
 
