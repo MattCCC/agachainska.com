@@ -1,5 +1,6 @@
 import { selectedProjectsUids } from "data/selected-projects";
 
+import SeeAllProjectsLink from "./see-all-projects-link";
 import { ProjectsList, SingleProject } from "./single-project";
 
 interface Props {
@@ -28,6 +29,7 @@ export default function SelectedProjects({ projects }: Props) {
                     />
                 )
             )}
+            <SeeAllProjectsLink screenSize="sm" />
         </ProjectsList>
     );
 }

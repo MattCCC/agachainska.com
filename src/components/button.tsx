@@ -8,7 +8,7 @@ const CustomButton = styled.button(() => [
     tw`relative select-none bg-tertiary`,
     css`
         span {
-            ${tw`relative z-10 block w-full h-full border border-white border-solid bg-tertiary`}
+            ${tw`relative z-10 inline-block w-full h-full border border-white border-solid bg-tertiary`}
 
             padding-left: 25px;
             padding-right: 25px;

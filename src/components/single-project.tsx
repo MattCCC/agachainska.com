@@ -24,11 +24,9 @@ interface BadgeProps {
 }
 
 export const ProjectsList = styled.ol(() => [
-    tw`grid max-w-full grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-flow-col gap-x-20 gap-y-8`,
+    tw`grid max-w-full mb-20 leading-6 grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-flow-col gap-x-20 gap-y-8`,
     css`
         grid-template-rows: repeat(3, minmax(0, max-content));
-        line-height: 24px;
-        margin-bottom: 80px;
     `,
 ]);
 

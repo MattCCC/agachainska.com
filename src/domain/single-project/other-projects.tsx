@@ -1,5 +1,6 @@
 import { memo } from "react";
 
+import SeeAllProjectsLink from "components/see-all-projects-link";
 import { SingleProject, ProjectsList } from "components/single-project";
 import { ProjectsByCategory } from "hooks/use-projects-by-category";
 
@@ -28,6 +29,7 @@ export const OtherProjects = memo(
                         />
                     )
                 )}
+            <SeeAllProjectsLink screenSize="sm" />
         </ProjectsList>
     ),
     (prev, next) =>
