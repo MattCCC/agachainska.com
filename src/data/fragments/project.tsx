@@ -5,7 +5,7 @@ export const ProjectFragment = graphql`
         uid
         category
         subCategory
-        pageBackgroundColor
+        workPageColor
         starColor
         name
         cover

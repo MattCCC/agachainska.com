@@ -151,7 +151,7 @@ const Work = memo(({ data }: PageProps<Props>) => {
                         id: `others${category}`,
                         routeTo: "",
                         uid: 99999,
-                        pageBackgroundColor: "",
+                        workPageColor: "",
                         title: "Others",
                         name: "Others",
                         cover: "",
@@ -216,7 +216,7 @@ const Work = memo(({ data }: PageProps<Props>) => {
                         (section) => section.category === state.activeSectionId
                     )?.items || []
                 ).at(Number(state.activeItemId)) || {}
-            ).pageBackgroundColor || "#FFF",
+            ).workPageColor || "#FFF",
         [timelineList, state.activeItemId, state.activeSectionId]
     );
 
@@ -310,7 +310,7 @@ const Work = memo(({ data }: PageProps<Props>) => {
             }
 
             dispatchbackgroundColor.replaceInState({
-                backgroundColor: currentItem.pageBackgroundColor,
+                backgroundColor: currentItem.workPageColor,
             });
 
             const newSliderIndex = sliderItems.findIndex(

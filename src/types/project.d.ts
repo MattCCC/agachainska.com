@@ -64,7 +64,7 @@ interface Project {
     uid: number;
     name: string;
     cover: string;
-    pageBackgroundColor: string;
+    workPageColor: string;
     starColor: string;
     nameSlug: string;
     category: ProjectCategory;

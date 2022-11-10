@@ -6,7 +6,7 @@
   shortDescription: "Custom Illustrations for RE/MAX" # Short description visible on Work Page (inside of the stars)
   timelineTitle: "Design Process" # Timeline title on Single Project Page
   dribbbleLink: "https://dribbble.com/shots/17728344-RE-MAX-Malta-Website"
-  pageBackgroundColor: "#FFF9FE" # background color of the Work Page when this particular project is selected
+  workPageColor: "#FFF9FE" # background color of the Work Page when this particular project is selected
   starColor: "#C0A4FF" # star color
   keyInfo:
     elements:

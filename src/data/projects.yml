@@ -1,7 +1,7 @@
 - uid: 1
   category: UX/UI
   subCategory:
-  pageBackgroundColor: "#fff"
+  workPageColor: "#fff"
   starColor: "#F5A4FF"
   name: RE/MAX
   cover: "/img/projects/image-1.png"
@@ -103,7 +103,7 @@
 - uid: 2
   category: UX/UI
   subCategory:
-  pageBackgroundColor: "#fff"
+  workPageColor: "#fff"
   starColor: "#F5A4FF"
   name: Danish Bakery
   cover: "/img/projects/image-2.jpg"
@@ -192,7 +192,7 @@
 - uid: 3
   category: Illustrations
   subCategory:
-  pageBackgroundColor: "#FFF9FE"
+  workPageColor: "#FFF9FE"
   starColor: "#C0A4FF"
   name: Twitch
   cover: "/img/projects/placeholder-1.png"
@@ -281,7 +281,7 @@
 - uid: 4
   category: Illustrations
   subCategory: Others
-  pageBackgroundColor: "#FFF9FE"
+  workPageColor: "#FFF9FE"
   starColor: "#C0A4FF"
   name: RE/MAX
   cover: "/img/projects/image-1.png"
@@ -371,7 +371,7 @@
 - uid: 5
   category: Illustrations
   subCategory: Others
-  pageBackgroundColor: "#FFF9FE"
+  workPageColor: "#FFF9FE"
   starColor: "#C0A4FF"
   name: YELLOW WEBSITE
   cover: "/img/projects/image-2.jpg"
@@ -461,7 +461,7 @@
 - uid: 6
   category: Illustrations
   subCategory: Others
-  pageBackgroundColor: "#FFF9FE"
+  workPageColor: "#FFF9FE"
   starColor: "#C0A4FF"
   name: VELLOW WEBSITE
   cover: "/img/projects/placeholder-1.png"
@@ -551,7 +551,7 @@
 - uid: 7
   category: Illustrations
   subCategory: Others
-  pageBackgroundColor: "#FFF9FE"
+  workPageColor: "#FFF9FE"
   starColor: "#C0A4FF"
   name: WELLOW WEBSITE
   cover: "/img/projects/image-1.png"
@@ -641,7 +641,7 @@
 - uid: 8
   category: UX/UI
   subCategory: Others
-  pageBackgroundColor: "#fff"
+  workPageColor: "#fff"
   starColor: "#F5A4FF"
   name: Addidas
   cover: "/img/projects/image-2.jpg"
@@ -731,7 +731,7 @@
 - uid: 9
   category: UX/UI
   subCategory: Others
-  pageBackgroundColor: "#fff"
+  workPageColor: "#fff"
   starColor: "#F5A4FF"
   name: Nike
   cover: "/img/projects/placeholder-1.png"
@@ -821,7 +821,7 @@
 - uid: 10
   category: UX/UI
   subCategory: Others
-  pageBackgroundColor: "#fff"
+  workPageColor: "#fff"
   starColor: "#F5A4FF"
   name: Pepsi
   cover: "/img/projects/image-1.png"
@@ -910,7 +910,7 @@
 - uid: 11
   category: UX/UI
   subCategory: Others
-  pageBackgroundColor: "#fff"
+  workPageColor: "#fff"
   starColor: "#F5A4FF"
   name: Topshop
   cover: "/img/projects/image-2.jpg"
