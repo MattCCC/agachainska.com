@@ -21,7 +21,7 @@ export const pageOverlayTopVariants = {
     },
     enter: {
         height: 0,
-        transition: { ...transition, delay: 0.3 },
+        transition: { ...transition, delay: 0.4 },
     },
     exit: {
         height: 0,
