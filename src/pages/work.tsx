@@ -48,11 +48,9 @@ interface TimelineItem {
     shortDescription: string;
 }
 
-interface Props extends PageProps {
-    data: {
-        projects: {
-            nodes: Project[];
-        };
+interface Props {
+    projects: {
+        nodes: Project[];
     };
 }
 
@@ -101,7 +99,7 @@ const StyledStar = styled(Star)(() => [
 let isPageTop = false;
 let isPageBottom = false;
 
-const Work = memo(({ data }: Props) => {
+const Work = memo(({ data }: PageProps<Props>) => {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
 
@@ -153,7 +151,7 @@ const Work = memo(({ data }: Props) => {
                         id: `others${category}`,
                         routeTo: "",
                         uid: 99999,
-                        bgColor: "",
+                        pageBackgroundColor: "",
                         title: "Others",
                         name: "Others",
                         cover: "",
@@ -161,10 +159,6 @@ const Work = memo(({ data }: Props) => {
                         nameSlug: "",
                         category,
                         starColor: "",
-                        client: "",
-                        agency: "",
-                        timeframe: "",
-                        roleInProject: "",
                         shortDescription: "",
                         sections: [],
                     });
@@ -222,7 +216,7 @@ const Work = memo(({ data }: Props) => {
                         (section) => section.category === state.activeSectionId
                     )?.items || []
                 ).at(Number(state.activeItemId)) || {}
-            ).bgColor || "#FFF",
+            ).pageBackgroundColor || "#FFF",
         [timelineList, state.activeItemId, state.activeSectionId]
     );
 
@@ -316,7 +310,7 @@ const Work = memo(({ data }: Props) => {
             }
 
             dispatchbackgroundColor.replaceInState({
-                backgroundColor: currentItem.bgColor,
+                backgroundColor: currentItem.pageBackgroundColor,
             });
 
             const newSliderIndex = sliderItems.findIndex(
