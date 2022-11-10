@@ -17,11 +17,11 @@ export const backgroundColors = ["#F5A4FF", "#C0A4FF", "#61F1F8"];
 export const pageOverlayTopVariants = {
     initial: {
         height: "100vh",
-        transition: { ...transition, duration: 0 },
+        transition: { ...transition, duration: 0.1 },
     },
     enter: {
         height: 0,
-        transition: { ...transition, delay: 0.4 },
+        transition: { ...transition },
     },
     exit: {
         height: 0,
