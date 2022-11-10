@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect } from "react";
 
 import { motion, LayoutGroup, useAnimation } from "components/animation";
 import { useStoreProp } from "store/index";
@@ -67,7 +67,7 @@ const OverlayVariants = {
     end: { y: "100%", transition },
     enter: {
         y: "-100%",
-        transition: { ...transition, duration },
+        transition,
     },
 };
 
@@ -113,7 +113,6 @@ export const TopOverlay = () => (
 export const Overlays = memo(
     () => {
         const [currentDelayedRoute] = useStoreProp("currentDelayedRoute");
-        const [palette, setPalette] = useState([] as string[]);
         const multiOverlays = !currentDelayedRoute;
         const animationControls = useAnimation();
         const motionProps = {
@@ -125,7 +124,7 @@ export const Overlays = memo(
         // Orchestrate animation when switching the route
         useEffect(() => {
             if (multiOverlays) {
-                (async (): Promise<void> => {
+                (async () => {
                     await animationControls.start((variant) => {
                         if (variant.duration) {
                             variant.enter.transition.duration =
@@ -139,11 +138,6 @@ export const Overlays = memo(
                 })();
             }
         }, [animationControls, multiOverlays]);
-
-        // Multiple background colors
-        useEffect(() => {
-            setPalette(backgroundColors);
-        }, [setPalette]);
 
         return (
             <div id="overlays">
@@ -161,35 +155,37 @@ export const Overlays = memo(
                         <motion.div
                             {...motionProps}
                             style={{
-                                backgroundColor: palette[0],
+                                backgroundColor: backgroundColors[0],
                                 zIndex: 1030,
                             }}
                             custom={{
                                 id: 1,
+                                duration,
                                 ...OverlayVariants,
                             }}
+                            variants={OverlayVariants}
                         />
                         <motion.div
                             {...motionProps}
                             style={{
-                                backgroundColor: palette[1],
+                                backgroundColor: backgroundColors[1],
                                 zIndex: 1020,
                             }}
                             custom={{
                                 id: 2,
-                                duration: duration / 2,
+                                duration: duration * 0.66,
                                 ...OverlayVariants,
                             }}
                         />
                         <motion.div
                             {...motionProps}
                             style={{
-                                backgroundColor: palette[2],
+                                backgroundColor: backgroundColors[2],
                                 zIndex: 1010,
                             }}
                             custom={{
                                 id: 3,
-                                duration: duration / 3,
+                                duration: duration * 0.5,
                                 ...OverlayVariants,
                             }}
                         />
