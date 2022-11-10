@@ -17,7 +17,7 @@ const initialState = {
         overlap: true,
         projectCover: "",
     },
-    showWavePattern: true,
+    showWavePattern: false,
     currentDelayedRoute: "",
 };
 
