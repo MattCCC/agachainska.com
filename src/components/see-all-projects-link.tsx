@@ -4,6 +4,7 @@ import tw, { css, styled } from "twin.macro";
 import { useLocation } from "@reach/router";
 
 import { getLinkProps } from "utils/route";
+import { excludeProps } from "utils/styled";
 
 import { Button } from "./button";
 import { Translate } from "./translate";
@@ -15,7 +16,7 @@ interface Props {
 const SeeAllProjectsBtn = styled(Button)(() => [
     css`
         span {
-            ${tw`bg-primary text-tertiary border-none`}
+            ${tw`border-none bg-primary text-tertiary`}
         }
 
         div {
@@ -29,30 +30,25 @@ const SeeAllProjectsBtn = styled(Button)(() => [
     `,
 ]);
 
-const SeeAllProjectsLinkMobile = styled(Link)(() => [tw`inline lg:hidden`]);
-
-const SeeAllProjectsLinkDesktop = styled(Link)(() => [
-    tw`hidden col-start-13 self-end lg:inline`,
+const SeeAllProjectsLinkContainer = styled(
+    Link,
+    excludeProps(["screenSize"])
+)(({ screenSize }: Props) => [
+    screenSize === "sm" && tw`inline lg:hidden`,
+    screenSize === "lg" && tw`self-end hidden col-start-13 lg:inline`,
 ]);
 
 export default function SeeAllProjectsLink({ screenSize }: Props) {
     const location = useLocation();
 
-    if (screenSize === "sm") {
-        return (
-            <SeeAllProjectsLinkMobile {...getLinkProps("work", location)}>
-                <SeeAllProjectsBtn as="span">
-                    <Translate id="seeAllProjects" />
-                </SeeAllProjectsBtn>
-            </SeeAllProjectsLinkMobile>
-        );
-    }
-
     return (
-        <SeeAllProjectsLinkDesktop {...getLinkProps("work", location)}>
+        <SeeAllProjectsLinkContainer
+            {...getLinkProps("work", location)}
+            screenSize={screenSize}
+        >
             <SeeAllProjectsBtn as="span">
                 <Translate id="seeAllProjects" />
             </SeeAllProjectsBtn>
-        </SeeAllProjectsLinkDesktop>
+        </SeeAllProjectsLinkContainer>
     );
 }
