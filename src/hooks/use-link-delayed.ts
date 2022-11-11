@@ -2,8 +2,6 @@ import { useCallback, useEffect, useRef } from "react";
 
 import { navigate } from "gatsby";
 
-import { isDev } from "utils/detect-env";
-
 export type LinkDelayedCallback = (
     e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
     to?: string
@@ -51,11 +49,6 @@ export const useLinkDelayed = ({
 
             // If trying to navigate to current page stop everything
             if (location?.pathname === goTo) {
-                if (isDev()) {
-                    // eslint-disable-next-line no-console
-                    console.warn("Trying to navigate to the same location.");
-                }
-
                 return;
             }
 

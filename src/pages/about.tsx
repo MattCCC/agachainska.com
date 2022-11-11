@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
@@ -20,7 +20,7 @@ import { useWindowSize } from "hooks/use-window-size";
 import { up } from "utils/screens";
 
 const HeroSection = styled.section(() => [
-    tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-screen`,
+    tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-[max(600px,100vh)]`,
     css`
         margin-top: 110px;
     `,
@@ -40,24 +40,10 @@ const AboutStyle = styled.h2(() => [
 ]);
 
 const SocialMediaLinksCon = styled.div(() => [
+    tw`mt-[32px] lg:mt-0`,
     css`
-        margin-top: 32px;
         a {
-            color: #000;
-            border: 1px solid #000;
-
-            &:first-of-type {
-                margin-left: 0;
-            }
-
-            &:hover {
-                background: #000;
-                color: #fff;
-            }
-        }
-
-        ${up("lg")} {
-            margin-top: 0;
+            ${tw`text-black border border-black border-solid first-of-type:ml-0 hover:bg-black hover:text-white`}
         }
     `,
 ]);
@@ -218,22 +204,27 @@ export default function About({ data }: PageProps<Props>) {
         ...options,
         rootMargin: "0px 0px 100% 0px",
     });
+
     const refDesignProcess = useInViewEffect(intersection, options);
+
     const refSelectedProjects = useInViewEffect(intersection, {
         ...options,
         rootMargin: "200% 0px 0px 0px",
     });
 
-    const tabsTimeline = aboutPageTimeline.items.map((item) => {
-        const titleArr = item.title.split(" ");
-        const lastWordInTitle = titleArr.length - 1;
-        const titleToDisplayOnMobile = titleArr[lastWordInTitle];
+    const tabsTimeline = useMemo(
+        () =>
+            aboutPageTimeline.items.map((item) => {
+                const titleArr = item.title.split(" ");
+                const lastWordInTitle = titleArr.length - 1;
 
-        return {
-            ...item,
-            title: titleToDisplayOnMobile,
-        };
-    });
+                return {
+                    ...item,
+                    title: titleArr[lastWordInTitle],
+                };
+            }),
+        []
+    );
 
     return (
         <Fragment>
