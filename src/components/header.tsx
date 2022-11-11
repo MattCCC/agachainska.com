@@ -11,11 +11,11 @@ import { getLinkProps, LinkProps } from "utils/route";
 import { up } from "utils/screens";
 
 const HeaderWrapper = styled.header(() => [
-    tw`absolute top-0 z-50 flex flex-wrap items-center justify-between mx-auto max-w-screen-2xl`,
+    tw`absolute top-0 z-50 flex flex-wrap items-center justify-between mx-auto max-w-screen-2xl pb-[15px] px-0`,
     css`
         left: 15px;
         right: 15px;
-        padding: 15px 0;
+        padding-top: calc(env(safe-area-inset-top) + 15px);
     `,
 ]);
 
