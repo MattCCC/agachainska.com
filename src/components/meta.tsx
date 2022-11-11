@@ -34,6 +34,10 @@ export const Meta = memo(
                 <title>{seo.title}</title>
                 <meta name="description" content={seo.description} />
                 <meta name="image" content={seo.image} />
+                <meta
+                    name="viewport"
+                    content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+                />
 
                 {seo.url && <meta property="og:url" content={seo.url} />}
 
