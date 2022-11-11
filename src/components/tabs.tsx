@@ -43,7 +43,7 @@ const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
 
 const TabsListContainer = styled.div(
     ({ isIntersecting = false }: PropsTabContainer) => [
-        tw`relative h-8 `,
+        tw`relative h-8`,
         css`
             width: calc(100vw - 32px);
         `,
