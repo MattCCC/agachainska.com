@@ -390,7 +390,7 @@ export default function Project({ data }: PageProps<Props>) {
             (margin: string) => margin !== ""
         );
 
-        intersectionRootMargins[lastNonEmptyIndex] = "0px 0px -1000px 0px";
+        intersectionRootMargins[lastNonEmptyIndex] = "200% 0px 0px 0px";
 
         return filteredItems;
     }, [intersectionRootMargins, sections]);
