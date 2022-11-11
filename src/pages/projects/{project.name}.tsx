@@ -119,7 +119,7 @@ const ArticleSection = styled.section(() => [
 
 const TimelineWrapper = styled.aside(() => [
     tw`sticky top-0 right-0 z-20 hidden ml-auto lg:block lg:col-start-11`,
-    tw`w-[220px] mb-[-254px] mr-[84px] translate-y-[90px]`,
+    tw`w-[220px] mr-[84px] translate-y-[90px]`,
 ]);
 
 const FullSizeImageWrapper = styled.figure(() => [
@@ -455,9 +455,16 @@ export default function Project({ data }: PageProps<Props>) {
             <Article>
                 {timelineItems.length && (
                     <Fragment>
-                        <TimelineWrapper>
+                        <TimelineWrapper
+                            style={{
+                                marginBottom:
+                                    "-" + 84.66 * timelineItems.length + "px",
+                            }}
+                        >
                             <Timeline
-                                style={{ height: "254px" }}
+                                style={{
+                                    height: 84.66 * timelineItems.length + "px",
+                                }}
                                 activeItemId={activeItemId}
                                 activeSectionId={timelineSection.id}
                                 onTimelineItemChange={onTimelineItemChange}

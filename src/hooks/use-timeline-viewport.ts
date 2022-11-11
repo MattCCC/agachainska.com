@@ -9,7 +9,9 @@ const options: IntersectionObserverInit = {
 };
 
 /**
- * Use Timeline Within viewport
+ * Use Timeline Viewport
+ * It creates an intersection callback that considers multiple elements
+ * being observed and chooses one that is most visible on the screen
  */
 export const useTimelineViewport = (): [
     string,
@@ -37,9 +39,6 @@ export const useTimelineViewport = (): [
         []
     );
 
-    /**
-     * This intersection callback considers multiple elements being observed
-     */
     const intersection: IntersectionObserverCallback = useCallback(
         ([
             { intersectionRatio, isIntersecting, target, boundingClientRect },

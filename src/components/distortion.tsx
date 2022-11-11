@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 
 /**
  * Apply distortion to a provided image
@@ -14,8 +14,14 @@ export const Distortion = memo(
         imgUrl: string;
         scale?: number;
     }) => {
-        const restProps = Object.fromEntries(
-            Object.entries(rest).filter(([key]) => !key.includes("layoutId"))
+        const restProps = useMemo(
+            () =>
+                Object.fromEntries(
+                    Object.entries(rest).filter(
+                        ([key]) => !key.includes("layoutId")
+                    )
+                ),
+            [rest]
         );
 
         return (
