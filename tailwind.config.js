@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 require("dotenv").config({
     path: `.env.${process.env.NODE_ENV}`,
 });
@@ -199,18 +200,19 @@ module.exports = {
             },
         },
         screens: {
-            sm: "640px",
-            md: "768px",
-            lg: "1024px",
-            xl: "1240px",
+            "sm": "640px",
+            "md": "768px",
+            "lg": "1024px",
+            "xl": "1240px",
             "2xl": "1240px",
+            "standalone": { raw: "(display-mode: standalone)" },
         },
         container: {
             padding: {
-                DEFAULT: "15px",
-                sm: "15px",
-                lg: "0",
-                xl: "0",
+                "DEFAULT": "15px",
+                "sm": "15px",
+                "lg": "0",
+                "xl": "0",
                 "2xl": "0",
             },
         },

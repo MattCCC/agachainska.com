@@ -12,9 +12,9 @@ export const transition = {
     ease: [0.43, 0.13, 0.23, 0.96],
 };
 
-export const backgroundColors = ["#F5A4FF", "#C0A4FF", "#61F1F8"];
+const backgroundColors = ["#F5A4FF", "#C0A4FF", "#61F1F8"];
 
-export const pageOverlayTopVariants = {
+const pageOverlayTopVariants = {
     initial: {
         height: "100vh",
         transition: { ...transition, duration: 0.1 },
