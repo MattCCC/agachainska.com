@@ -7,6 +7,7 @@ import {
     memo,
     HTMLAttributes,
 } from "react";
+import { useMemo } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -91,17 +92,6 @@ export const Timeline = memo(
     }: Props) => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
         const sectionTitleRef = useRef() as RefObject<HTMLDivElement>;
-        const availableSections: Section[] = sections.filter(
-            (section) => section?.items && section?.items?.length > 0
-        );
-        const allItems = availableSections.reduce(
-            (items: Item[], currentValue: Section) => {
-                items = [...items, ...(currentValue.items || [])];
-
-                return items;
-            },
-            []
-        );
 
         const { height: wrapperHeight } = useElementSize(wrapperRef);
         const { height: sectionTitleHeight } = useElementSize(sectionTitleRef);
@@ -110,6 +100,27 @@ export const Timeline = memo(
             wrapperHeight - sectionTitleHeight * sections.length;
         const contentListHeight =
             activeListHeight > 0 ? activeListHeight - 50 : 0;
+
+        const availableSections: Section[] = useMemo(
+            () =>
+                sections.filter(
+                    (section) => section?.items && section?.items?.length > 0
+                ),
+            [sections]
+        );
+
+        const allItems = useMemo(
+            () =>
+                availableSections.reduce(
+                    (items: Item[], currentValue: Section) => {
+                        items = [...items, ...(currentValue.items || [])];
+
+                        return items;
+                    },
+                    []
+                ),
+            [availableSections]
+        );
 
         const [state, setState] = useState({
             activeSectionId: activeSectionId || availableSections[0]?.id || "",
