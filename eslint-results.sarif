@@ -1,0 +1,741 @@
+{
+  "version": "2.1.0",
+  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.5",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "ESLint",
+          "informationUri": "https://eslint.org",
+          "rules": [
+            {
+              "id": "no-shadow",
+              "helpUri": "https://eslint.org/docs/rules/no-shadow",
+              "properties": {},
+              "shortDescription": {
+                "text": "Disallow variable declarations from shadowing variables declared in the outer scope"
+              }
+            },
+            {
+              "id": "max-len",
+              "helpUri": "https://eslint.org/docs/rules/max-len",
+              "properties": {},
+              "shortDescription": {
+                "text": "Enforce a maximum line length"
+              }
+            },
+            {
+              "id": "space-before-function-paren",
+              "helpUri": "https://eslint.org/docs/rules/space-before-function-paren",
+              "properties": {},
+              "shortDescription": {
+                "text": "Enforce consistent spacing before `function` definition opening parenthesis"
+              }
+            },
+            {
+              "id": "no-console",
+              "helpUri": "https://eslint.org/docs/rules/no-console",
+              "properties": {},
+              "shortDescription": {
+                "text": "Disallow the use of `console`"
+              }
+            },
+            {
+              "id": "react-hooks/rules-of-hooks",
+              "helpUri": "https://reactjs.org/docs/hooks-rules.html",
+              "properties": {},
+              "shortDescription": {
+                "text": "enforces the Rules of Hooks"
+              }
+            }
+          ],
+          "version": "8.27.0"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/404.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/about-parallax-background.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/animation.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/background-noise.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/background.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/big-number.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/bottom-circle.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/button.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/circle.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/count-down.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/device-mockup.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/devices-carousel.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/distortion.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/footer/contact.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/footer/index.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/full-page-content.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/full-page-overlay.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/h2.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/h3.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/h4.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/header.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/homepage-title.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/link.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/logo.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/main-container.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/main-section.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/main-title.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/marquee-text.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/meta.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/motion-cursor.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/motion-slider/context.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/motion-slider/index.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/motion-slider/item.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/motion-slider/reducers.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/motion-slider/track.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/other-project.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/other-projects.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/overlays.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/parallax-background.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/personal-pic.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/post.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/quote.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/see-all-projects-link.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/selected-projects.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/single-project.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/slider.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/smooth-scroll/index.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/social-media.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/star.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/tabs.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/text-textarea.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/timeline.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/translate.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/view-on-desktop-star.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/config/routes.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/data/fragments/aboutSections.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/data/fragments/project.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/data/selected-projects.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/data/social-media.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/domain/single-project/gallery-slider.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/domain/single-project/other-projects.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/domain/single-project/use-increment-stats.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/domain/single-project/use-pagination.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-element-size.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-event-listener.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-link-delayed.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-lock-body-scroll.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-navigation.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-on-route-change.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-previous-context.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-projects-by-category.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-ref-array.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-site-metadata.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-throttle.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-timeline-viewport.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-track-mouse-position.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-window-size.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/layouts/default.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/pages/404.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/pages/about.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/pages/contact.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/pages/index.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/pages/projects/[name].tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/pages/projects/%7Bproject.name%7D.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/pages/thanks.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/pages/work.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/store/index.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/types/aboutPageSections.d.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/types/index.d.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/types/project.d.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/types/twin.d.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/detect-env.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/group-by.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/is-image-url.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/motion-grid.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/mouse-position.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/random-number.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/route.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/screens.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/scroll-to.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/set-scroll-behavior.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/store.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/styled.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/threshold-array.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/translate-text.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/mateusz/Development/agachainska.com/src/utils/window-size.ts"
+          }
+        }
+      ],
+      "results": [
+        {
+          "level": "error",
+          "message": {
+            "text": "'ActionTypes' is already declared in the upper scope on line 18 column 13."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/motion-slider/reducers.ts",
+                  "index": 33
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 13,
+                  "endLine": 18,
+                  "endColumn": 24
+                }
+              }
+            }
+          ],
+          "ruleId": "no-shadow",
+          "ruleIndex": 0,
+          "suppressions": [
+            {
+              "kind": "inSource",
+              "justification": ""
+            }
+          ]
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "This line has a length of 2812. Maximum allowed is 170."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/star.tsx",
+                  "index": 48
+                },
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 1,
+                  "endLine": 42,
+                  "endColumn": 2813
+                }
+              }
+            }
+          ],
+          "ruleId": "max-len",
+          "ruleIndex": 1,
+          "suppressions": [
+            {
+              "kind": "inSource",
+              "justification": ""
+            }
+          ]
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Unexpected space before function parentheses."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/mateusz/Development/agachainska.com/src/components/tabs.tsx",
+                  "index": 49
+                },
+                "region": {
+                  "startLine": 135,
+                  "startColumn": 28,
+                  "endLine": 135,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "ruleId": "space-before-function-paren",
+          "ruleIndex": 2,
+          "suppressions": [
+            {
+              "kind": "inSource",
+              "justification": ""
+            }
+          ]
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Unexpected console statement."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/mateusz/Development/agachainska.com/src/hooks/use-link-delayed.ts",
+                  "index": 65
+                },
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 21,
+                  "endLine": 56,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "ruleId": "no-console",
+          "ruleIndex": 3,
+          "suppressions": [
+            {
+              "kind": "inSource",
+              "justification": ""
+            }
+          ]
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "React Hook \"useInViewEffect\" may be executed more than once. Possibly because it is called in a loop. React Hooks must be called in the exact same order in every component render."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/mateusz/Development/agachainska.com/src/pages/projects/%7Bproject.name%7D.tsx",
+                  "index": 83
+                },
+                "region": {
+                  "startLine": 400,
+                  "startColumn": 13,
+                  "endLine": 400,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "ruleId": "react-hooks/rules-of-hooks",
+          "ruleIndex": 4,
+          "suppressions": [
+            {
+              "kind": "inSource",
+              "justification": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

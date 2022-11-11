@@ -10,7 +10,6 @@
     "build": "gatsby build",
     "format": "npm run lint --fix && prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "lint": "eslint --ext .tsx,.ts,.js,.jsx ./src",
-    "lint-sarif": "npm run lint -- --format @microsoft/eslint-formatter-sarif",
     "start": "npm run dev",
     "serve": "gatsby serve",
     "clean": "gatsby clean",

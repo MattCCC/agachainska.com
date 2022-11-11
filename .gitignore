@@ -66,4 +66,3 @@ public
 .git
 !.vscode
 /out
-eslint-results.sarif
