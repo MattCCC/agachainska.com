@@ -3,13 +3,13 @@ import { memo, useEffect } from "react";
 import { motion, LayoutGroup, useAnimation } from "components/animation";
 import { useStoreProp } from "store/index";
 
-const overlayStyleClasses = "fixed left-0 w-full h-full";
+const overlayStyleClasses = "fixed left-0 right-0 w-full h-full";
+const duration = 1;
+const ease = [0.43, 0.13, 0.23, 0.96];
 
-export const duration = 1;
-
-export const transition = {
+const transition = {
     duration,
-    ease: [0.43, 0.13, 0.23, 0.96],
+    ease,
 };
 
 const backgroundColors = ["#F5A4FF", "#C0A4FF", "#61F1F8"];
@@ -17,11 +17,11 @@ const backgroundColors = ["#F5A4FF", "#C0A4FF", "#61F1F8"];
 const pageOverlayTopVariants = {
     initial: {
         height: "100vh",
-        transition: { ...transition, duration: 0.1 },
+        transition: { duration: 0 },
     },
     enter: {
         height: 0,
-        transition: { ...transition },
+        transition,
     },
     exit: {
         height: 0,
@@ -143,6 +143,7 @@ export const Overlays = memo(
             <div id="overlays">
                 <LayoutGroup>
                     <TopOverlay />
+
                     <motion.div
                         layout
                         className={overlayStyleClasses}

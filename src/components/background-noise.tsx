@@ -20,7 +20,7 @@ interface Props {
 }
 
 const NoiseWrapper = styled.div(() => [
-    tw`absolute top-0 left-0 right-0 z-0 w-full h-full min-h-screen overflow-hidden`,
+    tw`absolute top-0 left-0 z-0 w-full h-full min-h-screen overflow-hidden`,
     css`
         backface-visibility: hidden;
         transform: scale(1);
