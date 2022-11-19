@@ -1,10 +1,11 @@
-import { Fragment, useRef } from "react";
-import { useMemo } from "react";
+import { Fragment, useMemo, useRef } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import type { HeadProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
+
+import findLastIndex from "lodash-es/findLastIndex";
 
 import { BigNumber } from "components/big-number";
 import { DeviceMockup } from "components/device-mockup";
@@ -14,8 +15,7 @@ import { H2 } from "components/h2";
 import { H3 } from "components/h3";
 import { H4 } from "components/h4";
 import { Link } from "components/link";
-import { GridRow } from "components/main-container";
-import { MainContainer } from "components/main-container";
+import { MainContainer, GridRow } from "components/main-container";
 import { MainTitleBottom } from "components/main-title";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
@@ -385,8 +385,8 @@ export default function Project({ data }: PageProps<Props>) {
         }
 
         // Last item needs different intersection so to include the footer
-        // TODO: use reducer and check from right for first non empty
-        const lastNonEmptyIndex = intersectionRootMargins.findLastIndex(
+        const lastNonEmptyIndex = findLastIndex(
+            intersectionRootMargins,
             (margin: string) => margin !== ""
         );
 
@@ -469,7 +469,7 @@ export default function Project({ data }: PageProps<Props>) {
             </MainSection>
 
             <Article>
-                {numItems && (
+                {!!numItems && (
                     <Fragment>
                         <TimelineWrapper
                             style={{
