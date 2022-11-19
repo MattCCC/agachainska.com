@@ -48,6 +48,9 @@
         - element: "full-page-image"
           image: "/img/placeholder-2.png"
         - element: "slider"
+          images:
+            - image: "/img/placeholder-full.png"
+            - image: "/img/placeholder-full.png"
         - element: "quote"
           quote: "Your quote text.’"
         - element: "device"
