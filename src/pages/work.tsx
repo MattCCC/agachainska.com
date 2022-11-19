@@ -13,7 +13,7 @@ import tw, { css, styled } from "twin.macro";
 import { useDebouncedCallback } from "use-debounce";
 
 import { BigNumber } from "components/big-number";
-import { MainContainer } from "components/main-container";
+import { GridRow, MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
 import { Post, PostItem } from "components/post";
@@ -59,7 +59,8 @@ interface SliderWrapperProps {
 }
 
 const ContentContainer = styled.section(() => [
-    tw`relative col-start-1 col-end-13 lg:mt-16 lg:col-start-2 lg:grid lg:grid-cols-5 lg:gap-y-6 lg:grid-flow-col`,
+    tw`relative mb-20 lg:mb-0 lg:grid lg:items-center`,
+    tw`lg:mt-[110px] lg:h-[max(600px,100vh)]`,
 ]);
 
 const SlideWrapper = styled.div(
@@ -75,7 +76,7 @@ const SlideWrapper = styled.div(
 );
 
 const TimelineWrapper = styled.aside(() => [
-    tw`justify-center hidden col-start-5 row-span-5 row-start-1 row-end-5 lg:block`,
+    tw`hidden col-start-5 row-span-5 row-start-1 row-end-5 lg:block self-baseline mt-[100px]`,
 ]);
 
 const StyledNumber = styled(BigNumber)(() => [
@@ -410,86 +411,94 @@ const Work = memo(({ data }: PageProps<Props>) => {
             <MotionCursor />
 
             <MainContainer topPadding={true}>
-                <ContentContainer>
-                    {!hasSmallWindowWidth ? (
-                        <SlideWrapper
-                            isShowingOtherProjects={isShowingOtherProjects}
-                        >
-                            {!isShowingOtherProjects && (
-                                <StyledNumber
-                                    value={`${state.projectNumberToShow + 1}.`}
-                                    viewBox="0 0 280 200"
-                                    displayOnRight={true}
-                                    style={{
-                                        display: state.showNumber
-                                            ? "block"
-                                            : "none",
-                                    }}
-                                />
-                            )}
-                            {!isShowingOtherProjects && (
-                                <StyledStar
-                                    text={
-                                        state?.currentProject
-                                            ?.shortDescription || ""
-                                    }
-                                    color={
-                                        state?.currentProject?.category &&
-                                        state?.currentProject?.starColor
-                                    }
-                                    displayStar={state.showStar}
-                                />
-                            )}
-                            <Slider
-                                sliderItems={sliderItems}
-                                onSliderTap={(e) => onNavigate(e)}
-                                onSliderChange={setCurrentSlideState}
-                                slideId={sliderIndex}
-                                showSlideTitle={!isShowingOtherProjects}
+                <GridRow tw="col-start-1 col-end-13 lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col">
+                    <ContentContainer>
+                        {!hasSmallWindowWidth ? (
+                            <SlideWrapper
                                 isShowingOtherProjects={isShowingOtherProjects}
-                                otherProjects={currentCategoryOtherProjects}
-                                lastProjectNumber={projectsByCategory.length}
-                                onSliderMouseEnter={
-                                    onSliderContentMouseEventChange
-                                }
-                                onSliderMouseLeave={
-                                    onSliderContentMouseEventChange
-                                }
-                                isAnimating={isSliderAnimating}
-                                setIsAnimating={setIsSliderAnimating}
-                            />
-                        </SlideWrapper>
-                    ) : null}
-
-                    <TimelineWrapper>
-                        <Timeline
-                            style={{ height: "27.76rem" }}
-                            onTimelineItemChange={setCurrentSlideState}
-                            sections={timelineList}
-                            activeSectionId={state.activeSectionId}
-                            activeItemId={state.activeItemId}
-                        />
-                    </TimelineWrapper>
-                    <Tabs
-                        hideForDesktop={true}
-                        onTabChange={onTabChange}
-                        tabs={timelineList}
-                        activeTabId={state.activeSectionId}
-                    />
-                    {hasSmallWindowWidth &&
-                        projectsByCategory.map(
-                            (post: PostItem, index: number) => (
-                                <Post
-                                    key={index}
-                                    postNum={index + 1}
-                                    post={post}
-                                    onPostTap={(e, { routeTo }) =>
-                                        onNavigate(e, routeTo as string)
+                            >
+                                {!isShowingOtherProjects && (
+                                    <StyledNumber
+                                        value={`${
+                                            state.projectNumberToShow + 1
+                                        }.`}
+                                        viewBox="0 0 280 200"
+                                        displayOnRight={true}
+                                        style={{
+                                            display: state.showNumber
+                                                ? "block"
+                                                : "none",
+                                        }}
+                                    />
+                                )}
+                                {!isShowingOtherProjects && (
+                                    <StyledStar
+                                        text={
+                                            state?.currentProject
+                                                ?.shortDescription || ""
+                                        }
+                                        color={
+                                            state?.currentProject?.category &&
+                                            state?.currentProject?.starColor
+                                        }
+                                        displayStar={state.showStar}
+                                    />
+                                )}
+                                <Slider
+                                    sliderItems={sliderItems}
+                                    onSliderTap={(e) => onNavigate(e)}
+                                    onSliderChange={setCurrentSlideState}
+                                    slideId={sliderIndex}
+                                    showSlideTitle={!isShowingOtherProjects}
+                                    isShowingOtherProjects={
+                                        isShowingOtherProjects
                                     }
+                                    otherProjects={currentCategoryOtherProjects}
+                                    lastProjectNumber={
+                                        projectsByCategory.length
+                                    }
+                                    onSliderMouseEnter={
+                                        onSliderContentMouseEventChange
+                                    }
+                                    onSliderMouseLeave={
+                                        onSliderContentMouseEventChange
+                                    }
+                                    isAnimating={isSliderAnimating}
+                                    setIsAnimating={setIsSliderAnimating}
                                 />
-                            )
-                        )}
-                </ContentContainer>
+                            </SlideWrapper>
+                        ) : null}
+
+                        <TimelineWrapper>
+                            <Timeline
+                                style={{ height: "27.76rem" }}
+                                onTimelineItemChange={setCurrentSlideState}
+                                sections={timelineList}
+                                activeSectionId={state.activeSectionId}
+                                activeItemId={state.activeItemId}
+                            />
+                        </TimelineWrapper>
+                        <Tabs
+                            hideForDesktop={true}
+                            onTabChange={onTabChange}
+                            tabs={timelineList}
+                            activeTabId={state.activeSectionId}
+                        />
+                        {hasSmallWindowWidth &&
+                            projectsByCategory.map(
+                                (post: PostItem, index: number) => (
+                                    <Post
+                                        key={index}
+                                        postNum={index + 1}
+                                        post={post}
+                                        onPostTap={(e, { routeTo }) =>
+                                            onNavigate(e, routeTo as string)
+                                        }
+                                    />
+                                )
+                            )}
+                    </ContentContainer>
+                </GridRow>
             </MainContainer>
         </Fragment>
     );
