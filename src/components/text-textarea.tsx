@@ -1,4 +1,10 @@
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import {
+    ChangeEvent,
+    FocusEvent,
+    useCallback,
+    useEffect,
+    useState,
+} from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -97,7 +103,7 @@ export function TextTextarea({
     );
 
     const onFocusCallback = useCallback(
-        (e) => {
+        (e: FocusEvent<HTMLTextAreaElement>) => {
             setActive(true);
 
             if (onFocus) {
@@ -108,7 +114,7 @@ export function TextTextarea({
     );
 
     const onBlurCallback = useCallback(
-        (e) => {
+        (e: FocusEvent<HTMLTextAreaElement>) => {
             setActive(value.length !== 0 ? true : false);
 
             if (onBlur) {

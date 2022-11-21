@@ -1,6 +1,5 @@
 {
-    "include": ["./src/**/*", "./*.tsx", "./*.ts"],
-    "exclude": ["./*.js"],
+    "include": ["./src/**/*", "./*.tsx", "./*.ts", "tailwind.config.js"],
     "compilerOptions": {
         "jsx": "react-jsx",
         /* Visit https://aka.ms/tsconfig.json to read more about this file */

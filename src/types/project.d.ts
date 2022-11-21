@@ -1,22 +1,22 @@
 type ProjectCategory = "UX" | "UI" | "Others";
 
 interface ProjectSectionImage {
-    image: string;
+    readonly image: string;
 }
 
 interface ProjectSectionElementDevice {
-    type: string;
-    link: string;
+    readonly type: string;
+    readonly link: string;
 }
 
 interface ProjectSectionElementStat {
-    title: number;
-    stat: number;
+    readonly title: number;
+    readonly stat: number;
 }
 
 interface ProjectSectionElementCredit {
-    title: string;
-    text: string;
+    readonly title: string;
+    readonly text: string;
 }
 
 type ProjectSectionElementText =
@@ -33,45 +33,45 @@ type ProjectSectionElementText =
     | "other-projects";
 
 interface ProjectSectionElement extends ProjectSectionElementDevice {
-    element: ProjectSectionElementText;
-    title?: string;
-    description?: string;
-    image?: string;
-    quote?: string;
-    images?: ProjectSectionImage[];
-    content: ProjectSectionElementCredit[];
-    stats?: ProjectSectionElementStat[];
-    list?: ProjectSectionElementDevice[];
+    readonly element: ProjectSectionElementText;
+    readonly title?: string;
+    readonly description?: string;
+    readonly image?: string;
+    readonly quote?: string;
+    readonly images?: ProjectSectionImage[];
+    readonly content: ProjectSectionElementCredit[];
+    readonly stats?: ProjectSectionElementStat[];
+    readonly list?: ProjectSectionElementDevice[];
 }
 
 interface ProjectSection {
-    section: string;
-    showInTimeline?: "yes" | "no";
-    showSectionTitle?: "yes" | "no";
-    elements: ProjectSectionElement[];
+    readonly section: string;
+    readonly showInTimeline?: "yes" | "no";
+    readonly showSectionTitle?: "yes" | "no";
+    readonly elements: ProjectSectionElement[];
 }
 
 interface ProjectKeyInfo {
-    elements: ProjectKeyInfoElement[];
+    readonly elements: ProjectKeyInfoElement[];
 }
 
 interface ProjectKeyInfoElement {
-    title: string;
-    text: string;
+    readonly title: string;
+    readonly text: string;
 }
 
 interface Project {
-    uid: number;
-    name: string;
-    cover: string;
-    workPageColor: string;
-    starColor: string;
-    nameSlug: string;
-    category: ProjectCategory;
-    shortDescription: string;
-    sections: ProjectSection[];
-    dribbbleLink?: string;
-    subCategory?: string;
-    timelineTitle?: string;
-    keyInfo?: ProjectKeyInfo;
+    readonly uid: number;
+    readonly name: string;
+    readonly cover: string;
+    readonly workPageColor: string;
+    readonly starColor: string;
+    readonly nameSlug: string;
+    readonly category: ProjectCategory;
+    readonly shortDescription: string;
+    readonly sections: ProjectSection[];
+    readonly dribbbleLink?: string;
+    readonly subCategory?: string;
+    readonly timelineTitle?: string;
+    readonly keyInfo?: ProjectKeyInfo;
 }

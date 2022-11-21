@@ -1,10 +1,11 @@
-import { Fragment } from "react";
-import { useMemo } from "react";
+import { Fragment, useMemo, useRef } from "react";
 
 import { graphql, PageProps } from "gatsby";
 import type { HeadProps } from "gatsby";
 import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
+
+import findLastIndex from "lodash-es/findLastIndex";
 
 import { BigNumber } from "components/big-number";
 import { DeviceMockup } from "components/device-mockup";
@@ -14,8 +15,7 @@ import { H2 } from "components/h2";
 import { H3 } from "components/h3";
 import { H4 } from "components/h4";
 import { Link } from "components/link";
-import { GridRow } from "components/main-container";
-import { MainContainer } from "components/main-container";
+import { MainContainer, GridRow } from "components/main-container";
 import { MainTitleBottom } from "components/main-title";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
@@ -358,30 +358,39 @@ export default function Project({ data }: PageProps<Props>) {
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
 
-    const intersectionRootMargins = useMemo(() => ["0px 0px 100% 0px"], []);
+    const intersectionRootMargins = useMemo(() => [] as string[], []);
 
     const timelineItems = useMemo(() => {
         const filteredItems = sections
-            .filter(
-                ({ showInTimeline }) =>
-                    showInTimeline && showInTimeline === "yes"
-            )
+            .filter(({ showInTimeline }) => {
+                const isShownInTimeline =
+                    showInTimeline && showInTimeline === "yes";
 
-            .map(({ section }, i) => {
-                if (i > 0) {
-                    intersectionRootMargins.push("0px 0px -200px 0px");
-                }
+                // Check in here so to avoid additional loop
+                intersectionRootMargins.push(
+                    isShownInTimeline ? "0px 0px -200px 0px" : ""
+                );
 
-                return {
-                    id: section.toLowerCase(),
-                    title: section,
-                };
-            });
+                return isShownInTimeline;
+            })
+
+            .map(({ section }) => ({
+                id: section.toLowerCase(),
+                title: section,
+            }));
+
+        // First item needs different intersection as it's after the head section
+        if (intersectionRootMargins[0]) {
+            intersectionRootMargins[0] = "0px 0px 100% 0px";
+        }
 
         // Last item needs different intersection so to include the footer
-        intersectionRootMargins.pop();
+        const lastNonEmptyIndex = findLastIndex(
+            intersectionRootMargins,
+            (margin: string) => margin !== ""
+        );
 
-        intersectionRootMargins.push("200% 0px 0px 0px");
+        intersectionRootMargins[lastNonEmptyIndex] = "200% 0px 0px 0px";
 
         return filteredItems;
     }, [intersectionRootMargins, sections]);
@@ -396,13 +405,18 @@ export default function Project({ data }: PageProps<Props>) {
 
     for (const rootMargin of intersectionRootMargins) {
         intersectionRefs.push(
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            useInViewEffect(intersection, {
-                ...options,
-                rootMargin,
-            })
+            rootMargin
+                ? // eslint-disable-next-line react-hooks/rules-of-hooks
+                  useInViewEffect(intersection, {
+                      ...options,
+                      rootMargin,
+                  })
+                : // eslint-disable-next-line react-hooks/rules-of-hooks
+                  useRef(null)
         );
     }
+
+    const numItems = timelineItems.length;
 
     return (
         <Fragment>
@@ -441,29 +455,30 @@ export default function Project({ data }: PageProps<Props>) {
 
                     {keyInfo && keyInfo.elements && (
                         <KeyInfoTable>
-                            {(keyInfo.elements || []).map(({ title, text }) => (
-                                <div tw="mb-4">
-                                    <CellTitle>{title}</CellTitle>
-                                    <div>{text}</div>
-                                </div>
-                            ))}
+                            {(keyInfo.elements || []).map(
+                                ({ title, text }, j) => (
+                                    <div tw="mb-4" key={j}>
+                                        <CellTitle>{title}</CellTitle>
+                                        <div>{text}</div>
+                                    </div>
+                                )
+                            )}
                         </KeyInfoTable>
                     )}
                 </GridRow>
             </MainSection>
 
             <Article>
-                {timelineItems.length && (
+                {!!numItems && (
                     <Fragment>
                         <TimelineWrapper
                             style={{
-                                marginBottom:
-                                    "-" + 84.66 * timelineItems.length + "px",
+                                marginBottom: "-" + 84.66 * numItems + "px",
                             }}
                         >
                             <Timeline
                                 style={{
-                                    height: 84.66 * timelineItems.length + "px",
+                                    height: 84.66 * numItems + "px",
                                 }}
                                 activeItemId={activeItemId}
                                 activeSectionId={timelineSection.id}
