@@ -11,29 +11,36 @@ import { useInView } from "framer-motion";
 import tw, { css, styled } from "twin.macro";
 
 import isImageURL from "utils/is-image-url";
+import { excludeProps } from "utils/styled";
 
 import Iphone13Pro from "../img/iphone-13-pro.png";
 import Iphone8 from "../img/iphone-8.png";
 import IphoneX from "../img/iphone-x.png";
 import MacbookPro from "../img/macbook-pro.png";
 
-interface DeviceResourceWrapperProps {
+interface DeviceResourceProps {
     type: string;
 }
 
 const DeviceContainer = styled.div(() => [tw`relative w-[245px] h-[560px]`]);
 
-const DeviceResourceWrapper = styled.div(
-    ({ type }: DeviceResourceWrapperProps) => [
-        tw`absolute z-10 bg-white border-0 outline-none cursor-grabbing`,
-        tw`w-[245px] h-[532px] rounded-[20px] top-[13px] left-[18px]`,
-        tw`shadow-[0px_4px_12px_-1px_rgba(0,0,0,0.36)] lg:shadow-[0px_42px_102px_-8px_rgba(0,0,0,0.36)]`,
-        type === "iPhone8" && tw`w-[248px] h-[441px] top-[61px] left-[12px]`,
-    ]
-);
+const DeviceResourceWrapper = styled(
+    "div",
+    excludeProps(["type"])
+)(({ type }: DeviceResourceProps) => [
+    tw`absolute z-10 bg-white border-0 outline-none cursor-grabbing `,
+    tw`w-[245px] h-[532px] top-[13px] left-[18px]`,
+    tw`shadow-[0px_4px_12px_-1px_rgba(0,0,0,0.36)] lg:shadow-[0px_42px_102px_-8px_rgba(0,0,0,0.36)]`,
+    type === "iPhone8" && tw`w-[248px] h-[441px] top-[61px] left-[12px]`,
+    type === "iPhone13pro" && tw`w-[250px] h-[538px] top-[14px] left-[14px]`,
+]);
 
-const DeviceResource = styled.iframe(() => [
+const DeviceResource = styled(
+    "iframe",
+    excludeProps(["type"])
+)(({ type }: DeviceResourceProps) => [
     tw`w-full h-full bg-white border-0 outline-none`,
+    type === "iPhone13pro" && tw`rounded-[25px]`,
 ]);
 
 const DeviceFrameIphoneX = styled.div(() => [
@@ -53,7 +60,7 @@ const DeviceFrameIphone8 = styled.div(() => [
 ]);
 
 const DeviceFrameIphone13Pro = styled.div(() => [
-    tw`w-[293px] h-[555px] absolute pointer-events-none z-20`,
+    tw`w-[280px] h-[566.36px] absolute pointer-events-none z-20`,
     css`
         background: url(${Iphone13Pro}) no-repeat;
         background-size: contain;
@@ -119,7 +126,7 @@ const renderSwitch = ({
         <Fragment>
             <DeviceResourceWrapper ref={ref} type={type}>
                 {(isVisible && tag === "iframe") || tag !== "iframe" ? (
-                    <DeviceResource as={tag} src={link} />
+                    <DeviceResource as={tag} src={link} type={type} />
                 ) : (
                     <div tw="flex items-center justify-center">
                         <RingIcon>
