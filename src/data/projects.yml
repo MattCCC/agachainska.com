@@ -65,6 +65,8 @@
               link: "/img/screenshot.png"
             - type: "iPhoneX"
               link: "/img/screenshot.png"
+            - type: "iPhone8"
+              link: "/img/iPhone8Small3.png"
     - section: "results"
       showInTimeline: "yes"
       showSectionTitle: "no"
