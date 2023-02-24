@@ -20,19 +20,25 @@ import MacbookPro from "../img/macbook-pro.png";
 
 interface DeviceResourceProps {
     type: string;
+    tag?: string;
 }
 
 const DeviceContainer = styled.div(() => [tw`relative w-[245px] h-[560px]`]);
 
 const DeviceResourceWrapper = styled(
     "div",
-    excludeProps(["type"])
-)(({ type }: DeviceResourceProps) => [
+    excludeProps(["type", "tag"])
+)(({ type, tag }: DeviceResourceProps) => [
     tw`absolute z-10 bg-white border-0 outline-none cursor-grabbing `,
     tw`w-[245px] h-[532px] top-[13px] left-[18px]`,
     tw`shadow-[0px_4px_12px_-1px_rgba(0,0,0,0.36)] lg:shadow-[0px_42px_102px_-8px_rgba(0,0,0,0.36)]`,
-    type === "iPhone8" && tw`w-[248px] h-[441px] top-[61px] left-[12px]`,
-    type === "iPhone13pro" && tw`w-[250px] h-[538px] top-[14px] left-[14px]`,
+    type === "iPhone8" &&
+        tw`w-[249px] h-[441px] max-h-[441px] top-[60px] left-[12px]`,
+    type === "iPhoneX" && tw`max-h-[532px]`,
+    type === "iPhone13pro" &&
+        tw`w-[250px] h-[538px] max-h-[538px] top-[14px] left-[14px]`,
+    tag === "img" &&
+        tw`h-auto overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`,
 ]);
 
 const DeviceResource = styled(
@@ -124,7 +130,7 @@ const renderSwitch = ({
 
     return (
         <Fragment>
-            <DeviceResourceWrapper ref={ref} type={type}>
+            <DeviceResourceWrapper ref={ref} type={type} tag={tag}>
                 {(isVisible && tag === "iframe") || tag !== "iframe" ? (
                     <DeviceResource as={tag} src={link} type={type} />
                 ) : (
