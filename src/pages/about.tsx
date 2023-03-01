@@ -1,6 +1,6 @@
 import { Fragment, useMemo } from "react";
 
-import { graphql, PageProps } from "gatsby";
+import { GetStaticProps } from "next";
 import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
@@ -176,9 +176,7 @@ const SelectedProjectsContainer = styled.div(() => [
 
 interface Props {
     aboutPageData: AboutPageData;
-    projects: {
-        nodes: Project[];
-    };
+    projects: Project[];
 }
 
 const aboutPageTimeline = {
@@ -191,11 +189,10 @@ const aboutPageTimeline = {
     ],
 };
 
-export default function About({ data }: PageProps<Props>) {
+export default function About({ aboutPageData, projects }: Props) {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
-    const { hero, expertise, designProcess } = data.aboutPageData;
-    const projects = data.projects.nodes;
+    const { hero, expertise, designProcess } = aboutPageData;
 
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
@@ -348,19 +345,17 @@ export default function About({ data }: PageProps<Props>) {
     );
 }
 
-export const query = graphql`
-    query {
-        aboutPageData {
-            ...aboutSectionsFields
-        }
 
-        projects: allProject {
-            nodes {
-                ...ProjectFields
-                nameSlug: gatsbyPath(filePath: "/projects/{project.name}")
-            }
-        }
-    }
-`;
+export const getStaticProps: GetStaticProps<Props> = async () => {
+    const aboutPageData = await fetch(`api/about`).then((res) => res.json());
+    const projects = await fetch(`api/projects`).then((res) => res.json());
 
-export const Head = () => <Meta title="About - Aga Chainska" />;
+    return {
+        props: {
+            aboutPageData,
+            projects,
+        },
+    };
+};
+
+export const Head = () => <Meta title="About - Aga Chainska" />

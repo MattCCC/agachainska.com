@@ -7,7 +7,7 @@ import {
 } from "react";
 
 import { motion, MotionValue, useTransform } from "framer-motion";
-import useDimensios from "react-use-dimensions";
+import useMeasure from 'react-use-measure';
 import { css, styled } from "twin.macro";
 
 import { Context } from "./context";
@@ -43,7 +43,7 @@ export const Item = memo(
         offset,
     }: PropsWithChildren<Props>) => {
         const { dispatch } = useContext(Context);
-        const [itemRef, { x, width }] = useDimensios({ liveMeasure: false });
+        const [itemRef, { x, width }] = useMeasure();
         const scaleOffest = -1 * (width + gap);
 
         const scale = useTransform(

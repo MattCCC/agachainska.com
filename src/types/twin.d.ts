@@ -1,13 +1,13 @@
 import "twin.macro";
 import { css as cssImport } from "@emotion/react";
-import styledImport from "@emotion/styled";
 
 // The css prop
 // https://emotion.sh/docs/typescript#css-prop
 import {} from "@emotion/react/types/css-prop";
+import styled from 'styled-components';
 
 declare module "twin.macro" {
-    const styled: typeof styledImport;
+    const styled: typeof styled;
     const css: typeof cssImport;
 }
 

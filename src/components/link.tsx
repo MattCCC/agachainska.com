@@ -1,6 +1,8 @@
 import { PropsWithChildren, ReactNode } from "react";
 
-import { Link as TranslatedLink } from "gatsby-plugin-intl";
+// import { Link as TranslatedLink } from "gatsby-plugin-intl";
+import TranslatedLink from 'next/link';
+
 import { styled } from "twin.macro";
 
 import { LinkDelayedArgs, OnDelayCallback } from "hooks/use-link-delayed";

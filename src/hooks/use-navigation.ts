@@ -1,5 +1,3 @@
-import { useLocation } from "@reach/router";
-
 import { fullPageOverlayDuration } from "components/full-page-overlay";
 import {
     LinkDelayedArgs,
@@ -7,6 +5,7 @@ import {
     OnDelayCallback,
     useLinkDelayed,
 } from "hooks/use-link-delayed";
+import { useRouter } from "next/router";
 import { useStoreProp } from "store/index";
 
 export interface DelayedLink extends LinkDelayedArgs {
@@ -19,7 +18,7 @@ export const useNavigation = ({
     onDelayStart = (() => {}) as OnDelayCallback,
     onDelayEnd = (() => {}) as OnDelayCallback,
 }: DelayedLink): LinkDelayedCallback => {
-    const location = useLocation();
+    const location = useRouter();
     const [, { setCurrentDelayedRoute }] = useStoreProp("currentDelayedRoute");
     const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
 

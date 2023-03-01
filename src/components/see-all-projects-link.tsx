@@ -1,7 +1,6 @@
-import { Link } from "gatsby";
+import NextLink from 'next/link';
 import tw, { css, styled } from "twin.macro";
-
-import { useLocation } from "@reach/router";
+import { useRouter } from 'next/router'
 
 import { getLinkProps } from "utils/route";
 import { excludeProps } from "utils/styled";
@@ -31,7 +30,7 @@ const SeeAllProjectsBtn = styled(Button)(() => [
 ]);
 
 const SeeAllProjectsLinkContainer = styled(
-    Link,
+    NextLink,
     excludeProps(["screenSize"])
 )(({ screenSize }: Props) => [
     screenSize === "sm" && tw`inline lg:hidden`,
@@ -39,7 +38,7 @@ const SeeAllProjectsLinkContainer = styled(
 ]);
 
 export default function SeeAllProjectsLink({ screenSize }: Props) {
-    const location = useLocation();
+    const location = useRouter();
 
     return (
         <SeeAllProjectsLinkContainer

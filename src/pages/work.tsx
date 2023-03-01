@@ -8,7 +8,7 @@ import {
     useEffect,
 } from "react";
 
-import { graphql, PageProps } from "gatsby";
+import { GetStaticProps } from "next";
 import tw, { css, styled } from "twin.macro";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -49,9 +49,7 @@ interface TimelineItem {
 }
 
 interface Props {
-    projects: {
-        nodes: Project[];
-    };
+    projects: Project[];
 }
 
 interface SliderWrapperProps {
@@ -100,7 +98,7 @@ const StyledStar = styled(Star)(() => [
 let isPageTop = false;
 let isPageBottom = false;
 
-const Work = memo(({ data }: PageProps<Props>) => {
+const Work = memo(({ projects }: Props) => {
     const windowSize = useWindowSize();
     const hasSmallWindowWidth = windowSize.width < 1024;
 
@@ -109,10 +107,6 @@ const Work = memo(({ data }: PageProps<Props>) => {
     const [, dispatch] = useStoreProp("showMotionGrid");
     const [backgroundColor, dispatchbackgroundColor] =
         useStoreProp("backgroundColor");
-    const projects = useMemo(
-        () => data.projects.nodes || [],
-        [data.projects.nodes]
-    );
 
     const categories = useMemo(
         () => Object.keys(groupBy(projects, "category")) as ProjectCategory[],
@@ -506,15 +500,14 @@ const Work = memo(({ data }: PageProps<Props>) => {
 
 export default Work;
 
-export const Head = () => <Meta title="Work - Aga Chainska" />;
+export const getStaticProps: GetStaticProps<Props> = async () => {
+    const projects = await fetch(`api/projects`).then((res) => res.json());
 
-export const query = graphql`
-    {
-        projects: allProject {
-            nodes {
-                ...ProjectFields
-                nameSlug: gatsbyPath(filePath: "/projects/{project.name}")
-            }
-        }
-    }
-`;
+    return {
+        props: {
+            projects,
+        },
+    };
+};
+
+export const Head = () => <Meta title="Work - Aga Chainska" />

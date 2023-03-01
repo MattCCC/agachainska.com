@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 
-import { navigate } from "gatsby";
+import { useRouter } from 'next/router';
 
 export type LinkDelayedCallback = (
     e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
@@ -33,6 +33,7 @@ export const useLinkDelayed = ({
     onDelayEnd = (() => {}) as OnDelayCallback,
 }: LinkDelayedArgs): LinkDelayedCallback => {
     const timeout = useRef<NodeJS.Timeout | null>(null);
+    const router = useRouter();
 
     useEffect(
         () => (): void => {
@@ -44,36 +45,36 @@ export const useLinkDelayed = ({
     );
 
     const onClick: LinkDelayedCallback = useCallback(
-        (e, toRoute = "") => {
-            const goTo = toRoute || to;
+      (e, toRoute = "") => {
+        const goTo = toRoute || to;
 
-            // If trying to navigate to current page stop everything
-            if (location?.pathname === goTo) {
+        // If trying to navigate to current page stop everything
+        if (location?.pathname === goTo) {
+            return;
+        }
+
+        if (delay) {
+            onDelayStart(e, goTo);
+
+            if (e.defaultPrevented) {
                 return;
             }
 
-            if (delay) {
-                onDelayStart(e, goTo);
+            e.preventDefault();
 
-                if (e.defaultPrevented) {
-                    return;
+            timeout.current = setTimeout(() => {
+                if (replace) {
+                    router.replace(goTo);
+                } else {
+                    router.push(goTo);
                 }
 
-                e.preventDefault();
-
-                timeout.current = setTimeout(() => {
-                    if (replace) {
-                        navigate(goTo, { replace: true });
-                    } else {
-                        navigate(goTo);
-                    }
-
-                    onDelayEnd(e, goTo);
-                }, delay);
-            }
-        },
-        [location, to, onDelayStart, delay, replace, onDelayEnd]
+                onDelayEnd(e, goTo);
+            }, delay);
+        }
+      },
+      [location, to, onDelayStart, delay, replace, onDelayEnd]
     );
-
+  
     return onClick;
 };

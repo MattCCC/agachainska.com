@@ -2,7 +2,6 @@ import { memo, useEffect, useRef } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import { useLocation } from "@reach/router";
 import useMouse from "@react-hook/mouse-position";
 
 import { Link } from "components/link";
@@ -12,6 +11,7 @@ import { ReactComponent as WavesPattern } from "svg/bg-lines.svg";
 import { ReactComponent as PricklyPearIllustration } from "svg/Prickly pear@1x.svg";
 import { getLinkProps } from "utils/route";
 import { up } from "utils/screens";
+import { useRouter } from "next/router";
 
 const ContactWrapper = styled(Link)(() => [
     tw`relative block select-none cursor-none`,
@@ -64,7 +64,7 @@ const PricklyPear = styled(PricklyPearIllustration)(() => [
 ]);
 
 export const Contact = memo(() => {
-    const location = useLocation();
+    const location = useRouter();
     const mouseoverItemRef = useRef(null);
     const mouse = useMouse(mouseoverItemRef, {
         enterDelay: 30,

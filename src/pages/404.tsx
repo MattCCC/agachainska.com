@@ -1,10 +1,11 @@
-import { PageProps } from "gatsby";
-
-import { ErrorContainer } from "components/404";
+import { NextPage } from 'next';
+import { ErrorContainer } from 'components/404';
 import { Meta } from "components/meta";
 
-export default function ProjectCatchAll({}: PageProps) {
+const ErrorPage: NextPage = () => {
     return <ErrorContainer />;
-}
+};
 
-export const Head = () => <Meta title="404 - Aga Chainska" />;
+export default ErrorPage;
+
+export const Head = () => <Meta title="404 - Aga Chainska" />

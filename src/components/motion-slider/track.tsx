@@ -8,7 +8,7 @@ import {
 } from "react";
 
 import { motion, PanInfo, Spring, useAnimation } from "framer-motion";
-import useDimensions from "react-use-dimensions";
+import useMeasure from 'react-use-measure';
 import tw, { styled } from "twin.macro";
 
 import { MotionProps } from "components/animation";
@@ -53,7 +53,7 @@ export const Track = ({
     style,
 }: PropsWithChildren<Props>) => {
     const ref = useRef<HTMLElement | null>(null);
-    const [trackRef, trackDimensions] = useDimensions({ liveMeasure: false });
+    const [trackRef, trackDimensions] = useMeasure();
     const windowDimensions = useWindowSize();
     const controls = useAnimation();
     const { state, dispatch } = useContext(Context);

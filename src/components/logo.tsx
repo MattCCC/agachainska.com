@@ -1,10 +1,9 @@
 import tw, { css, styled } from "twin.macro";
 
-import { useLocation } from "@reach/router";
-
 import { Link } from "components/link";
 import { Translate } from "components/translate";
 import { getLinkProps } from "utils/route";
+import { useRouter } from "next/router";
 
 interface Props {
     showOnDesktop?: boolean;
@@ -30,7 +29,7 @@ const LogoIcon = styled.div(() => [
 ]);
 
 export function Logo({ showOnDesktop = true }: Props) {
-    const location = useLocation();
+    const location = useRouter();
     const homeLink = getLinkProps("home", location);
 
     return (

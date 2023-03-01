@@ -1,6 +1,6 @@
 import { Fragment, useCallback, useEffect } from "react";
 
-import { navigate } from "gatsby";
+import { useRouter } from 'next/router';
 import tw, { css, styled } from "twin.macro";
 
 import { BottomCircle } from "components/bottom-circle";
@@ -26,6 +26,7 @@ const Desc = styled.h2(() => [
 ]);
 
 export default function Home() {
+    const router = useRouter();
     const workLink = getRoutePath("work");
     const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
 
@@ -33,9 +34,9 @@ export default function Home() {
 
     const onCountDownFinished = useCallback(() => {
         if (!isDev()) {
-            navigate(workLink.to);
+            router.push(workLink.to);
         }
-    }, [workLink]);
+    }, [router, workLink]);
 
     useEffect(() => {
         showMotionCursor(true, {
@@ -68,4 +69,4 @@ export default function Home() {
     );
 }
 
-export const Head = () => <Meta title="Aga Chainska" />;
+export const Head = () => <Meta title="Aga Chainska" />

@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 
-import { useLocation } from "@reach/router";
-
 import { useStoreProp } from "store/index";
 import { findRouteMeta } from "utils/route";
+import { useRouter } from "next/router";
 
 export const useOnRouteChange = () => {
-    const location = useLocation();
+    const location = useRouter();
     const [, dispatch] = useStoreProp("currentDelayedRoute");
 
     useEffect(() => {
