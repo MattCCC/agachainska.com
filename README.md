@@ -1,6 +1,3 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<h1 align="center">
-  Aga-chainska.com
-</h1>
+# Aga-chainska.com
 
 ## 🚀 NextJs Project
