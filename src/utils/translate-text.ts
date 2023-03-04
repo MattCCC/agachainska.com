@@ -1,11 +1,11 @@
-// import { useIntl } from "gatsby-plugin-intl";
+import { useTranslation } from "next-i18next"
 
 /**
  * Translate Text
  * @param {string} id   Unique identifier of a translation
  */
 export function TranslateText(id: string): string {
-    //const intl = useIntl();
+    const { t } = useTranslation();
 
-    return id; // intl.formatMessage({ id });
+    return t(id);
 }

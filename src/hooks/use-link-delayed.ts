@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 
 export type LinkDelayedCallback = (
     e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
@@ -14,7 +14,7 @@ export type OnDelayCallback = (
 
 export interface LinkDelayedArgs {
     to: string;
-    location?: Location;
+    location?: NextRouter;
     replace?: boolean;
     delay?: number;
     onDelayStart?: OnDelayCallback;

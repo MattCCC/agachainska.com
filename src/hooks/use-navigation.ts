@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 import { fullPageOverlayDuration } from "components/full-page-overlay";
 import {
     LinkDelayedArgs,
@@ -5,7 +7,6 @@ import {
     OnDelayCallback,
     useLinkDelayed,
 } from "hooks/use-link-delayed";
-import { useRouter } from "next/router";
 import { useStoreProp } from "store/index";
 
 export interface DelayedLink extends LinkDelayedArgs {

@@ -1,12 +1,12 @@
 import { Fragment, useMemo, useRef } from "react";
 
+
+import { GetStaticProps } from "next";
 import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
-import { GetStaticProps } from "next";
 
 import findLastIndex from "lodash-es/findLastIndex";
-import { Meta } from "components/meta";
 
 import { BigNumber } from "components/big-number";
 import { DeviceMockup } from "components/device-mockup";
@@ -18,6 +18,7 @@ import { H4 } from "components/h4";
 import { Link } from "components/link";
 import { MainContainer, GridRow } from "components/main-container";
 import { MainTitleBottom } from "components/main-title";
+import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
 import { ParallaxBackground } from "components/parallax-background";
 import { Quote } from "components/quote";
@@ -530,7 +531,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
     const project = await fetch(`api/projects/${id}`).then((res) => res.json());
 
-    const projects = await fetch(`api/projects`).then((res) => res.json());
+    const projects = await fetch("api/projects").then((res) => res.json());
 
     return {
         props: {
@@ -541,4 +542,4 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 };
 
 export const Head = ({ pageContext }: { pageContext: { name?: string } }) =>
-    <Meta title={`${pageContext?.name || "Project"} - Aga Chainska`} />
+    <Meta title={`${pageContext?.name || "Project"} - Aga Chainska`} />;

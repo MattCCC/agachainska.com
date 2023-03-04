@@ -501,7 +501,7 @@ const Work = memo(({ projects }: Props) => {
 export default Work;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-    const projects = await fetch(`api/projects`).then((res) => res.json());
+    const projects = await fetch("api/projects").then((res) => res.json());
 
     return {
         props: {
@@ -510,4 +510,4 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     };
 };
 
-export const Head = () => <Meta title="Work - Aga Chainska" />
+export const Head = () => <Meta title="Work - Aga Chainska" />;

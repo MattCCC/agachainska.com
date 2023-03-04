@@ -1,5 +1,14 @@
-// export { FormattedMessage as Translate } from "gatsby-plugin-intl";
-
 import { Fragment } from "react";
 
-export const Translate = ({ id, ...props }: any) => <Fragment>{id}</Fragment>
+import { useTranslation } from "next-i18next";
+
+interface TranslateProps {
+  id: string;
+  props?: object;
+}
+
+export const Translate = ({ id, ...props }: TranslateProps) => {
+  const { t } = useTranslation();
+
+  return (<Fragment>{t(id, props)}</Fragment>);
+};

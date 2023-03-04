@@ -7,7 +7,7 @@ import {
 } from "react";
 
 import { motion, MotionValue, useTransform } from "framer-motion";
-import useMeasure from 'react-use-measure';
+import useMeasure from "react-use-measure";
 import { css, styled } from "twin.macro";
 
 import { Context } from "./context";

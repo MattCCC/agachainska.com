@@ -2,11 +2,10 @@ import "../styles/global.scss";
 
 import { PropsWithChildren, StrictMode } from "react";
 
-// import { IntlContextProvider, IntlProvider } from "gatsby-plugin-intl";
+import { appWithTranslation } from "next-i18next";
 import { ParallaxProvider } from "react-scroll-parallax";
 import tw, { styled, css } from "twin.macro";
 
-// import messages from "translations/en.json";
 import { AppProps } from "next/app";
 
 import { Background } from "components/background";
@@ -60,15 +59,6 @@ const Main = styled.main(
   ]
 );
 
-// const locales = ["en"];
-// const intlConfig = {
-//   language: "en",
-//   languages: locales,
-//   messages,
-//   defaultLanguage: "en",
-//   redirect: false,
-// };
-
 export const Layout = ({ children }: PropsWithChildren<unknown>) => {
   const [showbackgroundColor] = useStoreProp("showbackgroundColor");
   const [backgroundColor] = useStoreProp("backgroundColor");
@@ -97,20 +87,18 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
   );
 };
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <ParallaxProvider>
         <globalStore.Provider>
-          {/* <IntlContextProvider value={intlConfig}>
-                        <IntlProvider locale="en" messages={messages}> */}
           <Layout>
             <Component {...pageProps} />
           </Layout>
-          {/* </IntlProvider>
-                    </IntlContextProvider> */}
         </globalStore.Provider>
       </ParallaxProvider>
     </>
   );
 }
+
+export default appWithTranslation(App);

@@ -1,7 +1,9 @@
 import { Fragment, useCallback, useEffect } from "react";
 
+import { GetStaticProps } from "next";
 import tw, { css, styled } from "twin.macro";
 
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 
 import { BottomCircle } from "components/bottom-circle";
@@ -16,6 +18,8 @@ import { useLockBodyScroll } from "hooks/use-lock-body-scroll";
 import { useStoreProp } from "store/index";
 import { isDev } from "utils/detect-env";
 import { getRoutePath } from "utils/route";
+
+interface Props { }
 
 const Desc = styled.h2(() => [
     tw`inline-block leading-8 select-none prose-24 lg:prose-30 lg:leading-11`,
@@ -69,5 +73,11 @@ export default function Home() {
         </Fragment>
     );
 }
+
+export const getStaticProps: GetStaticProps<Props> = async ({ locale = "en" }) => ({
+    props: {
+        ...(await serverSideTranslations(locale)),
+    },
+});
 
 export const Head = () => <Meta title="Aga Chainska" />;
