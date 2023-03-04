@@ -4,6 +4,8 @@ import { GetStaticProps } from "next";
 import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 import { ParallaxBackground } from "components/about-parallax-background";
 import { GridRow, MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
@@ -20,7 +22,6 @@ import { socialMedia } from "data/social-media";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import { up } from "utils/screens";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 
 const HeroSection = styled.section(() => [

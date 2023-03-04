@@ -2,21 +2,19 @@ import { Fragment } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
+import Image from "next/image";
+
 import { useWindowSize } from "hooks/use-window-size";
 
 import personalPicDesktop from "../img/personal-pic-desktop.png";
 import personalPicMobile from "../img/personal-pic-rectangle.png";
-import personalPictureWhiteBackground from "../svg/personal-pic-bg-black&white-mobile.svg";
-import personalPictureBlackBackground from "../svg/personal-pic-bg-black-mobile.svg";
-import personalPicBlackBgDesk from "../svg/personal-pic-black-bg-desk.svg";
-import personalPicWhiteBgDesk from "../svg/personal-pic-white-bg-desk.svg";
 
 const PersonalPicContainerMobile = styled.div(() => [
     tw`relative flex justify-center items-center mb-8 bg-contain`,
     css`
         width: 157px;
         height: 157px;
-        background: url(${personalPictureBlackBackground}) no-repeat;
+        background: url("svg/personal-pic-bg-black-mobile.svg") no-repeat;
 
         img {
             width: 149px;
@@ -24,7 +22,7 @@ const PersonalPicContainerMobile = styled.div(() => [
         }
 
         &:after {
-            content: url(${personalPictureWhiteBackground});
+            content: url("svg/personal-pic-bg-black&white-mobile.svg");
             position: absolute;
             top: 59%;
             left: 56%;
@@ -39,7 +37,7 @@ const PersonalPicContainerDesktop = styled.div(() => [
     css`
         width: 275px;
         height: 378px;
-        background: url(${personalPicBlackBgDesk}) no-repeat;
+        background: url("svg/personal-pic-black-bg-desk.svg") no-repeat;
 
         img {
             width: 261px;
@@ -47,7 +45,7 @@ const PersonalPicContainerDesktop = styled.div(() => [
         }
 
         &:after {
-            content: url(${personalPicWhiteBgDesk});
+            content: url("svg/personal-pic-white-bg-desk.svg");
             position: absolute;
             top: 53%;
             left: 53%;
@@ -65,11 +63,11 @@ export default function PersonalPic() {
         <Fragment>
             {hasSmallWindowWidth ? (
                 <PersonalPicContainerMobile>
-                    <img src={personalPicMobile} alt="Aga" />
+                    <Image src={personalPicMobile} alt="Aga" height="100" width="100" />
                 </PersonalPicContainerMobile>
             ) : (
                 <PersonalPicContainerDesktop>
-                    <img src={personalPicDesktop} alt="Aga" />
+                        <Image src={personalPicDesktop} alt="Aga" height="100" width="100" />
                 </PersonalPicContainerDesktop>
             )}
         </Fragment>

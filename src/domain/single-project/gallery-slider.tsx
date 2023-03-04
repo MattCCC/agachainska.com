@@ -3,6 +3,7 @@ import { memo, useEffect, useRef } from "react";
 import tw, { css, styled } from "twin.macro";
 
 import useMouse from "@react-hook/mouse-position";
+import Image from "next/image";
 
 import { FullPageContent } from "components/full-page-content";
 import { MotionSlider } from "components/motion-slider";
@@ -50,7 +51,7 @@ export const GallerySlider = memo(({ images, gap }: Props) => {
                 <MotionSlider gap={gap} displayGrabCursor={false}>
                     {images.map(({ image }, i) => (
                         <Element key={i}>
-                            <img src={image} alt="" />
+                            <Image src={image} alt="" height="100" width="100" />
                         </Element>
                     ))}
                 </MotionSlider>
