@@ -1,6 +1,7 @@
-import NextLink from 'next/link';
 import tw, { css, styled } from "twin.macro";
-import { useRouter } from 'next/router'
+
+import NextLink from "next/link";
+import { useRouter } from "next/router";
 
 import { getLinkProps } from "utils/route";
 import { excludeProps } from "utils/styled";

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 export type LinkDelayedCallback = (
     e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
@@ -34,6 +34,8 @@ export const useLinkDelayed = ({
 }: LinkDelayedArgs): LinkDelayedCallback => {
     const timeout = useRef<NodeJS.Timeout | null>(null);
     const router = useRouter();
+
+    console.log("link LinkDelayedArgs", to, replace, location);
 
     useEffect(
         () => (): void => {
@@ -73,8 +75,8 @@ export const useLinkDelayed = ({
             }, delay);
         }
       },
-      [location, to, onDelayStart, delay, replace, onDelayEnd]
+      [to, location?.pathname, delay, onDelayStart, replace, onDelayEnd, router]
     );
-  
+
     return onClick;
 };

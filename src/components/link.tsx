@@ -1,9 +1,9 @@
-import { PropsWithChildren, ReactNode } from "react";
+import { MouseEvent, PropsWithChildren, ReactNode } from "react";
 
 // import { Link as TranslatedLink } from "gatsby-plugin-intl";
-import TranslatedLink from 'next/link';
-
 import { styled } from "twin.macro";
+
+import TranslatedLink from "next/link";
 
 import { LinkDelayedArgs, OnDelayCallback } from "hooks/use-link-delayed";
 import { useNavigation } from "hooks/use-navigation";
@@ -37,7 +37,7 @@ export const Link = ({
     });
 
     return (
-        <LinkStyled onClick={(e) => onClick(e)} to={to} {...props}>
+        <LinkStyled onClick={(e: MouseEvent<HTMLAnchorElement | HTMLDivElement>) => onClick(e)} href={to} {...props}>
             {children}
         </LinkStyled>
     );
