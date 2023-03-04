@@ -40,6 +40,8 @@ import PrevIcon from "svg/down.svg";
 import NextIcon from "svg/up.svg";
 import { includeProps } from "utils/styled";
 
+import dataProjects from "../data/projects.yml";
+
 interface Props {
     project: Project;
     projects: Project[];
@@ -527,16 +529,14 @@ export default function Project({ project, projects }: Props) {
 
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-    const id = params?.id as string;
+    const id = params?.id as unknown as number;
 
-    const project = await fetch(`api/projects/${id}`).then((res) => res.json());
-
-    const projects = await fetch("api/projects").then((res) => res.json());
+    const project = dataProjects.find((currProject: Project) => currProject.uid === id);
 
     return {
         props: {
             project,
-            projects,
+            projects: dataProjects,
         },
     };
 };

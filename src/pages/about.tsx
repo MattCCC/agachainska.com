@@ -19,6 +19,9 @@ import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import { up } from "utils/screens";
 
+import dataAbout from "../data/about-page.yml";
+import dataProjects from "../data/projects.yml";
+
 const HeroSection = styled.section(() => [
     tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-[max(600px,100vh)]`,
     css`
@@ -346,16 +349,11 @@ export default function About({ aboutPageData, projects }: Props) {
 }
 
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-    const aboutPageData = await fetch(`api/about`).then((res) => res.json());
-    const projects = await fetch(`api/projects`).then((res) => res.json());
-
-    return {
+export const getStaticProps: GetStaticProps<Props> = async () => ({
         props: {
-            aboutPageData,
-            projects,
+            aboutPageData: dataAbout,
+            projects: dataProjects,
         },
-    };
-};
+});
 
-export const Head = () => <Meta title="About - Aga Chainska" />
+export const Head = () => <Meta title="About - Aga Chainska" />;

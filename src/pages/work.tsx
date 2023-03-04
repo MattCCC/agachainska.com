@@ -12,6 +12,7 @@ import { GetStaticProps } from "next";
 import tw, { css, styled } from "twin.macro";
 import { useDebouncedCallback } from "use-debounce";
 
+
 import { BigNumber } from "components/big-number";
 import { GridRow, MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
@@ -26,6 +27,9 @@ import { useNavigation } from "hooks/use-navigation";
 import { useWindowSize } from "hooks/use-window-size";
 import { useStoreProp } from "store/index";
 import { groupBy } from "utils/group-by";
+
+import dataProjects from "../data/projects.yml";
+
 
 interface PageState {
     sliderIndex: number;
@@ -500,14 +504,10 @@ const Work = memo(({ projects }: Props) => {
 
 export default Work;
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-    const projects = await fetch("api/projects").then((res) => res.json());
-
-    return {
+export const getStaticProps: GetStaticProps<Props> = async () => ({
         props: {
-            projects,
+        projects: dataProjects,
         },
-    };
-};
+});
 
 export const Head = () => <Meta title="Work - Aga Chainska" />;

@@ -3,6 +3,8 @@
     "./src/**/*",
     "./*.tsx",
     "./*.ts",
+    "./*.yml",
+    "./*.yaml",
     "tailwind.config.js"
   ],
   "compilerOptions": {
