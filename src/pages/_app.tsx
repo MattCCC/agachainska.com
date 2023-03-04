@@ -67,8 +67,6 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
 
   useOnRouteChange();
 
-  console.log("darkTheme", darkTheme);
-
   return (
     <StrictMode>
       {darkTheme && <DarkTheme />}

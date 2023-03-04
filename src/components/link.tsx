@@ -3,15 +3,16 @@ import { MouseEvent, PropsWithChildren, ReactNode } from "react";
 import { useTranslation } from "next-i18next";
 import { styled } from "twin.macro";
 
-import NextLink from "next/link";
+import NextLink, { LinkProps } from "next/link";
 
 import { LinkDelayedArgs, OnDelayCallback } from "hooks/use-link-delayed";
 import { useNavigation } from "hooks/use-navigation";
 import { excludeProps } from "utils/styled";
 
-export interface Props extends LinkDelayedArgs {
+export interface Props extends LinkDelayedArgs, Omit<LinkProps, "href"> {
     to: string;
     children: ReactNode;
+    isCurrentPage?: boolean;
 }
 
 const LinkStyled = styled(
@@ -26,6 +27,9 @@ export const Link = ({
     onDelayStart = (() => {}) as OnDelayCallback,
     onDelayEnd = (() => {}) as OnDelayCallback,
     children,
+    // Known issue: Requires to be removed from being passed down t
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    isCurrentPage,
     ...props
 }: PropsWithChildren<Props>) => {
     const { i18n } = useTranslation();
@@ -36,8 +40,6 @@ export const Link = ({
         onDelayStart,
         onDelayEnd,
     });
-
-    // console.log(to === "null" || to === undefined || to === null);
 
     return (
         <LinkStyled onClick={(e: MouseEvent<HTMLAnchorElement | HTMLDivElement>) => onClick(e)}
