@@ -26,6 +26,7 @@ import SeeAllProjectsLink from "components/see-all-projects-link";
 import { Tabs } from "components/tabs";
 import { Timeline } from "components/timeline";
 import ViewOnDeskStar from "components/view-on-desktop-star";
+import dataProjects from "data/projects.yml";
 import { GallerySlider } from "domain/single-project/gallery-slider";
 import { OtherProjects } from "domain/single-project/other-projects";
 import { useIncrementStats } from "domain/single-project/use-increment-stats";
@@ -40,7 +41,6 @@ import PrevIcon from "svg/down.svg";
 import NextIcon from "svg/up.svg";
 import { includeProps } from "utils/styled";
 
-import dataProjects from "../data/projects.yml";
 
 interface Props {
     project: Project;

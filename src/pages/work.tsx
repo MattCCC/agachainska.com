@@ -22,13 +22,12 @@ import { Slider, SliderItem } from "components/slider";
 import { Star } from "components/star";
 import { Tabs } from "components/tabs";
 import { Timeline, Item, Section } from "components/timeline";
+import dataProjects from "data/projects.yml";
 import { useEventListener } from "hooks/use-event-listener";
 import { useNavigation } from "hooks/use-navigation";
 import { useWindowSize } from "hooks/use-window-size";
 import { useStoreProp } from "store/index";
 import { groupBy } from "utils/group-by";
-
-import dataProjects from "../data/projects.yml";
 
 
 interface PageState {
