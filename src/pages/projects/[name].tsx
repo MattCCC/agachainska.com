@@ -7,6 +7,7 @@ import tw, { css, styled } from "twin.macro";
 
 
 import findLastIndex from "lodash-es/findLastIndex";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { BigNumber } from "components/big-number";
 import { DeviceMockup } from "components/device-mockup";
@@ -528,7 +529,7 @@ export default function Project({ project, projects }: Props) {
 }
 
 
-export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<Props> = async ({ params, locale = "en" }) => {
     const id = params?.id as unknown as number;
 
     const project = dataProjects.find((currProject: Project) => currProject.uid === id);
@@ -537,6 +538,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
         props: {
             project,
             projects: dataProjects,
+            ...(await serverSideTranslations(locale)),
         },
     };
 };

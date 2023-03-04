@@ -1,4 +1,7 @@
+import { GetStaticProps } from "next";
 import tw, { css, styled } from "twin.macro";
+
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { Button } from "components/button";
 import { GridRow, MainContainer } from "components/main-container";
@@ -93,5 +96,11 @@ export default function Contact() {
         </form>
     );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => ({
+    props: {
+        ...(await serverSideTranslations(locale)),
+    },
+});
 
 export const Head = () => <Meta title="Contact - Aga Chainska" />;

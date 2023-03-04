@@ -20,6 +20,7 @@ import { socialMedia } from "data/social-media";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import { up } from "utils/screens";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 
 const HeroSection = styled.section(() => [
@@ -349,10 +350,11 @@ export default function About({ aboutPageData, projects }: Props) {
 }
 
 
-export const getStaticProps: GetStaticProps<Props> = async () => ({
+export const getStaticProps: GetStaticProps<Props> = async ({ locale = "en" }) => ({
         props: {
             aboutPageData: dataAbout,
             projects: dataProjects,
+            ...(await serverSideTranslations(locale)),
         },
 });
 

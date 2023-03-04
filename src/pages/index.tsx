@@ -19,8 +19,6 @@ import { useStoreProp } from "store/index";
 import { isDev } from "utils/detect-env";
 import { getRoutePath } from "utils/route";
 
-interface Props { }
-
 const Desc = styled.h2(() => [
     tw`inline-block leading-8 select-none prose-24 lg:prose-30 lg:leading-11`,
     css`
@@ -74,7 +72,7 @@ export default function Home() {
     );
 }
 
-export const getStaticProps: GetStaticProps<Props> = async ({ locale = "en" }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => ({
     props: {
         ...(await serverSideTranslations(locale)),
     },

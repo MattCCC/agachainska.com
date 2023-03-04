@@ -1,5 +1,9 @@
 import { Fragment } from "react";
 
+import { GetStaticProps } from "next";
+
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 import { GridRow, MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 
@@ -16,5 +20,11 @@ export default function Thanks() {
         </Fragment>
     );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => ({
+    props: {
+        ...(await serverSideTranslations(locale)),
+    },
+});
 
 export const Head = () => <Meta title="Thank you - Aga Chainska" />;

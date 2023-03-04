@@ -13,6 +13,8 @@ import tw, { css, styled } from "twin.macro";
 import { useDebouncedCallback } from "use-debounce";
 
 
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 import { BigNumber } from "components/big-number";
 import { GridRow, MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
@@ -503,9 +505,10 @@ const Work = memo(({ projects }: Props) => {
 
 export default Work;
 
-export const getStaticProps: GetStaticProps<Props> = async () => ({
+export const getStaticProps: GetStaticProps<Props> = async ({ locale = "en" }) => ({
         props: {
         projects: dataProjects,
+        ...(await serverSideTranslations(locale)),
         },
 });
 
