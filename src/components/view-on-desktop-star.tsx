@@ -1,6 +1,6 @@
 import tw, { css, styled } from "twin.macro";
 
-import { ReactComponent as ViewOnDesktopStar } from "svg/view-on-desktop-star.svg";
+import ViewOnDesktopStar from "svg/view-on-desktop-star.svg";
 
 const ViewOnDeskCon = styled.div(
     () => tw`absolute z-50 lg:hidden`,

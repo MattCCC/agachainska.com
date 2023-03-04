@@ -35,8 +35,8 @@ import {
 } from "hooks/use-projects-by-category";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
-import { ReactComponent as PrevIcon } from "svg/down.svg";
-import { ReactComponent as NextIcon } from "svg/up.svg";
+import PrevIcon from "svg/down.svg";
+import NextIcon from "svg/up.svg";
 import { includeProps } from "utils/styled";
 
 interface Props {

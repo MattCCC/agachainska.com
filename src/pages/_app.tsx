@@ -1,15 +1,11 @@
-import "../styles/global.scss"
+import "../styles/global.scss";
 
 import { PropsWithChildren, StrictMode } from "react";
-// import { WrapRootElementNodeArgs } from "gatsby";
+
 // import { IntlContextProvider, IntlProvider } from "gatsby-plugin-intl";
 import { ParallaxProvider } from "react-scroll-parallax";
-
 import tw, { styled, css } from "twin.macro";
 
-import { Global } from "@emotion/react";
-
-import { globalStore } from "store/index";
 // import messages from "translations/en.json";
 import { AppProps } from "next/app";
 
@@ -19,6 +15,7 @@ import { FullPageOverlay } from "components/full-page-overlay";
 import { Header } from "components/header";
 import { Overlays } from "components/overlays";
 import { useOnRouteChange } from "hooks/use-on-route-change";
+import { globalStore } from "store/index";
 import { useStoreProp } from "store/index";
 
 interface Props {
@@ -29,14 +26,12 @@ interface Props {
 }
 
 const DarkTheme = () => (
-  <Global
-    styles={css`
-            :root body {
-                --primary: #fff;
-                --tertiary: #0b0b0b;
-            }
-        `}
-  />
+  <style jsx global>{`
+    :root body {
+      --primary-color: #0070f3;
+      --secondary-color: #ff0080;
+    }
+  `}</style>
 );
 
 const Main = styled.main(

@@ -6,7 +6,7 @@ import { Meta } from "components/meta";
 import { SocialMedia } from "components/social-media";
 import { TextTextarea } from "components/text-textarea";
 import { socialMedia } from "data/social-media";
-import { ReactComponent as ContactIllustration } from "svg/Contact.svg";
+import ContactIllustration from "svg/Contact.svg";
 import { up } from "utils/screens";
 
 const H1 = styled.div(() => [

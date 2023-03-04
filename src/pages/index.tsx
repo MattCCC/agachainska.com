@@ -1,7 +1,8 @@
 import { Fragment, useCallback, useEffect } from "react";
 
-import { useRouter } from 'next/router';
 import tw, { css, styled } from "twin.macro";
+
+import { useRouter } from "next/router";
 
 import { BottomCircle } from "components/bottom-circle";
 import { CountDown } from "components/count-down";
@@ -69,4 +70,4 @@ export default function Home() {
     );
 }
 
-export const Head = () => <Meta title="Aga Chainska" />
+export const Head = () => <Meta title="Aga Chainska" />;

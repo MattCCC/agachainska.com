@@ -1,28 +1,12 @@
 import { memo, useEffect, useState } from "react";
 
-import tw, { css, styled } from "twin.macro";
-
-import { Global } from "@emotion/react";
+import tw, { styled, css } from "twin.macro";
 
 interface Props {
     seconds: number;
     onFinishedCallback?: (() => void) | null;
 }
 
-const GlobalBase = () => (
-    <Global
-        styles={css`
-            @keyframes countdown {
-                from {
-                    stroke-dashoffset: 480px;
-                }
-                to {
-                    stroke-dashoffset: 0;
-                }
-            }
-        `}
-    />
-);
 
 const CounteDownWrapper = styled.div(() => [tw`hidden lg:block`]);
 
@@ -79,7 +63,6 @@ export const CountDown = memo(
 
         return (
             <CounteDownWrapper>
-                <GlobalBase />
                 <ProgressCircleWrapper
                     viewBox="0 0 150 150"
                     preserveAspectRatio="xMinYMin meet"

@@ -15,8 +15,8 @@ import { animate, AnimatePresence, motion } from "components/animation";
 import { Distortion } from "components/distortion";
 import { MainTitleTop } from "components/main-title";
 import { useEventListener } from "hooks/use-event-listener";
-import { ReactComponent as NextIcon } from "svg/down.svg";
-import { ReactComponent as PrevIcon } from "svg/up.svg";
+import NextIcon from "svg/down.svg";
+import PrevIcon from "svg/up.svg";
 
 import OtherProjects, { OtherProjectProp } from "./other-projects";
 

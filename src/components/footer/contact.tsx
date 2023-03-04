@@ -3,15 +3,15 @@ import { memo, useEffect, useRef } from "react";
 import tw, { css, styled } from "twin.macro";
 
 import useMouse from "@react-hook/mouse-position";
+import { useRouter } from "next/router";
 
 import { Link } from "components/link";
 import { MarqueeText } from "components/marquee-text";
 import { useStoreProp } from "store/index";
-import { ReactComponent as WavesPattern } from "svg/bg-lines.svg";
-import { ReactComponent as PricklyPearIllustration } from "svg/Prickly pear@1x.svg";
+import WavesPattern from "svg/bg-lines.svg";
+import PricklyPearIllustration from "svg/Prickly pear@1x.svg";
 import { getLinkProps } from "utils/route";
 import { up } from "utils/screens";
-import { useRouter } from "next/router";
 
 const ContactWrapper = styled(Link)(() => [
     tw`relative block select-none cursor-none`,
