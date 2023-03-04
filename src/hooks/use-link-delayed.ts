@@ -35,8 +35,6 @@ export const useLinkDelayed = ({
     const timeout = useRef<NodeJS.Timeout | null>(null);
     const router = useRouter();
 
-    console.log("link LinkDelayedArgs", to, replace, location);
-
     useEffect(
         () => (): void => {
             if (timeout?.current) {
