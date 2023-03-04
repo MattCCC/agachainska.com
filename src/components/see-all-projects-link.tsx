@@ -40,10 +40,12 @@ const SeeAllProjectsLinkContainer = styled(
 
 export default function SeeAllProjectsLink({ screenSize }: Props) {
     const location = useRouter();
+    const linkProps = getLinkProps("work", location);
 
     return (
         <SeeAllProjectsLinkContainer
-            {...getLinkProps("work", location)}
+            {...linkProps}
+            href={linkProps.to}
             screenSize={screenSize}
         >
             <SeeAllProjectsBtn as="span">

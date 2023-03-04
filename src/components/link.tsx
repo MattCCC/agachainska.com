@@ -3,7 +3,7 @@ import { MouseEvent, PropsWithChildren, ReactNode } from "react";
 import { useTranslation } from "next-i18next";
 import { styled } from "twin.macro";
 
-import TranslatedLink from "next/link";
+import NextLink from "next/link";
 
 import { LinkDelayedArgs, OnDelayCallback } from "hooks/use-link-delayed";
 import { useNavigation } from "hooks/use-navigation";
@@ -15,7 +15,7 @@ export interface Props extends LinkDelayedArgs {
 }
 
 const LinkStyled = styled(
-    TranslatedLink,
+    NextLink,
     excludeProps(["isCurrentPage"])
 )(() => []);
 
@@ -37,8 +37,14 @@ export const Link = ({
         onDelayEnd,
     });
 
+    // console.log(to === "null" || to === undefined || to === null);
+
     return (
-        <LinkStyled onClick={(e: MouseEvent<HTMLAnchorElement | HTMLDivElement>) => onClick(e)} href={to} locale={i18n.language} {...props}>
+        <LinkStyled onClick={(e: MouseEvent<HTMLAnchorElement | HTMLDivElement>) => onClick(e)}
+            href={to}
+            locale={i18n.language}
+            {...props}
+        >
             {children}
         </LinkStyled>
     );

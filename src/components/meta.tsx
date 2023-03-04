@@ -1,7 +1,7 @@
 import { memo, PropsWithChildren } from "react";
-import Head from 'next/head';
 
-import { useRouter } from 'next/router'
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { useSiteMetadata } from "hooks/use-site-metadata";
 

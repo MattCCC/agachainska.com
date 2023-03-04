@@ -1,7 +1,8 @@
 import deepmerge from "deepmerge";
 
-import routes, { defaultRouteMeta } from "config/routes";
 import { NextRouter } from "next/router";
+
+import routes, { defaultRouteMeta } from "config/routes";
 
 export interface LinkProps {
     to: string;
@@ -19,7 +20,7 @@ export const getLinkProps = (
     routeName: string,
     location: NextRouter
 ): LinkProps => ({
-    to: routes[routeName].path,
+    to: routes[routeName].path || "",
     isCurrentPage: location.pathname === routes[routeName].path,
 });
 
@@ -28,7 +29,7 @@ export const getLinkProps = (
  * @param routeName         Current route name
  */
 export const getRoutePath = (routeName: string): LinkProps => ({
-    to: routes[routeName].path,
+    to: routes[routeName].path || "",
 });
 
 /**

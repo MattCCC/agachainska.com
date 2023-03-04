@@ -1,6 +1,6 @@
 import tw, { css, styled } from "twin.macro";
 
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 import { Link } from "components/link";
 import { Logo } from "components/logo";
@@ -65,7 +65,7 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
 export function Header() {
     const [showLogoOnDesktop] = useStoreProp("showLogoOnDesktop");
     const [onMouseEnter, onMouseLeave] = useHideCursorPreserveVisibility();
-    const router = useRouter()
+    const router = useRouter();
 
     return (
         <HeaderWrapper>

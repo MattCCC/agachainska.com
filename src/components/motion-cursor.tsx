@@ -6,6 +6,7 @@ import {
     useCallback,
     useEffect,
     useState,
+    MouseEvent
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
@@ -164,7 +165,7 @@ const CursorLink = memo(
         }
 
         return (
-            <TextWrapper as="a" onClick={(e) => onNavigate(e, route)}>
+            <TextWrapper as="a" onClick={(e: MouseEvent<HTMLAnchorElement | HTMLDivElement>) => onNavigate(e, route)}>
                 <CursorText>
                     <Translate id={text} />
                 </CursorText>
