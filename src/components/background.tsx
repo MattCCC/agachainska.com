@@ -96,6 +96,9 @@ export const Background = () => {
     const [showWavePattern] = useStoreProp("showWavePattern");
     const [darkTheme] = useStoreProp("darkTheme");
 
+    // TODO Remove console after fixing darkTheme bug.
+    console.log(darkTheme);
+
     useEffect(() => {
         if (showMotionGrid) {
             initMotionGrid();

@@ -8,11 +8,6 @@
 
 @import "./layout.scss";
 
-:root body {
-  --primary: #fff;
-  --tertiary: #0b0b0b;
-}
-
 @keyframes countdown {
   from {
     stroke-dashoffset: 480px;

@@ -18,34 +18,34 @@ import { globalStore } from "store/index";
 import { useStoreProp } from "store/index";
 
 interface Props {
-  hasGradient: boolean;
-  showFooter: boolean;
-  backgroundColor: string;
-  darkTheme: boolean;
+    hasGradient: boolean;
+    showFooter: boolean;
+    backgroundColor: string;
+    darkTheme: boolean;
 }
 
 const DarkTheme = () => (
-  <style jsx global>{`
-    :root body {
-      --primary-color: #0070f3;
-      --secondary-color: #ff0080;
-    }
-  `}</style>
+    <style jsx global>{`
+        :root body {
+            --primary: #fff;
+            --tertiary: #0b0b0b;
+        }
+    `}</style>
 );
 
 const Main = styled.main(
-  ({ hasGradient, backgroundColor, showFooter, darkTheme }: Props) => [
-    tw`relative z-10 w-full h-full min-h-screen text-primary pt-safe-top`,
-    css`
+    ({ hasGradient, backgroundColor, showFooter, darkTheme }: Props) => [
+        tw`relative z-10 w-full h-full min-h-screen text-primary pt-safe-top`,
+        css`
             backface-visibility: hidden;
         `,
-    showFooter && tw`lg:mb-[810px]`,
-    backgroundColor &&
-    css`
+        showFooter && tw`lg:mb-[810px]`,
+        backgroundColor &&
+            css`
                 background: ${backgroundColor};
             `,
-    hasGradient &&
-    css`
+        hasGradient &&
+            css`
                 background: linear-gradient(
                     314.58deg,
                     rgb(249, 255, 246) 0%,
@@ -54,51 +54,51 @@ const Main = styled.main(
                     rgb(255, 247, 255) 100%
                 );
             `,
-    !backgroundColor && !hasGradient && !darkTheme && tw`bg-white`,
-    !backgroundColor && darkTheme && tw`bg-black`,
-  ]
+        !backgroundColor && !hasGradient && !darkTheme && tw`bg-white`,
+        !backgroundColor && darkTheme && tw`bg-black`,
+    ]
 );
 
 export const Layout = ({ children }: PropsWithChildren<unknown>) => {
-  const [showbackgroundColor] = useStoreProp("showbackgroundColor");
-  const [backgroundColor] = useStoreProp("backgroundColor");
-  const [darkTheme] = useStoreProp("darkTheme");
-  const [showFooter] = useStoreProp("showFooter");
+    const [showbackgroundColor] = useStoreProp("showbackgroundColor");
+    const [backgroundColor] = useStoreProp("backgroundColor");
+    const [darkTheme] = useStoreProp("darkTheme");
+    const [showFooter] = useStoreProp("showFooter");
 
-  useOnRouteChange();
+    useOnRouteChange();
 
-  return (
-    <StrictMode>
-      {darkTheme && <DarkTheme />}
-      <Overlays />
-      <FullPageOverlay />
-      <Header />
-      <Main
-        hasGradient={showbackgroundColor}
-        backgroundColor={backgroundColor}
-        showFooter={showFooter}
-        darkTheme={darkTheme}
-      >
-        <Background />
-        {children}
-      </Main>
-      <Footer />
-    </StrictMode>
-  );
+    return (
+        <StrictMode>
+            {darkTheme && <DarkTheme />}
+            <Overlays />
+            <FullPageOverlay />
+            <Header />
+            <Main
+                hasGradient={showbackgroundColor}
+                backgroundColor={backgroundColor}
+                showFooter={showFooter}
+                darkTheme={darkTheme}
+            >
+                <Background />
+                {children}
+            </Main>
+            <Footer />
+        </StrictMode>
+    );
 };
 
 function App({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <ParallaxProvider>
-        <globalStore.Provider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </globalStore.Provider>
-      </ParallaxProvider>
-    </>
-  );
+    return (
+        <>
+            <ParallaxProvider>
+                <globalStore.Provider>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </globalStore.Provider>
+            </ParallaxProvider>
+        </>
+    );
 }
 
 export default appWithTranslation(App);
