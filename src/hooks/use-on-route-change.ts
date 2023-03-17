@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 
+import { useRouter } from "next/router";
+
 import { useStoreProp } from "store/index";
 import { findRouteMeta } from "utils/route";
-import { useRouter } from "next/router";
+
 
 export const useOnRouteChange = () => {
     const location = useRouter();
