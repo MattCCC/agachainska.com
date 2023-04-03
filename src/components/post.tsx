@@ -68,7 +68,7 @@ export function Post({
 }: Props) {
     return (
         <Fragment>
-            <PostWrapper onClick={(e): void => onPostTap(e, post)}>
+            <PostWrapper onClick={(e: React.MouseEvent<HTMLDivElement | HTMLAnchorElement, MouseEvent>): void => onPostTap(e, post)}>
                 <Title data-text={post.name}>{post.name}</Title>
                 {setImageAsBg ? (
                     <PostBg
