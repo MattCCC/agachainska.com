@@ -1,5 +1,10 @@
 import isPropValid from "@emotion/is-prop-valid";
-import { StyledOptions } from "@emotion/styled";
+
+export interface StyledOptions<Props = Record<string, any>> {
+    label?: string;
+    shouldForwardProp?: (propName: string) => boolean;
+    target?: string;
+}
 
 /**
  * Exclude the props for DOM Element
