@@ -5,7 +5,7 @@ import useInterval from "@use-it/interval";
 import { getRandomNumber } from "utils/random-number";
 
 interface Props extends SVGProps<SVGSVGElement> {
-    value: number | string;
+    value: number;
     animate?: boolean;
     displayOnRight?: boolean;
     viewBox?: string;
