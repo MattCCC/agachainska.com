@@ -8,7 +8,7 @@ import {
 } from "react";
 
 import { motion, PanInfo, Spring, useAnimation } from "framer-motion";
-import useMeasure from 'react-use-measure';
+import useMeasure from "react-use-measure";
 import tw, { styled } from "twin.macro";
 
 import { MotionProps } from "components/animation";
@@ -59,10 +59,7 @@ export const Track = ({
     const { state, dispatch } = useContext(Context);
 
     const itemsPositions = useMemo(
-        () =>
-            state.items.map(
-                (item) => item * -1 + trackDimensions.x || 0
-            ) as number[],
+        () => state.items.map((item) => item * -1 + trackDimensions.x || 0),
         [state.items, trackDimensions.x]
     );
 

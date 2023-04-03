@@ -132,35 +132,6 @@
             "undefined"
         ],
         "id-match": "error",
-        "import/order": [
-            "error",
-            {
-                "groups": ["builtin", "external", "internal"],
-                "pathGroups": [
-                    {
-                        "pattern": "react",
-                        "group": "external",
-                        "position": "before"
-                    },
-                    {
-                        "pattern": "*",
-                        "group": "external",
-                        "position": "before"
-                    },
-                    {
-                        "pattern": "@*",
-                        "group": "internal",
-                        "position": "after"
-                    }
-                ],
-                "pathGroupsExcludedImportTypes": ["react"],
-                "newlines-between": "always",
-                "alphabetize": {
-                    "order": "asc",
-                    "caseInsensitive": true
-                }
-            }
-        ],
         "max-classes-per-file": ["error", 1],
         "max-len": [
             "error",
