@@ -31,35 +31,19 @@ const DeviceResource = styled.iframe(() => [
 ]);
 
 const DeviceFrameIphoneX = styled.div(() => [
-    tw`w-[293px] h-[555px] absolute pointer-events-none z-20`,
-    css`
-        background: url(${IphoneX}) no-repeat;
-        background-size: contain;
-    `,
+    tw`w-[293px] h-[555px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
 ]);
 
 const DeviceFrameIphone8 = styled.div(() => [
-    tw`w-[293px] h-[555px] absolute pointer-events-none z-20`,
-    css`
-        background: url(${Iphone8}) no-repeat;
-        background-size: contain;
-    `,
+    tw`w-[293px] h-[555px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
 ]);
 
 const DeviceFrameIphone13Pro = styled.div(() => [
-    tw`w-[293px] h-[555px] absolute pointer-events-none z-20`,
-    css`
-        background: url(${Iphone13Pro}) no-repeat;
-        background-size: contain;
-    `,
+    tw`w-[293px] h-[555px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
 ]);
 
 const DeviceFrameMacbookPro = styled.div(() => [
-    tw`w-[293px] h-[555px] absolute pointer-events-none z-20`,
-    css`
-        background: url(${MacbookPro}) no-repeat;
-        background-size: contain;
-    `,
+    tw`w-[293px] h-[555px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
 ]);
 
 const RingIcon = styled.div(() => [
@@ -126,10 +110,18 @@ const renderSwitch = ({
                 )}
             </DeviceResourceWrapper>
 
-            {type === "iPhoneX" && <DeviceFrameIphoneX />}
-            {type === "iPhone13pro" && <DeviceFrameIphone13Pro />}
-            {type === "iPhone8" && <DeviceFrameIphone8 />}
-            {type === "laptop" && <DeviceFrameMacbookPro />}
+            {type === "iPhoneX" && <DeviceFrameIphoneX style={{
+                backgroundImage: `url(${IphoneX})`,
+            }} />}
+            {type === "iPhone13pro" && <DeviceFrameIphone13Pro style={{
+                backgroundImage: `url(${Iphone13Pro})`,
+            }} />}
+            {type === "iPhone8" && <DeviceFrameIphone8 style={{
+                backgroundImage: `url(${Iphone8})`,
+            }} />}
+            {type === "laptop" && <DeviceFrameMacbookPro style={{
+                backgroundImage: `url(${MacbookPro})`,
+            }} />}
         </Fragment>
     );
 };
