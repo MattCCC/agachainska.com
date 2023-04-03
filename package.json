@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
-    "@emotion/react": "11.10.5",
+    "@emotion/react": "11.10.6",
     "@microsoft/eslint-formatter-sarif": "^3.0.0",
     "@next/eslint-plugin-next": "^13.0.2",
     "@svgr/webpack": "^6.5.1",
