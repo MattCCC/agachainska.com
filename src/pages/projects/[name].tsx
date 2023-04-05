@@ -345,8 +345,8 @@ export default function Project({ project, projects }: Props) {
         category,
         timelineTitle = "",
         keyInfo,
-        sections,
-    } = project;
+        sections = [],
+    } = project || {};
 
     const [projectsByCategory] = useProjectsByCategory({ category, projects });
 
@@ -529,18 +529,20 @@ export default function Project({ project, projects }: Props) {
 }
 
 export async function getStaticPaths() {
+    const paths = dataProjects.map((currProject: Project) => ({
+        params: { name: currProject.name },
+    }));
+
     return {
-        paths: [
-            "/work",
-        ],
+        paths,
         fallback: true,
     };
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params, locale = "en" }) => {
-    const id = params?.id as unknown as number;
+    const name = params?.name;
 
-    const project = dataProjects.find((currProject: Project) => currProject.uid === id);
+    const project = dataProjects.find((currProject: Project) => currProject.name === name);
 
     return {
         props: {
