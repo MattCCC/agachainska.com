@@ -21,7 +21,7 @@ const LinkStyled = styled(
 )(() => []);
 
 export const Link = ({
-    to,
+    to = "",
     replace = false,
     delay = 0,
     onDelayStart = (() => {}) as OnDelayCallback,

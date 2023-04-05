@@ -96,7 +96,7 @@ export const SingleProject = memo(
             >
                 <BadgeNumber value={`${index + 1}.`} />
 
-                <Link to={nameSlug || ""} tw="inline-block w-full">
+                <Link to={nameSlug} tw="inline-block w-full">
                     <ProjectLink>
                         <ProjectTitle>{name}</ProjectTitle>
                         <ProjectCaption>{category}</ProjectCaption>
