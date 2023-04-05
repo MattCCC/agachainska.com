@@ -528,6 +528,14 @@ export default function Project({ project, projects }: Props) {
     );
 }
 
+export async function getStaticPaths() {
+    return {
+        paths: [
+            "/work",
+        ],
+        fallback: true,
+    };
+}
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params, locale = "en" }) => {
     const id = params?.id as unknown as number;
