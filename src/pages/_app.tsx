@@ -26,7 +26,7 @@ interface Props {
 
 const DarkTheme = () => (
     <style jsx global>{`
-        :root body {
+        :root {
             --primary: #fff;
             --tertiary: #0b0b0b;
         }
