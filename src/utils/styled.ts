@@ -1,6 +1,6 @@
 import isPropValid from "@emotion/is-prop-valid";
 
-export interface StyledOptions<Props = Record<string, any>> {
+export interface StyledOptions {
     label?: string;
     shouldForwardProp?: (propName: string) => boolean;
     target?: string;
@@ -9,11 +9,11 @@ export interface StyledOptions<Props = Record<string, any>> {
 /**
  * Exclude the props for DOM Element
  * @param {string[]} excludes                       The list of props that are excluded
- * @return {StyledOptions<JSX.IntrinsicElements>}   Styled options for JSX Intrinsic Elements
+ * @return {StyledOptions}   Styled options for JSX Intrinsic Elements
  */
 export const excludeProps = (
     excludes: string[] = []
-): StyledOptions<JSX.IntrinsicElements> => ({
+): StyledOptions => ({
     shouldForwardProp: (prop: string): boolean =>
         isPropValid(prop) && !excludes.includes(prop),
 });
@@ -21,11 +21,11 @@ export const excludeProps = (
 /**
  * Include props
  * @param {string[]} includesList                   The list of props that are included
- * @return {StyledOptions<JSX.IntrinsicElements>}   Styled options for JSX Intrinsic Elements
+ * @return {StyledOptions}   Styled options for JSX Intrinsic Elements
  */
 export const includeProps = (
     includesList: string[] = []
-): StyledOptions<JSX.IntrinsicElements> => ({
+): StyledOptions => ({
     shouldForwardProp: (prop: string): boolean =>
         isPropValid(prop) || includesList.includes(prop),
 });
