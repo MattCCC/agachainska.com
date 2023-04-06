@@ -51,7 +51,12 @@ export const GallerySlider = memo(({ images, gap }: Props) => {
                 <MotionSlider gap={gap} displayGrabCursor={false}>
                     {images.map(({ image }, i) => (
                         <Element key={i}>
-                            <Image src={image} alt="" height="100" width="100" />
+                            <Image src={image}
+                                alt=""
+                                height="250"
+                                width="820"
+                                sizes="(max-width: 768px) 250px, 550px,
+                                (max-width: 1200px) 820px, 550px" />
                         </Element>
                     ))}
                 </MotionSlider>

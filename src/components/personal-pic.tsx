@@ -63,11 +63,11 @@ export default function PersonalPic() {
         <Fragment>
             {hasSmallWindowWidth ? (
                 <PersonalPicContainerMobile>
-                    <Image src={personalPicMobile} alt="Aga" height="100" width="100" />
+                    <Image src={personalPicMobile} alt="Aga" height="157" width="157" />
                 </PersonalPicContainerMobile>
             ) : (
                 <PersonalPicContainerDesktop>
-                        <Image src={personalPicDesktop} alt="Aga" height="100" width="100" />
+                        <Image src={personalPicDesktop} alt="Aga" height="378" width="275" />
                 </PersonalPicContainerDesktop>
             )}
         </Fragment>
