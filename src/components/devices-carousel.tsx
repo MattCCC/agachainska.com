@@ -48,14 +48,15 @@ const ProgressText = styled.div(() => [
 ]);
 
 export const DevicesCarousel = memo(
-    ({ list }: { list: ProjectSectionElementDevice[] }) => {
+    ({ list = null }: { list: ProjectSectionElementDevice[] | null }) => {
         const mouseoverItemRef = useRef(null);
         const mouse = useMouse(mouseoverItemRef, {
             enterDelay: 30,
             leaveDelay: 30,
         });
 
-        const numItems = list.length;
+        const numItems = list === null ? 0 : list.length;
+
         const [x, setX] = useState(1);
 
         const [, { showMotionCursor }] = useStoreProp("isMotionCursorVisible");
@@ -75,6 +76,10 @@ export const DevicesCarousel = memo(
                 overlap: !isMouseOver,
             });
         }, [mouse.elementWidth, showMotionCursor]);
+
+        if (!numItems) {
+            return null;
+        }
 
         return (
             <FullPageContent
