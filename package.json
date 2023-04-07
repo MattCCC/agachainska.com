@@ -4,6 +4,10 @@
   "description": "A website",
   "version": "0.1.0",
   "license": "0BSD",
+  "engines": {
+    "node": ">=19.7.0",
+    "npm": ">=9.5.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
