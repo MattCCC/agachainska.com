@@ -153,7 +153,7 @@ const SlidesList = styled(motion.div)(() => [
     `,
 ]);
 
-const Slide = styled(motion(Distortion, { forwardMotionProps: true }))(() => [
+const Slide = styled(Distortion)(() => [
     tw`relative z-10 w-full h-full cursor-pointer`,
     css`
         transition: transform 0.8s;
