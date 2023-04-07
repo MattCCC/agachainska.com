@@ -1,4 +1,4 @@
-import { Fragment, useMemo } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 
 import { GetStaticProps } from "next";
 import { useInViewEffect } from "react-hook-inview";
@@ -22,7 +22,6 @@ import { socialMedia } from "data/social-media";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import { up } from "utils/screens";
-
 
 const HeroSection = styled.section(() => [
     tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-[max(600px,100vh)]`,
@@ -196,7 +195,12 @@ const aboutPageTimeline = {
 
 export default function About({ aboutPageData, projects }: Props) {
     const windowSize = useWindowSize();
-    const hasSmallWindowWidth = windowSize.width < 1024;
+    const [hasSmallWindowWidth, setWindowWidth] = useState(false);
+
+    useEffect(() => {
+        setWindowWidth(windowSize.width < 1024);
+    }, [windowSize]);
+
     const { hero, expertise, designProcess } = aboutPageData;
 
     const [activeItemId, intersection, options, onTimelineItemChange] =
@@ -350,13 +354,14 @@ export default function About({ aboutPageData, projects }: Props) {
     );
 }
 
-
-export const getStaticProps: GetStaticProps<Props> = async ({ locale = "en" }) => ({
-        props: {
-            aboutPageData: dataAbout,
-            projects: dataProjects,
-            ...(await serverSideTranslations(locale)),
-        },
+export const getStaticProps: GetStaticProps<Props> = async ({
+    locale = "en",
+}) => ({
+    props: {
+        aboutPageData: dataAbout,
+        projects: dataProjects,
+        ...(await serverSideTranslations(locale)),
+    },
 });
 
 export const Head = () => <Meta title="About - Aga Chainska" />;

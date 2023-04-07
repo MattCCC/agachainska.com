@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -10,7 +10,7 @@ import personalPicDesktop from "../img/personal-pic-desktop.png";
 import personalPicMobile from "../img/personal-pic-rectangle.png";
 
 const PersonalPicContainerMobile = styled.div(() => [
-    tw`relative flex justify-center items-center mb-8 bg-contain`,
+    tw`relative flex items-center justify-center mb-8 bg-contain`,
     css`
         width: 157px;
         height: 157px;
@@ -33,7 +33,7 @@ const PersonalPicContainerMobile = styled.div(() => [
 ]);
 
 const PersonalPicContainerDesktop = styled.div(() => [
-    tw`relative col-start-1 col-span-3 flex justify-center items-center mb-0 bg-contain`,
+    tw`relative flex items-center justify-center col-span-3 col-start-1 mb-0 bg-contain`,
     css`
         width: 275px;
         height: 378px;
@@ -57,17 +57,31 @@ const PersonalPicContainerDesktop = styled.div(() => [
 
 export default function PersonalPic() {
     const windowSize = useWindowSize();
-    const hasSmallWindowWidth = windowSize.width < 1024;
+    const [hasSmallWindowWidth, setWindowWidth] = useState(false);
+
+    useEffect(() => {
+        setWindowWidth(windowSize.width < 1024);
+    }, [windowSize]);
 
     return (
         <Fragment>
             {hasSmallWindowWidth ? (
                 <PersonalPicContainerMobile>
-                    <Image src={personalPicMobile} alt="Aga" height="157" width="157" />
+                    <Image
+                        src={personalPicMobile}
+                        alt="Aga"
+                        height="157"
+                        width="157"
+                    />
                 </PersonalPicContainerMobile>
             ) : (
                 <PersonalPicContainerDesktop>
-                        <Image src={personalPicDesktop} alt="Aga" height="378" width="275" />
+                    <Image
+                        src={personalPicDesktop}
+                        alt="Aga"
+                        height="378"
+                        width="275"
+                    />
                 </PersonalPicContainerDesktop>
             )}
         </Fragment>

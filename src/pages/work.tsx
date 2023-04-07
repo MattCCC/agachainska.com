@@ -103,7 +103,11 @@ let isPageBottom = false;
 
 const Work = memo(({ projects }: Props) => {
     const windowSize = useWindowSize();
-    const hasSmallWindowWidth = windowSize.width < 1024;
+    const [hasSmallWindowWidth, setWindowWidth] = useState(false);
+
+    useEffect(() => {
+        setWindowWidth(windowSize.width < 1024);
+    }, [windowSize]);
 
     const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
     const [isSliderAnimating, setIsSliderAnimating] = useState(false);

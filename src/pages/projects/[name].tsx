@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useRef } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 
 import { GetStaticProps } from "next";
 import { useInViewEffect } from "react-hook-inview";
@@ -346,8 +346,16 @@ export default function Project({ project, projects }: Props) {
     const [projectsByCategory] = useProjectsByCategory({ category, projects });
 
     const windowSize = useWindowSize();
-    const hasSmallWindowWidth = windowSize.width < 1024;
-    const gallerySliderElementsGap = hasSmallWindowWidth ? 30 : 40;
+    const [_hasSmallWindowWidth, setWindowWidth] = useState(false);
+    const [gallerySliderElementsGap, setGallerySliderElementsGap] =
+        useState(30);
+
+    useEffect(() => {
+        const isSmallScreen = windowSize.width < 1024;
+
+        setWindowWidth(isSmallScreen);
+        setGallerySliderElementsGap(isSmallScreen ? 30 : 40);
+    }, [windowSize]);
 
     const [navigation] = usePagination({ projectsByCategory, uid });
 
