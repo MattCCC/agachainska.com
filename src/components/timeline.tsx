@@ -188,15 +188,18 @@ export const Timeline = memo(
 
         return (
             <TimelineWrapper ref={wrapperRef} {...props}>
-                {sections.map((section: Section, index: number) => (
-                    <AnimatePresence key={`timeline-${index}`} initial={false}>
+                {sections.map((section: Section) => (
+                    <AnimatePresence
+                        key={`timeline-${section.id}`}
+                        initial={false}
+                    >
                         <Title
                             isActive={section.id === state.activeSectionId}
                             hasMultipleSections={sections.length > 1}
                             initial={false}
                             ref={sectionTitleRef}
                             onClick={onTimelineHeaderClick.bind(null, section)}
-                            key={`timeline-${index}-title`}
+                            key={`timeline-${section.id}-title`}
                         >
                             {section.title}
                         </Title>
@@ -204,7 +207,7 @@ export const Timeline = memo(
                             animate="open"
                             initial="collapsed"
                             exit="collapsed"
-                            key={`timeline-${index}-list`}
+                            key={`timeline-${section.id}-list`}
                             variants={{
                                 open: {
                                     opacity: 1,
@@ -242,24 +245,21 @@ export const Timeline = memo(
                                 }}
                             />
 
-                            {section.items?.map(
-                                (item: Item, itemIndex: number) => (
-                                    <ListItem
-                                        key={itemIndex}
-                                        isActive={
-                                            section.id ===
-                                                state.activeSectionId &&
-                                            item.id === state.activeItemId
-                                        }
-                                        onClick={onTimelineItemClick.bind(
-                                            null,
-                                            item
-                                        )}
-                                    >
-                                        {item.title}
-                                    </ListItem>
-                                )
-                            )}
+                            {section.items?.map((item: Item) => (
+                                <ListItem
+                                    key={`${section.id}-${item.id}`}
+                                    isActive={
+                                        section.id === state.activeSectionId &&
+                                        item.id === state.activeItemId
+                                    }
+                                    onClick={onTimelineItemClick.bind(
+                                        null,
+                                        item
+                                    )}
+                                >
+                                    {item.title}
+                                </ListItem>
+                            ))}
                         </List>
                     </AnimatePresence>
                 ))}
