@@ -998,3 +998,367 @@
       elements:
         - element: "other-projects"
           category: UX/UI
+
+- uid: 16
+  category: UX/UI
+  subCategory:
+  workPageColor: "#fff" # background color of the Work Page when this particular project is selected
+  starColor: #F5A4FF
+  name: GOATs
+  cover: /img/projects/image-1.png
+  shortDescription: Employee retention tool
+  keyInfo:
+    elements:
+      - title: Project timeframe & duration
+        text: March-May 2021
+      - title: My role in the project
+        text: UX designer
+  sections:
+    - section: Challenge
+      showSectionTitle: yes
+      showInTimeline: yes
+      elements:
+         - element: text
+           title: Background
+           description: >
+            In the world that is so busy people tend to change jobs often. Millennials, who currently make up the majority of global workforce, have a reputation for job-hopping. ‘Unattached to organizations and institutions, people from this generation (…) are said to move freely from company to company, more so than any other generation.’ (Amy Adkins, Gallup). 
+
+            I was tasked to work on a product that would encourage the best talent to stay with a single company. The client’s vision was to create a win-win situation for employees and employers - where employees stay happy and motivated to keep their performance high, while the employer retains their best talent.
+         - element: text
+           title: Target audience
+           description: >
+           Primary: Employees working for medium to large size organisations, aged between 20 and 40 (born between early 1980's and early 2000).
+
+           Secondary: The customer (Company owner / HR department)
+    - section: Discover
+      showSectionTitle: yes
+      showInTimeline: yes
+      elements:
+        - element: text
+          title: Business needs & goals
+          description: >
+          Interview conducted with the client at the very beginning of the project revealed the below findings:
+
+          The client is a fin-tech start-up made up of a group of people who have experience working in a big company in the past. The thing they have in common is the fact that they all started losing interest in the role after working for a company for a while and felt like they needed an extra motivation. Client's hypothesis is that:
+        - element: quote
+          quote: ‘People tend to be motivated by financial incentives. They love coupons and promotions and would stay loyal to certain shops only because they were getting good deals.'
+          description: >
+          Therefore, the main business goal was to:
+           - Create a tool that supports employees in feeling satisfied and fulfilled at their workplace for a long time.
+           - Release a MVP and get feedback. 
+        - element: text
+          title: Project goals
+          description: >
+           - Validate client's hypothesis
+           - Define V1 set of features 
+           - Define user-facing part of the platform
+        - element: text
+          title: Secondary users' goals
+          description: >
+           Why medium to large size organisations need the product?
+
+           Employee turnover cost is typically higher than retention cost. Employee Benefits News reported in 2017 that turnover can cost employers 33% of an employee’s annual salary. Additionally, ‘A 5% increase in employee retention can generate a 25% to 85% increase in profitability’. Source
+
+           Therefore, it’s clear that from financial point of view, it is in the employer’s best interest to keep their employees on board. More and more employers recognise that investing in an employee engagement program is cheaper than hiring new employees in the long run.
+
+           Chartered Institute of Personnel and Development in their reports claims that ‘‘There’s a clear case for taking action and supporting employee financial well-being, making it an integral part of creating a healthy workplace where people can flourish, reach their potential and make a significant contribution to their organisation’s performance’ and that ’Improving financial well-being really is a the Holy Grail; it helps individual workers to get their finances on track as well as helps businesses to increase productivity, engagement and retention ‘(Jeanette Makings). At the same time they claim that ‘’Rewards and benefits form the most important building block for employees to improve finances ‘(CIPD).
+        - element: full-size-image
+          image: /img/projects/1.Secondary-research.jpg
+        - element: text
+          title: User research
+          description: >
+             First and foremost my goal was to get to know the primary users - their views, motivations and frustrations at work. I looked at their level of satisfaction at their current workplace and factors that conditioned it. 
+
+             I set up video interviews with millennials working at medium and large size corporations across all levels of seniority in various industries.
+        - element: full-size-image
+          image: /img/projects/userinterviews.jpeg
+        - element: text
+          description: >
+           Main motivation factors were determined by asking users directly about them as well as talking about specific situations when they felt the most and least motivated at a workplace. Interestingly, more often than not, recalling specific situations revealed factors that users didn’t think about at first. 
+        - element: full-size-image
+          image: /img/projects/2.Reserach-motivators.jpeg
+        - element: text
+          description: >
+           It was interesting to learn that, contrary to common belief, money isn’t necessarily the most motivating factor at a workplace. Although, money is still an important and common motivator, many millennials seem to be mostly motivated by other factors that are usually difficult to measure.  
+
+           I explored my findings further by using Abraham Maslow’s Hierarchy of Needs model. I turned identified motivators into user needs (colour-coded accordingly) and placed them under right categories of the pyramid. It helped me determine which factors are my users primarily focused on. Durning the analysis I kept in mind that, according to Maslow, the most basic needs (at the bottom of the pyramid), have to be fulfilled first. Only after these needs are met, humans can focus on meeting higher level - psychological and fulfilment needs. People naturally seek to stabilise the lower levels of the hierarchy before trying to retain higher levels. The higher the level is reached, however, the higher the satisfaction.
+
+           During the research I’ve learnt that employee engagement can be measured by applying it to the Maslow’s pyramid (https://www.linkedin.com/pulse20140627092040-50682194-how-maslow-s-hierarchy-of-needs-influences-employee-engagement/). Performing the same exercise allowed me to measure each factor’s role in the overall employee engagement within an organisation.
+        - element: full-size-image
+          image: /img/projects/4.Maslowshieratchy.jpg
+        - element: text
+          description: >
+            I have determined that our product should primarily focus around supporting employees in fulfilling their psychological needs. It would not only drive engagement but also allow on creating solid fundaments for the employees to focus on working towards meeting their self-actualisation needs. 
+
+            Our product should focus around supporting users in:
+              - Feeling recognised (appreciated)
+              - Feeling respected
+              - Feeling a vital part of the business
+              - Working within collaborative culture
+        - element: text
+          description: >
+          Taking into account client's hypothesis and user research findings at this stage, the below product vision was formed:
+        - element: full-size-image
+          image: /img/projects/3.Product vision.jpeg
+        - element: text
+          description: >
+            Having established main motivators and user’s needs that our product would focus around solving I’ve decided to investigate existing tools my interviewees’ employers use to keep them satisfied and fulfilled. Those conversations helped me determine what works, what doesn’t work and why.
+
+            Interviewees with no employee retention program in place said:
+        - element: full-size-image
+          image: /img/projects/5.Reserach-quotes.jpeg
+        - element: text
+          description: >
+            Interviewees with employee retention program in place said:
+        - element: full-size-image
+          image: /img/projects/7.quotes.jpg
+        - element: text
+          description: >
+            Analysing my respondents statements using empathy mapping helped me put myself in their shoes. I collected gathered information and opinions and put together an affinity diagram which helped me synthesise my research findings. 
+        - element: full-page-image
+          image: /img/projects/8.affinitydiagram.jpg
+        - element: text
+          title: Key insights
+          description: >
+            Respondents who described themselves as demotivated and unhappy also claimed that their achievements are not recognised nor rewarded adequately to the efforts they put in.
+            
+            Respondents with no employee retention program in place are only rewarded with verbal recognition. A ‘thank you’ or ‘well done’ without any other form of recognition often leads to negative attitude towards employers and scepticism, whilst achievements get easily forgotten.
+            
+            Respondents with a recognition program appreciate rewards such as gift vouchers or discounts, however they don’t find them memorable. Generally, they don’t feel like such forms of recognition impact their work motivation level.
+            
+            Different individuals feel motivated and appreciated through different factors. 
+    - section: Define
+      showSectionTitle: yes
+      showInTimeline: yes
+      elements: 
+        - element: text
+          title: User personas
+          description: > 
+            Based on the research I have collated and trends and patterns I have observed, I created 3 user personas:
+            - Sara, a high-skilled professional working for a medium sized fin-tech company.
+            - Harry, a low-skilled individual hired by a huge global enterprise. 
+            - Pavel, team leader working for a large international company with ‘remote-first’ strategy. 
+            Personas represent 3 different user types from primary target audience.  Personifying my research findings helped me identify with users I’m designing for. I had been referring to the personas repeatedly at different stages of the design process to make sure the product is focused around their needs and solving their problems.
+        - element: slider
+          images:
+             - image: /img/projects/9a.Persona.jpg
+             - image: /img/projects/9b.Persona.jpg
+             - image: /img/projects/9c.Persona.jpg
+        - element: text
+          title: > 
+            Discovered patterns - key pain points
+          description: >
+            - Verbal recognition is not enough of a reward
+            - Employees have difficulty to create and maintain strong relationships with colleagues and management
+            - Once a year performance based bonus makes employees feel like a lot of their achievements go unnoticed 
+            - Managers and team leaders often are too busy to notice small achievements
+            - It is often unclear how the company measures performance, and what to do to boost it
+            - Using existing appreciation tools at the workplace feels like a chore
+        - element: text
+          title: Problem statement
+        - element: quote
+          quote: ‘Millennials tend to lose their motivation and feel like a meaningless cog in their workplace because there is no visibility of their efforts nor recognition from the employer in any other form than verbal.’
+        - element: text
+          title: Supportive problems to be solved
+          description: >
+            - Many employees feel like little visibility of their efforts and achievements leads to unfair assessment of their performance in the long run. Some of them don’t know if their employers are aware of the quality of work delivered by them and if they are on the right path to pay rise/promotion.
+            - Existing motivating platforms are buggy, hard to use and don't bring any value to employees for using them. In fact they feel like yet another task that needs to be completed without gaining anything in return.
+        - element: text
+          title: Business objectives
+          description: >
+            - Bring visibility to employees’ big and small achievements
+            - Make rewards memorable
+            - Provide clear criteria for measuring performance 
+            - Provide platform that is fun and easy to use
+    - section: Develop
+      showSectionTitle: yes
+      showInTimeline: yes
+      elements:
+        - element: text
+          title: >
+            'How might we' questions
+          description: As a next step I came up with specific questions around the problem statement. Framing my challenge into HMW questions helped me open up the exploration space. 
+        - element: full-page-image
+          image: /img/projects/hmwquestions.jpghmwquestions.jpg
+        - element: text
+          title: Customer journey
+          description: >
+            I have chosen Sara as my primary persona and mapped out her experience with a recognition platform she currently uses at her workplace while keeping her goals and needs in mind. To inform this activity I asked one of my interviewees to show me how they use such platform at their workplace and describe their experience with it. The product used in this person workplace rewards users with gift vouchers. Vouchers are granted to people who were first nominated by their colleagues in a private message to their managers, and then selected by the manager.
+        - element: full-page-image
+          image: /img/projects/10.user-joruney.jpg
+        - element: text
+          description: >
+            This exercise helped me gain a holistic picture of the process and surfaced things that I haven’t thought about before. I came up with a number of ideas and solutions that would improve the user experience of that product. At the same time I decided to apply these findings to our product. 
+
+            Additionally, I placed my HMW questions under the relevant sections on the map which allowed me identifying at which steps of the user journey each challenge should be tackled. 
+        - element: text
+          title: Pivot
+          description: >
+            At this point it became clear that my client hypothesis that access to deals and coupons can help millennials feel motivated and stay at a single workplace may prove ineffective for many users because:
+            - Large percentage of millennials don’t care about discounts and deals
+            - Only large and relevant discounts and deals are considered a meaningful reward for many (these might be difficult to obtain for my client) 
+            - Many millennials don’t consider deals, coupons and vouchers memorable nor impactful reward types
+
+            The research showed that while for some users these might be important (f.ex. retail workers) others may find them completely invaluable. Talking to potential users proved that people feel motivated by various factors. Therefore, an effective retention tool and reward system should be flexible and accommodate for users’ individual needs.
+
+            I referred back to user interviews and CIPD reports when trying to determine possible reward types. Charles Cotton & Jill Miller state that ‘while financial well-being exists at a personal level, a lack of it can (…) have a big impact on the workplace and society as whole worth a loss of productivity and effectiveness.’ At the same time ‘‘there is (…) a growing recognition that wellness is holistic and co-dependent; physical, emotional and financial health work together, and if one part is missing, this imbalance may also impact the other two.'
+
+            I put together a well-being tree based on CIPD report (green post-it notes) and put user interview findings about different workplace rewards (purple post-it notes) against the right category:
+        - element: full-size-image
+          image: /img/projects/12.wellbeingtree.jpg
+        - element: text
+          description: > 
+            This exercise helped me determine the area of human well-being the existing reward types help fulfil. I found it a great starting point when brainstorming other reward ideas that can be found in the value proposition below.
+
+            In light of the above learnings, product's vision has been updated:
+
+        - element: full-size-image
+          image: /img/projects/11.Productvisionrevised.jpg
+        - element: text
+          title: > 
+            Value proposition:
+          description: Analysing Sara’s profile helped me understand her preferences and requirements further. I then translated them into a list of product services, pain relivers and gain creators that would make up our product. This helped me ensure that product not only solves users’ problems but also provides features that delight them.
+        - element: full-page-image
+          image: /img/projects/valueprop.jpg
+        - element: text
+          title: Competitive analysis
+          description: >
+            I critically analysed direct and indirect competitor products in order to identify their weaknesses and strong points. It gave me an opportunity to see how our product can improve on top of what I have already planned.
+
+            I’ve started by using the products myself and annotating things I liked (green post-it notes) and disliked (red post-it notes).
+        - element: full-page-image
+          image: /img/projects/companalysis.jpeg
+        - element: text
+          description: >
+            I analysed my customer journey and value proposition findings. I extracted ideas that I next translated into product features. Then, I have compared them against chosen existing competitor products. This exercise gave my a clear idea of which functions already exist and are successful within the products that are currently on the market and which ones have the potential to differentiate our product and make it unique.
+
+            I’ve also looked at feedback left by users of selected platforms online and noted common pain points at the very bottom of the table.
+        - element: full-size-image
+          image: /img/projects/companalysis2.jpg
+        - element: text
+          description: >
+            As an outcome of the above competitor analysis I have created an overview for each competitor with a list of strengths and weaknesses of their product. Looking at what competitors are doing, not doing or not doing well helped me identify opportunities for my product to offer a better service.
+        - element: slider
+          images:
+            - image: /img/projects/ca-bonusly.jpg
+            - image: /img/projects/CA-benify.jpg
+            - image: /img/projects/ca-kudos.jpg
+        - element: Minimum Viable Product
+          description: > 
+            As my client had > 
+            requested a proof of concept for the product, the goal was to create an MVP made of the most essential and feasible features.
+
+            I put together a prioritization matrix so I could identify the relative importance of proposed product features based on their importance to users and development difficulty. This process helped determine features of the highest priority (Priority 1 & 2) that would become a part of MVP.
+        - element: full-page-image
+          image: /img/projects/prioritymatrix.jpg
+        - element: Main product features
+          description: >
+            - Quick registration process
+            - Informative but quick onboarding
+            - Appreciation posts feed
+            - Reward redemption
+            - Personal goal setting and tracking
+            - Productivity charts
+        - element: text
+          title: App flowchart & wireflows
+          description: >
+            As my client had requested a proof of concept for the product, the goal was to create an MVP made of the most essential and feasible features.
+        - element: full-page-image
+          image: /img/projects/appflow.jpg
+        - element: text
+          description: > 
+            As a next step I created wireflows based on the user research and the above app flowchart. My goal was to make sure our product provides smooth and easy customer journey identified at the earlier stage in Sara’s customer map.
+        - element: full-page-image
+          image: /img/projects/userflow1.jpeg
+        - element: full-page-image
+          image: /img/projects/userflow2.jpeg
+        - element: full-page-image
+          image: /img/projects/userflow3.jpeg
+        - element: text
+          description: > 
+            As a next step I created wireflows based on the user research and the above app flowchart. My goal was to make sure our product provides smooth and easy customer journey identified at the earlier stage in Sara’s customer map.The above wireflows present page context which substantially impacts the user experience. They helped me lay out the full flow and ensure that no scenarios are missed. 
+        - element: text
+          title: Wireframes & prototype
+          description: > 
+            App flowchart and wireflows helped me outline app’s architecture and use cases. I used them as indicators while creating wireframes and creating a working click-through prototype in Invision. 
+
+            For the purpose of creating a prototype that users would interact with, I quickly came up with a playful concept for the app. My goal was to keep the app overall experience fun and light-hearted, yet relevant to it’s core functionality. 
+
+            I called the app GOATs, which was inspired with the widely used on social media goat emoji 🐐. GOAT, as explained in Cambridge Dictionary,  is an abbreviation used to refer to or describe the person who has performed better than anyone else ever (…). The apps goal is to support the employees in becoming the GOAT in their field. All GOATs would be rewarded with 🥬 points for work achievements, achieving professional goals and appreciating their colleagues. 
+
+            It needs to be emphasised, however, that I understand that such concept might not be suitable for companies of all profiles, and that more research and thinking would be required for the actual concept to be developed (which is not the goal of the project).
+        - element: text
+          title: > 
+            Some of the app wireframes:
+        - element: devices
+          types:
+            - type: iPhoneX
+              image: /img/projects/
+            - type: iPhoneX
+              image: /img/projects/
+            - type: iPhoneX
+              image: /img/projects/
+            - type: iPhoneX
+              image: /img/projects/
+    - section: Develop
+      showInTimeline: yes
+      elements:
+        - element: Usability testing
+          description: >
+            Moderated usability testing conducted with 5 participants uncovered following problems:
+        - element: text
+          title: Skip Button
+        - element: text
+          title: > 
+            Learning:
+          description: >
+            While conducting tests most users have reported that they haven’t noticed an option to skip during onboarding and while setting a professional goal (deadline and reminder screens).
+
+            Providing an option to skip is a very important especially when it comes to onboarding process. It prevents users from getting annoyed during their initial experience with the product. 
+
+            Missing a skip button while setting a deadline and a reminder resulted in users not realising that these functionalities are optional. As a result some users could drop completing the action (goal completion could feel like too much of a commitment).
+        - element: text
+          title: > 
+            Diagnosis: 
+          description: Main CTA attracts user attention to the point that they don't see the skip option below.
+        - element: text
+          title: > 
+            Adjustment: 
+          description: >
+            Skip button to be moved to the top right corner of the screen as part of the navigation bar. It’s a commonly used practice (as per Human Interface Guidelines) across many mobile apps so users will expect to find a skip option there.
+        - element: devices
+          types:
+            - type: iPhoneX,
+              image: /img/projects/
+            - type: iPhoneX,
+              image: /img/projects/
+            - type: iPhoneX,
+              image: /img/projects/
+            - type: iPhoneX,
+              image: /img/projects/
+        - element: text
+          title: Rewards section
+        - element: text
+          title: >
+            Learning 1: 
+          description: Users experienced problems finding specific rewards.
+        - element: text
+          title: Diagnosis
+          description: >
+            Users' attention goes straight to the content below the tab bar. They look for a desired reward on the overview screen and don't realise they can select specific reward category. After reaching the bottom of the page without finding the desired reward they seem lost and try to find the reward by clicking on 'Show all' button under featured rewards. Almost all participants admitted they haven't noticed the category tab bar at first.
+
+            User tap heatmaps (images showcases users actions when trying to redeem cash, half a day off and a Nutribullet):
+        - element: devices
+          types:
+            - type: iPhoneX,
+              image: /img/projects/
+            - type: iPhoneX,
+              image: /img/projects/
+            - type: iPhoneX,
+              image: /img/projects/
+            - type: iPhoneX,
+              image: /img/projects/
+        - element: text
+          description: > 
+            Adjustment: Users don't see the tab bar with reward categories. Reward categories should be given more importance on the screen and be made more visually prominent.
+
