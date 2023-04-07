@@ -12,7 +12,6 @@ import { GetStaticProps } from "next";
 import tw, { css, styled } from "twin.macro";
 import { useDebouncedCallback } from "use-debounce";
 
-
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { BigNumber } from "components/big-number";
@@ -30,7 +29,6 @@ import { useNavigation } from "hooks/use-navigation";
 import { useWindowSize } from "hooks/use-window-size";
 import { useStoreProp } from "store/index";
 import { groupBy } from "utils/group-by";
-
 
 interface PageState {
     sliderIndex: number;
@@ -418,9 +416,7 @@ const Work = memo(({ projects }: Props) => {
                             >
                                 {!isShowingOtherProjects && (
                                     <StyledNumber
-                                        value={`${
-                                            state.projectNumberToShow + 1
-                                        }.`}
+                                        value={state.projectNumberToShow + 1}
                                         viewBox="0 0 280 200"
                                         displayOnRight={true}
                                         style={{
@@ -505,11 +501,13 @@ const Work = memo(({ projects }: Props) => {
 
 export default Work;
 
-export const getStaticProps: GetStaticProps<Props> = async ({ locale = "en" }) => ({
-        props: {
+export const getStaticProps: GetStaticProps<Props> = async ({
+    locale = "en",
+}) => ({
+    props: {
         projects: dataProjects,
         ...(await serverSideTranslations(locale)),
-        },
+    },
 });
 
 export const Head = () => <Meta title="Work - Aga Chainska" />;

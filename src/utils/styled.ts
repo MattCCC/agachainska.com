@@ -1,6 +1,6 @@
 export interface StyledOptions {
     label?: string;
-    shouldForwardProp?: (propName: string) => boolean;
+    shouldForwardProp?: (propName: string | number) => boolean;
     target?: string;
 }
 
@@ -10,5 +10,5 @@ export interface StyledOptions {
  * @return {StyledOptions}   Styled options for JSX Intrinsic Elements
  */
 export const excludeProps = (excludes: string[] = []): StyledOptions => ({
-    shouldForwardProp: (prop: string): boolean => !excludes.includes(prop),
+    shouldForwardProp: (prop) => !excludes.includes(String(prop)),
 });
