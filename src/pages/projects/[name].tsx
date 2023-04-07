@@ -48,7 +48,7 @@ interface ContentContainerProps {
 }
 
 const MainSection = styled(MainContainer).withConfig({
-    shouldForwardProp: true,
+    shouldForwardProp: (_prop) => true,
 })(() => [tw`absolute z-10 col-start-2 col-end-13`]);
 
 const ContentContainer = styled.div(
