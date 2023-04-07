@@ -68,7 +68,14 @@ export function Post({
 }: Props) {
     return (
         <Fragment>
-            <PostWrapper onClick={(e: React.MouseEvent<HTMLDivElement | HTMLAnchorElement, MouseEvent>): void => onPostTap(e, post)}>
+            <PostWrapper
+                onClick={(
+                    e: React.MouseEvent<
+                        HTMLDivElement | HTMLAnchorElement,
+                        MouseEvent
+                    >
+                ): void => onPostTap(e, post)}
+            >
                 <Title data-text={post.name}>{post.name}</Title>
                 {setImageAsBg ? (
                     <PostBg
@@ -82,6 +89,7 @@ export function Post({
                 <PostDescription>{post.shortDescription}</PostDescription>
                 {postNum && (
                     <StyledNumber
+                        id={`${postNum}.`}
                         value={`${postNum}.`}
                         viewBox="0 0 160 200"
                         preserveAspectRatio="xMaxYMin meet"

@@ -48,7 +48,7 @@ interface ContentContainerProps {
 }
 
 const MainSection = styled(MainContainer).withConfig({
-    shouldForwardProp: (_prop) => true,
+    shouldForwardProp: () => true,
 })(() => [tw`absolute z-10 col-start-2 col-end-13`]);
 
 const ContentContainer = styled.div(
@@ -162,18 +162,22 @@ interface StatsProps {
     index: number;
 }
 
-function Stats({ stats, index }: StatsProps) {
+function Stats({ stats }: StatsProps) {
     const [refStats, animateStats] = useIncrementStats();
 
     return (
         <StatsTable ref={refStats}>
             {stats.map(({ title, stat }, j) => (
                 <SingleStat
-                    key={`stat-${index}-${j}`}
+                    key={`stat-${title.replaceAll(" ", "-")}`}
                     className={j < 3 ? "space" : "big"}
                 >
                     <CellTitle>
-                        <StyledNumber value={stat} animate={animateStats} />
+                        <StyledNumber
+                            id={`stat-number-${title.replaceAll(" ", "-")}`}
+                            value={stat}
+                            animate={animateStats}
+                        />
                     </CellTitle>
 
                     <StatsCaption>{title}</StatsCaption>

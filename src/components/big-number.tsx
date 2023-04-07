@@ -2,9 +2,8 @@ import { CSSProperties, SVGProps, useEffect, useMemo, useState } from "react";
 
 import useInterval from "@use-it/interval";
 
-import { getRandomNumber } from "utils/random-number";
-
 interface Props extends SVGProps<SVGSVGElement> {
+    id: string;
     value: number;
     animate?: boolean;
     displayOnRight?: boolean;
@@ -20,7 +19,7 @@ function SvgWrapper({
     svgId,
     children,
     ...props
-}: Partial<Props> & { svgId: number }) {
+}: Partial<Props> & { svgId: string }) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -68,6 +67,7 @@ function SvgWrapper({
 }
 
 export function BigNumber({
+    id = "0",
     value = 1,
     animate = false,
     displayOnRight = false,
@@ -82,7 +82,6 @@ export function BigNumber({
         () => Number(viewBox.split(" ")[2]),
         [viewBox]
     );
-    const id = useMemo(() => getRandomNumber(1, 9 ** 9), []);
 
     useEffect(() => {
         if (animate) {
