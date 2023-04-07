@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 
 const { i18n } = require('./next-i18next.config.js');
+const withTwin = require('./withTwin.js')
 
-module.exports = {
+module.exports = withTwin({
   reactStrictMode: true,
   swcMinify: true,
   eslint: {
@@ -10,7 +11,6 @@ module.exports = {
   },
   i18n,
   compiler: {
-		emotion: true,
     styledComponents: true,
     removeConsole: {
       exclude: ['error'],
@@ -19,10 +19,10 @@ module.exports = {
   env: {},
   webpack(config) {
     config.module.rules.push({
-        test: /\.svg$/i,
-        issuer: /\.tsx?$/,
-        use: ['@svgr/webpack'],
-      }, 
+      test: /\.svg$/i,
+      issuer: /\.tsx?$/,
+      use: ['@svgr/webpack'],
+    },
       {
         test: /\.ya?ml$/,
         use: 'js-yaml-loader',
@@ -31,4 +31,4 @@ module.exports = {
 
     return config
   },
-};
+});

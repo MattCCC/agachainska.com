@@ -30,8 +30,7 @@ const SeeAllProjectsBtn = styled(Button)(() => [
     `,
 ]);
 
-const SeeAllProjectsLinkContainer = styled(
-    NextLink,
+const SeeAllProjectsLinkContainer = styled(NextLink).withConfig(
     excludeProps(["screenSize"])
 )(({ screenSize }: Props) => [
     screenSize === "sm" && tw`inline lg:hidden`,

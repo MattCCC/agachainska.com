@@ -1,9 +1,6 @@
 import tw, { css, styled, TwStyle } from "twin.macro";
 
-import { SerializedStyles } from "@emotion/react";
-
-
-const title = (): Array<TwStyle | SerializedStyles> => [
+const title = (): TwStyle[] => [
     tw`relative z-10 w-full subpixel-antialiased text-black select-none font-fbold bg-clip-text`,
     css`
         -webkit-text-fill-color: transparent;

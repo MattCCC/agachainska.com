@@ -6,8 +6,8 @@ import {
     useCallback,
     memo,
     HTMLAttributes,
+    useMemo,
 } from "react";
-import { useMemo } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -17,8 +17,7 @@ import { excludeProps } from "utils/styled";
 
 const TimelineWrapper = styled.div(() => [tw`z-10 text-right w-52`]);
 
-const Title = styled(
-    motion.div,
+const Title = styled(motion.div).withConfig(
     excludeProps(["hasMultipleSections", "isActive"])
 )(({ isActive, hasMultipleSections }: TitleStyle) => [
     tw`font-bold select-none lg:prose-20 lg:leading-7 lg:text-primary opacity-30`,
@@ -39,15 +38,14 @@ const List = styled(motion.div)(() => [
     `,
 ]);
 
-const ListItem = styled(
-    motion.div,
-    excludeProps(["isActive"])
-)(({ isActive }: ListItemStyle) => [
-    tw`relative items-center h-full ml-auto align-middle`,
-    tw`flex text-right capitalize cursor-pointer select-none lg:text-primary opacity-30 lg:p-5`,
-    tw`transition-opacity hover:opacity-100`,
-    isActive && tw`opacity-100`,
-]);
+const ListItem = styled(motion.div).withConfig(excludeProps(["isActive"]))(
+    ({ isActive }: ListItemStyle) => [
+        tw`relative items-center h-full ml-auto align-middle`,
+        tw`flex text-right capitalize cursor-pointer select-none lg:text-primary opacity-30 lg:p-5`,
+        tw`transition-opacity hover:opacity-100`,
+        isActive && tw`opacity-100`,
+    ]
+);
 
 const Pin = styled(motion.div)(() => [
     tw`absolute top-0 bottom-0 right-0 w-px bg-primary z-[2]`,

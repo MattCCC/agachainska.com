@@ -1,10 +1,8 @@
 import { Fragment, useMemo, useRef } from "react";
 
-
 import { GetStaticProps } from "next";
 import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
-
 
 import findLastIndex from "lodash-es/findLastIndex";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -40,8 +38,6 @@ import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import PrevIcon from "svg/down.svg";
 import NextIcon from "svg/up.svg";
-import { includeProps } from "utils/styled";
-
 
 interface Props {
     project: Project;
@@ -51,10 +47,9 @@ interface ContentContainerProps {
     variant?: string;
 }
 
-const MainSection = styled(
-    MainContainer,
-    includeProps(["topPadding"])
-)(() => [tw`absolute z-10 col-start-2 col-end-13`]);
+const MainSection = styled(MainContainer).withConfig({
+    shouldForwardProp: true,
+})(() => [tw`absolute z-10 col-start-2 col-end-13`]);
 
 const ContentContainer = styled.div(
     ({ variant = "3/4" }: ContentContainerProps) => [
@@ -408,12 +403,12 @@ export default function Project({ project, projects }: Props) {
         intersectionRefs.push(
             rootMargin
                 ? // eslint-disable-next-line react-hooks/rules-of-hooks
-                useInViewEffect(intersection, {
-                    ...options,
-                    rootMargin,
-                })
+                  useInViewEffect(intersection, {
+                      ...options,
+                      rootMargin,
+                  })
                 : // eslint-disable-next-line react-hooks/rules-of-hooks
-                useRef(null)
+                  useRef(null)
         );
     }
 
@@ -436,23 +431,23 @@ export default function Project({ project, projects }: Props) {
                 <GridRow start={2} end={12}>
                     {(navigation.hasPreviousButton ||
                         navigation.hasNextButton) && (
-                            <PaginationControls>
-                                {navigation.hasPreviousButton && (
-                                    <Link to={navigation.previousTo}>
-                                        <PaginationButton>
-                                            <PrevIconStyled /> Previous
-                                        </PaginationButton>
-                                    </Link>
-                                )}
-                                {navigation.hasNextButton && (
-                                    <Link to={navigation.nextTo}>
-                                        <PaginationButton>
-                                            Next <NextIconStyled />
-                                        </PaginationButton>
-                                    </Link>
-                                )}
-                            </PaginationControls>
-                        )}
+                        <PaginationControls>
+                            {navigation.hasPreviousButton && (
+                                <Link to={navigation.previousTo}>
+                                    <PaginationButton>
+                                        <PrevIconStyled /> Previous
+                                    </PaginationButton>
+                                </Link>
+                            )}
+                            {navigation.hasNextButton && (
+                                <Link to={navigation.nextTo}>
+                                    <PaginationButton>
+                                        Next <NextIconStyled />
+                                    </PaginationButton>
+                                </Link>
+                            )}
+                        </PaginationControls>
+                    )}
 
                     {keyInfo && keyInfo.elements && (
                         <KeyInfoTable>
@@ -539,10 +534,15 @@ export async function getStaticPaths() {
     };
 }
 
-export const getStaticProps: GetStaticProps<Props> = async ({ params, locale = "en" }) => {
+export const getStaticProps: GetStaticProps<Props> = async ({
+    params,
+    locale = "en",
+}) => {
     const name = params?.name;
 
-    const project = dataProjects.find((currProject: Project) => currProject.name === name);
+    const project = dataProjects.find(
+        (currProject: Project) => currProject.name === name
+    );
 
     return {
         props: {
@@ -553,5 +553,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale = "
     };
 };
 
-export const Head = ({ pageContext }: { pageContext: { name?: string } }) =>
-    <Meta title={`${pageContext?.name || "Project"} - Aga Chainska`} />;
+export const Head = ({ pageContext }: { pageContext: { name?: string } }) => (
+    <Meta title={`${pageContext?.name || "Project"} - Aga Chainska`} />
+);

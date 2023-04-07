@@ -8,10 +8,11 @@ module.exports = {
         }
       }
     ],
-    ['next/babel', { 'preset-react': { 
-      "runtime": "automatic",
-      "importSource": "@emotion/react",
-    } }], 
+    ['next/babel', {
+      'preset-react': {
+        "runtime": "automatic",
+      }
+    }],
   ],
   plugins: [
     'babel-plugin-macros',

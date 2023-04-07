@@ -17,17 +17,16 @@ interface WavesProps {
     darkTheme: boolean;
 }
 
-const Waves = styled(
-    WavesPattern,
-    excludeProps(["darkTheme"])
-)(({ darkTheme }: WavesProps) => [
-    tw`absolute w-full`,
-    darkTheme && tw`opacity-5`,
-    css`
-        height: 200vh;
-        top: 59.5px;
-    `,
-]);
+const Waves = styled(WavesPattern).withConfig(excludeProps(["darkTheme"]))(
+    ({ darkTheme }: WavesProps) => [
+        tw`absolute w-full`,
+        darkTheme && tw`opacity-5`,
+        css`
+            height: 200vh;
+            top: 59.5px;
+        `,
+    ]
+);
 
 const Vectors = styled(VectorsIllustration)(() => [
     tw`absolute z-10`,

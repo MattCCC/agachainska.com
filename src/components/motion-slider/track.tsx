@@ -34,12 +34,11 @@ interface TrackWrapperProps {
     displayGrabCursor?: boolean;
 }
 
-const Wrapper = styled(
-    "div",
-    excludeProps(["displayGrabCursor"])
-)(({ displayGrabCursor }: TrackWrapperProps) => [
-    displayGrabCursor && tw`cursor-grab active:cursor-grabbing`,
-]);
+const Wrapper = styled("div").withConfig(excludeProps(["displayGrabCursor"]))(
+    ({ displayGrabCursor }: TrackWrapperProps) => [
+        displayGrabCursor && tw`cursor-grab active:cursor-grabbing`,
+    ]
+);
 
 export const Track = ({
     children,
