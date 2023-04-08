@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { BottomCircle } from "components/bottom-circle";
 import { CountDown } from "components/count-down";
 import HomepageTitle from "components/homepage-title";
-import { GridRow, MainContainer } from "components/main-container";
+import { MainContainer } from "components/main-container";
 import { MainSection } from "components/main-section";
 import { Meta } from "components/meta";
 import { pageContentVariants } from "components/overlays";
@@ -58,12 +58,12 @@ export default function Home() {
                 variants={pageContentVariants}
             >
                 <MainContainer>
-                    <GridRow>
+                    <div tw="col-start-1 col-end-13">
                         <HomepageTitle />
                         <Desc>
                             <Translate id="home.description" />
                         </Desc>
-                    </GridRow>
+                    </div>
                 </MainContainer>
             </MainSection>
             <BottomCircle />

@@ -15,7 +15,7 @@ import { H2 } from "components/h2";
 import { H3 } from "components/h3";
 import { H4 } from "components/h4";
 import { Link } from "components/link";
-import { MainContainer, GridRow } from "components/main-container";
+import { MainContainer } from "components/main-container";
 import { MainTitleBottom } from "components/main-title";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
@@ -440,7 +440,7 @@ export default function Project({ project, projects }: Props) {
                     <ParallaxBackground bgImgUrl={cover} />
                 </HeroWrapper>
 
-                <GridRow start={2} end={12}>
+                <div tw="col-start-1 lg:col-start-2 col-end-13 lg:col-end-12">
                     {(navigation.hasPreviousButton ||
                         navigation.hasNextButton) && (
                         <PaginationControls>
@@ -473,7 +473,7 @@ export default function Project({ project, projects }: Props) {
                             )}
                         </KeyInfoTable>
                     )}
-                </GridRow>
+                </div>
             </MainSection>
 
             <Article>

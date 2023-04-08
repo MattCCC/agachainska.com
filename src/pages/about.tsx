@@ -7,7 +7,7 @@ import tw, { css, styled } from "twin.macro";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { ParallaxBackground } from "components/about-parallax-background";
-import { GridRow, MainContainer } from "components/main-container";
+import { MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
 import PersonalPic from "components/personal-pic";
@@ -239,7 +239,7 @@ export default function About({ aboutPageData, projects }: Props) {
             {!hasSmallWindowWidth && <ParallaxBackground />}
 
             <MainContainer>
-                <GridRow>
+                <div tw="col-start-1 col-end-13">
                     <HeroSection>
                         <PersonalPic />
                         <Info>
@@ -348,7 +348,7 @@ export default function About({ aboutPageData, projects }: Props) {
                             </SelectedProjectsContainer>
                         </ArticleSection>
                     </Article>
-                </GridRow>
+                </div>
             </MainContainer>
         </Fragment>
     );

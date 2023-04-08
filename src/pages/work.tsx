@@ -15,7 +15,7 @@ import { useDebouncedCallback } from "use-debounce";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { BigNumber } from "components/big-number";
-import { GridRow, MainContainer } from "components/main-container";
+import { MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
 import { Post, PostItem } from "components/post";
@@ -412,7 +412,7 @@ const Work = memo(({ projects }: Props) => {
             <MotionCursor />
 
             <MainContainer topPadding={true}>
-                <GridRow tw="col-start-1 col-end-13 lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col">
+                <div tw="col-start-1 col-end-13 lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col">
                     <ContentContainer>
                         {!hasSmallWindowWidth ? (
                             <SlideWrapper
@@ -498,7 +498,7 @@ const Work = memo(({ projects }: Props) => {
                                 )
                             )}
                     </ContentContainer>
-                </GridRow>
+                </div>
             </MainContainer>
         </Fragment>
     );

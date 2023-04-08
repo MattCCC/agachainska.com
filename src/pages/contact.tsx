@@ -4,7 +4,7 @@ import tw, { css, styled } from "twin.macro";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { Button } from "components/button";
-import { GridRow, MainContainer } from "components/main-container";
+import { MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { SocialMedia } from "components/social-media";
 import { TextTextarea } from "components/text-textarea";
@@ -46,7 +46,7 @@ export default function Contact() {
         >
             <MainContainer topPadding={true} as="section">
                 <ContactIllus />
-                <GridRow start={1} end={6}>
+                <div tw="col-start-1 col-end-13 lg:col-end-6">
                     <H1>
                         Let’s talk! Shoot me a message if you’d like to work
                         together or just to say hello.
@@ -54,8 +54,8 @@ export default function Contact() {
                     <div className="hidden lg:block">
                         <SocialMedia items={socialMedia} variant="big" />
                     </div>
-                </GridRow>
-                <GridRow start={7} end={12} className="lg:pt-24">
+                </div>
+                <div tw="col-start-1 lg:col-start-7 col-end-13 lg:col-end-12 lg:pt-24">
                     <TextTextarea
                         id="contact"
                         name="contact"
@@ -91,7 +91,7 @@ export default function Contact() {
                             {EMAIL_ADDRESS}
                         </EmailLink>
                     </span>
-                </GridRow>
+                </div>
             </MainContainer>
         </form>
     );
