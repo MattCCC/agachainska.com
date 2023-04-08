@@ -188,81 +188,84 @@ export const Timeline = memo(
 
         return (
             <TimelineWrapper ref={wrapperRef} {...props}>
-                {sections.map((section: Section) => (
-                    <AnimatePresence
-                        key={`timeline-${section.id}`}
-                        initial={false}
-                    >
-                        <Title
-                            isActive={section.id === state.activeSectionId}
-                            hasMultipleSections={sections.length > 1}
-                            initial={false}
-                            ref={sectionTitleRef}
-                            onClick={onTimelineHeaderClick.bind(null, section)}
-                            key={`timeline-${section.id}-title`}
-                        >
-                            {section.title}
-                        </Title>
-                        <List
-                            animate="open"
-                            initial="collapsed"
-                            exit="collapsed"
-                            key={`timeline-${section.id}-list`}
-                            variants={{
-                                open: {
-                                    opacity: 1,
-                                    height:
-                                        section.id === state.activeSectionId
-                                            ? contentListHeight
-                                            : 0,
-                                },
-                                collapsed: { opacity: 0, height: 0 },
-                            }}
-                            transition={{
-                                duration: 0.8,
-                                ease: [0.04, 0.62, 0.23, 0.98],
-                            }}
-                        >
-                            <Pin
-                                animate={{
-                                    y: Math.max(
-                                        0,
-                                        (contentListHeight /
-                                            (section.items?.length ?? 1)) *
-                                            (section.items?.findIndex(
-                                                (item) =>
-                                                    item.id ===
-                                                    state.activeItemId
-                                            ) || 0)
-                                    ),
+                <AnimatePresence initial={false}>
+                    {sections.map((section: Section) => (
+                        <div key={`timeline-${section.id}`}>
+                            <Title
+                                isActive={section.id === state.activeSectionId}
+                                hasMultipleSections={sections.length > 1}
+                                initial={false}
+                                ref={sectionTitleRef}
+                                onClick={onTimelineHeaderClick.bind(
+                                    null,
+                                    section
+                                )}
+                                key={`timeline-${section.id}-title`}
+                            >
+                                {section.title}
+                            </Title>
+                            <List
+                                animate="open"
+                                initial="collapsed"
+                                exit="collapsed"
+                                key={`timeline-${section.id}-list`}
+                                variants={{
+                                    open: {
+                                        opacity: 1,
+                                        height:
+                                            section.id === state.activeSectionId
+                                                ? contentListHeight
+                                                : 0,
+                                    },
+                                    collapsed: { opacity: 0, height: 0 },
                                 }}
-                                style={{
-                                    height: Math.max(
-                                        0,
-                                        contentListHeight /
-                                            (section.items?.length ?? 1)
-                                    ),
+                                transition={{
+                                    duration: 0.8,
+                                    ease: [0.04, 0.62, 0.23, 0.98],
                                 }}
-                            />
+                            >
+                                <Pin
+                                    animate={{
+                                        y: Math.max(
+                                            0,
+                                            (contentListHeight /
+                                                (section.items?.length ?? 1)) *
+                                                (section.items?.findIndex(
+                                                    (item) =>
+                                                        item.id ===
+                                                        state.activeItemId
+                                                ) || 0)
+                                        ),
+                                    }}
+                                    style={{
+                                        height: Math.max(
+                                            0,
+                                            contentListHeight /
+                                                (section.items?.length ?? 1)
+                                        ),
+                                    }}
+                                />
 
-                            {section.items?.map((item: Item) => (
-                                <ListItem
-                                    key={`${section.id}-${item.id}`}
-                                    isActive={
-                                        section.id === state.activeSectionId &&
-                                        item.id === state.activeItemId
-                                    }
-                                    onClick={onTimelineItemClick.bind(
-                                        null,
-                                        item
-                                    )}
-                                >
-                                    {item.title}
-                                </ListItem>
-                            ))}
-                        </List>
-                    </AnimatePresence>
-                ))}
+                                {section.items?.map((item: Item) => (
+                                    <ListItem
+                                        key={`${section.id}-${item.id}`}
+                                        isActive={
+                                            section.id ===
+                                                state.activeSectionId &&
+                                            item.id === state.activeItemId
+                                        }
+                                        onClick={onTimelineItemClick.bind(
+                                            null,
+                                            item
+                                        )}
+                                    >
+                                        {item.title}
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </div>
+                    ))}
+                </AnimatePresence>
             </TimelineWrapper>
         );
     },
