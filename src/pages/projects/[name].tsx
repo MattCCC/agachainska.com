@@ -552,9 +552,11 @@ export const getStaticProps: GetStaticProps<Props> = async ({
 }) => {
     const name = params?.name;
 
-    const project = dataProjects.find(
-        (currProject: Project) => currProject.name === name
-    );
+    const project =
+        dataProjects.find(
+            (currProject: Project) =>
+                String(currProject.nameSlug) === "projects/" + name
+        ) || {};
 
     return {
         props: {

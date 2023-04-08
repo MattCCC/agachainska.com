@@ -45,35 +45,43 @@ export const useLinkDelayed = ({
     );
 
     const onClick: LinkDelayedCallback = useCallback(
-      (e, toRoute = "") => {
-        const goTo = toRoute || to;
+        (e, toRoute = "") => {
+            const goTo = toRoute || to;
 
-        // If trying to navigate to current page stop everything
-        if (location?.pathname === goTo) {
-            return;
-        }
-
-        if (delay) {
-            onDelayStart(e, goTo);
-
-            if (e.defaultPrevented) {
+            // If trying to navigate to current page stop everything
+            if (location?.pathname === goTo) {
                 return;
             }
 
-            e.preventDefault();
+            if (delay) {
+                onDelayStart(e, goTo);
 
-            timeout.current = setTimeout(() => {
-                if (replace) {
-                    router.replace(goTo);
-                } else {
-                    router.push(goTo);
+                if (e.defaultPrevented) {
+                    return;
                 }
 
-                onDelayEnd(e, goTo);
-            }, delay);
-        }
-      },
-      [to, location?.pathname, delay, onDelayStart, replace, onDelayEnd, router]
+                e.preventDefault();
+
+                timeout.current = setTimeout(() => {
+                    if (replace) {
+                        router.replace(goTo);
+                    } else {
+                        router.push(goTo);
+                    }
+
+                    onDelayEnd(e, goTo);
+                }, delay);
+            }
+        },
+        [
+            to,
+            location?.pathname,
+            delay,
+            onDelayStart,
+            replace,
+            onDelayEnd,
+            router,
+        ]
     );
 
     return onClick;
