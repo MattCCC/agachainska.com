@@ -1,6 +1,6 @@
 export interface StyledOptions {
     label?: string;
-    shouldForwardProp?: (propName: string | number) => boolean;
+    shouldForwardProp?: (propName: string | number | symbol) => boolean;
     target?: string;
 }
 
