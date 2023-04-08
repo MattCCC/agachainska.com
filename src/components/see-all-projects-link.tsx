@@ -43,7 +43,7 @@ export default function SeeAllProjectsLink({ screenSize }: Props) {
 
     return (
         <SeeAllProjectsLinkContainer
-            {...linkProps}
+            to={linkProps.to}
             href={linkProps.to}
             screenSize={screenSize}
         >
