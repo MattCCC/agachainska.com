@@ -10,7 +10,7 @@ import { useNavigation } from "hooks/use-navigation";
 export interface Props extends LinkDelayedArgs, Omit<LinkProps, "href"> {
     to: string;
     children: ReactNode;
-    isCurrentPage?: boolean;
+    className?: string;
 }
 
 export const Link = ({
@@ -20,9 +20,7 @@ export const Link = ({
     onDelayStart = (() => {}) as OnDelayCallback,
     onDelayEnd = (() => {}) as OnDelayCallback,
     children,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    isCurrentPage = false,
-    ...props
+    className = "",
 }: PropsWithChildren<Props>) => {
     const { i18n } = useTranslation();
     const onClick = useNavigation({
@@ -40,7 +38,7 @@ export const Link = ({
             }
             href={to}
             locale={i18n.language}
-            {...props}
+            className={className}
         >
             {children}
         </NextLink>
