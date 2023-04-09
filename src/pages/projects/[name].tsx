@@ -521,6 +521,10 @@ export default function Project({ project, projects }: Props) {
                                         key={sectionId}
                                         id={sectionId}
                                     >
+                                        {showSectionTitle &&
+                                            showSectionTitle === "yes" && (
+                                                <H2>{section}</H2>
+                                            )}
                                         {elements &&
                                             sectionLoader(
                                                 elements,
