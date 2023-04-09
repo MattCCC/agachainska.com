@@ -14,18 +14,21 @@ interface Args {
     uid: number;
 }
 
-export const usePagination = ({ projectsByCategory, uid }: Args): any => {
+export const usePagination = ({
+    projectsByCategory,
+    uid,
+}: Args): Pagination[] => {
     const [navigation, setNavigation] = useState({
         hasPreviousButton: false,
         hasNextButton: false,
     } as Pagination);
 
     const onPaginate = useCallback(
-        (num: number): string | boolean => {
+        (num: number): Pagination["previousTo"] | Pagination["nextTo"] => {
             const projectsList = projectsByCategory.filteredProjects;
 
             if (projectsList.length === 0) {
-                return false;
+                return "";
             }
 
             const projectIndex = projectsList.findIndex(
@@ -33,7 +36,7 @@ export const usePagination = ({ projectsByCategory, uid }: Args): any => {
             );
 
             if (projectIndex <= -1 || !projectsList[projectIndex + num]) {
-                return false;
+                return "";
             }
 
             const { nameSlug } = projectsList[projectIndex + num];
@@ -58,8 +61,8 @@ export const usePagination = ({ projectsByCategory, uid }: Args): any => {
             nextTo,
             hasPreviousButton: projectsList[0]?.uid !== uid,
             hasNextButton: projectsList[projectsList.length - 1]?.uid !== uid,
-        } as Pagination);
+        });
     }, [onPaginate, projectsByCategory, uid]);
 
-    return [navigation, setNavigation];
+    return [navigation];
 };
