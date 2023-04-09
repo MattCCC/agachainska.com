@@ -200,24 +200,19 @@ export const MotionCursor = ({
     const projectCover = motionCursorData.projectCover;
 
     useEffect(() => {
-        const setMousePosition = ({ clientX = 0, clientY = 0 }) => {
-            if (!cursorRef.current) {
-                return;
-            }
+        if (!cursorRef.current) {
+            return;
+        }
 
+        const refStyle = cursorRef.current.style;
+
+        const setMousePosition = ({ clientX = 0, clientY = 0 }) => {
             if (onPositionUpdate) {
                 onPositionUpdate(clientX, clientY);
             }
 
-            cursorRef.current.style.setProperty(
-                "--top",
-                `${clientY || -cursorSize}px`
-            );
-
-            cursorRef.current.style.setProperty(
-                "--left",
-                `${clientX || -cursorSize}px`
-            );
+            refStyle.setProperty("--top", clientY + "px");
+            refStyle.setProperty("--left", clientX + "px");
         };
 
         window.addEventListener("mousemove", setMousePosition);
