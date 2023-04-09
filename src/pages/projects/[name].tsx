@@ -491,10 +491,9 @@ export default function Project({ project, projects }: Props) {
                             .replaceAll("/", "-");
 
                         return (
-                            <>
+                            <div key={sectionId}>
                                 {showInTimeline && showInTimeline === "yes" ? (
                                     <SectionObserver
-                                        key={sectionId}
                                         sectionId={sectionId}
                                         sectionNumber={i}
                                         isLastSection={
@@ -533,7 +532,7 @@ export default function Project({ project, projects }: Props) {
                                             )}
                                     </ArticleSection>
                                 )}
-                            </>
+                            </div>
                         );
                     }
                 )}
