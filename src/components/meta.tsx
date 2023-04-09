@@ -1,7 +1,6 @@
 import { memo, PropsWithChildren } from "react";
 
 import Head from "next/head";
-import { useRouter } from "next/router";
 
 import { useSiteMetadata } from "hooks/use-site-metadata";
 
@@ -19,7 +18,6 @@ export const Meta = memo(
         article = false,
         children,
     }: PropsWithChildren<Props>) => {
-        const { pathname } = useRouter();
         const {
             title: defaultTitle,
             description: defaultDescription,
@@ -32,7 +30,6 @@ export const Meta = memo(
             title: title || defaultTitle,
             description: description || defaultDescription,
             image: `${siteUrl}${image}`,
-            url: `${siteUrl}${pathname}`,
         };
 
         return (
@@ -44,8 +41,6 @@ export const Meta = memo(
                     name="viewport"
                     content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
                 />
-
-                {seo.url && <meta property="og:url" content={seo.url} />}
 
                 {article && <meta property="og:type" content="article" />}
 
