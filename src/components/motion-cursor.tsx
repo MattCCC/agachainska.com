@@ -1,5 +1,4 @@
 import {
-    CSSProperties,
     Fragment,
     memo,
     PropsWithChildren,
