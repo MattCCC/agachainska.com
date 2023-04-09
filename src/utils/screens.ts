@@ -27,18 +27,3 @@ export const down = (bp: Screen): string => {
 
     return `@media only screen and (max-width: ${screen})`;
 };
-
-export const between = (bpMin: Screen, bpMax: Screen): string => {
-    const screenMin = screens[bpMin];
-    const screenMax = getNextBpValue(screens[bpMax]);
-
-    return `@media only screen and (min-width: ${screenMin}) and (max-width: ${screenMax})`;
-};
-
-export const only = (bp: Screen): string => {
-    const screenKeys = Object.keys(screens) as Screen[];
-    const currentKeyIndex = screenKeys.indexOf(bp);
-    const nextBp = screenKeys[currentKeyIndex + 1];
-
-    return nextBp ? between(bp, nextBp) : up(bp);
-};
