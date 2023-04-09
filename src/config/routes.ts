@@ -89,8 +89,8 @@ const routesList: RoutesList = {
     },
     project: {
         id: "project",
-        path: "/projects/[name]'",
-        pattern: "/projects/.*?/$",
+        path: "/projects/[name]",
+        pattern: "/projects/.*?/?$",
         meta: {
             store: {
                 showMotionGrid: false,

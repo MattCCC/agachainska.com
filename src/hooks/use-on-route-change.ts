@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { useStoreProp } from "store/index";
 import { findRouteMeta } from "utils/route";
 
-
 export const useOnRouteChange = () => {
     const location = useRouter();
     const [, dispatch] = useStoreProp("currentDelayedRoute");
