@@ -1,7 +1,5 @@
 import {
-    ElementRef,
     ReactNode,
-    RefObject,
     useEffect,
     useRef,
     useMemo,
@@ -15,8 +13,6 @@ import { useWindowSize } from "hooks/use-window-size";
 interface Props {
     children: ReactNode;
 }
-
-type RefHandle = ElementRef<typeof SmoothScroll>;
 
 interface ScrollData {
     ease: number;
@@ -55,7 +51,7 @@ const smoothScrollingHandler = (
 
 export const SmoothScroll = ({ children }: PropsWithChildren<Props>) => {
     const windowDimensions = useWindowSize();
-    const containerRef = useRef<RefHandle>(null) as RefObject<HTMLDivElement>;
+    const containerRef = useRef<HTMLDivElement>(null);
     const data = useMemo(
         () => ({
             ease: 0.09,
