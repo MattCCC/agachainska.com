@@ -53,55 +53,57 @@ const Overlays = memo(
         }
 
         return (
-            <LayoutGroup id="overlays">
-                <TopOverlay />
+            <div id="overlays">
+                <LayoutGroup id="overlays">
+                    <TopOverlay />
 
-                <motion.div
-                    className="fixed left-0 right-0 w-full h-full"
-                    style={{
-                        backgroundColor: backgroundColors[0],
-                        zIndex: 1030,
-                    }}
-                    custom={{
-                        id: 1,
-                        duration,
-                    }}
-                    variants={OverlayVariants}
-                    animate="enter"
-                    initial="end"
-                    exit="end"
-                />
-                <motion.div
-                    className="fixed left-0 right-0 w-full h-full"
-                    style={{
-                        backgroundColor: backgroundColors[1],
-                        zIndex: 1020,
-                    }}
-                    custom={{
-                        id: 2,
-                        duration: duration * 0.66,
-                    }}
-                    variants={OverlayVariants}
-                    animate="enter"
-                    initial="end"
-                    exit="end"
-                />
-                <motion.div
-                    className="fixed left-0 right-0 w-full h-full"
-                    style={{
-                        backgroundColor: backgroundColors[2],
-                        zIndex: 1010,
-                    }}
-                    custom={{
-                        id: 3,
-                        duration: duration * 0.5,
-                    }}
-                    variants={OverlayVariants}
-                    animate="enter"
-                    initial="end"
-                    exit="end"
-                />
-            </LayoutGroup>
+                    <motion.div
+                        className="fixed left-0 right-0 w-full h-full"
+                        style={{
+                            backgroundColor: backgroundColors[0],
+                            zIndex: 1030,
+                        }}
+                        custom={{
+                            id: 1,
+                            duration,
+                        }}
+                        variants={OverlayVariants}
+                        animate="enter"
+                        initial="end"
+                        exit="end"
+                    />
+                    <motion.div
+                        className="fixed left-0 right-0 w-full h-full"
+                        style={{
+                            backgroundColor: backgroundColors[1],
+                            zIndex: 1020,
+                        }}
+                        custom={{
+                            id: 2,
+                            duration: duration * 0.66,
+                        }}
+                        variants={OverlayVariants}
+                        animate="enter"
+                        initial="end"
+                        exit="end"
+                    />
+                    <motion.div
+                        className="fixed left-0 right-0 w-full h-full"
+                        style={{
+                            backgroundColor: backgroundColors[2],
+                            zIndex: 1010,
+                        }}
+                        custom={{
+                            id: 3,
+                            duration: duration * 0.5,
+                        }}
+                        variants={OverlayVariants}
+                        animate="enter"
+                        initial="end"
+                        exit="end"
+                    />
+                </LayoutGroup>
+            </div>
         );
     },
     () => true
