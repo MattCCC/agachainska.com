@@ -71,14 +71,13 @@ const CursorText = styled.div(() => [
 
 const ProjectCover = styled.div(
     ({ isMotionCursorVisible, projectCoverLink }: CursorProps) => [
-        tw`absolute z-30 hidden opacity-0 lg:block cursor-none`,
-        tw`top-[35px] left-[120px]`,
+        tw`hidden opacity-0 lg:block cursor-none`,
+        tw`-mt-[20px] ml-[90px]`,
         css`
             background: url(${projectCoverLink}) center;
             background-size: cover;
             width: 400px;
             height: 215px;
-            margin: 14px 0 0 -30px;
             transform: rotate(-10deg) scale(0.5);
 
             @keyframes showImg {
