@@ -78,7 +78,7 @@ export const Contact = memo(() => {
 
         showMotionCursor(isMouseOver, {
             text: "contact",
-            route: "/contact/",
+            route: "/contact",
             size: 80,
             overlap: false,
             color: isMouseOver ? "melrose" : "block",
