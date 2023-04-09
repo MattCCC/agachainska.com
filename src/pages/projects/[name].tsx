@@ -557,7 +557,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({
     const project =
         dataProjects.find(
             (currProject: Project) =>
-                String(currProject.nameSlug) === "projects/" + name
+                String(currProject.nameSlug) === "/projects/" + name
         ) || {};
 
     return {

@@ -4,7 +4,7 @@
   workPageColor: "#fff"
   starColor: "#F5A4FF"
   name: RE/MAX
-  nameSlug: projects/remax
+  nameSlug: /projects/remax
   cover: "/img/projects/image-1.png"
   shortDescription: "Custom Illustrations for RE/MAX"
   timelineTitle: "Design Process"
@@ -107,7 +107,7 @@
   workPageColor: "#fff"
   starColor: "#F5A4FF"
   name: Danish Bakery
-  nameSlug: projects/danish-bakery
+  nameSlug: /projects/danish-bakery
   cover: "/img/projects/image-2.jpg"
   shortDescription: "Custom Illustrations for Danish Bakery"
   timelineTitle: "Design Process"
@@ -197,7 +197,7 @@
   workPageColor: "#FFF9FE"
   starColor: "#C0A4FF"
   name: Twitch
-  nameSlug: projects/twitch
+  nameSlug: /projects/twitch
   cover: "/img/projects/placeholder-1.png"
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   timelineTitle: "Design Process"
@@ -287,7 +287,7 @@
   workPageColor: "#FFF9FE"
   starColor: "#C0A4FF"
   name: RE/MAX
-  nameSlug: projects/remax
+  nameSlug: /projects/remax
   cover: "/img/projects/image-1.png"
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   timelineTitle: "Design Process"
@@ -378,7 +378,7 @@
   workPageColor: "#FFF9FE"
   starColor: "#C0A4FF"
   name: YELLOW WEBSITE
-  nameSlug: projects/yellow-website
+  nameSlug: /projects/yellow-website
   cover: "/img/projects/image-2.jpg"
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   timelineTitle: "Design Process"
@@ -469,7 +469,7 @@
   workPageColor: "#FFF9FE"
   starColor: "#C0A4FF"
   name: VELLOW WEBSITE
-  nameSlug: projects/yellow-website
+  nameSlug: /projects/yellow-website
   cover: "/img/projects/placeholder-1.png"
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   timelineTitle: "Design Process"
@@ -560,7 +560,7 @@
   workPageColor: "#FFF9FE"
   starColor: "#C0A4FF"
   name: WELLOW WEBSITE
-  nameSlug: projects/yellow-website
+  nameSlug: /projects/yellow-website
   cover: "/img/projects/image-1.png"
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   timelineTitle: "Design Process"
@@ -651,7 +651,7 @@
   workPageColor: "#fff"
   starColor: "#F5A4FF"
   name: Addidas
-  nameSlug: projects/addidas
+  nameSlug: /projects/addidas
   cover: "/img/projects/image-2.jpg"
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   timelineTitle: "Design Process"
@@ -742,7 +742,7 @@
   workPageColor: "#fff"
   starColor: "#F5A4FF"
   name: Nike
-  nameSlug: projects/nike
+  nameSlug: /projects/nike
   cover: "/img/projects/placeholder-1.png"
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   timelineTitle: "Design Process"
@@ -833,7 +833,7 @@
   workPageColor: "#fff"
   starColor: "#F5A4FF"
   name: Pepsi
-  nameSlug: projects/pepsi
+  nameSlug: /projects/pepsi
   cover: "/img/projects/image-1.png"
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   timelineTitle: "Design Process"
@@ -923,7 +923,7 @@
   workPageColor: "#fff"
   starColor: "#F5A4FF"
   name: Topshop
-  nameSlug: projects/topshop
+  nameSlug: /projects/topshop
   cover: "/img/projects/image-2.jpg"
   shortDescription: "Custom Illustrations for Maltese Yellow Page Website"
   timelineTitle: "Design Process"
