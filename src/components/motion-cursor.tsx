@@ -1,5 +1,4 @@
 import {
-    Fragment,
     memo,
     PropsWithChildren,
     useCallback,
@@ -12,7 +11,6 @@ import tw, { css, styled } from "twin.macro";
 
 import { Translate } from "components/translate";
 import { useNavigation } from "hooks/use-navigation";
-import { useTrackMousePosition } from "hooks/use-track-mouse-position";
 import { State, useStoreProp } from "store/index";
 
 interface Props {
@@ -122,7 +120,7 @@ const CursorLink = memo(
         target,
         to,
         children,
-    }: PropsWithChildren<State["motionCursorData"]>) => {
+    }: PropsWithChildren<{ text: string; to: string; target: string }>) => {
         const onNavigate = useNavigation({
             to,
         });
@@ -199,47 +197,60 @@ export const MotionCursor = ({
 
     const [motionCursorData] = useStoreProp("motionCursorData");
     const [isMotionCursorVisible] = useStoreProp("isMotionCursorVisible");
-    const { clientX, clientY } = useTrackMousePosition();
     const projectCover = motionCursorData.projectCover;
 
     useEffect(() => {
-        if (onPositionUpdate) {
-            onPositionUpdate(clientX, clientY);
-        }
-    }, [clientX, clientY, onPositionUpdate]);
+        const setMousePosition = ({ clientX = 0, clientY = 0 }) => {
+            if (!cursorRef.current) {
+                return;
+            }
 
-    useEffect(() => {
-        if (cursorRef.current) {
+            if (onPositionUpdate) {
+                onPositionUpdate(clientX, clientY);
+            }
+
             cursorRef.current.style.setProperty(
                 "--top",
-                `${clientY || -motionCursorData.size || -cursorSize}px`
+                `${clientY || -cursorSize}px`
             );
 
             cursorRef.current.style.setProperty(
                 "--left",
-                `${clientX || -motionCursorData.size || -cursorSize}px`
+                `${clientX || -cursorSize}px`
             );
-        }
-    }, [clientX, clientY, cursorRef, motionCursorData.size]);
+        };
+
+        window.addEventListener("mousemove", setMousePosition);
+
+        return (): void => {
+            window.removeEventListener("mousemove", setMousePosition);
+        };
+    }, [cursorRef, onPositionUpdate]);
 
     return (
-        <Fragment>
-            <Cursor
-                ref={cursorRef}
-                isMotionCursorVisible={isMotionCursorVisible}
-                {...motionCursorData}
-                className="cursor"
+        <Cursor
+            ref={cursorRef}
+            isMotionCursorVisible={isMotionCursorVisible}
+            color={motionCursorData.color}
+            size={motionCursorData.size}
+            overlap={motionCursorData.overlap}
+            className="cursor"
+        >
+            <CursorLink
+                text={motionCursorData.text}
+                target={motionCursorData.target}
+                to={motionCursorData.to}
             >
-                <CursorLink {...motionCursorData}>{children}</CursorLink>
+                {children}
+            </CursorLink>
 
-                {projectCover && (
-                    <ProjectCover
-                        className="project-cover"
-                        isMotionCursorVisible={isMotionCursorVisible}
-                        projectCoverLink={projectCover}
-                    />
-                )}
-            </Cursor>
-        </Fragment>
+            {projectCover && (
+                <ProjectCover
+                    className="project-cover"
+                    isMotionCursorVisible={isMotionCursorVisible}
+                    projectCoverLink={projectCover}
+                />
+            )}
+        </Cursor>
     );
 };
