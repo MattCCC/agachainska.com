@@ -164,7 +164,7 @@ const CursorLink = memo(
         }
 
         return (
-            <TextWrapper as="a" onClick={onNavigate}>
+            <TextWrapper as="a" href={to} onClick={onNavigate}>
                 <CursorText>
                     <Translate id={text} />
                 </CursorText>
