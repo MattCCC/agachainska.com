@@ -1,19 +1,19 @@
 import tw, { css, styled } from "twin.macro";
 
-import NextLink from "next/link";
 import { useRouter } from "next/router";
 
 import { getLinkProps } from "utils/route";
-import { excludeProps } from "utils/styled";
 
 import { Button } from "./button";
 import { Translate } from "./translate";
+import { Link } from "components/link";
+import { PropsWithChildren } from "react";
 
 interface Props {
     screenSize: "sm" | "lg";
 }
 
-const SeeAllProjectsBtn = styled.span(() => [
+const ButtonWrapper = styled.span(() => [
     css`
         span {
             ${tw`border-none bg-primary text-tertiary`}
@@ -30,28 +30,33 @@ const SeeAllProjectsBtn = styled.span(() => [
     `,
 ]);
 
-const SeeAllProjectsLinkContainer = styled(NextLink).withConfig(
-    excludeProps(["screenSize"])
-)(({ screenSize }: Props) => [
-    screenSize === "sm" && tw`inline lg:hidden`,
-    screenSize === "lg" && tw`self-end hidden col-start-13 lg:inline`,
-]);
+function LinkWrapper({ screenSize, children }: PropsWithChildren<Props>) {
+    if (screenSize === "sm") {
+        return <div tw="inline lg:hidden">{children}</div>;
+    }
+
+    if (screenSize === "lg") {
+        return (
+            <div tw="self-end hidden col-start-13 lg:inline">{children}</div>
+        );
+    }
+
+    return null;
+}
 
 export default function SeeAllProjectsLink({ screenSize }: Props) {
     const location = useRouter();
     const linkProps = getLinkProps("work", location);
 
     return (
-        <SeeAllProjectsLinkContainer
-            to={linkProps.to}
-            href={linkProps.to}
-            screenSize={screenSize}
-        >
-            <SeeAllProjectsBtn>
-                <Button>
-                    <Translate id="seeAllProjects" />
-                </Button>
-            </SeeAllProjectsBtn>
-        </SeeAllProjectsLinkContainer>
+        <LinkWrapper screenSize={screenSize}>
+            <Link to={linkProps.to} tw="inline-block w-full">
+                <ButtonWrapper>
+                    <Button>
+                        <Translate id="seeAllProjects" />
+                    </Button>
+                </ButtonWrapper>
+            </Link>
+        </LinkWrapper>
     );
 }
