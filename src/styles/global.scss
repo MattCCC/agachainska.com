@@ -7,12 +7,3 @@
 @import "./variables.scss";
 
 @import "./layout.scss";
-
-@keyframes countdown {
-  from {
-    stroke-dashoffset: 480px;
-  }
-  to {
-      stroke-dashoffset: 0;
-  }
-}
