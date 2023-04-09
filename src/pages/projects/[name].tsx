@@ -169,12 +169,12 @@ function Stats({ stats }: StatsProps) {
         <StatsTable ref={refStats}>
             {stats.map(({ title, stat }, j) => (
                 <SingleStat
-                    key={`stat-${title.replaceAll(" ", "-")}`}
+                    key={`stat-${j}`}
                     className={j < 3 ? "space" : "big"}
                 >
                     <CellTitle>
                         <StyledNumber
-                            id={`stat-number-${title.replaceAll(" ", "-")}`}
+                            id={`stat-number-${j}`}
                             value={stat}
                             animate={animateStats}
                         />
