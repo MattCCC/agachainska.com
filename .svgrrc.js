@@ -1,6 +1,6 @@
 /** @type {import('@svgr/core').Config} */
 
 module.exports = {
-  icon: true,
+  icon: false,
   extendProps: false,
 }
