@@ -4,7 +4,7 @@ import useInterval from "@use-it/interval";
 
 interface Props extends SVGProps<SVGSVGElement> {
     id: string;
-    value: number;
+    value: number | string;
     animate?: boolean;
     displayOnRight?: boolean;
     viewBox?: string;
@@ -85,7 +85,7 @@ export function BigNumber({
 
     useEffect(() => {
         if (animate) {
-            setCount(value > 0 ? "1" : "0");
+            setCount(Number(value) > 0 ? "1" : "0");
             setDelay(1000 / Number(value || 1));
         } else {
             setCount(() => String(value));

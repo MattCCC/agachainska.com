@@ -47,7 +47,7 @@ export const Track = ({
     velocity,
     transition,
     allowSlideToLast,
-    displayGrabCursor,
+    displayGrabCursor = false,
     onSlideChange = () => null,
     style,
 }: PropsWithChildren<Props>) => {

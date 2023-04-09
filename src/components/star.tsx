@@ -10,18 +10,20 @@ interface Props {
     children?: ReactNode;
 }
 
-export const StarWrapper = styled.div(({ displayStar = false }: Props) => [
-    tw`relative flex w-full h-full`,
+export const StarWrapper = styled.div(
+    ({ displayStar = false }: { displayStar: boolean }) => [
+        tw`relative flex w-full h-full`,
 
-    css`
-        transition: all 300ms;
-        transform: scale(0);
-    `,
-    displayStar &&
         css`
-            transform: scale(1);
+            transition: all 300ms;
+            transform: scale(0);
         `,
-]);
+        displayStar &&
+            css`
+                transform: scale(1);
+            `,
+    ]
+);
 
 export const Svg = styled.svg(() => [tw`absolute w-full h-full`]);
 
