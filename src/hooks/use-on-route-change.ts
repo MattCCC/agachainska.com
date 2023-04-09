@@ -10,10 +10,8 @@ export const useOnRouteChange = () => {
     const [, dispatch] = useStoreProp("currentDelayedRoute");
 
     useEffect(() => {
-        setTimeout(() => {
-            const newState = findRouteMeta(location.pathname)?.store || {};
+        const newState = findRouteMeta(location.pathname)?.store || {};
 
-            dispatch.replaceInState(newState);
-        }, 0);
+        dispatch.replaceInState(newState);
     }, [dispatch, location.pathname]);
 };
