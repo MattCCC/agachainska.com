@@ -428,7 +428,9 @@ const Work = memo(({ projects }: Props) => {
                                 {!isShowingOtherProjects && (
                                     <StyledNumber
                                         id={`${state.projectNumberToShow + 1}`}
-                                        value={state.projectNumberToShow + 1}
+                                        value={`${
+                                            state.projectNumberToShow + 1
+                                        }.`}
                                         viewBox="0 0 280 200"
                                         displayOnRight={true}
                                         style={{
