@@ -1,10 +1,15 @@
-import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import {
+    Fragment,
+    PropsWithChildren,
+    useEffect,
+    useMemo,
+    useState,
+} from "react";
 
 import { GetStaticProps } from "next";
 import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
-import findLastIndex from "lodash-es/findLastIndex";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { BigNumber } from "components/big-number";
@@ -38,6 +43,7 @@ import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import PrevIcon from "svg/down.svg";
 import NextIcon from "svg/up.svg";
+import { thresholdArray } from "utils/threshold-array";
 
 interface Props {
     project: Project;
@@ -363,66 +369,34 @@ export default function Project({ project, projects }: Props) {
 
     const [navigation] = usePagination({ projectsByCategory, uid });
 
-    const [activeItemId, intersection, options, onTimelineItemChange] =
-        useTimelineViewport();
-
-    const intersectionRootMargins = useMemo(() => [] as string[], []);
+    const [
+        activeItemId,
+        intersectionCallback,
+        _observerSettings,
+        onTimelineItemChange,
+    ] = useTimelineViewport();
 
     const timelineItems = useMemo(() => {
-        const filteredItems = sections
+        const filteredSections = sections
             .filter(({ showInTimeline }) => {
                 const isShownInTimeline =
                     showInTimeline && showInTimeline === "yes";
 
-                // Check in here so to avoid additional loop
-                intersectionRootMargins.push(
-                    isShownInTimeline ? "0px 0px -200px 0px" : ""
-                );
-
                 return isShownInTimeline;
             })
-
             .map(({ section }) => ({
                 id: section.toLowerCase(),
                 title: section,
             }));
 
-        // First item needs different intersection as it's after the head section
-        if (intersectionRootMargins[0]) {
-            intersectionRootMargins[0] = "0px 0px 100% 0px";
-        }
-
-        // Last item needs different intersection so to include the footer
-        const lastNonEmptyIndex = findLastIndex(
-            intersectionRootMargins,
-            (margin: string) => margin !== ""
-        );
-
-        intersectionRootMargins[lastNonEmptyIndex] = "200% 0px 0px 0px";
-
-        return filteredItems;
-    }, [intersectionRootMargins, sections]);
+        return filteredSections;
+    }, [sections]);
 
     const timelineSection = {
         title: timelineTitle || "",
         id: "singleProject",
         items: timelineItems,
     };
-
-    const intersectionRefs = [] as any[];
-
-    for (const rootMargin of intersectionRootMargins) {
-        intersectionRefs.push(
-            rootMargin
-                ? // eslint-disable-next-line react-hooks/rules-of-hooks
-                  useInViewEffect(intersection, {
-                      ...options,
-                      rootMargin,
-                  })
-                : // eslint-disable-next-line react-hooks/rules-of-hooks
-                  useRef(null)
-        );
-    }
 
     const numItems = timelineItems.length;
 
@@ -506,36 +480,101 @@ export default function Project({ project, projects }: Props) {
                     </Fragment>
                 )}
 
-                {sections.map(({ section, elements, showSectionTitle }, i) => {
-                    const sectionId = section
-                        .toLowerCase()
-                        .replaceAll(" ", "-")
-                        .replaceAll("/", "-");
+                {sections.map(
+                    (
+                        { section, elements, showSectionTitle, showInTimeline },
+                        i
+                    ) => {
+                        const sectionId = section
+                            .toLowerCase()
+                            .replaceAll(" ", "-")
+                            .replaceAll("/", "-");
 
-                    return (
-                        <ArticleSection
-                            key={sectionId}
-                            id={sectionId}
-                            ref={intersectionRefs[i]}
-                        >
-                            {showSectionTitle && showSectionTitle === "yes" ? (
-                                <H2>{section}</H2>
-                            ) : (
-                                ""
-                            )}
-                            {elements &&
-                                sectionLoader(
-                                    elements,
-                                    gallerySliderElementsGap,
-                                    projectsByCategory
+                        return (
+                            <>
+                                {showInTimeline && showInTimeline === "yes" ? (
+                                    <SectionObserver
+                                        key={sectionId}
+                                        sectionId={sectionId}
+                                        sectionNumber={i}
+                                        isLastSection={
+                                            section ===
+                                            timelineItems[numItems - 1].title
+                                        }
+                                        intersectionCallback={
+                                            intersectionCallback
+                                        }
+                                    >
+                                        {showSectionTitle &&
+                                            showSectionTitle === "yes" && (
+                                                <H2>{section}</H2>
+                                            )}
+                                        {elements &&
+                                            sectionLoader(
+                                                elements,
+                                                gallerySliderElementsGap,
+                                                projectsByCategory
+                                            )}
+                                    </SectionObserver>
+                                ) : (
+                                    <ArticleSection
+                                        key={sectionId}
+                                        id={sectionId}
+                                    >
+                                        {elements &&
+                                            sectionLoader(
+                                                elements,
+                                                gallerySliderElementsGap,
+                                                projectsByCategory
+                                            )}
+                                    </ArticleSection>
                                 )}
-                        </ArticleSection>
-                    );
-                })}
+                            </>
+                        );
+                    }
+                )}
             </Article>
         </Fragment>
     );
 }
+
+const intersectionObserverSettings = {
+    rootMargin: "0px",
+    threshold: thresholdArray(2),
+};
+
+const SectionObserver = ({
+    sectionNumber,
+    sectionId,
+    isLastSection = false,
+    children,
+    intersectionCallback,
+}: PropsWithChildren<{
+    sectionId: string;
+    sectionNumber: number;
+    isLastSection: boolean;
+    intersectionCallback: IntersectionObserverCallback;
+}>) => {
+    // First item needs different intersection as it's after the head section
+    let rootMargin =
+        sectionNumber > 0 ? "0px 0px -200px 0px" : "0px 0px 100% 0px";
+
+    // Last item needs different intersection so to include the footer
+    if (isLastSection) {
+        rootMargin = "200% 0px 0px 0px";
+    }
+
+    const intersectionRef = useInViewEffect(intersectionCallback, {
+        ...intersectionObserverSettings,
+        rootMargin,
+    });
+
+    return (
+        <ArticleSection key={sectionId} id={sectionId} ref={intersectionRef}>
+            {children}
+        </ArticleSection>
+    );
+};
 
 export async function getStaticPaths() {
     const paths = dataProjects.map((currProject: Project) => ({
