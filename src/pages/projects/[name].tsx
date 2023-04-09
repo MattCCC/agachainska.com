@@ -12,13 +12,11 @@ import tw, { css, styled } from "twin.macro";
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-import { BigNumber } from "components/big-number";
 import { DeviceMockup } from "components/device-mockup";
 import { DevicesCarousel } from "components/devices-carousel";
 import { FullPageContent } from "components/full-page-content";
 import { H2 } from "components/h2";
 import { H3 } from "components/h3";
-import { H4 } from "components/h4";
 import { Link } from "components/link";
 import { MainContainer } from "components/main-container";
 import { MainTitleBottom } from "components/main-title";
@@ -32,7 +30,6 @@ import ViewOnDeskStar from "components/view-on-desktop-star";
 import dataProjects from "data/projects.yml";
 import { GallerySlider } from "domain/single-project/gallery-slider";
 import { OtherProjects } from "domain/single-project/other-projects";
-import { useIncrementStats } from "domain/single-project/use-increment-stats";
 import { usePagination } from "domain/single-project/use-pagination";
 import {
     ProjectsByCategory,
@@ -44,6 +41,7 @@ import PrevIcon from "svg/down.svg";
 import NextIcon from "svg/up.svg";
 import { thresholdArray } from "utils/threshold-array";
 import dynamic from "next/dynamic";
+import { Stats } from "components/project/stats-table";
 
 interface Props {
     project: Project;
@@ -78,11 +76,6 @@ const MainTitle = styled(MainTitleBottom)(() => [
 
 const Paragraph = styled.p(() => [tw`mb-[40px]`]);
 
-const StyledNumber = styled(BigNumber)(() => [
-    tw`max-w-full translate-x-1/2`,
-    tw`w-[150px] lg:w-[136px] lg:h-[117px] lg:transform-none`,
-]);
-
 const HeroWrapper = styled.div(() => [
     tw`relative w-full col-start-1 col-end-13 lg:col-start-2 lg:col-end-12`,
     tw`mb-[70px] h-[200px] sm:h-[320px] md:h-[390px] lg:h-[462px] lg:mb-[90px]`,
@@ -97,21 +90,6 @@ const CreditsTable = styled.div(() => [
     tw`grid max-w-full grid-flow-row grid-cols-1 grid-rows-2 lg:grid-cols-3 lg:grid-flow-col`,
     tw`w-[820px] leading-[24px]`,
 ]);
-
-const StatsTable = styled.div(() => [
-    tw`grid max-w-full grid-flow-row grid-cols-1 lg:grid-cols-3 lg:grid-flow-row`,
-    tw`w-[820px] leading-[24px]`,
-]);
-
-const SingleStat = styled.div(() => [
-    css`
-        &.space {
-            ${tw`lg:mb-[150px]`}
-        }
-    `,
-]);
-
-const StatsCaption = styled(H4)(() => [tw`pl-[25%] lg:pl-[10px]`]);
 
 const CellTitle = styled.div(() => [tw`font-fbold`, tw`mt-[12px]`]);
 
@@ -168,36 +146,6 @@ const DeviceMockupWrapper = styled.div(() => [tw`mb-[40px] lg:mb-[80px]`]);
 const TimelineNoSSR = dynamic(() => import("../../components/timeline"), {
     ssr: false,
 });
-
-interface StatsProps {
-    stats: ProjectSectionElementStat[];
-    index: number;
-}
-
-function Stats({ stats }: StatsProps) {
-    const [refStats, animateStats] = useIncrementStats();
-
-    return (
-        <StatsTable ref={refStats}>
-            {stats.map(({ title, stat }, j) => (
-                <SingleStat
-                    key={`stat-${j}`}
-                    className={j < 3 ? "space" : "big"}
-                >
-                    <CellTitle>
-                        <StyledNumber
-                            id={`stat-number-${j}`}
-                            value={stat}
-                            animate={animateStats}
-                        />
-                    </CellTitle>
-
-                    <StatsCaption>{title}</StatsCaption>
-                </SingleStat>
-            ))}
-        </StatsTable>
-    );
-}
 
 const sectionLoader = (
     elements: ProjectSection["elements"],
