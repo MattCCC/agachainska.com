@@ -1,6 +1,6 @@
 import tw, { css, styled } from "twin.macro";
 
-import { useLocation } from "@reach/router";
+import { useRouter } from "next/router";
 
 import { Link } from "components/link";
 import { Logo } from "components/logo";
@@ -65,19 +65,19 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
 export function Header() {
     const [showLogoOnDesktop] = useStoreProp("showLogoOnDesktop");
     const [onMouseEnter, onMouseLeave] = useHideCursorPreserveVisibility();
-    const location = useLocation();
+    const router = useRouter();
 
     return (
         <HeaderWrapper>
             <Logo showOnDesktop={showLogoOnDesktop} />
             <Navigation onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                <LinkItem {...getLinkProps("work", location)}>
+                <LinkItem {...getLinkProps("work", router)}>
                     <Translate id="header.link.work" />
                 </LinkItem>
-                <LinkItem {...getLinkProps("about", location)}>
+                <LinkItem {...getLinkProps("about", router)}>
                     <Translate id="header.link.about" />
                 </LinkItem>
-                <LinkItem {...getLinkProps("contact", location)}>
+                <LinkItem {...getLinkProps("contact", router)}>
                     <Translate id="header.link.contact" />
                 </LinkItem>
             </Navigation>

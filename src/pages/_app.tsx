@@ -1,15 +1,20 @@
+import "../styles/global.scss";
+
 import { PropsWithChildren, StrictMode } from "react";
 
+import { appWithTranslation } from "next-i18next";
+import { ParallaxProvider } from "react-scroll-parallax";
 import tw, { styled, css } from "twin.macro";
 
-import { Global } from "@emotion/react";
+import { AppProps } from "next/app";
 
 import { Background } from "components/background";
 import { Footer } from "components/footer";
 import { FullPageOverlay } from "components/full-page-overlay";
 import { Header } from "components/header";
-import { Overlays } from "components/overlays";
+import Overlays from "components/overlays";
 import { useOnRouteChange } from "hooks/use-on-route-change";
+import { globalStore } from "store/index";
 import { useStoreProp } from "store/index";
 
 interface Props {
@@ -20,14 +25,12 @@ interface Props {
 }
 
 const DarkTheme = () => (
-    <Global
-        styles={css`
-            :root body {
-                --primary: #fff;
-                --tertiary: #0b0b0b;
-            }
-        `}
-    />
+    <style jsx global>{`
+        :root {
+            --primary: #fff;
+            --tertiary: #0b0b0b;
+        }
+    `}</style>
 );
 
 const Main = styled.main(
@@ -67,7 +70,6 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
     return (
         <StrictMode>
             {darkTheme && <DarkTheme />}
-            <Overlays />
             <FullPageOverlay />
             <Header />
             <Main
@@ -83,3 +85,20 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
         </StrictMode>
     );
 };
+
+function App({ Component, pageProps }: AppProps) {
+    return (
+        <>
+            <ParallaxProvider>
+                <globalStore.Provider>
+                    <Overlays />
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </globalStore.Provider>
+            </ParallaxProvider>
+        </>
+    );
+}
+
+export default appWithTranslation(App);

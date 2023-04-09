@@ -8,7 +8,7 @@ import {
 } from "react";
 
 import { motion, PanInfo, Spring, useAnimation } from "framer-motion";
-import useDimensions from "react-use-dimensions";
+import useMeasure from "react-use-measure";
 import tw, { styled } from "twin.macro";
 
 import { MotionProps } from "components/animation";
@@ -34,12 +34,11 @@ interface TrackWrapperProps {
     displayGrabCursor?: boolean;
 }
 
-const Wrapper = styled(
-    "div",
-    excludeProps(["displayGrabCursor"])
-)(({ displayGrabCursor }: TrackWrapperProps) => [
-    displayGrabCursor && tw`cursor-grab active:cursor-grabbing`,
-]);
+const Wrapper = styled("div").withConfig(excludeProps(["displayGrabCursor"]))(
+    ({ displayGrabCursor }: TrackWrapperProps) => [
+        displayGrabCursor && tw`cursor-grab active:cursor-grabbing`,
+    ]
+);
 
 export const Track = ({
     children,
@@ -48,21 +47,18 @@ export const Track = ({
     velocity,
     transition,
     allowSlideToLast,
-    displayGrabCursor,
+    displayGrabCursor = false,
     onSlideChange = () => null,
     style,
 }: PropsWithChildren<Props>) => {
     const ref = useRef<HTMLElement | null>(null);
-    const [trackRef, trackDimensions] = useDimensions({ liveMeasure: false });
+    const [trackRef, trackDimensions] = useMeasure();
     const windowDimensions = useWindowSize();
     const controls = useAnimation();
     const { state, dispatch } = useContext(Context);
 
     const itemsPositions = useMemo(
-        () =>
-            state.items.map(
-                (item) => item * -1 + trackDimensions.x || 0
-            ) as number[],
+        () => state.items.map((item) => item * -1 + trackDimensions.x || 0),
         [state.items, trackDimensions.x]
     );
 

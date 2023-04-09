@@ -24,7 +24,7 @@ interface BadgeProps {
 }
 
 export const ProjectsList = styled.ol(() => [
-    tw`grid max-w-full mb-20 leading-6 grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-flow-col gap-x-20 gap-y-8`,
+    tw`grid max-w-full grid-flow-row grid-cols-1 mb-20 leading-6 md:grid-cols-2 lg:grid-flow-col gap-x-20 gap-y-8`,
     css`
         grid-template-rows: repeat(3, minmax(0, max-content));
     `,
@@ -81,7 +81,7 @@ export const SingleProject = memo(
 
             showMotionCursor(isMouseOver, {
                 text: "explore",
-                route: nameSlug,
+                to: nameSlug,
                 size: 80,
                 projectCover: cover,
                 overlap: false,
@@ -94,7 +94,7 @@ export const SingleProject = memo(
                 rowNo={index + 1}
                 colNo={index % 2 === 0 ? 1 : 2}
             >
-                <BadgeNumber value={`${index + 1}.`} />
+                <BadgeNumber id={`${index + 1}.`} value={`${index + 1}.`} />
 
                 <Link to={nameSlug} tw="inline-block w-full">
                     <ProjectLink>

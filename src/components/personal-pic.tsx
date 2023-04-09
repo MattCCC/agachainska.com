@@ -1,22 +1,20 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import tw, { css, styled } from "twin.macro";
+
+import Image from "next/image";
 
 import { useWindowSize } from "hooks/use-window-size";
 
 import personalPicDesktop from "../img/personal-pic-desktop.png";
 import personalPicMobile from "../img/personal-pic-rectangle.png";
-import personalPictureWhiteBackground from "../svg/personal-pic-bg-black&white-mobile.svg";
-import personalPictureBlackBackground from "../svg/personal-pic-bg-black-mobile.svg";
-import personalPicBlackBgDesk from "../svg/personal-pic-black-bg-desk.svg";
-import personalPicWhiteBgDesk from "../svg/personal-pic-white-bg-desk.svg";
 
 const PersonalPicContainerMobile = styled.div(() => [
-    tw`relative flex justify-center items-center mb-8 bg-contain`,
+    tw`relative flex items-center justify-center mb-8 bg-contain`,
     css`
         width: 157px;
         height: 157px;
-        background: url(${personalPictureBlackBackground}) no-repeat;
+        background: url("svg/personal-pic-bg-black-mobile.svg") no-repeat;
 
         img {
             width: 149px;
@@ -24,7 +22,7 @@ const PersonalPicContainerMobile = styled.div(() => [
         }
 
         &:after {
-            content: url(${personalPictureWhiteBackground});
+            content: url("svg/personal-pic-bg-black&white-mobile.svg");
             position: absolute;
             top: 59%;
             left: 56%;
@@ -35,11 +33,11 @@ const PersonalPicContainerMobile = styled.div(() => [
 ]);
 
 const PersonalPicContainerDesktop = styled.div(() => [
-    tw`relative col-start-1 col-span-3 flex justify-center items-center mb-0 bg-contain`,
+    tw`relative flex items-center justify-center col-span-3 col-start-1 mb-0 bg-contain`,
     css`
         width: 275px;
         height: 378px;
-        background: url(${personalPicBlackBgDesk}) no-repeat;
+        background: url("svg/personal-pic-black-bg-desk.svg") no-repeat;
 
         img {
             width: 261px;
@@ -47,7 +45,7 @@ const PersonalPicContainerDesktop = styled.div(() => [
         }
 
         &:after {
-            content: url(${personalPicWhiteBgDesk});
+            content: url("svg/personal-pic-white-bg-desk.svg");
             position: absolute;
             top: 53%;
             left: 53%;
@@ -59,17 +57,31 @@ const PersonalPicContainerDesktop = styled.div(() => [
 
 export default function PersonalPic() {
     const windowSize = useWindowSize();
-    const hasSmallWindowWidth = windowSize.width < 1024;
+    const [hasSmallWindowWidth, setWindowWidth] = useState(false);
+
+    useEffect(() => {
+        setWindowWidth(windowSize.width < 1024);
+    }, [windowSize]);
 
     return (
         <Fragment>
             {hasSmallWindowWidth ? (
                 <PersonalPicContainerMobile>
-                    <img src={personalPicMobile} alt="Aga" />
+                    <Image
+                        src={personalPicMobile}
+                        alt="Aga"
+                        height="157"
+                        width="157"
+                    />
                 </PersonalPicContainerMobile>
             ) : (
                 <PersonalPicContainerDesktop>
-                    <img src={personalPicDesktop} alt="Aga" />
+                    <Image
+                        src={personalPicDesktop}
+                        alt="Aga"
+                        height="378"
+                        width="275"
+                    />
                 </PersonalPicContainerDesktop>
             )}
         </Fragment>

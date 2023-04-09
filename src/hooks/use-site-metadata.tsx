@@ -1,19 +1,9 @@
-import { graphql, useStaticQuery } from "gatsby";
+const siteUrl = "https://agachainska.com";
 
-export const useSiteMetadata = () => {
-    const data = useStaticQuery(graphql`
-        query {
-            site {
-                siteMetadata {
-                    title
-                    description
-                    twitterUsername
-                    image
-                    siteUrl
-                }
-            }
-        }
-    `);
-
-    return data.site.siteMetadata;
-};
+export const useSiteMetadata = () => ({
+    title: "Aga Chainska",
+    description: "Aga Chaińska's Personal Website.",
+    image: "/img/slider-pattern.png",
+    siteUrl,
+    twitterUsername: "@aga",
+});

@@ -1,26 +1,26 @@
-import { Link } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 
-import { useLocation } from "@reach/router";
+import { useRouter } from "next/router";
 
 import { getLinkProps } from "utils/route";
-import { excludeProps } from "utils/styled";
 
 import { Button } from "./button";
 import { Translate } from "./translate";
+import { Link } from "components/link";
+import { PropsWithChildren } from "react";
 
 interface Props {
     screenSize: "sm" | "lg";
 }
 
-const SeeAllProjectsBtn = styled(Button)(() => [
+const ButtonWrapper = styled.span(() => [
     css`
         span {
             ${tw`border-none bg-primary text-tertiary`}
         }
 
         div {
-            ${tw`top-[0px]`}
+            ${tw`top-0`}
         }
 
         span,
@@ -30,25 +30,33 @@ const SeeAllProjectsBtn = styled(Button)(() => [
     `,
 ]);
 
-const SeeAllProjectsLinkContainer = styled(
-    Link,
-    excludeProps(["screenSize"])
-)(({ screenSize }: Props) => [
-    screenSize === "sm" && tw`inline lg:hidden`,
-    screenSize === "lg" && tw`self-end hidden col-start-13 lg:inline`,
-]);
+function LinkWrapper({ screenSize, children }: PropsWithChildren<Props>) {
+    if (screenSize === "sm") {
+        return <div tw="inline lg:hidden">{children}</div>;
+    }
+
+    if (screenSize === "lg") {
+        return (
+            <div tw="self-end hidden col-start-13 lg:inline">{children}</div>
+        );
+    }
+
+    return null;
+}
 
 export default function SeeAllProjectsLink({ screenSize }: Props) {
-    const location = useLocation();
+    const location = useRouter();
+    const linkProps = getLinkProps("work", location);
 
     return (
-        <SeeAllProjectsLinkContainer
-            {...getLinkProps("work", location)}
-            screenSize={screenSize}
-        >
-            <SeeAllProjectsBtn as="span">
-                <Translate id="seeAllProjects" />
-            </SeeAllProjectsBtn>
-        </SeeAllProjectsLinkContainer>
+        <LinkWrapper screenSize={screenSize}>
+            <Link to={linkProps.to} tw="inline-block w-full">
+                <ButtonWrapper>
+                    <Button>
+                        <Translate id="seeAllProjects" />
+                    </Button>
+                </ButtonWrapper>
+            </Link>
+        </LinkWrapper>
     );
 }

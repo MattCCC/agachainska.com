@@ -1,11 +1,13 @@
-import { Fragment, useMemo } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 
-import { graphql, PageProps } from "gatsby";
+import { GetStaticProps } from "next";
 import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 import { ParallaxBackground } from "components/about-parallax-background";
-import { GridRow, MainContainer } from "components/main-container";
+import { MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
 import PersonalPic from "components/personal-pic";
@@ -13,11 +15,13 @@ import SeeAllProjectsLink from "components/see-all-projects-link";
 import SelectedProjects from "components/selected-projects";
 import { SocialMedia } from "components/social-media";
 import { Tabs } from "components/tabs";
-import { Timeline } from "components/timeline";
+import dataAbout from "data/about-page.yml";
+import dataProjects from "data/projects.yml";
 import { socialMedia } from "data/social-media";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import { up } from "utils/screens";
+import dynamic from "next/dynamic";
 
 const HeroSection = styled.section(() => [
     tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-[max(600px,100vh)]`,
@@ -174,11 +178,13 @@ const SelectedProjectsContainer = styled.div(() => [
     tw`lg:col-start-1 lg:col-end-11 lg:ml-2 lg:mt-10 cursor-none!`,
 ]);
 
+const TimelineNoSSR = dynamic(() => import("../components/timeline"), {
+    ssr: false,
+});
+
 interface Props {
     aboutPageData: AboutPageData;
-    projects: {
-        nodes: Project[];
-    };
+    projects: Project[];
 }
 
 const aboutPageTimeline = {
@@ -191,11 +197,15 @@ const aboutPageTimeline = {
     ],
 };
 
-export default function About({ data }: PageProps<Props>) {
+export default function About({ aboutPageData, projects }: Props) {
     const windowSize = useWindowSize();
-    const hasSmallWindowWidth = windowSize.width < 1024;
-    const { hero, expertise, designProcess } = data.aboutPageData;
-    const projects = data.projects.nodes;
+    const [hasSmallWindowWidth, setWindowWidth] = useState(false);
+
+    useEffect(() => {
+        setWindowWidth(windowSize.width < 1024);
+    }, [windowSize]);
+
+    const { hero, expertise, designProcess } = aboutPageData;
 
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
@@ -228,12 +238,14 @@ export default function About({ data }: PageProps<Props>) {
 
     return (
         <Fragment>
+            <Meta title="About · Aga Chainska" />
+
             <MotionCursor />
 
             {!hasSmallWindowWidth && <ParallaxBackground />}
 
             <MainContainer>
-                <GridRow>
+                <div tw="col-start-1 col-end-13">
                     <HeroSection>
                         <PersonalPic />
                         <Info>
@@ -252,7 +264,7 @@ export default function About({ data }: PageProps<Props>) {
 
                     <Article>
                         <TimelineWrapper>
-                            <Timeline
+                            <TimelineNoSSR
                                 style={{ height: "254px" }}
                                 activeItemId={activeItemId}
                                 activeSectionId={aboutPageTimeline.id}
@@ -342,25 +354,18 @@ export default function About({ data }: PageProps<Props>) {
                             </SelectedProjectsContainer>
                         </ArticleSection>
                     </Article>
-                </GridRow>
+                </div>
             </MainContainer>
         </Fragment>
     );
 }
 
-export const query = graphql`
-    query {
-        aboutPageData {
-            ...aboutSectionsFields
-        }
-
-        projects: allProject {
-            nodes {
-                ...ProjectFields
-                nameSlug: gatsbyPath(filePath: "/projects/{project.name}")
-            }
-        }
-    }
-`;
-
-export const Head = () => <Meta title="About - Aga Chainska" />;
+export const getStaticProps: GetStaticProps<Props> = async ({
+    locale = "en",
+}) => ({
+    props: {
+        aboutPageData: dataAbout,
+        projects: dataProjects,
+        ...(await serverSideTranslations(locale)),
+    },
+});

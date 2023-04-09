@@ -41,7 +41,7 @@ const routesList: RoutesList = {
     },
     contact: {
         id: "contact",
-        path: "/contact/",
+        path: "/contact",
         meta: {
             store: {
                 showMotionGrid: false,
@@ -54,7 +54,7 @@ const routesList: RoutesList = {
     },
     thanks: {
         id: "thanks",
-        path: "/thanks/",
+        path: "/thanks",
         meta: {
             store: {
                 showMotionGrid: true,
@@ -67,7 +67,7 @@ const routesList: RoutesList = {
     },
     about: {
         id: "about",
-        path: "/about/",
+        path: "/about",
         meta: {
             store: {
                 showMotionGrid: false,
@@ -78,7 +78,7 @@ const routesList: RoutesList = {
     },
     work: {
         id: "work",
-        path: "/work/",
+        path: "/work",
         meta: {
             store: {
                 showMotionGrid: false,
@@ -89,8 +89,8 @@ const routesList: RoutesList = {
     },
     project: {
         id: "project",
-        path: "/projects/[name]/'",
-        pattern: "/projects/.*?/$",
+        path: "/projects/[name]",
+        pattern: "/projects/.*?/?$",
         meta: {
             store: {
                 showMotionGrid: false,

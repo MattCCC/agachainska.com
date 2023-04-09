@@ -10,7 +10,7 @@ interface ProjectSectionElementDevice {
 }
 
 interface ProjectSectionElementStat {
-    readonly title: number;
+    readonly title: string;
     readonly stat: number;
 }
 

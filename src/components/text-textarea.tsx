@@ -71,6 +71,7 @@ const FloatingTextarea = styled.textarea(
         as === "textarea" &&
             css`
                 min-height: 154px;
+                max-height: 350px;
             `,
         as === "input" && tw`px-4 py-2`,
         as === "input" &&

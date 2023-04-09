@@ -1,12 +1,15 @@
+import { GetStaticProps } from "next";
 import tw, { css, styled } from "twin.macro";
 
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 import { Button } from "components/button";
-import { GridRow, MainContainer } from "components/main-container";
+import { MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { SocialMedia } from "components/social-media";
 import { TextTextarea } from "components/text-textarea";
 import { socialMedia } from "data/social-media";
-import { ReactComponent as ContactIllustration } from "svg/Contact.svg";
+import ContactIllustration from "svg/Contact.svg";
 import { up } from "utils/screens";
 
 const H1 = styled.div(() => [
@@ -36,62 +39,69 @@ const EMAIL_ADDRESS = "helloagachainska@gmail.com";
 
 export default function Contact() {
     return (
-        <form
-            action="https://formsubmit.co/a.chainska@gmail.com"
-            method="POST"
-            className="pb-52 lg:pb-16"
-        >
-            <MainContainer topPadding={true} as="section">
-                <ContactIllus />
-                <GridRow start={1} end={6}>
-                    <H1>
-                        Let’s talk! Shoot me a message if you’d like to work
-                        together or just to say hello.
-                    </H1>
-                    <div className="hidden lg:block">
-                        <SocialMedia items={socialMedia} variant="big" />
-                    </div>
-                </GridRow>
-                <GridRow start={7} end={12} className="lg:pt-24">
-                    <TextTextarea
-                        id="contact"
-                        name="contact"
-                        label="Your message"
-                        required={true}
-                    />
-                    <div className="grid mb-10 lg:grid-cols-2 gap-7 mt-7">
-                        <div>
-                            <TextTextarea
-                                as="input"
-                                id="name"
-                                name="name"
-                                type="text"
-                                label="Your name"
-                                required={true}
-                            />
-                        </div>
-                        <div>
-                            <TextTextarea
-                                as="input"
-                                id="email"
-                                name="email"
-                                type="email"
-                                label="Your email"
-                                required={true}
-                            />
+        <>
+            <Meta title="Contact · Aga Chainska" />
+            <form
+                action="https://formsubmit.co/a.chainska@gmail.com"
+                method="POST"
+                className="pb-52 lg:pb-16"
+            >
+                <MainContainer topPadding={true} as="section">
+                    <ContactIllus />
+                    <div tw="col-start-1 col-end-13 lg:col-end-6">
+                        <H1>
+                            Let’s talk! Shoot me a message if you’d like to work
+                            together or just to say hello.
+                        </H1>
+                        <div className="hidden lg:block">
+                            <SocialMedia items={socialMedia} variant="big" />
                         </div>
                     </div>
-                    <Button type="submit">Send</Button>
-                    <span className="block mt-6 lg:inline-block lg:mt-0 lg:ml-6">
-                        or find me at
-                        <EmailLink href={`mailto:${EMAIL_ADDRESS}`}>
-                            {EMAIL_ADDRESS}
-                        </EmailLink>
-                    </span>
-                </GridRow>
-            </MainContainer>
-        </form>
+                    <div tw="col-start-1 lg:col-start-7 col-end-13 lg:col-end-12 lg:pt-24">
+                        <TextTextarea
+                            id="contact"
+                            name="contact"
+                            label="Your message"
+                            required={true}
+                        />
+                        <div className="grid mb-10 lg:grid-cols-2 gap-7 mt-7">
+                            <div>
+                                <TextTextarea
+                                    as="input"
+                                    id="name"
+                                    name="name"
+                                    type="text"
+                                    label="Your name"
+                                    required={true}
+                                />
+                            </div>
+                            <div>
+                                <TextTextarea
+                                    as="input"
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    label="Your email"
+                                    required={true}
+                                />
+                            </div>
+                        </div>
+                        <Button type="submit">Send</Button>
+                        <span className="block mt-6 lg:inline-block lg:mt-0 lg:ml-6">
+                            or find me at
+                            <EmailLink href={`mailto:${EMAIL_ADDRESS}`}>
+                                {EMAIL_ADDRESS}
+                            </EmailLink>
+                        </span>
+                    </div>
+                </MainContainer>
+            </form>
+        </>
     );
 }
 
-export const Head = () => <Meta title="Contact - Aga Chainska" />;
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => ({
+    props: {
+        ...(await serverSideTranslations(locale)),
+    },
+});

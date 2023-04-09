@@ -8,19 +8,23 @@ import {
     useEffect,
 } from "react";
 
-import { graphql, PageProps } from "gatsby";
+import { GetStaticProps } from "next";
 import tw, { css, styled } from "twin.macro";
 import { useDebouncedCallback } from "use-debounce";
 
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import dynamic from "next/dynamic";
+
 import { BigNumber } from "components/big-number";
-import { GridRow, MainContainer } from "components/main-container";
+import { MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
 import { Post, PostItem } from "components/post";
 import { Slider, SliderItem } from "components/slider";
 import { Star } from "components/star";
 import { Tabs } from "components/tabs";
-import { Timeline, Item, Section } from "components/timeline";
+import { Item, Section } from "components/timeline";
+import dataProjects from "data/projects.yml";
 import { useEventListener } from "hooks/use-event-listener";
 import { useNavigation } from "hooks/use-navigation";
 import { useWindowSize } from "hooks/use-window-size";
@@ -49,9 +53,7 @@ interface TimelineItem {
 }
 
 interface Props {
-    projects: {
-        nodes: Project[];
-    };
+    projects: Project[];
 }
 
 interface SliderWrapperProps {
@@ -100,19 +102,23 @@ const StyledStar = styled(Star)(() => [
 let isPageTop = false;
 let isPageBottom = false;
 
-const Work = memo(({ data }: PageProps<Props>) => {
+const TimelineNoSSR = dynamic(() => import("../components/timeline"), {
+    ssr: false,
+});
+
+const Work = memo(({ projects }: Props) => {
     const windowSize = useWindowSize();
-    const hasSmallWindowWidth = windowSize.width < 1024;
+    const [hasSmallWindowWidth, setWindowWidth] = useState(false);
+
+    useEffect(() => {
+        setWindowWidth(windowSize.width < 1024);
+    }, [windowSize]);
 
     const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
     const [isSliderAnimating, setIsSliderAnimating] = useState(false);
     const [, dispatch] = useStoreProp("showMotionGrid");
     const [backgroundColor, dispatchbackgroundColor] =
         useStoreProp("backgroundColor");
-    const projects = useMemo(
-        () => data.projects.nodes || [],
-        [data.projects.nodes]
-    );
 
     const categories = useMemo(
         () => Object.keys(groupBy(projects, "category")) as ProjectCategory[],
@@ -262,7 +268,7 @@ const Work = memo(({ data }: PageProps<Props>) => {
         (mouseDidLeave = false) => {
             dispatch.showMotionCursor(!mouseDidLeave, {
                 text: "explore",
-                route: state.routeTo,
+                to: state.routeTo,
                 overlap: false,
             });
 
@@ -408,10 +414,12 @@ const Work = memo(({ data }: PageProps<Props>) => {
 
     return (
         <Fragment>
+            <Meta title="Work · Aga Chainska" />
+
             <MotionCursor />
 
             <MainContainer topPadding={true}>
-                <GridRow tw="col-start-1 col-end-13 lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col">
+                <div tw="col-start-1 col-end-13 lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col">
                     <ContentContainer>
                         {!hasSmallWindowWidth ? (
                             <SlideWrapper
@@ -419,6 +427,7 @@ const Work = memo(({ data }: PageProps<Props>) => {
                             >
                                 {!isShowingOtherProjects && (
                                     <StyledNumber
+                                        id={`${state.projectNumberToShow + 1}`}
                                         value={`${
                                             state.projectNumberToShow + 1
                                         }.`}
@@ -470,7 +479,7 @@ const Work = memo(({ data }: PageProps<Props>) => {
                         ) : null}
 
                         <TimelineWrapper>
-                            <Timeline
+                            <TimelineNoSSR
                                 style={{ height: "27.76rem" }}
                                 onTimelineItemChange={setCurrentSlideState}
                                 sections={timelineList}
@@ -498,7 +507,7 @@ const Work = memo(({ data }: PageProps<Props>) => {
                                 )
                             )}
                     </ContentContainer>
-                </GridRow>
+                </div>
             </MainContainer>
         </Fragment>
     );
@@ -506,15 +515,11 @@ const Work = memo(({ data }: PageProps<Props>) => {
 
 export default Work;
 
-export const Head = () => <Meta title="Work - Aga Chainska" />;
-
-export const query = graphql`
-    {
-        projects: allProject {
-            nodes {
-                ...ProjectFields
-                nameSlug: gatsbyPath(filePath: "/projects/{project.name}")
-            }
-        }
-    }
-`;
+export const getStaticProps: GetStaticProps<Props> = async ({
+    locale = "en",
+}) => ({
+    props: {
+        projects: dataProjects,
+        ...(await serverSideTranslations(locale)),
+    },
+});

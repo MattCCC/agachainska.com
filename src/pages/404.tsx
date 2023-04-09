@@ -1,10 +1,21 @@
-import { PageProps } from "gatsby";
+import { GetStaticProps, NextPage } from "next";
+
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { ErrorContainer } from "components/404";
 import { Meta } from "components/meta";
 
-export default function ProjectCatchAll({}: PageProps) {
-    return <ErrorContainer />;
-}
+const ErrorPage: NextPage = () => (
+    <>
+        <Meta title="404 · Aga Chainska" />
+        <ErrorContainer />
+    </>
+);
 
-export const Head = () => <Meta title="404 - Aga Chainska" />;
+export default ErrorPage;
+
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => ({
+    props: {
+        ...(await serverSideTranslations(locale)),
+    },
+});

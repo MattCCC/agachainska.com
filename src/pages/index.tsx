@@ -1,12 +1,15 @@
 import { Fragment, useCallback, useEffect } from "react";
 
-import { navigate } from "gatsby";
+import { GetStaticProps } from "next";
 import tw, { css, styled } from "twin.macro";
+
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/router";
 
 import { BottomCircle } from "components/bottom-circle";
 import { CountDown } from "components/count-down";
 import HomepageTitle from "components/homepage-title";
-import { GridRow, MainContainer } from "components/main-container";
+import { MainContainer } from "components/main-container";
 import { MainSection } from "components/main-section";
 import { Meta } from "components/meta";
 import { pageContentVariants } from "components/overlays";
@@ -26,6 +29,7 @@ const Desc = styled.h2(() => [
 ]);
 
 export default function Home() {
+    const router = useRouter();
     const workLink = getRoutePath("work");
     const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
 
@@ -33,19 +37,21 @@ export default function Home() {
 
     const onCountDownFinished = useCallback(() => {
         if (!isDev()) {
-            navigate(workLink.to);
+            router.push(workLink.to);
         }
-    }, [workLink]);
+    }, [router, workLink]);
 
     useEffect(() => {
         showMotionCursor(true, {
             text: "viewWork",
-            route: workLink.to,
+            to: workLink.to,
         });
     }, [showMotionCursor, workLink.to]);
 
     return (
         <Fragment>
+            <Meta title="Aga Chainska" />
+
             <MainSection
                 className="grid items-center grid-flow-col grid-cols-1 grid-rows-1 lg:cursor-none"
                 initial="exit"
@@ -54,12 +60,12 @@ export default function Home() {
                 variants={pageContentVariants}
             >
                 <MainContainer>
-                    <GridRow>
+                    <div tw="col-start-1 col-end-13">
                         <HomepageTitle />
                         <Desc>
                             <Translate id="home.description" />
                         </Desc>
-                    </GridRow>
+                    </div>
                 </MainContainer>
             </MainSection>
             <BottomCircle />
@@ -68,4 +74,8 @@ export default function Home() {
     );
 }
 
-export const Head = () => <Meta title="Aga Chainska" />;
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => ({
+    props: {
+        ...(await serverSideTranslations(locale)),
+    },
+});

@@ -2,14 +2,14 @@ import { memo, useEffect, useRef } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import { useLocation } from "@reach/router";
 import useMouse from "@react-hook/mouse-position";
+import { useRouter } from "next/router";
 
 import { Link } from "components/link";
 import { MarqueeText } from "components/marquee-text";
 import { useStoreProp } from "store/index";
-import { ReactComponent as WavesPattern } from "svg/bg-lines.svg";
-import { ReactComponent as PricklyPearIllustration } from "svg/Prickly pear@1x.svg";
+import WavesPattern from "svg/bg-lines.svg";
+import PricklyPearIllustration from "svg/Prickly pear@1x.svg";
 import { getLinkProps } from "utils/route";
 import { up } from "utils/screens";
 
@@ -64,7 +64,7 @@ const PricklyPear = styled(PricklyPearIllustration)(() => [
 ]);
 
 export const Contact = memo(() => {
-    const location = useLocation();
+    const location = useRouter();
     const mouseoverItemRef = useRef(null);
     const mouse = useMouse(mouseoverItemRef, {
         enterDelay: 30,
@@ -78,7 +78,7 @@ export const Contact = memo(() => {
 
         showMotionCursor(isMouseOver, {
             text: "contact",
-            route: "/contact/",
+            to: "/contact",
             size: 80,
             overlap: false,
             color: isMouseOver ? "melrose" : "block",

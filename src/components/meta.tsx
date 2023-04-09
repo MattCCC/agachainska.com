@@ -1,6 +1,6 @@
-import { Fragment, memo, PropsWithChildren } from "react";
+import { memo, PropsWithChildren } from "react";
 
-import { useLocation } from "@reach/router";
+import Head from "next/head";
 
 import { useSiteMetadata } from "hooks/use-site-metadata";
 
@@ -18,7 +18,6 @@ export const Meta = memo(
         article = false,
         children,
     }: PropsWithChildren<Props>) => {
-        const { pathname } = useLocation();
         const {
             title: defaultTitle,
             description: defaultDescription,
@@ -31,20 +30,17 @@ export const Meta = memo(
             title: title || defaultTitle,
             description: description || defaultDescription,
             image: `${siteUrl}${image}`,
-            url: `${siteUrl}${pathname}`,
         };
 
         return (
-            <Fragment>
+            <Head>
                 <title>{seo.title}</title>
                 <meta name="description" content={seo.description} />
                 <meta name="image" content={seo.image} />
                 <meta
                     name="viewport"
-                    content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+                    content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, maximum-scale=2, viewport-fit=cover"
                 />
-
-                {seo.url && <meta property="og:url" content={seo.url} />}
 
                 {article && <meta property="og:type" content="article" />}
 
@@ -74,7 +70,7 @@ export const Meta = memo(
                 {seo.image && <meta name="twitter:image" content={seo.image} />}
 
                 {children}
-            </Fragment>
+            </Head>
         );
     }
 );

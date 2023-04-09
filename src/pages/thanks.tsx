@@ -1,20 +1,30 @@
 import { Fragment } from "react";
 
-import { GridRow, MainContainer } from "components/main-container";
+import { GetStaticProps } from "next";
+
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
+import { MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 
 export default function Thanks() {
     return (
         <Fragment>
+            <Meta title="Thank you · Aga Chainska" />
+
             <MainContainer topPadding={true}>
-                <GridRow>
+                <div tw="col-start-1 col-end-13">
                     <h1 className="font-bold text-center prose-70 leading-20 lg:prose-140 lg:leading-38">
                         Form submitted. Thank you.
                     </h1>
-                </GridRow>
+                </div>
             </MainContainer>
         </Fragment>
     );
 }
 
-export const Head = () => <Meta title="Thank you - Aga Chainska" />;
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => ({
+    props: {
+        ...(await serverSideTranslations(locale)),
+    },
+});

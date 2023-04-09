@@ -4,11 +4,11 @@ import tw, { css, styled } from "twin.macro";
 
 import { BackgroundNoise } from "components/background-noise";
 import { useStoreProp } from "store/index";
-import { ReactComponent as WavesPattern } from "svg/bg-lines.svg";
-import { ReactComponent as GreeceIllustration } from "svg/Greece.svg";
-import { ReactComponent as MaltaIllustration } from "svg/Malta.svg";
-import { ReactComponent as PixelLoveIllustration } from "svg/Pixel love.svg";
-import { ReactComponent as VectorsIllustration } from "svg/Vectors.svg";
+import WavesPattern from "svg/bg-lines.svg";
+import GreeceIllustration from "svg/Greece.svg";
+import MaltaIllustration from "svg/Malta.svg";
+import PixelLoveIllustration from "svg/Pixel love.svg";
+import VectorsIllustration from "svg/Vectors.svg";
 import { destroyMotionGrid, initMotionGrid } from "utils/motion-grid";
 import { down } from "utils/screens";
 import { excludeProps } from "utils/styled";
@@ -17,17 +17,16 @@ interface WavesProps {
     darkTheme: boolean;
 }
 
-const Waves = styled(
-    WavesPattern,
-    excludeProps(["darkTheme"])
-)(({ darkTheme }: WavesProps) => [
-    tw`absolute w-full`,
-    darkTheme && tw`opacity-5`,
-    css`
-        height: 200vh;
-        top: 59.5px;
-    `,
-]);
+const Waves = styled(WavesPattern).withConfig(excludeProps(["darkTheme"]))(
+    ({ darkTheme }: WavesProps) => [
+        tw`absolute w-full`,
+        darkTheme && tw`opacity-5`,
+        css`
+            height: 200vh;
+            top: 59.5px;
+        `,
+    ]
+);
 
 const Vectors = styled(VectorsIllustration)(() => [
     tw`absolute z-10`,

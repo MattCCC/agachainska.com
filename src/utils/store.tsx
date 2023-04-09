@@ -23,6 +23,7 @@ export interface Store<S, M> {
     useStore: () => [S, Actions<M>];
     useStoreProp: <K extends S[keyof S]>(
         v: K
+        // @ts-expect-error Indexing generic fn param works just okay
     ) => [S[K], Actions<M>, S | Actions<M>];
 }
 

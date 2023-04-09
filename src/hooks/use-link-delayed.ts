@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 
-import { navigate } from "gatsby";
+import { NextRouter, useRouter } from "next/router";
 
 export type LinkDelayedCallback = (
     e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
@@ -14,7 +14,7 @@ export type OnDelayCallback = (
 
 export interface LinkDelayedArgs {
     to: string;
-    location?: Location;
+    location?: NextRouter;
     replace?: boolean;
     delay?: number;
     onDelayStart?: OnDelayCallback;
@@ -33,6 +33,7 @@ export const useLinkDelayed = ({
     onDelayEnd = (() => {}) as OnDelayCallback,
 }: LinkDelayedArgs): LinkDelayedCallback => {
     const timeout = useRef<NodeJS.Timeout | null>(null);
+    const router = useRouter();
 
     useEffect(
         () => (): void => {
@@ -63,16 +64,24 @@ export const useLinkDelayed = ({
 
                 timeout.current = setTimeout(() => {
                     if (replace) {
-                        navigate(goTo, { replace: true });
+                        router.replace(goTo);
                     } else {
-                        navigate(goTo);
+                        router.push(goTo);
                     }
 
                     onDelayEnd(e, goTo);
                 }, delay);
             }
         },
-        [location, to, onDelayStart, delay, replace, onDelayEnd]
+        [
+            to,
+            location?.pathname,
+            delay,
+            onDelayStart,
+            replace,
+            onDelayEnd,
+            router,
+        ]
     );
 
     return onClick;
