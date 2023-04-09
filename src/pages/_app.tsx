@@ -12,7 +12,7 @@ import { Background } from "components/background";
 import { Footer } from "components/footer";
 import { FullPageOverlay } from "components/full-page-overlay";
 import { Header } from "components/header";
-import { Overlays } from "components/overlays";
+import Overlays from "components/overlays";
 import { useOnRouteChange } from "hooks/use-on-route-change";
 import { globalStore } from "store/index";
 import { useStoreProp } from "store/index";
@@ -70,7 +70,6 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
     return (
         <StrictMode>
             {darkTheme && <DarkTheme />}
-            <Overlays />
             <FullPageOverlay />
             <Header />
             <Main
@@ -92,6 +91,7 @@ function App({ Component, pageProps }: AppProps) {
         <>
             <ParallaxProvider>
                 <globalStore.Provider>
+                    <Overlays />
                     <Layout>
                         <Component {...pageProps} />
                     </Layout>
