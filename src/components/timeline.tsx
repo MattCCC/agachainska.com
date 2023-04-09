@@ -196,7 +196,7 @@ export const Timeline = memo(
                             <Title
                                 isActive={section.id === state.activeSectionId}
                                 hasMultipleSections={sections.length > 1}
-                                initial={false}
+                                initial="false"
                                 ref={sectionTitleRef}
                                 onClick={onTimelineHeaderClick.bind(
                                     null,
