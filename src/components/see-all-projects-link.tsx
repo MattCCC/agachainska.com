@@ -13,14 +13,14 @@ interface Props {
     screenSize: "sm" | "lg";
 }
 
-const SeeAllProjectsBtn = styled(Button)(() => [
+const SeeAllProjectsBtn = styled.span(() => [
     css`
         span {
             ${tw`border-none bg-primary text-tertiary`}
         }
 
         div {
-            ${tw`top-[0px]`}
+            ${tw`top-0`}
         }
 
         span,
@@ -47,8 +47,10 @@ export default function SeeAllProjectsLink({ screenSize }: Props) {
             href={linkProps.to}
             screenSize={screenSize}
         >
-            <SeeAllProjectsBtn as="span">
-                <Translate id="seeAllProjects" />
+            <SeeAllProjectsBtn>
+                <Button>
+                    <Translate id="seeAllProjects" />
+                </Button>
             </SeeAllProjectsBtn>
         </SeeAllProjectsLinkContainer>
     );
