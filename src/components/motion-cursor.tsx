@@ -6,7 +6,6 @@ import {
     useCallback,
     useEffect,
     useState,
-    MouseEvent
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
@@ -165,7 +164,7 @@ const CursorLink = memo(
         }
 
         return (
-            <TextWrapper as="a" onClick={(e: MouseEvent<HTMLAnchorElement | HTMLDivElement>) => onNavigate(e, route)}>
+            <TextWrapper as="a" onClick={onNavigate}>
                 <CursorText>
                     <Translate id={text} />
                 </CursorText>
@@ -208,6 +207,7 @@ export const MotionCursor = ({
     const [isMotionCursorVisible] = useStoreProp("isMotionCursorVisible");
     const { clientX, clientY } = useTrackMousePosition();
     const projectCover = motionCursorData.projectCover;
+
     const cursorStyle = {
         "--left": `${clientX || -motionCursorData.size || -cursorSize}px`,
         "--top": `${clientY || -motionCursorData.size || -cursorSize}px`,
