@@ -81,7 +81,7 @@ export const SingleProject = memo(
 
             showMotionCursor(isMouseOver, {
                 text: "explore",
-                route: nameSlug,
+                to: nameSlug,
                 size: 80,
                 projectCover: cover,
                 overlap: false,

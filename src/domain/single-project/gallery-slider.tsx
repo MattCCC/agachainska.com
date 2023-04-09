@@ -38,7 +38,7 @@ export const GallerySlider = memo(({ images, gap }: Props) => {
 
         showMotionCursor(isMouseOver, {
             text: "drag",
-            route: "",
+            to: "",
             color: !isMouseOver ? "black" : "melrose",
             size: 80,
             overlap: false,
@@ -51,12 +51,14 @@ export const GallerySlider = memo(({ images, gap }: Props) => {
                 <MotionSlider gap={gap} displayGrabCursor={false}>
                     {images.map(({ image }, i) => (
                         <Element key={i}>
-                            <Image src={image}
+                            <Image
+                                src={image}
                                 alt=""
                                 height="250"
                                 width="820"
                                 sizes="(max-width: 768px) 250px, 550px,
-                                (max-width: 1200px) 820px, 550px" />
+                                (max-width: 1200px) 820px, 550px"
+                            />
                         </Element>
                     ))}
                 </MotionSlider>

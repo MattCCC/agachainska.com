@@ -11,7 +11,7 @@ const initialState = {
     motionCursorData: {
         text: "",
         target: "_self",
-        route: "",
+        to: "",
         color: "black",
         size: 80,
         overlap: true,

@@ -263,7 +263,7 @@ const Work = memo(({ projects }: Props) => {
         (mouseDidLeave = false) => {
             dispatch.showMotionCursor(!mouseDidLeave, {
                 text: "explore",
-                route: state.routeTo,
+                to: state.routeTo,
                 overlap: false,
             });
 

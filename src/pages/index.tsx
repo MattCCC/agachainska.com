@@ -44,7 +44,7 @@ export default function Home() {
     useEffect(() => {
         showMotionCursor(true, {
             text: "viewWork",
-            route: workLink.to,
+            to: workLink.to,
         });
     }, [showMotionCursor, workLink.to]);
 

@@ -128,14 +128,14 @@ const CursorLink = memo(
     ({
         text,
         target,
-        route,
+        to,
         children,
     }: PropsWithChildren<State["motionCursorData"]>) => {
         const onNavigate = useNavigation({
-            to: route,
+            to,
         });
 
-        if (!route) {
+        if (!to) {
             if (text) {
                 return (
                     <TextWrapper>
@@ -153,7 +153,7 @@ const CursorLink = memo(
             return (
                 <LinkWrapper
                     target={target}
-                    href={route}
+                    href={to}
                     rel="nofollow noreferrer"
                 >
                     <CursorText>

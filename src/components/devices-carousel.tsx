@@ -69,7 +69,7 @@ export const DevicesCarousel = memo(
 
             showMotionCursor(isMouseOver, {
                 text: "drag",
-                route: "",
+                to: "",
                 color: !isMouseOver ? "black" : "melrose",
                 size: 80,
                 overlap: !isMouseOver,
