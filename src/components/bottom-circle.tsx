@@ -26,7 +26,7 @@ export const BottomCircle = memo(() => {
     return (
         <Link {...workLink}>
             <BottomCircleStyled>
-                <ArrowDownStyled />
+                <ArrowDownStyled aria-label="Work" />
             </BottomCircleStyled>
         </Link>
     );

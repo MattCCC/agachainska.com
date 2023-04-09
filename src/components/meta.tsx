@@ -39,7 +39,7 @@ export const Meta = memo(
                 <meta name="image" content={seo.image} />
                 <meta
                     name="viewport"
-                    content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+                    content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, maximum-scale=2, viewport-fit=cover"
                 />
 
                 {article && <meta property="og:type" content="article" />}
