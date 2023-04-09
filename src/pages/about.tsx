@@ -234,6 +234,8 @@ export default function About({ aboutPageData, projects }: Props) {
 
     return (
         <Fragment>
+            <Meta title="About - Aga Chainska" />
+
             <MotionCursor />
 
             {!hasSmallWindowWidth && <ParallaxBackground />}
@@ -363,5 +365,3 @@ export const getStaticProps: GetStaticProps<Props> = async ({
         ...(await serverSideTranslations(locale)),
     },
 });
-
-export const Head = () => <Meta title="About - Aga Chainska" />;

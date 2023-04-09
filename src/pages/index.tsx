@@ -50,6 +50,8 @@ export default function Home() {
 
     return (
         <Fragment>
+            <Meta title="Aga Chainska" />
+
             <MainSection
                 className="grid items-center grid-flow-col grid-cols-1 grid-rows-1 lg:cursor-none"
                 initial="exit"
@@ -77,5 +79,3 @@ export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => ({
         ...(await serverSideTranslations(locale)),
     },
 });
-
-export const Head = () => <Meta title="Aga Chainska" />;

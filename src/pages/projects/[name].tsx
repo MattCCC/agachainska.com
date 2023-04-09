@@ -428,6 +428,8 @@ export default function Project({ project, projects }: Props) {
 
     return (
         <Fragment>
+            <Meta title={`${name || "Project"} - Aga Chainska`} />
+
             <MotionCursor />
 
             <ViewOnDeskStar />
@@ -566,7 +568,3 @@ export const getStaticProps: GetStaticProps<Props> = async ({
         },
     };
 };
-
-export const Head = ({ pageContext }: { pageContext: { name?: string } }) => (
-    <Meta title={`${pageContext?.name || "Project"} - Aga Chainska`} />
-);

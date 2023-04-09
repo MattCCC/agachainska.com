@@ -409,6 +409,8 @@ const Work = memo(({ projects }: Props) => {
 
     return (
         <Fragment>
+            <Meta title="Work - Aga Chainska" />
+
             <MotionCursor />
 
             <MainContainer topPadding={true}>
@@ -514,5 +516,3 @@ export const getStaticProps: GetStaticProps<Props> = async ({
         ...(await serverSideTranslations(locale)),
     },
 });
-
-export const Head = () => <Meta title="Work - Aga Chainska" />;
