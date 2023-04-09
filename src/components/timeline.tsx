@@ -82,7 +82,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     style?: CSSProperties;
 }
 
-export const Timeline = memo(
+const Timeline = memo(
     ({
         sections,
         activeSectionId = "",
@@ -276,3 +276,5 @@ export const Timeline = memo(
         prevProps.activeSectionId === nextProps.activeSectionId &&
         prevProps.activeItemId === nextProps.activeItemId
 );
+
+export default Timeline;

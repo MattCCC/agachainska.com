@@ -13,6 +13,7 @@ import tw, { css, styled } from "twin.macro";
 import { useDebouncedCallback } from "use-debounce";
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import dynamic from "next/dynamic";
 
 import { BigNumber } from "components/big-number";
 import { MainContainer } from "components/main-container";
@@ -22,7 +23,7 @@ import { Post, PostItem } from "components/post";
 import { Slider, SliderItem } from "components/slider";
 import { Star } from "components/star";
 import { Tabs } from "components/tabs";
-import { Timeline, Item, Section } from "components/timeline";
+import { Item, Section } from "components/timeline";
 import dataProjects from "data/projects.yml";
 import { useEventListener } from "hooks/use-event-listener";
 import { useNavigation } from "hooks/use-navigation";
@@ -100,6 +101,10 @@ const StyledStar = styled(Star)(() => [
 
 let isPageTop = false;
 let isPageBottom = false;
+
+const TimelineNoSSR = dynamic(() => import("../components/timeline"), {
+    ssr: false,
+});
 
 const Work = memo(({ projects }: Props) => {
     const windowSize = useWindowSize();
@@ -472,7 +477,7 @@ const Work = memo(({ projects }: Props) => {
                         ) : null}
 
                         <TimelineWrapper>
-                            <Timeline
+                            <TimelineNoSSR
                                 style={{ height: "27.76rem" }}
                                 onTimelineItemChange={setCurrentSlideState}
                                 sections={timelineList}

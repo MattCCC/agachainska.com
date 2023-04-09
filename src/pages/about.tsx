@@ -15,13 +15,13 @@ import SeeAllProjectsLink from "components/see-all-projects-link";
 import SelectedProjects from "components/selected-projects";
 import { SocialMedia } from "components/social-media";
 import { Tabs } from "components/tabs";
-import { Timeline } from "components/timeline";
 import dataAbout from "data/about-page.yml";
 import dataProjects from "data/projects.yml";
 import { socialMedia } from "data/social-media";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import { up } from "utils/screens";
+import dynamic from "next/dynamic";
 
 const HeroSection = styled.section(() => [
     tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-[max(600px,100vh)]`,
@@ -178,6 +178,10 @@ const SelectedProjectsContainer = styled.div(() => [
     tw`lg:col-start-1 lg:col-end-11 lg:ml-2 lg:mt-10 cursor-none!`,
 ]);
 
+const TimelineNoSSR = dynamic(() => import("../components/timeline"), {
+    ssr: false,
+});
+
 interface Props {
     aboutPageData: AboutPageData;
     projects: Project[];
@@ -260,7 +264,7 @@ export default function About({ aboutPageData, projects }: Props) {
 
                     <Article>
                         <TimelineWrapper>
-                            <Timeline
+                            <TimelineNoSSR
                                 style={{ height: "254px" }}
                                 activeItemId={activeItemId}
                                 activeSectionId={aboutPageTimeline.id}

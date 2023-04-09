@@ -28,7 +28,6 @@ import { ParallaxBackground } from "components/parallax-background";
 import { Quote } from "components/quote";
 import SeeAllProjectsLink from "components/see-all-projects-link";
 import { Tabs } from "components/tabs";
-import { Timeline } from "components/timeline";
 import ViewOnDeskStar from "components/view-on-desktop-star";
 import dataProjects from "data/projects.yml";
 import { GallerySlider } from "domain/single-project/gallery-slider";
@@ -44,6 +43,7 @@ import { useWindowSize } from "hooks/use-window-size";
 import PrevIcon from "svg/down.svg";
 import NextIcon from "svg/up.svg";
 import { thresholdArray } from "utils/threshold-array";
+import dynamic from "next/dynamic";
 
 interface Props {
     project: Project;
@@ -164,6 +164,10 @@ const NextIconStyled = styled(NextIcon)(() => [
 ]);
 
 const DeviceMockupWrapper = styled.div(() => [tw`mb-[40px] lg:mb-[80px]`]);
+
+const TimelineNoSSR = dynamic(() => import("../../components/timeline"), {
+    ssr: false,
+});
 
 interface StatsProps {
     stats: ProjectSectionElementStat[];
@@ -462,7 +466,7 @@ export default function Project({ project, projects }: Props) {
                                 marginBottom: "-" + 84.66 * numItems + "px",
                             }}
                         >
-                            <Timeline
+                            <TimelineNoSSR
                                 style={{
                                     height: 84.66 * numItems + "px",
                                 }}
