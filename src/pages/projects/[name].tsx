@@ -69,6 +69,8 @@ const MainTitleWrapper = styled.div(
     tw`absolute max-w-[90%] bottom-[-43px] lg:bottom-[-74px]`
 );
 
+const H2Span = styled.span(tw`inline-block w-[50%] lg:leading-[62px]`);
+
 const MainTitle = styled(MainTitleBottom)(() => [
     tw`uppercase bg-project-title-gradient lg:bg-project-title-gradient-lg`,
     tw`text-[70px] leading-[70px] top-[-27px] mb-[-27px] lg:top-[-46px] lg:mb-[-46px] lg:text-[120px] lg:leading-[130px]`,
@@ -506,7 +508,9 @@ export default function Project({ project, projects }: Props) {
                                     >
                                         {showSectionTitle &&
                                             showSectionTitle === "yes" && (
-                                                <H2>{section}</H2>
+                                                <H2>
+                                                    <H2Span>{section}</H2Span>
+                                                </H2>
                                             )}
                                         {elements &&
                                             sectionLoader(
@@ -516,13 +520,12 @@ export default function Project({ project, projects }: Props) {
                                             )}
                                     </SectionObserver>
                                 ) : (
-                                    <ArticleSection
-                                        key={sectionId}
-                                        id={sectionId}
-                                    >
+                                    <ArticleSection id={sectionId}>
                                         {showSectionTitle &&
                                             showSectionTitle === "yes" && (
-                                                <H2>{section}</H2>
+                                                <H2>
+                                                    <H2Span>{section}</H2Span>
+                                                </H2>
                                             )}
                                         {elements &&
                                             sectionLoader(
