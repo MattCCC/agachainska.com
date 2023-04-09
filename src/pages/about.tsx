@@ -238,7 +238,7 @@ export default function About({ aboutPageData, projects }: Props) {
 
     return (
         <Fragment>
-            <Meta title="About - Aga Chainska" />
+            <Meta title="About · Aga Chainska" />
 
             <MotionCursor />
 

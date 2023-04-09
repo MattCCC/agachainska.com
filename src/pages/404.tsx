@@ -7,7 +7,7 @@ import { Meta } from "components/meta";
 
 const ErrorPage: NextPage = () => (
     <>
-        <Meta title="404 - Aga Chainska" />
+        <Meta title="404 · Aga Chainska" />
         <ErrorContainer />
     </>
 );

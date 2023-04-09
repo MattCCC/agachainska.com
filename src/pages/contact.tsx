@@ -40,7 +40,7 @@ const EMAIL_ADDRESS = "helloagachainska@gmail.com";
 export default function Contact() {
     return (
         <>
-            <Meta title="Contact - Aga Chainska" />
+            <Meta title="Contact · Aga Chainska" />
             <form
                 action="https://formsubmit.co/a.chainska@gmail.com"
                 method="POST"

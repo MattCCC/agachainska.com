@@ -1,7 +1,9 @@
+const siteUrl = "https://agachainska.com";
+
 export const useSiteMetadata = () => ({
-    title: "",
-    description: "",
-    image: "",
-    siteUrl: "",
-    twitterUsername: "",
+    title: "Aga Chainska",
+    description: "Aga Chaińska's Personal Website.",
+    image: "/img/slider-pattern.png",
+    siteUrl,
+    twitterUsername: "@aga",
 });

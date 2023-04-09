@@ -414,7 +414,7 @@ const Work = memo(({ projects }: Props) => {
 
     return (
         <Fragment>
-            <Meta title="Work - Aga Chainska" />
+            <Meta title="Work · Aga Chainska" />
 
             <MotionCursor />
 

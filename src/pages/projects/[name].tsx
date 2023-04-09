@@ -408,7 +408,7 @@ export default function Project({ project, projects }: Props) {
 
     return (
         <Fragment>
-            <Meta title={`${name || "Project"} - Aga Chainska`} />
+            <Meta title={`${name || "Project"} · Aga Chainska`} />
 
             <MotionCursor />
 

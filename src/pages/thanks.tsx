@@ -10,7 +10,7 @@ import { Meta } from "components/meta";
 export default function Thanks() {
     return (
         <Fragment>
-            <Meta title="Thank you - Aga Chainska" />
+            <Meta title="Thank you · Aga Chainska" />
 
             <MainContainer topPadding={true}>
                 <div tw="col-start-1 col-end-13">
