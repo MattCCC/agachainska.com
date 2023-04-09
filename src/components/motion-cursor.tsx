@@ -5,6 +5,7 @@ import {
     PropsWithChildren,
     useCallback,
     useEffect,
+    useRef,
     useState,
 } from "react";
 
@@ -66,28 +67,21 @@ const TextWrapper = styled.div(() => [tw`flex w-full h-full`]);
 const LinkWrapper = styled.a(() => [tw`flex w-full h-full`]);
 
 const CursorText = styled.div(() => [
-    tw`m-auto cursor-none`,
-    css`
-        width: 80%;
-        line-height: 16px;
-    `,
+    tw`m-auto cursor-none w-[80%] leading-[16px]`,
 ]);
-
-const ProjectHover = styled.div(() => []);
 
 const ProjectCover = styled.div(
     ({ isMotionCursorVisible, projectCoverLink }: CursorProps) => [
-        tw`fixed z-30 hidden lg:block cursor-none`,
+        tw`absolute z-30 hidden opacity-0 lg:block cursor-none`,
+        tw`top-[35px] left-[120px]`,
         css`
-            top: var(--top);
-            left: var(--left);
-            opacity: 0;
             background: url(${projectCoverLink}) center;
             background-size: cover;
             width: 400px;
             height: 215px;
             margin: 14px 0 0 -30px;
             transform: rotate(-10deg) scale(0.5);
+
             @keyframes showImg {
                 from {
                     opacity: 0;
@@ -203,15 +197,12 @@ export const MotionCursor = ({
     onPositionUpdate = null,
     children,
 }: PropsWithChildren<Props>) => {
+    const cursorRef = useRef<HTMLDivElement>(null);
+
     const [motionCursorData] = useStoreProp("motionCursorData");
     const [isMotionCursorVisible] = useStoreProp("isMotionCursorVisible");
     const { clientX, clientY } = useTrackMousePosition();
     const projectCover = motionCursorData.projectCover;
-
-    const cursorStyle = {
-        "--left": `${clientX || -motionCursorData.size || -cursorSize}px`,
-        "--top": `${clientY || -motionCursorData.size || -cursorSize}px`,
-    } as CSSProperties;
 
     useEffect(() => {
         if (onPositionUpdate) {
@@ -219,26 +210,38 @@ export const MotionCursor = ({
         }
     }, [clientX, clientY, onPositionUpdate]);
 
+    useEffect(() => {
+        if (cursorRef.current) {
+            cursorRef.current.style.setProperty(
+                "--top",
+                `${clientY || -motionCursorData.size || -cursorSize}px`
+            );
+
+            cursorRef.current.style.setProperty(
+                "--left",
+                `${clientX || -motionCursorData.size || -cursorSize}px`
+            );
+        }
+    }, [clientX, clientY, cursorRef, motionCursorData.size]);
+
     return (
         <Fragment>
             <Cursor
+                ref={cursorRef}
                 isMotionCursorVisible={isMotionCursorVisible}
                 {...motionCursorData}
-                style={cursorStyle}
                 className="cursor"
             >
                 <CursorLink {...motionCursorData}>{children}</CursorLink>
-            </Cursor>
 
-            {projectCover && (
-                <ProjectHover>
+                {projectCover && (
                     <ProjectCover
-                        style={cursorStyle}
+                        className="project-cover"
                         isMotionCursorVisible={isMotionCursorVisible}
                         projectCoverLink={projectCover}
                     />
-                </ProjectHover>
-            )}
+                )}
+            </Cursor>
         </Fragment>
     );
 };
