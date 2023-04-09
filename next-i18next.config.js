@@ -15,7 +15,7 @@ const next18nextConfig = {
 	nsSeparator: ":",
 
 	// https://www.i18next.com/overview/configuration-options#logging
-	debug: process.env.NODE_ENV === 'development',
+	debug: false,
 
 	// To avoid issues when deploying to some paas (vercel...)
 	localePath:
