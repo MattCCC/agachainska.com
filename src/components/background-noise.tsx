@@ -19,7 +19,7 @@ const NoiseWrapper = styled.div(() => [
         --y: 0px;
         backface-visibility: hidden;
         transform: scale(1);
-        background: url("/img/bg-pattern.png") repeat;
+        background: url("/img/bg-pattern.webp") repeat;
         background-position-x: var(--x);
         background-position-y: var(--y);
         will-change: background-position-x;

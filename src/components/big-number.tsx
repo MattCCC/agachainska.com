@@ -47,7 +47,7 @@ function SvgWrapper({
                     id={"shade-" + svgId}
                     width="512"
                     height="512"
-                    xlinkHref={"/img/bg-pattern.png"}
+                    xlinkHref={"/img/bg-pattern.webp"}
                 ></image>
             </defs>
             <g
