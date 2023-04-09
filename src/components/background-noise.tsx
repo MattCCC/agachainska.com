@@ -1,10 +1,4 @@
-import {
-    CSSProperties,
-    PropsWithChildren,
-    useEffect,
-    useMemo,
-    useState,
-} from "react";
+import { PropsWithChildren, useEffect, useRef } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -22,11 +16,13 @@ interface Props {
 const NoiseWrapper = styled.div(() => [
     tw`absolute top-0 left-0 z-0 w-full h-full min-h-screen overflow-hidden`,
     css`
+        --y: 0px;
         backface-visibility: hidden;
         transform: scale(1);
         background: url("/img/bg-pattern.png") repeat;
-        background-position: var(--x) var(--y);
-        will-change: background-position;
+        background-position-x: var(--x);
+        background-position-y: var(--y);
+        will-change: background-position-x;
         opacity: 0.04;
     `,
 ]);
@@ -35,20 +31,16 @@ export const BackgroundNoise = ({
     className = "",
     children,
 }: PropsWithChildren<Props>) => {
-    const defaultState = useMemo(() => ({ x: 0, y: 0 }), []);
-    const [position, setPosition] = useState(defaultState);
-
-    const backgroundStyle = {
-        "--x": `${position.x}px`,
-        "--y": `${position.y}px`,
-    } as CSSProperties;
+    const noiseRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const intervalId = requestInterval(() => {
-            setPosition(() => ({
-                x: getRandomNumber(0, 100),
-                y: 0,
-            }));
+            if (noiseRef.current) {
+                noiseRef.current.style.setProperty(
+                    "--x",
+                    getRandomNumber(0, 100) + "px"
+                );
+            }
         }, 150);
 
         return (): void => {
@@ -56,10 +48,10 @@ export const BackgroundNoise = ({
                 clearRequestInterval(intervalId);
             }
         };
-    }, []);
+    }, [noiseRef]);
 
     return (
-        <NoiseWrapper className={className} style={backgroundStyle}>
+        <NoiseWrapper ref={noiseRef} className={className}>
             {children}
         </NoiseWrapper>
     );
