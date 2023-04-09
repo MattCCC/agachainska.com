@@ -7,6 +7,7 @@ import {
     memo,
     HTMLAttributes,
     useMemo,
+    CSSProperties,
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
@@ -78,6 +79,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     activeSectionId?: string;
     activeItemId?: string;
     onTimelineItemChange?: (item: Item) => void;
+    style?: CSSProperties;
 }
 
 export const Timeline = memo(
@@ -86,7 +88,7 @@ export const Timeline = memo(
         activeSectionId = "",
         activeItemId = "",
         onTimelineItemChange = (): null => null,
-        ...props
+        style = undefined,
     }: Props) => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
         const sectionTitleRef = useRef() as RefObject<HTMLDivElement>;
@@ -187,7 +189,7 @@ export const Timeline = memo(
         );
 
         return (
-            <TimelineWrapper ref={wrapperRef} {...props}>
+            <TimelineWrapper ref={wrapperRef} style={style}>
                 <AnimatePresence initial={false}>
                     {sections.map((section: Section) => (
                         <div key={`timeline-${section.id}`}>
