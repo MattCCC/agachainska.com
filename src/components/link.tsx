@@ -1,4 +1,4 @@
-import { MouseEvent, PropsWithChildren, ReactNode } from "react";
+import { MouseEvent, PropsWithChildren, ReactNode, memo } from "react";
 
 import { useTranslation } from "next-i18next";
 
@@ -13,34 +13,36 @@ export interface Props extends LinkDelayedArgs, Omit<LinkProps, "href"> {
     className?: string;
 }
 
-export const Link = ({
-    to = "",
-    replace = false,
-    delay = 0,
-    onDelayStart = (() => {}) as OnDelayCallback,
-    onDelayEnd = (() => {}) as OnDelayCallback,
-    children,
-    className = "",
-}: PropsWithChildren<Props>) => {
-    const { i18n } = useTranslation();
-    const onClick = useNavigation({
-        to,
-        replace,
-        delay,
-        onDelayStart,
-        onDelayEnd,
-    });
+export const Link = memo(
+    ({
+        to = "",
+        replace = false,
+        delay = 0,
+        onDelayStart = (() => {}) as OnDelayCallback,
+        onDelayEnd = (() => {}) as OnDelayCallback,
+        children,
+        className = "",
+    }: PropsWithChildren<Props>) => {
+        const { i18n } = useTranslation();
+        const onClick = useNavigation({
+            to,
+            replace,
+            delay,
+            onDelayStart,
+            onDelayEnd,
+        });
 
-    return (
-        <NextLink
-            onClick={(e: MouseEvent<HTMLAnchorElement | HTMLDivElement>) =>
-                onClick(e)
-            }
-            href={to}
-            locale={i18n.language}
-            className={className}
-        >
-            {children}
-        </NextLink>
-    );
-};
+        return (
+            <NextLink
+                onClick={(e: MouseEvent<HTMLAnchorElement | HTMLDivElement>) =>
+                    onClick(e)
+                }
+                href={to}
+                locale={i18n.language}
+                className={className}
+            >
+                {children}
+            </NextLink>
+        );
+    }
+);
