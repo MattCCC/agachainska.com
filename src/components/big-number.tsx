@@ -1,6 +1,11 @@
-import { CSSProperties, SVGProps, useEffect, useMemo, useState } from "react";
-
-import useInterval from "@use-it/interval";
+import {
+    CSSProperties,
+    SVGProps,
+    memo,
+    useEffect,
+    useMemo,
+    useRef,
+} from "react";
 
 interface Props extends SVGProps<SVGSVGElement> {
     id: string;
@@ -66,6 +71,55 @@ function SvgWrapper({
     );
 }
 
+const Tspan = memo(
+    ({
+        animate = false,
+        value = 0,
+        x = 0,
+        y = 0,
+    }: {
+        animate: boolean;
+        value: string | number;
+        x: number;
+        y: number;
+    }) => {
+        const ref = useRef<SVGTSpanElement>(null);
+
+        useEffect(() => {
+            if (!ref.current) {
+                return;
+            }
+
+            const count = animate
+                ? Number(value) > 0
+                    ? "1"
+                    : "0"
+                : String(value);
+
+            ref.current.textContent = count;
+
+            if (animate) {
+                const delay = 1000 / Number(value || 1);
+                let num = Number(count);
+
+                const intervalID = setInterval(() => {
+                    if (num === value) {
+                        clearInterval(intervalID);
+                    }
+
+                    if (ref.current) {
+                        ref.current.textContent = String(num);
+                    }
+
+                    num++;
+                }, delay);
+            }
+        }, [animate, value]);
+
+        return <tspan ref={ref} x={x} y={y}></tspan>;
+    }
+);
+
 export function BigNumber({
     id = "0",
     value = 1,
@@ -76,35 +130,10 @@ export function BigNumber({
     style = {},
     ...props
 }: Props) {
-    const [count, setCount] = useState("0");
-    const [delay, setDelay] = useState<null | number>(null);
     const viewBoxWidth = useMemo(
         () => Number(viewBox.split(" ")[2]),
         [viewBox]
     );
-
-    useEffect(() => {
-        if (animate) {
-            setCount(Number(value) > 0 ? "1" : "0");
-            setDelay(1000 / Number(value || 1));
-        } else {
-            setCount(() => String(value));
-        }
-    }, [animate, value]);
-
-    useInterval(() => {
-        if (!animate) {
-            return;
-        }
-
-        const num = Number(count);
-
-        if (num === value) {
-            setDelay(null);
-        } else {
-            setCount(() => String(num + 1));
-        }
-    }, delay);
 
     let x = 0;
     let textAnchor = "start";
@@ -128,9 +157,7 @@ export function BigNumber({
                 strokeWidth="1.5"
                 textAnchor={textAnchor}
             >
-                <tspan x={x + 8.129} y="179">
-                    {count}
-                </tspan>
+                <Tspan animate={animate} value={value} x={x + 8.129} y={179} />
             </text>
             <text
                 fill="#FFF"
@@ -138,9 +165,7 @@ export function BigNumber({
                 strokeWidth="1.5"
                 textAnchor={textAnchor}
             >
-                <tspan x={x} y="179">
-                    {count}
-                </tspan>
+                <Tspan animate={animate} value={value} x={x} y={179} />
             </text>
         </SvgWrapper>
     );
