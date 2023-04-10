@@ -38,7 +38,6 @@ interface PageState {
     routeTo: string;
     clickEvent: Event;
     showStar: boolean;
-    showNumber: boolean;
     projectNumberToShow: number;
     currentProject?: Item | SliderItem;
 }
@@ -207,7 +206,6 @@ const Work = memo(({ projects }: Props) => {
 
     const [state, setState] = useState({
         showStar: false,
-        showNumber: true,
         projectNumberToShow: 0,
         currentProject: firstCategoryFirstItem,
         activeSectionId: firstCategory,
@@ -275,7 +273,6 @@ const Work = memo(({ projects }: Props) => {
             setState((prevState) => ({
                 ...prevState,
                 showStar: !mouseDidLeave,
-                showNumber: mouseDidLeave,
             }));
         },
         [dispatch, state.routeTo]
@@ -434,7 +431,7 @@ const Work = memo(({ projects }: Props) => {
                                         viewBox="0 0 280 200"
                                         displayOnRight={true}
                                         style={{
-                                            display: state.showNumber
+                                            display: !state.showStar
                                                 ? "block"
                                                 : "none",
                                         }}
