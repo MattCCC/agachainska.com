@@ -60,7 +60,7 @@ interface SliderWrapperProps {
 }
 
 const ContentContainer = styled.section(() => [
-    tw`relative mb-20 lg:mb-0 lg:grid lg:items-center`,
+    tw`relative col-start-1 col-end-13 mb-20 lg:mb-0 lg:grid lg:items-center lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col`,
     tw`lg:mt-[110px] lg:h-[max(600px,100vh)]`,
 ]);
 
@@ -416,9 +416,9 @@ const Work = memo(({ projects }: Props) => {
             <MotionCursor />
 
             <MainContainer topPadding={true}>
-                <div tw="col-start-1 col-end-13 lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col">
-                    <ContentContainer>
-                        {!hasSmallWindowWidth ? (
+                <ContentContainer>
+                    {!hasSmallWindowWidth ? (
+                        <>
                             <SlideWrapper
                                 isShowingOtherProjects={isShowingOtherProjects}
                             >
@@ -473,25 +473,26 @@ const Work = memo(({ projects }: Props) => {
                                     setIsAnimating={setIsSliderAnimating}
                                 />
                             </SlideWrapper>
-                        ) : null}
-
-                        <TimelineWrapper>
-                            <TimelineNoSSR
-                                style={{ height: "27.76rem" }}
-                                onTimelineItemChange={setCurrentSlideState}
-                                sections={timelineList}
-                                activeSectionId={state.activeSectionId}
-                                activeItemId={state.activeItemId}
+                            <TimelineWrapper>
+                                <TimelineNoSSR
+                                    style={{ height: "27.76rem" }}
+                                    onTimelineItemChange={setCurrentSlideState}
+                                    sections={timelineList}
+                                    activeSectionId={state.activeSectionId}
+                                    activeItemId={state.activeItemId}
+                                />
+                            </TimelineWrapper>
+                        </>
+                    ) : (
+                        <>
+                            <Tabs
+                                hideForDesktop={true}
+                                onTabChange={onTabChange}
+                                tabs={timelineList}
+                                activeTabId={state.activeSectionId}
                             />
-                        </TimelineWrapper>
-                        <Tabs
-                            hideForDesktop={true}
-                            onTabChange={onTabChange}
-                            tabs={timelineList}
-                            activeTabId={state.activeSectionId}
-                        />
-                        {hasSmallWindowWidth &&
-                            projectsByCategory.map(
+
+                            {projectsByCategory.map(
                                 (post: PostItem, index: number) => (
                                     <Post
                                         key={index}
@@ -503,8 +504,9 @@ const Work = memo(({ projects }: Props) => {
                                     />
                                 )
                             )}
-                    </ContentContainer>
-                </div>
+                        </>
+                    )}
+                </ContentContainer>
             </MainContainer>
         </Fragment>
     );
