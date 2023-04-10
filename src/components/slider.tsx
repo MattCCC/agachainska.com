@@ -211,7 +211,7 @@ export const Slider = ({
     // Orchestrate distortion animation
     const orchestrateVectorAnimation = useCallback(
         (from = 0, to = 100, slideNo = 0) => {
-            requestAnimationFrame(() => {
+            const requestID = requestAnimationFrame(() => {
                 animate(from, to, {
                     duration: duration / 2,
                     ease: powerEasing(2),
@@ -230,6 +230,7 @@ export const Slider = ({
                     onComplete: () => {
                         // Avoid infinite loop since we call the orchestration recursively
                         if (!to) {
+                            cancelAnimationFrame(requestID);
                             setIsAnimating(false);
 
                             return;
