@@ -62,6 +62,7 @@ interface SliderWrapperProps {
 const ContentContainer = styled.section(() => [
     tw`relative col-start-1 col-end-13 mb-20 lg:mb-0 lg:grid lg:items-center lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col`,
     tw`lg:mt-[110px] lg:h-[max(600px,100vh)]`,
+    tw`col-start-1 col-end-13 lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col`,
 ]);
 
 const SlideWrapper = styled.div(
@@ -423,32 +424,35 @@ const Work = memo(({ projects }: Props) => {
                                 isShowingOtherProjects={isShowingOtherProjects}
                             >
                                 {!isShowingOtherProjects && (
-                                    <StyledNumber
-                                        id={`${state.projectNumberToShow + 1}`}
-                                        value={`${
-                                            state.projectNumberToShow + 1
-                                        }.`}
-                                        viewBox="0 0 280 200"
-                                        displayOnRight={true}
-                                        style={{
-                                            display: !state.showStar
-                                                ? "block"
-                                                : "none",
-                                        }}
-                                    />
-                                )}
-                                {!isShowingOtherProjects && (
-                                    <StyledStar
-                                        text={
-                                            state?.currentProject
-                                                ?.shortDescription || ""
-                                        }
-                                        color={
-                                            state?.currentProject?.category &&
-                                            state?.currentProject?.starColor
-                                        }
-                                        displayStar={state.showStar}
-                                    />
+                                    <>
+                                        <StyledNumber
+                                            id={`${
+                                                state.projectNumberToShow + 1
+                                            }`}
+                                            value={`${
+                                                state.projectNumberToShow + 1
+                                            }.`}
+                                            viewBox="0 0 280 200"
+                                            displayOnRight={true}
+                                            style={{
+                                                display: !state.showStar
+                                                    ? "block"
+                                                    : "none",
+                                            }}
+                                        />
+                                        <StyledStar
+                                            text={
+                                                state?.currentProject
+                                                    ?.shortDescription || ""
+                                            }
+                                            color={
+                                                state?.currentProject
+                                                    ?.category &&
+                                                state?.currentProject?.starColor
+                                            }
+                                            displayStar={state.showStar}
+                                        />
+                                    </>
                                 )}
                                 <Slider
                                     sliderItems={sliderItems}

@@ -15,7 +15,6 @@ export interface OtherProjectProp {
 interface Props {
     otherProjects: OtherProjectProp[];
     lastProjectNumber: number;
-    isShowingOtherProjects: boolean;
 }
 
 const duration = 0.15;
@@ -54,29 +53,20 @@ const OtherProjectsContainer = styled(motion.div)(() => [
 export default function OtherProjects({
     otherProjects,
     lastProjectNumber,
-    isShowingOtherProjects,
 }: Props) {
     const otherProjectsAnimControls = useAnimation();
 
     // Orchestrate animation when switching the route
     useEffect(() => {
-        if (isShowingOtherProjects) {
-            (async (): Promise<void> => {
-                await otherProjectsAnimControls.start(
-                    (variant) => variant.initial
-                );
-                await otherProjectsAnimControls.start(
-                    (variant) => variant.enter
-                );
+        (async (): Promise<void> => {
+            await otherProjectsAnimControls.start((variant) => variant.initial);
+            await otherProjectsAnimControls.start((variant) => variant.enter);
 
-                setTimeout(async () => {
-                    await otherProjectsAnimControls.start(
-                        (variant) => variant.end
-                    );
-                }, duration * 1000);
-            })();
-        }
-    }, [isShowingOtherProjects, otherProjectsAnimControls]);
+            setTimeout(async () => {
+                await otherProjectsAnimControls.start((variant) => variant.end);
+            }, duration * 1000);
+        })();
+    }, [otherProjectsAnimControls]);
 
     return (
         <OtherProjectsContainer
