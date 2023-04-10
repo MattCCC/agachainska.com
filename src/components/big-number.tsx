@@ -23,7 +23,7 @@ function SvgWrapper({
     style,
     svgId,
     children,
-    ...props
+    className = "",
 }: Partial<Props> & { svgId: string }) {
     return (
         <svg
@@ -32,7 +32,7 @@ function SvgWrapper({
             viewBox={viewBox}
             preserveAspectRatio={preserveAspectRatio}
             style={style}
-            {...props}
+            className={className}
         >
             <defs>
                 <pattern
@@ -128,7 +128,7 @@ export function BigNumber({
     viewBox = "0 0 213 200",
     preserveAspectRatio = "xMidYMid",
     style = {},
-    ...props
+    className = "",
 }: Props) {
     const viewBoxWidth = useMemo(
         () => Number(viewBox.split(" ")[2]),
@@ -149,7 +149,7 @@ export function BigNumber({
             preserveAspectRatio={preserveAspectRatio}
             svgId={id}
             style={style}
-            {...props}
+            className={className}
         >
             <text
                 fill={`url(#pattern-${id})`}
