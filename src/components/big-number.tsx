@@ -17,15 +17,15 @@ interface Props extends SVGProps<SVGSVGElement> {
     style?: CSSProperties;
 }
 
-function SvgWrapper({
-    viewBox,
-    preserveAspectRatio,
-    style,
-    svgId,
-    children,
-    className = "",
-}: Partial<Props> & { svgId: string }) {
-    return (
+const SvgWrapper = memo(
+    ({
+        viewBox,
+        preserveAspectRatio,
+        style,
+        svgId,
+        children,
+        className = "",
+    }: Partial<Props> & { svgId: string }) => (
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -62,8 +62,8 @@ function SvgWrapper({
                 {children}
             </g>
         </svg>
-    );
-}
+    )
+);
 
 const Tspan = memo(
     ({
@@ -84,8 +84,9 @@ const Tspan = memo(
                 return;
             }
 
+            const numberValue = Number(value || 1);
             const count = animate
-                ? Number(value) > 0
+                ? numberValue > 0
                     ? "1"
                     : "0"
                 : String(value);
@@ -93,11 +94,12 @@ const Tspan = memo(
             ref.current.textContent = count;
 
             if (animate) {
-                const delay = 1000 / Number(value || 1);
+                const delay = 1000 / numberValue;
                 let num = Number(count);
 
                 const intervalID = setInterval(() => {
-                    if (num === value) {
+                    if (num >= numberValue) {
+                        // num = Math.min(num, numberValue);
                         clearInterval(intervalID);
                     }
 
@@ -114,53 +116,60 @@ const Tspan = memo(
     }
 );
 
-export function BigNumber({
-    id = "0",
-    value = 1,
-    animate = false,
-    displayOnRight = false,
-    viewBox = "0 0 213 200",
-    preserveAspectRatio = "xMidYMid",
-    style = {},
-    className = "",
-}: Props) {
-    const viewBoxWidth = useMemo(
-        () => Number(viewBox.split(" ")[2]),
-        [viewBox]
-    );
+export const BigNumber = memo(
+    ({
+        id = "0",
+        value = 1,
+        animate = false,
+        displayOnRight = false,
+        viewBox = "0 0 213 200",
+        preserveAspectRatio = "xMidYMid",
+        style = {},
+        className = "",
+    }: Props) => {
+        const viewBoxWidth = useMemo(
+            () => Number(viewBox.split(" ")[2]),
+            [viewBox]
+        );
 
-    let x = 0;
-    let textAnchor = "start";
+        let x = 0;
+        let textAnchor = "start";
 
-    if (displayOnRight) {
-        x = viewBoxWidth - 5;
-        textAnchor = "end";
+        if (displayOnRight) {
+            x = viewBoxWidth - 5;
+            textAnchor = "end";
+        }
+
+        return (
+            <SvgWrapper
+                viewBox={viewBox}
+                preserveAspectRatio={preserveAspectRatio}
+                svgId={id}
+                style={style}
+                className={className}
+            >
+                <text
+                    fill={`url(#pattern-${id})`}
+                    stroke="#000"
+                    strokeWidth="1.5"
+                    textAnchor={textAnchor}
+                >
+                    <Tspan
+                        animate={animate}
+                        value={value}
+                        x={x + 8.129}
+                        y={179}
+                    />
+                </text>
+                <text
+                    fill="#FFF"
+                    stroke="#0B0B0B"
+                    strokeWidth="1.5"
+                    textAnchor={textAnchor}
+                >
+                    <Tspan animate={animate} value={value} x={x} y={179} />
+                </text>
+            </SvgWrapper>
+        );
     }
-
-    return (
-        <SvgWrapper
-            viewBox={viewBox}
-            preserveAspectRatio={preserveAspectRatio}
-            svgId={id}
-            style={style}
-            className={className}
-        >
-            <text
-                fill={`url(#pattern-${id})`}
-                stroke="#000"
-                strokeWidth="1.5"
-                textAnchor={textAnchor}
-            >
-                <Tspan animate={animate} value={value} x={x + 8.129} y={179} />
-            </text>
-            <text
-                fill="#FFF"
-                stroke="#0B0B0B"
-                strokeWidth="1.5"
-                textAnchor={textAnchor}
-            >
-                <Tspan animate={animate} value={value} x={x} y={179} />
-            </text>
-        </SvgWrapper>
-    );
-}
+);
