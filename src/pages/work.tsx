@@ -38,7 +38,6 @@ interface PageState {
     routeTo: string;
     clickEvent: Event;
     showStar: boolean;
-    showNumber: boolean;
     projectNumberToShow: number;
     currentProject?: Item | SliderItem;
 }
@@ -61,8 +60,9 @@ interface SliderWrapperProps {
 }
 
 const ContentContainer = styled.section(() => [
-    tw`relative mb-20 lg:mb-0 lg:grid lg:items-center`,
+    tw`relative col-start-1 col-end-13 mb-20 lg:mb-0 lg:grid lg:items-center lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col`,
     tw`lg:mt-[110px] lg:h-[max(600px,100vh)]`,
+    tw`col-start-1 col-end-13 lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col`,
 ]);
 
 const SlideWrapper = styled.div(
@@ -207,7 +207,6 @@ const Work = memo(({ projects }: Props) => {
 
     const [state, setState] = useState({
         showStar: false,
-        showNumber: true,
         projectNumberToShow: 0,
         currentProject: firstCategoryFirstItem,
         activeSectionId: firstCategory,
@@ -275,7 +274,6 @@ const Work = memo(({ projects }: Props) => {
             setState((prevState) => ({
                 ...prevState,
                 showStar: !mouseDidLeave,
-                showNumber: mouseDidLeave,
             }));
         },
         [dispatch, state.routeTo]
@@ -419,39 +417,42 @@ const Work = memo(({ projects }: Props) => {
             <MotionCursor />
 
             <MainContainer topPadding={true}>
-                <div tw="col-start-1 col-end-13 lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col">
-                    <ContentContainer>
-                        {!hasSmallWindowWidth ? (
+                <ContentContainer>
+                    {!hasSmallWindowWidth ? (
+                        <>
                             <SlideWrapper
                                 isShowingOtherProjects={isShowingOtherProjects}
                             >
                                 {!isShowingOtherProjects && (
-                                    <StyledNumber
-                                        id={`${state.projectNumberToShow + 1}`}
-                                        value={`${
-                                            state.projectNumberToShow + 1
-                                        }.`}
-                                        viewBox="0 0 280 200"
-                                        displayOnRight={true}
-                                        style={{
-                                            display: state.showNumber
-                                                ? "block"
-                                                : "none",
-                                        }}
-                                    />
-                                )}
-                                {!isShowingOtherProjects && (
-                                    <StyledStar
-                                        text={
-                                            state?.currentProject
-                                                ?.shortDescription || ""
-                                        }
-                                        color={
-                                            state?.currentProject?.category &&
-                                            state?.currentProject?.starColor
-                                        }
-                                        displayStar={state.showStar}
-                                    />
+                                    <>
+                                        <StyledNumber
+                                            id={`${
+                                                state.projectNumberToShow + 1
+                                            }`}
+                                            value={`${
+                                                state.projectNumberToShow + 1
+                                            }.`}
+                                            viewBox="0 0 280 200"
+                                            displayOnRight={true}
+                                            style={{
+                                                display: !state.showStar
+                                                    ? "block"
+                                                    : "none",
+                                            }}
+                                        />
+                                        <StyledStar
+                                            text={
+                                                state?.currentProject
+                                                    ?.shortDescription || ""
+                                            }
+                                            color={
+                                                state?.currentProject
+                                                    ?.category &&
+                                                state?.currentProject?.starColor
+                                            }
+                                            displayStar={state.showStar}
+                                        />
+                                    </>
                                 )}
                                 <Slider
                                     sliderItems={sliderItems}
@@ -476,25 +477,26 @@ const Work = memo(({ projects }: Props) => {
                                     setIsAnimating={setIsSliderAnimating}
                                 />
                             </SlideWrapper>
-                        ) : null}
-
-                        <TimelineWrapper>
-                            <TimelineNoSSR
-                                style={{ height: "27.76rem" }}
-                                onTimelineItemChange={setCurrentSlideState}
-                                sections={timelineList}
-                                activeSectionId={state.activeSectionId}
-                                activeItemId={state.activeItemId}
+                            <TimelineWrapper>
+                                <TimelineNoSSR
+                                    style={{ height: "27.76rem" }}
+                                    onTimelineItemChange={setCurrentSlideState}
+                                    sections={timelineList}
+                                    activeSectionId={state.activeSectionId}
+                                    activeItemId={state.activeItemId}
+                                />
+                            </TimelineWrapper>
+                        </>
+                    ) : (
+                        <>
+                            <Tabs
+                                hideForDesktop={true}
+                                onTabChange={onTabChange}
+                                tabs={timelineList}
+                                activeTabId={state.activeSectionId}
                             />
-                        </TimelineWrapper>
-                        <Tabs
-                            hideForDesktop={true}
-                            onTabChange={onTabChange}
-                            tabs={timelineList}
-                            activeTabId={state.activeSectionId}
-                        />
-                        {hasSmallWindowWidth &&
-                            projectsByCategory.map(
+
+                            {projectsByCategory.map(
                                 (post: PostItem, index: number) => (
                                     <Post
                                         key={index}
@@ -506,8 +508,9 @@ const Work = memo(({ projects }: Props) => {
                                     />
                                 )
                             )}
-                    </ContentContainer>
-                </div>
+                        </>
+                    )}
+                </ContentContainer>
             </MainContainer>
         </Fragment>
     );

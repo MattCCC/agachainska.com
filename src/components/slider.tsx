@@ -5,6 +5,7 @@ import {
     ElementRef,
     RefObject,
     useState,
+    useMemo,
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
@@ -194,6 +195,7 @@ export const Slider = ({
     onSliderMouseLeave = null,
 }: Props) => {
     const [[page, direction], setPage] = useState([0, 0]);
+    const numItems = useMemo(() => sliderItems.length, [sliderItems]);
 
     const sliderRef = useRef<SliderRefHandle>(
         null
@@ -201,12 +203,15 @@ export const Slider = ({
 
     // By passing an absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
     // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
-    const sliderIndex = wrap(0, sliderItems.length, page);
+    const sliderIndex = useMemo(
+        () => wrap(0, numItems, page),
+        [numItems, page]
+    );
 
     // Orchestrate distortion animation
     const orchestrateVectorAnimation = useCallback(
         (from = 0, to = 100, slideNo = 0) => {
-            requestAnimationFrame(() => {
+            const requestID = requestAnimationFrame(() => {
                 animate(from, to, {
                     duration: duration / 2,
                     ease: powerEasing(2),
@@ -225,6 +230,7 @@ export const Slider = ({
                     onComplete: () => {
                         // Avoid infinite loop since we call the orchestration recursively
                         if (!to) {
+                            cancelAnimationFrame(requestID);
                             setIsAnimating(false);
 
                             return;
@@ -250,11 +256,7 @@ export const Slider = ({
             setPage([newStateDirection, newDirection]);
             orchestrateVectorAnimation(0, 100, newStateDirection);
 
-            const currentSliderItem = wrap(
-                0,
-                sliderItems.length,
-                newStateDirection
-            );
+            const currentSliderItem = wrap(0, numItems, newStateDirection);
 
             if (onSliderChange) {
                 onSliderChange(sliderItems[currentSliderItem]);
@@ -264,10 +266,10 @@ export const Slider = ({
             isAnimating,
             page,
             setIsAnimating,
-            setPage,
             orchestrateVectorAnimation,
-            sliderItems,
+            numItems,
             onSliderChange,
+            sliderItems,
         ]
     );
 
@@ -308,11 +310,7 @@ export const Slider = ({
 
     // Animate to particular slide
     useEffect(() => {
-        if (
-            slideId < 0 ||
-            page === slideId ||
-            slideId > sliderItems.length - 1
-        ) {
+        if (slideId < 0 || page === slideId || slideId > numItems - 1) {
             return;
         }
 
@@ -333,6 +331,7 @@ export const Slider = ({
         orchestrateVectorAnimation,
         setIsAnimating,
         setPage,
+        numItems,
     ]);
 
     const sliderContentRef = useRef(null);
@@ -395,7 +394,6 @@ export const Slider = ({
             >
                 {isShowingOtherProjects ? (
                     <OtherProjects
-                        isShowingOtherProjects={isShowingOtherProjects}
                         otherProjects={otherProjects}
                         lastProjectNumber={lastProjectNumber}
                     />
@@ -430,7 +428,7 @@ export const Slider = ({
                 )}
             </SlideContent>
             <Controls isShowingOtherProjects={isShowingOtherProjects}>
-                {page < sliderItems.length - 1 && (
+                {page < numItems - 1 && (
                     <Btn onClick={(): void => goToSlide(1)}>
                         <NextIconStyled /> Next
                     </Btn>

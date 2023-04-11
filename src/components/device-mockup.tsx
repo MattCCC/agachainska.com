@@ -12,11 +12,6 @@ import tw, { css, styled } from "twin.macro";
 
 import isImageURL from "utils/is-image-url";
 
-import Iphone13Pro from "../img/iphone-13-pro.png";
-import Iphone8 from "../img/iphone-8.png";
-import IphoneX from "../img/iphone-x.png";
-import MacbookPro from "../img/macbook-pro.png";
-
 const DeviceContainer = styled.div(() => [tw`relative w-[245px] h-[560px]`]);
 
 const DeviceResourceWrapper = styled.div(() => [
@@ -32,18 +27,22 @@ const DeviceResource = styled.iframe(() => [
 
 const DeviceFrameIphoneX = styled.div(() => [
     tw`w-[293px] h-[555px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
+    tw`bg-[url('/img/iphone-x.png')]`,
 ]);
 
 const DeviceFrameIphone8 = styled.div(() => [
     tw`w-[293px] h-[555px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
+    tw`bg-[url('/img/iphone-8.png')]`,
 ]);
 
 const DeviceFrameIphone13Pro = styled.div(() => [
     tw`w-[293px] h-[555px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
+    tw`bg-[url('/img/iphone-13-pro.png')]`,
 ]);
 
 const DeviceFrameMacbookPro = styled.div(() => [
     tw`w-[293px] h-[555px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
+    tw`bg-[url('/img/macbook-pro.png')]`,
 ]);
 
 const RingIcon = styled.div(() => [
@@ -110,18 +109,10 @@ const renderSwitch = ({
                 )}
             </DeviceResourceWrapper>
 
-            {type === "iPhoneX" && <DeviceFrameIphoneX style={{
-                backgroundImage: `url(${IphoneX})`,
-            }} />}
-            {type === "iPhone13pro" && <DeviceFrameIphone13Pro style={{
-                backgroundImage: `url(${Iphone13Pro})`,
-            }} />}
-            {type === "iPhone8" && <DeviceFrameIphone8 style={{
-                backgroundImage: `url(${Iphone8})`,
-            }} />}
-            {type === "laptop" && <DeviceFrameMacbookPro style={{
-                backgroundImage: `url(${MacbookPro})`,
-            }} />}
+            {type === "iPhoneX" && <DeviceFrameIphoneX />}
+            {type === "iPhone13pro" && <DeviceFrameIphone13Pro />}
+            {type === "iPhone8" && <DeviceFrameIphone8 />}
+            {type === "laptop" && <DeviceFrameMacbookPro />}
         </Fragment>
     );
 };

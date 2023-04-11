@@ -16,7 +16,7 @@ import { motion, MotionProps, AnimatePresence } from "components/animation";
 import { useElementSize } from "hooks/use-element-size";
 import { excludeProps } from "utils/styled";
 
-const TimelineWrapper = styled.div(() => [tw`z-10 text-right w-52`]);
+const TimelineWrapper = styled.div(() => [tw`relative text-right z-100`]);
 
 const Title = styled(motion.div).withConfig(
     excludeProps(["hasMultipleSections", "isActive"])
