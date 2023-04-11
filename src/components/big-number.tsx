@@ -43,10 +43,7 @@ function SvgWrapper({
                     y="-787.894"
                     patternUnits="userSpaceOnUse"
                 >
-                    <use
-                        transform="scale(1.53886)"
-                        xlinkHref={"#shade-" + svgId}
-                    ></use>
+                    <use xlinkHref={"#shade-" + svgId}></use>
                 </pattern>
                 <image
                     id={"shade-" + svgId}
@@ -59,10 +56,7 @@ function SvgWrapper({
                 fill="none"
                 fillRule="nonzero"
                 stroke="none"
-                strokeWidth="1"
-                fontFamily="Larsseit-Bold, Larsseit"
                 fontSize="180"
-                fontWeight="bold"
                 letterSpacing="7.714"
             >
                 {children}
