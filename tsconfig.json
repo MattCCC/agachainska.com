@@ -1,12 +1,5 @@
 {
-    "include": [
-        "./src/**/*",
-        "./*.tsx",
-        "./*.ts",
-        "./tina/**/*",
-        "tailwind.config.js",
-        "tina/collections/*.ts"
-    ],
+    "include": ["./src/**/*", "./*.tsx", "./*.ts", "tailwind.config.js"],
     "compilerOptions": {
         "baseUrl": ".",
         "jsx": "preserve",
@@ -36,7 +29,6 @@
         // "downlevelIteration": true,            /* Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'. */
         "isolatedModules": true /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */,
         "paths": {
-            "tina/*": ["./tina/*"],
             "config/*": ["./src/config/*"],
             "components/*": ["./src/components/*"],
             "data/*": ["./src/data/*"],
