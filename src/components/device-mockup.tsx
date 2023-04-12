@@ -12,17 +12,25 @@ import tw, { css, styled } from "twin.macro";
 
 import isImageURL from "utils/is-image-url";
 
+interface DeviceResourceWrapperProps {
+    type: string;
+}
+
 const DeviceContainer = styled.div(() => [tw`relative w-[245px] h-[560px]`]);
 
-const DeviceResourceWrapper = styled.div(() => [
-    tw`absolute z-10 bg-white border-0 outline-none cursor-grabbing`,
-    tw`w-[245px] h-[532px] rounded-[20px] top-[13px] left-[18px]`,
-    tw`shadow-[0px_4px_12px_-1px_rgba(0,0,0,0.36)] lg:shadow-[0px_42px_102px_-8px_rgba(0,0,0,0.36)]`,
-]);
+const DeviceResourceWrapper = styled.div(
+    ({ type }: DeviceResourceWrapperProps) => [
+        tw`absolute z-10 bg-white border-0 outline-none cursor-grabbing`,
+        tw`w-[245px] h-[532px] rounded-[20px] top-[13px] left-[18px]`,
+        tw`shadow-[0px_4px_12px_-1px_rgba(0,0,0,0.36)] lg:shadow-[0px_42px_102px_-8px_rgba(0,0,0,0.36)]`,
+        type === "iPhone8" && tw`w-[248px] h-[441px] top-[61px] left-[12px]`,
+    ]
+);
 
 const DeviceResource = styled.iframe(() => [
     tw`bg-white border-0 outline-none`,
     tw`w-[245px] h-[532px]`,
+    tw`w-full h-full bg-white border-0 outline-none`,
 ]);
 
 const DeviceFrameIphoneX = styled.div(() => [
@@ -31,7 +39,7 @@ const DeviceFrameIphoneX = styled.div(() => [
 ]);
 
 const DeviceFrameIphone8 = styled.div(() => [
-    tw`w-[293px] h-[555px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
+    tw`w-[270px] h-[754px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
     tw`bg-[url('/img/iphone-8.png')]`,
 ]);
 
@@ -94,7 +102,7 @@ const renderSwitch = ({
 
     return (
         <Fragment>
-            <DeviceResourceWrapper ref={ref}>
+            <DeviceResourceWrapper ref={ref} type={type}>
                 {(isVisible && tag === "iframe") || tag !== "iframe" ? (
                     <DeviceResource as={tag} src={link} />
                 ) : (
