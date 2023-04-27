@@ -13,12 +13,7 @@ import ContactIllustration from "svg/Contact.svg";
 import { up } from "utils/screens";
 import { useTina } from "tinacms/dist/react";
 import client from "tina/__generated__/client";
-import {
-    ConfigurationQuery,
-    ConfigurationQueryVariables,
-    PageQuery,
-    PageQueryVariables,
-} from "tina/__generated__/types";
+import { PageQuery, PageQueryVariables } from "tina/__generated__/types";
 
 const H1 = styled.div(() => [
     tw`pt-12 mb-5 leading-9 lg:mb-12 font-fbold prose-28 lg:prose-48 lg:leading-14 lg:pt-24`,
@@ -43,12 +38,6 @@ const ContactIllus = styled(ContactIllustration)(() => [
     `,
 ]);
 
-interface Configuration {
-    data: ConfigurationQuery;
-    query: string;
-    variables: ConfigurationQueryVariables;
-}
-
 interface Page {
     data: PageQuery;
     query: string;
@@ -62,21 +51,7 @@ type ContactPage = Extract<
     }
 >;
 
-export default function Contact({
-    configuration,
-    page,
-}: {
-    configuration: Configuration;
-    page: Page;
-}) {
-    const {
-        data: { configuration: configData },
-    } = useTina({
-        query: configuration.query,
-        variables: configuration.variables,
-        data: configuration.data,
-    });
-
+export default function Contact({ page }: { page: Page }) {
     const {
         data: { page: contactPageData },
     } = useTina({
@@ -90,7 +65,11 @@ export default function Contact({
 
     return (
         <>
-            <Meta title={`${configData.contact} · Aga Chainska`} />
+            <Meta
+                title={`${
+                    (contactPageData as ContactPage).title
+                } · Aga Chainska`}
+            />
             <form
                 action="https://formsubmit.co/a.chainska@gmail.com"
                 method="POST"
@@ -152,14 +131,6 @@ export default function Contact({
 }
 
 export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
-    let configuration = {
-        data: {},
-        query: "",
-        variables: {
-            relativePath: `${locale}/translations.md`,
-        },
-    } as Configuration;
-
     let page = {
         data: {},
         query: "",
@@ -169,29 +140,18 @@ export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
     } as Page;
 
     try {
-        const { variables, data, query } = await client.queries.configuration(
-            configuration.variables
-        );
-
-        configuration = { variables, data, query };
-    } catch {
-        // swallow errors related to document creation
-    }
-
-    try {
         const { variables, data, query } = await client.queries.page(
             page.variables
         );
 
         page = { variables, data, query };
     } catch {
-        // swallow errors related to document creation
+        // TODO: swallow errors related to document creation
     }
 
     return {
         props: {
             ...(await serverSideTranslations(locale)),
-            configuration,
             page,
         },
     };
