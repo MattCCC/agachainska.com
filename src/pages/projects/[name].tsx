@@ -548,7 +548,6 @@ export async function getStaticPaths() {
 export const getStaticProps: GetStaticProps<Props> = async ({
     params,
     locale = "en",
-    locales,
 }) => {
     const name = params?.name;
 
