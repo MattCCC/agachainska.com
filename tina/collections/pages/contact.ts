@@ -18,12 +18,6 @@ export default {
             required: true,
         },
         {
-            label: "Form Submission Link",
-            name: "formUrl",
-            type: "string",
-            required: true,
-        },
-        {
             label: "Translations",
             name: "translations",
             type: "object",

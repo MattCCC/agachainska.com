@@ -1,5 +1,7 @@
 import { Collection } from "tinacms";
+
+import configurations from "./configurations";
 import pages from "./pages";
 import projects from "./projects";
 
-export default [pages, projects] as Collection[];
+export default [configurations, pages, projects] as Collection[];

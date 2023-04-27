@@ -1,11 +1,10 @@
 import { Collection } from "tinacms";
-import about from "./about";
-import contact from "./contact";
+import translations from "./translations";
 
 export default {
-    label: "Pages",
-    name: "page",
-    path: "content/pages",
+    label: "Configuration",
+    name: "configuration",
+    path: "content/configurations",
     ui: {
         // Don't allow editors to create new navigation items
         allowedActions: {
@@ -13,5 +12,5 @@ export default {
             delete: true,
         },
     },
-    templates: [about, contact],
+    templates: [translations],
 } as Collection;

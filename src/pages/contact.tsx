@@ -11,6 +11,14 @@ import { TextTextarea } from "components/text-textarea";
 import { socialMedia } from "data/social-media";
 import ContactIllustration from "svg/Contact.svg";
 import { up } from "utils/screens";
+import { useTina } from "tinacms/dist/react";
+import client from "tina/__generated__/client";
+import {
+    ConfigurationQuery,
+    ConfigurationQueryVariables,
+    PageQuery,
+    PageQueryVariables,
+} from "tina/__generated__/types";
 
 const H1 = styled.div(() => [
     tw`pt-12 mb-5 leading-9 lg:mb-12 font-fbold prose-28 lg:prose-48 lg:leading-14 lg:pt-24`,
@@ -35,12 +43,54 @@ const ContactIllus = styled(ContactIllustration)(() => [
     `,
 ]);
 
-const EMAIL_ADDRESS = "helloagachainska@gmail.com";
+interface Configuration {
+    data: ConfigurationQuery;
+    query: string;
+    variables: ConfigurationQueryVariables;
+}
 
-export default function Contact() {
+interface Page {
+    data: PageQuery;
+    query: string;
+    variables: PageQueryVariables;
+}
+
+type ContactPage = Extract<
+    PageQuery["page"],
+    {
+        __typename?: "PageContact";
+    }
+>;
+
+export default function Contact({
+    configuration,
+    page,
+}: {
+    configuration: Configuration;
+    page: Page;
+}) {
+    const {
+        data: { configuration: configData },
+    } = useTina({
+        query: configuration.query,
+        variables: configuration.variables,
+        data: configuration.data,
+    });
+
+    const {
+        data: { page: contactPageData },
+    } = useTina({
+        query: page.query,
+        variables: page.variables,
+        data: page.data,
+    });
+
+    const contactTranslations = (contactPageData as ContactPage)?.translations;
+    const email = (contactPageData as ContactPage).email || "";
+
     return (
         <>
-            <Meta title="Contact · Aga Chainska" />
+            <Meta title={`${configData.contact} · Aga Chainska`} />
             <form
                 action="https://formsubmit.co/a.chainska@gmail.com"
                 method="POST"
@@ -49,10 +99,7 @@ export default function Contact() {
                 <MainContainer topPadding={true} as="section">
                     <ContactIllus />
                     <div tw="col-start-1 col-end-13 lg:col-end-6">
-                        <H1>
-                            Let’s talk! Shoot me a message if you’d like to work
-                            together or just to say hello.
-                        </H1>
+                        <H1>{contactTranslations?.h1Title}</H1>
                         <div className="hidden lg:block">
                             <SocialMedia items={socialMedia} variant="big" />
                         </div>
@@ -61,7 +108,7 @@ export default function Contact() {
                         <TextTextarea
                             id="contact"
                             name="contact"
-                            label="Your message"
+                            label={contactTranslations?.messageLabel || ""}
                             required={true}
                         />
                         <div className="grid mb-10 lg:grid-cols-2 gap-7 mt-7">
@@ -71,7 +118,7 @@ export default function Contact() {
                                     id="name"
                                     name="name"
                                     type="text"
-                                    label="Your name"
+                                    label={contactTranslations?.nameLabel || ""}
                                     required={true}
                                 />
                             </div>
@@ -81,16 +128,20 @@ export default function Contact() {
                                     id="email"
                                     name="email"
                                     type="email"
-                                    label="Your email"
+                                    label={
+                                        contactTranslations?.emailLabel || ""
+                                    }
                                     required={true}
                                 />
                             </div>
                         </div>
-                        <Button type="submit">Send</Button>
+                        <Button type="submit">
+                            {contactTranslations?.sendButtonText || ""}
+                        </Button>
                         <span className="block mt-6 lg:inline-block lg:mt-0 lg:ml-6">
-                            or find me at
-                            <EmailLink href={`mailto:${EMAIL_ADDRESS}`}>
-                                {EMAIL_ADDRESS}
+                            {contactTranslations?.findMeText || ""}
+                            <EmailLink href={`mailto:${email}`}>
+                                {email}
                             </EmailLink>
                         </span>
                     </div>
@@ -100,8 +151,48 @@ export default function Contact() {
     );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => ({
-    props: {
-        ...(await serverSideTranslations(locale)),
-    },
-});
+export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
+    let configuration = {
+        data: {},
+        query: "",
+        variables: {
+            relativePath: `${locale}/translations.md`,
+        },
+    } as Configuration;
+
+    let page = {
+        data: {},
+        query: "",
+        variables: {
+            relativePath: `${locale}/contact.md`,
+        },
+    } as Page;
+
+    try {
+        const { variables, data, query } = await client.queries.configuration(
+            configuration.variables
+        );
+
+        configuration = { variables, data, query };
+    } catch {
+        // swallow errors related to document creation
+    }
+
+    try {
+        const { variables, data, query } = await client.queries.page(
+            page.variables
+        );
+
+        page = { variables, data, query };
+    } catch {
+        // swallow errors related to document creation
+    }
+
+    return {
+        props: {
+            ...(await serverSideTranslations(locale)),
+            configuration,
+            page,
+        },
+    };
+};
