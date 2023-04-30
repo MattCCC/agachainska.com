@@ -11,7 +11,7 @@ interface Pagination {
 
 interface Args {
     projectsByCategory: ProjectsByCategory;
-    uid: number;
+    uid: string;
 }
 
 export const usePagination = ({

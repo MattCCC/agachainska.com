@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Project } from "types/project";
 
 interface HookArgs {
     category: string;
@@ -16,7 +17,7 @@ export interface ProjectsByCategory {
 }
 
 export interface ProjectByCurrentCategory {
-    uid: number;
+    uid: string;
     nameSlug: string;
 }
 
@@ -40,7 +41,7 @@ export const useProjectsByCategory = ({
         const filteredProjectsByCategory: ProjectByCurrentCategory[] = projects
             .filter((project) => project.category === category)
             .map((currentProject) => ({
-                uid: currentProject.uid,
+                uid: currentProject.id,
                 nameSlug: currentProject.nameSlug,
             }));
 

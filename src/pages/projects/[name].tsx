@@ -42,13 +42,16 @@ import NextIcon from "svg/up.svg";
 import { thresholdArray } from "utils/threshold-array";
 import dynamic from "next/dynamic";
 import { Stats } from "components/project/stats-table";
+import { ProjectSection } from "types/project";
 
-interface Props {
-    project: Project;
-    projects: Project[];
-}
 interface ContentContainerProps {
     variant?: string;
+}
+
+
+interface Props {
+    project: ProjectQuery["project"];
+    projects: Array<ProjectQuery["project"]>;
 }
 
 const MainSection = styled(MainContainer).withConfig({

@@ -5,7 +5,7 @@ import { H4 } from "components/h4";
 import { BigNumber } from "components/big-number";
 
 interface StatsProps {
-    stats: ProjectSectionElementStat[];
+    stats: Array<{ title: string; stat: number }>;
     index: number;
 }
 
