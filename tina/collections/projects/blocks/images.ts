@@ -14,6 +14,7 @@ export const Images = {
             name: "images",
             type: "object",
             list: true,
+            required: true,
             ui: {
                 component: "group-list",
                 visualSelector: false,

@@ -78,6 +78,7 @@ export default {
             name: "keyInfo",
             type: "object",
             list: true,
+            required: true,
             ui: {
                 component: "group-list",
             },
