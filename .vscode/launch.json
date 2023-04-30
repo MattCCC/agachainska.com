@@ -5,7 +5,12 @@
             "name": "Next.js: debug server-side",
             "type": "node-terminal",
             "request": "launch",
-            "command": "npm run dev"
+            "command": "npm run dev",
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+                "webpack:///./src/*": "${webRoot}/dist/*",
+                "webpack:///src/*": "${webRoot}/dist/*"
+            }
         },
         {
             "name": "Next.js: debug client-side",
