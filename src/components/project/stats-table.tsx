@@ -5,7 +5,7 @@ import { H4 } from "components/h4";
 import { BigNumber } from "components/big-number";
 
 interface StatsProps {
-    stats: Array<{ title: string; stat: number }>;
+    stats: Array<{ title: string; stat: number } | null>;
     index: number;
 }
 
@@ -37,22 +37,30 @@ export const Stats = memo(({ stats }: StatsProps) => {
 
     return (
         <StatsTable ref={refStats}>
-            {stats.map(({ title, stat }, j) => (
-                <SingleStat
-                    key={`stat-${j}`}
-                    className={j < 3 ? "space" : "big"}
-                >
-                    <CellTitle>
-                        <BigNumber
-                            id={`stat-number-${j}`}
-                            value={stat}
-                            animate={animateStats}
-                        />
-                    </CellTitle>
+            {stats.map((stat, j) => {
+                if (!stat) {
+                    return null;
+                }
 
-                    <StatsCaption>{title}</StatsCaption>
-                </SingleStat>
-            ))}
+                const { title, stat: value } = stat;
+
+                return (
+                    <SingleStat
+                        key={`stat-${j}`}
+                        className={j < 3 ? "space" : "big"}
+                    >
+                        <CellTitle>
+                            <BigNumber
+                                id={`stat-number-${j}`}
+                                value={value}
+                                animate={animateStats}
+                            />
+                        </CellTitle>
+
+                        <StatsCaption>{title}</StatsCaption>
+                    </SingleStat>
+                );
+            })}
         </StatsTable>
     );
 });
