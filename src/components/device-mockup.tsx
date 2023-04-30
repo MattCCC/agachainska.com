@@ -18,7 +18,15 @@ interface DeviceResourceProps {
     tag?: string;
 }
 
-const DeviceContainer = styled.div(() => [tw`relative w-[245px] h-[560px]`]);
+const DeviceContainer = styled("div").withConfig(excludeProps(["type"]))(
+    ({ type }: DeviceResourceProps) => [
+        tw`relative w-[245px] h-[560px] m-auto lg:m-0`,
+        type === "iPhoneX" && tw`w-[278px]`,
+        type === "iPhone13pro" && tw`w-[280px]`,
+        type === "iPhone8" && tw`w-[270px]`,
+        type === "laptop" && tw`w-[293px]`,
+    ]
+);
 
 const DeviceResourceWrapper = styled("div").withConfig(
     excludeProps(["type", "tag"])
@@ -43,7 +51,7 @@ const DeviceResource = styled("iframe").withConfig(excludeProps(["type"]))(
 );
 
 const DeviceFrameIphoneX = styled.div(() => [
-    tw`w-[293px] h-[555px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
+    tw`w-[278px] h-[555px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
     tw`bg-[url('/img/iphone-x.png')]`,
 ]);
 
@@ -152,7 +160,7 @@ export const DeviceMockup = memo(({ type, link }: Props) => {
     }, [link]);
 
     return (
-        <DeviceContainer>
+        <DeviceContainer type={type}>
             {renderSwitch({
                 isImage,
                 type,
