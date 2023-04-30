@@ -10,7 +10,7 @@ export const Images = {
     },
     fields: [
         {
-            label: "Two Column Images",
+            label: "One or Two Column Images",
             name: "images",
             type: "object",
             list: true,
@@ -27,6 +27,15 @@ export const Images = {
                 }),
             },
             fields: [
+                {
+                    label: "Stretch to full page",
+                    name: "fullPageImage",
+                    type: "boolean",
+                    required: false,
+                    ui: {
+                        component: "toggle",
+                    },
+                },
                 {
                     type: "string",
                     name: "image",
