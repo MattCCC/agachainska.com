@@ -61,10 +61,10 @@
             - type: "iPhoneX"
               link: "/img/screenshot.png"
             - type: "iPhoneX"
-              link: "https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FQaKvvMvwwFov4qwUMN79N1%2FPayMe%3Fnode-id%3D4%253A1113%26scaling%3Dscale-down-width%26page-id%3D2%253A475%26starting-point-node-id%3D4%253A600%26show-proto-sidebar%3D1&amp;hide-ui=1"
-            - type: "iPhoneX"
               link: "/img/screenshot.png"
-            - type: "iPhoneX"
+            - type: "iPhone13pro"
+              link: "/img/screenshot.png"
+            - type: "iPhone8"
               link: "/img/screenshot.png"
     - section: "results"
       showInTimeline: "yes"
@@ -1338,13 +1338,13 @@
             Skip button to be moved to the top right corner of the screen as part of the navigation bar. It’s a commonly used practice (as per Human Interface Guidelines) across many mobile apps so users will expect to find a skip option there.
         - element: devices
           types:
-            - type: iPhoneX,
+            - type: iPhoneX
               image: /img/projects/
-            - type: iPhoneX,
+            - type: iPhoneX
               image: /img/projects/
-            - type: iPhoneX,
+            - type: iPhoneX
               image: /img/projects/
-            - type: iPhoneX,
+            - type: iPhoneX
               image: /img/projects/
         - element: text
           title: Rewards section
@@ -1360,13 +1360,13 @@
             User tap heatmaps (images showcases users actions when trying to redeem cash, half a day off and a Nutribullet):
         - element: devices
           types:
-            - type: iPhoneX,
+            - type: iPhoneX
               image: /img/projects/
-            - type: iPhoneX,
+            - type: iPhoneX
               image: /img/projects/
-            - type: iPhoneX,
+            - type: iPhoneX
               image: /img/projects/
-            - type: iPhoneX,
+            - type: iPhoneX
               image: /img/projects/
         - element: text
           description: > 
