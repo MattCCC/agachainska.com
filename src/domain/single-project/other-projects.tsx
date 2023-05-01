@@ -2,26 +2,30 @@ import { memo } from "react";
 
 import SeeAllProjectsLink from "components/see-all-projects-link";
 import { SingleProject, ProjectsList } from "components/single-project";
-import { ProjectsByCategory } from "hooks/use-projects-by-category";
+import { Project } from "types/project";
 
 interface Props {
     limit?: number;
-    projectsByCategory: ProjectsByCategory;
+    otherProjects: Project[] | null;
 }
 
-export const OtherProjects = memo(
-    ({ projectsByCategory, limit = 4, ...props }: Props) => (
-        <ProjectsList {...props}>
-            {projectsByCategory.others
+export const OtherProjects = memo(({ otherProjects, limit = 4 }: Props) => {
+    if (!otherProjects) {
+        return null;
+    }
+
+    return (
+        <ProjectsList>
+            {otherProjects
                 .slice(0, limit)
                 .map(
                     (
-                        { nameSlug, name, category, cover }: Project,
+                        { _sys, name, category, cover }: Project,
                         index: number
                     ) => (
                         <SingleProject
                             key={index}
-                            nameSlug={nameSlug}
+                            nameSlug={_sys.filename}
                             name={name}
                             category={category}
                             index={index}
@@ -31,8 +35,5 @@ export const OtherProjects = memo(
                 )}
             <SeeAllProjectsLink screenSize="sm" />
         </ProjectsList>
-    ),
-    (prev, next) =>
-        prev.projectsByCategory.filteredProjects.length ===
-        next.projectsByCategory.filteredProjects.length
-);
+    );
+});

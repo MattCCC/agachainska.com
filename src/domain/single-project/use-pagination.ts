@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { ProjectsByCategory } from "hooks/use-projects-by-category";
+import { ProjectByCurrentCategory } from "hooks/use-projects-by-category";
 
 interface Pagination {
     hasPreviousButton: boolean;
@@ -10,14 +10,11 @@ interface Pagination {
 }
 
 interface Args {
-    projectsByCategory: ProjectsByCategory;
+    projects: ProjectByCurrentCategory[];
     uid: string;
 }
 
-export const usePagination = ({
-    projectsByCategory,
-    uid,
-}: Args): Pagination[] => {
+export const usePagination = ({ projects, uid }: Args): Pagination[] => {
     const [navigation, setNavigation] = useState({
         hasPreviousButton: false,
         hasNextButton: false,
@@ -25,31 +22,27 @@ export const usePagination = ({
 
     const onPaginate = useCallback(
         (num: number): Pagination["previousTo"] | Pagination["nextTo"] => {
-            const projectsList = projectsByCategory.filteredProjects;
-
-            if (projectsList.length === 0) {
+            if (!projects || projects.length === 0) {
                 return "";
             }
 
-            const projectIndex = projectsList.findIndex(
+            const projectIndex = projects.findIndex(
                 (currentProject) => currentProject.uid === uid
             );
 
-            if (projectIndex <= -1 || !projectsList[projectIndex + num]) {
+            if (projectIndex <= -1 || !projects[projectIndex + num]) {
                 return "";
             }
 
-            const { nameSlug } = projectsList[projectIndex + num];
+            const { nameSlug } = projects[projectIndex + num];
 
             return nameSlug;
         },
-        [projectsByCategory, uid]
+        [projects, uid]
     );
 
     useEffect(() => {
-        const projectsList = projectsByCategory.filteredProjects;
-
-        if (projectsList.length === 0) {
+        if (!projects || projects.length === 0) {
             return;
         }
 
@@ -59,10 +52,10 @@ export const usePagination = ({
         setNavigation({
             previousTo,
             nextTo,
-            hasPreviousButton: projectsList[0]?.uid !== uid,
-            hasNextButton: projectsList[projectsList.length - 1]?.uid !== uid,
+            hasPreviousButton: projects[0]?.uid !== uid,
+            hasNextButton: projects[projects.length - 1]?.uid !== uid,
         });
-    }, [onPaginate, projectsByCategory, uid]);
+    }, [onPaginate, projects, uid]);
 
     return [navigation];
 };

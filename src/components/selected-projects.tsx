@@ -1,27 +1,19 @@
-import { selectedProjectsUids } from "data/selected-projects";
-
 import SeeAllProjectsLink from "./see-all-projects-link";
 import { ProjectsList, SingleProject } from "./single-project";
+import { Project } from "types/project";
 
 interface Props {
     projects: Project[];
 }
 
 export default function SelectedProjects({ projects }: Props) {
-    const selectedProjects = projects.filter((project) =>
-        selectedProjectsUids.includes(project.uid)
-    );
-
     return (
         <ProjectsList>
-            {selectedProjects.map(
-                (
-                    { nameSlug, name, category, cover }: Project,
-                    index: number
-                ) => (
+            {projects.map(
+                ({ _sys, name, category, cover }: Project, index: number) => (
                     <SingleProject
                         key={name}
-                        nameSlug={nameSlug}
+                        nameSlug={_sys.filename}
                         name={name}
                         category={category}
                         index={index}

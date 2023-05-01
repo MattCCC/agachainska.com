@@ -1,6 +1,13 @@
-import type { ProjectQuery } from "tina/__generated__/types";
+import type {
+    ProjectConnectionQuery,
+    ProjectQuery,
+} from "tina/__generated__/types";
 
 export type ProjectCategory = "UX" | "UI" | "Others";
+
+export type ProjectNode = NonNullable<
+    NonNullable<ProjectConnectionQuery["projectConnection"]["edges"]>[0]
+>["node"];
 
 export interface ProjectSectionImage {
     readonly image: string;
