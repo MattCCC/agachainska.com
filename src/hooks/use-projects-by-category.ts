@@ -3,6 +3,7 @@ import { Project } from "types/project";
 
 interface HookArgs {
     category: string;
+    nameSlug: string;
     projects: Project[];
 }
 
@@ -16,15 +17,17 @@ export interface ProjectByCurrentCategory {
 export const useProjectsByCategory = ({
     category,
     projects,
+    nameSlug,
 }: HookArgs): ProjectsByCategory => {
     const otherProjects = useMemo(
         () =>
             projects.filter(
                 (project) =>
                     project.subCategory === "Others" &&
-                    project.category === category
+                    project.category === category &&
+                    project._sys.filename !== nameSlug
             ),
-        [category, projects]
+        [category, nameSlug, projects]
     );
 
     const filteredProjects = useMemo(() => {

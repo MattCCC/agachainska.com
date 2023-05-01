@@ -326,12 +326,14 @@ export default function Project({ project, projects }: Props) {
         category,
         timelineTitle = "",
         keyInfo,
+        _sys,
         sections = [],
     } = project || {};
 
     const [otherProjects, filteredProjects] = useProjectsByCategory({
         category,
         projects,
+        nameSlug: _sys.filename,
     });
 
     const windowSize = useWindowSize();
