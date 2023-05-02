@@ -23,13 +23,14 @@ import { Post, PostItem } from "components/post";
 import { Slider, SliderItem } from "components/slider";
 import { Star } from "components/star";
 import { Tabs } from "components/tabs";
-import { Item, Section } from "components/timeline";
+import { TimelineItem, TimelineSection } from "components/timeline";
 import dataProjects from "data/projects.yml";
 import { useEventListener } from "hooks/use-event-listener";
 import { useNavigation } from "hooks/use-navigation";
 import { useWindowSize } from "hooks/use-window-size";
 import { useStoreProp } from "store/index";
 import { groupBy } from "utils/group-by";
+import { Project, ProjectCategory } from "types/project";
 
 interface PageState {
     sliderIndex: number;
@@ -39,10 +40,10 @@ interface PageState {
     clickEvent: Event;
     showStar: boolean;
     projectNumberToShow: number;
-    currentProject?: Item | SliderItem;
+    currentProject?: TimelineItem | SliderItem;
 }
 
-interface TimelineItem {
+interface WorkSliderItem {
     name: string;
     id: string;
     routeTo: string;
@@ -135,43 +136,38 @@ const Work = memo(({ projects }: Props) => {
                         project.subCategory === "Others"
                 );
 
-                const updatedCategory = {
+                const timelineData: TimelineSection = {
                     title: category,
                     id: category,
-                    category,
                     items: projects
                         .filter(
-                            (project: Project) =>
+                            (project) =>
                                 project.category === category &&
                                 project.subCategory !== "Others"
                         )
-                        .map((project: Project) => ({
+                        .map((project) => ({
                             ...project,
                             title: project.name,
-                            id: String(project.uid),
-                            routeTo: project.nameSlug,
+                            id: project._sys.filename,
                         })),
                 };
 
-                if (hasOtherProjects && !hasSmallWindowWidth) {
-                    updatedCategory.items.push({
+                if (
+                    hasOtherProjects &&
+                    !hasSmallWindowWidth &&
+                    timelineData.items
+                ) {
+                    timelineData.items.push({
                         id: `others${category}`,
-                        routeTo: "",
-                        uid: 99999,
-                        workPageColor: "",
                         title: "Others",
                         name: "Others",
-                        cover: "",
                         subCategory: "Others",
-                        nameSlug: "",
                         category,
-                        starColor: "",
-                        shortDescription: "",
                         sections: [],
                     });
                 }
 
-                return updatedCategory;
+                return timelineData;
             }),
         [categories, hasSmallWindowWidth, projects]
     );
@@ -182,26 +178,27 @@ const Work = memo(({ projects }: Props) => {
                 category,
                 projects: projects
                     .filter(
-                        (project: Project) =>
+                        (project) =>
                             project.category === category &&
                             project.subCategory === "Others"
                     )
-                    .map((project: Project) => ({
+                    .map((project) => ({
                         ...project,
                         title: project.name,
-                        id: String(project.uid),
-                        routeTo: project.nameSlug,
+                        id: String(project._sys.filename),
+                        routeTo: project._sys.filename,
                     })),
             })),
         [categories, projects]
     );
 
-    const firstCategory = timelineList[0].category;
+    const firstCategory = timelineList[0].id;
 
-    const firstCategoryFirstItem = useMemo(
-        () => timelineList.find(({ id }) => id === firstCategory)?.items[0],
-        [firstCategory, timelineList]
-    );
+    const firstCategoryFirstItem = useMemo(() => {
+        const section = timelineList.find(({ id }) => id === firstCategory);
+
+        return section && section?.items ? section?.items[0] : null;
+    }, [firstCategory, timelineList]);
 
     const [sliderIndex, setSliderIndex] = useState(0);
 
@@ -214,17 +211,18 @@ const Work = memo(({ projects }: Props) => {
         routeTo: firstCategoryFirstItem?.routeTo ?? "",
     } as PageState);
 
-    const defaultBgColor = useMemo(
-        () =>
-            (
-                (
-                    timelineList.find(
-                        (section) => section.category === state.activeSectionId
-                    )?.items || []
-                ).at(Number(state.activeItemId)) || {}
-            ).workPageColor || "#FFF",
-        [timelineList, state.activeItemId, state.activeSectionId]
-    );
+    const defaultBgColor = useMemo(() => {
+        const activeItem = (
+            timelineList.find((section) => section.id === state.activeSectionId)
+                ?.items || []
+        ).at(Number(state.activeItemId));
+
+        const bgColor = activeItem?.workPageColor
+            ? String(activeItem?.workPageColor)
+            : "#FFF";
+
+        return bgColor;
+    }, [timelineList, state.activeItemId, state.activeSectionId]);
 
     useEffect(() => {
         dispatchbackgroundColor.replaceInState({
@@ -232,13 +230,27 @@ const Work = memo(({ projects }: Props) => {
         });
     }, [defaultBgColor, backgroundColor, dispatchbackgroundColor]);
 
-    const sliderItems: TimelineItem[] = useMemo(
+    const sliderItems: WorkSliderItem[] = useMemo(
         () =>
-            timelineList.reduce((itemsList: TimelineItem[], currentValue) => {
-                itemsList = [...itemsList, ...(currentValue.items || [])];
+            timelineList
+                .reduce((itemsList: TimelineItem[], currentValue) => {
+                    itemsList = [...itemsList, ...(currentValue.items || [])];
 
-                return itemsList;
-            }, []),
+                    return itemsList;
+                }, [])
+                .map((project) => {
+                    const { category, cover, name, _sys, shortDescription } =
+                        project as unknown as Project;
+
+                    return {
+                        id: String(_sys.filename),
+                        routeTo: _sys.filename,
+                        name,
+                        cover,
+                        category,
+                        shortDescription,
+                    };
+                }),
         [timelineList]
     );
 
@@ -290,7 +302,7 @@ const Work = memo(({ projects }: Props) => {
     ]);
 
     const setCurrentSlideState = useCallback(
-        (currentItem: Item | SliderItem): void => {
+        (currentItem: TimelineItem | SliderItem): void => {
             if (!currentItem || state.activeItemId === currentItem.id) {
                 return;
             }
@@ -304,11 +316,11 @@ const Work = memo(({ projects }: Props) => {
             let projectNumberToShow: number;
 
             for (const category of timelineList) {
-                const indexOfProject = category.items.findIndex(
+                const indexOfProject = category.items?.findIndex(
                     (project) => project.id === currentItem.id
                 );
 
-                if (indexOfProject >= 0) {
+                if (typeof indexOfProject === "number" && indexOfProject >= 0) {
                     projectNumberToShow = indexOfProject;
                     break;
                 }
@@ -347,14 +359,14 @@ const Work = memo(({ projects }: Props) => {
     );
 
     const onTabChange = useCallback(
-        (currentTab: Section): void => {
+        (currentTab: TimelineSection): void => {
             if (state.activeSectionId === currentTab.id) {
                 return;
             }
 
             setState((prevState) => ({
                 ...prevState,
-                activeSectionId: currentTab.category,
+                activeSectionId: currentTab.id,
                 activeItemId: currentTab.id,
             }));
         },
