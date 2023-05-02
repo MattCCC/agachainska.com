@@ -285,7 +285,7 @@ const Work = memo(({ projects }: Props) => {
     );
 
     const onNavigate = useNavigation({
-        to: state.routeTo,
+        to: `projects/${state.routeTo}`,
     });
 
     // Cursor CTA
