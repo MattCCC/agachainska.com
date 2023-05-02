@@ -601,12 +601,8 @@ export const getStaticProps: GetStaticProps = async ({
 
         project = { variables, data, query };
     } catch {
-        // Swallow errors related to document creation
         return {
-            props: {
-                project: {},
-                projects,
-            },
+            notFound: true,
         };
     }
 
