@@ -62,7 +62,6 @@ interface ListItemStyle extends MotionProps {
 }
 
 export interface TimelineItem {
-    [x: string]: unknown;
     title: string;
     id: string;
 }

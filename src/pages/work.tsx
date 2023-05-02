@@ -24,13 +24,13 @@ import { Slider, SliderItem } from "components/slider";
 import { Star } from "components/star";
 import { Tabs } from "components/tabs";
 import { TimelineItem, TimelineSection } from "components/timeline";
-import dataProjects from "data/projects.yml";
 import { useEventListener } from "hooks/use-event-listener";
 import { useNavigation } from "hooks/use-navigation";
 import { useWindowSize } from "hooks/use-window-size";
 import { useStoreProp } from "store/index";
 import { groupBy } from "utils/group-by";
-import { Project, ProjectCategory } from "types/project";
+import { Project, ProjectCategory, ProjectNode } from "types/project";
+import client from "tina/__generated__/client";
 
 interface PageState {
     sliderIndex: number;
@@ -40,7 +40,7 @@ interface PageState {
     clickEvent: Event;
     showStar: boolean;
     projectNumberToShow: number;
-    currentProject?: TimelineItem | SliderItem;
+    currentProject?: Project;
 }
 
 interface WorkSliderItem {
@@ -83,7 +83,7 @@ const TimelineWrapper = styled.aside(() => [
 ]);
 
 const StyledNumber = styled(BigNumber)(() => [
-    tw`absolute right-0 z-20 select-none`,
+    tw`absolute right-0 z-20 font-bold select-none font-fbold`,
     css`
         bottom: 16px;
         height: 260px;
@@ -107,6 +107,9 @@ const TimelineNoSSR = dynamic(() => import("../components/timeline"), {
     ssr: false,
 });
 
+const bodyNode = (typeof document !== "undefined" &&
+    (document.body as unknown)) as RefObject<HTMLDivElement>;
+
 const Work = memo(({ projects }: Props) => {
     const windowSize = useWindowSize();
     const [hasSmallWindowWidth, setWindowWidth] = useState(false);
@@ -118,8 +121,7 @@ const Work = memo(({ projects }: Props) => {
     const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
     const [isSliderAnimating, setIsSliderAnimating] = useState(false);
     const [, dispatch] = useStoreProp("showMotionGrid");
-    const [backgroundColor, dispatchbackgroundColor] =
-        useStoreProp("backgroundColor");
+    const [, dispatchBgColor] = useStoreProp("backgroundColor");
 
     const categories = useMemo(
         () => Object.keys(groupBy(projects, "category")) as ProjectCategory[],
@@ -146,7 +148,6 @@ const Work = memo(({ projects }: Props) => {
                                 project.subCategory !== "Others"
                         )
                         .map((project) => ({
-                            ...project,
                             title: project.name,
                             id: project._sys.filename,
                         })),
@@ -160,16 +161,91 @@ const Work = memo(({ projects }: Props) => {
                     timelineData.items.push({
                         id: `others${category}`,
                         title: "Others",
-                        name: "Others",
-                        subCategory: "Others",
-                        category,
-                        sections: [],
                     });
                 }
 
                 return timelineData;
             }),
         [categories, hasSmallWindowWidth, projects]
+    );
+
+    const firstCategory = timelineList[0].id;
+
+    const firstCategoryFirstItem = useMemo(() => {
+        const section = timelineList.find(({ id }) => id === firstCategory);
+
+        return section && section?.items ? section?.items[0] : null;
+    }, [firstCategory, timelineList]);
+
+    const currentProject = useMemo(() => {
+        if (!firstCategoryFirstItem?.id) {
+            return null;
+        }
+
+        const project = projects.find(
+            ({ _sys }) => _sys.filename === firstCategoryFirstItem.id
+        );
+
+        return project;
+    }, [firstCategoryFirstItem, projects]);
+
+    const [sliderIndex, setSliderIndex] = useState(0);
+
+    const [state, setState] = useState({
+        currentProject,
+        showStar: false,
+        projectNumberToShow: 0,
+        activeSectionId: firstCategory,
+        activeItemId: firstCategoryFirstItem?.id ?? "1",
+        routeTo: currentProject?._sys.filename ?? "",
+    } as PageState);
+
+    useEffect(() => {
+        const project = projects.find(
+            ({ _sys }) => _sys.filename === state.activeItemId
+        );
+
+        const bgColor = project?.workPageColor
+            ? String(project?.workPageColor)
+            : "#FFF";
+
+        dispatchBgColor.setBackgroundColor(bgColor);
+    }, [dispatchBgColor, projects, state.activeItemId]);
+
+    const sliderItems: WorkSliderItem[] = useMemo(
+        () =>
+            timelineList
+                .reduce((itemsList: TimelineItem[], currentValue) => {
+                    itemsList = [...itemsList, ...(currentValue.items || [])];
+
+                    return itemsList;
+                }, [])
+                .map((item) => {
+                    const project = projects.find(
+                        ({ _sys }) => _sys.filename === item.id
+                    );
+
+                    if (!project) {
+                        return {
+                            id: item.id,
+                            name: item.title,
+                            routeTo: "",
+                            cover: "",
+                            category: "",
+                            shortDescription: "",
+                        };
+                    }
+
+                    return {
+                        id: project._sys.filename,
+                        routeTo: project._sys.filename,
+                        name: project.name,
+                        cover: project.cover,
+                        category: project.category,
+                        shortDescription: project.shortDescription,
+                    };
+                }),
+        [projects, timelineList]
     );
 
     const otherProjects = useMemo(
@@ -190,68 +266,6 @@ const Work = memo(({ projects }: Props) => {
                     })),
             })),
         [categories, projects]
-    );
-
-    const firstCategory = timelineList[0].id;
-
-    const firstCategoryFirstItem = useMemo(() => {
-        const section = timelineList.find(({ id }) => id === firstCategory);
-
-        return section && section?.items ? section?.items[0] : null;
-    }, [firstCategory, timelineList]);
-
-    const [sliderIndex, setSliderIndex] = useState(0);
-
-    const [state, setState] = useState({
-        showStar: false,
-        projectNumberToShow: 0,
-        currentProject: firstCategoryFirstItem,
-        activeSectionId: firstCategory,
-        activeItemId: firstCategoryFirstItem?.id ?? "1",
-        routeTo: firstCategoryFirstItem?.routeTo ?? "",
-    } as PageState);
-
-    const defaultBgColor = useMemo(() => {
-        const activeItem = (
-            timelineList.find((section) => section.id === state.activeSectionId)
-                ?.items || []
-        ).at(Number(state.activeItemId));
-
-        const bgColor = activeItem?.workPageColor
-            ? String(activeItem?.workPageColor)
-            : "#FFF";
-
-        return bgColor;
-    }, [timelineList, state.activeItemId, state.activeSectionId]);
-
-    useEffect(() => {
-        dispatchbackgroundColor.replaceInState({
-            backgroundColor: backgroundColor || defaultBgColor,
-        });
-    }, [defaultBgColor, backgroundColor, dispatchbackgroundColor]);
-
-    const sliderItems: WorkSliderItem[] = useMemo(
-        () =>
-            timelineList
-                .reduce((itemsList: TimelineItem[], currentValue) => {
-                    itemsList = [...itemsList, ...(currentValue.items || [])];
-
-                    return itemsList;
-                }, [])
-                .map((project) => {
-                    const { category, cover, name, _sys, shortDescription } =
-                        project as unknown as Project;
-
-                    return {
-                        id: String(_sys.filename),
-                        routeTo: _sys.filename,
-                        name,
-                        cover,
-                        category,
-                        shortDescription,
-                    };
-                }),
-        [timelineList]
     );
 
     const currentCategoryOtherProjects = useMemo(
@@ -307,7 +321,10 @@ const Work = memo(({ projects }: Props) => {
                 return;
             }
 
-            if (currentItem.id.includes("others")) {
+            const isOthers = currentItem.id.substring(0, 6) === "others";
+            const activeItemId = currentItem.id;
+
+            if (isOthers) {
                 onOthersSelected();
             } else {
                 setIsShowingOtherProjects(false);
@@ -317,7 +334,7 @@ const Work = memo(({ projects }: Props) => {
 
             for (const category of timelineList) {
                 const indexOfProject = category.items?.findIndex(
-                    (project) => project.id === currentItem.id
+                    ({ id }) => id === activeItemId
                 );
 
                 if (typeof indexOfProject === "number" && indexOfProject >= 0) {
@@ -326,35 +343,38 @@ const Work = memo(({ projects }: Props) => {
                 }
             }
 
-            dispatchbackgroundColor.replaceInState({
-                backgroundColor: currentItem.workPageColor,
-            });
-
             const newSliderIndex = sliderItems.findIndex(
-                (sliderItem: SliderItem) => sliderItem.id === currentItem.id
+                (sliderItem: SliderItem) => sliderItem.id === activeItemId
             );
 
             setSliderIndex(newSliderIndex);
 
             dispatch.showFooter(newSliderIndex === sliderItems.length - 1);
 
+            const project = isOthers
+                ? projects.find(
+                      ({ category, subCategory }) =>
+                          category === activeItemId.substring(6) &&
+                          subCategory !== "Others"
+                  )
+                : projects.find(({ _sys }) => _sys.filename === activeItemId);
+
             setState((prevState) => ({
                 ...prevState,
-                routeTo: currentItem.routeTo,
                 projectNumberToShow,
-                activeSectionId: currentItem.category,
-                activeItemId: currentItem.id,
-                currentProject: currentItem,
+                activeItemId,
+                routeTo: project?._sys.filename || "",
+                activeSectionId: project?.category || "",
+                currentProject: project,
             }));
         },
         [
-            state,
+            state.activeItemId,
             sliderItems,
+            dispatch,
+            projects,
             onOthersSelected,
             timelineList,
-            setState,
-            dispatch,
-            dispatchbackgroundColor,
         ]
     );
 
@@ -417,8 +437,7 @@ const Work = memo(({ projects }: Props) => {
 
             updateScroll(e as WheelEvent);
         },
-        (typeof document !== "undefined" &&
-            (document.body as unknown)) as RefObject<HTMLDivElement>,
+        bodyNode,
         { passive: false }
     );
 
@@ -530,11 +549,23 @@ const Work = memo(({ projects }: Props) => {
 
 export default Work;
 
-export const getStaticProps: GetStaticProps<Props> = async ({
-    locale = "en",
-}) => ({
-    props: {
-        projects: dataProjects,
-        ...(await serverSideTranslations(locale)),
-    },
-});
+export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
+    const projects = [] as ProjectNode[];
+
+    const { data: dataSrc } = await client.queries.projectConnection();
+
+    if (dataSrc.projectConnection.edges) {
+        for (const edge of dataSrc.projectConnection.edges) {
+            if (edge?.node) {
+                projects.push(edge.node);
+            }
+        }
+    }
+
+    return {
+        props: {
+            ...(await serverSideTranslations(locale)),
+            projects,
+        },
+    };
+};
