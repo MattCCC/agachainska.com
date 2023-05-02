@@ -78,14 +78,18 @@ export default function OtherProjects({
             animate={otherProjectsAnimControls}
             initial="initial"
         >
-            {otherProjects[0].projects?.map((post: PostItem, index: number) => (
-                <OtherProject
-                    otherProject={post}
-                    currentIndex={index}
-                    lastProjectNumber={lastProjectNumber}
-                    key={index + lastProjectNumber}
-                />
-            ))}
+            {otherProjects &&
+                otherProjects.length > 0 &&
+                otherProjects[0].projects?.map(
+                    (post: PostItem, index: number) => (
+                        <OtherProject
+                            otherProject={post}
+                            currentIndex={index}
+                            lastProjectNumber={lastProjectNumber}
+                            key={index + lastProjectNumber}
+                        />
+                    )
+                )}
         </OtherProjectsContainer>
     );
 }
