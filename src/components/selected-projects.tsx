@@ -19,7 +19,7 @@ export default function SelectedProjects({ projects, limit = 4 }: Props) {
                     ) => (
                         <SingleProject
                             key={name}
-                            nameSlug={_sys.filename}
+                            nameSlug={`projects/${_sys.filename}`}
                             name={name}
                             category={category}
                             index={index}
