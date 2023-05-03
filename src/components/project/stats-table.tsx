@@ -25,8 +25,11 @@ const SingleStat = styled.div(() => [
 const StatsCaption = styled(H4)(() => [tw`pl-[25%] lg:pl-[10px]`]);
 
 const CellTitle = styled.div(() => [
-    tw`max-w-full translate-x-1/2 font-fbold`,
-    tw`w-[150px] lg:w-[136px] lg:h-[117px] lg:transform-none mt-[12px]`,
+    tw`max-w-full font-fbold`,
+    tw`w-[150px] lg:w-[136px] lg:h-[117px] mt-[12px]`,
+    css`
+        transform: translateZ(0);
+    `,
 ]);
 
 export const Stats = memo(({ stats }: StatsProps) => {
