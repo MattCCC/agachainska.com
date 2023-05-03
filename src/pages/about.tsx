@@ -222,7 +222,8 @@ interface Props {
     projects: Project[];
 }
 
-const prependZeroes = (num) => (num.toString().length === 1 ? `0${num}` : num);
+const prependZeroes = (num: number) =>
+    num.toString().length === 1 ? `0${num}` : num;
 
 export default function About({
     aboutPageData,
@@ -394,7 +395,9 @@ export default function About({
                                                 <DesignProcessTitleContainer>
                                                     <DesignProcessNumber>
                                                         {prependZeroes(
-                                                            phase.phaseNum
+                                                            Number(
+                                                                phase.phaseNum
+                                                            )
                                                         )}
                                                     </DesignProcessNumber>
                                                     <DesignProcessTitle>
