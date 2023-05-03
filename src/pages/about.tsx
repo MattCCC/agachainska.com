@@ -22,7 +22,12 @@ import { up } from "utils/screens";
 import dynamic from "next/dynamic";
 import { Project, ProjectNode } from "types/project";
 import client from "tina/__generated__/client";
-import { PageQuery, PageQueryVariables } from "tina/__generated__/types";
+import {
+    ConfigurationQuery,
+    ConfigurationQueryVariables,
+    PageQuery,
+    PageQueryVariables,
+} from "tina/__generated__/types";
 import { HTMLInline } from "components/tina-render-html";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 
@@ -191,6 +196,12 @@ interface Page {
     variables: PageQueryVariables;
 }
 
+interface Configuration {
+    data: ConfigurationQuery;
+    query: string;
+    variables: ConfigurationQueryVariables;
+}
+
 type AboutPage = Extract<
     PageQuery["page"],
     {
@@ -198,12 +209,24 @@ type AboutPage = Extract<
     }
 >;
 
+type ConfigurationPage = Extract<
+    ConfigurationQuery["configuration"],
+    {
+        __typename?: "ConfigurationSocialMedia";
+    }
+>;
+
 interface Props {
     aboutPageData: AboutPage;
+    socialMediaData: ConfigurationPage;
     projects: Project[];
 }
 
-export default function About({ aboutPageData, projects }: Props) {
+export default function About({
+    aboutPageData,
+    socialMediaData,
+    projects,
+}: Props) {
     const windowSize = useWindowSize();
     const [hasSmallWindowWidth, setWindowWidth] = useState(false);
 
@@ -287,7 +310,12 @@ export default function About({ aboutPageData, projects }: Props) {
 
                             <SocialMediaLinksCon>
                                 <SocialMedia
-                                    items={socialMedia}
+                                    items={socialMediaData.socialMedia.map(
+                                        ({ name, link }) => ({
+                                            name,
+                                            url: link,
+                                        })
+                                    )}
                                     variant={
                                         hasSmallWindowWidth ? "normal" : "big"
                                     }
@@ -409,6 +437,7 @@ export default function About({ aboutPageData, projects }: Props) {
 
 export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
     const projects = [] as ProjectNode[];
+
     let aboutPageData = {
         data: {},
         query: "",
@@ -416,6 +445,26 @@ export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
             relativePath: `${locale}/about.md`,
         },
     } as Page;
+
+    let socialMediaData = {
+        data: {},
+        query: "",
+        variables: {
+            relativePath: `${locale}/social-media.md`,
+        },
+    } as Configuration;
+
+    try {
+        const { variables, data, query } = await client.queries.configuration(
+            socialMediaData.variables
+        );
+
+        socialMediaData = { variables, data, query };
+    } catch {
+        return {
+            notFound: true,
+        };
+    }
 
     try {
         const { variables, data, query } = await client.queries.page(
@@ -443,6 +492,7 @@ export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
         props: {
             ...(await serverSideTranslations(locale)),
             projects,
+            socialMediaData: socialMediaData.data.configuration,
             aboutPageData: aboutPageData.data.page,
         },
     };
