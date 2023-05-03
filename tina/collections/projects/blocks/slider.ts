@@ -11,9 +11,10 @@ export const Slider = {
     fields: [
         {
             label: "Slider",
-            name: "images",
+            name: "sliderImages",
             type: "object",
             list: true,
+            required: true,
             ui: {
                 component: "group-list",
                 visualSelector: false,

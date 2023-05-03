@@ -74,12 +74,14 @@ export default {
                     name: "description",
                     label: "Description",
                     isBody: true,
+                    required: true,
                 },
                 {
                     label: "Phases",
                     name: "phases",
                     type: "object",
                     list: true,
+                    required: true,
                     ui: {
                         itemProps: (item) =>
                             // Field values are accessed by title?.<Field name>
@@ -95,17 +97,20 @@ export default {
                             label: "Phase Number",
                             name: "phaseNum",
                             type: "string",
+                            required: true,
                         },
                         {
                             label: "Title",
                             name: "title",
                             type: "string",
+                            required: true,
                         },
                         {
                             type: "rich-text",
                             name: "description",
                             label: "Description",
                             isBody: true,
+                            required: true,
                         },
                     ],
                 },

@@ -15,6 +15,7 @@ export const Devices = {
             name: "devices",
             type: "object",
             list: true,
+            required: true,
             ui: {
                 component: "group-list",
                 visualSelector: false,

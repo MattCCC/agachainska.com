@@ -8,12 +8,15 @@ import { MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { SocialMedia } from "components/social-media";
 import { TextTextarea } from "components/text-textarea";
-import { socialMedia } from "data/social-media";
 import ContactIllustration from "svg/Contact.svg";
 import { up } from "utils/screens";
-import { useTina } from "tinacms/dist/react";
 import client from "tina/__generated__/client";
-import { PageQuery, PageQueryVariables } from "tina/__generated__/types";
+import {
+    ConfigurationQuery,
+    ConfigurationQueryVariables,
+    PageQuery,
+    PageQueryVariables,
+} from "tina/__generated__/types";
 
 const H1 = styled.div(() => [
     tw`pt-12 mb-5 leading-9 lg:mb-12 font-fbold prose-28 lg:prose-48 lg:leading-14 lg:pt-24`,
@@ -38,11 +41,24 @@ const ContactIllus = styled(ContactIllustration)(() => [
     `,
 ]);
 
+interface Configuration {
+    data: ConfigurationQuery;
+    query: string;
+    variables: ConfigurationQueryVariables;
+}
+
 interface Page {
     data: PageQuery;
     query: string;
     variables: PageQueryVariables;
 }
+
+type ConfigurationPage = Extract<
+    ConfigurationQuery["configuration"],
+    {
+        __typename?: "ConfigurationSocialMedia";
+    }
+>;
 
 type ContactPage = Extract<
     PageQuery["page"],
@@ -51,25 +67,19 @@ type ContactPage = Extract<
     }
 >;
 
-export default function Contact({ page }: { page: Page }) {
-    const {
-        data: { page: contactPageData },
-    } = useTina({
-        query: page.query,
-        variables: page.variables,
-        data: page.data,
-    });
-
-    const contactTranslations = (contactPageData as ContactPage)?.translations;
-    const email = (contactPageData as ContactPage).email || "";
+export default function Contact({
+    contactPageData,
+    socialMediaData,
+}: {
+    contactPageData: ContactPage;
+    socialMediaData: ConfigurationPage;
+}) {
+    const contactTranslations = contactPageData?.translations;
+    const email = contactPageData.email || "";
 
     return (
         <>
-            <Meta
-                title={`${
-                    (contactPageData as ContactPage).title
-                } · Aga Chainska`}
-            />
+            <Meta title={`${contactPageData.title} · Aga Chainska`} />
             <form
                 action="https://formsubmit.co/a.chainska@gmail.com"
                 method="POST"
@@ -80,7 +90,15 @@ export default function Contact({ page }: { page: Page }) {
                     <div tw="col-start-1 col-end-13 lg:col-end-6">
                         <H1>{contactTranslations?.h1Title}</H1>
                         <div className="hidden lg:block">
-                            <SocialMedia items={socialMedia} variant="big" />
+                            <SocialMedia
+                                items={socialMediaData.socialMedia.map(
+                                    ({ name, link }) => ({
+                                        name,
+                                        url: link,
+                                    })
+                                )}
+                                variant="big"
+                            />
                         </div>
                     </div>
                     <div tw="col-start-1 lg:col-start-7 col-end-13 lg:col-end-12 lg:pt-24">
@@ -139,6 +157,26 @@ export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
         },
     } as Page;
 
+    let socialMediaData = {
+        data: {},
+        query: "",
+        variables: {
+            relativePath: `${locale}/social-media.md`,
+        },
+    } as Configuration;
+
+    try {
+        const { variables, data, query } = await client.queries.configuration(
+            socialMediaData.variables
+        );
+
+        socialMediaData = { variables, data, query };
+    } catch {
+        return {
+            notFound: true,
+        };
+    }
+
     try {
         const { variables, data, query } = await client.queries.page(
             page.variables
@@ -146,13 +184,16 @@ export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
 
         page = { variables, data, query };
     } catch {
-        // TODO: swallow errors related to document creation
+        return {
+            notFound: true,
+        };
     }
 
     return {
         props: {
             ...(await serverSideTranslations(locale)),
-            page,
+            contactPageData: page.data.page,
+            socialMediaData: socialMediaData.data.configuration,
         },
     };
 };

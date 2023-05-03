@@ -29,7 +29,7 @@ const actions = {
     showFooter: set<State, boolean>("showFooter"),
     showLogoOnDesktop: set<State, boolean>("showLogoOnDesktop"),
     showbackgroundColor: set<State, boolean>("showbackgroundColor"),
-    backgroundColor: set<State, string>("backgroundColor"),
+    setBackgroundColor: set<State, string>("backgroundColor"),
     setDarkTheme: set<State, boolean>("darkTheme"),
     setCurrentDelayedRoute: set<State, string>("currentDelayedRoute"),
 

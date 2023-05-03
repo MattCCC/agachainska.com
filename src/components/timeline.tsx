@@ -61,24 +61,22 @@ interface ListItemStyle extends MotionProps {
     isActive?: boolean;
 }
 
-export interface Item {
-    [x: string]: any;
+export interface TimelineItem {
     title: string;
     id: string;
 }
 
-export interface Section {
-    [x: string]: any;
+export interface TimelineSection {
     title: string;
     id: string;
-    items?: Item[];
+    items?: TimelineItem[];
 }
 
 interface Props extends HTMLAttributes<HTMLElement> {
-    sections: Section[];
+    sections: TimelineSection[];
     activeSectionId?: string;
     activeItemId?: string;
-    onTimelineItemChange?: (item: Item) => void;
+    onTimelineItemChange?: (item: TimelineItem) => void;
     style?: CSSProperties;
 }
 
@@ -101,7 +99,7 @@ const Timeline = memo(
         const contentListHeight =
             activeListHeight > 0 ? activeListHeight - 50 : 0;
 
-        const availableSections: Section[] = useMemo(
+        const availableSections: TimelineSection[] = useMemo(
             () =>
                 sections.filter(
                     (section) => section?.items && section?.items?.length > 0
@@ -112,7 +110,7 @@ const Timeline = memo(
         const allItems = useMemo(
             () =>
                 availableSections.reduce(
-                    (items: Item[], currentValue: Section) => {
+                    (items: TimelineItem[], currentValue: TimelineSection) => {
                         items = [...items, ...(currentValue.items || [])];
 
                         return items;
@@ -151,7 +149,7 @@ const Timeline = memo(
         }, [activeItemId, activeSectionId, state]);
 
         const onTimelineItemClick = useCallback(
-            (item: Item) => {
+            (item: TimelineItem) => {
                 if (state.activeItemId === item.id) {
                     return;
                 }
@@ -167,7 +165,7 @@ const Timeline = memo(
         );
 
         const onTimelineHeaderClick = useCallback(
-            (section: Section): void => {
+            (section: TimelineSection): void => {
                 if (state.activeSectionId === section.id) {
                     return;
                 }
@@ -191,7 +189,7 @@ const Timeline = memo(
         return (
             <TimelineWrapper ref={wrapperRef} style={style}>
                 <AnimatePresence initial={false}>
-                    {sections.map((section: Section) => (
+                    {sections.map((section: TimelineSection) => (
                         <div key={`timeline-${section.id}`}>
                             <Title
                                 isActive={section.id === state.activeSectionId}
@@ -248,7 +246,7 @@ const Timeline = memo(
                                     }}
                                 />
 
-                                {section.items?.map((item: Item) => (
+                                {section.items?.map((item: TimelineItem) => (
                                     <ListItem
                                         key={`${section.id}-${item.id}`}
                                         isActive={

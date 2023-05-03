@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import { motion, useAnimation } from "framer-motion";
 import tw, { css, styled } from "twin.macro";
+import { Project } from "types/project";
 
 import { PostItem } from "components/post";
 
@@ -77,14 +78,18 @@ export default function OtherProjects({
             animate={otherProjectsAnimControls}
             initial="initial"
         >
-            {otherProjects[0].projects?.map((post: PostItem, index: number) => (
-                <OtherProject
-                    otherProject={post}
-                    currentIndex={index}
-                    lastProjectNumber={lastProjectNumber}
-                    key={index + lastProjectNumber}
-                />
-            ))}
+            {otherProjects &&
+                otherProjects.length > 0 &&
+                otherProjects[0].projects?.map(
+                    (post: PostItem, index: number) => (
+                        <OtherProject
+                            otherProject={post}
+                            currentIndex={index}
+                            lastProjectNumber={lastProjectNumber}
+                            key={index + lastProjectNumber}
+                        />
+                    )
+                )}
         </OtherProjectsContainer>
     );
 }

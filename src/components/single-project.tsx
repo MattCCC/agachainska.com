@@ -46,8 +46,9 @@ const ProjectWrapper = styled.li(({ rowNo, colNo }: BadgeProps) => [
 ]);
 
 const BadgeNumber = styled(StyledNumber)(() => [
-    tw`w-[110px] select-none cursor-none`,
+    tw`w-[110px] select-none cursor-none font-fbold font-bold`,
     css`
+        transform: scale(1.53886);
         height: 70px;
         margin: -10px 30px -10px -40px;
 
