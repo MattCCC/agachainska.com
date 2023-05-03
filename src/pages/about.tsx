@@ -234,12 +234,21 @@ export default function About({ aboutPageData, projects }: Props) {
             title: "Aga",
             id: "aboutInfo",
             items: [
-                { id: "expertise", title: "Expertise" },
-                { id: "design-process", title: "Design Process" },
-                { id: "selected-projects", title: "Selected Projects" },
+                {
+                    id: "expertise",
+                    title: translations?.expertise || "",
+                },
+                {
+                    id: "design-process",
+                    title: translations?.designProcess || "",
+                },
+                {
+                    id: "selected-projects",
+                    title: translations?.selectedProjects || "",
+                },
             ],
         }),
-        []
+        [translations]
     );
 
     const tabsTimeline = useMemo(
