@@ -533,8 +533,11 @@ const Work = memo(({ projects }: Props) => {
                                         key={index}
                                         postNum={index + 1}
                                         post={post}
-                                        onPostTap={(e, { routeTo }) =>
-                                            onNavigate(e, routeTo as string)
+                                        onPostTap={(e) =>
+                                            onNavigate(
+                                                e,
+                                                `projects/${post.routeTo}`
+                                            )
                                         }
                                     />
                                 )
