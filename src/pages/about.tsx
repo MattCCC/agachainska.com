@@ -292,7 +292,7 @@ export default function About({
 
     return (
         <Fragment>
-            <Meta title="`${aboutPageData.title} · Aga Chainska`" />
+            <Meta title={`${aboutPageData.title} · Aga Chainska`} />
 
             <MotionCursor />
 
