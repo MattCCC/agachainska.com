@@ -146,7 +146,9 @@ export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
 
         page = { variables, data, query };
     } catch {
-        // TODO: swallow errors related to document creation
+        return {
+            notFound: true,
+        };
     }
 
     return {

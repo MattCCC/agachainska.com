@@ -15,14 +15,16 @@ import SeeAllProjectsLink from "components/see-all-projects-link";
 import SelectedProjects from "components/selected-projects";
 import { SocialMedia } from "components/social-media";
 import { Tabs } from "components/tabs";
-import dataAbout from "data/about-page.yml";
-import dataProjects from "data/projects.yml";
 import { socialMedia } from "data/social-media";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import { up } from "utils/screens";
 import dynamic from "next/dynamic";
-import { Project } from "types/project";
+import { Project, ProjectNode } from "types/project";
+import client from "tina/__generated__/client";
+import { PageQuery, PageQueryVariables } from "tina/__generated__/types";
+import { HTMLInline } from "components/tina-render-html";
+import { TinaMarkdown } from "tinacms/dist/rich-text";
 
 const HeroSection = styled.section(() => [
     tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-[max(600px,100vh)]`,
@@ -116,10 +118,10 @@ const DetailsContainer = styled.div(() => [
     `,
 ]);
 
-const Details = styled.p(() => [
+const Details = styled.div(() => [
     tw`mb-10 leading-6 prose-16 font-base`,
     css`
-        &:first-of-type {
+        p {
             margin-bottom: 1.5rem;
         }
     `,
@@ -164,7 +166,7 @@ const DesignProcessNumber = styled.span(() => [
     tw`mr-3 leading-6 font-fbold prose-18 lg:prose-20 lg:leading-7`,
 ]);
 
-const DesignProcessElementDesc = styled.p(() => [
+const DesignProcessElementDesc = styled.div(() => [
     tw`font-base lg:self-center`,
     css`
         color: #808080;
@@ -183,20 +185,23 @@ const TimelineNoSSR = dynamic(() => import("../components/timeline"), {
     ssr: false,
 });
 
-interface Props {
-    aboutPageData: AboutPageData;
-    projects: Project[];
+interface Page {
+    data: PageQuery;
+    query: string;
+    variables: PageQueryVariables;
 }
 
-const aboutPageTimeline = {
-    title: "Aga",
-    id: "aboutInfo",
-    items: [
-        { id: "expertise", title: "Expertise" },
-        { id: "design-process", title: "Design Process" },
-        { id: "selected-projects", title: "Selected Projects" },
-    ],
-};
+type AboutPage = Extract<
+    PageQuery["page"],
+    {
+        __typename?: "PageAbout";
+    }
+>;
+
+interface Props {
+    aboutPageData: AboutPage;
+    projects: Project[];
+}
 
 export default function About({ aboutPageData, projects }: Props) {
     const windowSize = useWindowSize();
@@ -206,7 +211,8 @@ export default function About({ aboutPageData, projects }: Props) {
         setWindowWidth(windowSize.width < 1024);
     }, [windowSize]);
 
-    const { hero, expertise, designProcess } = aboutPageData;
+    const { hero, expertise, design_process, skills, translations } =
+        aboutPageData;
 
     const [activeItemId, intersection, options, onTimelineItemChange] =
         useTimelineViewport();
@@ -223,6 +229,19 @@ export default function About({ aboutPageData, projects }: Props) {
         rootMargin: "200% 0px 0px 0px",
     });
 
+    const aboutPageTimeline = useMemo(
+        () => ({
+            title: "Aga",
+            id: "aboutInfo",
+            items: [
+                { id: "expertise", title: "Expertise" },
+                { id: "design-process", title: "Design Process" },
+                { id: "selected-projects", title: "Selected Projects" },
+            ],
+        }),
+        []
+    );
+
     const tabsTimeline = useMemo(
         () =>
             aboutPageTimeline.items.map((item) => {
@@ -234,7 +253,7 @@ export default function About({ aboutPageData, projects }: Props) {
                     title: titleArr[lastWordInTitle],
                 };
             }),
-        []
+        [aboutPageTimeline.items]
     );
 
     return (
@@ -250,7 +269,12 @@ export default function About({ aboutPageData, projects }: Props) {
                     <HeroSection>
                         <PersonalPic />
                         <Info>
-                            <AboutStyle>{hero.description}</AboutStyle>
+                            <AboutStyle>
+                                <TinaMarkdown
+                                    components={HTMLInline}
+                                    content={hero?.description || ""}
+                                />
+                            </AboutStyle>
 
                             <SocialMediaLinksCon>
                                 <SocialMedia
@@ -283,17 +307,22 @@ export default function About({ aboutPageData, projects }: Props) {
 
                         <ArticleSection id="expertise" ref={refExpertise}>
                             <TitleContainer>
-                                <Title>Expertise</Title>
+                                <Title>{translations?.expertise}</Title>
                             </TitleContainer>
 
                             <DetailsContainer>
-                                <Details>{expertise.description}</Details>
-
-                                <Details>{expertise.secondDescription}</Details>
+                                <Details>
+                                    <TinaMarkdown
+                                        components={HTMLInline}
+                                        content={expertise?.description || ""}
+                                    />
+                                </Details>
 
                                 <SkillsTable>
-                                    {expertise.skills.map((skill, index) => (
-                                        <Skill key={index}>{skill}</Skill>
+                                    {(skills || []).map((skill, index) => (
+                                        <Skill key={index}>
+                                            {skill?.title || ""}
+                                        </Skill>
                                     ))}
                                 </SkillsTable>
                             </DetailsContainer>
@@ -304,36 +333,41 @@ export default function About({ aboutPageData, projects }: Props) {
                             ref={refDesignProcess}
                         >
                             <TitleContainer>
-                                <Title>Design Process</Title>
+                                <Title>{translations?.designProcess}</Title>
                             </TitleContainer>
 
                             <DetailsContainer>
-                                <Details>{designProcess.description}</Details>
+                                <Details>
+                                    <TinaMarkdown
+                                        components={HTMLInline}
+                                        content={
+                                            design_process?.description || ""
+                                        }
+                                    />
+                                </Details>
 
                                 <DesignProcessTable>
-                                    {designProcess.designProcessPhases.map(
-                                        (designProcessPhase) => (
+                                    {(design_process?.phases || []).map(
+                                        (phase) => (
                                             <DesignProcessElement
-                                                key={
-                                                    designProcessPhase.phaseNum
-                                                }
+                                                key={phase.phaseNum}
                                             >
                                                 <DesignProcessTitleContainer>
                                                     <DesignProcessNumber>
-                                                        {
-                                                            designProcessPhase.phaseNum
-                                                        }
+                                                        {phase.phaseNum}
                                                     </DesignProcessNumber>
                                                     <DesignProcessTitle>
-                                                        {
-                                                            designProcessPhase.title
-                                                        }
+                                                        {phase.title}
                                                     </DesignProcessTitle>
                                                 </DesignProcessTitleContainer>
                                                 <DesignProcessElementDesc>
-                                                    {
-                                                        designProcessPhase.description
-                                                    }
+                                                    <TinaMarkdown
+                                                        components={HTMLInline}
+                                                        content={
+                                                            phase.description ||
+                                                            ""
+                                                        }
+                                                    />
                                                 </DesignProcessElementDesc>
                                             </DesignProcessElement>
                                         )
@@ -347,11 +381,14 @@ export default function About({ aboutPageData, projects }: Props) {
                             ref={refSelectedProjects}
                         >
                             <TitleContainer>
-                                <Title>selected projects</Title>
+                                <Title>{translations?.selectedProjects}</Title>
                                 <SeeAllProjectsLink screenSize="lg" />
                             </TitleContainer>
                             <SelectedProjectsContainer>
-                                <SelectedProjects projects={projects} />
+                                <SelectedProjects
+                                    projects={projects}
+                                    limit={4}
+                                />
                             </SelectedProjectsContainer>
                         </ArticleSection>
                     </Article>
@@ -361,12 +398,43 @@ export default function About({ aboutPageData, projects }: Props) {
     );
 }
 
-export const getStaticProps: GetStaticProps<Props> = async ({
-    locale = "en",
-}) => ({
-    props: {
-        aboutPageData: dataAbout,
-        projects: dataProjects,
-        ...(await serverSideTranslations(locale)),
-    },
-});
+export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
+    const projects = [] as ProjectNode[];
+    let aboutPageData = {
+        data: {},
+        query: "",
+        variables: {
+            relativePath: `${locale}/about.md`,
+        },
+    } as Page;
+
+    try {
+        const { variables, data, query } = await client.queries.page(
+            aboutPageData.variables
+        );
+
+        aboutPageData = { variables, data, query };
+    } catch {
+        return {
+            notFound: true,
+        };
+    }
+
+    const { data: dataSrc } = await client.queries.projectConnection();
+
+    if (dataSrc.projectConnection.edges) {
+        for (const edge of dataSrc.projectConnection.edges) {
+            if (edge?.node) {
+                projects.push(edge.node);
+            }
+        }
+    }
+
+    return {
+        props: {
+            ...(await serverSideTranslations(locale)),
+            projects,
+            aboutPageData: aboutPageData.data.page,
+        },
+    };
+};
