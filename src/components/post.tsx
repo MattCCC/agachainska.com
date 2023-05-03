@@ -47,10 +47,9 @@ const PostDescription = styled.div(() => [
 ]);
 
 const StyledNumber = styled(BigNumber)(() => [
-    tw`absolute right-0 z-10`,
+    tw`absolute right-0 z-10 max-w-full font-bold font-fbold`,
     css`
         bottom: 2.5rem;
-        max-width: 100%;
         height: 135px;
     `,
 ]);
@@ -87,7 +86,7 @@ export function Post({
                     <PostImg src={post.cover || ""} />
                 )}
                 <PostDescription>{post.shortDescription}</PostDescription>
-                {postNum && (
+                {postNum > 0 && (
                     <StyledNumber
                         id={`${postNum}.`}
                         value={`${postNum}.`}

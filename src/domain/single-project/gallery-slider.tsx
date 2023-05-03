@@ -8,6 +8,7 @@ import Image from "next/image";
 import { FullPageContent } from "components/full-page-content";
 import { MotionSlider } from "components/motion-slider";
 import { useStoreProp } from "store/index";
+import { ProjectSectionImage } from "types/project";
 
 const SliderWrapper = styled.div(() => [tw`cursor-none lg:ml-72`]);
 

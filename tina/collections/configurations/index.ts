@@ -1,5 +1,6 @@
 import { Collection } from "tinacms";
 import translations from "./translations";
+import socialMedia from "./social-media";
 
 export default {
     label: "Configuration",
@@ -12,5 +13,5 @@ export default {
             delete: true,
         },
     },
-    templates: [translations],
+    templates: [translations, socialMedia],
 } as Collection;

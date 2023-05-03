@@ -1,7 +1,7 @@
 ---
-name: RE/MAX
+name: Twitch
 category: UX/UI
-subCategory: ''
+subCategory: Others
 workPageColor: '#FFFFFF'
 starColor: '#F5A4FF'
 cover: /img/projects/Image-1.png
@@ -128,6 +128,4 @@ sections:
         _template: projects
 dribbbleLink: 'https://dribbble.com/shots/17728344-RE-MAX-Malta-Website'
 ---
-
-
 

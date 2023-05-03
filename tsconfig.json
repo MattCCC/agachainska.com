@@ -45,6 +45,7 @@
             "styles/*": ["./src/styles/*"],
             "store/*": ["./src/store/*"],
             "pages/*": ["./src/pages/*"],
+            "types/*": ["./src/types/*"],
             "utils/*": ["./src/utils/*"],
             "svg/*": ["./src/svg/*"],
             "hooks/*": ["./src/hooks/*"],

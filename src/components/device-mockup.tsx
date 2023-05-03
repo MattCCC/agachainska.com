@@ -101,7 +101,10 @@ const RingIcon = styled.div(() => [
     `,
 ]);
 
-interface Props extends ProjectSectionElementDevice {}
+interface Props {
+    type: string;
+    link: string;
+}
 
 const renderSwitch = ({
     type,

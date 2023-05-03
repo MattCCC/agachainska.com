@@ -15,6 +15,7 @@ export default [
         name: "sections",
         type: "object",
         list: true,
+        required: true,
         ui: {
             component: "group-list",
             visualSelector: false,
@@ -37,6 +38,7 @@ export default [
                 label: "Show in timeline",
                 name: "showInTimeline",
                 type: "boolean",
+                required: true,
                 ui: {
                     component: "toggle",
                 },
@@ -45,6 +47,7 @@ export default [
                 label: "Show Section Title",
                 name: "showSectionTitle",
                 type: "boolean",
+                required: true,
                 ui: {
                     component: "toggle",
                 },
@@ -54,6 +57,7 @@ export default [
                 name: "elements",
                 type: "object",
                 list: true,
+                required: true,
                 ui: {
                     visualSelector: false,
                 },

@@ -32,6 +32,11 @@ export default {
         },
         {
             type: "string",
+            name: "dribbbleLink",
+            label: "Dribbble Link",
+        },
+        {
+            type: "string",
             name: "timelineTitle",
             label: "Timeline Title",
             required: true,
@@ -78,6 +83,7 @@ export default {
             name: "keyInfo",
             type: "object",
             list: true,
+            required: true,
             ui: {
                 component: "group-list",
             },

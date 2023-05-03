@@ -48,7 +48,7 @@ const ProgressText = styled.div(() => [
 ]);
 
 export const DevicesCarousel = memo(
-    ({ list }: { list: ProjectSectionElementDevice[] }) => {
+    ({ list }: { list: Array<{ type: string; link: string }> }) => {
         const mouseoverItemRef = useRef(null);
         const mouse = useMouse(mouseoverItemRef, {
             enterDelay: 30,

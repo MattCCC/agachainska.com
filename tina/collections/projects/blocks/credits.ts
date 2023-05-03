@@ -17,6 +17,7 @@ export const Credits = {
             name: "credits",
             type: "object",
             list: true,
+            required: true,
             ui: {
                 component: "group-list",
                 visualSelector: false,

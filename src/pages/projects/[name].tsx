@@ -11,6 +11,7 @@ import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { TinaMarkdown } from "tinacms/dist/rich-text";
 
 import { DeviceMockup } from "components/device-mockup";
 import { DevicesCarousel } from "components/devices-carousel";
@@ -27,14 +28,10 @@ import { Quote } from "components/quote";
 import SeeAllProjectsLink from "components/see-all-projects-link";
 import { Tabs } from "components/tabs";
 import ViewOnDeskStar from "components/view-on-desktop-star";
-import dataProjects from "data/projects.yml";
 import { GallerySlider } from "domain/single-project/gallery-slider";
 import { OtherProjects } from "domain/single-project/other-projects";
 import { usePagination } from "domain/single-project/use-pagination";
-import {
-    ProjectsByCategory,
-    useProjectsByCategory,
-} from "hooks/use-projects-by-category";
+import { useProjectsByCategory } from "hooks/use-projects-by-category";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import PrevIcon from "svg/down.svg";
@@ -42,13 +39,28 @@ import NextIcon from "svg/up.svg";
 import { thresholdArray } from "utils/threshold-array";
 import dynamic from "next/dynamic";
 import { Stats } from "components/project/stats-table";
+import { ProjectQueryVariables, ProjectQuery } from "tina/__generated__/types";
+import client from "tina/__generated__/client";
+import {
+    Project as ProjectData,
+    ProjectNode,
+    ProjectSection,
+} from "types/project";
+import { HTMLInline } from "components/tina-render-html";
 
-interface Props {
-    project: Project;
-    projects: Project[];
-}
 interface ContentContainerProps {
     variant?: string;
+}
+
+interface ProjectQueryWrapper {
+    data: ProjectQuery;
+    query: string;
+    variables: ProjectQueryVariables;
+}
+
+interface Props {
+    project: ProjectQuery["project"];
+    projects: Array<ProjectQuery["project"]>;
 }
 
 const MainSection = styled(MainContainer).withConfig({
@@ -74,7 +86,7 @@ const MainTitle = styled(MainTitleBottom)(() => [
     tw`text-[70px] leading-[70px] top-[-27px] mb-[-27px] lg:top-[-46px] lg:mb-[-46px] lg:text-[120px] lg:leading-[130px]`,
 ]);
 
-const Paragraph = styled.p(() => [tw`mb-[40px]`]);
+const ParagraphWrapper = styled.div(() => [tw`mb-[40px]`]);
 
 const HeroWrapper = styled.div(() => [
     tw`relative w-full col-start-1 col-end-13 lg:col-start-2 lg:col-end-12`,
@@ -150,164 +162,179 @@ const TimelineNoSSR = dynamic(() => import("../../components/timeline"), {
 const sectionLoader = (
     elements: ProjectSection["elements"],
     gallerySliderElementsGap: number = 0,
-    projectsByCategory: ProjectsByCategory | null = null
+    otherProjects: ProjectData[] | null = null
 ) =>
-    elements.map(
-        (
-            {
-                element,
-                title = "",
-                description = "",
-                image = "",
-                quote = "",
-                type = "",
-                link = "",
-                images = [],
-                list = [],
-                content = [],
-                stats = [],
-            },
-            index
-        ) => {
-            switch (element) {
-                case "text":
-                    return (
-                        <ContentContainer key={index}>
-                            <H3>{title}</H3>
-                            <Paragraph>{description}</Paragraph>
-                        </ContentContainer>
-                    );
+    elements.map((el, index) => {
+        const element = el.__typename;
 
-                case "full-size-image":
+        switch (element) {
+            case "ProjectSectionsElementsText":
+                return (
+                    <ContentContainer key={index}>
+                        <H3>{el.title}</H3>
+                        <ParagraphWrapper>
+                            <TinaMarkdown
+                                components={HTMLInline}
+                                content={el.content}
+                            />
+                        </ParagraphWrapper>
+                    </ContentContainer>
+                );
+
+            case "ProjectSectionsElementsImages":
+                if (!el.images || !el.images[0]) {
+                    return null;
+                }
+
+                if (el.images.length === 1) {
+                    if (el.images[0].fullPageImage) {
+                        return (
+                            <FullPageContent key={index} widthPct={100}>
+                                <ParallaxBackground
+                                    key={index}
+                                    bgImgUrl={`${el.images[0].image}`}
+                                />
+                            </FullPageContent>
+                        );
+                    }
+
                     return (
                         <ContentContainer key={index}>
                             <FullSizeImageWrapper>
                                 <ParallaxBackground
                                     key={index}
-                                    bgImgUrl={`${image}`}
+                                    bgImgUrl={`${el.images[0].image}`}
                                     contain={true}
                                     scaleOnHover={true}
                                 />
                             </FullSizeImageWrapper>
                         </ContentContainer>
                     );
+                }
 
-                case "two-images":
-                    return (
-                        <ContentContainer key={index}>
-                            <TwoImagesWrapper>
-                                {images.map(({ image: img }, j) => (
-                                    <ParallaxBackground
-                                        key={index + String(j)}
-                                        bgImgUrl={`${img}`}
-                                        contain={true}
-                                        scaleOnHover={true}
-                                    />
-                                ))}
-                            </TwoImagesWrapper>
-                        </ContentContainer>
-                    );
-
-                case "full-page-image":
-                    return (
-                        <FullPageContent key={index} widthPct={100}>
-                            <ParallaxBackground
-                                key={index}
-                                bgImgUrl={`${image}`}
-                            />
-                        </FullPageContent>
-                    );
-
-                case "slider":
-                    return (
-                        <GallerySlider
-                            key={index}
-                            images={images}
-                            gap={gallerySliderElementsGap}
-                        />
-                    );
-
-                case "quote":
-                    return (
-                        <ContentContainer variant="full" key={index}>
-                            <Quote>{quote}</Quote>
-                        </ContentContainer>
-                    );
-
-                case "device":
-                    return (
-                        <ContentContainer variant="full" key={index}>
-                            <DeviceMockupWrapper>
-                                <DeviceMockup
-                                    key={index}
-                                    type={type}
-                                    link={link}
+                return (
+                    <ContentContainer key={index}>
+                        <TwoImagesWrapper>
+                            {el.images.map((imgObj, j) => (
+                                <ParallaxBackground
+                                    key={index + String(j)}
+                                    bgImgUrl={`${imgObj?.image}`}
+                                    contain={true}
+                                    scaleOnHover={true}
                                 />
-                            </DeviceMockupWrapper>
-                        </ContentContainer>
-                    );
+                            ))}
+                        </TwoImagesWrapper>
+                    </ContentContainer>
+                );
 
-                case "devices":
-                    return <DevicesCarousel key={index} list={list} />;
+            case "ProjectSectionsElementsSlider":
+                if (!el.sliderImages || !el.sliderImages[0]) {
+                    return null;
+                }
 
-                case "stats":
-                    return (
-                        <ContentContainer variant="full" key={index}>
-                            <Stats stats={stats} index={index} />
-                        </ContentContainer>
-                    );
+                return (
+                    <GallerySlider
+                        key={index}
+                        images={el.sliderImages}
+                        gap={gallerySliderElementsGap}
+                    />
+                );
 
-                case "credits":
-                    return (
-                        <ContentContainer variant="full" key={index}>
-                            <CreditsTable>
-                                {content.map(
-                                    ({ title: creditsTitle, text }, j) => (
-                                        <Fragment key={`credits-${index}-${j}`}>
-                                            <CellTitle>
-                                                {creditsTitle}
-                                            </CellTitle>
-                                            <div>{text}</div>
-                                        </Fragment>
-                                    )
-                                )}
-                            </CreditsTable>
-                        </ContentContainer>
-                    );
-
-                case "other-projects":
-                    return (
-                        <ContentContainer variant="full" key={index}>
-                            <SeeAllProjectsLinkDesktopContainer>
-                                <SeeAllProjectsLink screenSize="lg" />
-                            </SeeAllProjectsLinkDesktopContainer>
-                            <OtherProjects
-                                key={index}
-                                projectsByCategory={
-                                    projectsByCategory as ProjectsByCategory
-                                }
+            case "ProjectSectionsElementsQuote":
+                return (
+                    <ContentContainer variant="full" key={index}>
+                        <Quote>
+                            <TinaMarkdown
+                                components={HTMLInline}
+                                content={el.quote}
                             />
-                        </ContentContainer>
-                    );
+                        </Quote>
+                    </ContentContainer>
+                );
 
-                default:
-                    return "";
-            }
+            case "ProjectSectionsElementsDevice":
+                return (
+                    <ContentContainer variant="full" key={index}>
+                        <DeviceMockupWrapper>
+                            <DeviceMockup
+                                key={index}
+                                type={el.type}
+                                link={el.link}
+                            />
+                        </DeviceMockupWrapper>
+                    </ContentContainer>
+                );
+
+            case "ProjectSectionsElementsDevices":
+                return <DevicesCarousel key={index} list={el?.devices || []} />;
+
+            case "ProjectSectionsElementsStatistics":
+                if (!el.stats || !el.stats.length) {
+                    return null;
+                }
+
+                return (
+                    <ContentContainer variant="full" key={index}>
+                        <Stats stats={el.stats} index={index} />
+                    </ContentContainer>
+                );
+
+            case "ProjectSectionsElementsCredits":
+                return (
+                    <ContentContainer variant="full" key={index}>
+                        <CreditsTable>
+                            {(el?.credits || []).map((credit, j) => {
+                                if (!credit) {
+                                    return null;
+                                }
+
+                                return (
+                                    <Fragment key={`credits-${index}-${j}`}>
+                                        <CellTitle>{credit.title}</CellTitle>
+                                        <div>{credit.text}</div>
+                                    </Fragment>
+                                );
+                            })}
+                        </CreditsTable>
+                    </ContentContainer>
+                );
+
+            case "ProjectSectionsElementsProjects":
+                return (
+                    <ContentContainer variant="full" key={index}>
+                        <SeeAllProjectsLinkDesktopContainer>
+                            <SeeAllProjectsLink screenSize="lg" />
+                        </SeeAllProjectsLinkDesktopContainer>
+                        <OtherProjects
+                            key={index}
+                            otherProjects={otherProjects}
+                            limit={el.limit || 4}
+                        />
+                    </ContentContainer>
+                );
+
+            default:
+                return null;
         }
-    );
+    });
 
 export default function Project({ project, projects }: Props) {
     const {
-        uid,
+        id: uid,
         name,
         cover,
         category,
         timelineTitle = "",
         keyInfo,
+        _sys,
         sections = [],
     } = project || {};
 
-    const [projectsByCategory] = useProjectsByCategory({ category, projects });
+    const [otherProjects, filteredProjects] = useProjectsByCategory({
+        category,
+        projects,
+        nameSlug: _sys.filename,
+    });
 
     const windowSize = useWindowSize();
     const [_hasSmallWindowWidth, setWindowWidth] = useState(false);
@@ -321,7 +348,7 @@ export default function Project({ project, projects }: Props) {
         setGallerySliderElementsGap(isSmallScreen ? 30 : 40);
     }, [windowSize]);
 
-    const [navigation] = usePagination({ projectsByCategory, uid });
+    const [navigation] = usePagination({ projects: filteredProjects, uid });
 
     const [
         activeItemId,
@@ -331,16 +358,15 @@ export default function Project({ project, projects }: Props) {
     ] = useTimelineViewport();
 
     const timelineItems = useMemo(() => {
-        const filteredSections = sections
-            .filter(({ showInTimeline }) => {
-                const isShownInTimeline =
-                    showInTimeline && showInTimeline === "yes";
+        if (!sections) {
+            return [];
+        }
 
-                return isShownInTimeline;
-            })
-            .map(({ section }) => ({
-                id: section.toLowerCase(),
-                title: section,
+        const filteredSections = sections
+            .filter(({ showInTimeline }) => showInTimeline)
+            .map(({ title }) => ({
+                id: title.toLowerCase(),
+                title,
             }));
 
         return filteredSections;
@@ -391,16 +417,14 @@ export default function Project({ project, projects }: Props) {
                         </PaginationControls>
                     )}
 
-                    {keyInfo && keyInfo.elements && (
+                    {keyInfo && keyInfo.length && (
                         <KeyInfoTable>
-                            {(keyInfo.elements || []).map(
-                                ({ title, text }, j) => (
-                                    <div tw="mb-4" key={j}>
-                                        <CellTitle>{title}</CellTitle>
-                                        <div>{text}</div>
-                                    </div>
-                                )
-                            )}
+                            {keyInfo.map(({ title, text }, j) => (
+                                <div tw="mb-4" key={j}>
+                                    <CellTitle>{title}</CellTitle>
+                                    <div>{text}</div>
+                                </div>
+                            ))}
                         </KeyInfoTable>
                     )}
                 </div>
@@ -436,7 +460,12 @@ export default function Project({ project, projects }: Props) {
 
                 {sections.map(
                     (
-                        { section, elements, showSectionTitle, showInTimeline },
+                        {
+                            title: section,
+                            elements,
+                            showSectionTitle,
+                            showInTimeline,
+                        },
                         i
                     ) => {
                         const sectionId = section
@@ -446,7 +475,7 @@ export default function Project({ project, projects }: Props) {
 
                         return (
                             <div key={sectionId}>
-                                {showInTimeline && showInTimeline === "yes" ? (
+                                {showInTimeline ? (
                                     <SectionObserver
                                         sectionId={sectionId}
                                         sectionNumber={i}
@@ -458,33 +487,29 @@ export default function Project({ project, projects }: Props) {
                                             intersectionCallback
                                         }
                                     >
-                                        {showSectionTitle &&
-                                            showSectionTitle === "yes" && (
-                                                <H2>
-                                                    <H2Span>{section}</H2Span>
-                                                </H2>
-                                            )}
-                                        {elements &&
-                                            sectionLoader(
-                                                elements,
-                                                gallerySliderElementsGap,
-                                                projectsByCategory
-                                            )}
+                                        {showSectionTitle && (
+                                            <H2>
+                                                <H2Span>{section}</H2Span>
+                                            </H2>
+                                        )}
+                                        {sectionLoader(
+                                            elements,
+                                            gallerySliderElementsGap,
+                                            otherProjects
+                                        )}
                                     </SectionObserver>
                                 ) : (
                                     <ArticleSection id={sectionId}>
-                                        {showSectionTitle &&
-                                            showSectionTitle === "yes" && (
-                                                <H2>
-                                                    <H2Span>{section}</H2Span>
-                                                </H2>
-                                            )}
-                                        {elements &&
-                                            sectionLoader(
-                                                elements,
-                                                gallerySliderElementsGap,
-                                                projectsByCategory
-                                            )}
+                                        {showSectionTitle && (
+                                            <H2>
+                                                <H2Span>{section}</H2Span>
+                                            </H2>
+                                        )}
+                                        {sectionLoader(
+                                            elements,
+                                            gallerySliderElementsGap,
+                                            otherProjects
+                                        )}
                                     </ArticleSection>
                                 )}
                             </div>
@@ -534,34 +559,68 @@ const SectionObserver = ({
     );
 };
 
-export async function getStaticPaths() {
-    const paths = dataProjects.map((currProject: Project) => ({
-        params: { name: currProject.name },
-    }));
+export const getStaticPaths = async ({ locales = ["en"] }) => {
+    const { data } = await client.queries.projectConnection();
+    const paths = [] as unknown[];
+
+    if (data.projectConnection.edges) {
+        data.projectConnection.edges.forEach((project) => {
+            locales.forEach((locale) => {
+                paths.push({
+                    params: { name: project?.node?._sys.filename },
+                    locale,
+                });
+            });
+        });
+    }
 
     return {
         paths,
-        fallback: true,
+        fallback: "blocking",
     };
-}
+};
 
-export const getStaticProps: GetStaticProps<Props> = async ({
-    params,
+export const getStaticProps: GetStaticProps = async ({
+    params = { filename: "" },
     locale = "en",
 }) => {
-    const name = params?.name;
+    let project = {
+        data: {},
+        query: "",
+        variables: {
+            relativePath: `${locale}/${params.name}.md`,
+        },
+    } as ProjectQueryWrapper;
 
-    const project =
-        dataProjects.find(
-            (currProject: Project) =>
-                String(currProject.nameSlug) === "/projects/" + name
-        ) || {};
+    const projects = [] as ProjectNode[];
+
+    try {
+        const { variables, data, query } = await client.queries.project(
+            project.variables
+        );
+
+        project = { variables, data, query };
+    } catch {
+        return {
+            notFound: true,
+        };
+    }
+
+    const { data: dataSrc } = await client.queries.projectConnection();
+
+    if (dataSrc.projectConnection.edges) {
+        for (const edge of dataSrc.projectConnection.edges) {
+            if (edge?.node) {
+                projects.push(edge.node);
+            }
+        }
+    }
 
     return {
         props: {
-            project,
-            projects: dataProjects,
             ...(await serverSideTranslations(locale)),
+            project: project.data.project,
+            projects,
         },
     };
 };

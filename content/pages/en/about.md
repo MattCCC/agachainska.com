@@ -45,33 +45,34 @@ design_process:
     solutions. I trust the design process, I follow the double diamond design
     model when solving users’ problems.
   phases:
+    - phaseNum: '1'
+      title: Discover
+      description: >
+        Never assume - ask and observe first. I aim to understand underlying
+        problems by spending time with people that experience them.
+    - phaseNum: '2'
+      title: Define
+      description: >
+        Before jumping into designing I make sure that I ask the right questions
+        and that I find the right problem(s) to solve.
+    - phaseNum: '3'
+      title: Develop
+      description: >
+        Various ideation methods and ideas evaluation help me find the best
+        answers/solutions to the initial question or problem.
     - phaseNum: '4'
       title: Deliver
       description: >
         Testing out various solutions at small-scale helps me identify the ones
         that work best and build upon them in order to deliver the final
         product.
-    - phaseNum: '3'
-      title: Develop
-      description: >
-        Various ideation methods and ideas evaluation help me find the best
-        answers/solutions to the initial question or problem.
-    - phaseNum: '2'
-      title: Define
-      description: >
-        Before jumping into designing I make sure that I ask the right questions
-        and that I find the right problem(s) to solve.
-    - phaseNum: '1'
-      title: Discover
-      description: >
-        Never assume - ask and observe first. I aim to understand underlying
-        problems by spending time with people that experience them.
 translations:
   expertise: Expertise
   designProcess: Design Process
   selectedProjects: Selected Projects
 _template: about
 ---
+
 
 
 
