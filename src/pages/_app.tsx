@@ -36,9 +36,7 @@ const DarkTheme = () => (
 const Main = styled.main(
     ({ hasGradient, backgroundColor, showFooter, darkTheme }: Props) => [
         tw`relative z-10 w-full h-full min-h-screen text-primary pt-safe-top`,
-        css`
-            backface-visibility: hidden;
-        `,
+        tw`[backface-visibility: hidden]`,
         showFooter && tw`lg:mb-[810px]`,
         backgroundColor &&
             css`
