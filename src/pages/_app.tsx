@@ -38,6 +38,7 @@ const Main = styled.main(
         tw`relative z-10 w-full h-full min-h-screen text-primary pt-safe-top`,
         tw`[backface-visibility: hidden]`,
         showFooter && tw`lg:mb-[810px]`,
+        darkTheme && !showFooter && tw`pb-[140px] lg:pb-[120px]`,
         backgroundColor &&
             css`
                 background: ${backgroundColor};
