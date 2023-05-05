@@ -253,7 +253,7 @@ sections:
         _template: text
       - images:
           - fullPageImage: true
-          image: /img/projects/appflow.jpg
+            image: /img/projects/appflow.jpg
         _template: images
       - title: " "
         content: > 
@@ -287,7 +287,7 @@ sections:
         _template: text
       - title: > 
           Some of the app wireframes:
-        _template: text
+        _template: text      
 ---
 
 
