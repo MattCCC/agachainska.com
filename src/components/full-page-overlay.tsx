@@ -53,6 +53,7 @@ export const FullPageOverlay = memo(
         const start = useCallback(() => {
             setLoading(true);
             setIsSchedulerReady(false);
+            setIsRouteChanged(false);
 
             timeout.current = setTimeout(() => {
                 setIsSchedulerReady(true);
