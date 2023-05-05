@@ -165,14 +165,6 @@ sections:
     showInTimeline: true
     showSectionTitle: true
     elements:
-      - title: 'Value proposition:'
-        content: >
-          Analysing Sara’s profile helped me understand her preferences and
-          requirements further. I then translated them into a list of product
-          services, pain relivers and gain creators that would make up our
-          product. This helped me ensure that product not only solves users’
-          problems but also provides features that delight them.
-        _template: text
       - title: '''How might we'' questions'
         content: "As a next step I came up with specific questions around the problem statement. Framing my challenge into HMW questions helped me open up the exploration space.\_\n"
         _template: text
@@ -202,12 +194,100 @@ sections:
             image: /img/projects/12.wellbeingtree.jpg
         _template: images
       - title: ' '
-        content: "This exercise helped me determine the area of human well-being the existing reward types help fulfil. I found it a great starting point when brainstorming other reward ideas that can be found in the value proposition below.\n\_ \_ \_ \_ \_ \_ \n\nIn light of the above learnings, product's vision has been updated:\n"
+        content: "This exercise helped me determine the area of human well-being the existing reward types help fulfil. I found it a great starting point when brainstorming other reward ideas that can be found in the value proposition below.\n\_ \_ \_ \_ \_ \_\n\nIn light of the above learnings, product's vision has been updated:\n"
         _template: text
       - images:
           - fullPageImage: true
             image: /img/projects/11.Productvisionrevised.jpg
         _template: images
+      - title: 'Value proposition:'
+        content: >
+          Analysing Sara’s profile helped me understand her preferences and
+          requirements further. I then translated them into a list of product
+          services, pain relivers and gain creators that would make up our
+          product. This helped me ensure that product not only solves users’
+          problems but also provides features that delight them.
+        _template: text
+      - title: Competitive analysis
+        content: "I critically analysed direct and indirect competitor products in order to identify their weaknesses and strong points. It gave me an opportunity to see how our product can improve on top of what I have already planned.\n\_ \_ \_ \_ \_ \_ I’ve started by using the products myself and annotating things I liked (green post-it notes) and disliked (red post-it notes).\n"
+        _template: text
+      - title: ' '
+        content: "I analysed my customer journey and value proposition findings. I extracted ideas that I next translated into product features. Then, I have compared them against chosen existing competitor products. This exercise gave my a clear idea of which functions already exist and are successful within the products that are currently on the market and which ones have the potential to differentiate our product and make it unique.\n\_ \_ \_ \_ \_ \_ \n\nI’ve also looked at feedback left by users of selected platforms online and noted common pain points at the very bottom of the table.\n"
+        _template: text
+      - images:
+          - fullPageImage: true
+            image: /img/projects/companalysis.png
+        _template: images
+      - title: ' '
+        content: >
+          As an outcome of the above competitor analysis I have created an
+          overview for each competitor with a list of strengths and weaknesses
+          of their product. Looking at what competitors are doing, not doing or
+          not doing well helped me identify opportunities for my product to
+          offer a better service.
+        _template: text
+      - sliderImages:
+          - image: /img/projects/ca-bonusly.jpg
+          - image: /img/projects/CA-benify.jpg
+          - image: /img/projects/ca-kudos.jpg
+        _template: slider
+      - title: Minimum Viable Product 
+        content: >
+          As my client had > 
+          requested a proof of concept for the product, the goal was to create an MVP made of the most essential and feasible features.
+
+          I put together a prioritization matrix so I could identify the relative importance of proposed product features based on their importance to users and development difficulty. This process helped determine features of the highest priority (Priority 1 & 2) that would become a part of MVP.
+        _template: text
+      - title: Main product projects
+        content: >
+          - Quick registration process
+          - Informative but quick onboarding
+          - Appreciation posts feed
+          - Reward redemption
+          - Personal goal setting and tracking
+          - Productivity charts
+        _template: text
+      - title: App flowchart & wireflows
+        content: >
+          As my client had requested a proof of concept for the product, the goal was to create an MVP made of the most essential and feasible features.
+        _template: text
+      - images:
+          - fullPageImage: true
+          image: /img/projects/appflow.jpg
+        _template: images
+      - title: " "
+        content: > 
+          As a next step I created wireflows based on the user research and the above app flowchart. My goal was to make sure our product provides smooth and easy customer journey identified at the earlier stage in Sara’s customer map.
+        _template: text
+      - images: 
+          - fullPageImage: true
+            image: /img/projects/userflow1.png
+        _template: images
+      - images: 
+          - fullPageImage: true
+            image: /img/projects/userflow2.png
+        _template: images
+      - images: 
+          - fullPageImage: true
+            image: /img/projects/userflow3.png
+        _template: images
+      - title: ' '
+        content: > 
+          As a next step I created wireflows based on the user research and the above app flowchart. My goal was to make sure our product provides smooth and easy customer journey identified at the earlier stage in Sara’s customer map.The above wireflows present page context which substantially impacts the user experience. They helped me lay out the full flow and ensure that no scenarios are missed. 
+        _template: text
+      - title: Wireframes & prototype
+        content: > 
+          App flowchart and wireflows helped me outline app’s architecture and use cases. I used them as indicators while creating wireframes and creating a working click-through prototype in Invision. 
+
+          For the purpose of creating a prototype that users would interact with, I quickly came up with a playful concept for the app. My goal was to keep the app overall experience fun and light-hearted, yet relevant to it’s core functionality. 
+
+          I called the app GOATs, which was inspired with the widely used on social media goat emoji 🐐. GOAT, as explained in Cambridge Dictionary,  is an abbreviation used to refer to or describe the person who has performed better than anyone else ever (…). The apps goal is to support the employees in becoming the GOAT in their field. All GOATs would be rewarded with 🥬 points for work achievements, achieving professional goals and appreciating their colleagues. 
+
+          It needs to be emphasised, however, that I understand that such concept might not be suitable for companies of all profiles, and that more research and thinking would be required for the actual concept to be developed (which is not the goal of the project).
+        _template: text
+      - title: > 
+          Some of the app wireframes:
+        _template: text
 ---
 
 
