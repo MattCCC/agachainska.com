@@ -212,7 +212,7 @@ sections:
         content: "I critically analysed direct and indirect competitor products in order to identify their weaknesses and strong points. It gave me an opportunity to see how our product can improve on top of what I have already planned.\n\_ \_ \_ \_ \_ \_ I’ve started by using the products myself and annotating things I liked (green post-it notes) and disliked (red post-it notes).\n"
         _template: text
       - title: ' '
-        content: "I analysed my customer journey and value proposition findings. I extracted ideas that I next translated into product features. Then, I have compared them against chosen existing competitor products. This exercise gave my a clear idea of which functions already exist and are successful within the products that are currently on the market and which ones have the potential to differentiate our product and make it unique.\n\_ \_ \_ \_ \_ \_ \n\nI’ve also looked at feedback left by users of selected platforms online and noted common pain points at the very bottom of the table.\n"
+        content: "I analysed my customer journey and value proposition findings. I extracted ideas that I next translated into product features. Then, I have compared them against chosen existing competitor products. This exercise gave my a clear idea of which functions already exist and are successful within the products that are currently on the market and which ones have the potential to differentiate our product and make it unique.\n\_ \_ \_ \_ \_ \_\n\nI’ve also looked at feedback left by users of selected platforms online and noted common pain points at the very bottom of the table.\n"
         _template: text
       - images:
           - fullPageImage: true
@@ -231,64 +231,108 @@ sections:
           - image: /img/projects/CA-benify.jpg
           - image: /img/projects/ca-kudos.jpg
         _template: slider
-      - title: Minimum Viable Product 
+      - title: Minimum Viable Product
         content: >
-          As my client had > 
-          requested a proof of concept for the product, the goal was to create an MVP made of the most essential and feasible features.
+          As my client had >  requested a proof of concept for the product, the
+          goal was to create an MVP made of the most essential and feasible
+          features.
 
-          I put together a prioritization matrix so I could identify the relative importance of proposed product features based on their importance to users and development difficulty. This process helped determine features of the highest priority (Priority 1 & 2) that would become a part of MVP.
+          I put together a prioritization matrix so I could identify the
+          relative importance of proposed product features based on their
+          importance to users and development difficulty. This process helped
+          determine features of the highest priority (Priority 1 & 2) that would
+          become a part of MVP.
         _template: text
       - title: Main product projects
         content: >
-          - Quick registration process
-          - Informative but quick onboarding
-          - Appreciation posts feed
-          - Reward redemption
-          - Personal goal setting and tracking
-          - Productivity charts
+          * Quick registration process - Informative but quick onboarding -
+          Appreciation posts feed - Reward redemption - Personal goal setting
+          and tracking - Productivity charts
         _template: text
       - title: App flowchart & wireflows
         content: >
-          As my client had requested a proof of concept for the product, the goal was to create an MVP made of the most essential and feasible features.
+          As my client had requested a proof of concept for the product, the
+          goal was to create an MVP made of the most essential and feasible
+          features.
         _template: text
       - images:
           - fullPageImage: true
             image: /img/projects/appflow.jpg
         _template: images
-      - title: " "
-        content: > 
-          As a next step I created wireflows based on the user research and the above app flowchart. My goal was to make sure our product provides smooth and easy customer journey identified at the earlier stage in Sara’s customer map.
+      - title: ' '
+        content: >
+          As a next step I created wireflows based on the user research and the
+          above app flowchart. My goal was to make sure our product provides
+          smooth and easy customer journey identified at the earlier stage in
+          Sara’s customer map.
         _template: text
-      - images: 
+      - images:
           - fullPageImage: true
             image: /img/projects/userflow1.png
         _template: images
-      - images: 
+      - images:
           - fullPageImage: true
             image: /img/projects/userflow2.png
         _template: images
-      - images: 
+      - images:
           - fullPageImage: true
             image: /img/projects/userflow3.png
         _template: images
       - title: ' '
-        content: > 
-          As a next step I created wireflows based on the user research and the above app flowchart. My goal was to make sure our product provides smooth and easy customer journey identified at the earlier stage in Sara’s customer map.The above wireflows present page context which substantially impacts the user experience. They helped me lay out the full flow and ensure that no scenarios are missed. 
+        content: "As a next step I created wireflows based on the user research and the above app flowchart. My goal was to make sure our product provides smooth and easy customer journey identified at the earlier stage in Sara’s customer map.The above wireflows present page context which substantially impacts the user experience. They helped me lay out the full flow and ensure that no scenarios are missed.\_\n"
         _template: text
       - title: Wireframes & prototype
-        content: > 
-          App flowchart and wireflows helped me outline app’s architecture and use cases. I used them as indicators while creating wireframes and creating a working click-through prototype in Invision. 
-
-          For the purpose of creating a prototype that users would interact with, I quickly came up with a playful concept for the app. My goal was to keep the app overall experience fun and light-hearted, yet relevant to it’s core functionality. 
-
-          I called the app GOATs, which was inspired with the widely used on social media goat emoji 🐐. GOAT, as explained in Cambridge Dictionary,  is an abbreviation used to refer to or describe the person who has performed better than anyone else ever (…). The apps goal is to support the employees in becoming the GOAT in their field. All GOATs would be rewarded with 🥬 points for work achievements, achieving professional goals and appreciating their colleagues. 
-
-          It needs to be emphasised, however, that I understand that such concept might not be suitable for companies of all profiles, and that more research and thinking would be required for the actual concept to be developed (which is not the goal of the project).
+        content: "App flowchart and wireflows helped me outline app’s architecture and use cases. I used them as indicators while creating wireframes and creating a working click-through prototype in Invision.\_\nFor the purpose of creating a prototype that users would interact with, I quickly came up with a playful concept for the app. My goal was to keep the app overall experience fun and light-hearted, yet relevant to it’s core functionality.\_\nI called the app GOATs, which was inspired with the widely used on social media goat emoji \U0001F410. GOAT, as explained in Cambridge Dictionary,\_ is an abbreviation used to refer to or describe the person who has performed better than anyone else ever (…). The apps goal is to support the employees in becoming the GOAT in their field. All GOATs would be rewarded with \U0001F96C points for work achievements, achieving professional goals and appreciating their colleagues.\_\nIt needs to be emphasised, however, that I understand that such concept might not be suitable for companies of all profiles, and that more research and thinking would be required for the actual concept to be developed (which is not the goal of the project).\n"
         _template: text
-      - title: > 
+      - title: |
           Some of the app wireframes:
-        _template: text      
+        content: ''
+        _template: text
+  - title: Develop
+    showInTimeline: true
+    showSectionTitle: true
+    elements:
+      - title: Usability testing
+        content: >
+          Moderated usability testing conducted with 5 participants uncovered
+          following problems:
+        _template: text
+      - title: Skip Button
+        content: ''
+        _template: text
+      - title: 'Learning:'
+        content: "While conducting tests most users have reported that they haven’t noticed an option to skip during onboarding and while setting a professional goal (deadline and reminder screens).\n\n\nProviding an option to skip is a very important especially when it comes to onboarding process. It prevents users from getting annoyed during their initial experience with the product.\_\n\_ \_ \_ \_ \_ \_ \n\nMissing a skip button while setting a deadline and a reminder resulted in users not realising that these functionalities are optional. As a result some users could drop completing the action (goal completion could feel like too much of a commitment).\n\n"
+        _template: text
+      - title: 'Diagnosis:'
+        content: >
+          Main CTA attracts user attention to the point that they don't see the
+          skip option below.
+        _template: text
+      - title: 'Adjustment:'
+        content: >
+          Skip button to be moved to the top right corner of the screen as part
+          of the navigation bar. It’s a commonly used practice (as per Human
+          Interface Guidelines) across many mobile apps so users will expect to
+          find a skip option there.
+        _template: text
+      - title: Rewards section
+        content: ''
+        _template: text
+      - title: 'Learning 1:'
+        content: |
+          Users experienced problems finding specific rewards.
+        _template: text
+      - title: Diagnosis
+        content: "Users' attention goes straight to the content below the tab bar. They look for a desired reward on the overview screen and don't realise they can select specific reward category. After reaching the bottom of the page without finding the desired reward they seem lost and try to find the reward by clicking on 'Show all' button under featured rewards. Almost all participants admitted they haven't noticed the category tab bar at first.\n\_ \_ \_ \_ \_ \_ \n\nUser tap heatmaps (images showcases users actions when trying to redeem cash, half a day off and a Nutribullet):\n\n"
+        _template: text
+      - title: ' '
+        content: >
+          Adjustment: Users don't see the tab bar with reward categories. Reward
+          categories should be given more importance on the screen and be made
+          more visually prominent.
+        _template: text
 ---
+
 
 
 
