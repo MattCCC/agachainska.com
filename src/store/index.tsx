@@ -19,6 +19,7 @@ const initialState = {
     },
     showWavePattern: false,
     currentDelayedRoute: "",
+    initialOverlayAnimation: true,
 };
 
 export type State = typeof initialState;
@@ -29,6 +30,8 @@ const actions = {
     showFooter: set<State, boolean>("showFooter"),
     showLogoOnDesktop: set<State, boolean>("showLogoOnDesktop"),
     showbackgroundColor: set<State, boolean>("showbackgroundColor"),
+    showInitialOverlayAnimation: set<State, boolean>("initialOverlayAnimation"),
+
     setBackgroundColor: set<State, string>("backgroundColor"),
     setDarkTheme: set<State, boolean>("darkTheme"),
     setCurrentDelayedRoute: set<State, string>("currentDelayedRoute"),

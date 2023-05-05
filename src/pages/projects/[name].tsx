@@ -404,8 +404,8 @@ export default function Project({ project, projects }: Props) {
                 </HeroWrapper>
 
                 <div tw="col-start-1 lg:col-start-2 col-end-13 lg:col-end-12">
-                    {(navigation.hasPreviousButton ||
-                        navigation.hasNextButton) && (
+                    {(navigation?.hasPreviousButton ||
+                        navigation?.hasNextButton) && (
                         <PaginationControls>
                             {navigation.hasPreviousButton && (
                                 <Link to={navigation.previousTo}>
@@ -488,7 +488,7 @@ export default function Project({ project, projects }: Props) {
                                         sectionNumber={i}
                                         isLastSection={
                                             section ===
-                                            timelineItems[numItems - 1].title
+                                            timelineItems[numItems - 1]?.title
                                         }
                                         intersectionCallback={
                                             intersectionCallback
@@ -595,7 +595,7 @@ export const getStaticProps: GetStaticProps = async ({
         data: {},
         query: "",
         variables: {
-            relativePath: `${locale}/${params.name}.md`,
+            relativePath: `${locale}/${params["name"]}.md`,
         },
     } as ProjectQueryWrapper;
 

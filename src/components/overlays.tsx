@@ -1,8 +1,8 @@
 import { memo } from "react";
 
 import { motion, LayoutGroup } from "components/animation";
-import { useStoreProp } from "store/index";
 import TopOverlay from "components/top-overlay";
+import { useStoreProp } from "store/index";
 
 const duration = 1;
 
@@ -38,17 +38,19 @@ const OverlayVariants = {
         y: "-100%",
         transition: {
             ...transition,
-            duration: variant.duration,
+            duration: variant["duration"],
         },
     }),
 };
 
 const Overlays = memo(
     () => {
-        const [currentDelayedRoute] = useStoreProp("currentDelayedRoute");
+        const [initialOverlayAnimation, dispatch] = useStoreProp(
+            "initialOverlayAnimation"
+        );
 
         // Don't render overlays when navigating subsequently
-        if (currentDelayedRoute) {
+        if (!initialOverlayAnimation) {
             return null;
         }
 
@@ -66,6 +68,9 @@ const Overlays = memo(
                         custom={{
                             id: 1,
                             duration,
+                        }}
+                        onAnimationComplete={() => {
+                            dispatch.showInitialOverlayAnimation(false);
                         }}
                         variants={OverlayVariants}
                         animate="enter"
