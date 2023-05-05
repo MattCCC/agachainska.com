@@ -14,7 +14,7 @@ import { FullPageOverlay } from "components/full-page-overlay";
 import { Header } from "components/header";
 import Overlays from "components/overlays";
 import { useOnRouteChange } from "hooks/use-on-route-change";
-import { globalStore } from "store/index";
+import { Provider as GlobalStoreProvider } from "store/index";
 import { useStoreProp } from "store/index";
 
 interface Props {
@@ -89,12 +89,12 @@ function App({ Component, pageProps }: AppProps) {
     return (
         <>
             <ParallaxProvider>
-                <globalStore.Provider>
+                <GlobalStoreProvider>
                     <Overlays />
                     <Layout>
                         <Component {...pageProps} />
                     </Layout>
-                </globalStore.Provider>
+                </GlobalStoreProvider>
             </ParallaxProvider>
         </>
     );
