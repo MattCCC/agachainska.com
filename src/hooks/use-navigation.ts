@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import { fullPageOverlayDuration } from "components/full-page-overlay";
+import { fullPageOverlayDurationMs } from "components/full-page-overlay";
 import {
     LinkDelayedArgs,
     LinkDelayedCallback,
@@ -37,7 +37,7 @@ export const useNavigation = ({
     return useLinkDelayed({
         location,
         to,
-        delay: fullPageOverlayDuration * 1000 * 1.1,
+        delay: fullPageOverlayDurationMs,
         replace,
         onDelayStart: startDelay,
         onDelayEnd: endDelay,
