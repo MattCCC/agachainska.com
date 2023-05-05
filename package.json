@@ -15,6 +15,7 @@
     "test": "jest --watchAll",
     "format": "next lint lint --fix && prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "lint": "next lint --fix --ext .tsx,.ts,.js,.jsx ./src",
+    "clean": "rm -rf ./tina/__generated__",
     "types-check": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
