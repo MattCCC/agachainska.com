@@ -33,7 +33,7 @@ const OverlayFullPageVariants = {
         top: "-100%",
         transition: {
             ...transition,
-            duration: fullPageOverlayDurationMs / 1500,
+            duration: fullPageOverlayDurationMs / 1000,
         },
     },
 };
@@ -64,6 +64,10 @@ export const FullPageOverlay = memo(
             }, fullPageOverlayDurationMs);
         }, [currentDelayedRoute]);
 
+        const end = useCallback(() => {
+            setIsRouteChanged(true);
+        }, []);
+
         // Use delayed route as it's faster than routeChangeStart
         useEffect(() => {
             if (currentDelayedRoute) {
@@ -73,10 +77,6 @@ export const FullPageOverlay = memo(
 
         // Detect route change completion
         useEffect(() => {
-            const end = () => {
-                setIsRouteChanged(true);
-            };
-
             Router.events.on("routeChangeComplete", end);
             Router.events.on("routeChangeError", end);
 
@@ -88,14 +88,16 @@ export const FullPageOverlay = memo(
 
         // Orchestrate animation at the beginning of the transition
         useEffect(() => {
-            if (loading) {
-                setTimeout(async () => {
-                    document.body.style.overflow = "hidden";
-
-                    await overlayControls.start((variant) => variant.initial);
-                    await overlayControls.start((variant) => variant.enter);
-                }, 0);
+            if (!loading) {
+                return;
             }
+
+            setTimeout(async () => {
+                document.body.style.overflow = "hidden";
+
+                await overlayControls.start((variant) => variant.initial);
+                await overlayControls.start((variant) => variant.enter);
+            }, 0);
         }, [loading, overlayControls]);
 
         // Orchestrate animation at the end of the transition
