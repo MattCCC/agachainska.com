@@ -41,6 +41,7 @@ const actions = {
         isMotionCursorVisible: boolean,
         motionCursorData?: Partial<State["motionCursorData"]>
     ) {
+        console.log("🚀 ~ motionCursorData:", motionCursorData);
         return {
             ...prevState,
             isMotionCursorVisible,
@@ -61,10 +62,7 @@ const actions = {
     },
 };
 
-export type Actions = typeof actions;
-
-const globalStore = createStore(initialState, actions);
-const useStore = globalStore.useStore;
-const useStoreProp = globalStore.useStoreProp;
-
-export { globalStore, useStore, useStoreProp };
+export const { useStore, useStoreProp, Provider } = createStore(
+    initialState,
+    actions
+);
