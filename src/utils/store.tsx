@@ -72,12 +72,15 @@ export function createStore<S, M extends Mutations<S>>(
             payload: Payload<M[keyof M]>;
         }
     ): S {
+        const fn = mutations[action.type];
+
+        if (typeof fn !== "function") {
+            return prevState;
+        }
+
         return {
             ...prevState,
-            ...(mutations[action.type] || new Function())(
-                prevState,
-                ...(action.payload as unknown[])
-            ),
+            ...fn(prevState, ...(action.payload as unknown[])),
         };
     }
 
