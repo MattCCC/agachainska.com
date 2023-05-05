@@ -55,6 +55,10 @@ export const FullPageOverlay = memo(
             setIsSchedulerReady(false);
             setIsRouteChanged(false);
 
+            if (timeout?.current) {
+                clearTimeout(timeout.current);
+            }
+
             timeout.current = setTimeout(() => {
                 setIsSchedulerReady(true);
             }, fullPageOverlayDurationMs);
