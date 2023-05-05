@@ -45,13 +45,13 @@ export const FullPageOverlay = memo(
         );
         const [currentDelayedRoute] = useStoreProp("currentDelayedRoute");
         const overlayControls = useAnimation();
-        const [loading, setLoading] = useState(false);
+        const [isLoading, setIsLoading] = useState(false);
         const [isSchedulerReady, setIsSchedulerReady] = useState(false);
         const [isRouteChanged, setIsRouteChanged] = useState(false);
         const timeout = useRef<NodeJS.Timeout | null>(null);
 
         const start = useCallback(() => {
-            setLoading(true);
+            setIsLoading(true);
             setIsSchedulerReady(false);
             setIsRouteChanged(false);
 
@@ -88,7 +88,7 @@ export const FullPageOverlay = memo(
 
         // Orchestrate animation at the beginning of the transition
         useEffect(() => {
-            if (!loading) {
+            if (!isLoading) {
                 return;
             }
 
@@ -98,7 +98,7 @@ export const FullPageOverlay = memo(
                 await overlayControls.start((variant) => variant.initial);
                 await overlayControls.start((variant) => variant.enter);
             }, 0);
-        }, [loading, overlayControls]);
+        }, [isLoading, overlayControls]);
 
         // Orchestrate animation at the end of the transition
         // Animation should be orchestrated only when time passes & route is changed
@@ -114,7 +114,7 @@ export const FullPageOverlay = memo(
             setTimeout(async () => {
                 await overlayControls.start((variant) => variant.end);
                 document.body.style.overflow = "visible";
-                setLoading(false);
+                setIsLoading(false);
             }, 0);
         }, [isSchedulerReady, isRouteChanged, overlayControls]);
 
