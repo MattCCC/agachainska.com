@@ -33,7 +33,7 @@ const OverlayFullPageVariants = {
         top: "-100%",
         transition: {
             ...transition,
-            duration: fullPageOverlayDurationMs / 1000,
+            duration: fullPageOverlayDurationMs / 2000,
         },
     },
 };
