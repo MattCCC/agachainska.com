@@ -29,7 +29,7 @@ function OtherProject({
 
     const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
     const onNavigate = useNavigation({
-        to: otherProject.dribbbleLink,
+        to: otherProject["dribbbleLink"],
     });
 
     useEffect(() => {

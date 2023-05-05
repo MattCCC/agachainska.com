@@ -73,7 +73,7 @@ export default {
                 `${
                     typeof fullSrc === "string"
                         ? fullSrc
-                        : `/img/projects/${fullSrc.filename}`
+                        : `/img/projects/${fullSrc["filename"]}`
                 }`,
             uploadDir: () => "/img/projects/",
             previewSrc: (fullSrc: string) => fullSrc.replace("/public", ""),

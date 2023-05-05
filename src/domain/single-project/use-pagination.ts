@@ -34,7 +34,7 @@ export const usePagination = ({ projects, uid }: Args): Pagination[] => {
                 return "";
             }
 
-            const { nameSlug } = projects[projectIndex + num];
+            const { nameSlug = "" } = projects[projectIndex + num] || {};
 
             return nameSlug;
         },

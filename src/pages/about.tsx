@@ -284,7 +284,7 @@ export default function About({
 
                 return {
                     ...item,
-                    title: titleArr[lastWordInTitle],
+                    title: titleArr[lastWordInTitle] || "",
                 };
             }),
         [aboutPageTimeline.items]

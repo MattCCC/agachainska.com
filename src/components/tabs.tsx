@@ -122,7 +122,9 @@ export const Tabs = memo(
             const currentElement = wrapperRef.current;
             const observer = new IntersectionObserver(
                 ([e]) => {
-                    setTabsIntersecting(e.isIntersecting);
+                    if (e) {
+                        setTabsIntersecting(e.isIntersecting);
+                    }
                 },
                 { rootMargin: "0px 0px -90% 0px", threshold: 1 }
             );

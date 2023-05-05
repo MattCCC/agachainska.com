@@ -20,8 +20,8 @@ export const getLinkProps = (
     routeName: string,
     location: NextRouter
 ): LinkProps => ({
-    to: routes[routeName].path,
-    isCurrentPage: location.pathname === routes[routeName].path,
+    to: routes[routeName]?.path || "",
+    isCurrentPage: location.pathname === routes[routeName]?.path,
 });
 
 /**
@@ -29,7 +29,7 @@ export const getLinkProps = (
  * @param routeName         Current route name
  */
 export const getRoutePath = (routeName: string): LinkProps => ({
-    to: routes[routeName].path,
+    to: routes[routeName]?.path || "",
 });
 
 /**

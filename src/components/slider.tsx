@@ -22,7 +22,6 @@ import PrevIcon from "svg/up.svg";
 import OtherProjects, { OtherProjectProp } from "./other-projects";
 
 export interface SliderItem {
-    [x: string]: any;
     name: string;
     cover: string;
     id: string;
@@ -41,10 +40,10 @@ interface Props {
     onSliderTap?:
         | ((
               e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
-              currentItem: SliderItem
+              currentItem?: SliderItem
           ) => void)
         | null;
-    onSliderChange?: ((currentItem: SliderItem) => void) | null;
+    onSliderChange?: ((currentItem?: SliderItem) => void) | null;
     onSliderMouseEnter?: ((mouseLeft: boolean) => void) | null;
     onSliderMouseLeave?: ((mouseLeft: boolean) => void) | null;
 }
@@ -384,8 +383,8 @@ export const Slider = ({
             ref={sliderRef}
         >
             {showSlideTitle && (
-                <Title data-text={sliderItems[sliderIndex].name}>
-                    {sliderItems[sliderIndex].name}
+                <Title data-text={sliderItems[sliderIndex]?.name || ""}>
+                    {sliderItems[sliderIndex]?.name || ""}
                 </Title>
             )}
             <SlideContent
