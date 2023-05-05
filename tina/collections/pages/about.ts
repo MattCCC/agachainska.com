@@ -51,7 +51,7 @@ export default {
             ui: {
                 itemProps: (item) =>
                     // Field values are accessed by title?.<Field name>
-                    ({ label: item?.title || "" }),
+                    ({ label: item?.["title"] || "" }),
             },
             fields: [
                 {
@@ -87,9 +87,9 @@ export default {
                             // Field values are accessed by title?.<Field name>
                             ({
                                 label:
-                                    (item?.phaseNum || "") +
+                                    (item?.["phaseNum"] || "") +
                                     " " +
-                                    (item?.title || ""),
+                                    (item?.["title"] || ""),
                             }),
                     },
                     fields: [

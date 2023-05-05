@@ -80,7 +80,7 @@ export default function OtherProjects({
         >
             {otherProjects &&
                 otherProjects.length > 0 &&
-                otherProjects[0].projects?.map(
+                otherProjects[0]?.projects?.map(
                     (post: PostItem, index: number) => (
                         <OtherProject
                             otherProject={post}

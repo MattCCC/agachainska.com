@@ -38,7 +38,7 @@ const OverlayVariants = {
         y: "-100%",
         transition: {
             ...transition,
-            duration: variant.duration,
+            duration: variant["duration"],
         },
     }),
 };

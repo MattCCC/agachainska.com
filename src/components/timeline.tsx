@@ -76,7 +76,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     sections: TimelineSection[];
     activeSectionId?: string;
     activeItemId?: string;
-    onTimelineItemChange?: (item: TimelineItem) => void;
+    onTimelineItemChange?: (item?: TimelineItem) => void;
     style?: CSSProperties;
 }
 
@@ -176,7 +176,7 @@ const Timeline = memo(
                 };
 
                 if (section.items?.length) {
-                    newState.activeItemId = section.items[0].id || "";
+                    newState.activeItemId = section.items[0]?.id || "";
 
                     onTimelineItemChange(section.items[0]);
                 }

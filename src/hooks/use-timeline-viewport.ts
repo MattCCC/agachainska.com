@@ -25,8 +25,8 @@ export const useTimelineViewport = (): [
         (locationHash || "").replace("#", "")
     );
 
-    const pctInViewport = useMemo(
-        () => ({} as Record<string, Array<number | boolean>>),
+    const pctInViewport = useMemo<Record<string, [number, boolean]>>(
+        () => ({}),
         []
     );
 
@@ -41,8 +41,22 @@ export const useTimelineViewport = (): [
 
     const intersection: IntersectionObserverCallback = useCallback(
         ([
-            { intersectionRatio, isIntersecting, target, boundingClientRect },
+            {
+                intersectionRatio,
+                isIntersecting,
+                target,
+                boundingClientRect,
+            } = {
+                isIntersecting: false,
+                intersectionRatio: 1,
+                target: null,
+                boundingClientRect: null,
+            },
         ]): void => {
+            if (!target || !boundingClientRect) {
+                return;
+            }
+
             const pctViewportOverlapped =
                 (boundingClientRect.width *
                     boundingClientRect.height *
@@ -52,11 +66,21 @@ export const useTimelineViewport = (): [
             pctInViewport[target.id] = [pctViewportOverlapped, isIntersecting];
 
             const selectedId = Object.keys(pctInViewport).reduceRight(
-                (prev, curr) =>
-                    pctInViewport[prev][0] >= pctInViewport[curr][0] &&
-                    pctInViewport[prev][1]
+                (prev, curr) => {
+                    if (!pctInViewport) {
+                        return curr;
+                    }
+
+                    const prevPct = pctInViewport[prev];
+                    const currPct = pctInViewport[curr];
+
+                    return prevPct &&
+                        currPct &&
+                        prevPct[1] &&
+                        prevPct[0] >= currPct[0]
                         ? prev
-                        : curr
+                        : curr;
+                }
             );
 
             setActiveItemId(selectedId);

@@ -64,7 +64,11 @@ export const Track = ({
 
     const left = useMemo(() => {
         const lastTwoItems = state.items.slice(-2);
-        const lastItem = lastTwoItems[1] - lastTwoItems[0];
+        const lastItem =
+            typeof lastTwoItems[0] !== "undefined" &&
+            typeof lastTwoItems[1] !== "undefined"
+                ? lastTwoItems[1] - lastTwoItems[0]
+                : 0;
 
         return allowSlideToLast
             ? lastItem + gap - trackDimensions.width

@@ -169,7 +169,7 @@ const Work = memo(({ projects }: Props) => {
         [categories, hasSmallWindowWidth, projects]
     );
 
-    const firstCategory = timelineList[0].id;
+    const firstCategory = timelineList[0]?.id;
 
     const firstCategoryFirstItem = useMemo(() => {
         const section = timelineList.find(({ id }) => id === firstCategory);
@@ -316,7 +316,7 @@ const Work = memo(({ projects }: Props) => {
     ]);
 
     const setCurrentSlideState = useCallback(
-        (currentItem: TimelineItem | SliderItem): void => {
+        (currentItem?: TimelineItem | SliderItem): void => {
             if (!currentItem || state.activeItemId === currentItem.id) {
                 return;
             }
@@ -536,7 +536,7 @@ const Work = memo(({ projects }: Props) => {
                                         onPostTap={(e) =>
                                             onNavigate(
                                                 e,
-                                                `projects/${post.routeTo}`
+                                                `projects/${post["routeTo"]}`
                                             )
                                         }
                                     />
