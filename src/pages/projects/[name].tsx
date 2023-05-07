@@ -393,10 +393,9 @@ export default function Project({ project, projects }: Props) {
 
             <MotionCursor />
 
-            <ViewOnDeskStar />
-
             <MainSection topPadding={true}>
                 <HeroWrapper>
+                    <ViewOnDeskStar />
                     <MainTitleWrapper>
                         <MainTitle data-text={name}>{name}</MainTitle>
                     </MainTitleWrapper>
