@@ -55,8 +55,7 @@ sections:
           the role after working for a company for a while and felt like they
           needed an extra motivation. Client's hypothesis is that:
         _template: text
-      - title: Quote
-        quote: >
+      - quote: >
           ‘People tend to be motivated by financial incentives. They love
           coupons and promotions and would stay loyal to certain shops only
           because they were getting good deals.'
@@ -152,8 +151,7 @@ sections:
       - title: Problem statement
         content: ''
         _template: text
-      - title: ' '
-        quote: >
+      - quote: >
           ‘Millennials tend to lose their motivation and feel like a meaningless
           cog in their workplace because there is no visibility of their efforts
           nor recognition from the employer in any other form than verbal.’
@@ -301,7 +299,7 @@ sections:
         content: ''
         _template: text
       - title: 'Learning:'
-        content: "While conducting tests most users have reported that they haven’t noticed an option to skip during onboarding and while setting a professional goal (deadline and reminder screens).\n\n\nProviding an option to skip is a very important especially when it comes to onboarding process. It prevents users from getting annoyed during their initial experience with the product.\_\n\_ \_ \_ \_ \_ \_ \n\nMissing a skip button while setting a deadline and a reminder resulted in users not realising that these functionalities are optional. As a result some users could drop completing the action (goal completion could feel like too much of a commitment).\n\n"
+        content: "While conducting tests most users have reported that they haven’t noticed an option to skip during onboarding and while setting a professional goal (deadline and reminder screens).\n\nProviding an option to skip is a very important especially when it comes to onboarding process. It prevents users from getting annoyed during their initial experience with the product.\_\n\_ \_ \_ \_ \_ \_\n\nMissing a skip button while setting a deadline and a reminder resulted in users not realising that these functionalities are optional. As a result some users could drop completing the action (goal completion could feel like too much of a commitment).\n"
         _template: text
       - title: 'Diagnosis:'
         content: >
@@ -323,7 +321,7 @@ sections:
           Users experienced problems finding specific rewards.
         _template: text
       - title: Diagnosis
-        content: "Users' attention goes straight to the content below the tab bar. They look for a desired reward on the overview screen and don't realise they can select specific reward category. After reaching the bottom of the page without finding the desired reward they seem lost and try to find the reward by clicking on 'Show all' button under featured rewards. Almost all participants admitted they haven't noticed the category tab bar at first.\n\_ \_ \_ \_ \_ \_ \n\nUser tap heatmaps (images showcases users actions when trying to redeem cash, half a day off and a Nutribullet):\n\n"
+        content: "Users' attention goes straight to the content below the tab bar. They look for a desired reward on the overview screen and don't realise they can select specific reward category. After reaching the bottom of the page without finding the desired reward they seem lost and try to find the reward by clicking on 'Show all' button under featured rewards. Almost all participants admitted they haven't noticed the category tab bar at first.\n\_ \_ \_ \_ \_ \_\n\nUser tap heatmaps (images showcases users actions when trying to redeem cash, half a day off and a Nutribullet):\n"
         _template: text
       - title: ' '
         content: >
@@ -332,6 +330,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
