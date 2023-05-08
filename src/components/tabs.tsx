@@ -42,6 +42,8 @@ const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
     hideForDesktop && tw`lg:hidden`,
 ]);
 
+const TabsWrapperTop = styled.div(() => [tw`h-[1px]`]);
+
 const TabsListContainer = styled.div(
     ({ isIntersecting = false }: PropsTabContainer) => [
         tw`relative h-8 pl-8`,
@@ -85,6 +87,8 @@ const Progress = styled(motion.div)(() => [
     `,
 ]);
 
+const threshold = [0, 1];
+
 export const Tabs = memo(
     ({
         tabs,
@@ -121,11 +125,11 @@ export const Tabs = memo(
             const currentElement = wrapperRef.current;
             const observer = new IntersectionObserver(
                 ([e]) => {
-                    if (e) {
-                        setTabsIntersecting(e.isIntersecting);
-                    }
+                    setTabsIntersecting(!e?.intersectionRatio);
                 },
-                { rootMargin: "0px 0px -90% 0px", threshold: 1 }
+                {
+                    threshold,
+                }
             );
 
             if (currentElement) {
@@ -154,27 +158,32 @@ export const Tabs = memo(
         );
 
         return (
-            <TabsWrapper ref={wrapperRef} {...props}>
-                <TabsListContainer isIntersecting={areTabsIntersectingContent}>
-                    <TabsList>
-                        <AnimatePresence initial={false}>
-                            {tabs.map((tab: SingleTab, index: number) => (
-                                <Tab
-                                    key={`tab-${index}`}
-                                    isActive={tab.id === tabId}
-                                    onClick={onTabClick.bind(null, tab)}
-                                >
-                                    {tab.title}
-                                </Tab>
-                            ))}
-                            <Progress
-                                animate={{ left: pinX }}
-                                style={{ width: `${100 / tabs.length}%` }}
-                            />
-                        </AnimatePresence>
-                    </TabsList>
-                </TabsListContainer>
-            </TabsWrapper>
+            <>
+                <TabsWrapperTop ref={wrapperRef} />
+                <TabsWrapper {...props}>
+                    <TabsListContainer
+                        isIntersecting={areTabsIntersectingContent}
+                    >
+                        <TabsList>
+                            <AnimatePresence initial={false}>
+                                {tabs.map((tab, index) => (
+                                    <Tab
+                                        key={`tab-${index}`}
+                                        isActive={tab.id === tabId}
+                                        onClick={onTabClick.bind(null, tab)}
+                                    >
+                                        {tab.title}
+                                    </Tab>
+                                ))}
+                                <Progress
+                                    animate={{ left: pinX }}
+                                    style={{ width: `${100 / tabs.length}%` }}
+                                />
+                            </AnimatePresence>
+                        </TabsList>
+                    </TabsListContainer>
+                </TabsWrapper>
+            </>
         );
     },
     (prevProps, nextProps) =>
