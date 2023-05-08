@@ -6,6 +6,7 @@ import {
     memo,
     HTMLAttributes,
     useEffect,
+    useMemo,
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
@@ -37,21 +38,19 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
-    tw`sticky top-0 flex items-center justify-center w-full h-16 mb-8 z-100`,
+    tw`sticky top-0 flex items-center w-full h-16 mb-8 overflow-auto z-100`,
     hideForDesktop && tw`lg:hidden`,
 ]);
 
 const TabsListContainer = styled.div(
     ({ isIntersecting = false }: PropsTabContainer) => [
-        tw`relative h-8`,
-        css`
-            width: calc(100vw - 32px);
-        `,
+        tw`relative h-8 pl-8`,
         isIntersecting &&
             css`
                 &:after {
                     content: "";
-                    width: 100vw;
+                    min-width: 100vw;
+                    width: 100%;
                     height: 4rem;
                     background: rgba(255, 255, 255, 0.92);
                     backdrop-filter: blur(60px);
@@ -70,7 +69,7 @@ const TabsListContainer = styled.div(
 const TabsList = styled.ul(() => [tw`flex flex-row justify-between`]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
-    tw`w-full h-8 capitalize transition-opacity cursor-pointer select-none text-melrose opacity-40`,
+    tw`w-full h-8 capitalize transition-opacity cursor-pointer min-w-[120px] select-none text-melrose opacity-40`,
     tw`leading-[25px] text-[20px]`,
     isActive && tw`opacity-100`,
     css`
@@ -100,15 +99,15 @@ export const Tabs = memo(
         const [tabId, setTabId] = useState("");
         const [pinX, setPinX] = useState("0%");
         const [tabWidth, setTabWidth] = useState(0);
-        const [activeTabIndex, setActiveTabIndex] = useState(0);
+
+        const activeTabIndex = useMemo(
+            () => tabs?.findIndex((tab) => tab.id === tabId),
+            [tabId, tabs]
+        );
 
         useEffect(() => {
             setTabId(activeTabId || tabs[0]?.id || "");
         }, [activeTabId, tabs]);
-
-        useEffect(() => {
-            setActiveTabIndex(tabs?.findIndex((tab) => tab.id === tabId));
-        }, [tabId, tabs]);
 
         useEffect(() => {
             setTabWidth(100 / tabs.length);
