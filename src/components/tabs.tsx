@@ -74,7 +74,7 @@ const TabsListContainer = styled.div(
 const TabsList = styled.ul(() => [tw`relative flex flex-row justify-between`]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
-    tw`w-full h-8 capitalize transition-opacity cursor-pointer min-w-[120px] select-none text-melrose text-opacity-40`,
+    tw`w-full h-8 capitalize transition-opacity cursor-pointer min-w-[120px] select-none text-melrose-40 text-opacity-40`,
     tw`leading-[25px] text-[20px]`,
     isActive && tw`text-opacity-100`,
     isActive
