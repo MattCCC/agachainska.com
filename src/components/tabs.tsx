@@ -74,12 +74,18 @@ const TabsListContainer = styled.div(
 const TabsList = styled.ul(() => [tw`relative flex flex-row justify-between`]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
-    tw`w-full h-8 capitalize transition-opacity cursor-pointer min-w-[120px] select-none text-melrose opacity-40`,
+    tw`w-full h-8 capitalize transition-opacity cursor-pointer min-w-[120px] select-none text-melrose text-opacity-40`,
     tw`leading-[25px] text-[20px]`,
-    isActive && tw`opacity-100`,
+    isActive && tw`text-opacity-100`,
+    isActive
+        ? css`
+              text-shadow: 0 2px 4px 0 var(--melrose);
+          `
+        : css`
+              text-shadow: 0 2px 4px 0 var(--melrose-40);
+          `,
     css`
-        box-shadow: inset 0px -2px 1px -1px var(--melrose);
-        text-shadow: 0 2px 4px 0 var(--melrose);
+        box-shadow: inset 0px -2px 1px -1px var(--melrose-40);
     `,
 ]);
 
@@ -87,6 +93,11 @@ const Progress = styled(motion.div)(() => [
     tw`absolute left-0 h-px top-8 bg-melrose z-[2]`,
     css`
         box-shadow: 0 2px 4px 0 var(--melrose);
+
+        &:after {
+            ${tw`block content-[""] w-full absolute left-0 right-0 h-[1px]`}
+            box-shadow: inset 0px -2px 1px -1px var(--melrose);
+        }
     `,
 ]);
 
