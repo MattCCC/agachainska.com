@@ -21,7 +21,7 @@ export const useNavigation = ({
 }: DelayedLink): LinkDelayedCallback => {
     const location = useRouter();
     const [, { setCurrentDelayedRoute }] = useStoreProp("currentDelayedRoute");
-    const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
+    const [, { showMotionCursor }] = useStoreProp("motionCursorData");
 
     const startDelay: OnDelayCallback = (e, toRoute) => {
         setCurrentDelayedRoute(toRoute);

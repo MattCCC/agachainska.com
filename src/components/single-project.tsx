@@ -75,7 +75,7 @@ export const SingleProject = memo(
             leaveDelay: 30,
         });
 
-        const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
+        const [, { showMotionCursor }] = useStoreProp("motionCursorData");
 
         useEffect(() => {
             const isMouseOver = Boolean(mouse.elementWidth);

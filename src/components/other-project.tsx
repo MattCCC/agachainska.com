@@ -27,7 +27,7 @@ function OtherProject({
         leaveDelay: 30,
     });
 
-    const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
+    const [, { showMotionCursor }] = useStoreProp("motionCursorData");
     const onNavigate = useNavigation({
         to: otherProject["dribbbleLink"],
     });

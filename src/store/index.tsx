@@ -1,4 +1,4 @@
-import { set, createStore, mergeState } from "simplest-react-store";
+import { set, createStore } from "simplest-react-store";
 
 const initialState = {
     showMotionGrid: false,
@@ -39,16 +39,17 @@ const actions = {
     showMotionCursor(
         prevState: State,
         isMotionCursorVisible: boolean,
-        motionCursorData: Partial<State["motionCursorData"]>
+        motionCursorData?: Partial<State["motionCursorData"]>
     ) {
         return {
-            ...mergeState(
-                "motionCursorData",
-                initialState,
-                prevState,
-                motionCursorData
-            ),
-            isMotionCursorVisible,
+            ...prevState,
+            ...{
+                motionCursorData: {
+                    ...prevState.motionCursorData,
+                    ...motionCursorData,
+                },
+                isMotionCursorVisible,
+            },
         };
     },
 

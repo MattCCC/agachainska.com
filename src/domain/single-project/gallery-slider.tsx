@@ -32,7 +32,7 @@ export const GallerySlider = memo(({ images, gap }: Props) => {
         leaveDelay: 30,
     });
 
-    const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
+    const [, { showMotionCursor }] = useStoreProp("motionCursorData");
 
     useEffect(() => {
         const isMouseOver = Boolean(mouse.elementWidth);

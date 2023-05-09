@@ -31,7 +31,7 @@ const Desc = styled.h2(() => [
 export default function Home() {
     const router = useRouter();
     const workLink = getRoutePath("work");
-    const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
+    const [, { showMotionCursor }] = useStoreProp("motionCursorData");
 
     useLockBodyScroll();
 
