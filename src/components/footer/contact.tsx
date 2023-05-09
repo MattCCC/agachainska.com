@@ -71,7 +71,7 @@ export const Contact = memo(() => {
         leaveDelay: 30,
     });
 
-    const [, { showMotionCursor }] = useStoreProp("showMotionCursor");
+    const [, { showMotionCursor }] = useStoreProp("motionCursorData");
 
     useEffect(() => {
         const isMouseOver = Boolean(mouse.elementWidth);
@@ -81,7 +81,7 @@ export const Contact = memo(() => {
             to: "/contact",
             size: 80,
             overlap: false,
-            color: isMouseOver ? "melrose" : "block",
+            color: isMouseOver ? "melrose" : "black",
         });
     }, [mouse.elementWidth, showMotionCursor]);
 

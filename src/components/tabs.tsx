@@ -6,6 +6,7 @@ import {
     memo,
     HTMLAttributes,
     useEffect,
+    useMemo,
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
@@ -37,29 +38,32 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
-    tw`sticky top-0 flex items-center justify-center w-full h-16 mb-8 z-100`,
+    tw`sticky top-0 flex items-center w-full h-16 mb-8 overflow-auto z-100`,
     hideForDesktop && tw`lg:hidden`,
+    css`
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    `,
 ]);
+
+const TabsWrapperTop = styled.div(() => [tw`h-[1px]`]);
 
 const TabsListContainer = styled.div(
     ({ isIntersecting = false }: PropsTabContainer) => [
-        tw`relative h-8`,
-        css`
-            width: calc(100vw - 32px);
-        `,
+        tw`relative h-8 px-[15px]`,
         isIntersecting &&
             css`
                 &:after {
-                    content: "";
-                    width: 100vw;
-                    height: 4rem;
+                    ${tw`content-[""] w-full min-w-[100vw] h-16 top-1/2 left-1/2 absolute`}
+
                     background: rgba(255, 255, 255, 0.92);
                     backdrop-filter: blur(60px);
                     box-shadow: 0px 14px 60px 0px rgba(0, 0, 0, 0.25);
                     transition: all 0.2s ease-in;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
                     transform: translate(-50%, -50%);
                     z-index: -1;
                 }
@@ -67,15 +71,21 @@ const TabsListContainer = styled.div(
     ]
 );
 
-const TabsList = styled.ul(() => [tw`flex flex-row justify-between`]);
+const TabsList = styled.ul(() => [tw`relative flex flex-row justify-between`]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
-    tw`w-full h-8 capitalize transition-opacity cursor-pointer select-none text-melrose opacity-40`,
+    tw`w-full h-8 capitalize transition-opacity cursor-pointer min-w-[120px] select-none text-melrose-40 text-opacity-40`,
     tw`leading-[25px] text-[20px]`,
-    isActive && tw`opacity-100`,
+    isActive && tw`text-opacity-100 text-melrose`,
+    isActive
+        ? css`
+              text-shadow: 0 2px 4px 0 var(--melrose);
+          `
+        : css`
+              text-shadow: 0 2px 4px 0 var(--melrose-40);
+          `,
     css`
-        box-shadow: inset 0px -2px 1px -1px var(--melrose);
-        text-shadow: 0 2px 4px 0 var(--melrose);
+        box-shadow: inset 0px -2px 1px -1px var(--melrose-40);
     `,
 ]);
 
@@ -83,8 +93,15 @@ const Progress = styled(motion.div)(() => [
     tw`absolute left-0 h-px top-8 bg-melrose z-[2]`,
     css`
         box-shadow: 0 2px 4px 0 var(--melrose);
+
+        &:after {
+            ${tw`block content-[""] w-full absolute left-0 right-0 h-[1px]`}
+            box-shadow: inset 0px -2px 1px -1px var(--melrose);
+        }
     `,
 ]);
+
+const threshold = [0, 1];
 
 export const Tabs = memo(
     ({
@@ -100,15 +117,15 @@ export const Tabs = memo(
         const [tabId, setTabId] = useState("");
         const [pinX, setPinX] = useState("0%");
         const [tabWidth, setTabWidth] = useState(0);
-        const [activeTabIndex, setActiveTabIndex] = useState(0);
+
+        const activeTabIndex = useMemo(
+            () => tabs?.findIndex((tab) => tab.id === tabId),
+            [tabId, tabs]
+        );
 
         useEffect(() => {
             setTabId(activeTabId || tabs[0]?.id || "");
         }, [activeTabId, tabs]);
-
-        useEffect(() => {
-            setActiveTabIndex(tabs?.findIndex((tab) => tab.id === tabId));
-        }, [tabId, tabs]);
 
         useEffect(() => {
             setTabWidth(100 / tabs.length);
@@ -122,11 +139,11 @@ export const Tabs = memo(
             const currentElement = wrapperRef.current;
             const observer = new IntersectionObserver(
                 ([e]) => {
-                    if (e) {
-                        setTabsIntersecting(e.isIntersecting);
-                    }
+                    setTabsIntersecting(!e?.intersectionRatio);
                 },
-                { rootMargin: "0px 0px -90% 0px", threshold: 1 }
+                {
+                    threshold,
+                }
             );
 
             if (currentElement) {
@@ -155,27 +172,32 @@ export const Tabs = memo(
         );
 
         return (
-            <TabsWrapper ref={wrapperRef} {...props}>
-                <TabsListContainer isIntersecting={areTabsIntersectingContent}>
-                    <TabsList>
-                        <AnimatePresence initial={false}>
-                            {tabs.map((tab: SingleTab, index: number) => (
-                                <Tab
-                                    key={`tab-${index}`}
-                                    isActive={tab.id === tabId}
-                                    onClick={onTabClick.bind(null, tab)}
-                                >
-                                    {tab.title}
-                                </Tab>
-                            ))}
-                            <Progress
-                                animate={{ left: pinX }}
-                                style={{ width: `${100 / tabs.length}%` }}
-                            />
-                        </AnimatePresence>
-                    </TabsList>
-                </TabsListContainer>
-            </TabsWrapper>
+            <>
+                <TabsWrapperTop ref={wrapperRef} />
+                <TabsWrapper {...props}>
+                    <TabsListContainer
+                        isIntersecting={areTabsIntersectingContent}
+                    >
+                        <TabsList>
+                            <AnimatePresence initial={false}>
+                                {tabs.map((tab, index) => (
+                                    <Tab
+                                        key={`tab-${index}`}
+                                        isActive={tab.id === tabId}
+                                        onClick={onTabClick.bind(null, tab)}
+                                    >
+                                        {tab.title}
+                                    </Tab>
+                                ))}
+                                <Progress
+                                    animate={{ left: pinX }}
+                                    style={{ width: `${100 / tabs.length}%` }}
+                                />
+                            </AnimatePresence>
+                        </TabsList>
+                    </TabsListContainer>
+                </TabsWrapper>
+            </>
         );
     },
     (prevProps, nextProps) =>

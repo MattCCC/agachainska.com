@@ -11,7 +11,7 @@ aboutTitle: O mnie
 workTitle: Praca
 notFound: Nie znaleziono
 viewWork: Zobacz pracę
-viewDribbleShot: zobacz dribbble shot
+viewDribbbleShot: zobacz dribbble shot
 explore: Pokaż
 contact: Kontakt
 drag: Pociągnij

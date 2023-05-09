@@ -17,7 +17,6 @@ import { SocialMedia } from "components/social-media";
 import { Tabs } from "components/tabs";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
-import { up } from "utils/screens";
 import dynamic from "next/dynamic";
 import { Project, ProjectNode } from "types/project";
 import client from "tina/__generated__/client";
@@ -32,18 +31,12 @@ import { TinaMarkdown } from "tinacms/dist/rich-text";
 
 const HeroSection = styled.section(() => [
     tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-[max(600px,100vh)]`,
-    css`
-        margin-top: 110px;
-    `,
+    tw`mt-[110px]`,
 ]);
 
 const Info = styled.div(() => [
     tw`lg:col-start-5 lg:col-end-11 lg:pt-2.5 lg:flex lg:flex-col lg:justify-between`,
-    css`
-        ${up("lg")} {
-            height: 386px;
-        }
-    `,
+    tw`lg:h-[386px]`,
 ]);
 
 const AboutStyle = styled.h2(() => [
@@ -81,34 +74,12 @@ const TimelineWrapper = styled.aside(() => [
 
 const ArticleSection = styled.section(() => [
     tw`mb-20 lg:grid lg:grid-cols-12 lg:grid-rows-1 lg:items-center`,
-    css`
-        &:first-of-type {
-            margin-top: 48px;
-        }
-
-        &:last-of-type {
-            margin: 0;
-        }
-
-        ${up("lg")} {
-            &:first-of-type {
-                margin-top: 0;
-            }
-
-            margin-bottom: 7.5rem;
-        }
-    `,
+    tw`first-of-type:mt-[48px] last-of-type:m-0 lg:first-of-type:mt-0 lg:mb-[7.5rem]`,
 ]);
 
 const TitleContainer = styled.div(() => [
     tw`mb-6 border-b border-black border-solid lg:col-start-1 lg:col-end-11 lg:grid lg:grid-cols-12`,
-    css`
-        padding-bottom: 5px;
-
-        ${up("lg")} {
-            padding-bottom: 27px;
-        }
-    `,
+    tw`pb-[5px] lg:pb-[27px]`,
 ]);
 
 const Title = styled.h2(() => [
@@ -137,14 +108,7 @@ const SkillsTable = styled.ul(() => [
 
 const Skill = styled.li(() => [
     tw`flex items-center justify-center leading-5 text-center uppercase border-t border-r border-black font-fbold prose-18 lg:prose-20 lg:leading-7`,
-    css`
-        height: 78px;
-        padding: 8px;
-
-        ${up("lg")} {
-            height: 100px;
-        }
-    `,
+    tw`h-[78px] p-2 lg:h-[100px]`,
 ]);
 
 const DesignProcessTable = styled.ul(() => [
@@ -171,13 +135,9 @@ const DesignProcessNumber = styled.span(() => [
 ]);
 
 const DesignProcessElementDesc = styled.div(() => [
-    tw`font-base lg:self-center`,
+    tw`font-base lg:self-center lg:w-[272px]`,
     css`
         color: #808080;
-
-        ${up("lg")} {
-            width: 272px;
-        }
     `,
 ]);
 

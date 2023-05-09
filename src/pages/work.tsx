@@ -62,7 +62,7 @@ interface SliderWrapperProps {
 
 const ContentContainer = styled.section(() => [
     tw`relative col-start-1 col-end-13 mb-20 lg:mb-0 lg:grid lg:items-center lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col`,
-    tw`lg:mt-[110px] lg:h-[max(600px,100vh)]`,
+    tw`lg:mt-[110px]`,
     tw`col-start-1 col-end-13 lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col`,
 ]);
 
@@ -79,7 +79,7 @@ const SlideWrapper = styled.div(
 );
 
 const TimelineWrapper = styled.aside(() => [
-    tw`hidden col-start-5 row-span-5 row-start-1 row-end-5 lg:block self-baseline mt-[100px]`,
+    tw`hidden col-start-5 row-span-5 row-start-1 row-end-5 lg:block self-baseline mt-[50px]`,
 ]);
 
 const StyledNumber = styled(BigNumber)(() => [

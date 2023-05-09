@@ -72,10 +72,9 @@ sections:
           - image: /img/placeholder-full.png
           - image: /img/placeholder-full.png
         _template: slider
-      - title: Quote
-        quote: >
+      - quote: >
           ‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam
-          rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’
+          rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.‘
         _template: quote
       - type: iPhoneX
         link: >-
@@ -128,6 +127,8 @@ sections:
         _template: projects
 dribbbleLink: 'https://dribbble.com/shots/17728344-RE-MAX-Malta-Website'
 ---
+
+
 
 
 

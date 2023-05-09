@@ -1,4 +1,4 @@
-import { set, createStore, mergeState } from "utils/store";
+import { set, createStore } from "simplest-react-store";
 
 const initialState = {
     showMotionGrid: false,
@@ -43,13 +43,13 @@ const actions = {
     ) {
         return {
             ...prevState,
-            isMotionCursorVisible,
-            ...mergeState(
-                initialState,
-                prevState,
-                motionCursorData,
-                "motionCursorData"
-            ),
+            ...{
+                motionCursorData: {
+                    ...initialState.motionCursorData,
+                    ...(motionCursorData || prevState.motionCursorData),
+                },
+                isMotionCursorVisible,
+            },
         };
     },
 
@@ -61,10 +61,7 @@ const actions = {
     },
 };
 
-export type Actions = typeof actions;
-
-const globalStore = createStore(initialState, actions);
-const useStore = globalStore.useStore;
-const useStoreProp = globalStore.useStoreProp;
-
-export { globalStore, useStore, useStoreProp };
+export const { useStore, useStoreProp, Provider } = createStore(
+    initialState,
+    actions
+);

@@ -14,7 +14,7 @@ import { FullPageOverlay } from "components/full-page-overlay";
 import { Header } from "components/header";
 import Overlays from "components/overlays";
 import { useOnRouteChange } from "hooks/use-on-route-change";
-import { globalStore } from "store/index";
+import { Provider as GlobalStoreProvider } from "store/index";
 import { useStoreProp } from "store/index";
 
 interface Props {
@@ -36,10 +36,9 @@ const DarkTheme = () => (
 const Main = styled.main(
     ({ hasGradient, backgroundColor, showFooter, darkTheme }: Props) => [
         tw`relative z-10 w-full h-full min-h-screen text-primary pt-safe-top`,
-        css`
-            backface-visibility: hidden;
-        `,
+        tw`[backface-visibility: hidden]`,
         showFooter && tw`lg:mb-[810px]`,
+        darkTheme && !showFooter && tw`pb-[140px] lg:pb-[120px]`,
         backgroundColor &&
             css`
                 background: ${backgroundColor};
@@ -90,12 +89,12 @@ function App({ Component, pageProps }: AppProps) {
     return (
         <>
             <ParallaxProvider>
-                <globalStore.Provider>
+                <GlobalStoreProvider>
                     <Overlays />
                     <Layout>
                         <Component {...pageProps} />
                     </Layout>
-                </globalStore.Provider>
+                </GlobalStoreProvider>
             </ParallaxProvider>
         </>
     );

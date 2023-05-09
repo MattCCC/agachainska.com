@@ -86,7 +86,14 @@ const MainTitle = styled(MainTitleBottom)(() => [
     tw`text-[70px] leading-[70px] top-[-27px] mb-[-27px] lg:top-[-46px] lg:mb-[-46px] lg:text-[120px] lg:leading-[130px]`,
 ]);
 
-const ParagraphWrapper = styled.div(() => [tw`mb-[40px]`]);
+const ParagraphWrapper = styled.div(() => [
+    tw`mb-[40px]`,
+    css`
+        p {
+            ${tw`mb-4`}
+        }
+    `,
+]);
 
 const HeroWrapper = styled.div(() => [
     tw`relative w-full col-start-1 col-end-13 lg:col-start-2 lg:col-end-12`,
@@ -386,10 +393,9 @@ export default function Project({ project, projects }: Props) {
 
             <MotionCursor />
 
-            <ViewOnDeskStar />
-
             <MainSection topPadding={true}>
                 <HeroWrapper>
+                    <ViewOnDeskStar />
                     <MainTitleWrapper>
                         <MainTitle data-text={name}>{name}</MainTitle>
                     </MainTitleWrapper>

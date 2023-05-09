@@ -11,12 +11,10 @@ aboutTitle: About
 workTitle: Work
 notFound: Not Found
 viewWork: View Work
-viewDribbleShot: view dribbble shot
+viewDribbbleShot: view dribbble shot
 explore: Explore
 contact: Contact
 drag: Drag
 seeAllProjects: See all projects
 _template: translations
 ---
-
-

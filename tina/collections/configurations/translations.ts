@@ -80,7 +80,7 @@ export default {
         },
         {
             label: "View dribbble shot",
-            name: "viewDribbleShot",
+            name: "viewDribbbleShot",
             type: "string",
             required: true,
         },
