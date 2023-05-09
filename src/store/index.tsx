@@ -45,8 +45,8 @@ const actions = {
             ...prevState,
             ...{
                 motionCursorData: {
-                    ...prevState.motionCursorData,
-                    ...motionCursorData,
+                    ...initialState.motionCursorData,
+                    ...(motionCursorData || prevState.motionCursorData),
                 },
                 isMotionCursorVisible,
             },
