@@ -40,6 +40,14 @@ interface Props extends HTMLAttributes<HTMLElement> {
 const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
     tw`sticky top-0 flex items-center w-full h-16 mb-8 overflow-auto z-100`,
     hideForDesktop && tw`lg:hidden`,
+    css`
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    `,
 ]);
 
 const TabsWrapperTop = styled.div(() => [tw`h-[1px]`]);
@@ -50,17 +58,12 @@ const TabsListContainer = styled.div(
         isIntersecting &&
             css`
                 &:after {
-                    content: "";
-                    min-width: 100vw;
-                    width: 100%;
-                    height: 4rem;
+                    ${tw`content-[""] w-full min-w-[100vw] h-16 top-1/2 left-1/2 absolute`}
+
                     background: rgba(255, 255, 255, 0.92);
                     backdrop-filter: blur(60px);
                     box-shadow: 0px 14px 60px 0px rgba(0, 0, 0, 0.25);
                     transition: all 0.2s ease-in;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
                     transform: translate(-50%, -50%);
                     z-index: -1;
                 }
