@@ -286,10 +286,6 @@ sections:
           Some of the app wireframes:
         content: ''
         _template: text
-  - title: Develop
-    showInTimeline: true
-    showSectionTitle: true
-    elements:
       - title: Usability testing
         content: >
           Moderated usability testing conducted with 5 participants uncovered
