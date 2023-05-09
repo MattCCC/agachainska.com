@@ -8,7 +8,6 @@ import { BigNumber } from "components/big-number";
 import { H4 } from "components/h4";
 import { Link } from "components/link";
 import { useStoreProp } from "store/index";
-import { up } from "utils/screens";
 
 interface Props {
     nameSlug: string;
@@ -46,17 +45,8 @@ const ProjectWrapper = styled.li(({ rowNo, colNo }: BadgeProps) => [
 ]);
 
 const BadgeNumber = styled(StyledNumber)(() => [
-    tw`w-[110px] select-none cursor-none font-fbold font-bold`,
-    css`
-        transform: scale(1.53886);
-        height: 70px;
-        margin: -10px 30px -10px -40px;
-
-        ${up("lg")} {
-            height: 110px;
-            margin: -20px 0;
-        }
-    `,
+    tw`w-[110px] scale-100 select-none cursor-none font-fbold font-bold`,
+    tw`h-[70px] lg:h-[110px] m-[-5px_30px_-10px_-40px] lg:scale-125 lg:mr-12 lg:-mt-6`,
 ]);
 
 const ProjectLink = styled.span(() => [
