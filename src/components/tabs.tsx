@@ -46,7 +46,7 @@ const TabsWrapperTop = styled.div(() => [tw`h-[1px]`]);
 
 const TabsListContainer = styled.div(
     ({ isIntersecting = false }: PropsTabContainer) => [
-        tw`relative h-8 pl-8`,
+        tw`relative h-8 px-[15px]`,
         isIntersecting &&
             css`
                 &:after {
@@ -68,7 +68,7 @@ const TabsListContainer = styled.div(
     ]
 );
 
-const TabsList = styled.ul(() => [tw`flex flex-row justify-between`]);
+const TabsList = styled.ul(() => [tw`relative flex flex-row justify-between`]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
     tw`w-full h-8 capitalize transition-opacity cursor-pointer min-w-[120px] select-none text-melrose opacity-40`,
