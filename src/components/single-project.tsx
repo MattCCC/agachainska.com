@@ -46,7 +46,7 @@ const ProjectWrapper = styled.li(({ rowNo, colNo }: BadgeProps) => [
 
 const BadgeNumber = styled(StyledNumber)(() => [
     tw`w-[110px] scale-100 select-none cursor-none font-fbold font-bold`,
-    tw`h-[70px] lg:h-[110px] m-[-5px_30px_-10px_-40px] lg:scale-125 lg:mr-12 lg:-mt-6`,
+    tw`h-[70px] lg:h-[110px] m-[-5px_30px_-10px_-40px] lg:scale-[1.53886] lg:mr-12 lg:-mt-6`,
 ]);
 
 const ProjectLink = styled.span(() => [
