@@ -45,7 +45,7 @@ const scrollTo = (y: number = 0) => {
 const TopOverlay = memo(
     () => (
         <motion.div
-            className="relative bg-white z-100"
+            className="relative bg-white z-100 will-change-[height]"
             initial="initial"
             animate="enter"
             exit="exit"

@@ -1,12 +1,4 @@
-import {
-    useMemo,
-    useState,
-    CSSProperties,
-    useCallback,
-    useRef,
-    RefObject,
-    Fragment,
-} from "react";
+import { useCallback, Fragment } from "react";
 
 import tw, { styled, css } from "twin.macro";
 
@@ -14,6 +6,7 @@ import { MotionCursor } from "components/motion-cursor";
 import { TranslateText } from "utils/translate-text";
 
 import { Translate } from "./translate";
+import { useRect } from "hooks/use-rect";
 
 const Title = styled.h1(() => [
     tw`relative z-50 inline-block max-w-full -mt-16 font-bold select-none lg:pr-16 prose-70 leading-20 lg:prose-140 lg:leading-38`,
@@ -21,6 +14,8 @@ const Title = styled.h1(() => [
     tw`lg:[-webkit-text-fill-color:transparent]`,
     css`
         width: 634px;
+        --y: 0;
+        --x: 0;
 
         &:before {
             ${tw`absolute top-0 left-0 hidden text-white lg:block`}
@@ -36,38 +31,33 @@ const Title = styled.h1(() => [
     `,
 ]);
 
-function HomepageTitle() {
-    const titleRef = useRef() as RefObject<HTMLHeadingElement>;
-    const defaultState = useMemo(() => ({ x: 0, y: 0 }), []);
-    const [position, setPosition] = useState(defaultState);
+const cursorMarginLeft = 31;
 
-    const titleStyle = {
-        "--x": `${position.x}px`,
-        "--y": `${position.y}px`,
-    } as CSSProperties;
+function HomepageTitle() {
+    const [clientRect, titleRef] = useRect<HTMLHeadingElement>();
 
     const onPositionUpdate = useCallback(
         (clientX: number, clientY: number) => {
-            const clientRect = (
-                titleRef.current as HTMLHeadingElement
-            ).getBoundingClientRect();
-            const cursorMarginLeft = 31;
+            if (!clientRect || !titleRef.current) {
+                return;
+            }
 
-            setPosition({
-                x: clientX - clientRect.left - cursorMarginLeft,
-                y: clientY - clientRect.top,
-            });
+            titleRef.current.setAttribute(
+                "style",
+                "--y: " +
+                    (clientY - clientRect.top) +
+                    "px; " +
+                    "--x: " +
+                    (clientX - clientRect.left - cursorMarginLeft) +
+                    "px"
+            );
         },
-        [titleRef]
+        [clientRect, titleRef]
     );
 
     return (
         <Fragment>
-            <Title
-                data-text={TranslateText("home.title")}
-                style={titleStyle}
-                ref={titleRef}
-            >
+            <Title data-text={TranslateText("home.title")} ref={titleRef}>
                 <Translate id="home.title" />
             </Title>
             <MotionCursor onPositionUpdate={onPositionUpdate} />

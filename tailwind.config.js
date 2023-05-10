@@ -52,9 +52,6 @@ module.exports = {
                 44: "11rem",
                 48: "12rem",
             },
-            cursor: {
-                none: "none",
-            },
             spacing: {
                 "safe-top": "env(safe-area-inset-top)",
                 "safe-bottom": "env(safe-area-inset-bottom)",
