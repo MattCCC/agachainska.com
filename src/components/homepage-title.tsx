@@ -34,20 +34,21 @@ const cursorMarginLeft = 31;
 
 function HomepageTitle() {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
+    const el = titleRef.current;
 
     const onPositionUpdate = useCallback(
         (clientX: number, clientY: number) => {
-            if (!titleRef.current) {
+            if (!el) {
                 return;
             }
 
-            const clientRect = titleRef.current.getBoundingClientRect();
+            const clientRect = el.getBoundingClientRect();
 
             if (!clientRect) {
                 return;
             }
 
-            titleRef.current.setAttribute(
+            el.setAttribute(
                 "style",
                 "--y: " +
                     (clientY - clientRect.top) +
@@ -57,7 +58,7 @@ function HomepageTitle() {
                     "px"
             );
         },
-        [titleRef]
+        [el]
     );
 
     return (
