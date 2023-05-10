@@ -1,4 +1,4 @@
-import { useCallback, Fragment } from "react";
+import { useCallback, Fragment, RefObject, useRef } from "react";
 
 import tw, { styled, css } from "twin.macro";
 
@@ -6,7 +6,6 @@ import { MotionCursor } from "components/motion-cursor";
 import { TranslateText } from "utils/translate-text";
 
 import { Translate } from "./translate";
-import { useRect } from "hooks/use-rect";
 
 const Title = styled.h1(() => [
     tw`relative z-50 inline-block max-w-full -mt-16 font-bold select-none lg:pr-16 prose-70 leading-20 lg:prose-140 lg:leading-38`,
@@ -34,11 +33,17 @@ const Title = styled.h1(() => [
 const cursorMarginLeft = 31;
 
 function HomepageTitle() {
-    const [clientRect, titleRef] = useRect<HTMLHeadingElement>();
+    const titleRef = useRef() as RefObject<HTMLHeadingElement>;
 
     const onPositionUpdate = useCallback(
         (clientX: number, clientY: number) => {
-            if (!clientRect || !titleRef.current) {
+            if (!titleRef.current) {
+                return;
+            }
+
+            const clientRect = titleRef.current.getBoundingClientRect();
+
+            if (!clientRect) {
                 return;
             }
 
@@ -52,7 +57,7 @@ function HomepageTitle() {
                     "px"
             );
         },
-        [clientRect, titleRef]
+        [titleRef]
     );
 
     return (
