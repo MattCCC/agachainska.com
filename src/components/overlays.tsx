@@ -100,7 +100,7 @@ const Overlays = memo(
                         }}
                         custom={{
                             id: 3,
-                            duration: duration * 0.5,
+                            duration: duration * 0.4,
                         }}
                         variants={OverlayVariants}
                         animate="enter"
