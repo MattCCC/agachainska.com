@@ -1,4 +1,4 @@
-import { set, createStore } from "simplest-react-store";
+import { createStore } from "simplest-react-store";
 
 const initialState = {
     showMotionGrid: false,
@@ -25,30 +25,33 @@ const initialState = {
 export type State = typeof initialState;
 
 const actions = {
-    showMotionGrid: set<State, boolean>("showMotionGrid"),
-    showWavePattern: set<State, boolean>("showWavePattern"),
-    showFooter: set<State, boolean>("showFooter"),
-    showLogoOnDesktop: set<State, boolean>("showLogoOnDesktop"),
-    showbackgroundColor: set<State, boolean>("showbackgroundColor"),
-    showInitialOverlayAnimation: set<State, boolean>("initialOverlayAnimation"),
-
-    setBackgroundColor: set<State, string>("backgroundColor"),
-    setDarkTheme: set<State, boolean>("darkTheme"),
-    setCurrentDelayedRoute: set<State, string>("currentDelayedRoute"),
+    showMotionGrid: (state: State, value: boolean) =>
+        (state.showMotionGrid = value),
+    showWavePattern: (state: State, value: boolean) =>
+        (state.showWavePattern = value),
+    showFooter: (state: State, value: boolean) => (state.showFooter = value),
+    showLogoOnDesktop: (state: State, value: boolean) =>
+        (state.showLogoOnDesktop = value),
+    showbackgroundColor: (state: State, value: boolean) =>
+        (state.showbackgroundColor = value),
+    showInitialOverlayAnimation: (state: State, value: boolean) =>
+        (state.initialOverlayAnimation = value),
+    setBackgroundColor: (state: State, value: string) =>
+        (state.backgroundColor = value),
+    setDarkTheme: (state: State, value: boolean) => (state.darkTheme = value),
+    setCurrentDelayedRoute: (state: State, value: string) =>
+        (state.currentDelayedRoute = value),
 
     showMotionCursor(
-        prevState: State,
+        state: State,
         isMotionCursorVisible: boolean,
         motionCursorData?: Partial<State["motionCursorData"]>
     ) {
         return {
-            ...prevState,
-            ...{
-                motionCursorData: {
-                    ...initialState.motionCursorData,
-                    ...(motionCursorData || prevState.motionCursorData),
-                },
-                isMotionCursorVisible,
+            isMotionCursorVisible,
+            motionCursorData: {
+                ...initialState.motionCursorData,
+                ...(motionCursorData || state.motionCursorData),
             },
         };
     },
