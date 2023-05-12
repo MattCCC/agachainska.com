@@ -16,7 +16,8 @@ interface Props {
 const NoiseWrapper = styled.div(() => [
     tw`absolute top-0 left-0 z-0 w-full h-full min-h-screen overflow-hidden`,
     css`
-        --y: 0px;
+        --y: 0;
+        --x: 0;
         backface-visibility: hidden;
         transform: scale(1);
         background: url("/img/bg-pattern.webp") repeat;
@@ -34,13 +35,20 @@ export const BackgroundNoise = ({
     const noiseRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (!noiseRef.current) {
+            return;
+        }
+
+        const ref = noiseRef.current;
+
         const intervalId = requestInterval(() => {
-            if (noiseRef.current) {
-                noiseRef.current.style.setProperty(
-                    "--x",
-                    getRandomNumber(0, 100) + "px"
-                );
-            }
+            const randX = getRandomNumber(0, 100);
+            const randY = getRandomNumber(0, 100);
+
+            ref.setAttribute(
+                "style",
+                "--x: " + randX + "px; " + "--y: " + randY + "px"
+            );
         }, 150);
 
         return (): void => {

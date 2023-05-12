@@ -39,6 +39,8 @@ const Cursor = styled.div(
                 margin-left: -${size || cursorSize}px;
             `,
         css`
+            --top: -100px;
+            --left: -100px;
             top: var(--top);
             left: var(--left);
             width: ${size || cursorSize}px;
@@ -46,10 +48,6 @@ const Cursor = styled.div(
             transform: translate(-50%, -50%);
             transition: transform 300ms;
             will-change: left, top;
-
-            a {
-                cursor: none;
-            }
         `,
         !isMotionCursorVisible &&
             css`
@@ -59,9 +57,9 @@ const Cursor = styled.div(
     ]
 );
 
-const TextWrapper = styled.div(() => [tw`flex w-full h-full`]);
+const TextWrapper = styled.div(() => [tw`flex w-full h-full cursor-none`]);
 
-const LinkWrapper = styled.a(() => [tw`flex w-full h-full`]);
+const LinkWrapper = styled.a(() => [tw`flex w-full h-full cursor-none`]);
 
 const CursorText = styled.div(() => [
     tw`m-auto cursor-none w-[80%] leading-[16px]`,
@@ -204,15 +202,17 @@ export const MotionCursor = ({
             return;
         }
 
-        const refStyle = cursorRef.current.style;
+        const refStyle = cursorRef.current;
 
         const setMousePosition = ({ clientX = 0, clientY = 0 }) => {
             if (onPositionUpdate) {
                 onPositionUpdate(clientX, clientY);
             }
 
-            refStyle.setProperty("--top", clientY + "px");
-            refStyle.setProperty("--left", clientX + "px");
+            refStyle.setAttribute(
+                "style",
+                "--top: " + clientY + "px; --left: " + clientX + "px"
+            );
         };
 
         window.addEventListener("mousemove", setMousePosition);

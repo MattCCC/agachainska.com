@@ -1,12 +1,4 @@
-import {
-    useMemo,
-    useState,
-    CSSProperties,
-    useCallback,
-    useRef,
-    RefObject,
-    Fragment,
-} from "react";
+import { useCallback, Fragment, RefObject, useRef } from "react";
 
 import tw, { styled, css } from "twin.macro";
 
@@ -21,6 +13,8 @@ const Title = styled.h1(() => [
     tw`lg:[-webkit-text-fill-color:transparent]`,
     css`
         width: 634px;
+        --y: 0;
+        --x: 0;
 
         &:before {
             ${tw`absolute top-0 left-0 hidden text-white lg:block`}
@@ -36,38 +30,40 @@ const Title = styled.h1(() => [
     `,
 ]);
 
+const cursorMarginLeft = 31;
+
 function HomepageTitle() {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
-    const defaultState = useMemo(() => ({ x: 0, y: 0 }), []);
-    const [position, setPosition] = useState(defaultState);
-
-    const titleStyle = {
-        "--x": `${position.x}px`,
-        "--y": `${position.y}px`,
-    } as CSSProperties;
+    const el = titleRef.current;
 
     const onPositionUpdate = useCallback(
         (clientX: number, clientY: number) => {
-            const clientRect = (
-                titleRef.current as HTMLHeadingElement
-            ).getBoundingClientRect();
-            const cursorMarginLeft = 31;
+            if (!el) {
+                return;
+            }
 
-            setPosition({
-                x: clientX - clientRect.left - cursorMarginLeft,
-                y: clientY - clientRect.top,
-            });
+            const clientRect = el.getBoundingClientRect();
+
+            if (!clientRect) {
+                return;
+            }
+
+            el.setAttribute(
+                "style",
+                "--y: " +
+                    (clientY - clientRect.top) +
+                    "px; " +
+                    "--x: " +
+                    (clientX - clientRect.left - cursorMarginLeft) +
+                    "px"
+            );
         },
-        [titleRef]
+        [el]
     );
 
     return (
         <Fragment>
-            <Title
-                data-text={TranslateText("home.title")}
-                style={titleStyle}
-                ref={titleRef}
-            >
+            <Title data-text={TranslateText("home.title")} ref={titleRef}>
                 <Translate id="home.title" />
             </Title>
             <MotionCursor onPositionUpdate={onPositionUpdate} />

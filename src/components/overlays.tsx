@@ -60,7 +60,7 @@ const Overlays = memo(
                     <TopOverlay />
 
                     <motion.div
-                        className="fixed left-0 right-0 w-full h-full"
+                        className="fixed left-0 right-0 w-full h-full will-change-transform"
                         style={{
                             backgroundColor: backgroundColors[0],
                             zIndex: 1030,
@@ -78,7 +78,7 @@ const Overlays = memo(
                         exit="end"
                     />
                     <motion.div
-                        className="fixed left-0 right-0 w-full h-full"
+                        className="fixed left-0 right-0 w-full h-full will-change-transform"
                         style={{
                             backgroundColor: backgroundColors[1],
                             zIndex: 1020,
@@ -93,14 +93,14 @@ const Overlays = memo(
                         exit="end"
                     />
                     <motion.div
-                        className="fixed left-0 right-0 w-full h-full"
+                        className="fixed left-0 right-0 w-full h-full will-change-transform"
                         style={{
                             backgroundColor: backgroundColors[2],
                             zIndex: 1010,
                         }}
                         custom={{
                             id: 3,
-                            duration: duration * 0.5,
+                            duration: duration * 0.4,
                         }}
                         variants={OverlayVariants}
                         animate="enter"

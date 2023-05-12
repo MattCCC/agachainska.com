@@ -16,13 +16,13 @@ export const fullPageOverlayColor = "#000";
 
 const OverlayFullPageVariants = {
     initial: {
-        top: "100%",
+        y: "100%",
         transition: { ...transition, duration: 0 },
         display: "none",
     },
     enter: {
         display: "block",
-        top: "0%",
+        y: "0%",
         transition: {
             ...transition,
             duration: fullPageOverlayDurationMs / 1000,
@@ -30,7 +30,7 @@ const OverlayFullPageVariants = {
     },
     end: {
         display: "block",
-        top: "-100%",
+        y: "-100%",
         transition: {
             ...transition,
             duration: fullPageOverlayDurationMs / 1000,
@@ -62,7 +62,7 @@ export const FullPageOverlay = memo(
             timeout.current = setTimeout(() => {
                 setIsSchedulerReady(true);
             }, fullPageOverlayDurationMs);
-        }, [currentDelayedRoute]);
+        }, []);
 
         const end = useCallback(() => {
             setIsRouteChanged(true);
