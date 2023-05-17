@@ -79,7 +79,7 @@ const MainTitleWrapper = styled.div(
     tw`absolute max-w-[90%] bottom-[-43px] lg:bottom-[-74px]`
 );
 
-const H2Span = styled.span(tw`inline-block w-[50%] lg:leading-[62px]`);
+const H2Span = styled.span(tw`block pt-16 -mt-16 w-[50%] lg:leading-[62px]`);
 
 const MainTitle = styled(MainTitleBottom)(() => [
     tw`uppercase bg-project-title-gradient lg:bg-project-title-gradient-lg`,
