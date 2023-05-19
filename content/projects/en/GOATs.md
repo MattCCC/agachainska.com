@@ -147,16 +147,10 @@ sections:
       - title: Key insights
         content: "* Respondents who described themselves as demotivated and unhappy also claimed that their achievements are not recognised nor rewarded adequately to the efforts they put in.\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_\n* Respondents with no employee retention program in place are only rewarded with verbal recognition. A ‘thank you’ or ‘well done’ without any other form of recognition often leads to negative attitude towards employers and scepticism, whilst achievements get easily forgotten.\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_\n* Respondents with a recognition program appreciate rewards such as gift vouchers or discounts, however they don’t find them memorable. Generally, they don’t feel like such forms of recognition impact their work motivation level.\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_\n* Different individuals feel motivated and appreciated through different factors.\n"
         _template: text
-  - title: Deliver
-    showInTimeline: true
-    showSectionTitle: true
   - title: Define
     showInTimeline: true
     showSectionTitle: true
     elements:
-      - title: Business objectives
-        content: "\\- Bring visibility to employees’ big and small achievements\_ \_ \_ \_ \_ \_\n\n\\- Make rewards memorable\_ \_ \_ \_ \_ \_\n\n\\- Provide clear criteria for measuring performance \_ \_ \_ \_ \_ \_\n\n\\- Provide platform that is fun and easy to use\n"
-        _template: text
       - title: User personas
         content: "\_Based on the research I have collated and trends and patterns I have observed, I created 3 user personas:\_ \_ \_ \_ \_ \_\n\n\\- Sara, a high-skilled professional working for a medium sized fin-tech company.\_ \_ \_ \_ \_ \_\n\n\\- Harry, a low-skilled individual hired by a huge global enterprise. \_ \_ \_ \_ \_ \_\n\n\\- Pavel, team leader working for a large international company with ‘remote-first’ strategy. \_ \_ \_ \_ \_ \_\n\nPersonas represent 3 different user types from primary target audience.\_ Personifying my research findings helped me identify with users I’m designing for. I had been referring to the personas repeatedly at different stages of the design process to make sure the product is focused around their needs and solving their problems.\n"
         _template: text
@@ -179,6 +173,12 @@ sections:
       - title: Supportive problems to be solved
         content: "\\- Many employees feel like little visibility of their efforts and achievements leads to unfair assessment of their performance in the long run. Some of them don’t know if their employers are aware of the quality of work delivered by them and if they are on the right path to pay rise/promotion.\_ \_ \_ \_ \_ \_\n\n\\- Existing motivating platforms are buggy, hard to use and don't bring any value to employees for using them. In fact they feel like yet another task that needs to be completed without gaining anything in return.\n"
         _template: text
+      - title: Business objectives
+        content: "\\- Bring visibility to employees’ big and small achievements\_ \_ \_ \_ \_ \_\n\n\\- Make rewards memorable\_ \_ \_ \_ \_ \_\n\n\\- Provide clear criteria for measuring performance \_ \_ \_ \_ \_ \_\n\n\\- Provide platform that is fun and easy to use\n"
+        _template: text
+  - title: Deliver
+    showInTimeline: true
+    showSectionTitle: true
   - title: Develop
     showInTimeline: true
     showSectionTitle: true
@@ -346,6 +346,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
