@@ -183,6 +183,10 @@ sections:
       - title: '''How might we'' questions'
         content: "As a next step I came up with specific questions around the problem statement. Framing my challenge into HMW questions helped me open up the exploration space.\_\n"
         _template: text
+      - images:
+          - image: >-
+              https://assets.tina.io/42002fc2-493d-4640-a909-8d1fa660acf3/img/projects/6.jpeg
+        _template: images
       - title: Customer journey
         content: >
           I have chosen Sara as my primary persona and mapped out her experience
@@ -346,6 +350,7 @@ sections:
     showInTimeline: true
     showSectionTitle: true
 ---
+
 
 
 
