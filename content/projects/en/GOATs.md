@@ -44,6 +44,11 @@ sections:
           additional motivation to rekindle their enthusiasm. Client's
           hypothesis is that:
         _template: text
+      - quote: >
+          ‘People tend to be motivated by financial incentives. They love
+          coupons and promotions and would stay loyal to certain shops only
+          because they were getting good deals.'
+        _template: quote
       - title: User research
         content: >
           First and foremost my goal was to get to know the primary users -
@@ -56,11 +61,6 @@ sections:
           size corporations across all levels of seniority in various
           industries.
         _template: text
-      - quote: >
-          ‘People tend to be motivated by financial incentives. They love
-          coupons and promotions and would stay loyal to certain shops only
-          because they were getting good deals.'
-        _template: quote
       - title: ' '
         content: "Therefore, the main business goal was to:\_ \_ \_ \_ \_ \_\n\n\\- Create a tool that supports employees in feeling satisfied and fulfilled at their workplace for a long time.\_ \_ \_ \_ \_ \_\n\n\\- Release a MVP and get feedback.\n"
         _template: text
@@ -330,6 +330,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
