@@ -359,7 +359,12 @@ sections:
   - title: Deliver
     showInTimeline: true
     showSectionTitle: true
+    elements:
+      - type: iPhoneX
+        link: 'https://aga-chainska.netlify.app'
+        _template: device
 ---
+
 
 
 
