@@ -75,7 +75,7 @@ sections:
           industries.
         _template: text
       - images:
-          - fullPageImage: true
+          - fullPageImage: false
             image: /userinterviews.jpg
         _template: images
       - title: ' '
@@ -334,6 +334,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
