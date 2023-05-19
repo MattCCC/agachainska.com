@@ -1,8 +1,8 @@
 ---
-name: GOAT
-shortDescription: Employee retention tool
+name: GOATs
+shortDescription: Employee retention tool.
 category: UX/UI
-timelineTitle: GOAT
+timelineTitle: GOATS
 workPageColor: '#FFFFFF'
 starColor: '#F5A4FF'
 cover: /img/projects/Image-1.png
@@ -10,14 +10,17 @@ keyInfo:
   - title: Project timeframe & duration
     text: March-May 2021
   - title: My role in the project
-    text: Product designer
+    text: UX designer.
 sections:
+  - title: Deliver
+    showInTimeline: true
+    showSectionTitle: true
   - title: Challenge
     showInTimeline: true
     showSectionTitle: true
     elements:
       - title: Background
-        content: "In the world that is so busy people tend to change jobs often. Millennials, who currently make up the majority of global workforce,\_have a reputation for job-hopping. ‘Unattached to organizations and institutions, people from this generation (…) are said to move freely from company to company, more so than any other generation.’ (Amy Adkins,\n\nI was tasked to work on a product that would encourage the best talent to stay with a single company. The client’s vision was to create a win-win situation for employees and employers - where employees stay happy and motivated to keep their performance high, while the employer retains their best talent.\n"
+        content: "In the world that is so   busy people tend to change jobs often. Millennials, who currently make up the majority of global workforce,\_have a reputation for job-hopping. ‘Unattached to organizations and institutions, people from this generation (…) are said to move freely from company to company, more so than any other generation.’ (Amy Adkins,\n\nI was tasked to work on a product that would encourage the best talent to stay with a single company. The client’s vision was to create a win-win situation for employees and employers - where employees stay happy and motivated to keep their performance high, while the employer retains their best talent.\n"
         _template: text
       - title: Target Audience
         content: >
@@ -325,10 +328,8 @@ sections:
           categories should be given more importance on the screen and be made
           more visually prominent.
         _template: text
-  - title: Deliver
-    showInTimeline: true
-    showSectionTitle: true
 ---
+
 
 
 
