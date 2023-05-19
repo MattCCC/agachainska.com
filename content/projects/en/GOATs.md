@@ -217,7 +217,7 @@ sections:
         content: "This exercise helped me determine the area of human well-being the existing reward types help fulfil. I found it a great starting point when brainstorming other reward ideas that can be found in the value proposition below.\n\_ \_ \_ \_ \_ \_\n\nIn light of the above learnings, product's vision has been updated:\n"
         _template: text
       - images:
-          - fullPageImage: true
+          - fullPageImage: false
             image: /img/projects/11.Productvisionrevised.jpg
         _template: images
       - title: 'Value proposition:'
@@ -352,6 +352,7 @@ sections:
     showInTimeline: true
     showSectionTitle: true
 ---
+
 
 
 
