@@ -5,7 +5,8 @@ category: UX/UI
 timelineTitle: GOAT
 workPageColor: '#FFFFFF'
 starColor: '#F5A4FF'
-cover: /img/projects/Image-1.png
+cover: >-
+  https://assets.tina.io/42002fc2-493d-4640-a909-8d1fa660acf3/img/projects/Image.jpg
 keyInfo:
   - title: Project timeframe & duration
     text: March-May 2021
@@ -359,6 +360,7 @@ sections:
     showInTimeline: true
     showSectionTitle: true
 ---
+
 
 
 
