@@ -53,7 +53,7 @@ sections:
         content: "Therefore, the main business goal was to:\_ \_ \_ \_ \_ \_\n\n* Create a tool that supports employees in feeling satisfied and fulfilled at their workplace for a long time.\_ \_ \_ \_ \_ \_\n* Release a MVP and get feedback.\n"
         _template: text
       - title: Project goals
-        content: "* \_Validate client's hypothesis\_ \_ \_ \_ \_ \_\n* Define V1 set of features\_\_ \_ \_ \_ \_ \_\n* Define user-facing part of the platform\n"
+        content: "* Validate client's hypothesis\_ \_ \_ \_ \_ \_\n* Define V1 set of features\_\_ \_ \_ \_ \_ \_\n* Define user-facing part of the platform\n"
         _template: text
       - title: Secondary users' goals
         content: "**Why do medium to large size organisations need the product?**\n\_ \_ \_ \_ \_ \_\n\nEmployee turnover cost is typically higher than retention cost. Employee Benefits News reported in 2017 that turnover can cost employers 33% of an employee’s annual salary. Additionally, ‘A 5% increase in employee retention can generate a 25% to 85% increase in profitability’. Source\n\_ \_ \_ \_ \_ \_\n\nTherefore, it’s clear that from financial point of view, it is in the employer’s best interest to keep their employees on board. More and more employers recognise that investing in an employee engagement program is cheaper than hiring new employees in the long run.\n"
@@ -334,6 +334,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
