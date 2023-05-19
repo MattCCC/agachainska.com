@@ -189,14 +189,15 @@ sections:
         _template: images
       - title: Customer journey
         content: >
-          I have chosen Sara as my primary persona and mapped out her experience
-          with a recognition platform she currently uses at her workplace while
-          keeping her goals and needs in mind. To inform this activity I asked
-          one of my interviewees to show me how they use such platform at their
-          workplace and describe their experience with it. The product used in
-          this person workplace rewards users with gift vouchers. Vouchers are
-          granted to people who were first nominated by their colleagues in a
-          private message to their managers, and then selected by the manager.
+          I have chosen Sara as my **primary persona** and mapped out her
+          experience with a recognition platform she currently uses at her
+          workplace while keeping her goals and needs in mind. To inform this
+          activity I asked one of my interviewees to show me how they use such
+          platform at their workplace and describe their experience with it. The
+          product used in this person workplace rewards users with gift
+          vouchers. Vouchers are granted to people who were first nominated by
+          their colleagues in a private message to their managers, and then
+          selected by the manager.
         _template: text
       - images:
           - fullPageImage: true
@@ -350,6 +351,7 @@ sections:
     showInTimeline: true
     showSectionTitle: true
 ---
+
 
 
 
