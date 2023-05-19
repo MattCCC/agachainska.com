@@ -145,7 +145,7 @@ sections:
             image: /img/projects/8.affinitydiagram.jpg
         _template: images
       - title: Key insights
-        content: "Respondents who described themselves as demotivated and unhappy also claimed that their achievements are not recognised nor rewarded adequately to the efforts they put in.\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_\n\nRespondents with no employee retention program in place are only rewarded with verbal recognition. A ‘thank you’ or ‘well done’ without any other form of recognition often leads to negative attitude towards employers and scepticism, whilst achievements get easily forgotten.\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_\n\nRespondents with a recognition program appreciate rewards such as gift vouchers or discounts, however they don’t find them memorable. Generally, they don’t feel like such forms of recognition impact their work motivation level.\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_\n\nDifferent individuals feel motivated and appreciated through different factors.\n"
+        content: "* Respondents who described themselves as demotivated and unhappy also claimed that their achievements are not recognised nor rewarded adequately to the efforts they put in.\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_\n* Respondents with no employee retention program in place are only rewarded with verbal recognition. A ‘thank you’ or ‘well done’ without any other form of recognition often leads to negative attitude towards employers and scepticism, whilst achievements get easily forgotten.\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_\n* Respondents with a recognition program appreciate rewards such as gift vouchers or discounts, however they don’t find them memorable. Generally, they don’t feel like such forms of recognition impact their work motivation level.\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_\n* Different individuals feel motivated and appreciated through different factors.\n"
         _template: text
   - title: Deliver
     showInTimeline: true
@@ -346,6 +346,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
