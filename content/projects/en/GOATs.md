@@ -284,7 +284,7 @@ sections:
           features.
         _template: text
       - images:
-          - fullPageImage: true
+          - fullPageImage: false
             image: /img/projects/appflow.jpg
         _template: images
       - title: ' '
@@ -360,6 +360,7 @@ sections:
     showInTimeline: true
     showSectionTitle: true
 ---
+
 
 
 
