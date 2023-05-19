@@ -1,8 +1,8 @@
 ---
-name: GOATs
+name: GOAT
 shortDescription: Employee retention tool
 category: UX/UI
-timelineTitle: GOATS
+timelineTitle: GOAT
 workPageColor: '#FFFFFF'
 starColor: '#F5A4FF'
 cover: /img/projects/Image-1.png
@@ -326,6 +326,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
