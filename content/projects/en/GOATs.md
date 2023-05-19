@@ -99,7 +99,7 @@ sections:
           didn’t think about at first.
         _template: text
       - images:
-          - fullPageImage: true
+          - fullPageImage: false
             image: /img/projects/4.Maslowshieratchy.jpg
         _template: images
       - title: ' '
@@ -346,6 +346,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
