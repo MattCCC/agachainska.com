@@ -210,7 +210,7 @@ sections:
         content: "At this point it became clear that my client hypothesis that access to deals and coupons can help millennials feel motivated and stay at a single workplace may prove ineffective for many users because:\_ \_ \_ \_ \_ \_\n\n\\- Large percentage of millennials don’t care about discounts and deals\_ \_ \_ \_ \_ \_\n\n\\- Only large and relevant discounts and deals are considered a meaningful reward for many (these might be difficult to obtain for my client)\_\_ \_ \_ \_ \_ \_\n\n\\- Many millennials don’t consider deals, coupons and vouchers memorable nor impactful reward types\n\_ \_ \_ \_ \_ \_\n\nThe research showed that while for some users these might be important (f.ex. retail workers) others may find them completely invaluable. Talking to potential users proved that people feel motivated by various factors. Therefore, an effective retention tool and reward system should be flexible and accommodate for users’ individual needs.\n\_ \_\n\nI referred back to user interviews and CIPD reports when trying to determine possible reward types. Charles Cotton & Jill Miller state that ‘while financial well-being exists at a personal level, a lack of it can (…) have a big impact on the workplace and society as whole worth a loss of productivity and effectiveness.’ At the same time ‘‘there is (…) a growing recognition that wellness is holistic and co-dependent; physical, emotional and financial health work together, and if one part is missing, this imbalance may also impact the other two.'\n\_ \_ \_ \_ \_ \_\n\nI put together a well-being tree based on CIPD report (green post-it notes) and put user interview findings about different workplace rewards (purple post-it notes) against the right category:\n"
         _template: text
       - images:
-          - fullPageImage: true
+          - fullPageImage: false
             image: /img/projects/12.wellbeingtree.jpg
         _template: images
       - title: ' '
@@ -352,6 +352,7 @@ sections:
     showInTimeline: true
     showSectionTitle: true
 ---
+
 
 
 
