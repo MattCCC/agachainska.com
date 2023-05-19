@@ -111,7 +111,7 @@ sections:
           this stage, the below product vision was formed:
         _template: text
       - images:
-          - fullPageImage: true
+          - fullPageImage: false
             image: /img/projects/3.Product vision.png
         _template: images
       - title: ' '
@@ -346,6 +346,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
