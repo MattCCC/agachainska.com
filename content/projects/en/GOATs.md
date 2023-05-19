@@ -33,11 +33,11 @@ sections:
         _template: text
       - title: Target Audience
         content: >
-          Primary: Employees working for medium to large size organisations,
+          **Primary:** Employees working for medium to large size organisations,
           aged between 20 and 40 (born between early 1980's and early 2000).
 
 
-          Secondary: The customer (Company owner / HR department)
+          **Secondary:** The customer (Company owner / HR department)
         _template: text
   - title: Deliver
     showInTimeline: true
@@ -341,6 +341,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
