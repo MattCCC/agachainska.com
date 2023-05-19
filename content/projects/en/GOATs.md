@@ -141,7 +141,7 @@ sections:
         content: "Analysing my respondents statements using empathy mapping helped me put myself in their shoes. I collected gathered information and opinions and put together an affinity diagram which helped me synthesise my research findings.\_\n"
         _template: text
       - images:
-          - fullPageImage: false
+          - fullPageImage: true
             image: /img/projects/8.affinitydiagram.jpg
         _template: images
       - title: Key insights
