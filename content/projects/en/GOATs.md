@@ -27,13 +27,23 @@ sections:
 
           **Secondary:** The customer (Company owner / HR department)
         _template: text
-  - title: Deliver
-    showInTimeline: true
-    showSectionTitle: true
   - title: Discover
     showInTimeline: true
     showSectionTitle: true
     elements:
+      - title: 'Business need & goals '
+        content: >
+          An interview conducted with the client at the very beginning of the
+          project revealed the below findings:
+
+
+          The client is a fin-tech start-up made up of a group of people who
+          have experience working in a big company in the past. The thing they
+          have in common is the fact that they all started losing interest in
+          the role after working for a company for a while and felt a need for
+          additional motivation to rekindle their enthusiasm. Client's
+          hypothesis is that:
+        _template: text
       - title: User research
         content: >
           First and foremost my goal was to get to know the primary users -
@@ -45,18 +55,6 @@ sections:
           I set up video interviews with millennials working at medium and large
           size corporations across all levels of seniority in various
           industries.
-        _template: text
-      - title: 'Business need & goals '
-        content: >
-          Interview conducted with the client at the very beginning of the
-          project revealed the below findings:
-
-
-          The client is a fin-tech start-up made up of a group of people who
-          have experience working in a big company in the past. The thing they
-          have in common is the fact that they all started losing interest in
-          the role after working for a company for a while and felt like they
-          needed an extra motivation. Client's hypothesis is that:
         _template: text
       - quote: >
           ‘People tend to be motivated by financial incentives. They love
@@ -133,6 +131,9 @@ sections:
       - title: Key insights
         content: "Respondents who described themselves as demotivated and unhappy also claimed that their achievements are not recognised nor rewarded adequately to the efforts they put in.\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_\n\nRespondents with no employee retention program in place are only rewarded with verbal recognition. A ‘thank you’ or ‘well done’ without any other form of recognition often leads to negative attitude towards employers and scepticism, whilst achievements get easily forgotten.\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_\n\nRespondents with a recognition program appreciate rewards such as gift vouchers or discounts, however they don’t find them memorable. Generally, they don’t feel like such forms of recognition impact their work motivation level.\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_\n\nDifferent individuals feel motivated and appreciated through different factors.\n"
         _template: text
+  - title: Deliver
+    showInTimeline: true
+    showSectionTitle: true
   - title: Define
     showInTimeline: true
     showSectionTitle: true
@@ -329,6 +330,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
