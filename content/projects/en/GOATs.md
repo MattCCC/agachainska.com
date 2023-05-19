@@ -103,7 +103,7 @@ sections:
             image: /img/projects/4.Maslowshieratchy.jpg
         _template: images
       - title: ' '
-        content: "I have determined that our product should primarily focus around supporting employees in fulfilling their psychological needs. It would not only drive engagement\_but also allow on creating solid fundaments for the employees to focus on working towards meeting their self-actualisation needs.\_\n\_ \_ \_ \_ \_ \_\n\nOur product should focus around supporting users in:\_ \_ \_ \_ \_ \_ \_\n\n```\n\\- Feeling recognised (appreciated)\_ \_ \_ \_ \_ \_ \_ \n\n\\- Feeling respected\n\n\\- Feeling a vital part of the business\_ \_ \_ \_ \_ \_ \_ \n\n\\- Working within collaborative culture\n```\n"
+        content: "I have determined that our product should primarily focus around supporting employees in fulfilling their **psychological needs**. It would not only drive engagement\_but also allow on creating solid fundaments for the employees to focus on working towards meeting their self-actualisation needs.\_\n\_ \_ \_ \_ \_ \_\n\nOur product should focus around supporting users in:\_ \_ \_\n\n* Feeling appreciated\n* Feeling respected  \_\n* Feeling a vital part of the business\n* Working within a collaborative culture \_\n"
         _template: text
       - title: ' '
         content: >
@@ -346,6 +346,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
