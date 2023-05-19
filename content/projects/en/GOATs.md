@@ -31,7 +31,7 @@ sections:
     showInTimeline: true
     showSectionTitle: true
     elements:
-      - title: 'Business need & goals '
+      - title: 'Business needs & goals '
         content: >
           An interview conducted with the client at the very beginning of the
           project revealed the below findings:
@@ -330,6 +330,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
