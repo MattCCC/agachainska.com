@@ -10,7 +10,7 @@ keyInfo:
   - title: Project timeframe & duration
     text: March-May 2021
   - title: My role in the project
-    text: UX designer
+    text: Product Designer
 sections:
   - title: Challenge
     showInTimeline: true
@@ -326,6 +326,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
