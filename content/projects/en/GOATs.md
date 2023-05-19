@@ -67,7 +67,19 @@ sections:
           First and foremost my goal was to get to know the primary users -
           their views, motivations and frustrations at work. I looked at their
           level of satisfaction at their current workplace and factors that
-          conditioned
+          conditioned it.
+
+
+          My research objectives were to:
+
+
+          * Understand millennials motivation factors at the workplace
+
+          * Learn about what currently works and what doesn't
+
+          * Identify what made them leave their previous workplace
+
+          * Find opportunities to help them feel motivated at their workplace
 
 
           I set up video interviews with millennials working at medium and large
@@ -334,6 +346,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
