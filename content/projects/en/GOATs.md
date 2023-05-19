@@ -53,7 +53,7 @@ sections:
         content: "Therefore, the main business goal was to:\_ \_ \_ \_ \_ \_\n\n\\- Create a tool that supports employees in feeling satisfied and fulfilled at their workplace for a long time.\_ \_ \_ \_ \_ \_\n\n\\- Release a MVP and get feedback.\n"
         _template: text
       - title: Project goals
-        content: "\_- Validate client's hypothesis\_ \_ \_ \_ \_ \_\n\n\\- Define V1 set of features\_\_ \_ \_ \_ \_ \_\n\n\\- Define user-facing part of the platform\n"
+        content: "* \_Validate client's hypothesis\_ \_ \_ \_ \_ \_\n* Define V1 set of features\_\_ \_ \_ \_ \_ \_\n* Define user-facing part of the platform\n"
         _template: text
       - title: User research
         content: >
@@ -330,6 +330,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
