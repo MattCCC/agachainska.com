@@ -126,7 +126,7 @@ sections:
           Interviewees with no employee retention program in place said:
         _template: text
       - images:
-          - fullPageImage: true
+          - fullPageImage: false
             image: /img/projects/5.Reserach-quotes.png
         _template: images
       - title: ' '
@@ -134,7 +134,7 @@ sections:
           Interviewees with employee retention program in place said:
         _template: text
       - images:
-          - fullPageImage: true
+          - fullPageImage: false
             image: /img/projects/7.quotes.jpg
         _template: images
       - title: ' '
@@ -346,6 +346,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
