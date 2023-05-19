@@ -176,9 +176,6 @@ sections:
       - title: Business objectives
         content: "\\- Bring visibility to employees’ big and small achievements\_ \_ \_ \_ \_ \_\n\n\\- Make rewards memorable\_ \_ \_ \_ \_ \_\n\n\\- Provide clear criteria for measuring performance \_ \_ \_ \_ \_ \_\n\n\\- Provide platform that is fun and easy to use\n"
         _template: text
-  - title: Deliver
-    showInTimeline: true
-    showSectionTitle: true
   - title: Develop
     showInTimeline: true
     showSectionTitle: true
@@ -345,7 +342,11 @@ sections:
           categories should be given more importance on the screen and be made
           more visually prominent.
         _template: text
+  - title: Deliver
+    showInTimeline: true
+    showSectionTitle: true
 ---
+
 
 
 
