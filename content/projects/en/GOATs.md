@@ -308,6 +308,7 @@ sections:
           Some of the app wireframes:
         content: ''
         _template: text
+      - _template: devices
       - title: Usability testing
         content: >
           Moderated usability testing conducted with 5 participants uncovered
@@ -351,6 +352,7 @@ sections:
     showInTimeline: true
     showSectionTitle: true
 ---
+
 
 
 
