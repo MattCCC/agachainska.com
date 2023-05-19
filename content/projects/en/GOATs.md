@@ -228,6 +228,11 @@ sections:
           product. This helped me ensure that product not only solves users’
           problems but also provides features that delight them.
         _template: text
+      - images:
+          - fullPageImage: true
+            image: >-
+              https://assets.tina.io/42002fc2-493d-4640-a909-8d1fa660acf3/img/projects/8.jpeg
+        _template: images
       - title: Competitive analysis
         content: "I critically analysed direct and indirect competitor products in order to identify their weaknesses and strong points. It gave me an opportunity to see how our product can improve on top of what I have already planned.\n\_ \_ \_ \_ \_ \_ I’ve started by using the products myself and annotating things I liked (green post-it notes) and disliked (red post-it notes).\n"
         _template: text
@@ -352,6 +357,7 @@ sections:
     showInTimeline: true
     showSectionTitle: true
 ---
+
 
 
 
