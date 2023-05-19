@@ -12,13 +12,22 @@ keyInfo:
   - title: My role in the project
     text: Product designer
 sections:
-  - title: Deliver
-    showInTimeline: true
-    showSectionTitle: true
   - title: Challenge
     showInTimeline: true
     showSectionTitle: true
     elements:
+      - title: Project goals
+        content: >
+          * Develop an initial digital app prototype with a user-centric
+          approach, primarily focusing on the employee's perspective.
+
+          * Validate client’s concept, check if the product would be desirable
+          among target audience
+
+          * Concentrate on the user-facing aspects of the platform during phase
+          1, emphasizing the essential features to provide the client with a
+          clear understanding of the intended functionality of the product.
+        _template: text
       - title: Background
         content: "In the world that is so   busy people tend to change jobs often. Millennials, who currently make up the majority of global workforce,\_have a reputation for job-hopping. ‘Unattached to organizations and institutions, people from this generation (…) are said to move freely from company to company, more so than any other generation.’ (Amy Adkins,\n\nI was tasked to work on a product that would encourage the best talent to stay with a single company. The client’s vision was to create a win-win situation for employees and employers - where employees stay happy and motivated to keep their performance high, while the employer retains their best talent.\n"
         _template: text
@@ -30,6 +39,9 @@ sections:
 
           Secondary: The customer (Company owner / HR department)
         _template: text
+  - title: Deliver
+    showInTimeline: true
+    showSectionTitle: true
   - title: Discover
     showInTimeline: true
     showSectionTitle: true
@@ -329,6 +341,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
