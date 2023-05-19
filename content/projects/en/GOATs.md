@@ -1,8 +1,8 @@
 ---
-name: GOAT
+name: GOATs
 shortDescription: Employee retention tool
 category: UX/UI
-timelineTitle: GOAT
+timelineTitle: GOATS
 workPageColor: '#FFFFFF'
 starColor: '#F5A4FF'
 cover: /img/projects/Image-1.png
@@ -10,8 +10,11 @@ keyInfo:
   - title: Project timeframe & duration
     text: March-May 2021
   - title: My role in the project
-    text: Product Designer
+    text: UX designer
 sections:
+  - title: Deliver
+    showInTimeline: true
+    showSectionTitle: true
   - title: Challenge
     showInTimeline: true
     showSectionTitle: true
@@ -326,6 +329,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
