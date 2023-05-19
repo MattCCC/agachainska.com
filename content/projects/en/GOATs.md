@@ -55,6 +55,9 @@ sections:
       - title: Project goals
         content: "* \_Validate client's hypothesis\_ \_ \_ \_ \_ \_\n* Define V1 set of features\_\_ \_ \_ \_ \_ \_\n* Define user-facing part of the platform\n"
         _template: text
+      - title: Secondary users' goals
+        content: "**Why do medium to large size organisations need the product?**\n\_ \_ \_ \_ \_ \_\n\nEmployee turnover cost is typically higher than retention cost. Employee Benefits News reported in 2017 that turnover can cost employers 33% of an employee’s annual salary. Additionally, ‘A 5% increase in employee retention can generate a 25% to 85% increase in profitability’. Source\n\_ \_ \_ \_ \_ \_\n\nTherefore, it’s clear that from financial point of view, it is in the employer’s best interest to keep their employees on board. More and more employers recognise that investing in an employee engagement program is cheaper than hiring new employees in the long run.\n"
+        _template: text
       - title: User research
         content: >
           First and foremost my goal was to get to know the primary users -
@@ -66,9 +69,6 @@ sections:
           I set up video interviews with millennials working at medium and large
           size corporations across all levels of seniority in various
           industries.
-        _template: text
-      - title: Secondary users' goals
-        content: "Why medium to large size organisations need the product?\n\_ \_ \_ \_ \_ \_\n\nEmployee turnover cost is typically higher than retention cost. Employee Benefits News reported in 2017 that turnover can cost employers 33% of an employee’s annual salary. Additionally, ‘A 5% increase in employee retention can generate a 25% to 85% increase in profitability’. Source\n\_ \_ \_ \_ \_ \_\n\nTherefore, it’s clear that from financial point of view, it is in the employer’s best interest to keep their employees on board. More and more employers recognise that investing in an employee engagement program is cheaper than hiring new employees in the long run.\n\_ \_ \_ \_ \_ \_\n\nChartered Institute of Personnel and Development in their reports claims that ‘‘There’s a clear case for taking action and supporting employee financial well-being, making it an integral part of creating a healthy workplace where people can flourish, reach their potential and make a significant contribution to their organisation’s performance’ and that ’Improving financial well-being really is a the Holy Grail; it helps individual workers to get their finances on track as well as helps businesses to increase productivity, engagement and retention ‘(Jeanette Makings). At the same time they claim that ‘’Rewards and benefits form the most important building block for employees to improve finances ‘(CIPD).\n"
         _template: text
       - images:
           - fullPageImage: true
@@ -330,6 +330,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
