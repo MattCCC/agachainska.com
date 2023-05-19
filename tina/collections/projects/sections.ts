@@ -57,7 +57,7 @@ export default [
                 name: "elements",
                 type: "object",
                 list: true,
-                required: true,
+                required: false,
                 ui: {
                     visualSelector: false,
                 },

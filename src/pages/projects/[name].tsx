@@ -171,7 +171,11 @@ const sectionLoader = (
     gallerySliderElementsGap: number = 0,
     otherProjects: ProjectData[] | null = null
 ) =>
-    elements.map((el, index) => {
+    elements?.map((el, index) => {
+        if (!el) {
+            return null;
+        }
+
         const element = el.__typename;
 
         switch (element) {

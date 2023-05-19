@@ -20,7 +20,7 @@ export interface ProjectSectionElementDevice {
 
 export type ProjectSection = ProjectQuery["project"]["sections"][0];
 
-export type ProjectSectionsElement = ProjectSection["elements"][0];
+export type ProjectSectionsElement = NonNullable<ProjectSection["elements"]>[0];
 
 export interface ProjectKeyInfo {
     readonly elements: ProjectKeyInfoElement[];
