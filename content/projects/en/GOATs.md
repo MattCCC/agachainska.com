@@ -58,6 +58,10 @@ sections:
       - title: Secondary users' goals
         content: "**Why do medium to large size organisations need the product?**\n\_ \_ \_ \_ \_ \_\n\nEmployee turnover cost is typically higher than retention cost. Employee Benefits News reported in 2017 that turnover can cost employers 33% of an employee’s annual salary. Additionally, ‘A 5% increase in employee retention can generate a 25% to 85% increase in profitability’. Source\n\_ \_ \_ \_ \_ \_\n\nTherefore, it’s clear that from financial point of view, it is in the employer’s best interest to keep their employees on board. More and more employers recognise that investing in an employee engagement program is cheaper than hiring new employees in the long run.\n"
         _template: text
+      - images:
+          - image: >-
+              https://assets.tina.io/42002fc2-493d-4640-a909-8d1fa660acf3/img/projects/1.Secondary-research.jpg
+        _template: images
       - title: User research
         content: >
           First and foremost my goal was to get to know the primary users -
@@ -330,6 +334,7 @@ sections:
           more visually prominent.
         _template: text
 ---
+
 
 
 
