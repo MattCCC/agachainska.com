@@ -47,6 +47,7 @@ import {
     ProjectSectionsElement,
 } from "types/project";
 import { HTMLInline } from "components/tina-render-html";
+import { useStoreProp } from "store/index";
 
 interface ContentContainerProps {
     variant?: string;
@@ -338,8 +339,23 @@ export default function Project({ project, projects }: Props) {
         timelineTitle = "",
         keyInfo,
         _sys,
+        projectPageColor = "",
         sections = [],
     } = project || {};
+
+    const [, dispatchBgColor] = useStoreProp("projectPageBackgroundColor");
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            dispatchBgColor.setProjectPageBackgroundColor(
+                String(projectPageColor || "red")
+            );
+        }, 0);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [dispatchBgColor, projectPageColor]);
 
     const [otherProjects, filteredProjects] = useProjectsByCategory({
         category,

@@ -5,8 +5,9 @@ const initialState = {
     isMotionCursorVisible: false,
     showFooter: false,
     showLogoOnDesktop: false,
-    showbackgroundColor: false,
-    backgroundColor: "",
+    showPageWhiteGradient: false,
+    projectPageBackgroundColor: "",
+    workPageBackgroundColor: "",
     darkTheme: false,
     motionCursorData: {
         text: "",
@@ -30,16 +31,20 @@ const actions = {
         (state.showMotionGrid = value),
     showWavePattern: (state: State, value: boolean) =>
         (state.showWavePattern = value),
+
+    showPageWhiteGradient: (state: State, value: boolean) =>
+        (state.showPageWhiteGradient = value),
+    setWorkPageBackgroundColor: (state: State, value: string) =>
+        (state.workPageBackgroundColor = value),
+    setProjectPageBackgroundColor: (state: State, value: string) =>
+        (state.projectPageBackgroundColor = value),
+    setDarkTheme: (state: State, value: boolean) => (state.darkTheme = value),
+
     showFooter: (state: State, value: boolean) => (state.showFooter = value),
     showLogoOnDesktop: (state: State, value: boolean) =>
         (state.showLogoOnDesktop = value),
-    showbackgroundColor: (state: State, value: boolean) =>
-        (state.showbackgroundColor = value),
     showInitialOverlayAnimation: (state: State, value: boolean) =>
         (state.initialOverlayAnimation = value),
-    setBackgroundColor: (state: State, value: string) =>
-        (state.backgroundColor = value),
-    setDarkTheme: (state: State, value: boolean) => (state.darkTheme = value),
     setCurrentDelayedRoute: (state: State, value: string) =>
         (state.currentDelayedRoute = value),
 
@@ -57,11 +62,8 @@ const actions = {
         };
     },
 
-    onRouteChange(prevState: State, newState: Partial<State>) {
-        return {
-            ...prevState,
-            ...newState,
-        };
+    onRouteChange(_prevState: State, newState: Partial<State>) {
+        return newState;
     },
 };
 

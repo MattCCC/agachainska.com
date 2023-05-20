@@ -59,8 +59,12 @@ const Main = styled.main(
 );
 
 export const Layout = ({ children }: PropsWithChildren<unknown>) => {
-    const [showbackgroundColor] = useStoreProp("showbackgroundColor");
-    const [backgroundColor] = useStoreProp("backgroundColor");
+    const [showPageWhiteGradient] = useStoreProp("showPageWhiteGradient");
+    const [isSingleProject] = useStoreProp("isSingleProject");
+    const [workPageBackgroundColor] = useStoreProp("workPageBackgroundColor");
+    const [projectPageBackgroundColor] = useStoreProp(
+        "projectPageBackgroundColor"
+    );
     const [darkTheme] = useStoreProp("darkTheme");
     const [showFooter] = useStoreProp("showFooter");
 
@@ -72,8 +76,12 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
             <FullPageOverlay />
             <Header />
             <Main
-                hasGradient={showbackgroundColor}
-                backgroundColor={backgroundColor}
+                hasGradient={showPageWhiteGradient}
+                backgroundColor={
+                    isSingleProject
+                        ? projectPageBackgroundColor
+                        : workPageBackgroundColor
+                }
                 showFooter={showFooter}
                 darkTheme={darkTheme}
             >

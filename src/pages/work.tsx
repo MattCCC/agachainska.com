@@ -121,7 +121,7 @@ const Work = memo(({ projects }: Props) => {
     const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
     const [isSliderAnimating, setIsSliderAnimating] = useState(false);
     const [, dispatch] = useStoreProp("showMotionGrid");
-    const [, dispatchBgColor] = useStoreProp("backgroundColor");
+    const [, dispatchBgColor] = useStoreProp("workPageBackgroundColor");
 
     const categories = useMemo(
         () => Object.keys(groupBy(projects, "category")) as ProjectCategory[],
@@ -201,15 +201,19 @@ const Work = memo(({ projects }: Props) => {
     } as PageState);
 
     useEffect(() => {
-        const project = projects.find(
-            ({ _sys }) => _sys.filename === state.activeItemId
-        );
+        const timer = setTimeout(() => {
+            const project = projects.find(
+                ({ _sys }) => _sys.filename === state.activeItemId
+            );
 
-        const bgColor = project?.workPageColor
-            ? String(project?.workPageColor)
-            : "#FFF";
+            dispatchBgColor.setWorkPageBackgroundColor(
+                String(project?.workPageColor || "#FFF")
+            );
+        }, 0);
 
-        dispatchBgColor.setBackgroundColor(bgColor);
+        return () => {
+            clearTimeout(timer);
+        };
     }, [dispatchBgColor, projects, state.activeItemId]);
 
     const sliderItems: WorkSliderItem[] = useMemo(
