@@ -81,7 +81,7 @@ export default {
                     name: "phases",
                     type: "object",
                     list: true,
-                    required: true,
+                    required: false,
                     ui: {
                         itemProps: (item) =>
                             // Field values are accessed by title?.<Field name>

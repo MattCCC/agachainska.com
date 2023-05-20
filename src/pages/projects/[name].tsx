@@ -44,7 +44,7 @@ import client from "tina/__generated__/client";
 import {
     Project as ProjectData,
     ProjectNode,
-    ProjectSection,
+    ProjectSectionsElement,
 } from "types/project";
 import { HTMLInline } from "components/tina-render-html";
 
@@ -167,7 +167,7 @@ const TimelineNoSSR = dynamic(() => import("../../components/timeline"), {
 });
 
 const sectionLoader = (
-    elements: ProjectSection["elements"],
+    elements: ProjectSectionsElement[],
     gallerySliderElementsGap: number = 0,
     otherProjects: ProjectData[] | null = null
 ) =>
@@ -277,7 +277,7 @@ const sectionLoader = (
                 );
 
             case "ProjectSectionsElementsDevices":
-                return <DevicesCarousel key={index} list={el?.devices || []} />;
+                return <DevicesCarousel key={index} list={el.devices} />;
 
             case "ProjectSectionsElementsStatistics":
                 if (!el.stats || !el.stats.length) {
@@ -374,11 +374,15 @@ export default function Project({ project, projects }: Props) {
         }
 
         const filteredSections = sections
-            .filter(({ showInTimeline }) => showInTimeline)
-            .map(({ title }) => ({
-                id: title.toLowerCase(),
-                title,
-            }));
+            .filter((section) => section !== null && section.showInTimeline)
+            .map((section) =>
+                section
+                    ? {
+                          id: section.title.toLowerCase(),
+                          title: section.title,
+                      }
+                    : { id: "", title: "" }
+            );
 
         return filteredSections;
     }, [sections]);
@@ -429,10 +433,10 @@ export default function Project({ project, projects }: Props) {
 
                     {keyInfo && keyInfo.length && (
                         <KeyInfoTable>
-                            {keyInfo.map(({ title, text }, j) => (
+                            {keyInfo.map((info, j) => (
                                 <div tw="mb-4" key={j}>
-                                    <CellTitle>{title}</CellTitle>
-                                    <div>{text}</div>
+                                    <CellTitle>{info?.title || ""}</CellTitle>
+                                    <div>{info?.text || ""}</div>
                                 </div>
                             ))}
                         </KeyInfoTable>
@@ -468,55 +472,52 @@ export default function Project({ project, projects }: Props) {
                     </Fragment>
                 )}
 
-                {sections.map(
-                    (
-                        {
-                            title: section,
-                            elements,
-                            showSectionTitle,
-                            showInTimeline,
-                        },
-                        i
-                    ) => {
-                        const sectionId = section
+                {sections &&
+                    sections.map((section, i) => {
+                        if (!section) {
+                            return null;
+                        }
+
+                        const sectionName = section.title;
+                        const sectionId = sectionName
                             .toLowerCase()
                             .replaceAll(" ", "-")
                             .replaceAll("/", "-");
 
                         return (
                             <div key={sectionId}>
-                                {showInTimeline ? (
+                                {section.showInTimeline ? (
                                     <SectionObserver
                                         sectionId={sectionId}
                                         sectionNumber={i}
                                         isLastSection={
-                                            section ===
+                                            sectionName ===
                                             timelineItems[numItems - 1]?.title
                                         }
                                         intersectionCallback={
                                             intersectionCallback
                                         }
                                     >
-                                        {showSectionTitle && (
+                                        {section.showSectionTitle && (
                                             <H2>
-                                                <H2Span>{section}</H2Span>
+                                                <H2Span>{sectionName}</H2Span>
                                             </H2>
                                         )}
                                         {sectionLoader(
-                                            elements,
+                                            section.elements || [],
                                             gallerySliderElementsGap,
                                             otherProjects
                                         )}
                                     </SectionObserver>
                                 ) : (
                                     <ArticleSection id={sectionId}>
-                                        {showSectionTitle && (
+                                        {section.showSectionTitle && (
                                             <H2>
-                                                <H2Span>{section}</H2Span>
+                                                <H2Span>{sectionName}</H2Span>
                                             </H2>
                                         )}
                                         {sectionLoader(
-                                            elements,
+                                            section.elements || [],
                                             gallerySliderElementsGap,
                                             otherProjects
                                         )}
@@ -524,8 +525,7 @@ export default function Project({ project, projects }: Props) {
                                 )}
                             </div>
                         );
-                    }
-                )}
+                    })}
             </Article>
         </Fragment>
     );
