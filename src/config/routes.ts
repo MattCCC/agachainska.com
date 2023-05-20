@@ -21,9 +21,11 @@ export const defaultRouteMeta = {
         showFooter: true,
         showLogoOnDesktop: true,
         showWavePattern: true,
-        showbackgroundColor: true,
+        showPageWhiteGradient: true,
         darkTheme: false,
         isSingleProject: false,
+        workPageBackgroundColor: "",
+        projectPageBackgroundColor: "",
     } as RouteMeta["store"],
 };
 
@@ -36,7 +38,6 @@ const routesList: RoutesList = {
                 showMotionGrid: true,
                 showLogoOnDesktop: false,
                 showFooter: false,
-                backgroundColor: "",
             },
         },
     },
@@ -47,8 +48,7 @@ const routesList: RoutesList = {
             store: {
                 showMotionGrid: false,
                 showFooter: false,
-                showbackgroundColor: false,
-                backgroundColor: "",
+                showPageWhiteGradient: false,
                 darkTheme: true,
             },
         },
@@ -60,8 +60,7 @@ const routesList: RoutesList = {
             store: {
                 showMotionGrid: true,
                 showFooter: false,
-                showbackgroundColor: false,
-                backgroundColor: "",
+                showPageWhiteGradient: false,
                 darkTheme: true,
             },
         },
@@ -73,7 +72,6 @@ const routesList: RoutesList = {
             store: {
                 showMotionGrid: false,
                 showWavePattern: false,
-                backgroundColor: "",
             },
         },
     },
@@ -83,7 +81,7 @@ const routesList: RoutesList = {
         meta: {
             store: {
                 showMotionGrid: false,
-                showbackgroundColor: false,
+                showPageWhiteGradient: false,
                 showFooter: false,
             },
         },
@@ -95,8 +93,7 @@ const routesList: RoutesList = {
         meta: {
             store: {
                 showMotionGrid: false,
-                showbackgroundColor: false,
-                backgroundColor: "",
+                showPageWhiteGradient: false,
                 showWavePattern: false,
                 isSingleProject: true,
             },

@@ -43,6 +43,16 @@ export default {
         },
         {
             type: "string",
+            name: "projectPageColor",
+            label: "Project Page Color",
+            required: false,
+            ui: {
+                component: "color",
+            },
+            colorFormat: "hex",
+        },
+        {
+            type: "string",
             name: "workPageColor",
             label: "Work Page Color",
             required: true,
