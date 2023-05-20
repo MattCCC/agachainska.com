@@ -48,14 +48,21 @@ const ProgressText = styled.div(() => [
 ]);
 
 export const DevicesCarousel = memo(
-    ({ list }: { list: Array<{ type: string; link: string }> }) => {
+    ({
+        list,
+    }: {
+        list:
+            | Array<{ type: string; link: string } | null | undefined>
+            | null
+            | undefined;
+    }) => {
         const mouseoverItemRef = useRef(null);
         const mouse = useMouse(mouseoverItemRef, {
             enterDelay: 30,
             leaveDelay: 30,
         });
 
-        const numItems = list.length;
+        const numItems = list?.length || 0;
         const [x, setX] = useState(1);
 
         const [, { showMotionCursor }] = useStoreProp("isMotionCursorVisible");
@@ -76,6 +83,10 @@ export const DevicesCarousel = memo(
             });
         }, [mouse.elementWidth, showMotionCursor]);
 
+        if (!list) {
+            return null;
+        }
+
         return (
             <FullPageContent
                 widthPct={100}
@@ -88,9 +99,16 @@ export const DevicesCarousel = memo(
                         displayGrabCursor={false}
                         onSlideChange={onSlideChange}
                     >
-                        {list.map(({ type, link }, i) => (
-                            <DeviceMockup key={i} type={type} link={link} />
-                        ))}
+                        {list.map(
+                            (device, i) =>
+                                device && (
+                                    <DeviceMockup
+                                        key={i}
+                                        type={device.type}
+                                        link={device.link}
+                                    />
+                                )
+                        )}
                     </MotionSlider>
                 </SliderWrapper>
 

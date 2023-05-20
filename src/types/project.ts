@@ -10,7 +10,7 @@ export type ProjectNode = NonNullable<
 >["node"];
 
 export interface ProjectSectionImage {
-    readonly image: string;
+    readonly image: string | null;
 }
 
 export interface ProjectSectionElementDevice {
@@ -18,9 +18,13 @@ export interface ProjectSectionElementDevice {
     link: string;
 }
 
-export type ProjectSection = ProjectQuery["project"]["sections"][0];
+export type ProjectSection = NonNullable<
+    ProjectQuery["project"]["sections"]
+>[0];
 
-export type ProjectSectionsElement = NonNullable<ProjectSection["elements"]>[0];
+export type ProjectSectionsElement = NonNullable<
+    NonNullable<ProjectSection>["elements"]
+>[0];
 
 export interface ProjectKeyInfo {
     readonly elements: ProjectKeyInfoElement[];
