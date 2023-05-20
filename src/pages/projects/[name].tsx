@@ -348,7 +348,7 @@ export default function Project({ project, projects }: Props) {
     useEffect(() => {
         const timer = setTimeout(() => {
             dispatchBgColor.setProjectPageBackgroundColor(
-                String(projectPageColor || "red")
+                String(projectPageColor || "")
             );
         }, 0);
 
