@@ -94,6 +94,7 @@ export const Background = () => {
     const [showMotionGrid] = useStoreProp("showMotionGrid");
     const [showWavePattern] = useStoreProp("showWavePattern");
     const [darkTheme] = useStoreProp("darkTheme");
+    const [isSingleProject] = useStoreProp("isSingleProject");
 
     useEffect(() => {
         if (showMotionGrid) {
@@ -105,7 +106,7 @@ export const Background = () => {
 
     return (
         <Fragment>
-            <BackgroundNoise />
+            {!isSingleProject && <BackgroundNoise />}
 
             <MotionGridWrapper className="motion-grid">
                 {showMotionGrid && (

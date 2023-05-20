@@ -12,6 +12,6 @@ export const useOnRouteChange = () => {
     useEffect(() => {
         const newState = findRouteMeta(location.pathname)?.store || {};
 
-        dispatch.replaceInState(newState);
+        dispatch.onRouteChange(newState);
     }, [dispatch, location.pathname]);
 };
