@@ -20,6 +20,7 @@ const initialState = {
     showWavePattern: false,
     currentDelayedRoute: "",
     initialOverlayAnimation: true,
+    isSingleProject: false,
 };
 
 export type State = typeof initialState;
@@ -56,7 +57,7 @@ const actions = {
         };
     },
 
-    replaceInState(prevState: State, newState: Partial<State>) {
+    onRouteChange(prevState: State, newState: Partial<State>) {
         return {
             ...prevState,
             ...newState,

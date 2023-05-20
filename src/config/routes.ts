@@ -23,6 +23,7 @@ export const defaultRouteMeta = {
         showWavePattern: true,
         showbackgroundColor: true,
         darkTheme: false,
+        isSingleProject: false,
     } as RouteMeta["store"],
 };
 
@@ -97,6 +98,7 @@ const routesList: RoutesList = {
                 showbackgroundColor: false,
                 backgroundColor: "",
                 showWavePattern: false,
+                isSingleProject: true,
             },
         },
     },
