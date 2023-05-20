@@ -15,7 +15,7 @@ export default [
         name: "sections",
         type: "object",
         list: true,
-        required: true,
+        required: false,
         ui: {
             component: "group-list",
             visualSelector: false,

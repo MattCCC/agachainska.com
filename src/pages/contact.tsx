@@ -91,12 +91,16 @@ export default function Contact({
                         <H1>{contactTranslations?.h1Title}</H1>
                         <div className="hidden lg:block">
                             <SocialMedia
-                                items={socialMediaData.socialMedia.map(
-                                    ({ name, link }) => ({
-                                        name,
-                                        url: link,
-                                    })
-                                )}
+                                items={
+                                    socialMediaData?.socialMedia
+                                        ? socialMediaData.socialMedia.map(
+                                              (item) => ({
+                                                  name: item?.name || "",
+                                                  url: item?.link || "",
+                                              })
+                                          )
+                                        : []
+                                }
                                 variant="big"
                             />
                         </div>

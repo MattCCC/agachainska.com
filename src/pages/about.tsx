@@ -272,12 +272,16 @@ export default function About({
 
                             <SocialMediaLinksCon>
                                 <SocialMedia
-                                    items={socialMediaData.socialMedia.map(
-                                        ({ name, link }) => ({
-                                            name,
-                                            url: link,
-                                        })
-                                    )}
+                                    items={
+                                        socialMediaData?.socialMedia
+                                            ? socialMediaData.socialMedia.map(
+                                                  (item) => ({
+                                                      name: item?.name || "",
+                                                      url: item?.link || "",
+                                                  })
+                                              )
+                                            : []
+                                    }
                                     variant={
                                         hasSmallWindowWidth ? "normal" : "big"
                                     }
@@ -347,33 +351,41 @@ export default function About({
 
                                 <DesignProcessTable>
                                     {(design_process?.phases || []).map(
-                                        (phase) => (
-                                            <DesignProcessElement
-                                                key={phase.phaseNum}
-                                            >
-                                                <DesignProcessTitleContainer>
-                                                    <DesignProcessNumber>
-                                                        {prependZeroes(
-                                                            Number(
-                                                                phase.phaseNum
-                                                            )
-                                                        )}
-                                                    </DesignProcessNumber>
-                                                    <DesignProcessTitle>
-                                                        {phase.title}
-                                                    </DesignProcessTitle>
-                                                </DesignProcessTitleContainer>
-                                                <DesignProcessElementDesc>
-                                                    <TinaMarkdown
-                                                        components={HTMLInline}
-                                                        content={
-                                                            phase.description ||
-                                                            ""
-                                                        }
-                                                    />
-                                                </DesignProcessElementDesc>
-                                            </DesignProcessElement>
-                                        )
+                                        (phase) => {
+                                            if (!phase) {
+                                                return null;
+                                            }
+
+                                            return (
+                                                <DesignProcessElement
+                                                    key={phase.phaseNum}
+                                                >
+                                                    <DesignProcessTitleContainer>
+                                                        <DesignProcessNumber>
+                                                            {prependZeroes(
+                                                                Number(
+                                                                    phase.phaseNum
+                                                                )
+                                                            )}
+                                                        </DesignProcessNumber>
+                                                        <DesignProcessTitle>
+                                                            {phase.title}
+                                                        </DesignProcessTitle>
+                                                    </DesignProcessTitleContainer>
+                                                    <DesignProcessElementDesc>
+                                                        <TinaMarkdown
+                                                            components={
+                                                                HTMLInline
+                                                            }
+                                                            content={
+                                                                phase.description ||
+                                                                ""
+                                                            }
+                                                        />
+                                                    </DesignProcessElementDesc>
+                                                </DesignProcessElement>
+                                            );
+                                        }
                                     )}
                                 </DesignProcessTable>
                             </DetailsContainer>
