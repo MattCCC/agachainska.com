@@ -52,7 +52,7 @@ const DeviceResource = styled("iframe").withConfig(excludeProps(["type"]))(
 
 const DeviceFrameIphoneX = styled.div(() => [
     tw`w-[278px] h-[555px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
-    tw`bg-[url('/img/iphone-x.png')]`,
+    tw`bg-[url('/img/iphone-x.webp')]`,
 ]);
 
 const DeviceFrameIphone8 = styled.div(() => [
