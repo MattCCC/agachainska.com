@@ -83,7 +83,7 @@ const TitleContainer = styled.div(() => [
 ]);
 
 const Title = styled.h2(() => [
-    tw`h-10 -ml-px uppercase prose-30 leading-11 font-fbold lg:prose-54 lg:leading-16 lg:col-start-1 lg:col-end-4 lg:h-auto`,
+    tw`-ml-px leading-10 uppercase prose-30 font-fbold lg:prose-54 lg:leading-16 lg:col-start-1 lg:col-end-4 lg:h-auto`,
 ]);
 
 const DetailsContainer = styled.div(() => [
@@ -116,7 +116,7 @@ const DesignProcessTable = styled.ul(() => [
 ]);
 
 const DesignProcessElement = styled.li(() => [
-    tw`flex flex-col justify-center p-4 border-t border-r border-black h-36 lg:flex-row lg:justify-between lg:p-5`,
+    tw`flex flex-col justify-center p-4 border-t border-r border-black min-h-[9rem] lg:flex-row lg:justify-between lg:p-5`,
 ]);
 
 const DesignProcessTitleContainer = styled.div(() => [
