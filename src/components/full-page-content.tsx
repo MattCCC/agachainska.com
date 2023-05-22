@@ -27,7 +27,7 @@ export const FullPageContent = styled.figure(
                 width: ${widthPct}vw;
                 height: max(560px, ${heightPct});
                 margin: 0 auto 90px -${widthPct / 2}vw;
-                left: calc(50% - 8px);
+                left: 50%;
             }
         `,
     ]

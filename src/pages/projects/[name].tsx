@@ -127,7 +127,7 @@ const TimelineWrapper = styled.aside(() => [
 
 const FullSizeImageWrapper = styled.figure(() => [
     tw`overflow-hidden`,
-    tw`mb-[90px] lg:h-[546px] lg:w-[820px]`,
+    tw`mb-[90px] lg:w-[820px]`,
 ]);
 
 const TwoImagesWrapper = styled.figure(() => [
@@ -205,6 +205,11 @@ const sectionLoader = (
                                 <ParallaxBackground
                                     key={index}
                                     bgImgUrl={`${el.images[0].image}`}
+                                    width={
+                                        typeof window !== "undefined"
+                                            ? window.innerWidth
+                                            : 1920
+                                    }
                                 />
                             </FullPageContent>
                         );
@@ -217,7 +222,7 @@ const sectionLoader = (
                                     key={index}
                                     bgImgUrl={`${el.images[0].image}`}
                                     contain={true}
-                                    scaleOnHover={true}
+                                    width={820}
                                 />
                             </FullSizeImageWrapper>
                         </ContentContainer>
@@ -232,7 +237,7 @@ const sectionLoader = (
                                     key={index + String(j)}
                                     bgImgUrl={`${imgObj?.image}`}
                                     contain={true}
-                                    scaleOnHover={true}
+                                    width={410}
                                 />
                             ))}
                         </TwoImagesWrapper>
@@ -423,7 +428,7 @@ export default function Project({ project, projects }: Props) {
                     <MainTitleWrapper>
                         <MainTitle data-text={name}>{name}</MainTitle>
                     </MainTitleWrapper>
-                    <ParallaxBackground bgImgUrl={cover} />
+                    <ParallaxBackground bgImgUrl={cover} width={1028} />
                 </HeroWrapper>
 
                 <div tw="col-start-1 lg:col-start-2 col-end-13 lg:col-end-12">

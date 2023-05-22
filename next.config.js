@@ -16,6 +16,16 @@ module.exports = withTwin({
       exclude: ['error'],
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'assets.tina.io',
+        port: '',
+        pathname: '**',
+      },
+    ],
+  },
   env: {},
   webpack(config) {
     // Grab the existing rule that handles SVG imports
