@@ -222,7 +222,6 @@ const sectionLoader = (
                                     key={index}
                                     bgImgUrl={`${el.images[0].image}`}
                                     contain={true}
-                                    scaleOnHover={true}
                                     width={820}
                                 />
                             </FullSizeImageWrapper>
@@ -238,7 +237,6 @@ const sectionLoader = (
                                     key={index + String(j)}
                                     bgImgUrl={`${imgObj?.image}`}
                                     contain={true}
-                                    scaleOnHover={true}
                                     width={410}
                                 />
                             ))}
