@@ -19,13 +19,10 @@ export const Background = styled.div(({ width = 0 }: Partial<Props>) => [
         ${up("lg")} {
             transform: none;
             backface-visibility: inherit;
-
             object-fit: cover;
-            position: fixed;
             width: 100%;
             max-width: ${width}px;
             height: 100%;
-            top: 9rem;
         }
     `,
 ]);
