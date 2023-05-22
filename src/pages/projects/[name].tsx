@@ -127,7 +127,7 @@ const TimelineWrapper = styled.aside(() => [
 
 const FullSizeImageWrapper = styled.figure(() => [
     tw`overflow-hidden`,
-    tw`mb-[90px] lg:h-[546px] lg:w-[820px]`,
+    tw`mb-[90px] lg:w-[820px]`,
 ]);
 
 const TwoImagesWrapper = styled.figure(() => [

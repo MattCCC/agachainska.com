@@ -8,7 +8,6 @@ interface Props {
     bgImgUrl: string;
     width: number;
     contain?: boolean;
-    scaleOnHover?: boolean;
 }
 
 export const Background = styled.div(({ width = 0 }: Partial<Props>) => [
@@ -27,28 +26,23 @@ export const Background = styled.div(({ width = 0 }: Partial<Props>) => [
     `,
 ]);
 
-export const BackgroundWrapper = styled.div(({}: Partial<Props>) => [
+export const BackgroundWrapper = styled.div(() => [
     tw`w-full h-full max-w-full overflow-hidden`,
     css`
         clip-path: inset(0);
     `,
 ]);
 
-export const ParallaxBackground = ({
-    bgImgUrl,
-    contain,
-    scaleOnHover,
-    width,
-}: Props) => {
+export const ParallaxBackground = ({ bgImgUrl, contain, width }: Props) => {
     const imgRef = useRef<HTMLImageElement>(null);
 
     return (
-        <BackgroundWrapper scaleOnHover={scaleOnHover}>
+        <BackgroundWrapper>
             <Background ref={imgRef} contain={contain} width={width}>
                 <Image
                     style={{
                         width: "100%",
-                        height: "auto",
+                        height: "100%",
                         objectFit: "contain",
                         position: "relative",
                     }}
