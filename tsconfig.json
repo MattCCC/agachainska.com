@@ -32,6 +32,7 @@
             "utils/*": ["./src/utils/*"],
             "svg/*": ["./src/svg/*"],
             "hooks/*": ["./src/hooks/*"],
+            "queries/*": ["./src/queries/*"],
             "translations/*": ["./src/translations/*"]
         },
         /* Strict Type-Checking Options */

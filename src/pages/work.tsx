@@ -31,7 +31,10 @@ import { useStoreProp } from "store/index";
 import { groupBy } from "utils/group-by";
 import { Project, ProjectCategory, ProjectNode } from "types/project";
 import client from "tina/__generated__/client";
-import { ConfigurationPage, fetchSocialMediaData } from "domain/social-media/fetch-social-media-data";
+import {
+    ConfigurationPage,
+    fetchSocialMediaData,
+} from "queries/fetch-social-media-data";
 
 interface PageState {
     sliderIndex: number;

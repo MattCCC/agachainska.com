@@ -27,7 +27,7 @@ import { useStoreProp } from "store/index";
 import {
     fetchSocialMediaData,
     ConfigurationPage,
-} from "domain/social-media/fetch-social-media-data";
+} from "queries/fetch-social-media-data";
 
 const HeroSection = styled.section(() => [
     tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-[max(600px,100vh)]`,

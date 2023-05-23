@@ -1,4 +1,4 @@
-import { ConfigurationPage } from "domain/social-media/fetch-social-media-data";
+import { ConfigurationPage } from "queries/fetch-social-media-data";
 import { createStore } from "simplest-react-store";
 
 const initialState = {

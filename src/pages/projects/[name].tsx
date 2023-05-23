@@ -51,7 +51,7 @@ import { useStoreProp } from "store/index";
 import {
     ConfigurationPage,
     fetchSocialMediaData,
-} from "domain/social-media/fetch-social-media-data";
+} from "queries/fetch-social-media-data";
 
 interface ContentContainerProps {
     variant?: string;
