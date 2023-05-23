@@ -18,23 +18,17 @@ export type ConfigurationPage = Extract<
 >;
 
 export const fetchSocialMediaData = async ({ locale }: { locale: string }) => {
-    let socialMediaData = {
-        data: {},
-        query: "",
-        variables: {
-            relativePath: `${locale}/social-media.md`,
-        },
-    } as Configuration;
+    let socialMediaData = {} as ConfigurationQuery;
 
     try {
-        const { variables, data, query } = await client.queries.configuration(
-            socialMediaData.variables
-        );
+        const { data } = await client.queries.configuration({
+            relativePath: `${locale}/social-media.md`,
+        });
 
-        socialMediaData = { variables, data, query };
+        socialMediaData = data;
     } catch {
         return null;
     }
 
-    return socialMediaData.data.configuration;
+    return socialMediaData.configuration;
 };
