@@ -134,7 +134,7 @@ const FullSizeImageWrapper = styled.figure(() => [
 
 const TwoImagesWrapper = styled.figure(() => [
     tw`grid grid-flow-col grid-cols-2 gap-6 overflow-hidden`,
-    tw`mb-[90px] h-[220px] lg:h-[562px] lg:w-[820px]`,
+    tw`mb-[90px] lg:w-[820px]`,
 ]);
 
 const PaginationControls = styled.div(() => [
@@ -203,7 +203,7 @@ const sectionLoader = (
                 if (el.images.length === 1) {
                     if (el.images[0].fullPageImage) {
                         return (
-                            <FullPageContent key={index} widthPct={100}>
+                            <FullPageContent key={index} widthPct={96}>
                                 <ParallaxBackground
                                     key={index}
                                     bgImgUrl={`${el.images[0].image}`}

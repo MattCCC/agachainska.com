@@ -90,7 +90,7 @@ export const DevicesCarousel = memo(
         return (
             <FullPageContent
                 widthPct={100}
-                heightPct={"670px"}
+                heightPct="670px"
                 border={false}
                 style={{ height: "680px", marginBottom: "0" }}
             >
