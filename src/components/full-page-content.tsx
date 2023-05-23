@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const FullPageContent = styled.figure(
-    ({ widthPct = 100, heightPct = "80vh", border = true }: Props) => [
+    ({ widthPct = 100, heightPct = "auto", border = true }: Props) => [
         tw`w-full max-w-full overflow-hidden`,
         border &&
             css`
@@ -25,7 +25,7 @@ export const FullPageContent = styled.figure(
                 ${tw`relative max-w-none`}
 
                 width: ${widthPct}vw;
-                height: max(560px, ${heightPct});
+                height: ${heightPct};
                 margin: 0 auto 90px -${widthPct / 2}vw;
                 left: 50%;
             }
