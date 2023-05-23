@@ -5,7 +5,6 @@ import tw, { css, styled } from "twin.macro";
 import { BackgroundNoise } from "components/background-noise";
 import { Contact } from "components/footer/contact";
 import { SocialMedia } from "components/social-media";
-import { socialMedia } from "data/social-media";
 import { useStoreProp } from "store/index";
 import { up } from "utils/screens";
 
@@ -73,6 +72,7 @@ const AnnotationLink = styled.a(() => [tw`inline-block ml-1 text-green`]);
 export function Footer() {
     const [showFooter] = useStoreProp("showFooter");
     const [darkTheme] = useStoreProp("darkTheme");
+    const [socialMediaData] = useStoreProp("socialMediaData");
 
     return (
         <Fragment>
@@ -94,7 +94,7 @@ export function Footer() {
                                             Matt
                                         </AnnotationLink>
                                     </Annotation>
-                                    <SocialMedia items={socialMedia} />
+                                    <SocialMedia items={socialMediaData} />
                                 </FooterNav>
                             </FooterContainer>
                         </BottomFooter>
@@ -117,7 +117,7 @@ export function Footer() {
                                         Matt
                                     </AnnotationLink>
                                 </FooterNavText>
-                                <SocialMedia items={socialMedia} />
+                                <SocialMedia items={socialMediaData} />
                             </FooterNav>
                         </FooterContainer>
                     </BottomFooter>

@@ -1,12 +1,8 @@
+import { ConfigurationPage } from "queries/fetch-social-media-data";
 import tw, { css, styled } from "twin.macro";
 
-interface Item {
-    name: string;
-    url: string;
-}
-
 interface Props {
-    items?: Item[];
+    items?: ConfigurationPage["socialMedia"];
     variant?: "normal" | "big";
 }
 
@@ -32,17 +28,21 @@ const ListItem = styled.a(({ variant }: Props) => [
 ]);
 
 export function SocialMedia({ variant = "normal", items = [] }: Props) {
+    if (!items) {
+        return null;
+    }
+
     return (
         <SocialMediaWrapper>
             {items.map((item, itemIndex: number) => (
                 <ListItem
-                    href={item.url}
+                    href={item?.link || ""}
                     rel="nofollow noreferrer"
                     target="_blank"
                     key={itemIndex}
                     variant={variant}
                 >
-                    {item.name}
+                    {item?.name || ""}
                 </ListItem>
             ))}
         </SocialMediaWrapper>

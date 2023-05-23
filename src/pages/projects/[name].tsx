@@ -41,13 +41,14 @@ import dynamic from "next/dynamic";
 import { Stats } from "components/project/stats-table";
 import { ProjectQueryVariables, ProjectQuery } from "tina/__generated__/types";
 import client from "tina/__generated__/client";
-import {
-    Project as ProjectData,
-    ProjectNode,
-    ProjectSectionsElement,
-} from "types/project";
+import { Project as ProjectData, ProjectSectionsElement } from "types/project";
 import { HTMLInline } from "components/tina-render-html";
 import { useStoreProp } from "store/index";
+import {
+    ConfigurationPage,
+    fetchSocialMediaData,
+} from "queries/fetch-social-media-data";
+import { fetchProjects } from "queries/fetch-projects";
 
 interface ContentContainerProps {
     variant?: string;
@@ -62,6 +63,7 @@ interface ProjectQueryWrapper {
 interface Props {
     project: ProjectQuery["project"];
     projects: Array<ProjectQuery["project"]>;
+    socialMediaData: ConfigurationPage;
 }
 
 const MainSection = styled(MainContainer).withConfig({
@@ -335,7 +337,7 @@ const sectionLoader = (
         }
     });
 
-export default function Project({ project, projects }: Props) {
+export default function Project({ project, projects, socialMediaData }: Props) {
     const {
         id: uid,
         name,
@@ -347,6 +349,12 @@ export default function Project({ project, projects }: Props) {
         projectPageColor = "",
         sections = [],
     } = project || {};
+
+    const [, dispatchSocialMediaData] = useStoreProp("socialMediaData");
+
+    useEffect(() => {
+        dispatchSocialMediaData.setSocialMediaData(socialMediaData.socialMedia);
+    }, [dispatchSocialMediaData, socialMediaData.socialMedia]);
 
     const [, dispatchBgColor] = useStoreProp("projectPageBackgroundColor");
 
@@ -623,8 +631,6 @@ export const getStaticProps: GetStaticProps = async ({
         },
     } as ProjectQueryWrapper;
 
-    const projects = [] as ProjectNode[];
-
     try {
         const { variables, data, query } = await client.queries.project(
             project.variables
@@ -637,14 +643,20 @@ export const getStaticProps: GetStaticProps = async ({
         };
     }
 
-    const { data: dataSrc } = await client.queries.projectConnection();
+    const projects = await fetchProjects({ locale });
 
-    if (dataSrc.projectConnection.edges) {
-        for (const edge of dataSrc.projectConnection.edges) {
-            if (edge?.node) {
-                projects.push(edge.node);
-            }
-        }
+    if (!projects) {
+        return {
+            notFound: true,
+        };
+    }
+
+    const socialMediaData = await fetchSocialMediaData({ locale });
+
+    if (!socialMediaData) {
+        return {
+            notFound: true,
+        };
     }
 
     return {
@@ -652,6 +664,7 @@ export const getStaticProps: GetStaticProps = async ({
             ...(await serverSideTranslations(locale)),
             project: project.data.project,
             projects,
+            socialMediaData,
         },
     };
 };

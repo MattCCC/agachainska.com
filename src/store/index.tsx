@@ -1,3 +1,4 @@
+import { ConfigurationPage } from "queries/fetch-social-media-data";
 import { createStore } from "simplest-react-store";
 
 const initialState = {
@@ -22,6 +23,8 @@ const initialState = {
     currentDelayedRoute: "",
     initialOverlayAnimation: true,
     isSingleProject: false,
+
+    socialMediaData: [] as ConfigurationPage["socialMedia"],
 };
 
 export type State = typeof initialState;
@@ -60,6 +63,12 @@ const actions = {
                 ...(motionCursorData || state.motionCursorData),
             },
         };
+    },
+
+    setSocialMediaData(state: State, data: ConfigurationPage["socialMedia"]) {
+        if (!state.socialMediaData?.length) {
+            state.socialMediaData = data;
+        }
     },
 
     onRouteChange(_prevState: State, newState: Partial<State>) {

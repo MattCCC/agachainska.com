@@ -29,8 +29,12 @@ import { useNavigation } from "hooks/use-navigation";
 import { useWindowSize } from "hooks/use-window-size";
 import { useStoreProp } from "store/index";
 import { groupBy } from "utils/group-by";
-import { Project, ProjectCategory, ProjectNode } from "types/project";
-import client from "tina/__generated__/client";
+import { Project, ProjectCategory } from "types/project";
+import { fetchProjects } from "queries/fetch-projects";
+import {
+    ConfigurationPage,
+    fetchSocialMediaData,
+} from "queries/fetch-social-media-data";
 
 interface PageState {
     sliderIndex: number;
@@ -54,6 +58,7 @@ interface WorkSliderItem {
 
 interface Props {
     projects: Project[];
+    socialMediaData: ConfigurationPage;
 }
 
 interface SliderWrapperProps {
@@ -110,13 +115,19 @@ const TimelineNoSSR = dynamic(() => import("../components/timeline"), {
 const bodyNode = (typeof document !== "undefined" &&
     (document.body as unknown)) as RefObject<HTMLDivElement>;
 
-const Work = memo(({ projects }: Props) => {
+const Work = memo(({ projects, socialMediaData }: Props) => {
     const windowSize = useWindowSize();
     const [hasSmallWindowWidth, setWindowWidth] = useState(false);
 
     useEffect(() => {
         setWindowWidth(windowSize.width < 1024);
     }, [windowSize]);
+
+    const [, dispatchSocialMediaData] = useStoreProp("socialMediaData");
+
+    useEffect(() => {
+        dispatchSocialMediaData.setSocialMediaData(socialMediaData.socialMedia);
+    }, [dispatchSocialMediaData, socialMediaData.socialMedia]);
 
     const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
     const [isSliderAnimating, setIsSliderAnimating] = useState(false);
@@ -557,22 +568,27 @@ const Work = memo(({ projects }: Props) => {
 export default Work;
 
 export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
-    const projects = [] as ProjectNode[];
+    const projects = await fetchProjects({ locale });
 
-    const { data: dataSrc } = await client.queries.projectConnection();
+    if (!projects) {
+        return {
+            notFound: true,
+        };
+    }
 
-    if (dataSrc.projectConnection.edges) {
-        for (const edge of dataSrc.projectConnection.edges) {
-            if (edge?.node) {
-                projects.push(edge.node);
-            }
-        }
+    const socialMediaData = await fetchSocialMediaData({ locale });
+
+    if (!socialMediaData) {
+        return {
+            notFound: true,
+        };
     }
 
     return {
         props: {
             ...(await serverSideTranslations(locale)),
             projects,
+            socialMediaData,
         },
     };
 };
