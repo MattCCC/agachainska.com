@@ -203,7 +203,7 @@ const sectionLoader = (
                 if (el.images.length === 1) {
                     if (el.images[0].fullPageImage) {
                         return (
-                            <FullPageContent key={index} widthPct={100}>
+                            <FullPageContent key={index} widthPct={96}>
                                 <ParallaxBackground
                                     key={index}
                                     bgImgUrl={`${el.images[0].image}`}
