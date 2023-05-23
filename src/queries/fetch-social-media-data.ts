@@ -1,14 +1,5 @@
 import client from "tina/__generated__/client";
-import {
-    ConfigurationQuery,
-    ConfigurationQueryVariables,
-} from "tina/__generated__/types";
-
-interface Configuration {
-    data: ConfigurationQuery;
-    query: string;
-    variables: ConfigurationQueryVariables;
-}
+import { ConfigurationQuery } from "tina/__generated__/types";
 
 export type ConfigurationPage = Extract<
     ConfigurationQuery["configuration"],
