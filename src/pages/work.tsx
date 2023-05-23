@@ -29,8 +29,8 @@ import { useNavigation } from "hooks/use-navigation";
 import { useWindowSize } from "hooks/use-window-size";
 import { useStoreProp } from "store/index";
 import { groupBy } from "utils/group-by";
-import { Project, ProjectCategory, ProjectNode } from "types/project";
-import client from "tina/__generated__/client";
+import { Project, ProjectCategory } from "types/project";
+import { fetchProjects } from "queries/fetch-projects";
 import {
     ConfigurationPage,
     fetchSocialMediaData,
@@ -568,16 +568,12 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
 export default Work;
 
 export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
-    const projects = [] as ProjectNode[];
+    const projects = await fetchProjects({ locale });
 
-    const { data: dataSrc } = await client.queries.projectConnection();
-
-    if (dataSrc.projectConnection.edges) {
-        for (const edge of dataSrc.projectConnection.edges) {
-            if (edge?.node) {
-                projects.push(edge.node);
-            }
-        }
+    if (!projects) {
+        return {
+            notFound: true,
+        };
     }
 
     const socialMediaData = await fetchSocialMediaData({ locale });

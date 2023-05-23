@@ -18,12 +18,13 @@ import { Tabs } from "components/tabs";
 import { useTimelineViewport } from "hooks/use-timeline-viewport";
 import { useWindowSize } from "hooks/use-window-size";
 import dynamic from "next/dynamic";
-import { Project, ProjectNode } from "types/project";
+import { Project } from "types/project";
 import client from "tina/__generated__/client";
 import { PageQuery, PageQueryVariables } from "tina/__generated__/types";
 import { HTMLInline } from "components/tina-render-html";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { useStoreProp } from "store/index";
+import { fetchProjects } from "queries/fetch-projects";
 import {
     fetchSocialMediaData,
     ConfigurationPage,
@@ -397,8 +398,6 @@ export default function About({
 }
 
 export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
-    const projects = [] as ProjectNode[];
-
     let aboutPageData = {
         data: {},
         query: "",
@@ -427,14 +426,12 @@ export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
         };
     }
 
-    const { data: dataSrc } = await client.queries.projectConnection();
+    const projects = await fetchProjects({ locale });
 
-    if (dataSrc.projectConnection.edges) {
-        for (const edge of dataSrc.projectConnection.edges) {
-            if (edge?.node) {
-                projects.push(edge.node);
-            }
-        }
+    if (!projects) {
+        return {
+            notFound: true,
+        };
     }
 
     return {
