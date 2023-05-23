@@ -134,7 +134,7 @@ const FullSizeImageWrapper = styled.figure(() => [
 
 const TwoImagesWrapper = styled.figure(() => [
     tw`grid grid-flow-col grid-cols-2 gap-6 overflow-hidden`,
-    tw`mb-[90px] h-[220px] lg:h-[562px] lg:w-[820px]`,
+    tw`mb-[90px] lg:w-[820px]`,
 ]);
 
 const PaginationControls = styled.div(() => [
