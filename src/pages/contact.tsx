@@ -11,12 +11,13 @@ import { TextTextarea } from "components/text-textarea";
 import ContactIllustration from "svg/Contact.svg";
 import { up } from "utils/screens";
 import client from "tina/__generated__/client";
+import { PageQuery, PageQueryVariables } from "tina/__generated__/types";
+import { useStoreProp } from "store/index";
+import { useEffect } from "react";
 import {
-    ConfigurationQuery,
-    ConfigurationQueryVariables,
-    PageQuery,
-    PageQueryVariables,
-} from "tina/__generated__/types";
+    ConfigurationPage,
+    fetchSocialMediaData,
+} from "domain/social-media/fetch-social-media-data";
 
 const H1 = styled.div(() => [
     tw`pt-12 mb-5 leading-9 lg:mb-12 font-fbold prose-28 lg:prose-48 lg:leading-14 lg:pt-24`,
@@ -41,24 +42,11 @@ const ContactIllus = styled(ContactIllustration)(() => [
     `,
 ]);
 
-interface Configuration {
-    data: ConfigurationQuery;
-    query: string;
-    variables: ConfigurationQueryVariables;
-}
-
 interface Page {
     data: PageQuery;
     query: string;
     variables: PageQueryVariables;
 }
-
-type ConfigurationPage = Extract<
-    ConfigurationQuery["configuration"],
-    {
-        __typename?: "ConfigurationSocialMedia";
-    }
->;
 
 type ContactPage = Extract<
     PageQuery["page"],
@@ -77,6 +65,12 @@ export default function Contact({
     const contactTranslations = contactPageData?.translations;
     const email = contactPageData.email || "";
 
+    const [, dispatch] = useStoreProp("socialMediaData");
+
+    useEffect(() => {
+        dispatch.setSocialMediaData(socialMediaData.socialMedia);
+    }, [dispatch, socialMediaData.socialMedia]);
+
     return (
         <>
             <Meta title={`${contactPageData.title} · Aga Chainska`} />
@@ -91,16 +85,7 @@ export default function Contact({
                         <H1>{contactTranslations?.h1Title}</H1>
                         <div className="hidden lg:block">
                             <SocialMedia
-                                items={
-                                    socialMediaData?.socialMedia
-                                        ? socialMediaData.socialMedia.map(
-                                              (item) => ({
-                                                  name: item?.name || "",
-                                                  url: item?.link || "",
-                                              })
-                                          )
-                                        : []
-                                }
+                                items={socialMediaData?.socialMedia}
                                 variant="big"
                             />
                         </div>
@@ -161,21 +146,9 @@ export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
         },
     } as Page;
 
-    let socialMediaData = {
-        data: {},
-        query: "",
-        variables: {
-            relativePath: `${locale}/social-media.md`,
-        },
-    } as Configuration;
+    const socialMediaData = await fetchSocialMediaData({ locale });
 
-    try {
-        const { variables, data, query } = await client.queries.configuration(
-            socialMediaData.variables
-        );
-
-        socialMediaData = { variables, data, query };
-    } catch {
+    if (!socialMediaData) {
         return {
             notFound: true,
         };
@@ -197,7 +170,7 @@ export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
         props: {
             ...(await serverSideTranslations(locale)),
             contactPageData: page.data.page,
-            socialMediaData: socialMediaData.data.configuration,
+            socialMediaData,
         },
     };
 };

@@ -31,6 +31,7 @@ import { useStoreProp } from "store/index";
 import { groupBy } from "utils/group-by";
 import { Project, ProjectCategory, ProjectNode } from "types/project";
 import client from "tina/__generated__/client";
+import { ConfigurationPage, fetchSocialMediaData } from "domain/social-media/fetch-social-media-data";
 
 interface PageState {
     sliderIndex: number;
@@ -54,6 +55,7 @@ interface WorkSliderItem {
 
 interface Props {
     projects: Project[];
+    socialMediaData: ConfigurationPage;
 }
 
 interface SliderWrapperProps {
@@ -110,13 +112,19 @@ const TimelineNoSSR = dynamic(() => import("../components/timeline"), {
 const bodyNode = (typeof document !== "undefined" &&
     (document.body as unknown)) as RefObject<HTMLDivElement>;
 
-const Work = memo(({ projects }: Props) => {
+const Work = memo(({ projects, socialMediaData }: Props) => {
     const windowSize = useWindowSize();
     const [hasSmallWindowWidth, setWindowWidth] = useState(false);
 
     useEffect(() => {
         setWindowWidth(windowSize.width < 1024);
     }, [windowSize]);
+
+    const [, dispatchSocialMediaData] = useStoreProp("socialMediaData");
+
+    useEffect(() => {
+        dispatchSocialMediaData.setSocialMediaData(socialMediaData.socialMedia);
+    }, [dispatchSocialMediaData, socialMediaData.socialMedia]);
 
     const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
     const [isSliderAnimating, setIsSliderAnimating] = useState(false);
@@ -569,10 +577,19 @@ export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
         }
     }
 
+    const socialMediaData = await fetchSocialMediaData({ locale });
+
+    if (!socialMediaData) {
+        return {
+            notFound: true,
+        };
+    }
+
     return {
         props: {
             ...(await serverSideTranslations(locale)),
             projects,
+            socialMediaData,
         },
     };
 };

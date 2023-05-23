@@ -20,14 +20,14 @@ import { useWindowSize } from "hooks/use-window-size";
 import dynamic from "next/dynamic";
 import { Project, ProjectNode } from "types/project";
 import client from "tina/__generated__/client";
-import {
-    ConfigurationQuery,
-    ConfigurationQueryVariables,
-    PageQuery,
-    PageQueryVariables,
-} from "tina/__generated__/types";
+import { PageQuery, PageQueryVariables } from "tina/__generated__/types";
 import { HTMLInline } from "components/tina-render-html";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
+import { useStoreProp } from "store/index";
+import {
+    fetchSocialMediaData,
+    ConfigurationPage,
+} from "domain/social-media/fetch-social-media-data";
 
 const HeroSection = styled.section(() => [
     tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-[max(600px,100vh)]`,
@@ -155,23 +155,10 @@ interface Page {
     variables: PageQueryVariables;
 }
 
-interface Configuration {
-    data: ConfigurationQuery;
-    query: string;
-    variables: ConfigurationQueryVariables;
-}
-
 type AboutPage = Extract<
     PageQuery["page"],
     {
         __typename?: "PageAbout";
-    }
->;
-
-type ConfigurationPage = Extract<
-    ConfigurationQuery["configuration"],
-    {
-        __typename?: "ConfigurationSocialMedia";
     }
 >;
 
@@ -191,6 +178,11 @@ export default function About({
 }: Props) {
     const windowSize = useWindowSize();
     const [hasSmallWindowWidth, setWindowWidth] = useState(false);
+    const [, dispatch] = useStoreProp("socialMediaData");
+
+    useEffect(() => {
+        dispatch.setSocialMediaData(socialMediaData.socialMedia);
+    }, [dispatch, socialMediaData.socialMedia]);
 
     useEffect(() => {
         setWindowWidth(windowSize.width < 1024);
@@ -272,16 +264,7 @@ export default function About({
 
                             <SocialMediaLinksCon>
                                 <SocialMedia
-                                    items={
-                                        socialMediaData?.socialMedia
-                                            ? socialMediaData.socialMedia.map(
-                                                  (item) => ({
-                                                      name: item?.name || "",
-                                                      url: item?.link || "",
-                                                  })
-                                              )
-                                            : []
-                                    }
+                                    items={socialMediaData?.socialMedia}
                                     variant={
                                         hasSmallWindowWidth ? "normal" : "big"
                                     }
@@ -424,21 +407,9 @@ export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
         },
     } as Page;
 
-    let socialMediaData = {
-        data: {},
-        query: "",
-        variables: {
-            relativePath: `${locale}/social-media.md`,
-        },
-    } as Configuration;
+    const socialMediaData = await fetchSocialMediaData({ locale });
 
-    try {
-        const { variables, data, query } = await client.queries.configuration(
-            socialMediaData.variables
-        );
-
-        socialMediaData = { variables, data, query };
-    } catch {
+    if (!socialMediaData) {
         return {
             notFound: true,
         };
@@ -470,7 +441,7 @@ export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
         props: {
             ...(await serverSideTranslations(locale)),
             projects,
-            socialMediaData: socialMediaData.data.configuration,
+            socialMediaData,
             aboutPageData: aboutPageData.data.page,
         },
     };

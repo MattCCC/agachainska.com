@@ -48,6 +48,10 @@ import {
 } from "types/project";
 import { HTMLInline } from "components/tina-render-html";
 import { useStoreProp } from "store/index";
+import {
+    ConfigurationPage,
+    fetchSocialMediaData,
+} from "domain/social-media/fetch-social-media-data";
 
 interface ContentContainerProps {
     variant?: string;
@@ -62,6 +66,7 @@ interface ProjectQueryWrapper {
 interface Props {
     project: ProjectQuery["project"];
     projects: Array<ProjectQuery["project"]>;
+    socialMediaData: ConfigurationPage;
 }
 
 const MainSection = styled(MainContainer).withConfig({
@@ -335,7 +340,7 @@ const sectionLoader = (
         }
     });
 
-export default function Project({ project, projects }: Props) {
+export default function Project({ project, projects, socialMediaData }: Props) {
     const {
         id: uid,
         name,
@@ -347,6 +352,12 @@ export default function Project({ project, projects }: Props) {
         projectPageColor = "",
         sections = [],
     } = project || {};
+
+    const [, dispatchSocialMediaData] = useStoreProp("socialMediaData");
+
+    useEffect(() => {
+        dispatchSocialMediaData.setSocialMediaData(socialMediaData.socialMedia);
+    }, [dispatchSocialMediaData, socialMediaData.socialMedia]);
 
     const [, dispatchBgColor] = useStoreProp("projectPageBackgroundColor");
 
@@ -647,11 +658,20 @@ export const getStaticProps: GetStaticProps = async ({
         }
     }
 
+    const socialMediaData = await fetchSocialMediaData({ locale });
+
+    if (!socialMediaData) {
+        return {
+            notFound: true,
+        };
+    }
+
     return {
         props: {
             ...(await serverSideTranslations(locale)),
             project: project.data.project,
             projects,
+            socialMediaData,
         },
     };
 };
