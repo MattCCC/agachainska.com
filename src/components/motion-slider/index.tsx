@@ -1,4 +1,4 @@
-import { memo, PropsWithChildren, ReactNode } from "react";
+import { memo, PropsWithChildren, ReactNode, Children } from "react";
 
 import { Spring, useMotionValue } from "framer-motion";
 import tw, { styled } from "twin.macro";
@@ -10,7 +10,6 @@ import { Item } from "./item";
 import { Track } from "./track";
 
 export interface Props extends MotionProps {
-    children: ReactNode;
     padding?: number;
     gap?: number;
     velocity?: number;
@@ -54,20 +53,20 @@ export const MotionSlider = memo(
                         style={{ x }}
                         onSlideChange={onSlideChange}
                     >
-                        {children &&
-                            (children as any[]).map(
-                                (child: ReactNode, i: number) => (
-                                    <Item
-                                        key={i}
-                                        gap={gap}
-                                        padding={padding}
-                                        index={i}
-                                        offset={x}
-                                    >
-                                        {child}
-                                    </Item>
-                                )
-                            )}
+                        {Children.map(
+                            children,
+                            (child: ReactNode, i: number) => (
+                                <Item
+                                    key={i}
+                                    gap={gap}
+                                    padding={padding}
+                                    index={i}
+                                    offset={x}
+                                >
+                                    {child}
+                                </Item>
+                            )
+                        )}
                     </Track>
                 </Wrapper>
             </ContextProvider>
