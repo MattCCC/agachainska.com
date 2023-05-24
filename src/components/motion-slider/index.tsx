@@ -22,25 +22,23 @@ export interface Props extends MotionProps {
 
 const Wrapper = styled.div(() => [tw`overflow-hidden`]);
 
-const SliderItems = memo(
-    ({
-        gap = 0,
-        padding = 0,
-        x,
-        children,
-    }: PropsWithChildren<{
-        gap: number;
-        padding: number;
-        x: MotionValue<number>;
-    }>) => (
-        <>
-            {Children.map(children, (child: ReactNode, i: number) => (
-                <Item key={i} gap={gap} padding={padding} index={i} offset={x}>
-                    {child}
-                </Item>
-            ))}
-        </>
-    )
+const SliderItems = ({
+    gap = 0,
+    padding = 0,
+    x,
+    children,
+}: PropsWithChildren<{
+    gap: number;
+    padding: number;
+    x: MotionValue<number>;
+}>) => (
+    <>
+        {Children.map(children, (child: ReactNode, i: number) => (
+            <Item key={i} gap={gap} padding={padding} index={i} offset={x}>
+                {child}
+            </Item>
+        ))}
+    </>
 );
 
 export const MotionSlider = memo(
