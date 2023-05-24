@@ -54,21 +54,6 @@ interface Props {
         | undefined;
 }
 
-const DeviceMockups = memo(({ list }: Props) => (
-    <>
-        {(list || []).map(
-            (device, i) =>
-                device && (
-                    <DeviceMockup
-                        key={i}
-                        type={device.type}
-                        link={device.link}
-                    />
-                )
-        )}
-    </>
-));
-
 export const DevicesCarousel = memo(({ list }: Props) => {
     const mouseoverItemRef = useRef(null);
     const mouse = useMouse(mouseoverItemRef, {
@@ -122,7 +107,16 @@ export const DevicesCarousel = memo(({ list }: Props) => {
                     displayGrabCursor={false}
                     onSlideChange={onSlideChange}
                 >
-                    <DeviceMockups list={list} />
+                    {(list || []).map(
+                        (device, i) =>
+                            device && (
+                                <DeviceMockup
+                                    key={i}
+                                    type={device.type}
+                                    link={device.link}
+                                />
+                            )
+                    )}
                 </MotionSlider>
             </SliderWrapper>
 
