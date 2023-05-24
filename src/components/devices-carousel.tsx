@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState, useCallback } from "react";
+import { memo, useEffect, useRef, useState, useCallback, useMemo } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -47,88 +47,97 @@ const ProgressText = styled.div(() => [
     `,
 ]);
 
-export const DevicesCarousel = memo(
-    ({
-        list,
-    }: {
-        list:
-            | Array<{ type: string; link: string } | null | undefined>
-            | null
-            | undefined;
-    }) => {
-        const mouseoverItemRef = useRef(null);
-        const mouse = useMouse(mouseoverItemRef, {
-            enterDelay: 30,
-            leaveDelay: 30,
-        });
+interface Props {
+    list:
+        | Array<{ type: string; link: string } | null | undefined>
+        | null
+        | undefined;
+}
 
-        const numItems = list?.length || 0;
-        const [x, setX] = useState(1);
-
-        const [, { showMotionCursor }] = useStoreProp("isMotionCursorVisible");
-
-        const onSlideChange = useCallback((activeItem: number) => {
-            setX(activeItem + 1);
-        }, []);
-
-        useEffect(() => {
-            const isMouseOver = Boolean(mouse.elementWidth);
-
-            showMotionCursor(isMouseOver, {
-                text: "drag",
-                to: "",
-                color: !isMouseOver ? "black" : "melrose",
-                size: 80,
-                overlap: !isMouseOver,
-            });
-        }, [mouse.elementWidth, showMotionCursor]);
-
-        if (!list) {
-            return null;
-        }
-
-        return (
-            <FullPageContent
-                widthPct={100}
-                heightPct="670px"
-                border={false}
-                style={{ height: "680px", marginBottom: "0" }}
-            >
-                <SliderWrapper ref={mouseoverItemRef}>
-                    <MotionSlider
-                        displayGrabCursor={false}
-                        onSlideChange={onSlideChange}
-                    >
-                        {list.map(
-                            (device, i) =>
-                                device && (
-                                    <DeviceMockup
-                                        key={i}
-                                        type={device.type}
-                                        link={device.link}
-                                    />
-                                )
-                        )}
-                    </MotionSlider>
-                </SliderWrapper>
-
-                <ProgressWrapper key={x}>
-                    <ProgressText>
-                        {x}/{numItems}
-                    </ProgressText>
-
-                    <Background />
-                    <Progress
-                        initial={{
-                            left: `${(100 / numItems) * (x - 1)}%`,
-                        }}
-                        animate={{
-                            left: `${(100 / numItems) * (x - 1)}%`,
-                        }}
-                        style={{ width: `${100 / numItems}%` }}
+const DeviceMockups = memo(({ list }: Props) => (
+    <>
+        {(list || []).map(
+            (device, i) =>
+                device && (
+                    <DeviceMockup
+                        key={i}
+                        type={device.type}
+                        link={device.link}
                     />
-                </ProgressWrapper>
-            </FullPageContent>
-        );
+                )
+        )}
+    </>
+));
+
+export const DevicesCarousel = memo(({ list }: Props) => {
+    const mouseoverItemRef = useRef(null);
+    const mouse = useMouse(mouseoverItemRef, {
+        enterDelay: 30,
+        leaveDelay: 30,
+    });
+
+    const numItems = list?.length || 0;
+    const itemWidth = 100 / numItems;
+    const [x, setX] = useState(1);
+
+    const [, dispatch] = useStoreProp("isMotionCursorVisible");
+
+    const onSlideChange = useCallback((activeItem: number) => {
+        setX(activeItem + 1);
+    }, []);
+
+    useEffect(() => {
+        const isMouseOver = Boolean(mouse.elementWidth);
+
+        dispatch.showMotionCursor(isMouseOver, {
+            text: "drag",
+            to: "",
+            color: !isMouseOver ? "black" : "melrose",
+            size: 80,
+            overlap: !isMouseOver,
+        });
+    }, [mouse.elementWidth, dispatch]);
+
+    const progressPosition = useMemo(() => {
+        const position = itemWidth * (x - 1);
+
+        return {
+            left: position + "%",
+        };
+    }, [itemWidth, x]);
+
+    if (!list) {
+        return null;
     }
-);
+
+    return (
+        <FullPageContent
+            widthPct={100}
+            heightPct="670px"
+            border={false}
+            style={{ height: "680px", marginBottom: "0" }}
+        >
+            <SliderWrapper ref={mouseoverItemRef}>
+                <MotionSlider
+                    displayGrabCursor={false}
+                    onSlideChange={onSlideChange}
+                >
+                    <DeviceMockups list={list} />
+                </MotionSlider>
+            </SliderWrapper>
+
+            <ProgressWrapper key={x}>
+                <ProgressText>
+                    {x}/{numItems}
+                </ProgressText>
+
+                <Background />
+                <Progress
+                    initial={progressPosition}
+                    animate={progressPosition}
+                    style={{ width: `${itemWidth}%` }}
+                />
+            </ProgressWrapper>
+        </FullPageContent>
+    );
+});
