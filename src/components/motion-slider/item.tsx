@@ -27,6 +27,8 @@ const ItemWrapper = styled(motion.div)(
     ]
 );
 
+const outputRange = [0.9, 1, 0.9];
+
 export const Item = memo(
     ({
         children,
@@ -46,7 +48,7 @@ export const Item = memo(
                 index * scaleOffest,
                 (index + 1) * scaleOffest,
             ],
-            [0.9, 1, 0.9]
+            outputRange
         );
 
         useEffect(() => {
