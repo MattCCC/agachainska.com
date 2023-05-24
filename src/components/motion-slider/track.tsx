@@ -114,7 +114,7 @@ export const Track = ({
             const activeSlide = itemsPositions.indexOf(closestPosition);
 
             dispatch({
-                type: ActionTypes.SetActive,
+                type: ActionTypes.SetActiveItem,
                 payload: { activeItem: activeSlide },
             });
 
