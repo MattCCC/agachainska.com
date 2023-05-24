@@ -1,10 +1,4 @@
-import {
-    memo,
-    PropsWithChildren,
-    ReactNode,
-    useContext,
-    useEffect,
-} from "react";
+import { memo, PropsWithChildren, useContext, useEffect } from "react";
 
 import { motion, MotionValue, useTransform } from "framer-motion";
 import useMeasure from "react-use-measure";
@@ -58,11 +52,11 @@ export const Item = memo(
         useEffect(() => {
             if (x !== undefined) {
                 dispatch({
-                    type: ActionTypes.Add,
-                    payload: { item: x - padding },
+                    type: ActionTypes.AddItem,
+                    payload: { position: x - padding, index },
                 });
             }
-        }, [x, dispatch, padding]);
+        }, [x, dispatch, padding, index]);
 
         return (
             <ItemWrapper ref={itemRef} gap={gap} style={{ scale }}>

@@ -1,7 +1,6 @@
 import {
     useContext,
     useCallback,
-    ReactNode,
     useRef,
     PropsWithChildren,
     useMemo,
@@ -57,7 +56,10 @@ export const Track = ({
     const { state, dispatch } = useContext(Context);
 
     const itemsPositions = useMemo(
-        () => state.items.map((item) => item * -1 + trackDimensions.x || 0),
+        () =>
+            state.items.map(
+                (position) => position * -1 + trackDimensions.x || 0
+            ),
         [state.items, trackDimensions.x]
     );
 

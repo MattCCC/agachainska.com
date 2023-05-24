@@ -16,15 +16,16 @@ export interface State {
 
 // eslint-disable-next-line no-shadow
 export enum ActionTypes {
-    Add = "ADD_ITEM",
-    SetActive = "SET_ACTIVE_ITEM",
+    AddItem = "ADD_ITEM",
+    SetActiveItem = "SET_ACTIVE_ITEM",
 }
 
 export interface Payloads {
-    [ActionTypes.Add]: {
-        item: number;
+    [ActionTypes.AddItem]: {
+        position: number;
+        index: number;
     };
-    [ActionTypes.SetActive]: {
+    [ActionTypes.SetActiveItem]: {
         activeItem: number;
     };
 }
@@ -33,13 +34,20 @@ export type Actions = ActionMap<Payloads>[keyof ActionMap<Payloads>];
 
 export const reducer = (prevState: State, action: Actions): State => {
     switch (action.type) {
-        case ActionTypes.Add:
+        case ActionTypes.AddItem:
+            // Prevent recreating slides in the state
+            if (typeof prevState.items[action.payload.index] !== "undefined") {
+                prevState.items[action.payload.index] = action.payload.position;
+
+                return { ...prevState, items: [...prevState.items] };
+            }
+
             return {
                 ...prevState,
-                items: [...prevState.items, action.payload.item],
+                items: [...prevState.items, action.payload.position],
             };
 
-        case ActionTypes.SetActive:
+        case ActionTypes.SetActiveItem:
             return {
                 ...prevState,
                 activeItem: action.payload.activeItem,
