@@ -161,11 +161,9 @@ export const Track = ({
                 style={{
                     padding,
                     ...style,
-                    ...{
-                        display: "flex",
-                        flexWrap: "nowrap",
-                        minWidth: "min-content",
-                    },
+                    display: "flex",
+                    flexWrap: "nowrap",
+                    minWidth: "min-content",
                 }}
                 ref={(el) => {
                     trackRef(el);
