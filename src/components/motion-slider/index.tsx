@@ -1,6 +1,6 @@
 import { memo, PropsWithChildren, ReactNode, Children } from "react";
 
-import { Spring, useMotionValue } from "framer-motion";
+import { MotionValue, Spring, useMotionValue } from "framer-motion";
 import tw, { styled } from "twin.macro";
 
 import { MotionProps } from "components/animation";
@@ -21,6 +21,27 @@ export interface Props extends MotionProps {
 }
 
 const Wrapper = styled.div(() => [tw`overflow-hidden`]);
+
+const SliderItems = memo(
+    ({
+        gap = 0,
+        padding = 0,
+        x,
+        children,
+    }: PropsWithChildren<{
+        gap: number;
+        padding: number;
+        x: MotionValue<number>;
+    }>) => (
+        <>
+            {Children.map(children, (child: ReactNode, i: number) => (
+                <Item key={i} gap={gap} padding={padding} index={i} offset={x}>
+                    {child}
+                </Item>
+            ))}
+        </>
+    )
+);
 
 export const MotionSlider = memo(
     ({
@@ -53,20 +74,9 @@ export const MotionSlider = memo(
                         style={{ x }}
                         onSlideChange={onSlideChange}
                     >
-                        {Children.map(
-                            children,
-                            (child: ReactNode, i: number) => (
-                                <Item
-                                    key={i}
-                                    gap={gap}
-                                    padding={padding}
-                                    index={i}
-                                    offset={x}
-                                >
-                                    {child}
-                                </Item>
-                            )
-                        )}
+                        <SliderItems gap={gap} padding={padding} x={x}>
+                            {children}
+                        </SliderItems>
                     </Track>
                 </Wrapper>
             </ContextProvider>
