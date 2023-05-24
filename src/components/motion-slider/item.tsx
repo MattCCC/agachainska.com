@@ -14,7 +14,6 @@ import { Context } from "./context";
 import { ActionTypes } from "./reducers";
 
 export interface Props {
-    children: ReactNode;
     padding?: number;
     gap?: number;
     index: number;

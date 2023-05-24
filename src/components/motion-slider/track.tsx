@@ -19,7 +19,6 @@ import { Context } from "./context";
 import { ActionTypes } from "./reducers";
 
 interface Props extends MotionProps {
-    children: ReactNode;
     padding?: number;
     gap: number;
     velocity: number;
@@ -64,6 +63,7 @@ export const Track = ({
 
     const left = useMemo(() => {
         const lastTwoItems = state.items.slice(-2);
+
         const lastItem =
             typeof lastTwoItems[0] !== "undefined" &&
             typeof lastTwoItems[1] !== "undefined"
