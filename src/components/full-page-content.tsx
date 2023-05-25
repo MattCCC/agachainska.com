@@ -11,8 +11,6 @@ interface Props {
     children: ReactNode;
 }
 
-const scrollbarWidth = 3;
-
 export const FullPageContent = styled.figure(
     ({ widthPct = 100, heightPct = "auto", border = true }: Props) => [
         tw`w-full max-w-full overflow-hidden`,
