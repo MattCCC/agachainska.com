@@ -84,7 +84,7 @@ export const FullPageOverlay = memo(
                 Router.events.off("routeChangeComplete", end);
                 Router.events.off("routeChangeError", end);
             };
-        }, []);
+        }, [end]);
 
         // Orchestrate animation at the beginning of the transition
         useEffect(() => {
