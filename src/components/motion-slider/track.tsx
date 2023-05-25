@@ -1,7 +1,6 @@
 import {
     useContext,
     useCallback,
-    ReactNode,
     useRef,
     PropsWithChildren,
     useMemo,
@@ -19,7 +18,6 @@ import { Context } from "./context";
 import { ActionTypes } from "./reducers";
 
 interface Props extends MotionProps {
-    children: ReactNode;
     padding?: number;
     gap: number;
     velocity: number;
@@ -58,12 +56,16 @@ export const Track = ({
     const { state, dispatch } = useContext(Context);
 
     const itemsPositions = useMemo(
-        () => state.items.map((item) => item * -1 + trackDimensions.x || 0),
+        () =>
+            state.items.map(
+                (position) => position * -1 + trackDimensions.x || 0
+            ),
         [state.items, trackDimensions.x]
     );
 
     const left = useMemo(() => {
         const lastTwoItems = state.items.slice(-2);
+
         const lastItem =
             typeof lastTwoItems[0] !== "undefined" &&
             typeof lastTwoItems[1] !== "undefined"
@@ -112,7 +114,7 @@ export const Track = ({
             const activeSlide = itemsPositions.indexOf(closestPosition);
 
             dispatch({
-                type: ActionTypes.SetActive,
+                type: ActionTypes.SetActiveItem,
                 payload: { activeItem: activeSlide },
             });
 
@@ -159,11 +161,9 @@ export const Track = ({
                 style={{
                     padding,
                     ...style,
-                    ...{
-                        display: "flex",
-                        flexWrap: "nowrap",
-                        minWidth: "min-content",
-                    },
+                    display: "flex",
+                    flexWrap: "nowrap",
+                    minWidth: "min-content",
                 }}
                 ref={(el) => {
                     trackRef(el);

@@ -1,4 +1,10 @@
-import { createContext, Dispatch, useReducer, PropsWithChildren } from "react";
+import {
+    createContext,
+    Dispatch,
+    useReducer,
+    PropsWithChildren,
+    useMemo,
+} from "react";
 
 import { Actions, reducer, State } from "./reducers";
 
@@ -17,10 +23,7 @@ export const Context = createContext<{
 
 export const ContextProvider = ({ children }: PropsWithChildren) => {
     const [state, dispatch] = useReducer(reducer, initialState);
+    const value = useMemo(() => ({ state, dispatch }), [state]);
 
-    return (
-        <Context.Provider value={{ state, dispatch }}>
-            {children}
-        </Context.Provider>
-    );
+    return <Context.Provider value={value}>{children}</Context.Provider>;
 };

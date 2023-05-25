@@ -1,10 +1,4 @@
-import {
-    memo,
-    PropsWithChildren,
-    ReactNode,
-    useContext,
-    useEffect,
-} from "react";
+import { memo, PropsWithChildren, useContext, useEffect } from "react";
 
 import { motion, MotionValue, useTransform } from "framer-motion";
 import useMeasure from "react-use-measure";
@@ -14,7 +8,6 @@ import { Context } from "./context";
 import { ActionTypes } from "./reducers";
 
 export interface Props {
-    children: ReactNode;
     padding?: number;
     gap?: number;
     index: number;
@@ -33,6 +26,8 @@ const ItemWrapper = styled(motion.div)(
         `,
     ]
 );
+
+const outputRange = [0.9, 1, 0.9];
 
 export const Item = memo(
     ({
@@ -53,17 +48,17 @@ export const Item = memo(
                 index * scaleOffest,
                 (index + 1) * scaleOffest,
             ],
-            [0.9, 1, 0.9]
+            outputRange
         );
 
         useEffect(() => {
             if (x !== undefined) {
                 dispatch({
-                    type: ActionTypes.Add,
-                    payload: { item: x - padding },
+                    type: ActionTypes.AddItem,
+                    payload: { position: x - padding, index },
                 });
             }
-        }, [x, dispatch, padding]);
+        }, [x, dispatch, padding, index]);
 
         return (
             <ItemWrapper ref={itemRef} gap={gap} style={{ scale }}>
