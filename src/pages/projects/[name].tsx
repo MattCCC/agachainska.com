@@ -169,6 +169,13 @@ const TimelineNoSSR = dynamic(() => import("../../components/timeline"), {
     ssr: false,
 });
 
+const ParallaxBackgroundNoSSR = dynamic(
+    () => import("../../components/parallax-background"),
+    {
+        ssr: false,
+    }
+);
+
 const sectionLoader = (
     elements: ProjectSectionsElement[],
     gallerySliderElementsGap: number = 0,
@@ -204,7 +211,7 @@ const sectionLoader = (
                     if (el.images[0].fullPageImage) {
                         return (
                             <FullPageContent key={index} widthPct={96}>
-                                <ParallaxBackground
+                                <ParallaxBackgroundNoSSR
                                     key={index}
                                     bgImgUrl={`${el.images[0].image}`}
                                     width={
