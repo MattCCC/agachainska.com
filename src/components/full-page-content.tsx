@@ -23,9 +23,9 @@ export const FullPageContent = styled.figure(
         tw`lg:relative lg:max-w-none mb-[40px] lg:left-1/2`,
         css`
             ${up("lg")} {
-                width: calc(${widthPct}vw - 3px);
+                width: ${widthPct}vw;
                 height: ${heightPct};
-                margin: 0 auto 90px calc(-${widthPct / 2}vw + 3px);
+                margin: 0 auto 90px -${widthPct / 2}vw;
             }
         `,
     ]
