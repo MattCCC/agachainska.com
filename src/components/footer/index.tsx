@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useRef, useState } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -7,6 +7,7 @@ import { Contact } from "components/footer/contact";
 import { SocialMedia } from "components/social-media";
 import { useStoreProp } from "store/index";
 import { up } from "utils/screens";
+import { useScroll, useMotionValueEvent } from "framer-motion";
 
 interface Props {
     showFooter: boolean;
@@ -69,16 +70,37 @@ const Annotation = styled.div(({ showFooter }: Partial<Props>) => [
 
 const AnnotationLink = styled.a(() => [tw`inline-block ml-1 text-green`]);
 
+const MainMarginBottom = 810;
+
 export function Footer() {
     const [showFooter] = useStoreProp("showFooter");
     const [darkTheme] = useStoreProp("darkTheme");
     const [socialMediaData] = useStoreProp("socialMediaData");
+    const footerElement = useRef<HTMLElement>(null);
+
+    const { scrollY } = useScroll();
+    const [isVisible, setIsVisible] = useState(false);
+
+    useMotionValueEvent(scrollY, "change", (scrollPosition) => {
+        const pageHeight =
+            document.documentElement.scrollHeight -
+            window.innerHeight -
+            MainMarginBottom;
+        const isFooterVisible = scrollPosition >= pageHeight;
+
+        if (isVisible !== isFooterVisible) {
+            setIsVisible(isFooterVisible);
+        }
+    });
 
     return (
         <Fragment>
             {showFooter && (
-                <FooterWrapper showFooter={showFooter}>
-                    <BackgroundNoise />
+                <FooterWrapper
+                    ref={footerElement}
+                    showFooter={showFooter && isVisible}
+                >
+                    {isVisible && <BackgroundNoise />}
                     <div className="relative">
                         <Contact />
                         <BottomFooter>
