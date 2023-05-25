@@ -23,13 +23,9 @@ export const FullPageContent = styled.figure(
         tw`lg:relative lg:max-w-none mb-[40px] lg:left-1/2`,
         css`
             ${up("lg")} {
-                width: ${widthPct}vw;
+                width: calc(${widthPct}vw - 3px);
                 height: ${heightPct};
-                margin: 0 auto 90px -${widthPct / 2}vw;
-
-                @media screen and (-moz-windows-theme) {
-                    width: calc(${widthPct}vw - ${scrollbarWidth}px);
-                }
+                margin: 0 auto 90px calc(-${widthPct / 2}vw + 3px);
             }
         `,
     ]
