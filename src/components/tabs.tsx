@@ -15,9 +15,6 @@ import { motion, MotionProps, AnimatePresence } from "components/animation";
 
 interface TabsStyled {
     hideForDesktop?: boolean;
-}
-
-interface PropsTabContainer {
     isIntersecting: boolean;
 }
 
@@ -37,24 +34,10 @@ interface Props extends HTMLAttributes<HTMLElement> {
     onTabChange?: (tab: SingleTab) => void;
 }
 
-const TabsWrapper = styled.div(({ hideForDesktop = false }: TabsStyled) => [
-    tw`sticky top-0 flex items-center w-full h-16 mb-8 overflow-auto z-100`,
-    hideForDesktop && tw`lg:hidden`,
-    css`
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-
-        &::-webkit-scrollbar {
-            display: none;
-        }
-    `,
-]);
-
-const TabsWrapperTop = styled.div(() => [tw`h-[1px]`]);
-
-const TabsListContainer = styled.div(
-    ({ isIntersecting = false }: PropsTabContainer) => [
-        tw`relative h-8 px-[15px]`,
+const TabsWrapper = styled.div(
+    ({ hideForDesktop = false, isIntersecting = false }: TabsStyled) => [
+        tw`sticky top-0 flex items-center w-full h-16 mb-8 z-100`,
+        hideForDesktop && tw`lg:hidden`,
         isIntersecting &&
             css`
                 &:after {
@@ -70,6 +53,13 @@ const TabsListContainer = styled.div(
             `,
     ]
 );
+
+const TabsWrapperTop = styled.div(() => [tw`h-[1px]`]);
+
+const TabsListContainer = styled.div(() => [
+    tw`relative h-8 px-[15px] w-[100vw]`,
+    tw`overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`,
+]);
 
 const TabsList = styled.ul(() => [tw`relative flex flex-row justify-between`]);
 
@@ -108,7 +98,7 @@ export const Tabs = memo(
         tabs,
         activeTabId = "",
         onTabChange = (): null => null,
-        ...props
+        hideForDesktop = false,
     }: Props) => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
 
@@ -174,12 +164,13 @@ export const Tabs = memo(
         return (
             <>
                 <TabsWrapperTop ref={wrapperRef} />
-                <TabsWrapper {...props}>
-                    <TabsListContainer
-                        isIntersecting={areTabsIntersectingContent}
-                    >
-                        <TabsList>
-                            <AnimatePresence initial={false}>
+                <TabsWrapper
+                    hideForDesktop={hideForDesktop}
+                    isIntersecting={areTabsIntersectingContent}
+                >
+                    <TabsListContainer>
+                        <AnimatePresence initial={false}>
+                            <TabsList>
                                 {tabs.map((tab, index) => (
                                     <Tab
                                         key={`tab-${index}`}
@@ -189,12 +180,12 @@ export const Tabs = memo(
                                         {tab.title}
                                     </Tab>
                                 ))}
-                                <Progress
-                                    animate={{ left: pinX }}
-                                    style={{ width: `${100 / tabs.length}%` }}
-                                />
-                            </AnimatePresence>
-                        </TabsList>
+                            </TabsList>
+                            <Progress
+                                animate={{ left: pinX }}
+                                style={{ width: `${100 / tabs.length}%` }}
+                            />
+                        </AnimatePresence>
                     </TabsListContainer>
                 </TabsWrapper>
             </>
