@@ -11,6 +11,8 @@ interface Props {
     children: ReactNode;
 }
 
+const scrollbarWidth = 3;
+
 export const FullPageContent = styled.figure(
     ({ widthPct = 100, heightPct = "auto", border = true }: Props) => [
         tw`w-full max-w-full overflow-hidden`,
@@ -18,16 +20,16 @@ export const FullPageContent = styled.figure(
             css`
                 border: 1px solid #979797;
             `,
+        tw`lg:relative lg:max-w-none mb-[40px] lg:left-1/2`,
         css`
-            margin-bottom: 40px;
-
             ${up("lg")} {
-                ${tw`relative max-w-none`}
-
                 width: ${widthPct}vw;
                 height: ${heightPct};
                 margin: 0 auto 90px -${widthPct / 2}vw;
-                left: 50%;
+
+                @media screen and (-moz-windows-theme) {
+                    width: calc(${widthPct}vw - ${scrollbarWidth}px);
+                }
             }
         `,
     ]
