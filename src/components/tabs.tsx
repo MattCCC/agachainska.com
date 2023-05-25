@@ -170,7 +170,7 @@ export const Tabs = memo(
                 >
                     <TabsListContainer>
                         <AnimatePresence initial={false}>
-                            <TabsList>
+                            <TabsList key="tab-list">
                                 {tabs.map((tab, index) => (
                                     <Tab
                                         key={`tab-${index}`}
