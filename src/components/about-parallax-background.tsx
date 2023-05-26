@@ -1,15 +1,16 @@
 import { useScroll, motion, useTransform } from "framer-motion";
 import tw, { css, styled } from "twin.macro";
 
-import Basketball from "svg/Basketball.svg";
-import Drink from "svg/Drink.svg";
-import LondonEyeIllustration from "svg/London eye@1x.svg";
-import Malta from "svg/Malta.svg";
-import Peach from "svg/Peach.svg";
-import PixelLove from "svg/Pixel love.svg";
-import Torun from "svg/Torun.svg";
-import Vectors from "svg/Vectors.svg";
-import Vinyl from "svg/Vinyl.svg";
+import Basketball from "svg/Basketball.svg?url";
+import Drink from "svg/Drink.svg?url";
+import LondonEyeIllustration from "svg/London eye@1x.svg?url";
+import Malta from "svg/Malta.svg?url";
+import Peach from "svg/Peach.svg?url";
+import PixelLove from "svg/Pixel love.svg?url";
+import Torun from "svg/Torun.svg?url";
+import Vectors from "svg/Vectors.svg?url";
+import Vinyl from "svg/Vinyl.svg?url";
+import Image from "next/image";
 
 const IllustrationsContainer = styled.div(() => [
     tw`absolute grid w-full h-screen grid-cols-12`,
@@ -28,6 +29,31 @@ const ParallaxCon = styled(motion.div)(() => [
     `,
 ]);
 
+const loadIllustration = (illustration: string) => {
+    switch (illustration) {
+        case Torun:
+            return <Image src={Torun} alt={""} />;
+        case LondonEyeIllustration:
+            return <Image src={LondonEyeIllustration} alt={""} />;
+        case Drink:
+            return <Image src={Drink} alt={""} />;
+        case Vectors:
+            return <Image src={Vectors} alt={""} />;
+        case Vinyl:
+            return <Image src={Vinyl} alt={""} />;
+        case Basketball:
+            return <Image src={Basketball} alt={""} />;
+        case Malta:
+            return <Image src={Malta} alt={""} />;
+        case Peach:
+            return <Image src={Peach} alt={""} />;
+        case PixelLove:
+            return <Image src={PixelLove} alt={""} />;
+    }
+
+    return null;
+};
+
 export const ParallaxBackground = () => {
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 1300], [0, 170]);
@@ -39,19 +65,19 @@ export const ParallaxBackground = () => {
 
     const Illustrations = [
         {
-            illustration: <Torun />,
+            illustration: Torun,
             top: "50%",
             colStart: "10",
             y: y1,
         },
         {
-            illustration: <LondonEyeIllustration />,
+            illustration: LondonEyeIllustration,
             top: "341%",
             colStart: "11",
             y: y2,
         },
         {
-            illustration: <Drink />,
+            illustration: Drink,
             width: "98px",
             height: "98.36px",
             top: "380%",
@@ -59,7 +85,7 @@ export const ParallaxBackground = () => {
             y: y1,
         },
         {
-            illustration: <Vectors />,
+            illustration: Vectors,
             width: "84px",
             height: "84px",
             top: "720%",
@@ -67,13 +93,13 @@ export const ParallaxBackground = () => {
             y: y4,
         },
         {
-            illustration: <Vinyl />,
+            illustration: Vinyl,
             top: "800%",
             colStart: "10",
             y: y2,
         },
         {
-            illustration: <Basketball />,
+            illustration: Basketball,
             width: "70px",
             height: "70px",
             top: "900%",
@@ -81,7 +107,7 @@ export const ParallaxBackground = () => {
             y: y3,
         },
         {
-            illustration: <Malta />,
+            illustration: Malta,
             width: "107px",
             height: "107px",
             top: "900%",
@@ -89,7 +115,7 @@ export const ParallaxBackground = () => {
             y: y2,
         },
         {
-            illustration: <Peach />,
+            illustration: Peach,
             width: "107.81px",
             height: "108.53px",
             top: "850%",
@@ -97,7 +123,7 @@ export const ParallaxBackground = () => {
             y: y6,
         },
         {
-            illustration: <PixelLove />,
+            illustration: PixelLove,
             top: "1400%",
             colStart: "9",
             y: y5,
@@ -128,7 +154,7 @@ export const ParallaxBackground = () => {
                         }}
                         key={index}
                     >
-                        {illustration}
+                        {loadIllustration(illustration)}
                     </ParallaxCon>
                 )
             )}
