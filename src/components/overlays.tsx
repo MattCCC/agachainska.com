@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-import { motion, LayoutGroup } from "components/animation";
+import { motion, LayoutGroup } from "framer-motion";
 import TopOverlay from "components/top-overlay";
 import { useStoreProp } from "store/index";
 

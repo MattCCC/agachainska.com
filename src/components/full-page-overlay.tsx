@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 
-import { motion, useAnimation } from "components/animation";
+import { motion, useAnimation } from "framer-motion";
 import { useStoreProp } from "store/index";
 import { Router } from "next/router";
 
