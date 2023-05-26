@@ -3,7 +3,6 @@ import "../styles/global.scss";
 import { PropsWithChildren, StrictMode } from "react";
 
 import { appWithTranslation } from "next-i18next";
-import { ParallaxProvider } from "react-scroll-parallax";
 import tw, { styled, css } from "twin.macro";
 
 import { AppProps } from "next/app";
@@ -95,14 +94,12 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
 function App({ Component, pageProps }: AppProps) {
     return (
         <>
-            <ParallaxProvider>
-                <GlobalStoreProvider>
-                    <Overlays />
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
-                </GlobalStoreProvider>
-            </ParallaxProvider>
+            <GlobalStoreProvider>
+                <Overlays />
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            </GlobalStoreProvider>
         </>
     );
 }
