@@ -47,13 +47,7 @@ export const GallerySlider = memo(({ images, gap }: Props) => {
     }, [mouse.elementWidth, showMotionCursor]);
 
     return (
-        <FullPageContent
-            widthPct={100}
-            border={false}
-            heightPct="max(560px, 80vh)"
-            className="lg:w-screen lg:h-[max(560px,_80vh)]"
-            style={{ width: "100vw", height: "max(560px, 80vh)" }}
-        >
+        <FullPageContent widthPct={100} heightPct="max(560px, 80vh)">
             <SliderWrapper ref={mouseoverItemRef}>
                 <MotionSlider gap={gap} displayGrabCursor={false}>
                     {images &&

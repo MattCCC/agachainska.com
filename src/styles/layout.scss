@@ -26,3 +26,13 @@ input {
 ::selection {
     @apply text-tertiary bg-melrose;
 }
+
+article li {
+    list-style: disc;
+    margin-left: 1rem;
+}
+
+b,
+strong {
+    font-family: "Larsseit-Bold", sans-serif;
+}

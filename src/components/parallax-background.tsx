@@ -56,3 +56,5 @@ export const ParallaxBackground = ({ bgImgUrl, contain, width }: Props) => {
         </BackgroundWrapper>
     );
 };
+
+export default ParallaxBackground;

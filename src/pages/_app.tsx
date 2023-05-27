@@ -3,7 +3,6 @@ import "../styles/global.scss";
 import { PropsWithChildren, StrictMode } from "react";
 
 import { appWithTranslation } from "next-i18next";
-import { ParallaxProvider } from "react-scroll-parallax";
 import tw, { styled, css } from "twin.macro";
 
 import { AppProps } from "next/app";
@@ -34,7 +33,7 @@ const DarkTheme = () => (
 
 const Main = styled.main(
     ({ hasGradient, backgroundColor, showFooter, darkTheme }: Props) => [
-        tw`relative z-10 w-full h-full min-h-screen overflow-x-hidden text-primary pt-safe-top`,
+        tw`relative z-10 w-full h-full min-h-screen text-primary pt-safe-top`,
         tw`[backface-visibility: hidden]`,
         showFooter && tw`lg:mb-[810px]`,
         darkTheme && !showFooter && tw`pb-[140px] lg:pb-[120px]`,
@@ -95,14 +94,12 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
 function App({ Component, pageProps }: AppProps) {
     return (
         <>
-            <ParallaxProvider>
-                <GlobalStoreProvider>
-                    <Overlays />
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
-                </GlobalStoreProvider>
-            </ParallaxProvider>
+            <GlobalStoreProvider>
+                <Overlays />
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            </GlobalStoreProvider>
         </>
     );
 }

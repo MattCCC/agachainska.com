@@ -11,7 +11,7 @@ import {
 
 import tw, { css, styled } from "twin.macro";
 
-import { motion, MotionProps, AnimatePresence } from "components/animation";
+import { motion, MotionProps, AnimatePresence } from "framer-motion";
 
 interface TabsStyled {
     hideForDesktop?: boolean;
@@ -170,7 +170,7 @@ export const Tabs = memo(
                 >
                     <TabsListContainer>
                         <AnimatePresence initial={false}>
-                            <TabsList>
+                            <TabsList key="tab-list">
                                 {tabs.map((tab, index) => (
                                     <Tab
                                         key={`tab-${index}`}

@@ -12,7 +12,7 @@ import tw, { css, styled } from "twin.macro";
 
 import useMouse from "@react-hook/mouse-position";
 
-import { animate, AnimatePresence, motion } from "components/animation";
+import { animate, AnimatePresence, motion } from "framer-motion";
 import { Distortion } from "components/distortion";
 import { MainTitleTop } from "components/main-title";
 import { useEventListener } from "hooks/use-event-listener";

@@ -3,3 +3,9 @@ declare module "lerp" {
 
     export default lerp;
 }
+
+declare module "*.svg?url" {
+    const content: string;
+
+    export default content;
+}
