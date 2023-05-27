@@ -13,22 +13,21 @@ interface Props {
 
 export const FullPageContent = styled.figure(
     ({ widthPct = 100, heightPct = "auto", border = true }: Props) => [
-        tw`w-full max-w-full overflow-hidden`,
+        tw`w-full max-w-full mb-[40px] overflow-hidden`,
+        tw`lg:relative lg:max-w-none lg:mt-0 lg:mr-auto lg:mb-[90px]`,
         border &&
             css`
                 border: 1px solid #979797;
             `,
-        css`
-            margin-bottom: 40px;
+        // css`
+        //     ${up("lg")} {
+        //         ${tw`relative max-w-none`}
 
-            ${up("lg")} {
-                ${tw`relative max-w-none`}
-
-                width: ${widthPct}vw;
-                height: ${heightPct};
-                margin: 0 auto 90px -${widthPct / 2}vw;
-                left: 50%;
-            }
-        `,
+        //         width: ${widthPct}vw;
+        //         height: ${heightPct};
+        //         margin: 0 auto 90px -${widthPct / 2}vw;
+        //         left: 50%;
+        //     }
+        // `,
     ]
 );
