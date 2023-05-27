@@ -7,17 +7,12 @@ import { up } from "utils/screens";
 interface Props {
     widthPct?: number;
     heightPct?: string;
-    border?: boolean;
     children: ReactNode;
 }
 
 export const FullPageContent = styled.figure(
-    ({ widthPct = 100, heightPct = "auto", border = true }: Props) => [
+    ({ widthPct = 100, heightPct = "auto" }: Props) => [
         tw`w-full max-w-full overflow-hidden`,
-        border &&
-            css`
-                border: 1px solid #979797;
-            `,
         tw`lg:relative lg:max-w-none mb-[40px] lg:left-1/2`,
         css`
             ${up("lg")} {

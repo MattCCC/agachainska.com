@@ -99,7 +99,6 @@ export const DevicesCarousel = memo(({ list }: Props) => {
         <FullPageContent
             widthPct={100}
             heightPct="670px"
-            border={false}
             style={{ height: "680px", marginBottom: "0" }}
         >
             <SliderWrapper ref={mouseoverItemRef}>
