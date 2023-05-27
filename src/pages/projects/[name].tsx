@@ -169,6 +169,13 @@ const TimelineNoSSR = dynamic(() => import("../../components/timeline"), {
     ssr: false,
 });
 
+const ParallaxBackgroundNoSSR = dynamic(
+    () => import("../../components/parallax-background"),
+    {
+        ssr: false,
+    }
+);
+
 const sectionLoader = (
     elements: ProjectSectionsElement[],
     gallerySliderElementsGap: number = 0,
@@ -185,7 +192,7 @@ const sectionLoader = (
             case "ProjectSectionsElementsText":
                 return (
                     <ContentContainer key={index}>
-                        <H3>{el.title}</H3>
+                        {el.title.trim() && <H3>{el.title}</H3>}
                         <ParagraphWrapper>
                             <TinaMarkdown
                                 components={HTMLInline}
@@ -204,7 +211,7 @@ const sectionLoader = (
                     if (el.images[0].fullPageImage) {
                         return (
                             <FullPageContent key={index} widthPct={96}>
-                                <ParallaxBackground
+                                <ParallaxBackgroundNoSSR
                                     key={index}
                                     bgImgUrl={`${el.images[0].image}`}
                                     width={
@@ -501,60 +508,58 @@ export default function Project({ project, projects, socialMediaData }: Props) {
                     </Fragment>
                 )}
 
-                {sections &&
-                    sections.map((section, i) => {
-                        if (!section) {
-                            return null;
-                        }
+                {sections?.map((section, i) => {
+                    if (!section) {
+                        return null;
+                    }
 
-                        const sectionName = section.title;
-                        const sectionId = sectionName
-                            .toLowerCase()
-                            .replaceAll(" ", "-")
-                            .replaceAll("/", "-");
+                    const sectionName = section.title;
+                    const sectionId = sectionName
+                        .toLowerCase()
+                        .replaceAll(" ", "-")
+                        .replaceAll("/", "-");
 
-                        return (
-                            <div key={sectionId}>
-                                {section.showInTimeline ? (
-                                    <SectionObserver
-                                        sectionId={sectionId}
-                                        sectionNumber={i}
-                                        isLastSection={
-                                            sectionName ===
-                                            timelineItems[numItems - 1]?.title
-                                        }
-                                        intersectionCallback={
-                                            intersectionCallback
-                                        }
-                                    >
-                                        {section.showSectionTitle && (
+                    return (
+                        <div key={sectionId}>
+                            {section.showInTimeline ? (
+                                <SectionObserver
+                                    sectionId={sectionId}
+                                    sectionNumber={i}
+                                    isLastSection={
+                                        sectionName ===
+                                        timelineItems[numItems - 1]?.title
+                                    }
+                                    intersectionCallback={intersectionCallback}
+                                >
+                                    {section.showSectionTitle &&
+                                        sectionName.trim() && (
                                             <H2>
                                                 <H2Span>{sectionName}</H2Span>
                                             </H2>
                                         )}
-                                        {sectionLoader(
-                                            section.elements || [],
-                                            gallerySliderElementsGap,
-                                            otherProjects
-                                        )}
-                                    </SectionObserver>
-                                ) : (
-                                    <ArticleSection id={sectionId}>
-                                        {section.showSectionTitle && (
-                                            <H2>
-                                                <H2Span>{sectionName}</H2Span>
-                                            </H2>
-                                        )}
-                                        {sectionLoader(
-                                            section.elements || [],
-                                            gallerySliderElementsGap,
-                                            otherProjects
-                                        )}
-                                    </ArticleSection>
-                                )}
-                            </div>
-                        );
-                    })}
+                                    {sectionLoader(
+                                        section.elements || [],
+                                        gallerySliderElementsGap,
+                                        otherProjects
+                                    )}
+                                </SectionObserver>
+                            ) : (
+                                <ArticleSection id={sectionId}>
+                                    {section.showSectionTitle && (
+                                        <H2>
+                                            <H2Span>{sectionName}</H2Span>
+                                        </H2>
+                                    )}
+                                    {sectionLoader(
+                                        section.elements || [],
+                                        gallerySliderElementsGap,
+                                        otherProjects
+                                    )}
+                                </ArticleSection>
+                            )}
+                        </div>
+                    );
+                })}
             </Article>
         </Fragment>
     );

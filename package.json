@@ -16,6 +16,7 @@
     "format": "next lint lint --fix && prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "lint": "next lint --fix --ext .tsx,.ts,.js,.jsx ./src",
     "clean": "rm -rf ./tina/__generated__",
+    "analyze": "ANALYZE=true next build && next bundle-analyzer",
     "types-check": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
@@ -36,7 +37,6 @@
     "react-dom": "18.2.0",
     "react-hook-inview": "4.5.0",
     "react-i18next": "12.3.1",
-    "react-scroll-parallax": "3.4.2",
     "react-use-measure": "2.1.1",
     "sass": "1.62.1",
     "sharp": "0.32.1",
@@ -48,6 +48,7 @@
   "devDependencies": {
     "@babel/preset-env": "7.21.5",
     "@microsoft/eslint-formatter-sarif": "3.0.0",
+    "@next/bundle-analyzer": "13.4.4",
     "@next/eslint-plugin-next": "13.4.3",
     "@svgr/webpack": "8.0.1",
     "@types/jest": "29.5.1",

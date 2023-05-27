@@ -1,0 +1,27 @@
+::-webkit-scrollbar {
+    width: 3px;
+    position: fixed;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 0;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #111;
+    border: 0;
+}
+
+::-webkit-resizer,
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-corner {
+    display: none;
+}
+
+body {
+    scrollbar-width: thin;
+}

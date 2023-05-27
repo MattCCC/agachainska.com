@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 
-import { motion, useAnimation } from "components/animation";
+import { motion, useAnimation } from "framer-motion";
 import { useStoreProp } from "store/index";
 import { Router } from "next/router";
 
@@ -84,7 +84,7 @@ export const FullPageOverlay = memo(
                 Router.events.off("routeChangeComplete", end);
                 Router.events.off("routeChangeError", end);
             };
-        }, []);
+        }, [end]);
 
         // Orchestrate animation at the beginning of the transition
         useEffect(() => {

@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { motion } from "./animation";
+import { motion } from "framer-motion";
 
 const duration = 1;
 const ease = [0.43, 0.13, 0.23, 0.96];

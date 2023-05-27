@@ -2,8 +2,11 @@
 
 const { i18n } = require('./next-i18next.config.js');
 const withTwin = require('./withTwin.js')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
-module.exports = withTwin({
+module.exports = withBundleAnalyzer(withTwin({
   reactStrictMode: true,
   swcMinify: true,
   eslint: {
@@ -54,4 +57,4 @@ module.exports = withTwin({
 
     return config
   },
-});
+}));
