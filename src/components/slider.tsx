@@ -44,12 +44,8 @@ interface Props {
           ) => void)
         | null;
     onSliderChange?: ((currentItem?: SliderItem) => void) | null;
-
     onSliderMouseEnter?: ((mouseLeft: boolean) => void) | null;
     onSliderMouseLeave?: ((mouseLeft: boolean) => void) | null;
-
-    onSlideMouseEnter?: ((mouseLeft: boolean) => void) | null;
-    onSlideMouseLeave?: ((mouseLeft: boolean) => void) | null;
 }
 
 interface SlideContentProps {
@@ -196,8 +192,6 @@ export const Slider = ({
     onSliderChange = null,
     onSliderMouseEnter = null,
     onSliderMouseLeave = null,
-    onSlideMouseEnter = null,
-    onSlideMouseLeave = null,
 }: Props) => {
     const [[page, direction], setPage] = useState([0, 0]);
     const numItems = useMemo(() => sliderItems.length, [sliderItems]);
@@ -339,51 +333,14 @@ export const Slider = ({
         numItems,
     ]);
 
-    const slideContentRef = useRef(null);
-    const slideMouse = useMouse(slideContentRef, {
-        enterDelay: 30,
-        leaveDelay: 30,
-    });
-
     const sliderContentRef = useRef(null);
-    const sliderMouse = useMouse(sliderContentRef, {
+    const mouse = useMouse(sliderContentRef, {
         enterDelay: 30,
         leaveDelay: 30,
     });
 
     useEffect(() => {
-        const isMouseOver =
-            Boolean(slideMouse.elementWidth) ||
-            Boolean(sliderMouse.elementWidth);
-
-        if (
-            !isMouseOver &&
-            onSlideMouseLeave &&
-            onSliderMouseLeave &&
-            !isShowingOtherProjects
-        ) {
-            onSlideMouseLeave(true);
-            onSliderMouseLeave(true);
-        } else if (
-            onSlideMouseEnter &&
-            onSliderMouseEnter &&
-            !isShowingOtherProjects
-        ) {
-            onSlideMouseEnter(false);
-            onSliderMouseEnter(false);
-        }
-    }, [
-        isShowingOtherProjects,
-        sliderMouse.elementWidth,
-        slideMouse.elementWidth,
-        onSlideMouseEnter,
-        onSliderMouseEnter,
-        onSliderMouseLeave,
-        onSlideMouseLeave,
-    ]);
-
-    useEffect(() => {
-        const isMouseOver = Boolean(sliderMouse.elementWidth);
+        const isMouseOver = Boolean(mouse.elementWidth);
 
         if (!isMouseOver && onSliderMouseLeave && !isShowingOtherProjects) {
             onSliderMouseLeave(true);
@@ -392,7 +349,7 @@ export const Slider = ({
         }
     }, [
         isShowingOtherProjects,
-        sliderMouse.elementWidth,
+        mouse.elementWidth,
         onSliderMouseEnter,
         onSliderMouseLeave,
     ]);
@@ -400,10 +357,7 @@ export const Slider = ({
     useEventListener(
         "wheel",
         (e) => {
-            if (
-                Boolean(slideMouse.elementWidth) ||
-                (Boolean(sliderMouse.elementWidth) && mouseScrollOnSlide)
-            ) {
+            if (Boolean(mouse.elementWidth) && mouseScrollOnSlide) {
                 e.preventDefault();
 
                 updateScroll(e as WheelEvent);
@@ -426,7 +380,7 @@ export const Slider = ({
     return (
         <SliderWrapper
             isShowingOtherProjects={isShowingOtherProjects}
-            ref={sliderContentRef}
+            ref={sliderRef}
         >
             {showSlideTitle && (
                 <Title data-text={sliderItems[sliderIndex]?.name || ""}>
@@ -434,7 +388,7 @@ export const Slider = ({
                 </Title>
             )}
             <SlideContent
-                ref={slideContentRef}
+                ref={sliderContentRef}
                 isShowingOtherProjects={isShowingOtherProjects}
             >
                 {isShowingOtherProjects ? (
