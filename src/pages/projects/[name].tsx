@@ -192,7 +192,7 @@ const sectionLoader = (
             case "ProjectSectionsElementsText":
                 return (
                     <ContentContainer key={index}>
-                        {el.title && <H3>{el.title}</H3>}
+                        {el.title.trim() && <H3>{el.title}</H3>}
                         <ParagraphWrapper>
                             <TinaMarkdown
                                 components={HTMLInline}
@@ -532,7 +532,7 @@ export default function Project({ project, projects, socialMediaData }: Props) {
                                     intersectionCallback={intersectionCallback}
                                 >
                                     {section.showSectionTitle &&
-                                        sectionName && (
+                                        sectionName.trim() && (
                                             <H2>
                                                 <H2Span>{sectionName}</H2Span>
                                             </H2>
