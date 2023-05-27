@@ -192,7 +192,7 @@ const sectionLoader = (
             case "ProjectSectionsElementsText":
                 return (
                     <ContentContainer key={index}>
-                        <H3>{el.title}</H3>
+                        {el.title && <H3>{el.title}</H3>}
                         <ParagraphWrapper>
                             <TinaMarkdown
                                 components={HTMLInline}
@@ -508,60 +508,58 @@ export default function Project({ project, projects, socialMediaData }: Props) {
                     </Fragment>
                 )}
 
-                {sections &&
-                    sections.map((section, i) => {
-                        if (!section) {
-                            return null;
-                        }
+                {sections?.map((section, i) => {
+                    if (!section) {
+                        return null;
+                    }
 
-                        const sectionName = section.title;
-                        const sectionId = sectionName
-                            .toLowerCase()
-                            .replaceAll(" ", "-")
-                            .replaceAll("/", "-");
+                    const sectionName = section.title;
+                    const sectionId = sectionName
+                        .toLowerCase()
+                        .replaceAll(" ", "-")
+                        .replaceAll("/", "-");
 
-                        return (
-                            <div key={sectionId}>
-                                {section.showInTimeline ? (
-                                    <SectionObserver
-                                        sectionId={sectionId}
-                                        sectionNumber={i}
-                                        isLastSection={
-                                            sectionName ===
-                                            timelineItems[numItems - 1]?.title
-                                        }
-                                        intersectionCallback={
-                                            intersectionCallback
-                                        }
-                                    >
-                                        {section.showSectionTitle && (
+                    return (
+                        <div key={sectionId}>
+                            {section.showInTimeline ? (
+                                <SectionObserver
+                                    sectionId={sectionId}
+                                    sectionNumber={i}
+                                    isLastSection={
+                                        sectionName ===
+                                        timelineItems[numItems - 1]?.title
+                                    }
+                                    intersectionCallback={intersectionCallback}
+                                >
+                                    {section.showSectionTitle &&
+                                        sectionName && (
                                             <H2>
                                                 <H2Span>{sectionName}</H2Span>
                                             </H2>
                                         )}
-                                        {sectionLoader(
-                                            section.elements || [],
-                                            gallerySliderElementsGap,
-                                            otherProjects
-                                        )}
-                                    </SectionObserver>
-                                ) : (
-                                    <ArticleSection id={sectionId}>
-                                        {section.showSectionTitle && (
-                                            <H2>
-                                                <H2Span>{sectionName}</H2Span>
-                                            </H2>
-                                        )}
-                                        {sectionLoader(
-                                            section.elements || [],
-                                            gallerySliderElementsGap,
-                                            otherProjects
-                                        )}
-                                    </ArticleSection>
-                                )}
-                            </div>
-                        );
-                    })}
+                                    {sectionLoader(
+                                        section.elements || [],
+                                        gallerySliderElementsGap,
+                                        otherProjects
+                                    )}
+                                </SectionObserver>
+                            ) : (
+                                <ArticleSection id={sectionId}>
+                                    {section.showSectionTitle && (
+                                        <H2>
+                                            <H2Span>{sectionName}</H2Span>
+                                        </H2>
+                                    )}
+                                    {sectionLoader(
+                                        section.elements || [],
+                                        gallerySliderElementsGap,
+                                        otherProjects
+                                    )}
+                                </ArticleSection>
+                            )}
+                        </div>
+                    );
+                })}
             </Article>
         </Fragment>
     );
