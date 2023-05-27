@@ -567,7 +567,7 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
 
 export default Work;
 
-export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => {
     const projects = await fetchProjects({ locale });
 
     if (!projects) {
