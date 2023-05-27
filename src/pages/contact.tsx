@@ -137,7 +137,7 @@ export default function Contact({
     );
 }
 
-export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => {
     let page = {
         data: {},
         query: "",

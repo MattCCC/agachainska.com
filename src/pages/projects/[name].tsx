@@ -620,7 +620,7 @@ export const getStaticPaths = async ({ locales = ["en"] }) => {
 
     return {
         paths,
-        fallback: "blocking",
+        fallback: false,
     };
 };
 

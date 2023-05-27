@@ -397,7 +397,7 @@ export default function About({
     );
 }
 
-export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => {
     let aboutPageData = {
         data: {},
         query: "",
