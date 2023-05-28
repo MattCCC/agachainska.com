@@ -159,7 +159,7 @@ const SlidesList = styled(motion.div)(() => [
 
 const Slide = styled.div(() => [
     tw`relative z-10 w-full h-full cursor-pointer`,
-    tw`[transform: scale(1.25)] transition-transform duration-800 hover:[transform: scale(1)]`,
+    tw`[transform:scale(1.25)] transition-transform duration-800 hover:[transform:scale(1)]`,
 ]);
 
 const Controls = styled.div(({ isShowingOtherProjects }: ControlsProps) => [
