@@ -519,7 +519,6 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
                                     onSliderMouseLeave={
                                         onSliderContentMouseEventChange
                                     }
-                                    isAnimating={isSliderAnimating}
                                     setIsAnimating={setIsSliderAnimating}
                                 />
                             </SlideWrapper>
