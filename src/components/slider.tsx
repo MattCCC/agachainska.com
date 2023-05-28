@@ -193,7 +193,7 @@ export const Slider = ({
     onSliderMouseEnter = null,
     onSliderMouseLeave = null,
 }: Props) => {
-    const [[page, direction], setPage] = useState([0, 0]);
+    const [[slide, direction], setSlide] = useState([0, 0]);
     const numItems = useMemo(() => sliderItems.length, [sliderItems]);
 
     const sliderRef = useRef<SliderRefHandle>(
@@ -203,8 +203,8 @@ export const Slider = ({
     // By passing an absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
     // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
     const sliderIndex = useMemo(
-        () => wrap(0, numItems, page),
-        [numItems, page]
+        () => wrap(0, numItems, slide),
+        [numItems, slide]
     );
 
     // Orchestrate distortion animation
@@ -249,13 +249,13 @@ export const Slider = ({
                 return;
             }
 
-            const newStateDirection = page + newDirection;
+            const newSlideNo = slide + newDirection;
 
             setIsAnimating(true);
-            setPage([newStateDirection, newDirection]);
-            orchestrateVectorAnimation(0, 100, newStateDirection);
+            setSlide([newSlideNo, newDirection]);
+            orchestrateVectorAnimation(0, 100, newSlideNo);
 
-            const currentSliderItem = wrap(0, numItems, newStateDirection);
+            const currentSliderItem = wrap(0, numItems, newSlideNo);
 
             if (onSliderChange) {
                 onSliderChange(sliderItems[currentSliderItem]);
@@ -263,7 +263,7 @@ export const Slider = ({
         },
         [
             isAnimating,
-            page,
+            slide,
             setIsAnimating,
             orchestrateVectorAnimation,
             numItems,
@@ -309,12 +309,12 @@ export const Slider = ({
 
     // Animate to particular slide
     useEffect(() => {
-        if (slideId < 0 || page === slideId || slideId > numItems - 1) {
+        if (slideId < 0 || slide === slideId || slideId > numItems - 1) {
             return;
         }
 
         setIsAnimating(true);
-        setPage([slideId, sliderIndex > 0 ? 1 : -1]);
+        setSlide([slideId, sliderIndex > 0 ? 1 : -1]);
         orchestrateVectorAnimation(0, 100, slideId);
 
         if (onSliderChange) {
@@ -325,11 +325,11 @@ export const Slider = ({
         sliderItems,
         sliderIndex,
         slideId,
-        page,
+        slide,
         goToSlide,
         orchestrateVectorAnimation,
         setIsAnimating,
-        setPage,
+        setSlide,
         numItems,
     ]);
 
@@ -403,7 +403,7 @@ export const Slider = ({
                         onExitComplete={(): void => setIsAnimating(false)}
                     >
                         <SlidesList
-                            key={page}
+                            key={slide}
                             custom={direction}
                             variants={variants}
                             initial="enter"
@@ -418,21 +418,21 @@ export const Slider = ({
                             onClick={onSliderClick}
                         >
                             <Slide
-                                id={String(page)}
+                                id={String(slide)}
                                 imgUrl={sliderItems[sliderIndex]?.cover || ""}
-                                key={`slide-${page}`}
+                                key={`slide-${slide}`}
                             />
                         </SlidesList>
                     </AnimatePresence>
                 )}
             </SlideContent>
             <Controls isShowingOtherProjects={isShowingOtherProjects}>
-                {page < numItems - 1 && (
+                {slide < numItems - 1 && (
                     <Btn onClick={(): void => goToSlide(1)}>
                         <NextIconStyled /> Next
                     </Btn>
                 )}
-                {page > 0 && (
+                {slide > 0 && (
                     <Btn onClick={(): void => goToSlide(-1)}>
                         <PrevIconStyled /> Previous
                     </Btn>
