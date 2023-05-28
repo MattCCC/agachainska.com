@@ -34,15 +34,13 @@ const SvgWrapper = memo(
         const [, setIsImgCached] = useState(false);
 
         useEffect(() => {
-            async function fetchData() {
+            (async () => {
                 cachedImgData.current = await fetchCachedImage(
                     convertTinaUrl(imgUrl)
                 );
 
                 setIsImgCached(true);
-            }
-
-            fetchData();
+            })();
         }, [imgUrl]);
 
         if (!cachedImgData.current) {
