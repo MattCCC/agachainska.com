@@ -1,9 +1,12 @@
 import { memo, PropsWithChildren, ReactNode, Children } from "react";
 
-import { MotionValue, Spring, useMotionValue } from "framer-motion";
+import {
+    MotionProps,
+    MotionValue,
+    Spring,
+    useMotionValue,
+} from "framer-motion";
 import tw, { styled } from "twin.macro";
-
-import { MotionProps } from "framer-motion";
 
 import { ContextProvider } from "./context";
 import { Item } from "./item";
