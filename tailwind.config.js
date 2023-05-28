@@ -15,6 +15,9 @@ module.exports = {
             fbold: "'Larsseit-Bold'",
         },
         extend: {
+            transitionDuration: {
+                800: "800ms",
+            },
             backgroundImage: {
                 "project-title-gradient":
                     "linear-gradient(0deg, var(--black) 43.4px, transparent 43.4px)",

@@ -155,10 +155,7 @@ const SlidesList = styled(motion.div)(() => [
 
 const Slide = styled(Distortion)(() => [
     tw`relative z-10 w-full h-full cursor-pointer`,
-    css`
-        transition: transform 0.8s;
-        transform: scale(${initialSlideScale + 1});
-    `,
+    tw`[transform: scale(1.25)] transition-transform duration-800`,
 ]);
 
 const Controls = styled.div(({ isShowingOtherProjects }: ControlsProps) => [
