@@ -30,7 +30,6 @@ export interface SliderItem {
 interface Props {
     sliderItems: SliderItem[];
     slideId: number;
-    isAnimating: boolean;
     showSlideTitle?: boolean;
     mouseScrollOnSlide?: boolean;
     isShowingOtherProjects: boolean;
@@ -60,6 +59,11 @@ interface ControlsProps {
     isShowingOtherProjects: boolean;
 }
 
+enum Direction {
+    Top = -1,
+    Bottom = 1,
+}
+
 type SliderRefHandle = ElementRef<typeof Slider>;
 
 const duration = 1;
@@ -67,10 +71,10 @@ const height = 445;
 const initialSlideScale = 0.25;
 
 const variants = {
-    enter: (direction: number): Record<string, any> => ({
+    enter: (direction: Direction): Record<string, any> => ({
         zIndex: 1,
         top:
-            direction > 0
+            direction === Direction.Bottom
                 ? height + height * initialSlideScale
                 : -height - height * initialSlideScale,
     }),
@@ -81,9 +85,9 @@ const variants = {
             duration,
         },
     },
-    exit: (direction: number): Record<string, any> => ({
+    exit: (direction: Direction): Record<string, any> => ({
         zIndex: 0,
-        top: direction < 0 ? height : -height,
+        top: direction === Direction.Top ? height : -height,
         opacity: 1,
         transition: {
             duration,
@@ -180,7 +184,6 @@ export const Slider = ({
     slideId = -1,
     mouseScrollOnSlide = false,
     showSlideTitle = false,
-    isAnimating,
     setIsAnimating,
     isShowingOtherProjects,
     otherProjects,
@@ -190,6 +193,7 @@ export const Slider = ({
     onSliderMouseEnter = null,
     onSliderMouseLeave = null,
 }: Props) => {
+    const [defaultSlideId, setDefaultSlideId] = useState(0);
     const [[slide, direction], setSlide] = useState([0, 0]);
     const numItems = useMemo(() => sliderItems.length, [sliderItems]);
 
@@ -207,46 +211,39 @@ export const Slider = ({
     // Orchestrate distortion animation
     const orchestrateVectorAnimation = useCallback(
         (from = 0, to = 100) => {
-            const requestID = requestAnimationFrame(() => {
-                animate(from, to, {
-                    duration: duration / 2,
-                    ease: powerEasing(2),
-                    onUpdate: (v) => {
-                        const displacementEls =
-                            document.querySelectorAll("feDisplacementMap");
-                        const len = displacementEls.length;
+            animate(from, to, {
+                duration: duration / 2,
+                ease: powerEasing(2),
+                onUpdate: (v) => {
+                    const displacementEls =
+                        document.querySelectorAll("feDisplacementMap");
+                    const len = displacementEls.length;
 
-                        for (let i = 0; i < len; i++) {
-                            const el = displacementEls[
-                                i
-                            ] as SVGFEDisplacementMapElement;
+                    for (let i = 0; i < len; i++) {
+                        const el = displacementEls[
+                            i
+                        ] as SVGFEDisplacementMapElement;
 
-                            el.scale.baseVal = v;
-                        }
-                    },
-                    onComplete: () => {
-                        if (to) {
-                            orchestrateVectorAnimation(100, 0);
+                        el.scale.baseVal = v;
+                    }
+                },
+                onComplete: () => {
+                    if (to) {
+                        orchestrateVectorAnimation(100, 0);
 
-                            return;
-                        }
+                        return;
+                    }
 
-                        cancelAnimationFrame(requestID);
-                        setIsAnimating(false);
-                    },
-                });
+                    setIsAnimating(false);
+                },
             });
         },
         [setIsAnimating]
     );
 
     const goToSlide = useCallback(
-        (newDirection: number = -1): void => {
-            if (isAnimating) {
-                return;
-            }
-
-            const newSlideNo = slide + newDirection;
+        (newDirection: Direction, newSlide: number | null = null): void => {
+            const newSlideNo = newSlide ?? slide + newDirection;
 
             setIsAnimating(true);
             setSlide([newSlideNo, newDirection]);
@@ -259,7 +256,6 @@ export const Slider = ({
             }
         },
         [
-            isAnimating,
             slide,
             setIsAnimating,
             orchestrateVectorAnimation,
@@ -268,6 +264,15 @@ export const Slider = ({
             sliderItems,
         ]
     );
+
+    // Animate to a specific slide
+    if (slideId !== defaultSlideId) {
+        setTimeout(() => {
+            setDefaultSlideId(slideId);
+
+            goToSlide(Direction.Top, slideId);
+        }, 0);
+    }
 
     const onDragEnd = useCallback(
         (
@@ -304,32 +309,6 @@ export const Slider = ({
         [goToSlide]
     );
 
-    // Animate to particular slide
-    useEffect(() => {
-        if (slideId < 0 || slide === slideId || slideId > numItems - 1) {
-            return;
-        }
-
-        setIsAnimating(true);
-        setSlide([slideId, sliderIndex > 0 ? 1 : -1]);
-        orchestrateVectorAnimation(0, 100);
-
-        if (onSliderChange) {
-            onSliderChange(sliderItems[slideId]);
-        }
-    }, [
-        onSliderChange,
-        sliderItems,
-        sliderIndex,
-        slideId,
-        slide,
-        goToSlide,
-        orchestrateVectorAnimation,
-        setIsAnimating,
-        setSlide,
-        numItems,
-    ]);
-
     const sliderContentRef = useRef(null);
     const mouse = useMouse(sliderContentRef, {
         enterDelay: 30,
@@ -338,6 +317,8 @@ export const Slider = ({
 
     useEffect(() => {
         const isMouseOver = Boolean(mouse.elementWidth);
+
+        console.log("🚀 ~ useEffect ~ isMouseOver:", isMouseOver);
 
         if (!isMouseOver && onSliderMouseLeave && !isShowingOtherProjects) {
             onSliderMouseLeave(true);
@@ -421,7 +402,7 @@ export const Slider = ({
                                         sliderItems[sliderIndex]?.cover || ""
                                     }
                                     key={`slide-${slide}`}
-                                ></Distortion>
+                                />
                             </Slide>
                         </SlidesList>
                     </AnimatePresence>
