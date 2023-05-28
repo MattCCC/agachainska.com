@@ -153,9 +153,9 @@ const SlidesList = styled(motion.div)(() => [
     `,
 ]);
 
-const Slide = styled(Distortion)(() => [
+const Slide = styled.div(() => [
     tw`relative z-10 w-full h-full cursor-pointer`,
-    tw`[transform: scale(1.25)] transition-transform duration-800`,
+    tw`[transform: scale(1.25)] transition-transform duration-800 hover:[transform: scale(1)]`,
 ]);
 
 const Controls = styled.div(({ isShowingOtherProjects }: ControlsProps) => [
@@ -206,33 +206,33 @@ export const Slider = ({
 
     // Orchestrate distortion animation
     const orchestrateVectorAnimation = useCallback(
-        (from = 0, to = 100, slideNo = 0) => {
+        (from = 0, to = 100) => {
             const requestID = requestAnimationFrame(() => {
                 animate(from, to, {
                     duration: duration / 2,
                     ease: powerEasing(2),
                     onUpdate: (v) => {
-                        // Access element that is about to be removed from the DOM
-                        // This way we avoid rendering roundtrips
-                        const els =
-                            document?.querySelectorAll("feDisplacementMap");
+                        const displacementEls =
+                            document.querySelectorAll("feDisplacementMap");
+                        const len = displacementEls.length;
 
-                        els.forEach((el) => {
-                            if (el) {
-                                el.scale.baseVal = v;
-                            }
-                        });
+                        for (let i = 0; i < len; i++) {
+                            const el = displacementEls[
+                                i
+                            ] as SVGFEDisplacementMapElement;
+
+                            el.scale.baseVal = v;
+                        }
                     },
                     onComplete: () => {
-                        // Avoid infinite loop since we call the orchestration recursively
-                        if (!to) {
-                            cancelAnimationFrame(requestID);
-                            setIsAnimating(false);
+                        if (to) {
+                            orchestrateVectorAnimation(100, 0);
 
                             return;
                         }
 
-                        orchestrateVectorAnimation(100, 0, slideNo);
+                        cancelAnimationFrame(requestID);
+                        setIsAnimating(false);
                     },
                 });
             });
@@ -250,7 +250,7 @@ export const Slider = ({
 
             setIsAnimating(true);
             setSlide([newSlideNo, newDirection]);
-            orchestrateVectorAnimation(0, 100, newSlideNo);
+            orchestrateVectorAnimation(0, 100);
 
             const currentSliderItem = wrap(0, numItems, newSlideNo);
 
@@ -312,7 +312,7 @@ export const Slider = ({
 
         setIsAnimating(true);
         setSlide([slideId, sliderIndex > 0 ? 1 : -1]);
-        orchestrateVectorAnimation(0, 100, slideId);
+        orchestrateVectorAnimation(0, 100);
 
         if (onSliderChange) {
             onSliderChange(sliderItems[slideId]);
@@ -414,11 +414,15 @@ export const Slider = ({
                             onDragEnd={onDragEnd}
                             onClick={onSliderClick}
                         >
-                            <Slide
-                                id={String(slide)}
-                                imgUrl={sliderItems[sliderIndex]?.cover || ""}
-                                key={`slide-${slide}`}
-                            />
+                            <Slide>
+                                <Distortion
+                                    id={String(slide)}
+                                    imgUrl={
+                                        sliderItems[sliderIndex]?.cover || ""
+                                    }
+                                    key={`slide-${slide}`}
+                                ></Distortion>
+                            </Slide>
                         </SlidesList>
                     </AnimatePresence>
                 )}

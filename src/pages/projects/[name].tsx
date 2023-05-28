@@ -49,6 +49,7 @@ import {
     fetchSocialMediaData,
 } from "queries/fetch-social-media-data";
 import { fetchProjects } from "queries/fetch-projects";
+import { convertTinaUrl } from "utils/convert-tina-url";
 
 interface ContentContainerProps {
     variant?: string;
@@ -439,7 +440,10 @@ export default function Project({ project, projects, socialMediaData }: Props) {
                     <MainTitleWrapper>
                         <MainTitle data-text={name}>{name}</MainTitle>
                     </MainTitleWrapper>
-                    <ParallaxBackground bgImgUrl={cover} width={1028} />
+                    <ParallaxBackground
+                        bgImgUrl={convertTinaUrl(cover)}
+                        width={1028}
+                    />
                 </HeroWrapper>
 
                 <div tw="col-start-1 lg:col-start-2 col-end-13 lg:col-end-12">
