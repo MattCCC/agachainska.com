@@ -295,7 +295,7 @@ const sectionLoader = (
                 return <DevicesCarousel key={index} list={el.devices} />;
 
             case "ProjectSectionsElementsStatistics":
-                if (!el.stats || !el.stats.length) {
+                if (!el?.stats?.length) {
                     return null;
                 }
 
@@ -384,7 +384,7 @@ export default function Project({ project, projects, socialMediaData }: Props) {
     });
 
     const windowSize = useWindowSize();
-    const [_hasSmallWindowWidth, setWindowWidth] = useState(false);
+    const [, setWindowWidth] = useState(false);
     const [gallerySliderElementsGap, setGallerySliderElementsGap] =
         useState(30);
 
@@ -397,12 +397,8 @@ export default function Project({ project, projects, socialMediaData }: Props) {
 
     const [navigation] = usePagination({ projects: filteredProjects, uid });
 
-    const [
-        activeItemId,
-        intersectionCallback,
-        _observerSettings,
-        onTimelineItemChange,
-    ] = useTimelineViewport();
+    const [activeItemId, intersectionCallback, , onTimelineItemChange] =
+        useTimelineViewport();
 
     const timelineItems = useMemo(() => {
         if (!sections) {
@@ -410,7 +406,7 @@ export default function Project({ project, projects, socialMediaData }: Props) {
         }
 
         const filteredSections = sections
-            .filter((section) => section !== null && section.showInTimeline)
+            .filter((section) => section?.showInTimeline)
             .map((section) =>
                 section
                     ? {
@@ -467,7 +463,7 @@ export default function Project({ project, projects, socialMediaData }: Props) {
                         </PaginationControls>
                     )}
 
-                    {keyInfo && keyInfo.length && (
+                    {keyInfo?.length && (
                         <KeyInfoTable>
                             {keyInfo.map((info, j) => (
                                 <div tw="mb-4" key={j}>
