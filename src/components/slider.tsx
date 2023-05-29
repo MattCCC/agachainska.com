@@ -52,6 +52,7 @@ interface ControlsProps {
     isShowingOtherProjects: boolean;
 }
 
+// eslint-disable-next-line no-shadow
 enum Direction {
     Top = -1,
     Bottom = 1,
