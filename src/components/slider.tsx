@@ -1,5 +1,4 @@
 import {
-    useEffect,
     useCallback,
     useRef,
     ElementRef,
@@ -9,8 +8,6 @@ import {
 } from "react";
 
 import tw, { styled } from "twin.macro";
-
-import useMouse from "@react-hook/mouse-position";
 
 import { animate, AnimatePresence, motion } from "framer-motion";
 import { Distortion } from "components/distortion";
@@ -296,36 +293,41 @@ export const Slider = ({
         [goToSlide]
     );
 
-    const sliderContentRef = useRef(null);
-    const mouse = useMouse(sliderContentRef, {
-        enterDelay: 30,
-        leaveDelay: 30,
-    });
+    const [isHovering, setIsHovering] = useState(false);
 
-    useEffect(() => {
-        const isMouseOver = Boolean(mouse.elementWidth);
+    const onHoverStart = useCallback(() => {
+        if (onSliderMouseEnter && !isShowingOtherProjects) {
+            onSliderMouseEnter(true);
+        }
 
-        if (!isMouseOver && onSliderMouseLeave && !isShowingOtherProjects) {
-            onSliderMouseLeave(true);
-        } else if (onSliderMouseEnter && !isShowingOtherProjects) {
+        if (onSliderMouseLeave && !isShowingOtherProjects) {
+            onSliderMouseLeave(false);
+        }
+
+        setIsHovering(true);
+    }, [isShowingOtherProjects, onSliderMouseEnter, onSliderMouseLeave]);
+
+    const onHoverEnd = useCallback(() => {
+        if (onSliderMouseEnter && !isShowingOtherProjects) {
             onSliderMouseEnter(false);
         }
-    }, [
-        isShowingOtherProjects,
-        mouse.elementWidth,
-        onSliderMouseEnter,
-        onSliderMouseLeave,
-    ]);
+
+        if (onSliderMouseLeave && !isShowingOtherProjects) {
+            onSliderMouseLeave(true);
+        }
+
+        setIsHovering(false);
+    }, [isShowingOtherProjects, onSliderMouseEnter, onSliderMouseLeave]);
 
     const wheelCallback = useCallback(
         (e: Event) => {
-            if (mouseScrollOnSlide && Boolean(mouse.elementWidth)) {
+            if (mouseScrollOnSlide && isHovering) {
                 e.preventDefault();
 
                 updateScroll(e as WheelEvent);
             }
         },
-        [mouse.elementWidth, mouseScrollOnSlide, updateScroll]
+        [isHovering, mouseScrollOnSlide, updateScroll]
     );
 
     useEventListener("wheel", wheelCallback, documentBody, wheelEventOptions);
@@ -345,54 +347,55 @@ export const Slider = ({
 
     return (
         <SliderWrapper ref={sliderRef}>
-            {showSlideTitle && (
-                <Title data-text={sliderItems[sliderIndex]?.name ?? ""}>
-                    {sliderItems[sliderIndex]?.name ?? ""}
-                </Title>
-            )}
-            <SliderContent
-                ref={sliderContentRef}
-                isShowingOtherProjects={isShowingOtherProjects}
-            >
-                {isShowingOtherProjects ? (
-                    <OtherProjects
-                        otherProjects={otherProjects}
-                        lastProjectNumber={lastProjectNumber}
-                    />
-                ) : (
-                    <AnimatePresence
-                        initial={false}
-                        custom={direction}
-                        onExitComplete={handleExitComplete}
-                    >
-                        <SlidesList
-                            key={slide}
-                            custom={direction}
-                            variants={variants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            transition={sliderTransition}
-                            dragPropagation={true}
-                            drag="y"
-                            dragConstraints={sliderDragConstraints}
-                            dragElastic={1}
-                            onDragEnd={onDragEnd}
-                            onClick={onSlideClick}
-                        >
-                            <Slide>
-                                <Distortion
-                                    id={String(slide)}
-                                    imgUrl={
-                                        sliderItems[sliderIndex]?.cover ?? ""
-                                    }
-                                    key={`slide-${slide}`}
-                                />
-                            </Slide>
-                        </SlidesList>
-                    </AnimatePresence>
+            <motion.div onHoverStart={onHoverStart} onHoverEnd={onHoverEnd}>
+                {showSlideTitle && (
+                    <Title data-text={sliderItems[sliderIndex]?.name ?? ""}>
+                        {sliderItems[sliderIndex]?.name ?? ""}
+                    </Title>
                 )}
-            </SliderContent>
+                <SliderContent isShowingOtherProjects={isShowingOtherProjects}>
+                    {isShowingOtherProjects ? (
+                        <OtherProjects
+                            otherProjects={otherProjects}
+                            lastProjectNumber={lastProjectNumber}
+                        />
+                    ) : (
+                        <AnimatePresence
+                            initial={false}
+                            custom={direction}
+                            onExitComplete={handleExitComplete}
+                        >
+                            <SlidesList
+                                key={slide}
+                                custom={direction}
+                                variants={variants}
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                transition={sliderTransition}
+                                dragPropagation={true}
+                                drag="y"
+                                dragConstraints={sliderDragConstraints}
+                                dragElastic={1}
+                                onDragEnd={onDragEnd}
+                                onClick={onSlideClick}
+                            >
+                                <Slide>
+                                    <Distortion
+                                        id={String(slide)}
+                                        imgUrl={
+                                            sliderItems[sliderIndex]?.cover ??
+                                            ""
+                                        }
+                                        key={`slide-${slide}`}
+                                    />
+                                </Slide>
+                            </SlidesList>
+                        </AnimatePresence>
+                    )}
+                </SliderContent>
+            </motion.div>
+
             <Controls isShowingOtherProjects={isShowingOtherProjects}>
                 {slide < numItems - 1 && (
                     <Btn onClick={(): void => goToSlide(1)}>
