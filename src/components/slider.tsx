@@ -8,7 +8,7 @@ import {
     useMemo,
 } from "react";
 
-import tw, { css, styled } from "twin.macro";
+import tw, { styled } from "twin.macro";
 
 import useMouse from "@react-hook/mouse-position";
 
@@ -49,10 +49,6 @@ interface Props {
 
 interface SlideContentProps {
     isShowingOtherProjects?: boolean;
-}
-
-interface SliderWrapperProps {
-    isShowingOtherProjects: boolean;
 }
 
 interface ControlsProps {
@@ -125,22 +121,12 @@ export const wrap = (min: number, max: number, v: number): number => {
     return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
 };
 
-const SliderWrapper = styled.div(
-    ({ isShowingOtherProjects }: SliderWrapperProps) => [
-        tw`relative`,
-        isShowingOtherProjects && tw`h-full`,
-    ]
-);
+const SliderWrapper = styled.div(() => [tw`relative h-full`]);
 
-const SlideContent = styled.div(
+const SliderContent = styled.div(
     ({ isShowingOtherProjects }: SlideContentProps) => [
-        tw`relative`,
-        !isShowingOtherProjects && tw`overflow-hidden`,
-        !isShowingOtherProjects &&
-            css`
-                height: 25.8125rem;
-                width: 58.0625rem;
-            `,
+        tw`relative w-full`,
+        !isShowingOtherProjects && tw`overflow-hidden h-[25.8125rem]`,
     ]
 );
 
@@ -150,11 +136,7 @@ const Title = styled(MainTitleTop)(() => [
 ]);
 
 const SlidesList = styled(motion.div)(() => [
-    tw`absolute w-full max-w-full`,
-    css`
-        height: 25.8125rem;
-        width: 58.0625rem;
-    `,
+    tw`absolute w-full max-w-full h-[25.8125rem]`,
 ]);
 
 const Slide = styled.div(() => [
@@ -178,6 +160,11 @@ const PrevIconStyled = styled(PrevIcon)(() => [
 const NextIconStyled = styled(NextIcon)(() => [
     tw`inline-block mr-4 text-center`,
 ]);
+
+const wheelEventOptions = { passive: false };
+
+const documentBody = (typeof document !== "undefined" &&
+    (document.body as unknown)) as RefObject<HTMLDivElement>;
 
 export const Slider = ({
     sliderItems,
@@ -318,8 +305,6 @@ export const Slider = ({
     useEffect(() => {
         const isMouseOver = Boolean(mouse.elementWidth);
 
-        console.log("🚀 ~ useEffect ~ isMouseOver:", isMouseOver);
-
         if (!isMouseOver && onSliderMouseLeave && !isShowingOtherProjects) {
             onSliderMouseLeave(true);
         } else if (onSliderMouseEnter && !isShowingOtherProjects) {
@@ -332,21 +317,20 @@ export const Slider = ({
         onSliderMouseLeave,
     ]);
 
-    useEventListener(
-        "wheel",
-        (e) => {
-            if (Boolean(mouse.elementWidth) && mouseScrollOnSlide) {
+    const wheelCallback = useCallback(
+        (e: Event) => {
+            if (mouseScrollOnSlide && Boolean(mouse.elementWidth)) {
                 e.preventDefault();
 
                 updateScroll(e as WheelEvent);
             }
         },
-        (typeof document !== "undefined" &&
-            (document.body as unknown)) as RefObject<HTMLDivElement>,
-        { passive: false }
+        [mouse.elementWidth, mouseScrollOnSlide, updateScroll]
     );
 
-    const onSliderClick = useCallback(
+    useEventListener("wheel", wheelCallback, documentBody, wheelEventOptions);
+
+    const onSlideClick = useCallback(
         (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
             if (onSliderTap) {
                 onSliderTap(e, sliderItems[sliderIndex]);
@@ -355,17 +339,18 @@ export const Slider = ({
         [onSliderTap, sliderIndex, sliderItems]
     );
 
+    const handleExitComplete = useCallback((): void => {
+        setIsAnimating(false);
+    }, [setIsAnimating]);
+
     return (
-        <SliderWrapper
-            isShowingOtherProjects={isShowingOtherProjects}
-            ref={sliderRef}
-        >
+        <SliderWrapper ref={sliderRef}>
             {showSlideTitle && (
-                <Title data-text={sliderItems[sliderIndex]?.name || ""}>
-                    {sliderItems[sliderIndex]?.name || ""}
+                <Title data-text={sliderItems[sliderIndex]?.name ?? ""}>
+                    {sliderItems[sliderIndex]?.name ?? ""}
                 </Title>
             )}
-            <SlideContent
+            <SliderContent
                 ref={sliderContentRef}
                 isShowingOtherProjects={isShowingOtherProjects}
             >
@@ -378,7 +363,7 @@ export const Slider = ({
                     <AnimatePresence
                         initial={false}
                         custom={direction}
-                        onExitComplete={(): void => setIsAnimating(false)}
+                        onExitComplete={handleExitComplete}
                     >
                         <SlidesList
                             key={slide}
@@ -393,13 +378,13 @@ export const Slider = ({
                             dragConstraints={sliderDragConstraints}
                             dragElastic={1}
                             onDragEnd={onDragEnd}
-                            onClick={onSliderClick}
+                            onClick={onSlideClick}
                         >
                             <Slide>
                                 <Distortion
                                     id={String(slide)}
                                     imgUrl={
-                                        sliderItems[sliderIndex]?.cover || ""
+                                        sliderItems[sliderIndex]?.cover ?? ""
                                     }
                                     key={`slide-${slide}`}
                                 />
@@ -407,7 +392,7 @@ export const Slider = ({
                         </SlidesList>
                     </AnimatePresence>
                 )}
-            </SlideContent>
+            </SliderContent>
             <Controls isShowingOtherProjects={isShowingOtherProjects}>
                 {slide < numItems - 1 && (
                     <Btn onClick={(): void => goToSlide(1)}>
