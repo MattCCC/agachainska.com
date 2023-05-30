@@ -212,7 +212,6 @@ export const Slider = memo(
 
                 setIsAnimating(true);
                 setSlide([newSlideNo, newDirection]);
-                setTimeout(() => {}, 0);
 
                 const currentSliderItem = wrap(0, numItems, newSlideNo);
 
@@ -349,10 +348,10 @@ export const Slider = memo(
                         ) : (
                             <AnimatePresence
                                 custom={direction}
+                                initial={false}
                                 onExitComplete={handleExitComplete}
                             >
                                 <SlidesList
-                                    id={`slide-${slide}}`}
                                     key={slide}
                                     custom={direction}
                                     variants={variants}
