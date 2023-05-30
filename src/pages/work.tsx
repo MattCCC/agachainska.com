@@ -185,7 +185,7 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
     const firstCategoryFirstItem = useMemo(() => {
         const section = timelineList.find(({ id }) => id === firstCategory);
 
-        return section && section?.items ? section?.items[0] : null;
+        return section?.items ? section?.items[0] : null;
     }, [firstCategory, timelineList]);
 
     const currentProject = useMemo(() => {
@@ -519,7 +519,6 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
                                     onSliderMouseLeave={
                                         onSliderContentMouseEventChange
                                     }
-                                    isAnimating={isSliderAnimating}
                                     setIsAnimating={setIsSliderAnimating}
                                 />
                             </SlideWrapper>
@@ -567,7 +566,7 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
 
 export default Work;
 
-export const getServerSideProps: GetStaticProps = async ({ locale = "en" }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => {
     const projects = await fetchProjects({ locale });
 
     if (!projects) {

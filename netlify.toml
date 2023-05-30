@@ -9,3 +9,6 @@ package = "@netlify/plugin-nextjs"
 
 [build]
 publish = ".next"
+
+[functions]
+included_files = ["content/**"]

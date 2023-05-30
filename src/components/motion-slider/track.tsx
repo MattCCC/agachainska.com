@@ -6,11 +6,16 @@ import {
     useMemo,
 } from "react";
 
-import { motion, PanInfo, Spring, useAnimation } from "framer-motion";
+import {
+    MotionProps,
+    motion,
+    PanInfo,
+    Spring,
+    useAnimation,
+} from "framer-motion";
 import useMeasure from "react-use-measure";
 import tw, { styled } from "twin.macro";
 
-import { MotionProps } from "framer-motion";
 import { useWindowSize } from "hooks/use-window-size";
 import { excludeProps } from "utils/styled";
 
