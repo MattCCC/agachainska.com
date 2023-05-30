@@ -1,8 +1,6 @@
-import { memo, useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { memo, useState, useCallback, useMemo } from "react";
 
 import tw, { css, styled } from "twin.macro";
-
-import useMouse from "@react-hook/mouse-position";
 
 import { motion } from "framer-motion";
 import { useStoreProp } from "store/index";
@@ -55,12 +53,6 @@ interface Props {
 }
 
 export const DevicesCarousel = memo(({ list }: Props) => {
-    const mouseoverItemRef = useRef(null);
-    const mouse = useMouse(mouseoverItemRef, {
-        enterDelay: 30,
-        leaveDelay: 30,
-    });
-
     const numItems = list?.length || 0;
     const itemWidth = 100 / numItems;
     const [x, setX] = useState(1);
@@ -71,17 +63,26 @@ export const DevicesCarousel = memo(({ list }: Props) => {
         setX(activeItem + 1);
     }, []);
 
-    useEffect(() => {
-        const isMouseOver = Boolean(mouse.elementWidth);
+    const toggleHoverCursor = useCallback(
+        (isMouseOver: boolean) => {
+            dispatch.showMotionCursor(isMouseOver, {
+                text: "drag",
+                to: "",
+                color: !isMouseOver ? "black" : "melrose",
+                size: 80,
+                overlap: !isMouseOver,
+            });
+        },
+        [dispatch]
+    );
 
-        dispatch.showMotionCursor(isMouseOver, {
-            text: "drag",
-            to: "",
-            color: !isMouseOver ? "black" : "melrose",
-            size: 80,
-            overlap: !isMouseOver,
-        });
-    }, [mouse.elementWidth, dispatch]);
+    const onHoverStart = useCallback(() => {
+        toggleHoverCursor(true);
+    }, [toggleHoverCursor]);
+
+    const onHoverEnd = useCallback(() => {
+        toggleHoverCursor(false);
+    }, [toggleHoverCursor]);
 
     const progressPosition = useMemo(() => {
         const position = itemWidth * (x - 1);
@@ -101,23 +102,30 @@ export const DevicesCarousel = memo(({ list }: Props) => {
             heightPct="670px"
             style={{ height: "680px", marginBottom: "0" }}
         >
-            <SliderWrapper ref={mouseoverItemRef}>
-                <MotionSlider
-                    displayGrabCursor={false}
-                    onSlideChange={onSlideChange}
-                >
-                    {(list || []).map(
-                        (device, i) =>
-                            device && (
-                                <DeviceMockup
-                                    key={i}
-                                    type={device.type}
-                                    link={device.link}
-                                />
-                            )
-                    )}
-                </MotionSlider>
-            </SliderWrapper>
+            <motion.div
+                onHoverStart={onHoverStart}
+                onHoverEnd={onHoverEnd}
+                tw="lg:ml-[13rem]"
+            >
+                <SliderWrapper>
+                    <MotionSlider
+                        displayGrabCursor={false}
+                        onSlideChange={onSlideChange}
+                        style={{ overflow: "visible" }}
+                    >
+                        {(list || []).map(
+                            (device, i) =>
+                                device && (
+                                    <DeviceMockup
+                                        key={i}
+                                        type={device.type}
+                                        link={device.link}
+                                    />
+                                )
+                        )}
+                    </MotionSlider>
+                </SliderWrapper>
+            </motion.div>
 
             <ProgressWrapper key={x}>
                 <ProgressText>
