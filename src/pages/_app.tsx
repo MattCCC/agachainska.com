@@ -22,15 +22,6 @@ interface Props {
     darkTheme: boolean;
 }
 
-const DarkTheme = () => (
-    <style jsx global>{`
-        :root {
-            --primary: #fff;
-            --tertiary: #0b0b0b;
-        }
-    `}</style>
-);
-
 const Main = styled.main(
     ({ hasGradient, backgroundColor, showFooter, darkTheme }: Props) => [
         tw`relative z-10 w-full h-full min-h-screen text-primary pt-safe-top`,
@@ -70,7 +61,14 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
 
     return (
         <StrictMode>
-            {darkTheme && <DarkTheme />}
+            {darkTheme && (
+                <style>{`
+                    :root {
+                        --primary: #fff;
+                        --tertiary: #0b0b0b;
+                    }
+                `}</style>
+            )}
             <FullPageOverlay />
             <Header />
             <Main

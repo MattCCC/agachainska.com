@@ -49,6 +49,7 @@ import {
     fetchSocialMediaData,
 } from "queries/fetch-social-media-data";
 import { fetchProjects } from "queries/fetch-projects";
+import { convertTinaUrl } from "utils/convert-tina-url";
 
 interface ContentContainerProps {
     variant?: string;
@@ -295,7 +296,7 @@ const sectionLoader = (
                 return <DevicesCarousel key={index} list={el.devices} />;
 
             case "ProjectSectionsElementsStatistics":
-                if (!el.stats || !el.stats.length) {
+                if (!el?.stats?.length) {
                     return null;
                 }
 
@@ -384,7 +385,7 @@ export default function Project({ project, projects, socialMediaData }: Props) {
     });
 
     const windowSize = useWindowSize();
-    const [_hasSmallWindowWidth, setWindowWidth] = useState(false);
+    const [, setWindowWidth] = useState(false);
     const [gallerySliderElementsGap, setGallerySliderElementsGap] =
         useState(30);
 
@@ -397,12 +398,8 @@ export default function Project({ project, projects, socialMediaData }: Props) {
 
     const [navigation] = usePagination({ projects: filteredProjects, uid });
 
-    const [
-        activeItemId,
-        intersectionCallback,
-        _observerSettings,
-        onTimelineItemChange,
-    ] = useTimelineViewport();
+    const [activeItemId, intersectionCallback, , onTimelineItemChange] =
+        useTimelineViewport();
 
     const timelineItems = useMemo(() => {
         if (!sections) {
@@ -410,7 +407,7 @@ export default function Project({ project, projects, socialMediaData }: Props) {
         }
 
         const filteredSections = sections
-            .filter((section) => section !== null && section.showInTimeline)
+            .filter((section) => section?.showInTimeline)
             .map((section) =>
                 section
                     ? {
@@ -443,7 +440,10 @@ export default function Project({ project, projects, socialMediaData }: Props) {
                     <MainTitleWrapper>
                         <MainTitle data-text={name}>{name}</MainTitle>
                     </MainTitleWrapper>
-                    <ParallaxBackground bgImgUrl={cover} width={1028} />
+                    <ParallaxBackground
+                        bgImgUrl={convertTinaUrl(cover)}
+                        width={1028}
+                    />
                 </HeroWrapper>
 
                 <div tw="col-start-1 lg:col-start-2 col-end-13 lg:col-end-12">
@@ -467,7 +467,7 @@ export default function Project({ project, projects, socialMediaData }: Props) {
                         </PaginationControls>
                     )}
 
-                    {keyInfo && keyInfo.length && (
+                    {keyInfo?.length && (
                         <KeyInfoTable>
                             {keyInfo.map((info, j) => (
                                 <div tw="mb-4" key={j}>

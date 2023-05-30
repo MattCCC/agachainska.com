@@ -5,7 +5,10 @@ import {
     useEffect,
     useMemo,
     useRef,
+    useState,
 } from "react";
+import { convertTinaUrl } from "utils/convert-tina-url";
+import { fetchCachedImage } from "utils/fetch-cached-image";
 
 interface Props extends SVGProps<SVGSVGElement> {
     id: string;
@@ -25,44 +28,64 @@ const SvgWrapper = memo(
         svgId,
         children,
         className = "",
-    }: Partial<Props> & { svgId: string }) => (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            viewBox={viewBox}
-            preserveAspectRatio={preserveAspectRatio}
-            style={style}
-            className={className}
-        >
-            <defs>
-                <pattern
-                    id={"pattern-" + svgId}
-                    width="787.894"
-                    height="787.894"
-                    x="-779.765"
-                    y="-787.894"
-                    patternUnits="userSpaceOnUse"
-                >
-                    <use xlinkHref={"#shade-" + svgId}></use>
-                </pattern>
-                <image
-                    id={"shade-" + svgId}
-                    width="512"
-                    height="512"
-                    xlinkHref={"/img/bg-pattern.webp"}
-                ></image>
-            </defs>
-            <g
-                fill="none"
-                fillRule="nonzero"
-                stroke="none"
-                fontSize="180"
-                letterSpacing="7.714"
+    }: Partial<Props> & { svgId: string }) => {
+        const imgUrl = "/img/bg-pattern.webp";
+        const cachedImgData = useRef({ blob: "" });
+        const [, setIsImgCached] = useState(false);
+
+        useEffect(() => {
+            (async () => {
+                cachedImgData.current = await fetchCachedImage(
+                    convertTinaUrl(imgUrl)
+                );
+
+                setIsImgCached(true);
+            })();
+        }, [imgUrl]);
+
+        if (!cachedImgData.current) {
+            return null;
+        }
+
+        return (
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                viewBox={viewBox}
+                preserveAspectRatio={preserveAspectRatio}
+                style={style}
+                className={className}
             >
-                {children}
-            </g>
-        </svg>
-    )
+                <defs>
+                    <pattern
+                        id={"pattern-" + svgId}
+                        width="787.894"
+                        height="787.894"
+                        x="-779.765"
+                        y="-787.894"
+                        patternUnits="userSpaceOnUse"
+                    >
+                        <use xlinkHref={"#shade-" + svgId}></use>
+                    </pattern>
+                    <image
+                        id={"shade-" + svgId}
+                        width="512"
+                        height="512"
+                        xlinkHref={cachedImgData.current.blob}
+                    ></image>
+                </defs>
+                <g
+                    fill="none"
+                    fillRule="nonzero"
+                    stroke="none"
+                    fontSize="180"
+                    letterSpacing="7.714"
+                >
+                    {children}
+                </g>
+            </svg>
+        );
+    }
 );
 
 const Tspan = memo(

@@ -1,8 +1,7 @@
-import { memo, useEffect, useRef } from "react";
+import { memo, useCallback } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import useMouse from "@react-hook/mouse-position";
 import { useRouter } from "next/router";
 
 import { Link } from "components/link";
@@ -12,6 +11,7 @@ import WavesPattern from "svg/bg-lines.svg";
 import PricklyPearIllustration from "svg/Prickly pear@1x.svg";
 import { getLinkProps } from "utils/route";
 import { up } from "utils/screens";
+import { motion } from "framer-motion";
 
 const ContactWrapper = styled(Link)(() => [
     tw`relative block select-none cursor-none`,
@@ -65,28 +65,31 @@ const PricklyPear = styled(PricklyPearIllustration)(() => [
 
 export const Contact = memo(() => {
     const location = useRouter();
-    const mouseoverItemRef = useRef(null);
-    const mouse = useMouse(mouseoverItemRef, {
-        enterDelay: 30,
-        leaveDelay: 30,
-    });
-
     const [, { showMotionCursor }] = useStoreProp("motionCursorData");
 
-    useEffect(() => {
-        const isMouseOver = Boolean(mouse.elementWidth);
+    const toggleHoverCursor = useCallback(
+        (isMouseOver: boolean) => {
+            showMotionCursor(isMouseOver, {
+                text: "contact",
+                to: "/contact",
+                size: 80,
+                overlap: false,
+                color: isMouseOver ? "melrose" : "black",
+            });
+        },
+        [showMotionCursor]
+    );
 
-        showMotionCursor(isMouseOver, {
-            text: "contact",
-            to: "/contact",
-            size: 80,
-            overlap: false,
-            color: isMouseOver ? "melrose" : "black",
-        });
-    }, [mouse.elementWidth, showMotionCursor]);
+    const onHoverStart = useCallback(() => {
+        toggleHoverCursor(true);
+    }, [toggleHoverCursor]);
+
+    const onHoverEnd = useCallback(() => {
+        toggleHoverCursor(false);
+    }, [toggleHoverCursor]);
 
     return (
-        <div ref={mouseoverItemRef}>
+        <motion.div onHoverStart={onHoverStart} onHoverEnd={onHoverEnd}>
             <ContactWrapper {...getLinkProps("contact", location)}>
                 <Waves />
                 <PricklyPear />
@@ -96,6 +99,6 @@ export const Contact = memo(() => {
                     </MarqueeTextContainer>
                 </MarqueeTextWrapper>
             </ContactWrapper>
-        </div>
+        </motion.div>
     );
 });
