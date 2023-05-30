@@ -1,15 +1,8 @@
-import {
-    useCallback,
-    useRef,
-    ElementRef,
-    RefObject,
-    useState,
-    useMemo,
-} from "react";
+import { useCallback, RefObject, useState, useMemo, useEffect } from "react";
 
 import tw, { styled } from "twin.macro";
 
-import { animate, AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useAnimate } from "framer-motion";
 import { Distortion } from "components/distortion";
 import { MainTitleTop } from "components/main-title";
 import { useEventListener } from "hooks/use-event-listener";
@@ -17,6 +10,7 @@ import NextIcon from "svg/down.svg";
 import PrevIcon from "svg/up.svg";
 
 import OtherProjects, { OtherProjectProp } from "./other-projects";
+import { memo } from "react";
 
 export interface SliderItem {
     name: string;
@@ -58,8 +52,6 @@ enum Direction {
     Bottom = 1,
 }
 
-type SliderRefHandle = ElementRef<typeof Slider>;
-
 const duration = 1;
 const height = 445;
 const initialSlideScale = 0.25;
@@ -82,7 +74,6 @@ const variants = {
     exit: (direction: Direction): Record<string, any> => ({
         zIndex: 0,
         top: direction === Direction.Top ? height : -height,
-        opacity: 1,
         transition: {
             duration,
         },
@@ -164,251 +155,247 @@ const wheelEventOptions = { passive: false };
 const documentBody = (typeof document !== "undefined" &&
     (document.body as unknown)) as RefObject<HTMLDivElement>;
 
-export const Slider = ({
-    sliderItems,
-    slideId = -1,
-    mouseScrollOnSlide = false,
-    showSlideTitle = false,
-    setIsAnimating,
-    isShowingOtherProjects,
-    otherProjects,
-    lastProjectNumber,
-    onSliderTap = null,
-    onSliderChange = null,
-    onSliderMouseEnter = null,
-    onSliderMouseLeave = null,
-}: Props) => {
-    const [defaultSlideId, setDefaultSlideId] = useState(0);
-    const [[slide, direction], setSlide] = useState([0, 0]);
-    const numItems = useMemo(() => sliderItems.length, [sliderItems]);
+export const Slider = memo(
+    ({
+        sliderItems,
+        slideId = -1,
+        mouseScrollOnSlide = false,
+        showSlideTitle = false,
+        setIsAnimating,
+        isShowingOtherProjects,
+        otherProjects,
+        lastProjectNumber,
+        onSliderTap = null,
+        onSliderChange = null,
+        onSliderMouseEnter = null,
+        onSliderMouseLeave = null,
+    }: Props) => {
+        const [defaultSlideId, setDefaultSlideId] = useState(0);
+        const [[slide, direction], setSlide] = useState([0, 0]);
+        const numItems = useMemo(() => sliderItems.length, [sliderItems]);
 
-    const sliderRef = useRef<SliderRefHandle>(
-        null
-    ) as RefObject<HTMLDivElement>;
+        // By passing an absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
+        // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
+        const sliderIndex = useMemo(
+            () => wrap(0, numItems, slide),
+            [numItems, slide]
+        );
 
-    // By passing an absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
-    // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
-    const sliderIndex = useMemo(
-        () => wrap(0, numItems, slide),
-        [numItems, slide]
-    );
+        const [sliderRef, animate] = useAnimate();
 
-    // Orchestrate distortion animation
-    const orchestrateVectorAnimation = useCallback(
-        (from = 0, to = 100) => {
-            animate(from, to, {
-                duration: duration / 2,
+        // Orchestrate distortion animation
+        const orchestrateVectorAnimation = useCallback(() => {
+            const displacementEls = sliderRef.current.querySelectorAll(
+                "feDisplacementMap"
+            ) as NodeListOf<SVGFEDisplacementMapElement>;
+
+            // There should be exactly 2 elements. Added and removed one
+            if (displacementEls.length < 2) {
+                return;
+            }
+
+            animate(0, [0, 100, 0], {
+                duration,
                 ease: powerEasing(2),
                 onUpdate: (v) => {
-                    const displacementEls =
-                        document.querySelectorAll("feDisplacementMap");
-                    const len = displacementEls.length;
-
-                    for (let i = 0; i < len; i++) {
-                        const el = displacementEls[
-                            i
-                        ] as SVGFEDisplacementMapElement;
-
-                        el.scale.baseVal = v;
+                    if (displacementEls[0] && displacementEls[1]) {
+                        displacementEls[0].scale.baseVal = v;
+                        displacementEls[1].scale.baseVal = v;
                     }
-                },
-                onComplete: () => {
-                    if (to) {
-                        orchestrateVectorAnimation(100, 0);
-
-                        return;
-                    }
-
-                    setIsAnimating(false);
                 },
             });
-        },
-        [setIsAnimating]
-    );
+        }, [animate, sliderRef]);
 
-    const goToSlide = useCallback(
-        (newDirection: Direction, newSlide: number | null = null): void => {
-            const newSlideNo = newSlide ?? slide + newDirection;
+        const goToSlide = useCallback(
+            (newDirection: Direction, newSlide: number | null = null): void => {
+                const newSlideNo = newSlide ?? slide + newDirection;
 
-            setIsAnimating(true);
-            setSlide([newSlideNo, newDirection]);
-            orchestrateVectorAnimation(0, 100);
+                setIsAnimating(true);
+                setSlide([newSlideNo, newDirection]);
+                setTimeout(() => {}, 0);
 
-            const currentSliderItem = wrap(0, numItems, newSlideNo);
+                const currentSliderItem = wrap(0, numItems, newSlideNo);
 
-            if (onSliderChange) {
-                onSliderChange(sliderItems[currentSliderItem]);
+                if (onSliderChange) {
+                    onSliderChange(sliderItems[currentSliderItem]);
+                }
+            },
+            [slide, setIsAnimating, numItems, onSliderChange, sliderItems]
+        );
+
+        // Orchestrate animation on the next render
+        useEffect(() => {
+            if (slide !== null) {
+                orchestrateVectorAnimation();
             }
-        },
-        [
-            slide,
-            setIsAnimating,
-            orchestrateVectorAnimation,
-            numItems,
-            onSliderChange,
-            sliderItems,
-        ]
-    );
+        }, [orchestrateVectorAnimation, slide]);
 
-    // Animate to a specific slide
-    if (slideId !== defaultSlideId) {
-        setTimeout(() => {
-            setDefaultSlideId(slideId);
-
-            goToSlide(Direction.Top, slideId);
-        }, 0);
-    }
-
-    const onDragEnd = useCallback(
-        (
-            _e: Event,
-            {
-                offset,
-                velocity,
-            }: {
-                offset: { x: number; y: number };
-                velocity: { x: number; y: number };
+        // Animate to a specific slide when slide is changed in HOC
+        useEffect(() => {
+            if (slideId !== defaultSlideId) {
+                goToSlide(Direction.Top, slideId);
+                setDefaultSlideId(slideId);
             }
-        ): void => {
-            const swipe = swipePower(offset.x, velocity.x);
+        }, [defaultSlideId, goToSlide, slideId]);
 
-            if (swipe < -swipeConfidenceThreshold) {
-                goToSlide(-1);
-            } else if (swipe > swipeConfidenceThreshold) {
-                goToSlide(1);
+        const onDragEnd = useCallback(
+            (
+                _e: Event,
+                {
+                    offset,
+                    velocity,
+                }: {
+                    offset: { x: number; y: number };
+                    velocity: { x: number; y: number };
+                }
+            ): void => {
+                const swipe = swipePower(offset.x, velocity.x);
+
+                if (swipe < -swipeConfidenceThreshold) {
+                    goToSlide(-1);
+                } else if (swipe > swipeConfidenceThreshold) {
+                    goToSlide(1);
+                }
+            },
+            [goToSlide]
+        );
+
+        const updateScroll = useCallback(
+            (e: WheelEvent): void => {
+                const isUp = e.deltaY && e.deltaY < 0;
+
+                if (isUp) {
+                    goToSlide(-1);
+                } else {
+                    goToSlide(1);
+                }
+            },
+            [goToSlide]
+        );
+
+        const [isHovering, setIsHovering] = useState(false);
+
+        const onHoverStart = useCallback(() => {
+            if (onSliderMouseEnter && !isShowingOtherProjects) {
+                onSliderMouseEnter(true);
             }
-        },
-        [goToSlide]
-    );
 
-    const updateScroll = useCallback(
-        (e: WheelEvent): void => {
-            const isUp = e.deltaY && e.deltaY < 0;
-
-            if (isUp) {
-                goToSlide(-1);
-            } else {
-                goToSlide(1);
+            if (onSliderMouseLeave && !isShowingOtherProjects) {
+                onSliderMouseLeave(false);
             }
-        },
-        [goToSlide]
-    );
 
-    const [isHovering, setIsHovering] = useState(false);
+            setIsHovering(true);
+        }, [isShowingOtherProjects, onSliderMouseEnter, onSliderMouseLeave]);
 
-    const onHoverStart = useCallback(() => {
-        if (onSliderMouseEnter && !isShowingOtherProjects) {
-            onSliderMouseEnter(true);
-        }
-
-        if (onSliderMouseLeave && !isShowingOtherProjects) {
-            onSliderMouseLeave(false);
-        }
-
-        setIsHovering(true);
-    }, [isShowingOtherProjects, onSliderMouseEnter, onSliderMouseLeave]);
-
-    const onHoverEnd = useCallback(() => {
-        if (onSliderMouseEnter && !isShowingOtherProjects) {
-            onSliderMouseEnter(false);
-        }
-
-        if (onSliderMouseLeave && !isShowingOtherProjects) {
-            onSliderMouseLeave(true);
-        }
-
-        setIsHovering(false);
-    }, [isShowingOtherProjects, onSliderMouseEnter, onSliderMouseLeave]);
-
-    const wheelCallback = useCallback(
-        (e: Event) => {
-            if (mouseScrollOnSlide && isHovering) {
-                e.preventDefault();
-
-                updateScroll(e as WheelEvent);
+        const onHoverEnd = useCallback(() => {
+            if (onSliderMouseEnter && !isShowingOtherProjects) {
+                onSliderMouseEnter(false);
             }
-        },
-        [isHovering, mouseScrollOnSlide, updateScroll]
-    );
 
-    useEventListener("wheel", wheelCallback, documentBody, wheelEventOptions);
-
-    const onSlideClick = useCallback(
-        (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            if (onSliderTap) {
-                onSliderTap(e, sliderItems[sliderIndex]);
+            if (onSliderMouseLeave && !isShowingOtherProjects) {
+                onSliderMouseLeave(true);
             }
-        },
-        [onSliderTap, sliderIndex, sliderItems]
-    );
 
-    const handleExitComplete = useCallback((): void => {
-        setIsAnimating(false);
-    }, [setIsAnimating]);
+            setIsHovering(false);
+        }, [isShowingOtherProjects, onSliderMouseEnter, onSliderMouseLeave]);
 
-    return (
-        <SliderWrapper ref={sliderRef}>
-            <motion.div onHoverStart={onHoverStart} onHoverEnd={onHoverEnd}>
-                {showSlideTitle && (
-                    <Title data-text={sliderItems[sliderIndex]?.name ?? ""}>
-                        {sliderItems[sliderIndex]?.name ?? ""}
-                    </Title>
-                )}
-                <SliderContent isShowingOtherProjects={isShowingOtherProjects}>
-                    {isShowingOtherProjects ? (
-                        <OtherProjects
-                            otherProjects={otherProjects}
-                            lastProjectNumber={lastProjectNumber}
-                        />
-                    ) : (
-                        <AnimatePresence
-                            initial={false}
-                            custom={direction}
-                            onExitComplete={handleExitComplete}
-                        >
-                            <SlidesList
-                                key={slide}
-                                custom={direction}
-                                variants={variants}
-                                initial="enter"
-                                animate="center"
-                                exit="exit"
-                                transition={sliderTransition}
-                                dragPropagation={true}
-                                drag="y"
-                                dragConstraints={sliderDragConstraints}
-                                dragElastic={1}
-                                onDragEnd={onDragEnd}
-                                onClick={onSlideClick}
-                            >
-                                <Slide>
-                                    <Distortion
-                                        id={String(slide)}
-                                        imgUrl={
-                                            sliderItems[sliderIndex]?.cover ??
-                                            ""
-                                        }
-                                        key={`slide-${slide}`}
-                                    />
-                                </Slide>
-                            </SlidesList>
-                        </AnimatePresence>
+        const wheelCallback = useCallback(
+            (e: Event) => {
+                if (mouseScrollOnSlide && isHovering) {
+                    e.preventDefault();
+
+                    updateScroll(e as WheelEvent);
+                }
+            },
+            [isHovering, mouseScrollOnSlide, updateScroll]
+        );
+
+        useEventListener(
+            "wheel",
+            wheelCallback,
+            documentBody,
+            wheelEventOptions
+        );
+
+        const onSlideClick = useCallback(
+            (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+                if (onSliderTap) {
+                    onSliderTap(e, sliderItems[sliderIndex]);
+                }
+            },
+            [onSliderTap, sliderIndex, sliderItems]
+        );
+
+        const handleExitComplete = useCallback((): void => {
+            setIsAnimating(false);
+        }, [setIsAnimating]);
+
+        return (
+            <SliderWrapper ref={sliderRef}>
+                <motion.div onHoverStart={onHoverStart} onHoverEnd={onHoverEnd}>
+                    {showSlideTitle && (
+                        <Title data-text={sliderItems[sliderIndex]?.name ?? ""}>
+                            {sliderItems[sliderIndex]?.name ?? ""}
+                        </Title>
                     )}
-                </SliderContent>
-            </motion.div>
+                    <SliderContent
+                        isShowingOtherProjects={isShowingOtherProjects}
+                    >
+                        {isShowingOtherProjects ? (
+                            <OtherProjects
+                                otherProjects={otherProjects}
+                                lastProjectNumber={lastProjectNumber}
+                            />
+                        ) : (
+                            <AnimatePresence
+                                custom={direction}
+                                onExitComplete={handleExitComplete}
+                            >
+                                <SlidesList
+                                    id={`slide-${slide}}`}
+                                    key={slide}
+                                    custom={direction}
+                                    variants={variants}
+                                    initial="enter"
+                                    animate="center"
+                                    exit="exit"
+                                    transition={sliderTransition}
+                                    dragPropagation={true}
+                                    drag="y"
+                                    dragConstraints={sliderDragConstraints}
+                                    dragElastic={1}
+                                    onDragEnd={onDragEnd}
+                                    onClick={onSlideClick}
+                                >
+                                    <Slide>
+                                        <Distortion
+                                            id={String(slide)}
+                                            imgUrl={
+                                                sliderItems[sliderIndex]
+                                                    ?.cover ?? ""
+                                            }
+                                            key={`slide-${slide}`}
+                                        />
+                                    </Slide>
+                                </SlidesList>
+                            </AnimatePresence>
+                        )}
+                    </SliderContent>
+                </motion.div>
 
-            <Controls isShowingOtherProjects={isShowingOtherProjects}>
-                {slide < numItems - 1 && (
-                    <Btn onClick={(): void => goToSlide(1)}>
-                        <NextIconStyled /> Next
-                    </Btn>
-                )}
-                {slide > 0 && (
-                    <Btn onClick={(): void => goToSlide(-1)}>
-                        <PrevIconStyled /> Previous
-                    </Btn>
-                )}
-            </Controls>
-        </SliderWrapper>
-    );
-};
+                <Controls isShowingOtherProjects={isShowingOtherProjects}>
+                    {slide < numItems - 1 && (
+                        <Btn onClick={(): void => goToSlide(1)}>
+                            <NextIconStyled /> Next
+                        </Btn>
+                    )}
+                    {slide > 0 && (
+                        <Btn onClick={(): void => goToSlide(-1)}>
+                            <PrevIconStyled /> Previous
+                        </Btn>
+                    )}
+                </Controls>
+            </SliderWrapper>
+        );
+    }
+);
