@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -34,9 +34,6 @@ export const GallerySlider = memo(({ images, gap }: Props) => {
 
     const [, { showMotionCursor }] = useStoreProp("motionCursorData");
 
-    const [widthPct, setWidthPct] = useState(100);
-    const [heightPct, setHeightPct] = useState("max(560px, 80vh)");
-
     useEffect(() => {
         const isMouseOver = Boolean(mouse.elementWidth);
 
@@ -50,14 +47,7 @@ export const GallerySlider = memo(({ images, gap }: Props) => {
     }, [mouse.elementWidth, showMotionCursor]);
 
     return (
-        <FullPageContent
-            cssStyles={{
-                "--width-pct": 100,
-                "--height-pct": heightPct,
-            }}
-            widthPct="100"
-            heightPct="max(560px, 80vh)"
-        >
+        <FullPageContent widthPct={100} heightPct="max(560px, 80vh)">
             <SliderWrapper ref={mouseoverItemRef}>
                 <MotionSlider gap={gap} displayGrabCursor={false}>
                     {images &&
