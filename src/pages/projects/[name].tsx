@@ -211,14 +211,7 @@ const sectionLoader = (
                 if (el.images.length === 1) {
                     if (el.images[0].fullPageImage) {
                         return (
-                            <FullPageContent
-                                key={index}
-                                cssStyles={
-                                    {
-                                        "--width-pct": 96,
-                                    } as React.CSSProperties
-                                }
-                            >
+                            <FullPageContent key={index} widthPct={96}>
                                 <ParallaxBackgroundNoSSR
                                     key={index}
                                     bgImgUrl={`${el.images[0].image}`}
