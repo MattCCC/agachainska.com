@@ -21,7 +21,7 @@ export const FullPageContent = ({
             } as React.CSSProperties
         }
         // eslint-disable-next-line
-        tw="w-full max-w-full overflow-hidden lg:relative lg:w-[--width-pct] lg:h-[--height-pct] lg:max-w-none mb-[40px] lg:left-1/2 lg:mt-0 lg:mr-auto lg:mb-[90px] lg:-ml-[--margin-left-value]"
+        className="w-full max-w-full overflow-hidden lg:relative lg:w-[--width-pct] lg:h-[--height-pct] lg:max-w-none mb-[40px] lg:left-1/2 lg:mt-0 lg:mr-auto lg:mb-[90px] lg:-ml-[--margin-left-value]"
     >
         {children}
     </figure>
