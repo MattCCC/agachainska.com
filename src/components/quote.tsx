@@ -1,19 +1,7 @@
-import tw, { css, styled } from "twin.macro";
-
-import { up } from "utils/screens";
+import tw, { styled } from "twin.macro";
 
 export const Quote = styled.blockquote(() => [
     tw`font-fbold`,
-    css`
-        color: #828282;
-        font-size: 28px;
-        line-height: 34px;
-        margin-bottom: 57px;
-
-        ${up("lg")} {
-            font-size: 48px;
-            line-height: 56px;
-            margin-bottom: 140px;
-        }
-    `,
+    tw`text-[#828282] text-[28px] leading-[34px] mb-[57px]`,
+    tw`lg:text-5xl lg:leading-14 lg:mb-[140px]`,
 ]);

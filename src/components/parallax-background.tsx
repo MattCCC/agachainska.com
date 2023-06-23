@@ -1,6 +1,5 @@
 import tw, { css, styled } from "twin.macro";
 
-import { up } from "utils/screens";
 import Image from "next/image";
 import { useRef } from "react";
 
@@ -10,20 +9,10 @@ interface Props {
     contain?: boolean;
 }
 
-export const Background = styled.div(({ width = 0 }: Partial<Props>) => [
+export const Background = styled.div(() => [
     tw`w-full h-full`,
-    css`
-        transition: transform 500ms cubic-bezier(0, 0.55, 0.45, 1);
-
-        ${up("lg")} {
-            transform: none;
-            backface-visibility: inherit;
-            object-fit: cover;
-            width: 100%;
-            max-width: ${width}px;
-            height: 100%;
-        }
-    `,
+    tw`[transition:transform_500ms_cubic-bezier(0, 0.55, 0.45, 1)]`,
+    tw`lg:transform-none lg:[backface-visibility:inherit] lg:object-cover lg:w-full lg:max-w-[--width] lg:h-full`,
 ]);
 
 export const BackgroundWrapper = styled.div(() => [
@@ -38,7 +27,10 @@ export const ParallaxBackground = ({ bgImgUrl, contain, width }: Props) => {
 
     return (
         <BackgroundWrapper>
-            <Background ref={imgRef} contain={contain} width={width}>
+            <Background
+                ref={imgRef}
+                style={{ "--width": width } as React.CSSProperties}
+            >
                 <Image
                     style={{
                         width: "100%",

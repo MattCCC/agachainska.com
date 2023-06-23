@@ -8,7 +8,6 @@ import { useHideCursorPreserveVisibility } from "components/motion-cursor";
 import { Translate } from "components/translate";
 import { useStoreProp } from "store/index";
 import { getLinkProps, LinkProps } from "utils/route";
-import { up } from "utils/screens";
 
 const HeaderWrapper = styled.header(() => [
     tw`absolute top-0 z-50 flex flex-wrap items-center justify-between mx-auto max-w-screen-2xl pb-[15px] px-0`,
@@ -20,15 +19,7 @@ const HeaderWrapper = styled.header(() => [
 ]);
 
 const Navigation = styled.nav(() => [
-    tw`flex items-center justify-end w-56 lg:w-auto`,
-    css`
-        line-height: 48px;
-        gap: 40px;
-
-        ${up("lg")} {
-            gap: 56px;
-        }
-    `,
+    tw`flex items-center justify-end w-56 leading-12 gap-10 lg:gap-14 lg:w-auto`,
 ]);
 
 const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [

@@ -10,19 +10,11 @@ import { useStoreProp } from "store/index";
 import WavesPattern from "svg/bg-lines.svg";
 import PricklyPearIllustration from "svg/Prickly pear@1x.svg";
 import { getLinkProps } from "utils/route";
-import { up } from "utils/screens";
 import { motion } from "framer-motion";
 
 const ContactWrapper = styled(Link)(() => [
     tw`relative block select-none cursor-none`,
-
-    css`
-        height: 430px;
-
-        ${up("lg")} {
-            height: 690px;
-        }
-    `,
+    tw`h-[430px] lg:h-[690px]`,
 ]);
 
 const MarqueeTextWrapper = styled.div(() => [tw`flex w-full h-full mx-auto`]);
@@ -30,16 +22,8 @@ const MarqueeTextWrapper = styled.div(() => [tw`flex w-full h-full mx-auto`]);
 const MarqueeTextContainer = styled.span(() => [
     tw`block overflow-hidden select-none bg-clip-text`,
     tw`uppercase text-primary font-fbold prose-60 lg:prose-120 whitespace-nowrap`,
-    css`
-        -webkit-text-stroke-width: 3px;
-        -webkit-text-stroke-color: rgba(255, 255, 255, 0.8);
-        line-height: 430px;
-        transition: all 300ms;
-
-        ${up("lg")} {
-            line-height: 690px;
-        }
-    `,
+    tw`[-webkit-text-stroke-width:3px] [-webkit-text-stroke-color:rgba(255,255,255,0.8)]`,
+    tw`leading-[430px] [transition:all_300ms] lg:leading-[690px]`,
 ]);
 
 const Waves = styled(WavesPattern)(() => [
@@ -48,19 +32,8 @@ const Waves = styled(WavesPattern)(() => [
 
 const PricklyPear = styled(PricklyPearIllustration)(() => [
     tw`absolute z-10`,
-    css`
-        width: 50px;
-        height: 50px;
-        left: 45px;
-        top: 29px;
-
-        ${up("lg")} {
-            width: 100px;
-            height: 100px;
-            left: 48%;
-            top: 129px;
-        }
-    `,
+    tw`w-[50px] h-[50px] left-[45px] top-[29px]`,
+    tw`lg:w-[100px] lg:h-[100px] lg:left-[48%] lg:top-[129px]`,
 ]);
 
 export const Contact = memo(() => {
