@@ -1,5 +1,5 @@
 import { GetStaticProps } from "next";
-import tw, { css, styled } from "twin.macro";
+import tw, { styled } from "twin.macro";
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 

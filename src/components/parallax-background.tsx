@@ -22,7 +22,7 @@ export const BackgroundWrapper = styled.div(() => [
     `,
 ]);
 
-export const ParallaxBackground = ({ bgImgUrl, contain, width }: Props) => {
+export const ParallaxBackground = ({ bgImgUrl, width }: Props) => {
     const imgRef = useRef<HTMLImageElement>(null);
 
     return (

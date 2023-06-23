@@ -6,7 +6,6 @@ import { BackgroundNoise } from "components/background-noise";
 import { Contact } from "components/footer/contact";
 import { SocialMedia } from "components/social-media";
 import { useStoreProp } from "store/index";
-import { up } from "utils/screens";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 
 interface Props {
