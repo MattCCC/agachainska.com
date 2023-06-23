@@ -144,7 +144,7 @@ const PaginationControls = styled.div(() => [
 ]);
 
 const PaginationButton = styled.button(() => [
-    tw`flex-row cursor-pointer select-none lg:prose-16 lg:leading-5`,
+    tw`flex-row cursor-pointer select-none lg:text-[16px] lg:leading-5`,
     css`
         &:last-child {
             margin-left: 40px;

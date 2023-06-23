@@ -38,7 +38,7 @@ const FooterNav = styled.nav(() => [
 ]);
 
 const FooterNavText = styled.div(() => [
-    tw`text-white select-none prose-16 leading-[70px] lg:leading-[120px]`,
+    tw`text-white select-none text-[16px] leading-[70px] lg:leading-[120px]`,
 ]);
 
 const Annotation = styled.div(({ showFooter }: Partial<Props>) => [

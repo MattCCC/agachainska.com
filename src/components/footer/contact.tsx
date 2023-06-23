@@ -21,7 +21,7 @@ const MarqueeTextWrapper = styled.div(() => [tw`flex w-full h-full mx-auto`]);
 
 const MarqueeTextContainer = styled.span(() => [
     tw`block overflow-hidden select-none bg-clip-text`,
-    tw`uppercase text-primary font-fbold prose-60 lg:prose-120 whitespace-nowrap`,
+    tw`uppercase text-primary font-fbold text-[60px] lg:text-[120px] whitespace-nowrap`,
     tw`[-webkit-text-stroke-width:3px] [-webkit-text-stroke-color:rgba(255,255,255,0.8)]`,
     tw`leading-[430px] [transition:all_300ms] lg:leading-[690px]`,
 ]);

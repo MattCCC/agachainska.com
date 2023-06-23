@@ -53,9 +53,9 @@ const ProjectLink = styled.span(() => [
     tw`flex flex-col select-none cursor-none lg:pt-3`,
 ]);
 
-const ProjectTitle = styled(H4)(() => [tw`h-auto prose-24 lg:prose-30`]);
+const ProjectTitle = styled(H4)(() => [tw`h-auto text-[24px] lg:text-[30px]`]);
 
-const ProjectCaption = styled.p(() => [tw`prose-16 lg:prose-24`]);
+const ProjectCaption = styled.p(() => [tw`text-[16px] lg:text-[24px]`]);
 
 export const SingleProject = memo(
     ({ index, nameSlug, name, category, cover }: Props) => {

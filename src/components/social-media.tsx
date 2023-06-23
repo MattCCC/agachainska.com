@@ -9,7 +9,7 @@ interface Props {
 const SocialMediaWrapper = styled.div(() => [tw`flex items-center`, css``]);
 
 const ListItem = styled.a(({ variant }: Props) => [
-    tw`inline-block leading-5 text-center text-white border border-white select-none prose-18`,
+    tw`inline-block leading-5 text-center text-white border border-white select-none text-[18px]`,
     variant === "normal" &&
         css`
             height: 40px;
@@ -22,7 +22,7 @@ const ListItem = styled.a(({ variant }: Props) => [
             line-height: 61px;
             width: 61px;
         `,
-    variant === "big" && tw`prose-24`,
+    variant === "big" && tw`text-[24px]`,
     tw`m-[0_20px] lg:m-[0_10px]`,
     tw`transition-all hover:bg-white hover:text-black`,
 ]);

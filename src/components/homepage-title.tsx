@@ -8,7 +8,7 @@ import { TranslateText } from "utils/translate-text";
 import { Translate } from "./translate";
 
 const Title = styled.h1(() => [
-    tw`relative z-50 inline-block max-w-full -mt-16 font-bold select-none lg:pr-16 prose-70 leading-20 lg:prose-140 lg:leading-38`,
+    tw`relative z-50 inline-block max-w-full -mt-16 font-bold select-none lg:pr-16 text-[70px] leading-20 lg:text-[140px] lg:leading-38`,
     tw`subpixel-antialiased text-black bg-clip-text font-fbold lg:cursor-none lg:bg-intro-title-gradient`,
     tw`lg:[-webkit-text-fill-color:transparent]`,
     css`

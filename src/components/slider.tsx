@@ -139,7 +139,7 @@ const Controls = styled.div(({ isShowingOtherProjects }: ControlsProps) => [
 ]);
 
 const Btn = styled.div(() => [
-    tw`flex-row cursor-pointer select-none lg:prose-16 lg:leading-5 w-28`,
+    tw`flex-row cursor-pointer select-none lg:text-[16px] lg:leading-5 w-28`,
 ]);
 
 const PrevIconStyled = styled(PrevIcon)(() => [

@@ -20,7 +20,7 @@ import { isDev } from "utils/detect-env";
 import { getRoutePath } from "utils/route";
 
 const Desc = styled.h2(() => [
-    tw`inline-block leading-8 select-none prose-24 lg:prose-30 lg:leading-11`,
+    tw`inline-block leading-8 select-none text-[24px] lg:text-[30px] lg:leading-11`,
     css`
         max-height: 84px;
         width: 18rem;
