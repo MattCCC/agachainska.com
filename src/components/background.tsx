@@ -36,7 +36,7 @@ const Vectors = styled(VectorsIllustration)(() => [
 const Greece = styled(GreeceIllustration)(() => [
     tw`absolute z-10`,
     tw`w-[58px] h-[58px] top-[68%] left-[10%]`,
-    tw`lg:w-[80px] h-[58px] top-[868px] left-[613px]`,
+    tw`lg:w-[80px] lg:h-[80px] lg:top-[868px] lg:left-[613px]`,
 ]);
 
 const Malta = styled(MaltaIllustration)(() => [
