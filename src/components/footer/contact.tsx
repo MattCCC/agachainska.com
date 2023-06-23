@@ -1,6 +1,6 @@
 import { memo, useCallback } from "react";
 
-import tw, { css, styled } from "twin.macro";
+import tw, { styled } from "twin.macro";
 
 import { useRouter } from "next/router";
 
