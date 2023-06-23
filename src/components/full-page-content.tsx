@@ -6,7 +6,6 @@ interface Props {
     children: ReactNode;
 }
 
-// Default width is always 100 and height is auto.
 export const FullPageContent = ({
     widthPct = 100,
     heightPct = "auto",
