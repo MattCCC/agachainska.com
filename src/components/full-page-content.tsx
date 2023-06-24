@@ -1,16 +1,15 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 
 interface Props {
     widthPct?: number;
     heightPct?: string;
-    children: ReactNode;
 }
 
 export const FullPageContent = ({
     widthPct = 100,
     heightPct = "auto",
     children,
-}: Props) => (
+}: PropsWithChildren<Props>) => (
     <figure
         style={
             {
