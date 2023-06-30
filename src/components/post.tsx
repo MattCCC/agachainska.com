@@ -4,7 +4,6 @@ import tw, { css, styled } from "twin.macro";
 
 import { BigNumber } from "components/big-number";
 import { MainTitleTop } from "components/main-title";
-import { up } from "utils/screens";
 
 export interface PostItem {
     [x: string]: any;
@@ -29,18 +28,11 @@ const PostImg = styled.img(() => [tw`relative z-10 w-full overflow-hidden`]);
 
 const PostBg = styled.div(() => [
     tw`relative z-10 w-full overflow-hidden bg-cover`,
-    css`
-        width: 348px;
-        height: 181px;
-        ${up("xl")} {
-            width: 398px;
-            height: 231px;
-        }
-    `,
+    tw`w-[348px] h-[181px] xl:w-[398px] xl:h-[231px]`,
 ]);
 
 const PostDescription = styled.div(() => [
-    tw`w-3/4 leading-6 prose-16`,
+    tw`w-3/4 leading-6 text-[16px]`,
     css`
         margin-top: 10px;
     `,

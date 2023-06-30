@@ -97,11 +97,7 @@ export const DevicesCarousel = memo(({ list }: Props) => {
     }
 
     return (
-        <FullPageContent
-            widthPct={100}
-            heightPct="670px"
-            style={{ height: "680px", marginBottom: "0" }}
-        >
+        <FullPageContent heightPct="680px">
             <motion.div
                 onHoverStart={onHoverStart}
                 onHoverEnd={onHoverEnd}

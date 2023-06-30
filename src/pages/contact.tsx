@@ -1,5 +1,5 @@
 import { GetStaticProps } from "next";
-import tw, { css, styled } from "twin.macro";
+import tw, { styled } from "twin.macro";
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
@@ -9,7 +9,6 @@ import { Meta } from "components/meta";
 import { SocialMedia } from "components/social-media";
 import { TextTextarea } from "components/text-textarea";
 import ContactIllustration from "svg/Contact.svg";
-import { up } from "utils/screens";
 import client from "tina/__generated__/client";
 import { PageQuery, PageQueryVariables } from "tina/__generated__/types";
 import { useStoreProp } from "store/index";
@@ -20,26 +19,14 @@ import {
 } from "queries/fetch-social-media-data";
 
 const H1 = styled.div(() => [
-    tw`pt-12 mb-5 leading-9 lg:mb-12 font-fbold prose-28 lg:prose-48 lg:leading-14 lg:pt-24`,
+    tw`pt-12 mb-5 leading-9 lg:mb-12 font-fbold text-[28px] lg:text-[48px] lg:leading-14 lg:pt-24`,
 ]);
 
 const EmailLink = styled.a(() => [tw`inline-block ml-1 text-green`]);
 
 const ContactIllus = styled(ContactIllustration)(() => [
-    tw`absolute z-10`,
-    css`
-        width: 36px;
-        height: 36px;
-        left: 57px;
-        top: 82px;
-
-        ${up("lg")} {
-            width: 100px;
-            height: 100px;
-            left: 330px;
-            top: 100px;
-        }
-    `,
+    tw`absolute z-10 w-[36px] h-[36px] left-[57px] top-[82px]`,
+    tw`lg:w-[100px] lg:h-[100px] lg:left-[330px] lg:top-[100px]`,
 ]);
 
 interface Page {

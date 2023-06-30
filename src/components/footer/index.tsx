@@ -6,7 +6,6 @@ import { BackgroundNoise } from "components/background-noise";
 import { Contact } from "components/footer/contact";
 import { SocialMedia } from "components/social-media";
 import { useStoreProp } from "store/index";
-import { up } from "utils/screens";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 
 interface Props {
@@ -19,14 +18,7 @@ const FooterWrapper = styled.footer(({ showFooter = true }: Props) => [
 ]);
 
 const MiniFooterWrapper = styled.footer(() => [
-    tw`relative bottom-0 z-10 w-full overflow-hidden`,
-    css`
-        margin-top: -140px;
-
-        ${up("lg")} {
-            margin-top: -120px;
-        }
-    `,
+    tw`relative bottom-0 z-10 w-full overflow-hidden -mt-[140px] lg:-mt-[120px]`,
 ]);
 
 const FooterContainer = styled.div(() => [
@@ -38,14 +30,7 @@ const FooterContainer = styled.div(() => [
 ]);
 
 const BottomFooter = styled.div(() => [
-    tw`relative z-10 w-full border-t border-white`,
-    css`
-        height: 140px;
-
-        ${up("lg")} {
-            height: 120px;
-        }
-    `,
+    tw`relative z-10 w-full border-t border-white h-[140px] lg:h-[120px]`,
 ]);
 
 const FooterNav = styled.nav(() => [
@@ -53,14 +38,7 @@ const FooterNav = styled.nav(() => [
 ]);
 
 const FooterNavText = styled.div(() => [
-    tw`text-white select-none prose-16`,
-    css`
-        line-height: 70px;
-
-        ${up("lg")} {
-            line-height: 120px;
-        }
-    `,
+    tw`text-white select-none text-[16px] leading-[70px] lg:leading-[120px]`,
 ]);
 
 const Annotation = styled.div(({ showFooter }: Partial<Props>) => [

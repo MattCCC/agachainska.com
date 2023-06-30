@@ -14,7 +14,7 @@ export default function Thanks() {
 
             <MainContainer topPadding={true}>
                 <div tw="col-start-1 col-end-13">
-                    <h1 className="font-bold text-center prose-70 leading-20 lg:prose-140 lg:leading-38">
+                    <h1 className="font-bold text-center text-[70px] leading-20 lg:text-[140px] lg:leading-38">
                         Form submitted. Thank you.
                     </h1>
                 </div>

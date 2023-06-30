@@ -10,7 +10,6 @@ import MaltaIllustration from "svg/Malta.svg";
 import PixelLoveIllustration from "svg/Pixel love.svg";
 import VectorsIllustration from "svg/Vectors.svg";
 import { destroyMotionGrid, initMotionGrid } from "utils/motion-grid";
-import { down } from "utils/screens";
 import { excludeProps } from "utils/styled";
 
 interface WavesProps {
@@ -30,36 +29,14 @@ const Waves = styled(WavesPattern).withConfig(excludeProps(["darkTheme"]))(
 
 const Vectors = styled(VectorsIllustration)(() => [
     tw`absolute z-10`,
-    css`
-        ${down("md")} {
-            width: 42px;
-            height: 42px;
-            top: 30%;
-            left: 53%;
-        }
-
-        width: 80px;
-        height: 80px;
-        left: 426px;
-        top: 92px;
-    `,
+    tw`w-[42px] h-[42px] top-[30%] left-[53%]`,
+    tw`lg:w-[80px] lg:h-[80px] lg:left-[426px] lg:top-[92px]`,
 ]);
 
 const Greece = styled(GreeceIllustration)(() => [
     tw`absolute z-10`,
-    css`
-        ${down("md")} {
-            width: 58px;
-            height: 58p;
-            top: 68%;
-            left: 10%;
-        }
-
-        width: 80px;
-        height: 80px;
-        left: 868px;
-        top: 613px;
-    `,
+    tw`w-[58px] h-[58px] top-[68%] left-[10%]`,
+    tw`lg:w-[80px] lg:h-[80px] lg:top-[868px] lg:left-[613px]`,
 ]);
 
 const Malta = styled(MaltaIllustration)(() => [
