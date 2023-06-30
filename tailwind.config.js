@@ -70,6 +70,7 @@ module.exports = {
                 "tertiary": "var(--tertiary)",
                 "black": "var(--black)",
                 "green": "var(--green)",
+                "gray": "var(--gray)",
             },
             zIndex: {
                 60: 60,
