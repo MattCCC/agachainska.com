@@ -64,5 +64,5 @@
         "allowJs": true,
         "incremental": true
     },
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "out", "tina/__generated__", ".next"]
 }
