@@ -2,7 +2,7 @@
   "name": "agachainska.com",
   "private": true,
   "description": "A website",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "0BSD",
   "engines": {
     "node": ">=20.3.1",
