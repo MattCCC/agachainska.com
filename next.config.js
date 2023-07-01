@@ -30,7 +30,7 @@ module.exports = withBundleAnalyzer(withTwin({
     ],
   },
   env: {},
-  webpack(config) {
+  webpack(config, { dev, isServer }) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
       rule.test?.test?.('.svg'),
@@ -54,6 +54,15 @@ module.exports = withBundleAnalyzer(withTwin({
 
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
     fileLoaderRule.exclude = /\.svg$/i
+
+    if (!dev && !isServer) {
+      Object.assign(config.resolve.alias, {
+        "react/jsx-runtime.js": "preact/compat/jsx-runtime",
+        react: "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat",
+      });
+    }
 
     return config
   },

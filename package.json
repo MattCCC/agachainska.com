@@ -31,6 +31,7 @@
     "lodash-es": "4.17.21",
     "next": "13.4.7",
     "next-i18next": "14.0.0",
+    "preact": "10.15.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-inview": "4.5.0",
