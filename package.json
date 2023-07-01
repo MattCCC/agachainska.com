@@ -15,7 +15,7 @@
     "test": "jest --watchAll",
     "format": "next lint lint --fix && prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "lint": "next lint --fix --ext .tsx,.ts,.js,.jsx ./src",
-    "clean": "rm -rf ./tina/__generated__",
+    "clean": "rm -rf ./tina/__generated__ .next node_modules",
     "analyze": "ANALYZE=true next build && next bundle-analyzer",
     "types-check": "tsc --project tsconfig.json --noEmit"
   },
@@ -38,7 +38,7 @@
     "sass": "1.63.6",
     "sharp": "0.32.1",
     "simplest-react-store": "^1.0.11",
-    "styled-components": "6.0.1",
+    "styled-components": "5.3.11",
     "tinacms": "1.5.13",
     "use-debounce": "9.0.4"
   },
@@ -60,7 +60,6 @@
     "babel-loader": "9.1.2",
     "babel-plugin-macros": "3.1.0",
     "cross-env": "7.0.3",
-    "esbuild": "^0.18.10",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
     "eslint-import-resolver-typescript": "3.5.5",
