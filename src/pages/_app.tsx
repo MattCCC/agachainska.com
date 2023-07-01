@@ -2,7 +2,6 @@ import "../styles/global.scss";
 
 import { PropsWithChildren, StrictMode } from "react";
 
-import { appWithTranslation } from "next-i18next";
 import tw, { styled, css } from "twin.macro";
 
 import { AppProps } from "next/app";
@@ -102,4 +101,4 @@ function App({ Component, pageProps }: AppProps) {
     );
 }
 
-export default appWithTranslation(App);
+export default App;

@@ -8,9 +8,19 @@ import { Link } from "components/link";
 import { MarqueeText } from "components/marquee-text";
 import { useStoreProp } from "store/index";
 import WavesPattern from "svg/bg-lines.svg";
-import PricklyPearIllustration from "svg/Prickly pear@1x.svg";
+import PricklyPearIllustration from "svg/Prickly pear@1x.svg?url";
 import { getLinkProps } from "utils/route";
 import { motion } from "framer-motion";
+import Image from "next/image";
+
+const loadIllustration = (illustration: string) => {
+    switch (illustration) {
+        case PricklyPearIllustration:
+            return <Image src={PricklyPearIllustration} alt={""} />;
+    }
+
+    return null;
+};
 
 const ContactWrapper = styled(Link)(() => [
     tw`relative block select-none cursor-none`,
@@ -30,7 +40,7 @@ const Waves = styled(WavesPattern)(() => [
     tw`absolute w-full h-full opacity-5`,
 ]);
 
-const PricklyPear = styled(PricklyPearIllustration)(() => [
+const PricklyPear = styled.div(() => [
     tw`absolute z-10`,
     tw`w-[50px] h-[50px] left-[45px] top-[29px]`,
     tw`lg:w-[100px] lg:h-[100px] lg:left-[48%] lg:top-[129px]`,
@@ -65,7 +75,9 @@ export const Contact = memo(() => {
         <motion.div onHoverStart={onHoverStart} onHoverEnd={onHoverEnd}>
             <ContactWrapper {...getLinkProps("contact", location)}>
                 <Waves />
-                <PricklyPear />
+                <PricklyPear>
+                    {loadIllustration(PricklyPearIllustration)}
+                </PricklyPear>
                 <MarqueeTextWrapper as="span">
                     <MarqueeTextContainer>
                         <MarqueeText text="Let’s build something awesome together •" />

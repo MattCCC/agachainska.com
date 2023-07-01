@@ -1,9 +1,5 @@
 import { Fragment } from "react";
 
-import { GetStaticProps } from "next";
-
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-
 import { MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 
@@ -22,9 +18,3 @@ export default function Thanks() {
         </Fragment>
     );
 }
-
-export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => ({
-    props: {
-        ...(await serverSideTranslations(locale)),
-    },
-});

@@ -3,9 +3,9 @@ import { useCallback, Fragment, RefObject, useRef } from "react";
 import tw, { styled, css } from "twin.macro";
 
 import { MotionCursor } from "components/motion-cursor";
-import { TranslateText } from "utils/translate-text";
 
 import { Translate } from "./translate";
+import { useTranslation } from "hooks/use-translation";
 
 const Title = styled.h1(() => [
     tw`relative z-50 inline-block max-w-full -mt-16 font-bold select-none lg:pr-16 text-[70px] leading-20 lg:text-[140px] lg:leading-38`,
@@ -35,6 +35,7 @@ const cursorMarginLeft = 31;
 function HomepageTitle() {
     const titleRef = useRef() as RefObject<HTMLHeadingElement>;
     const el = titleRef.current;
+    const { t } = useTranslation();
 
     const onPositionUpdate = useCallback(
         (clientX: number, clientY: number) => {
@@ -63,7 +64,7 @@ function HomepageTitle() {
 
     return (
         <Fragment>
-            <Title data-text={TranslateText("home.title")} ref={titleRef}>
+            <Title data-text={t("home.title")} ref={titleRef}>
                 <Translate id="home.title" />
             </Title>
             <MotionCursor onPositionUpdate={onPositionUpdate} />

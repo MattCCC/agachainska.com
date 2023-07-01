@@ -25,6 +25,7 @@
             "data/*": ["./src/data/*"],
             "domain/*": ["./src/domain/*"],
             "layouts/*": ["./src/layouts/*"],
+            "locales/*": ["./src/locales/*"],
             "styles/*": ["./src/styles/*"],
             "store/*": ["./src/store/*"],
             "pages/*": ["./src/pages/*"],
@@ -64,5 +65,5 @@
         "allowJs": true,
         "incremental": true
     },
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "out", "public", "tina/__generated__", ".next"]
 }

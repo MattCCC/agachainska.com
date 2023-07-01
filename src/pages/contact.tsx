@@ -1,8 +1,6 @@
 import { GetStaticProps } from "next";
 import tw, { styled } from "twin.macro";
 
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-
 import { Button } from "components/button";
 import { MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
@@ -155,7 +153,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => {
 
     return {
         props: {
-            ...(await serverSideTranslations(locale)),
             contactPageData: page.data.page,
             socialMediaData,
         },

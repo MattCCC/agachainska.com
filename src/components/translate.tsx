@@ -1,14 +1,12 @@
 import { Fragment } from "react";
-
-import { useTranslation } from "next-i18next";
+import { TranslationKeys, useTranslation } from "hooks/use-translation";
 
 interface TranslateProps {
-  id: string;
-  props?: object;
+    id: string;
 }
 
-export const Translate = ({ id, ...props }: TranslateProps) => {
-  const { t } = useTranslation();
+export const Translate = ({ id }: TranslateProps) => {
+    const { t } = useTranslation();
 
-  return (<Fragment>{t(id, props)}</Fragment>);
+    return <Fragment>{t(id as TranslationKeys)}</Fragment>;
 };
