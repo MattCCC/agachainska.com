@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 
-const { i18n } = require('./next-i18next.config.js');
 const withTwin = require('./withTwin.js')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -12,7 +11,10 @@ module.exports = withBundleAnalyzer(withTwin({
   eslint: {
     dirs: ['src', '__tests__/src']
   },
-  i18n,
+  i18n: {
+    locales: ['en', 'pl'],
+    defaultLocale: 'en',
+  },
   compiler: {
     styledComponents: true,
     removeConsole: {

@@ -12,7 +12,6 @@ import { GetStaticProps } from "next";
 import tw, { css, styled } from "twin.macro";
 import { useDebouncedCallback } from "use-debounce";
 
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import dynamic from "next/dynamic";
 
 import { BigNumber } from "components/big-number";
@@ -585,7 +584,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => {
 
     return {
         props: {
-            ...(await serverSideTranslations(locale)),
             projects,
             socialMediaData,
         },

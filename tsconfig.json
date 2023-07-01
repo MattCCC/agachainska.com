@@ -25,6 +25,7 @@
             "data/*": ["./src/data/*"],
             "domain/*": ["./src/domain/*"],
             "layouts/*": ["./src/layouts/*"],
+            "locales/*": ["./src/locales/*"],
             "styles/*": ["./src/styles/*"],
             "store/*": ["./src/store/*"],
             "pages/*": ["./src/pages/*"],

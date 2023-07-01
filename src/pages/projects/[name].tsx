@@ -10,7 +10,6 @@ import { GetStaticProps } from "next";
 import { useInViewEffect } from "react-hook-inview";
 import tw, { css, styled } from "twin.macro";
 
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 
 import { DeviceMockup } from "components/device-mockup";
@@ -50,6 +49,7 @@ import {
 } from "queries/fetch-social-media-data";
 import { fetchProjects } from "queries/fetch-projects";
 import { convertTinaUrl } from "utils/convert-tina-url";
+import { getLocale, locales } from "hooks/use-translation";
 
 interface ContentContainerProps {
     variant?: string;
@@ -603,7 +603,7 @@ const SectionObserver = ({
     );
 };
 
-export const getStaticPaths = async ({ locales = ["en"] }) => {
+export const getStaticPaths = async () => {
     const { data } = await client.queries.projectConnection();
     const paths = [] as unknown[];
 
@@ -626,8 +626,9 @@ export const getStaticPaths = async ({ locales = ["en"] }) => {
 
 export const getStaticProps: GetStaticProps = async ({
     params = { filename: "" },
-    locale = "en",
 }) => {
+    const locale = getLocale();
+
     let project = {
         data: {},
         query: "",
@@ -666,7 +667,6 @@ export const getStaticProps: GetStaticProps = async ({
 
     return {
         props: {
-            ...(await serverSideTranslations(locale)),
             project: project.data.project,
             projects,
             socialMediaData,

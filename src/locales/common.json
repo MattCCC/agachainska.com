@@ -1,0 +1,36 @@
+{
+    "en": {
+        "header.title": "Aga Chainska",
+        "header.logo.title": "AC",
+        "header.link.work": "Work",
+        "header.link.about": "About",
+        "header.link.contact": "Contact",
+        "home.title": "Aga Chainska",
+        "viewWork": "View Work",
+        "explore": "Explore",
+        "seeAllProjects": "See all projects",
+        "contact": "Contact",
+        "drag": "Drag",
+        "home.description": "UX/UI designer with passion for illustration",
+        "about.title": "About",
+        "work.title": "Work",
+        "work.viewDribbbleShot": "view dribbble shot",
+        "page.notfound": "Not Found"
+    },
+    "pl": {
+        "header.title": "Aga Chaińska",
+        "header.logo.title": "AC",
+        "header.link.work": "Praca",
+        "header.link.about": "O mnie",
+        "header.link.contact": "Kontakt",
+        "home.title": "Aga Chaińska",
+        "viewWork": "Zobacz pracę",
+        "explore": "Zobacz",
+        "contact": "Kontakt",
+        "drag": "Pociągnij",
+        "home.description": "UX/UI designer z pasją do ilustracji",
+        "about.title": "O mnie",
+        "work.title": "Praca",
+        "page.notfound": "Nie znaleziono"
+    }
+}
