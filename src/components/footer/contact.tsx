@@ -15,8 +15,6 @@ import Image from "next/image";
 
 const loadIllustration = (illustration: string) => {
     switch (illustration) {
-        case WavesPattern:
-            return <Image src={WavesPattern} alt={""} />;
         case PricklyPearIllustration:
             return <Image src={PricklyPearIllustration} alt={""} />;
     }
@@ -38,7 +36,9 @@ const MarqueeTextContainer = styled.span(() => [
     tw`leading-[430px] [transition:all_300ms] lg:leading-[690px]`,
 ]);
 
-const Waves = styled.div(() => [tw`absolute w-full h-full opacity-5`]);
+const Waves = styled(WavesPattern)(() => [
+    tw`absolute w-full h-full opacity-5`,
+]);
 
 const PricklyPear = styled.div(() => [
     tw`absolute z-10`,
