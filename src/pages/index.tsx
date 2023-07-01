@@ -1,9 +1,7 @@
 import { Fragment, useCallback, useEffect } from "react";
 
-import { GetStaticProps } from "next";
 import tw, { css, styled } from "twin.macro";
 
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 
 import { BottomCircle } from "components/bottom-circle";
@@ -73,9 +71,3 @@ export default function Home() {
         </Fragment>
     );
 }
-
-export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => ({
-    props: {
-        ...(await serverSideTranslations(locale)),
-    },
-});

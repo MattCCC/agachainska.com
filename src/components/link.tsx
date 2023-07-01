@@ -1,6 +1,6 @@
 import { MouseEvent, PropsWithChildren, ReactNode, memo } from "react";
 
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "hooks/use-translation";
 
 import NextLink, { LinkProps } from "next/link";
 
@@ -23,7 +23,7 @@ export const Link = memo(
         children,
         className = "",
     }: PropsWithChildren<Props>) => {
-        const { i18n } = useTranslation();
+        const { locale } = useTranslation();
         const onClick = useNavigation({
             to,
             replace,
@@ -38,7 +38,7 @@ export const Link = memo(
                     onClick(e)
                 }
                 href={to}
-                locale={i18n.language}
+                locale={locale}
                 className={className}
             >
                 {children}

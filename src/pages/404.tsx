@@ -1,6 +1,4 @@
-import { GetStaticProps, NextPage } from "next";
-
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { NextPage } from "next";
 
 import { ErrorContainer } from "components/404";
 import { Meta } from "components/meta";
@@ -13,9 +11,3 @@ const ErrorPage: NextPage = () => (
 );
 
 export default ErrorPage;
-
-export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => ({
-    props: {
-        ...(await serverSideTranslations(locale)),
-    },
-});
