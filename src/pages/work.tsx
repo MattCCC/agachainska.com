@@ -19,7 +19,7 @@ import { MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
 import { Post, PostItem } from "components/post";
-import { Slider, SliderItem } from "components/slider";
+import { Btn, Controls, Slider, SliderItem } from "components/slider";
 import { Star } from "components/star";
 import { Tabs } from "components/tabs";
 import { TimelineItem, TimelineSection } from "components/timeline";
@@ -34,6 +34,7 @@ import {
     ConfigurationPage,
     fetchSocialMediaData,
 } from "queries/fetch-social-media-data";
+import OtherProjects from "components/other-projects";
 
 interface PageState {
     sliderIndex: number;
@@ -468,7 +469,7 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
                             <SlideWrapper
                                 isShowingOtherProjects={isShowingOtherProjects}
                             >
-                                {!isShowingOtherProjects && (
+                                {!isShowingOtherProjects ? (
                                     <>
                                         <StyledNumber
                                             id={`${
@@ -497,30 +498,62 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
                                             }
                                             displayStar={state.showStar}
                                         />
+                                        <Slider
+                                            sliderItems={sliderItems}
+                                            onSliderTap={(e) => onNavigate(e)}
+                                            onSliderChange={
+                                                setCurrentSlideState
+                                            }
+                                            slideId={sliderIndex}
+                                            showSlideTitle={
+                                                !isShowingOtherProjects
+                                            }
+                                            onSliderMouseEnter={
+                                                onSliderContentMouseEventChange
+                                            }
+                                            onSliderMouseLeave={
+                                                onSliderContentMouseEventChange
+                                            }
+                                            setIsAnimating={
+                                                setIsSliderAnimating
+                                            }
+                                        />
+                                    </>
+                                ) : (
+                                    <>
+                                        <OtherProjects
+                                            otherProjects={
+                                                currentCategoryOtherProjects
+                                            }
+                                            lastProjectNumber={
+                                                projectsByCategory.length + 1
+                                            }
+                                        />
+
+                                        <Controls>
+                                            {slide < numItems - 1 && (
+                                                <Btn
+                                                    onClick={(): void =>
+                                                        goToSlide(1)
+                                                    }
+                                                >
+                                                    <NextIconStyled /> Next
+                                                </Btn>
+                                            )}
+                                            {slide > 0 && (
+                                                <Btn
+                                                    onClick={(): void =>
+                                                        goToSlide(-1)
+                                                    }
+                                                >
+                                                    <PrevIconStyled /> Previous
+                                                </Btn>
+                                            )}
+                                        </Controls>
                                     </>
                                 )}
-                                <Slider
-                                    sliderItems={sliderItems}
-                                    onSliderTap={(e) => onNavigate(e)}
-                                    onSliderChange={setCurrentSlideState}
-                                    slideId={sliderIndex}
-                                    showSlideTitle={!isShowingOtherProjects}
-                                    isShowingOtherProjects={
-                                        isShowingOtherProjects
-                                    }
-                                    otherProjects={currentCategoryOtherProjects}
-                                    lastProjectNumber={
-                                        projectsByCategory.length
-                                    }
-                                    onSliderMouseEnter={
-                                        onSliderContentMouseEventChange
-                                    }
-                                    onSliderMouseLeave={
-                                        onSliderContentMouseEventChange
-                                    }
-                                    setIsAnimating={setIsSliderAnimating}
-                                />
                             </SlideWrapper>
+
                             <TimelineWrapper>
                                 <TimelineNoSSR
                                     style={{ height: "27.76rem" }}
