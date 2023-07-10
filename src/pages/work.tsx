@@ -36,6 +36,9 @@ import {
 } from "queries/fetch-social-media-data";
 import OtherProjects from "components/other-projects";
 
+import NextIcon from "svg/down.svg";
+import PrevIcon from "svg/up.svg";
+
 interface PageState {
     sliderIndex: number;
     activeSectionId: string;
@@ -103,6 +106,14 @@ const StyledStar = styled(Star)(() => [
         height: 260px;
         width: 260px;
     `,
+]);
+
+const PrevIconStyled = styled(PrevIcon)(() => [
+    tw`inline-block mr-4 text-center`,
+]);
+
+const NextIconStyled = styled(NextIcon)(() => [
+    tw`inline-block mr-4 text-center`,
 ]);
 
 let isPageTop = false;
@@ -263,6 +274,8 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
         [projects, timelineList]
     );
 
+    const numItems = useMemo(() => sliderItems.length, [sliderItems]);
+
     const otherProjects = useMemo(
         () =>
             categories.map((category) => ({
@@ -408,6 +421,27 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
         [state]
     );
 
+    const goTo = (newSlideDirection: number) => {
+        if (isSliderAnimating) {
+            return;
+        }
+
+        const newSlideIndex = sliderIndex + newSlideDirection;
+
+        if (newSlideIndex < 0 || newSlideIndex > sliderItems.length - 1) {
+            return;
+        }
+
+        if (isShowingOtherProjects) {
+            setIsShowingOtherProjects(false);
+            window.scrollTo(0, 0);
+        }
+
+        dispatch.showFooter(newSlideIndex === sliderItems.length - 1);
+
+        setSliderIndex(newSlideIndex);
+    };
+
     const updateScroll = useDebouncedCallback((e: WheelEvent): void => {
         if (isSliderAnimating) {
             e.preventDefault();
@@ -416,22 +450,6 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
         }
 
         const isUp = e.deltaY && e.deltaY < 0;
-        const goTo = (newSlideDirection: number) => {
-            const newSlideIndex = sliderIndex + newSlideDirection;
-
-            if (newSlideIndex < 0 || newSlideIndex > sliderItems.length - 1) {
-                return;
-            }
-
-            if (isShowingOtherProjects) {
-                setIsShowingOtherProjects(false);
-                window.scrollTo(0, 0);
-            }
-
-            dispatch.showFooter(newSlideIndex === sliderItems.length - 1);
-
-            setSliderIndex(newSlideIndex);
-        };
 
         if (isPageTop && isUp) {
             goTo(-1);
@@ -531,21 +549,17 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
                                         />
 
                                         <Controls>
-                                            {slide < numItems - 1 && (
+                                            {sliderIndex < numItems - 1 && (
                                                 <Btn
                                                     onClick={(): void =>
-                                                        goToSlide(1)
+                                                        goTo(1)
                                                     }
                                                 >
                                                     <NextIconStyled /> Next
                                                 </Btn>
                                             )}
-                                            {slide > 0 && (
-                                                <Btn
-                                                    onClick={(): void =>
-                                                        goToSlide(-1)
-                                                    }
-                                                >
+                                            {sliderIndex > 0 && (
+                                                <Btn onClick={() => goTo(-1)}>
                                                     <PrevIconStyled /> Previous
                                                 </Btn>
                                             )}
