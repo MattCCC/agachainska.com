@@ -489,33 +489,6 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
                             >
                                 {!isShowingOtherProjects ? (
                                     <>
-                                        <StyledNumber
-                                            id={`${
-                                                state.projectNumberToShow + 1
-                                            }`}
-                                            value={`${
-                                                state.projectNumberToShow + 1
-                                            }.`}
-                                            viewBox="0 0 280 200"
-                                            displayOnRight={true}
-                                            style={{
-                                                display: !state.showStar
-                                                    ? "block"
-                                                    : "none",
-                                            }}
-                                        />
-                                        <StyledStar
-                                            text={
-                                                state?.currentProject
-                                                    ?.shortDescription || ""
-                                            }
-                                            color={
-                                                state?.currentProject
-                                                    ?.category &&
-                                                state?.currentProject?.starColor
-                                            }
-                                            displayStar={state.showStar}
-                                        />
                                         <Slider
                                             sliderItems={sliderItems}
                                             onSliderTap={(e) => onNavigate(e)}
@@ -535,7 +508,41 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
                                             setIsAnimating={
                                                 setIsSliderAnimating
                                             }
-                                        />
+                                        >
+                                            <>
+                                                <StyledNumber
+                                                    id={`${
+                                                        state.projectNumberToShow +
+                                                        1
+                                                    }`}
+                                                    value={`${
+                                                        state.projectNumberToShow +
+                                                        1
+                                                    }.`}
+                                                    viewBox="0 0 280 200"
+                                                    displayOnRight={true}
+                                                    style={{
+                                                        display: !state.showStar
+                                                            ? "block"
+                                                            : "none",
+                                                    }}
+                                                />
+                                                <StyledStar
+                                                    text={
+                                                        state?.currentProject
+                                                            ?.shortDescription ||
+                                                        ""
+                                                    }
+                                                    color={
+                                                        state?.currentProject
+                                                            ?.category &&
+                                                        state?.currentProject
+                                                            ?.starColor
+                                                    }
+                                                    displayStar={state.showStar}
+                                                />
+                                            </>
+                                        </Slider>
                                     </>
                                 ) : (
                                     <>
