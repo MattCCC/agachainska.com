@@ -119,7 +119,7 @@ export const ParallaxBackground = () => {
             width: "107.81px",
             height: "108.53px",
             top: "850%",
-            colStart: "11",
+            colStart: "10",
             y: y6,
         },
         {
