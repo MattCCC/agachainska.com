@@ -5,7 +5,8 @@ import tw, { css, styled } from "twin.macro";
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
 const CustomButton = styled.button(() => [
-    tw`relative select-none bg-tertiary`,
+    tw`relative transition-[top,left] ease-in left-0 top-0 select-none bg-tertiary`,
+    tw`lg:hover:top-[3px] lg:hover:left-[3px] duration-100`,
     css`
         span {
             ${tw`relative z-10 inline-block w-full h-full border border-white border-solid bg-tertiary`}
@@ -16,28 +17,23 @@ const CustomButton = styled.button(() => [
             padding-bottom: 5px;
         }
 
-        &:hover {
-            div {
-                ${tw`opacity-0`}
-            }
+        @media screen and (min-width: 1024px) {
+            &:hover {
+                span {
+                    ${tw`transition-all bg-primary text-tertiary`}
+                }
 
-            span {
-                ${tw`transition-all bg-primary text-tertiary`}
+                div {
+                    top: 0px;
+                    left: 0px;
+                }
             }
         }
     `,
 ]);
 
 const Background = styled.div(() => [
-    tw`absolute z-0 border border-black`,
-    css`
-        background: url("/img/button-bg.png") no-repeat;
-        background-size: cover;
-        width: 100%;
-        height: 100%;
-        left: 6px;
-        top: 6px;
-    `,
+    tw`absolute w-full h-full bg-[url("/img/button-bg.png")] bg-no-repeat bg-cover top-[6px] left-[6px] z-0 border border-black duration-100`,
 ]);
 
 export const Button = ({ children, ...props }: PropsWithChildren<Props>) => (

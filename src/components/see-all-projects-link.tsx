@@ -15,17 +15,8 @@ interface Props {
 
 const ButtonWrapper = styled.span(() => [
     css`
-        span {
+        button span {
             ${tw`border-none bg-primary text-tertiary`}
-        }
-
-        div {
-            ${tw`top-0`}
-        }
-
-        span,
-        div {
-            ${tw`w-[160px] h-[37px]`}
         }
     `,
 ]);
