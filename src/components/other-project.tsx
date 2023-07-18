@@ -14,7 +14,7 @@ interface Props {
     lastProjectNumber: number;
 }
 
-const OtherProjectWrapper = styled.div(() => [tw`cursor-none`]);
+const OtherProjectWrapper = styled.div(() => [tw`cursor-none h-max`]);
 
 function OtherProject({
     otherProject,

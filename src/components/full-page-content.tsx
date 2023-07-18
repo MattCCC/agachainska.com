@@ -24,7 +24,6 @@ export const FullPageContent = ({
                 "--margin-left-value": `${widthPct / 2}vw`,
             } as React.CSSProperties
         }
-        // eslint-disable-next-line
     >
         {children}
     </FullPageContentFigure>
