@@ -70,6 +70,15 @@ const DeviceFrameMacbookPro = styled.div(() => [
     tw`bg-[url('/img/macbook-pro.png')]`,
 ]);
 
+const ContentLoadLink = styled.a(() => [
+    tw`w-full h-full flex justify-center items-center absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%]`,
+]);
+
+const RingIconContainer = styled.div(() => [
+    tw`absolute flex justify-center items-center`,
+    tw`top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%]`,
+]);
+
 const RingIcon = styled.div(() => [
     tw`relative inline-block w-[40px] h-[40px]`,
     css`
@@ -110,30 +119,71 @@ const renderSwitch = ({
     type,
     link,
     isImage,
-    inViewData,
+    iFrameLoadingData,
 }: {
     type: string;
     link: string;
     isImage: boolean;
-    inViewData: [MutableRefObject<null>, boolean];
+    iFrameLoadingData: [
+        HTMLIFrameElement,
+        boolean,
+        (status: boolean) => void,
+        boolean
+    ];
 }) => {
     const tag = isImage ? "img" : "iframe";
-    const [ref, isVisible] = inViewData;
+    const [
+        iFrameRef,
+        isIframeLoadingStarted,
+        setIframeLoadingStarted,
+        isIframeLoaded,
+    ] = iFrameLoadingData;
+
+    const handleOnIframeLoadBtnClick = () => {
+        setIframeLoadingStarted(true);
+    };
 
     return (
         <Fragment>
-            <DeviceResourceWrapper ref={ref} type={type} tag={tag}>
-                {(isVisible && tag === "iframe") || tag !== "iframe" ? (
-                    <DeviceResource as={tag} src={link} type={type} />
+            <DeviceResourceWrapper type={type} tag={tag}>
+                {tag === "iframe" ? (
+                    <>
+                        <DeviceResource
+                            as={tag}
+                            src={isIframeLoaded ? link : ""}
+                            type={type}
+                            name={link}
+                            ref={iFrameRef}
+                        />
+
+                        {!isIframeLoaded && (
+                            <>
+                                {!isIframeLoadingStarted ? (
+                                    <ContentLoadLink
+                                        href={link}
+                                        target={link}
+                                        onClick={handleOnIframeLoadBtnClick}
+                                    >
+                                        <span>
+                                            Click here to interact with the
+                                            screen.
+                                        </span>
+                                    </ContentLoadLink>
+                                ) : (
+                                    <RingIconContainer>
+                                        <RingIcon>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </RingIcon>
+                                    </RingIconContainer>
+                                )}
+                            </>
+                        )}
+                    </>
                 ) : (
-                    <div tw="flex items-center justify-center">
-                        <RingIcon>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </RingIcon>
-                    </div>
+                    <DeviceResource as={tag} src={link} type={type} />
                 )}
             </DeviceResourceWrapper>
 
@@ -146,11 +196,11 @@ const renderSwitch = ({
 };
 
 export const DeviceMockup = memo(({ type, link }: Props) => {
-    const [isImage, setIsImage] = useState(false);
-    const ref = useRef(null);
-    const isVisible = useInView(ref, {
-        once: true,
-    });
+    const [isImage, setIsImage] = useState<boolean>(false);
+    const iFrameRef = useRef<HTMLIFrameElement>(null);
+    const iframeCurrent = iFrameRef.current;
+    const [isIframeLoaded, setIsIframeLoaded] = useState<boolean>(false);
+    const [isIframeLoadingStarted, setIframeLoadingStarted] = useState(false);
 
     useEffect(() => {
         const getData = () => {
@@ -160,7 +210,21 @@ export const DeviceMockup = memo(({ type, link }: Props) => {
         };
 
         getData();
-    }, [link]);
+
+        const handleOnIframeLoaded = () => {
+            iframeCurrent?.addEventListener("load", () =>
+                setIsIframeLoaded(true)
+            );
+
+            return () => {
+                iframeCurrent?.removeEventListener("load", () =>
+                    setIsIframeLoaded(true)
+                );
+            };
+        };
+
+        return handleOnIframeLoaded();
+    }, [link, iframeCurrent]);
 
     return (
         <DeviceContainer type={type}>
@@ -168,7 +232,12 @@ export const DeviceMockup = memo(({ type, link }: Props) => {
                 isImage,
                 type,
                 link,
-                inViewData: [ref, isVisible],
+                iFrameLoadingData: [
+                    iFrameRef,
+                    isIframeLoadingStarted,
+                    setIframeLoadingStarted,
+                    isIframeLoaded,
+                ],
             })}
         </DeviceContainer>
     );
