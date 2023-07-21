@@ -19,7 +19,7 @@ import { MainContainer } from "components/main-container";
 import { Meta } from "components/meta";
 import { MotionCursor } from "components/motion-cursor";
 import { Post, PostItem } from "components/post";
-import { Slider, SliderItem } from "components/slider";
+import { Btn, Controls, Slider, SliderItem } from "components/slider";
 import { Star } from "components/star";
 import { Tabs } from "components/tabs";
 import { TimelineItem, TimelineSection } from "components/timeline";
@@ -34,6 +34,10 @@ import {
     ConfigurationPage,
     fetchSocialMediaData,
 } from "queries/fetch-social-media-data";
+import OtherProjects from "components/other-projects";
+
+import NextIcon from "svg/down.svg";
+import PrevIcon from "svg/up.svg";
 
 interface PageState {
     sliderIndex: number;
@@ -102,6 +106,14 @@ const StyledStar = styled(Star)(() => [
         height: 260px;
         width: 260px;
     `,
+]);
+
+const PrevIconStyled = styled(PrevIcon)(() => [
+    tw`inline-block mr-4 text-center`,
+]);
+
+const NextIconStyled = styled(NextIcon)(() => [
+    tw`inline-block mr-4 text-center`,
 ]);
 
 let isPageTop = false;
@@ -262,6 +274,8 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
         [projects, timelineList]
     );
 
+    const numItems = useMemo(() => sliderItems.length, [sliderItems]);
+
     const otherProjects = useMemo(
         () =>
             categories.map((category) => ({
@@ -407,6 +421,27 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
         [state]
     );
 
+    const goTo = (newSlideDirection: number) => {
+        if (isSliderAnimating) {
+            return;
+        }
+
+        const newSlideIndex = sliderIndex + newSlideDirection;
+
+        if (newSlideIndex < 0 || newSlideIndex > sliderItems.length - 1) {
+            return;
+        }
+
+        if (isShowingOtherProjects) {
+            setIsShowingOtherProjects(false);
+            window.scrollTo(0, 0);
+        }
+
+        dispatch.showFooter(newSlideIndex === sliderItems.length - 1);
+
+        setSliderIndex(newSlideIndex);
+    };
+
     const updateScroll = useDebouncedCallback((e: WheelEvent): void => {
         if (isSliderAnimating) {
             e.preventDefault();
@@ -415,22 +450,6 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
         }
 
         const isUp = e.deltaY && e.deltaY < 0;
-        const goTo = (newSlideDirection: number) => {
-            const newSlideIndex = sliderIndex + newSlideDirection;
-
-            if (newSlideIndex < 0 || newSlideIndex > sliderItems.length - 1) {
-                return;
-            }
-
-            if (isShowingOtherProjects) {
-                setIsShowingOtherProjects(false);
-                window.scrollTo(0, 0);
-            }
-
-            dispatch.showFooter(newSlideIndex === sliderItems.length - 1);
-
-            setSliderIndex(newSlideIndex);
-        };
 
         if (isPageTop && isUp) {
             goTo(-1);
@@ -468,59 +487,94 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
                             <SlideWrapper
                                 isShowingOtherProjects={isShowingOtherProjects}
                             >
-                                {!isShowingOtherProjects && (
+                                {!isShowingOtherProjects ? (
                                     <>
-                                        <StyledNumber
-                                            id={`${
-                                                state.projectNumberToShow + 1
-                                            }`}
-                                            value={`${
-                                                state.projectNumberToShow + 1
-                                            }.`}
-                                            viewBox="0 0 280 200"
-                                            displayOnRight={true}
-                                            style={{
-                                                display: !state.showStar
-                                                    ? "block"
-                                                    : "none",
-                                            }}
-                                        />
-                                        <StyledStar
-                                            text={
-                                                state?.currentProject
-                                                    ?.shortDescription || ""
+                                        <Slider
+                                            sliderItems={sliderItems}
+                                            onSliderTap={(e) => onNavigate(e)}
+                                            onSliderChange={
+                                                setCurrentSlideState
                                             }
-                                            color={
-                                                state?.currentProject
-                                                    ?.category &&
-                                                state?.currentProject?.starColor
+                                            slideId={sliderIndex}
+                                            showSlideTitle={
+                                                !isShowingOtherProjects
                                             }
-                                            displayStar={state.showStar}
+                                            onSliderMouseEnter={
+                                                onSliderContentMouseEventChange
+                                            }
+                                            onSliderMouseLeave={
+                                                onSliderContentMouseEventChange
+                                            }
+                                            setIsAnimating={
+                                                setIsSliderAnimating
+                                            }
+                                        >
+                                            <>
+                                                <StyledNumber
+                                                    id={`${
+                                                        state.projectNumberToShow +
+                                                        1
+                                                    }`}
+                                                    value={`${
+                                                        state.projectNumberToShow +
+                                                        1
+                                                    }.`}
+                                                    viewBox="0 0 280 200"
+                                                    displayOnRight={true}
+                                                    style={{
+                                                        display: !state.showStar
+                                                            ? "block"
+                                                            : "none",
+                                                    }}
+                                                />
+                                                <StyledStar
+                                                    text={
+                                                        state?.currentProject
+                                                            ?.shortDescription ||
+                                                        ""
+                                                    }
+                                                    color={
+                                                        state?.currentProject
+                                                            ?.category &&
+                                                        state?.currentProject
+                                                            ?.starColor
+                                                    }
+                                                    displayStar={state.showStar}
+                                                />
+                                            </>
+                                        </Slider>
+                                    </>
+                                ) : (
+                                    <>
+                                        <OtherProjects
+                                            otherProjects={
+                                                currentCategoryOtherProjects
+                                            }
+                                            lastProjectNumber={
+                                                projectsByCategory.length + 1
+                                            }
                                         />
+
+                                        <Controls>
+                                            {sliderIndex < numItems - 1 && (
+                                                <Btn
+                                                    onClick={(): void =>
+                                                        goTo(1)
+                                                    }
+                                                >
+                                                    <NextIconStyled /> Next
+                                                </Btn>
+                                            )}
+                                            {sliderIndex > 0 && (
+                                                <Btn onClick={() => goTo(-1)}>
+                                                    <PrevIconStyled /> Previous
+                                                </Btn>
+                                            )}
+                                        </Controls>
                                     </>
                                 )}
-                                <Slider
-                                    sliderItems={sliderItems}
-                                    onSliderTap={(e) => onNavigate(e)}
-                                    onSliderChange={setCurrentSlideState}
-                                    slideId={sliderIndex}
-                                    showSlideTitle={!isShowingOtherProjects}
-                                    isShowingOtherProjects={
-                                        isShowingOtherProjects
-                                    }
-                                    otherProjects={currentCategoryOtherProjects}
-                                    lastProjectNumber={
-                                        projectsByCategory.length
-                                    }
-                                    onSliderMouseEnter={
-                                        onSliderContentMouseEventChange
-                                    }
-                                    onSliderMouseLeave={
-                                        onSliderContentMouseEventChange
-                                    }
-                                    setIsAnimating={setIsSliderAnimating}
-                                />
                             </SlideWrapper>
+
                             <TimelineWrapper>
                                 <TimelineNoSSR
                                     style={{ height: "27.76rem" }}

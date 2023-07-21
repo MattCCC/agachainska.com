@@ -9,8 +9,7 @@ import { useEventListener } from "hooks/use-event-listener";
 import NextIcon from "svg/down.svg";
 import PrevIcon from "svg/up.svg";
 
-import OtherProjects, { OtherProjectProp } from "./other-projects";
-import { memo } from "react";
+import { memo, PropsWithChildren } from "react";
 
 export interface SliderItem {
     name: string;
@@ -23,9 +22,6 @@ interface Props {
     slideId: number;
     showSlideTitle?: boolean;
     mouseScrollOnSlide?: boolean;
-    isShowingOtherProjects: boolean;
-    otherProjects: OtherProjectProp[];
-    lastProjectNumber: number;
     setIsAnimating: (newValue: boolean) => void;
     onSliderTap?:
         | ((
@@ -36,14 +32,6 @@ interface Props {
     onSliderChange?: ((currentItem?: SliderItem) => void) | null;
     onSliderMouseEnter?: ((mouseLeft: boolean) => void) | null;
     onSliderMouseLeave?: ((mouseLeft: boolean) => void) | null;
-}
-
-interface SlideContentProps {
-    isShowingOtherProjects?: boolean;
-}
-
-interface ControlsProps {
-    isShowingOtherProjects: boolean;
 }
 
 // eslint-disable-next-line no-shadow
@@ -110,17 +98,18 @@ export const wrap = (min: number, max: number, v: number): number => {
     return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
 };
 
-const SliderWrapper = styled.div(() => [tw`relative h-full`]);
+const SliderWrapper = styled.div(() => [tw`relative h-full cursor-none`]);
 
-const SliderContent = styled.div(
-    ({ isShowingOtherProjects }: SlideContentProps) => [
-        tw`relative w-full`,
-        !isShowingOtherProjects && tw`overflow-hidden h-[25.8125rem]`,
-    ]
-);
+const Container = styled.div(() => [
+    tw`[--scale-value:1.25] lg:hover:[--scale-value:1]`,
+]);
+
+const SliderContent = styled.div(() => [
+    tw`relative w-full overflow-hidden h-[25.8125rem]`,
+]);
 
 const Title = styled(MainTitleTop)(() => [
-    tw`absolute z-30 uppercase select-none bg-slider-title-gradient`,
+    tw`absolute z-30 uppercase select-none bg-slider-title-gradient cursor-none`,
     tw`text-[120px] leading-[130px] top-[-4.35rem]`,
 ]);
 
@@ -130,15 +119,14 @@ const SlidesList = styled(motion.div)(() => [
 
 const Slide = styled.div(() => [
     tw`relative z-10 w-full h-full cursor-pointer`,
-    tw`[transform:scale(1.25)] transition-transform duration-800 hover:[transform:scale(1)]`,
+    tw`[transform:scale(var(--scale-value))] transition-transform duration-800`,
 ]);
 
-const Controls = styled.div(({ isShowingOtherProjects }: ControlsProps) => [
+export const Controls = styled.div(() => [
     tw`relative flex pt-12 justify-items-center`,
-    isShowingOtherProjects && tw`absolute bottom-0`,
 ]);
 
-const Btn = styled.div(() => [
+export const Btn = styled.div(() => [
     tw`flex-row cursor-pointer select-none lg:text-[16px] lg:leading-5 w-28`,
 ]);
 
@@ -162,14 +150,12 @@ export const Slider = memo(
         mouseScrollOnSlide = false,
         showSlideTitle = false,
         setIsAnimating,
-        isShowingOtherProjects,
-        otherProjects,
-        lastProjectNumber,
         onSliderTap = null,
         onSliderChange = null,
         onSliderMouseEnter = null,
         onSliderMouseLeave = null,
-    }: Props) => {
+        children,
+    }: PropsWithChildren<Props>) => {
         const [defaultSlideId, setDefaultSlideId] = useState(0);
         const [[slide, direction], setSlide] = useState([0, 0]);
         const numItems = useMemo(() => sliderItems.length, [sliderItems]);
@@ -275,28 +261,28 @@ export const Slider = memo(
         const [isHovering, setIsHovering] = useState(false);
 
         const onHoverStart = useCallback(() => {
-            if (onSliderMouseEnter && !isShowingOtherProjects) {
+            if (onSliderMouseEnter) {
                 onSliderMouseEnter(true);
             }
 
-            if (onSliderMouseLeave && !isShowingOtherProjects) {
+            if (onSliderMouseLeave) {
                 onSliderMouseLeave(false);
             }
 
             setIsHovering(true);
-        }, [isShowingOtherProjects, onSliderMouseEnter, onSliderMouseLeave]);
+        }, [onSliderMouseEnter, onSliderMouseLeave]);
 
         const onHoverEnd = useCallback(() => {
-            if (onSliderMouseEnter && !isShowingOtherProjects) {
+            if (onSliderMouseEnter) {
                 onSliderMouseEnter(false);
             }
 
-            if (onSliderMouseLeave && !isShowingOtherProjects) {
+            if (onSliderMouseLeave) {
                 onSliderMouseLeave(true);
             }
 
             setIsHovering(false);
-        }, [isShowingOtherProjects, onSliderMouseEnter, onSliderMouseLeave]);
+        }, [onSliderMouseEnter, onSliderMouseLeave]);
 
         const wheelCallback = useCallback(
             (e: Event) => {
@@ -331,21 +317,21 @@ export const Slider = memo(
 
         return (
             <SliderWrapper ref={sliderRef}>
-                <motion.div onHoverStart={onHoverStart} onHoverEnd={onHoverEnd}>
-                    {showSlideTitle && (
-                        <Title data-text={sliderItems[sliderIndex]?.name ?? ""}>
-                            {sliderItems[sliderIndex]?.name ?? ""}
-                        </Title>
-                    )}
-                    <SliderContent
-                        isShowingOtherProjects={isShowingOtherProjects}
-                    >
-                        {isShowingOtherProjects ? (
-                            <OtherProjects
-                                otherProjects={otherProjects}
-                                lastProjectNumber={lastProjectNumber}
-                            />
-                        ) : (
+                <Container
+                    onMouseEnter={onHoverStart}
+                    onMouseLeave={onHoverEnd}
+                    onClick={onSlideClick}
+                >
+                    {children}
+                    <motion.div>
+                        {showSlideTitle && (
+                            <Title
+                                data-text={sliderItems[sliderIndex]?.name ?? ""}
+                            >
+                                {sliderItems[sliderIndex]?.name ?? ""}
+                            </Title>
+                        )}
+                        <SliderContent>
                             <AnimatePresence
                                 custom={direction}
                                 initial={false}
@@ -364,7 +350,6 @@ export const Slider = memo(
                                     dragConstraints={sliderDragConstraints}
                                     dragElastic={1}
                                     onDragEnd={onDragEnd}
-                                    onClick={onSlideClick}
                                 >
                                     <Slide>
                                         <Distortion
@@ -378,11 +363,10 @@ export const Slider = memo(
                                     </Slide>
                                 </SlidesList>
                             </AnimatePresence>
-                        )}
-                    </SliderContent>
-                </motion.div>
-
-                <Controls isShowingOtherProjects={isShowingOtherProjects}>
+                        </SliderContent>
+                    </motion.div>
+                </Container>
+                <Controls>
                     {slide < numItems - 1 && (
                         <Btn onClick={(): void => goToSlide(1)}>
                             <NextIconStyled /> Next
