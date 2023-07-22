@@ -7,7 +7,6 @@ import {
     MutableRefObject,
 } from "react";
 
-import { useInView } from "framer-motion";
 import tw, { css, styled } from "twin.macro";
 
 import isImageURL from "utils/is-image-url";
@@ -25,11 +24,11 @@ const DeviceContainer = styled("div").withConfig(excludeProps(["type"]))(
         type === "iPhone13pro" && tw`w-[280px]`,
         type === "iPhone8" && tw`w-[270px]`,
         type === "laptop" && tw`w-[293px]`,
-    ]
+    ],
 );
 
 const DeviceResourceWrapper = styled("div").withConfig(
-    excludeProps(["type", "tag"])
+    excludeProps(["type", "tag"]),
 )(({ type, tag }: DeviceResourceProps) => [
     tw`absolute z-10 bg-white border-0 outline-none cursor-grabbing `,
     tw`w-[245px] h-[532px] top-[13px] left-[18px]`,
@@ -47,7 +46,7 @@ const DeviceResource = styled("iframe").withConfig(excludeProps(["type"]))(
     ({ type }: DeviceResourceProps) => [
         tw`w-full h-full bg-white border-0 outline-none`,
         type === "iPhone13pro" && tw`rounded-[25px]`,
-    ]
+    ],
 );
 
 const DeviceFrameIphoneX = styled.div(() => [
@@ -125,10 +124,10 @@ const renderSwitch = ({
     link: string;
     isImage: boolean;
     iFrameLoadingData: [
-        HTMLIFrameElement,
+        MutableRefObject<HTMLIFrameElement | null>,
         boolean,
         (status: boolean) => void,
-        boolean
+        boolean,
     ];
 }) => {
     const tag = isImage ? "img" : "iframe";
@@ -213,12 +212,12 @@ export const DeviceMockup = memo(({ type, link }: Props) => {
 
         const handleOnIframeLoaded = () => {
             iframeCurrent?.addEventListener("load", () =>
-                setIsIframeLoaded(true)
+                setIsIframeLoaded(true),
             );
 
             return () => {
                 iframeCurrent?.removeEventListener("load", () =>
-                    setIsIframeLoaded(true)
+                    setIsIframeLoaded(true),
                 );
             };
         };
