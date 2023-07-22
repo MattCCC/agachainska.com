@@ -8,6 +8,7 @@ import {
 } from "react";
 
 import tw, { css, styled } from "twin.macro";
+import { generateUniqueString } from "utils/generate-unique-string";
 
 import isImageURL from "utils/is-image-url";
 import { excludeProps } from "utils/styled";
@@ -142,6 +143,8 @@ const renderSwitch = ({
         setIframeLoadingStarted(true);
     };
 
+    const iframeUniqueName = generateUniqueString();
+
     return (
         <Fragment>
             <DeviceResourceWrapper type={type} tag={tag}>
@@ -151,7 +154,7 @@ const renderSwitch = ({
                             as={tag}
                             src={isIframeLoaded ? link : ""}
                             type={type}
-                            name={link}
+                            name={iframeUniqueName}
                             ref={iFrameRef}
                         />
 
@@ -160,7 +163,7 @@ const renderSwitch = ({
                                 {!isIframeLoadingStarted ? (
                                     <ContentLoadLink
                                         href={link}
-                                        target={link}
+                                        target={iframeUniqueName}
                                         onClick={handleOnIframeLoadBtnClick}
                                     >
                                         <span>
