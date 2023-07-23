@@ -51,7 +51,7 @@ const TabsWrapper = styled.div(
                     z-index: -1;
                 }
             `,
-    ]
+    ],
 );
 
 const TabsWrapperTop = styled.div(() => [tw`h-[1px]`]);
@@ -64,8 +64,8 @@ const TabsListContainer = styled.div(() => [
 const TabsList = styled.ul(() => [tw`relative flex flex-row justify-between`]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
-    tw`w-full h-8 capitalize transition-opacity cursor-pointer min-w-[120px] select-none text-melrose-40 text-opacity-40`,
-    tw`leading-[25px] text-[20px]`,
+    tw`w-full h-8 capitalize transition-opacity cursor-pointer select-none text-melrose-40 text-opacity-40 list-none`,
+    tw`min-w-[120px] leading-[25px] text-[20px]`,
     isActive && tw`text-opacity-100 text-melrose`,
     isActive
         ? css`
@@ -110,7 +110,7 @@ export const Tabs = memo(
 
         const activeTabIndex = useMemo(
             () => tabs?.findIndex((tab) => tab.id === tabId),
-            [tabId, tabs]
+            [tabId, tabs],
         );
 
         useEffect(() => {
@@ -133,7 +133,7 @@ export const Tabs = memo(
                 },
                 {
                     threshold,
-                }
+                },
             );
 
             if (currentElement) {
@@ -158,7 +158,7 @@ export const Tabs = memo(
 
                 onTabChange(tab);
             },
-            [onTabChange, tabId]
+            [onTabChange, tabId],
         );
 
         return (
@@ -193,5 +193,5 @@ export const Tabs = memo(
     },
     (prevProps, nextProps) =>
         prevProps.tabs.length === nextProps.tabs.length &&
-        prevProps.activeTabId === nextProps.activeTabId
+        prevProps.activeTabId === nextProps.activeTabId,
 );
