@@ -5,7 +5,6 @@ import tw, { styled } from "twin.macro";
 import useMouse from "@react-hook/mouse-position";
 
 import { Post, PostItem } from "components/post";
-import { useNavigation } from "hooks/use-navigation";
 import { useStoreProp } from "store/index";
 
 interface Props {
@@ -28,9 +27,13 @@ function OtherProject({
     });
 
     const [, { showMotionCursor }] = useStoreProp("motionCursorData");
-    const onNavigate = useNavigation({
-        to: otherProject["dribbbleLink"],
-    });
+    const onNavigate = () => {
+        const linkToOpen: string = otherProject["dribbbleLink"];
+
+        if (window !== undefined) {
+            window.open(linkToOpen, "_blank");
+        }
+    };
 
     useEffect(() => {
         const isMouseOver = Boolean(mouse.elementWidth);
