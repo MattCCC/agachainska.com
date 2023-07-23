@@ -4,6 +4,7 @@ import tw, { css, styled } from "twin.macro";
 
 import { BigNumber } from "components/big-number";
 import { MainTitleTop } from "components/main-title";
+import Image from "next/image";
 
 export interface PostItem {
     [x: string]: any;
@@ -17,14 +18,14 @@ interface Props {
     postNum?: number;
     onPostTap: (
         e: React.MouseEvent<HTMLDivElement | HTMLAnchorElement, MouseEvent>,
-        post: PostItem
+        post: PostItem,
     ) => void;
     setImageAsBg?: boolean;
 }
 
 const PostWrapper = styled.div(() => [tw`relative h-auto pt-11 pb-11`]);
 
-const PostImg = styled.img(() => [tw`relative z-10 w-full overflow-hidden`]);
+const PostImg = styled(Image)(() => [tw`relative z-10 w-full overflow-hidden`]);
 
 const PostBg = styled.div(() => [
     tw`relative z-10 w-full overflow-hidden bg-cover`,
@@ -64,7 +65,7 @@ export function Post({
                     e: React.MouseEvent<
                         HTMLDivElement | HTMLAnchorElement,
                         MouseEvent
-                    >
+                    >,
                 ): void => onPostTap(e, post)}
             >
                 <Title data-text={post.name}>{post.name}</Title>
@@ -75,7 +76,12 @@ export function Post({
                         }}
                     />
                 ) : (
-                    <PostImg src={post.cover || ""} />
+                    <PostImg
+                        src={post.cover || ""}
+                        width={300}
+                        height={140}
+                        alt="Project Cover"
+                    />
                 )}
                 <PostDescription>{post.shortDescription}</PostDescription>
                 {postNum > 0 && (
