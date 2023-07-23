@@ -54,7 +54,7 @@ const Cursor = styled.div(
                 transform: scale(0.08);
                 font-size: 0;
             `,
-    ]
+    ],
 );
 
 const TextWrapper = styled.div(() => [tw`flex w-full h-full cursor-none`]);
@@ -109,7 +109,7 @@ const ProjectCover = styled.div(
             css`
                 animation: 0.3s hideImg forwards;
             `,
-    ]
+    ],
 );
 
 const CursorLink = memo(
@@ -158,12 +158,12 @@ const CursorLink = memo(
                 </CursorText>
             </TextWrapper>
         );
-    }
+    },
 );
 
 export const useHideCursorPreserveVisibility = () => {
     const [isMotionCursorVisible, dispatch] = useStoreProp(
-        "isMotionCursorVisible"
+        "isMotionCursorVisible",
     );
     const [isMotionCursorVisibleCache, setIsMotionCursorVisibleCache] =
         useState(false);
@@ -189,7 +189,6 @@ export const useHideCursorPreserveVisibility = () => {
 
 export const MotionCursor = ({
     onPositionUpdate = null,
-    children,
 }: PropsWithChildren<Props>) => {
     const cursorRef = useRef<HTMLDivElement>(null);
 
@@ -211,7 +210,7 @@ export const MotionCursor = ({
 
             refStyle.setAttribute(
                 "style",
-                "--top: " + clientY + "px; --left: " + clientX + "px"
+                "--top: " + clientY + "px; --left: " + clientX + "px",
             );
         };
 
@@ -220,7 +219,7 @@ export const MotionCursor = ({
         return (): void => {
             window.removeEventListener("mousemove", setMousePosition);
         };
-    }, [cursorRef, onPositionUpdate]);
+    }, [onPositionUpdate]);
 
     return (
         <Cursor
@@ -235,9 +234,7 @@ export const MotionCursor = ({
                 text={motionCursorData.text}
                 target={motionCursorData.target}
                 to={motionCursorData.to}
-            >
-                {children}
-            </CursorLink>
+            />
 
             {projectCover && (
                 <ProjectCover
