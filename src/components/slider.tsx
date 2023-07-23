@@ -1,15 +1,27 @@
-import { useCallback, RefObject, useState, useMemo, useEffect } from "react";
+import {
+    useCallback,
+    RefObject,
+    useState,
+    useMemo,
+    useEffect,
+    memo,
+    PropsWithChildren,
+} from "react";
 
 import tw, { styled } from "twin.macro";
 
-import { AnimatePresence, motion, useAnimate } from "framer-motion";
+import {
+    AnimatePresence,
+    PanInfo,
+    motion,
+    useAnimate,
+    wrap,
+} from "framer-motion";
 import { Distortion } from "components/distortion";
 import { MainTitleTop } from "components/main-title";
 import { useEventListener } from "hooks/use-event-listener";
 import NextIcon from "svg/down.svg";
 import PrevIcon from "svg/up.svg";
-
-import { memo, PropsWithChildren } from "react";
 
 export interface SliderItem {
     name: string;
@@ -26,7 +38,7 @@ interface Props {
     onSliderTap?:
         | ((
               e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
-              currentItem?: SliderItem
+              currentItem?: SliderItem,
           ) => void)
         | null;
     onSliderChange?: ((currentItem?: SliderItem) => void) | null;
@@ -84,19 +96,6 @@ const swipeConfidenceThreshold = 5;
 
 export const swipePower = (offset: number, velocity: number): number =>
     Math.abs(offset) * velocity;
-
-export const powerEasing =
-    (power: number = 2) =>
-    (p: number): number =>
-        p < 0.5
-            ? Math.pow(p * 2, power) / 2
-            : 1 - Math.pow((1 - p) * 2, power) / 2;
-
-export const wrap = (min: number, max: number, v: number): number => {
-    const rangeSize = max - min;
-
-    return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
-};
 
 const SliderWrapper = styled.div(() => [tw`relative h-full cursor-none`]);
 
@@ -164,7 +163,7 @@ export const Slider = memo(
         // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
         const sliderIndex = useMemo(
             () => wrap(0, numItems, slide),
-            [numItems, slide]
+            [numItems, slide],
         );
 
         const [sliderRef, animate] = useAnimate();
@@ -172,7 +171,7 @@ export const Slider = memo(
         // Orchestrate distortion animation
         const orchestrateVectorAnimation = useCallback(() => {
             const displacementEls = sliderRef.current.querySelectorAll(
-                "feDisplacementMap"
+                "feDisplacementMap",
             ) as NodeListOf<SVGFEDisplacementMapElement>;
 
             // There should be exactly 2 elements. Added and removed one
@@ -182,7 +181,6 @@ export const Slider = memo(
 
             animate(0, [0, 100, 0], {
                 duration,
-                ease: powerEasing(2),
                 onUpdate: (v) => {
                     if (displacementEls[0] && displacementEls[1]) {
                         displacementEls[0].scale.baseVal = v;
@@ -205,7 +203,7 @@ export const Slider = memo(
                     onSliderChange(sliderItems[currentSliderItem]);
                 }
             },
-            [slide, setIsAnimating, numItems, onSliderChange, sliderItems]
+            [slide, setIsAnimating, numItems, onSliderChange, sliderItems],
         );
 
         // Orchestrate animation on the next render
@@ -225,14 +223,8 @@ export const Slider = memo(
 
         const onDragEnd = useCallback(
             (
-                _e: Event,
-                {
-                    offset,
-                    velocity,
-                }: {
-                    offset: { x: number; y: number };
-                    velocity: { x: number; y: number };
-                }
+                _event: MouseEvent | TouchEvent | PointerEvent,
+                { offset, velocity }: PanInfo,
             ): void => {
                 const swipe = swipePower(offset.x, velocity.x);
 
@@ -242,7 +234,7 @@ export const Slider = memo(
                     goToSlide(1);
                 }
             },
-            [goToSlide]
+            [goToSlide],
         );
 
         const updateScroll = useCallback(
@@ -255,7 +247,7 @@ export const Slider = memo(
                     goToSlide(1);
                 }
             },
-            [goToSlide]
+            [goToSlide],
         );
 
         const [isHovering, setIsHovering] = useState(false);
@@ -292,14 +284,14 @@ export const Slider = memo(
                     updateScroll(e as WheelEvent);
                 }
             },
-            [isHovering, mouseScrollOnSlide, updateScroll]
+            [isHovering, mouseScrollOnSlide, updateScroll],
         );
 
         useEventListener(
             "wheel",
             wheelCallback,
             documentBody,
-            wheelEventOptions
+            wheelEventOptions,
         );
 
         const onSlideClick = useCallback(
@@ -308,7 +300,7 @@ export const Slider = memo(
                     onSliderTap(e, sliderItems[sliderIndex]);
                 }
             },
-            [onSliderTap, sliderIndex, sliderItems]
+            [onSliderTap, sliderIndex, sliderItems],
         );
 
         const handleExitComplete = useCallback((): void => {
@@ -380,5 +372,5 @@ export const Slider = memo(
                 </Controls>
             </SliderWrapper>
         );
-    }
+    },
 );
