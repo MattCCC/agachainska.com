@@ -27,9 +27,8 @@ const NoiseWrapper = styled.div(() => [
         backface-visibility: hidden;
         transform: scale(1);
         background: url("/img/bg-pattern.webp") repeat;
-        background-position-x: var(--x);
-        background-position-y: var(--y);
-        will-change: background-position-x;
+        background-position: var(--x) var(--y);
+        will-change: background-position;
         opacity: 0.04;
         animation: noiseAnimation 250ms infinite linear;
     `,
