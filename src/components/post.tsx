@@ -80,6 +80,8 @@ export function Post({
                         src={post.cover || ""}
                         width={300}
                         height={140}
+                        placeholder="blur"
+                        blurDataURL={post.cover}
                         alt="Project Cover"
                     />
                 )}
