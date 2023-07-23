@@ -203,7 +203,7 @@ export const MotionCursor = ({
 
         const refStyle = cursorRef.current;
 
-        const setMousePosition = ({ clientX = 0, clientY = 0 }) => {
+        const setMousePosition = ({ clientX, clientY }: MouseEvent) => {
             if (onPositionUpdate) {
                 onPositionUpdate(clientX, clientY);
             }
