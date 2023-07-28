@@ -17,9 +17,6 @@ module.exports = withBundleAnalyzer(withTwin({
   },
   compiler: {
     styledComponents: true,
-    removeConsole: {
-      exclude: ['error'],
-    },
   },
   images: {
     remotePatterns: [

@@ -29,7 +29,10 @@ const removeLocationHash = () => {
 
     if (hasHash) {
         window.location.replace(
-            window.location.href.substring(0, window.location.href.indexOf("#"))
+            window.location.href.substring(
+                0,
+                window.location.href.indexOf("#"),
+            ),
         );
     }
 };
@@ -42,28 +45,22 @@ const scrollTo = (y: number = 0) => {
     });
 };
 
-const TopOverlay = memo(
-    () => (
-        <motion.div
-            className="relative bg-white z-100 will-change-[height]"
-            initial="initial"
-            animate="enter"
-            exit="exit"
-            onUpdate={() => {
-                scrollTo();
-            }}
-            onAnimationStart={() => {
-                removeLocationHash();
-            }}
-            onAnimationComplete={(variant) => {
-                if (variant === "enter") {
-                    scrollTo(1);
-                }
-            }}
-            variants={pageOverlayTopVariants}
-        />
-    ),
-    () => true
-);
+const TopOverlay = memo(() => (
+    <motion.div
+        className="relative bg-white z-100 will-change-[height]"
+        initial="initial"
+        animate="enter"
+        exit="exit"
+        onAnimationStart={() => {
+            removeLocationHash();
+        }}
+        onAnimationComplete={(variant) => {
+            if (variant === "enter") {
+                scrollTo(1);
+            }
+        }}
+        variants={pageOverlayTopVariants}
+    />
+));
 
 export default TopOverlay;

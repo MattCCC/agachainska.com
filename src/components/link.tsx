@@ -1,4 +1,4 @@
-import { MouseEvent, PropsWithChildren, ReactNode, memo } from "react";
+import { PropsWithChildren, ReactNode, memo } from "react";
 
 import { useTranslation } from "hooks/use-translation";
 
@@ -34,9 +34,7 @@ export const Link = memo(
 
         return (
             <NextLink
-                onClick={(e: MouseEvent<HTMLAnchorElement | HTMLDivElement>) =>
-                    onClick(e)
-                }
+                onClick={onClick}
                 href={to}
                 locale={locale}
                 className={className}
@@ -44,5 +42,5 @@ export const Link = memo(
                 {children}
             </NextLink>
         );
-    }
+    },
 );
