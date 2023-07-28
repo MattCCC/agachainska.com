@@ -23,6 +23,7 @@ const initialState = {
     currentDelayedRoute: "",
     initialOverlayAnimation: true,
     isSingleProject: false,
+    isIframeCurrentlyLoading: false,
 
     socialMediaData: [] as ConfigurationPage["socialMedia"],
 };
@@ -50,11 +51,12 @@ const actions = {
         (state.initialOverlayAnimation = value),
     setCurrentDelayedRoute: (state: State, value: string) =>
         (state.currentDelayedRoute = value),
-
+    setIsIframeCurrentlyLoading: (state: State, value: boolean) =>
+        (state.isIframeCurrentlyLoading = value),
     showMotionCursor(
         state: State,
         isMotionCursorVisible: boolean,
-        motionCursorData?: Partial<State["motionCursorData"]>
+        motionCursorData?: Partial<State["motionCursorData"]>,
     ) {
         return {
             isMotionCursorVisible,
@@ -78,5 +80,5 @@ const actions = {
 
 export const { useStore, useStoreProp, Provider } = createStore(
     initialState,
-    actions
+    actions,
 );
