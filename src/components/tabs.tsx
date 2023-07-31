@@ -64,7 +64,7 @@ const TabsListContainer = styled.div(() => [
 const TabsList = styled.ul(() => [tw`relative flex flex-row justify-between`]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
-    tw`w-full ml-0 h-8 capitalize transition-opacity cursor-pointer select-none text-melrose-40 text-opacity-40 list-none`,
+    tw`w-full h-8 ml-0 capitalize list-none transition-opacity cursor-pointer select-none text-melrose-40 text-opacity-40`,
     tw`min-w-[120px] leading-[25px] text-[20px]`,
     isActive && tw`text-opacity-100 text-melrose`,
     isActive
@@ -105,7 +105,7 @@ export const Tabs = memo(
         const [areTabsIntersectingContent, setTabsIntersecting] =
             useState(false);
         const [tabId, setTabId] = useState("");
-        const [pinX, setPinX] = useState("0%");
+        const [pinX, setPinX] = useState(0);
         const [tabWidth, setTabWidth] = useState(0);
 
         const activeTabIndex = useMemo(
@@ -116,14 +116,6 @@ export const Tabs = memo(
         useEffect(() => {
             setTabId(activeTabId || tabs[0]?.id || "");
         }, [activeTabId, tabs]);
-
-        useEffect(() => {
-            setTabWidth(100 / tabs.length);
-        }, [tabs]);
-
-        useEffect(() => {
-            setPinX(tabWidth * (activeTabIndex + 1) - tabWidth + "%");
-        }, [activeTabId, activeTabIndex, tabWidth]);
 
         useEffect(() => {
             const currentElement = wrapperRef.current;
@@ -140,8 +132,7 @@ export const Tabs = memo(
                 observer.observe(currentElement);
             }
 
-            // eslint-disable-next-line space-before-function-paren
-            return function () {
+            return () => {
                 if (currentElement) {
                     observer.unobserve(currentElement);
                 }
@@ -161,6 +152,22 @@ export const Tabs = memo(
             [onTabChange, tabId],
         );
 
+        useEffect(() => {
+            const el = document.getElementById("tab-" + tabId);
+
+            if (el) {
+                const width = el.clientWidth;
+                const tabListContainerPaddingLeft = 15;
+
+                setTabWidth(width - tabListContainerPaddingLeft);
+                setPinX(
+                    width * (activeTabIndex + 1) -
+                        width +
+                        tabListContainerPaddingLeft,
+                );
+            }
+        }, [activeTabIndex, tabId]);
+
         return (
             <>
                 <TabsWrapperTop ref={wrapperRef} />
@@ -171,9 +178,10 @@ export const Tabs = memo(
                     <TabsListContainer>
                         <AnimatePresence initial={false}>
                             <TabsList key="tab-list">
-                                {tabs.map((tab, index) => (
+                                {tabs.map((tab) => (
                                     <Tab
-                                        key={`tab-${index}`}
+                                        id={`tab-${tab.id}`}
+                                        key={`tab-${tab.id}`}
                                         isActive={tab.id === tabId}
                                         onClick={onTabClick.bind(null, tab)}
                                     >
@@ -183,7 +191,7 @@ export const Tabs = memo(
                             </TabsList>
                             <Progress
                                 animate={{ left: pinX }}
-                                style={{ width: `${100 / tabs.length}%` }}
+                                style={{ width: `${tabWidth}px` }}
                             />
                         </AnimatePresence>
                     </TabsListContainer>
