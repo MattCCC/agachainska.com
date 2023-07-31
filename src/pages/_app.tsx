@@ -43,7 +43,7 @@ const Main = styled.main(
             `,
         !backgroundColor && !hasGradient && !darkTheme && tw`bg-white`,
         !backgroundColor && darkTheme && tw`bg-black`,
-    ]
+    ],
 );
 
 export const Layout = ({ children }: PropsWithChildren<unknown>) => {
@@ -51,7 +51,7 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
     const [isSingleProject] = useStoreProp("isSingleProject");
     const [workPageBackgroundColor] = useStoreProp("workPageBackgroundColor");
     const [projectPageBackgroundColor] = useStoreProp(
-        "projectPageBackgroundColor"
+        "projectPageBackgroundColor",
     );
     const [darkTheme] = useStoreProp("darkTheme");
     const [showFooter] = useStoreProp("showFooter");

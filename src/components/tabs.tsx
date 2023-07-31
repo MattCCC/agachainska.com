@@ -51,21 +51,21 @@ const TabsWrapper = styled.div(
                     z-index: -1;
                 }
             `,
-    ]
+    ],
 );
 
 const TabsWrapperTop = styled.div(() => [tw`h-[1px]`]);
 
 const TabsListContainer = styled.div(() => [
-    tw`relative h-8 px-[15px] w-[100vw]`,
+    tw`relative h-[2.3rem] px-[15px] w-[100vw]`,
     tw`overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`,
 ]);
 
 const TabsList = styled.ul(() => [tw`relative flex flex-row justify-between`]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
-    tw`w-full h-8 capitalize transition-opacity cursor-pointer min-w-[120px] select-none text-melrose-40 text-opacity-40`,
-    tw`leading-[25px] text-[20px]`,
+    tw`w-full h-8 ml-0 capitalize list-none transition-opacity cursor-pointer select-none text-melrose-40 text-opacity-40`,
+    tw`min-w-[120px] leading-[25px] text-[20px]`,
     isActive && tw`text-opacity-100 text-melrose`,
     isActive
         ? css`
@@ -85,7 +85,7 @@ const Progress = styled(motion.div)(() => [
         box-shadow: 0 2px 4px 0 var(--melrose);
 
         &:after {
-            ${tw`block content-[""] w-full absolute left-0 right-0 h-[1px]`}
+            ${tw`block content-[""] w-full absolute left-0 right-0 h-px`}
             box-shadow: inset 0px -2px 1px -1px var(--melrose);
         }
     `,
@@ -105,25 +105,17 @@ export const Tabs = memo(
         const [areTabsIntersectingContent, setTabsIntersecting] =
             useState(false);
         const [tabId, setTabId] = useState("");
-        const [pinX, setPinX] = useState("0%");
+        const [pinX, setPinX] = useState(0);
         const [tabWidth, setTabWidth] = useState(0);
 
         const activeTabIndex = useMemo(
             () => tabs?.findIndex((tab) => tab.id === tabId),
-            [tabId, tabs]
+            [tabId, tabs],
         );
 
         useEffect(() => {
             setTabId(activeTabId || tabs[0]?.id || "");
         }, [activeTabId, tabs]);
-
-        useEffect(() => {
-            setTabWidth(100 / tabs.length);
-        }, [tabs]);
-
-        useEffect(() => {
-            setPinX(tabWidth * (activeTabIndex + 1) - tabWidth + "%");
-        }, [activeTabId, activeTabIndex, tabWidth]);
 
         useEffect(() => {
             const currentElement = wrapperRef.current;
@@ -133,15 +125,14 @@ export const Tabs = memo(
                 },
                 {
                     threshold,
-                }
+                },
             );
 
             if (currentElement) {
                 observer.observe(currentElement);
             }
 
-            // eslint-disable-next-line space-before-function-paren
-            return function () {
+            return () => {
                 if (currentElement) {
                     observer.unobserve(currentElement);
                 }
@@ -158,8 +149,24 @@ export const Tabs = memo(
 
                 onTabChange(tab);
             },
-            [onTabChange, tabId]
+            [onTabChange, tabId],
         );
+
+        useEffect(() => {
+            const el = document.getElementById("tab-" + tabId);
+
+            if (el) {
+                const width = el.clientWidth;
+                const tabListContainerPaddingLeft = 15;
+
+                setTabWidth(width - tabListContainerPaddingLeft);
+                setPinX(
+                    width * (activeTabIndex + 1) -
+                        width +
+                        tabListContainerPaddingLeft,
+                );
+            }
+        }, [activeTabIndex, tabId]);
 
         return (
             <>
@@ -171,9 +178,10 @@ export const Tabs = memo(
                     <TabsListContainer>
                         <AnimatePresence initial={false}>
                             <TabsList key="tab-list">
-                                {tabs.map((tab, index) => (
+                                {tabs.map((tab) => (
                                     <Tab
-                                        key={`tab-${index}`}
+                                        id={`tab-${tab.id}`}
+                                        key={`tab-${tab.id}`}
                                         isActive={tab.id === tabId}
                                         onClick={onTabClick.bind(null, tab)}
                                     >
@@ -183,7 +191,7 @@ export const Tabs = memo(
                             </TabsList>
                             <Progress
                                 animate={{ left: pinX }}
-                                style={{ width: `${100 / tabs.length}%` }}
+                                style={{ width: `${tabWidth}px` }}
                             />
                         </AnimatePresence>
                     </TabsListContainer>
@@ -193,5 +201,5 @@ export const Tabs = memo(
     },
     (prevProps, nextProps) =>
         prevProps.tabs.length === nextProps.tabs.length &&
-        prevProps.activeTabId === nextProps.activeTabId
+        prevProps.activeTabId === nextProps.activeTabId,
 );
