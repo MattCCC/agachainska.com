@@ -107,8 +107,6 @@ const RingIcon = styled.div(() => [
     `,
 ]);
 
-let isIframeLoading = false;
-
 interface Props {
     type: string;
     link: string;
@@ -120,12 +118,14 @@ const renderSwitch = ({
     isImage,
     inViewData,
     iFrameRef,
+    isIframeCurrentlyLoading,
 }: {
     type: string;
     link: string;
     isImage: boolean;
     inViewData: [MutableRefObject<null>, boolean];
     iFrameRef: MutableRefObject<HTMLIFrameElement | null>;
+    isIframeCurrentlyLoading: boolean;
 }) => {
     const tag = isImage ? "img" : "iframe";
     const [ref, isVisible] = inViewData;
@@ -137,12 +137,12 @@ const renderSwitch = ({
                     <>
                         <DeviceResource
                             as={tag}
-                            src={isIframeLoading ? link : ""}
+                            src={isIframeCurrentlyLoading ? link : ""}
                             type={type}
                             ref={iFrameRef}
                         />
 
-                        {!isIframeLoading && (
+                        {!isIframeCurrentlyLoading && (
                             <RingIconContainer>
                                 <RingIcon>
                                     <div></div>
@@ -190,9 +190,8 @@ export const DeviceMockup = memo(({ type, link }: Props) => {
     }, [link]);
 
     useEffect(() => {
-        if (!isImage && !isIframeLoading && !isIframeCurrentlyLoading) {
+        if (!isImage && !isIframeCurrentlyLoading) {
             setIsIframeCurrentlyLoading(true);
-            isIframeLoading = true;
         }
 
         const handleOnIframeLoaded = () => {
@@ -223,6 +222,7 @@ export const DeviceMockup = memo(({ type, link }: Props) => {
                 link,
                 inViewData: [ref, isVisible],
                 iFrameRef,
+                isIframeCurrentlyLoading,
             })}
         </DeviceContainer>
     );
