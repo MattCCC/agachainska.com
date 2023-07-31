@@ -57,7 +57,7 @@ const TabsWrapper = styled.div(
 const TabsWrapperTop = styled.div(() => [tw`h-[1px]`]);
 
 const TabsListContainer = styled.div(() => [
-    tw`relative h-8 px-[15px] w-[100vw]`,
+    tw`relative h-[2.3rem] px-[15px] w-[100vw]`,
     tw`overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`,
 ]);
 
@@ -85,7 +85,7 @@ const Progress = styled(motion.div)(() => [
         box-shadow: 0 2px 4px 0 var(--melrose);
 
         &:after {
-            ${tw`block content-[""] w-full absolute left-0 right-0 h-[1px]`}
+            ${tw`block content-[""] w-full absolute left-0 right-0 h-px`}
             box-shadow: inset 0px -2px 1px -1px var(--melrose);
         }
     `,
