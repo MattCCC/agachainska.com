@@ -13,6 +13,7 @@ import tw, { css, styled } from "twin.macro";
 import isImageURL from "utils/is-image-url";
 import { excludeProps } from "utils/styled";
 import { useStoreProp } from "store/index";
+import { DeviceIframe } from "./device-iframe";
 
 interface DeviceResourceProps {
     type: string;
@@ -44,12 +45,12 @@ const DeviceResourceWrapper = styled("div").withConfig(
         tw`h-auto overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`,
 ]);
 
-const DeviceResource = styled("iframe").withConfig(excludeProps(["type"]))(
-    ({ type }: DeviceResourceProps) => [
-        tw`w-full h-full bg-white border-0 outline-none`,
-        type === "iPhone13pro" && tw`rounded-[25px]`,
-    ],
-);
+export const DeviceResource = styled("iframe").withConfig(
+    excludeProps(["type"]),
+)(({ type }: DeviceResourceProps) => [
+    tw`w-full h-full bg-white border-0 outline-none`,
+    type === "iPhone13pro" && tw`rounded-[25px]`,
+]);
 
 const DeviceFrameIphoneX = styled.div(() => [
     tw`w-[278px] h-[555px] absolute pointer-events-none z-20 bg-contain bg-no-repeat`,
@@ -71,12 +72,12 @@ const DeviceFrameMacbookPro = styled.div(() => [
     tw`bg-[url('/img/macbook-pro.png')]`,
 ]);
 
-const RingIconContainer = styled.div(() => [
+export const RingIconContainer = styled.div(() => [
     tw`absolute flex items-center justify-center`,
     tw`top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%]`,
 ]);
 
-const RingIcon = styled.div(() => [
+export const RingIcon = styled.div(() => [
     tw`relative inline-block w-[40px] h-[40px]`,
     css`
         div {
@@ -117,15 +118,11 @@ const renderSwitch = ({
     link,
     isImage,
     inViewData,
-    iFrameRef,
-    isIframeCurrentlyLoading,
 }: {
     type: string;
     link: string;
     isImage: boolean;
     inViewData: [MutableRefObject<null>, boolean];
-    iFrameRef: MutableRefObject<HTMLIFrameElement | null>;
-    isIframeCurrentlyLoading: boolean;
 }) => {
     const tag = isImage ? "img" : "iframe";
     const [ref, isVisible] = inViewData;
@@ -134,25 +131,7 @@ const renderSwitch = ({
         <Fragment>
             <DeviceResourceWrapper ref={ref} type={type} tag={tag}>
                 {isVisible && tag === "iframe" ? (
-                    <>
-                        <DeviceResource
-                            as={tag}
-                            src={isIframeCurrentlyLoading ? link : ""}
-                            type={type}
-                            ref={iFrameRef}
-                        />
-
-                        {!isIframeCurrentlyLoading && (
-                            <RingIconContainer>
-                                <RingIcon>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </RingIcon>
-                            </RingIconContainer>
-                        )}
-                    </>
+                    <DeviceIframe isImage={isImage} type={type} link={link} />
                 ) : (
                     <DeviceResource as={tag} src={link} type={type} />
                 )}
@@ -169,8 +148,8 @@ const renderSwitch = ({
 export const DeviceMockup = memo(({ type, link }: Props) => {
     const [isImage, setIsImage] = useState(false);
     const ref = useRef(null);
-    const iFrameRef = useRef<HTMLIFrameElement>(null);
-    const iframeCurrent = iFrameRef.current;
+    const iframeRef = useRef<HTMLIFrameElement>(null);
+    const iframeCurrent = iframeRef.current;
     const isVisible = useInView(ref, {
         once: true,
     });
@@ -221,8 +200,6 @@ export const DeviceMockup = memo(({ type, link }: Props) => {
                 type,
                 link,
                 inViewData: [ref, isVisible],
-                iFrameRef,
-                isIframeCurrentlyLoading,
             })}
         </DeviceContainer>
     );
