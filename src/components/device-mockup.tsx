@@ -12,7 +12,6 @@ import tw, { css, styled } from "twin.macro";
 
 import isImageURL from "utils/is-image-url";
 import { excludeProps } from "utils/styled";
-import { useStoreProp } from "store/index";
 import { DeviceIframe } from "./device-iframe";
 
 interface DeviceResourceProps {
@@ -148,15 +147,9 @@ const renderSwitch = ({
 export const DeviceMockup = memo(({ type, link }: Props) => {
     const [isImage, setIsImage] = useState(false);
     const ref = useRef(null);
-    const iframeRef = useRef<HTMLIFrameElement>(null);
-    const iframeCurrent = iframeRef.current;
     const isVisible = useInView(ref, {
         once: true,
     });
-    const [isIframeCurrentlyLoading] = useStoreProp("isIframeCurrentlyLoading");
-    const [, { setIsIframeCurrentlyLoading }] = useStoreProp(
-        "isIframeCurrentlyLoading",
-    );
 
     useEffect(() => {
         const getData = () => {
@@ -167,31 +160,6 @@ export const DeviceMockup = memo(({ type, link }: Props) => {
 
         getData();
     }, [link]);
-
-    useEffect(() => {
-        if (!isImage && !isIframeCurrentlyLoading) {
-            setIsIframeCurrentlyLoading(true);
-        }
-
-        const handleOnIframeLoaded = () => {
-            iframeCurrent?.addEventListener("load", () => {
-                setIsIframeCurrentlyLoading(false);
-            });
-
-            return () => {
-                iframeCurrent?.removeEventListener("load", () => {
-                    setIsIframeCurrentlyLoading(false);
-                });
-            };
-        };
-
-        return handleOnIframeLoaded();
-    }, [
-        iframeCurrent,
-        isImage,
-        isIframeCurrentlyLoading,
-        setIsIframeCurrentlyLoading,
-    ]);
 
     return (
         <DeviceContainer type={type}>

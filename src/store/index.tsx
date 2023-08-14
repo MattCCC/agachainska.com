@@ -23,8 +23,8 @@ const initialState = {
     currentDelayedRoute: "",
     initialOverlayAnimation: true,
     isSingleProject: false,
+    iframeQueue: [] as string[],
     isIframeCurrentlyLoading: false,
-
     socialMediaData: [] as ConfigurationPage["socialMedia"],
 };
 
@@ -35,7 +35,6 @@ const actions = {
         (state.showMotionGrid = value),
     showWavePattern: (state: State, value: boolean) =>
         (state.showWavePattern = value),
-
     showPageWhiteGradient: (state: State, value: boolean) =>
         (state.showPageWhiteGradient = value),
     setWorkPageBackgroundColor: (state: State, value: string) =>
@@ -43,7 +42,6 @@ const actions = {
     setProjectPageBackgroundColor: (state: State, value: string) =>
         (state.projectPageBackgroundColor = value),
     setDarkTheme: (state: State, value: boolean) => (state.darkTheme = value),
-
     showFooter: (state: State, value: boolean) => (state.showFooter = value),
     showLogoOnDesktop: (state: State, value: boolean) =>
         (state.showLogoOnDesktop = value),
@@ -53,6 +51,12 @@ const actions = {
         (state.currentDelayedRoute = value),
     setIsIframeCurrentlyLoading: (state: State, value: boolean) =>
         (state.isIframeCurrentlyLoading = value),
+    enqueueIframe(state: State, value: string) {
+        return state.iframeQueue.push(value);
+    },
+    dequeueIframe(state: State) {
+        return state.iframeQueue.shift();
+    },
     showMotionCursor(
         state: State,
         isMotionCursorVisible: boolean,
