@@ -32,16 +32,12 @@ export const DeviceIframe = memo(({ isImage, type, link }: Props) => {
             enqueueIframe(link);
             setLinkToLoad(link);
 
-            iframeCurrent?.addEventListener(
-                "load",
-                () => {
-                    setTimeout(() => {
-                        dequeueIframe();
-                        setIsIframeCurrentlyLoading(false);
-                    }, 1500);
-                },
-                { once: true },
-            );
+            iframeCurrent?.addEventListener("load", () => {
+                setTimeout(() => {
+                    dequeueIframe();
+                    setIsIframeCurrentlyLoading(false);
+                }, 1500);
+            });
         }
     }, [
         iframeCurrent,
