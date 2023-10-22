@@ -1,5 +1,5 @@
 ---
-title: Social Media.
+title: Social Media
 socialMedia:
   - name: Be
     link: 'https://behance.net/achainska'
