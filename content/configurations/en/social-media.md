@@ -1,5 +1,5 @@
 ---
-title: Social Media
+title: Social Media.
 socialMedia:
   - name: Be
     link: 'https://behance.net/achainska'
@@ -9,9 +9,4 @@ socialMedia:
     link: 'https://www.linkedin.com/in/aga-chainska-30182b45'
 _template: socialMedia
 ---
-
-
-
-
-
 
