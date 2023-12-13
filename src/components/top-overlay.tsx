@@ -33,8 +33,8 @@ const onAnimationComplete = (variant: string) => {
         const pageContainer = document.getElementById("page-container");
 
         if (pageContainer) {
-            pageContainer.style.transform = "";
             pageContainer.classList.remove("top-overlay-enter");
+            pageContainer.style.transform = "";
         }
     }
 };
