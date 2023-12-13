@@ -1,6 +1,7 @@
 body {
     overscroll-behavior-y: none;
     -webkit-tap-highlight-color: transparent;
+    min-height: 100vh;
 }
 
 img,
@@ -37,30 +38,24 @@ strong {
     font-family: "Larsseit-Bold", sans-serif;
 }
 
-@keyframes slideOverlaysAnimation {
-    from {
-        transform: translateY(100%);
-    }
-    to {
-        transform: translateY(-100%);
-    }
-}
+#page-container {
+    transform: translateY(100vh) translateZ(0);
+    position: fixed;
+    width: 100%;
 
-@keyframes topOverlayEnter {
-    from {
-        transform: translateY(100%) translateZ(0);
-    }
-    to {
+    &.enter {
+        transition: transform 900ms cubic-bezier(0.43, 0.13, 0.23, 0.96);
         transform: translateY(0) translateZ(0);
     }
-}
 
-.top-overlay-enter {
-    animation: topOverlayEnter 1.3s ease forwards;
+    &.end {
+        transition: none;
+        position: relative;
+    }
 }
 
 .overlay {
-    animation: slideOverlaysAnimation 1s cubic-bezier(0.43, 0.13, 0.23, 0.96)
+    animation: slideOverlaysAnimation 0s cubic-bezier(0.43, 0.13, 0.23, 0.96)
         forwards 0s;
 }
 
@@ -68,16 +63,25 @@ strong {
     display: none;
     background-color: #000;
     z-index: 1040;
+
+    &.enter {
+        animation: fullPageOverlayEnterAnimation 600ms
+            cubic-bezier(0.43, 0.13, 0.23, 0.96) forwards;
+    }
+
+    &.end {
+        animation: fullPageOverlayEndAnimation 600ms
+            cubic-bezier(0.43, 0.13, 0.23, 0.96) forwards;
+    }
 }
 
-.full-page-overlay.enter {
-    animation: fullPageOverlayEnterAnimation 600ms
-        cubic-bezier(0.43, 0.13, 0.23, 0.96) forwards;
-}
-
-.full-page-overlay.end {
-    animation: fullPageOverlayEndAnimation 600ms
-        cubic-bezier(0.43, 0.13, 0.23, 0.96) forwards;
+@keyframes slideOverlaysAnimation {
+    from {
+        transform: translateY(100%) translateZ(0);
+    }
+    to {
+        transform: translateY(-100%) translateZ(0);
+    }
 }
 
 @keyframes fullPageOverlayEnterAnimation {

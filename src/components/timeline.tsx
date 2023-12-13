@@ -39,26 +39,19 @@ const List = styled(motion.div)(() => [
     `,
 ]);
 
-const ListItem = styled(motion.div).withConfig(excludeProps(["isActive"]))(
-    ({ isActive }: ListItemStyle) => [
-        tw`relative items-center h-full ml-auto align-middle`,
-        tw`flex text-right capitalize cursor-pointer select-none lg:text-primary opacity-30 lg:p-5`,
-        tw`transition-opacity hover:opacity-100`,
-        isActive && tw`opacity-100`,
-    ]
-);
+const ListItem = styled.div(() => [
+    tw`relative items-center h-full ml-auto align-middle`,
+    tw`flex text-right capitalize cursor-pointer select-none lg:text-primary lg:p-5`,
+    tw`transition-opacity hover:opacity-100`,
+]);
 
-const Pin = styled(motion.div)(() => [
-    tw`absolute top-0 bottom-0 right-0 w-px bg-primary z-[2]`,
+const Pin = styled.div(() => [
+    tw`absolute top-0 bottom-0 right-0 w-px bg-primary z-[2] transition-transform transform-gpu`,
 ]);
 
 interface TitleStyle extends MotionProps {
     isActive?: boolean;
     hasMultipleSections?: boolean;
-}
-
-interface ListItemStyle extends MotionProps {
-    isActive?: boolean;
 }
 
 export interface TimelineItem {
@@ -225,34 +218,39 @@ const Timeline = memo(
                                 }}
                             >
                                 <Pin
-                                    animate={{
-                                        y: Math.max(
-                                            0,
-                                            (contentListHeight /
-                                                (section.items?.length ?? 1)) *
-                                                (section.items?.findIndex(
-                                                    (item) =>
-                                                        item.id ===
-                                                        state.activeItemId
-                                                ) || 0)
-                                        ),
-                                    }}
-                                    style={{
-                                        height: Math.max(
-                                            0,
-                                            contentListHeight /
-                                                (section.items?.length ?? 1)
-                                        ),
-                                    }}
+                                    style={
+                                        {
+                                            "--tw-translate-y":
+                                                Math.max(
+                                                    0,
+                                                    (contentListHeight /
+                                                        (section.items
+                                                            ?.length ?? 1)) *
+                                                        (section.items?.findIndex(
+                                                            (item) =>
+                                                                item.id ===
+                                                                state.activeItemId
+                                                        ) ?? 0)
+                                                ) + "px",
+                                            height: Math.max(
+                                                0,
+                                                contentListHeight /
+                                                    (section.items?.length ?? 1)
+                                            ),
+                                        } as React.CSSProperties
+                                    }
                                 />
 
                                 {section.items?.map((item: TimelineItem) => (
                                     <ListItem
                                         key={`${section.id}-${item.id}`}
-                                        isActive={
-                                            section.id ===
+                                        className={
+                                            "opacity-30" +
+                                            (section.id ===
                                                 state.activeSectionId &&
                                             item.id === state.activeItemId
+                                                ? "opacity-100"
+                                                : "")
                                         }
                                         onClick={onTimelineItemClick.bind(
                                             null,

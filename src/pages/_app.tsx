@@ -69,13 +69,7 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
                 `}</style>
             )}
             <FullPageOverlay />
-            <div
-                id="page-container"
-                style={{
-                    position: "relative",
-                    transform: "translateY(100%)",
-                }}
-            >
+            <div id="page-container">
                 <Header />
                 <Main
                     hasGradient={showPageWhiteGradient}
