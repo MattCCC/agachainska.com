@@ -1,33 +1,22 @@
-import { PropsWithChildren } from "react";
-
-import tw, { styled } from "twin.macro";
-
-import { Variants, motion } from "framer-motion";
-
-const Section = styled.section(() => [tw`relative z-10 h-screen`]);
+import { CSSProperties, PropsWithChildren } from "react";
 
 interface Props {
-    initial?: string;
-    animate?: string;
-    exit?: string;
+    id?: string;
     className?: string;
-    variants?: Variants;
+    style?: CSSProperties;
 }
 
 export const MainSection = ({
-    initial = "",
-    animate = "",
-    exit = "",
-    variants = {},
+    id = "",
+    className = "",
+    style = {},
     children,
-    ...props
 }: PropsWithChildren<Props>) => (
-    <motion.div
-        initial={initial}
-        animate={animate}
-        exit={exit}
-        variants={variants}
+    <section
+        id={id}
+        className={`relative z-10 h-screen ${className}`}
+        style={style}
     >
-        <Section {...props}>{children}</Section>
-    </motion.div>
+        {children}
+    </section>
 );
