@@ -43,7 +43,7 @@ const Main = styled.main(
             `,
         !backgroundColor && !hasGradient && !darkTheme && tw`bg-white`,
         !backgroundColor && darkTheme && tw`bg-black`,
-    ],
+    ]
 );
 
 export const Layout = ({ children }: PropsWithChildren<unknown>) => {
@@ -51,7 +51,7 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
     const [isSingleProject] = useStoreProp("isSingleProject");
     const [workPageBackgroundColor] = useStoreProp("workPageBackgroundColor");
     const [projectPageBackgroundColor] = useStoreProp(
-        "projectPageBackgroundColor",
+        "projectPageBackgroundColor"
     );
     const [darkTheme] = useStoreProp("darkTheme");
     const [showFooter] = useStoreProp("showFooter");
@@ -69,20 +69,26 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
                 `}</style>
             )}
             <FullPageOverlay />
-            <Header />
-            <Main
-                hasGradient={showPageWhiteGradient}
-                backgroundColor={
-                    isSingleProject
-                        ? projectPageBackgroundColor
-                        : workPageBackgroundColor
-                }
-                showFooter={showFooter}
-                darkTheme={darkTheme}
+            <div
+                id="page-container"
+                className="relative top-overlay-enter"
+                style={{ position: "relative", transform: "translateY(0)" }}
             >
-                <Background />
-                {children}
-            </Main>
+                <Header />
+                <Main
+                    hasGradient={showPageWhiteGradient}
+                    backgroundColor={
+                        isSingleProject
+                            ? projectPageBackgroundColor
+                            : workPageBackgroundColor
+                    }
+                    showFooter={showFooter}
+                    darkTheme={darkTheme}
+                >
+                    <Background />
+                    {children}
+                </Main>
+            </div>
             <Footer />
         </StrictMode>
     );
@@ -90,14 +96,12 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
 
 function App({ Component, pageProps }: AppProps) {
     return (
-        <>
-            <GlobalStoreProvider>
-                <Overlays />
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-            </GlobalStoreProvider>
-        </>
+        <GlobalStoreProvider>
+            <Overlays />
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+        </GlobalStoreProvider>
     );
 }
 

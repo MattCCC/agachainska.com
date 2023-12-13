@@ -1,117 +1,65 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 
-import { motion, LayoutGroup } from "framer-motion";
 import TopOverlay from "components/top-overlay";
 import { useStoreProp } from "store/index";
 
-const duration = 1;
-
-const transition = {
-    duration,
-    ease: [0.43, 0.13, 0.23, 0.96],
-};
-
 const backgroundColors = ["#F5A4FF", "#C0A4FF", "#61F1F8"];
 
-export const pageContentVariants = {
-    exit: {
-        y: 100,
-        opacity: 0,
-        transition,
-    },
-    enter: {
-        y: 0,
-        opacity: 1,
-        transition: {
-            duration,
-            delay: duration,
-        },
-    },
+const overlayAnimation = {
+    animationDuration: "1s",
+    animationTimingFunction: "cubic-bezier(0.43, 0.13, 0.23, 0.96)",
+    animationFillMode: "forwards",
+    animationName: "enterAnimation",
+    animationDelay: "0s",
 };
 
-const OverlayVariants = {
-    end: {
-        y: "100%",
-        transition,
-    },
-    enter: (variant: Record<string, unknown>) => ({
-        y: "-100%",
-        transition: {
-            ...transition,
-            duration: variant["duration"],
-        },
-    }),
-};
+const Overlays = memo(() => {
+    const [, dispatch] = useStoreProp("initialOverlayAnimation");
 
-const Overlays = memo(
-    () => {
-        const [initialOverlayAnimation, dispatch] = useStoreProp(
-            "initialOverlayAnimation"
-        );
+    useEffect(() => {
+        const overlays = document.querySelectorAll(".overlay");
 
-        // Don't render overlays when navigating subsequently
-        if (!initialOverlayAnimation) {
-            return null;
+        if (!overlays[0]) {
+            return;
         }
 
-        return (
-            <div id="overlays">
-                <LayoutGroup id="overlays">
-                    <TopOverlay />
+        overlays[0].addEventListener("animationend", () => {
+            dispatch.showInitialOverlayAnimation(false);
+        });
+    }, [dispatch]);
 
-                    <motion.div
-                        className="fixed left-0 right-0 w-full h-full will-change-transform"
-                        style={{
-                            backgroundColor: backgroundColors[0],
-                            zIndex: 1030,
-                        }}
-                        custom={{
-                            id: 1,
-                            duration,
-                        }}
-                        onAnimationComplete={() => {
-                            dispatch.showInitialOverlayAnimation(false);
-                        }}
-                        variants={OverlayVariants}
-                        animate="enter"
-                        initial="end"
-                        exit="end"
-                    />
-                    <motion.div
-                        className="fixed left-0 right-0 w-full h-full will-change-transform"
-                        style={{
-                            backgroundColor: backgroundColors[1],
-                            zIndex: 1020,
-                        }}
-                        custom={{
-                            id: 2,
-                            duration: duration * 0.66,
-                        }}
-                        variants={OverlayVariants}
-                        animate="enter"
-                        initial="end"
-                        exit="end"
-                    />
-                    <motion.div
-                        className="fixed left-0 right-0 w-full h-full will-change-transform"
-                        style={{
-                            backgroundColor: backgroundColors[2],
-                            zIndex: 1010,
-                        }}
-                        custom={{
-                            id: 3,
-                            duration: duration * 0.4,
-                        }}
-                        variants={OverlayVariants}
-                        animate="enter"
-                        initial="end"
-                        exit="end"
-                    />
-                </LayoutGroup>
-            </div>
-        );
-    },
-    () => true
-);
+    return (
+        <div id="overlays">
+            <TopOverlay />
+
+            <div
+                className="fixed left-0 right-0 w-full h-full overlay will-change-transform"
+                style={{
+                    backgroundColor: backgroundColors[0],
+                    zIndex: 1030,
+                    ...overlayAnimation,
+                }}
+            />
+            <div
+                className="fixed left-0 right-0 w-full h-full overlay will-change-transform"
+                style={{
+                    backgroundColor: backgroundColors[1],
+                    zIndex: 1020,
+                    ...overlayAnimation,
+                    animationDuration: "0.66s",
+                }}
+            />
+            <div
+                className="fixed left-0 right-0 w-full h-full overlay will-change-transform"
+                style={{
+                    backgroundColor: backgroundColors[2],
+                    zIndex: 1010,
+                    ...overlayAnimation,
+                    animationDuration: "0.4s",
+                }}
+            />
+        </div>
+    );
+});
 
 export default Overlays;

@@ -23,7 +23,7 @@ export const Distortion = memo(
         useEffect(() => {
             (async () => {
                 cachedImgData.current = await fetchCachedImage(
-                    convertTinaUrl(imgUrl)
+                    convertTinaUrl(imgUrl),
                 );
 
                 setIsImgCached(true);
@@ -76,5 +76,5 @@ export const Distortion = memo(
                 </g>
             </svg>
         );
-    }
+    },
 );
