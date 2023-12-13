@@ -58,7 +58,7 @@ const TopOverlay = memo(() => {
         };
     }, []);
 
-    return <div></div>;
+    return <></>;
 });
 
 export default TopOverlay;
