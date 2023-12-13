@@ -1,8 +1,7 @@
-import { memo, useState, useCallback, useMemo } from "react";
+import { memo, useState, useCallback } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
-import { motion } from "framer-motion";
 import { useStoreProp } from "store/index";
 
 import { DeviceMockup } from "./device-mockup";
@@ -30,9 +29,10 @@ const Background = styled.div(() => [
     `,
 ]);
 
-const Progress = styled(motion.div)(() => [
+const Progress = styled.div(() => [
     tw`absolute bottom-0 left-0 z-20 h-px`,
     css`
+        transition: left 0.6s ease;
         box-shadow: 0 2px 4px 0 var(--melrose);
         background: rgba(192, 164, 255, 0.7);
     `,
@@ -84,24 +84,16 @@ export const DevicesCarousel = memo(({ list }: Props) => {
         toggleHoverCursor(false);
     }, [toggleHoverCursor]);
 
-    const progressPosition = useMemo(() => {
-        const position = itemWidth * (x - 1);
-
-        return {
-            left: position + "%",
-        };
-    }, [itemWidth, x]);
-
     if (!list) {
         return null;
     }
 
     return (
         <FullPageContent heightPct="680px">
-            <motion.div
-                onHoverStart={onHoverStart}
-                onHoverEnd={onHoverEnd}
-                tw="lg:ml-[13rem]"
+            <div
+                onMouseEnter={onHoverStart}
+                onMouseLeave={onHoverEnd}
+                className="lg:ml-[13rem]"
             >
                 <SliderWrapper>
                     <MotionSlider
@@ -121,7 +113,7 @@ export const DevicesCarousel = memo(({ list }: Props) => {
                         )}
                     </MotionSlider>
                 </SliderWrapper>
-            </motion.div>
+            </div>
 
             <ProgressWrapper key={x}>
                 <ProgressText>
@@ -130,9 +122,10 @@ export const DevicesCarousel = memo(({ list }: Props) => {
 
                 <Background />
                 <Progress
-                    initial={progressPosition}
-                    animate={progressPosition}
-                    style={{ width: `${itemWidth}%` }}
+                    style={{
+                        width: `${itemWidth}%`,
+                        left: itemWidth * (x - 1) + "%",
+                    }}
                 />
             </ProgressWrapper>
         </FullPageContent>
