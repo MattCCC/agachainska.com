@@ -11,14 +11,12 @@ import {
 
 import tw, { css, styled } from "twin.macro";
 
-import { motion, MotionProps, AnimatePresence } from "framer-motion";
-
 interface TabsStyled {
     hideForDesktop?: boolean;
     isIntersecting: boolean;
 }
 
-interface TabStyled extends MotionProps {
+interface TabStyled {
     isActive?: boolean;
 }
 
@@ -51,7 +49,7 @@ const TabsWrapper = styled.div(
                     z-index: -1;
                 }
             `,
-    ],
+    ]
 );
 
 const TabsWrapperTop = styled.div(() => [tw`h-[1px]`]);
@@ -79,9 +77,10 @@ const Tab = styled.li(({ isActive = false }: TabStyled) => [
     `,
 ]);
 
-const Progress = styled(motion.div)(() => [
+const Progress = styled.div(() => [
     tw`absolute left-0 h-px top-8 bg-melrose z-[2]`,
     css`
+        transition: left 0.3s ease;
         box-shadow: 0 2px 4px 0 var(--melrose);
 
         &:after {
@@ -102,7 +101,7 @@ export const Tabs = memo(
     }: Props) => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
 
-        const [areTabsIntersectingContent, setTabsIntersecting] =
+        const [areTabsIntersectingContent, setAreTabsIntersectingContent] =
             useState(false);
         const [tabId, setTabId] = useState("");
         const [pinX, setPinX] = useState(0);
@@ -110,7 +109,7 @@ export const Tabs = memo(
 
         const activeTabIndex = useMemo(
             () => tabs?.findIndex((tab) => tab.id === tabId),
-            [tabId, tabs],
+            [tabId, tabs]
         );
 
         useEffect(() => {
@@ -121,11 +120,11 @@ export const Tabs = memo(
             const currentElement = wrapperRef.current;
             const observer = new IntersectionObserver(
                 ([e]) => {
-                    setTabsIntersecting(!e?.intersectionRatio);
+                    setAreTabsIntersectingContent(!e?.intersectionRatio);
                 },
                 {
                     threshold,
-                },
+                }
             );
 
             if (currentElement) {
@@ -149,7 +148,7 @@ export const Tabs = memo(
 
                 onTabChange(tab);
             },
-            [onTabChange, tabId],
+            [onTabChange, tabId]
         );
 
         useEffect(() => {
@@ -163,7 +162,7 @@ export const Tabs = memo(
                 setPinX(
                     width * (activeTabIndex + 1) -
                         width +
-                        tabListContainerPaddingLeft,
+                        tabListContainerPaddingLeft
                 );
             }
         }, [activeTabIndex, tabId]);
@@ -176,24 +175,21 @@ export const Tabs = memo(
                     isIntersecting={areTabsIntersectingContent}
                 >
                     <TabsListContainer>
-                        <AnimatePresence initial={false}>
-                            <TabsList key="tab-list">
-                                {tabs.map((tab) => (
-                                    <Tab
-                                        id={`tab-${tab.id}`}
-                                        key={`tab-${tab.id}`}
-                                        isActive={tab.id === tabId}
-                                        onClick={onTabClick.bind(null, tab)}
-                                    >
-                                        {tab.title}
-                                    </Tab>
-                                ))}
-                            </TabsList>
-                            <Progress
-                                animate={{ left: pinX }}
-                                style={{ width: `${tabWidth}px` }}
-                            />
-                        </AnimatePresence>
+                        <TabsList key="tab-list">
+                            {tabs.map((tab) => (
+                                <Tab
+                                    id={`tab-${tab.id}`}
+                                    key={`tab-${tab.id}`}
+                                    isActive={tab.id === tabId}
+                                    onClick={onTabClick.bind(null, tab)}
+                                >
+                                    {tab.title}
+                                </Tab>
+                            ))}
+                        </TabsList>
+                        <Progress
+                            style={{ width: `${tabWidth}px`, left: pinX }}
+                        />
                     </TabsListContainer>
                 </TabsWrapper>
             </>
@@ -201,5 +197,5 @@ export const Tabs = memo(
     },
     (prevProps, nextProps) =>
         prevProps.tabs.length === nextProps.tabs.length &&
-        prevProps.activeTabId === nextProps.activeTabId,
+        prevProps.activeTabId === nextProps.activeTabId
 );
