@@ -36,3 +36,26 @@ b,
 strong {
     font-family: "Larsseit-Bold", sans-serif;
 }
+
+@keyframes enterAnimation {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes topOverlayEnter {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.top-overlay-enter {
+    transform: translateY(100%);
+    animation: topOverlayEnter 1.3s ease forwards;
+}

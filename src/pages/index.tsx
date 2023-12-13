@@ -10,12 +10,34 @@ import HomepageTitle from "components/homepage-title";
 import { MainContainer } from "components/main-container";
 import { MainSection } from "components/main-section";
 import { Meta } from "components/meta";
-import { pageContentVariants } from "components/overlays";
 import { Translate } from "components/translate";
 import { useLockBodyScroll } from "hooks/use-lock-body-scroll";
 import { useStoreProp } from "store/index";
 import { isDev } from "utils/detect-env";
 import { getRoutePath } from "utils/route";
+
+const duration = 1;
+
+const transition = {
+    duration,
+    ease: [0.43, 0.13, 0.23, 0.96],
+};
+
+const pageContentVariants = {
+    exit: {
+        y: 100,
+        opacity: 0,
+        transition,
+    },
+    enter: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            duration,
+            delay: duration,
+        },
+    },
+};
 
 const Desc = styled.h2(() => [
     tw`inline-block leading-8 select-none text-[24px] lg:text-[30px] lg:leading-11`,

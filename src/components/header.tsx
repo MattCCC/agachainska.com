@@ -6,7 +6,6 @@ import { Link } from "components/link";
 import { Logo } from "components/logo";
 import { useHideCursorPreserveVisibility } from "components/motion-cursor";
 import { Translate } from "components/translate";
-import { useStoreProp } from "store/index";
 import { getLinkProps, LinkProps } from "utils/route";
 
 const HeaderWrapper = styled.header(() => [
@@ -19,7 +18,7 @@ const HeaderWrapper = styled.header(() => [
 ]);
 
 const Navigation = styled.nav(() => [
-    tw`flex items-center justify-end w-56 leading-12 gap-10 lg:gap-14 lg:w-auto`,
+    tw`flex items-center justify-end w-56 gap-10 leading-12 lg:gap-14 lg:w-auto`,
 ]);
 
 const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
@@ -54,13 +53,12 @@ const LinkItem = styled(Link)(({ isCurrentPage }: LinkProps) => [
 ]);
 
 export function Header() {
-    const [showLogoOnDesktop] = useStoreProp("showLogoOnDesktop");
     const [onMouseEnter, onMouseLeave] = useHideCursorPreserveVisibility();
     const router = useRouter();
 
     return (
         <HeaderWrapper>
-            <Logo showOnDesktop={showLogoOnDesktop} />
+            <Logo />
             <Navigation onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                 <LinkItem {...getLinkProps("work", router)}>
                     <Translate id="header.link.work" />
