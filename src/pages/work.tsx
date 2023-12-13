@@ -488,65 +488,57 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
                                 isShowingOtherProjects={isShowingOtherProjects}
                             >
                                 {!isShowingOtherProjects ? (
-                                    <>
-                                        <Slider
-                                            sliderItems={sliderItems}
-                                            onSliderTap={(e) => onNavigate(e)}
-                                            onSliderChange={
-                                                setCurrentSlideState
-                                            }
-                                            slideId={sliderIndex}
-                                            showSlideTitle={
-                                                !isShowingOtherProjects
-                                            }
-                                            onSliderMouseEnter={
-                                                onSliderContentMouseEventChange
-                                            }
-                                            onSliderMouseLeave={
-                                                onSliderContentMouseEventChange
-                                            }
-                                            setIsAnimating={
-                                                setIsSliderAnimating
-                                            }
-                                        >
-                                            <>
-                                                <StyledNumber
-                                                    id={`${
-                                                        state.projectNumberToShow +
-                                                        1
-                                                    }`}
-                                                    value={`${
-                                                        state.projectNumberToShow +
-                                                        1
-                                                    }.`}
-                                                    viewBox="0 0 280 200"
-                                                    displayOnRight={true}
-                                                    style={{
-                                                        display: !state.showStar
-                                                            ? "block"
-                                                            : "none",
-                                                    }}
-                                                />
-                                                <StyledStar
-                                                    text={
-                                                        state?.currentProject
-                                                            ?.shortDescription ||
-                                                        ""
-                                                    }
-                                                    color={
-                                                        state?.currentProject
-                                                            ?.category &&
-                                                        state?.currentProject
-                                                            ?.starColor
-                                                    }
-                                                    displayStar={state.showStar}
-                                                />
-                                            </>
-                                        </Slider>
-                                    </>
+                                    <Slider
+                                        sliderItems={sliderItems}
+                                        onSliderTap={(e) => onNavigate(e)}
+                                        onSliderChange={setCurrentSlideState}
+                                        slideId={sliderIndex}
+                                        showSlideTitle={!isShowingOtherProjects}
+                                        onSliderMouseEnter={
+                                            onSliderContentMouseEventChange
+                                        }
+                                        onSliderMouseLeave={
+                                            onSliderContentMouseEventChange
+                                        }
+                                        setIsAnimating={setIsSliderAnimating}
+                                    >
+                                        <>
+                                            <StyledNumber
+                                                id={`${
+                                                    state.projectNumberToShow +
+                                                    1
+                                                }`}
+                                                value={`${
+                                                    state.projectNumberToShow +
+                                                    1
+                                                }.`}
+                                                viewBox="0 0 280 200"
+                                                displayOnRight={true}
+                                                style={{
+                                                    display: !state.showStar
+                                                        ? "block"
+                                                        : "none",
+                                                }}
+                                            />
+                                            <StyledStar
+                                                text={
+                                                    state?.currentProject
+                                                        ?.shortDescription || ""
+                                                }
+                                                color={
+                                                    state?.currentProject
+                                                        ?.category &&
+                                                    state?.currentProject
+                                                        ?.starColor
+                                                }
+                                                displayStar={state.showStar}
+                                            />
+                                        </>
+                                    </Slider>
                                 ) : (
                                     <>
                                         <OtherProjects
+                                            animate={true}
                                             otherProjects={
                                                 currentCategoryOtherProjects
                                             }

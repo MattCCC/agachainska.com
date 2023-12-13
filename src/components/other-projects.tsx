@@ -1,6 +1,5 @@
-import { useEffect } from "react";
+import { useLayoutEffect, useRef } from "react";
 
-import { motion, useAnimation } from "framer-motion";
 import tw, { css, styled } from "twin.macro";
 import { Project } from "types/project";
 
@@ -16,35 +15,24 @@ export interface OtherProjectProp {
 interface Props {
     otherProjects: OtherProjectProp[];
     lastProjectNumber: number;
+    animate?: boolean;
 }
 
-const duration = 0.15;
-
-const transition = {
-    ease: [0.43, 0.13, 0.23, 0.96],
-};
-
-const OtherProjectsAnimVariants = {
-    initial: {
-        opacity: "0",
-        y: 200,
-        transition: { ...transition, duration: 0 },
-    },
-    enter: {
-        opacity: "0",
-        y: 200,
-        transition: { ...transition, duration },
-    },
-    end: {
-        opacity: "1",
-        y: 0,
-        transition: { ...transition, duration: 0 },
-    },
-};
-
-const OtherProjectsContainer = styled(motion.div)(() => [
-    tw`grid grid-cols-2 -mt-16 duration-150 gap-x-28 gap-y-0`,
+const OtherProjectsContainer = styled.div(() => [
+    tw`grid grid-cols-2 -mt-16 opacity-0 gap-x-28 gap-y-0`,
     css`
+        &.initial {
+            transition:
+                opacity 0.6s ease,
+                transform 0.15s cubic-bezier(0.43, 0.13, 0.23, 0.96);
+            transform: translateY(1000px);
+        }
+
+        &.enter {
+            transform: translateY(0) translateZ(0);
+            opacity: 1;
+        }
+
         & > div:nth-of-type(even) {
             padding-top: 6rem;
         }
@@ -54,29 +42,26 @@ const OtherProjectsContainer = styled(motion.div)(() => [
 export default function OtherProjects({
     otherProjects,
     lastProjectNumber,
-}: Props) {
-    const otherProjectsAnimControls = useAnimation();
+    animate = false,
+}: Readonly<Props>) {
+    const container = useRef<HTMLDivElement>(null);
 
-    // Orchestrate animation when switching the route
-    useEffect(() => {
-        (async (): Promise<void> => {
-            await otherProjectsAnimControls.start((variant) => variant.initial);
-            await otherProjectsAnimControls.start((variant) => variant.enter);
+    useLayoutEffect(() => {
+        if (!animate) {
+            return;
+        }
 
-            setTimeout(async () => {
-                await otherProjectsAnimControls.start((variant) => variant.end);
-            }, duration * 1000);
-        })();
-    }, [otherProjectsAnimControls]);
+        setTimeout(() => {
+            if (container.current) {
+                container.current.classList.add("enter");
+            }
+        }, 100);
+    }, [animate]);
 
     return (
         <OtherProjectsContainer
-            className="opacity-0"
-            key="otherProjectsAnimation"
-            variants={OtherProjectsAnimVariants}
-            custom={OtherProjectsAnimVariants}
-            animate={otherProjectsAnimControls}
-            initial="initial"
+            ref={container}
+            className={animate ? "initial" : ""}
         >
             {otherProjects &&
                 otherProjects.length > 0 &&
@@ -86,7 +71,7 @@ export default function OtherProjects({
                             otherProject={post}
                             currentIndex={index}
                             lastProjectNumber={lastProjectNumber}
-                            key={index + lastProjectNumber}
+                            key={"index-" + post.name + lastProjectNumber}
                         />
                     )
                 )}
