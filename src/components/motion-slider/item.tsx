@@ -12,7 +12,6 @@ export interface Props {
     gap?: number;
     index: number;
     offset: MotionValue<number>;
-    allowSlideToLast?: boolean;
 }
 
 const ItemWrapper = styled(motion.div)(

@@ -1,5 +1,3 @@
-import { Fragment } from "react";
-
 import tw, { css, styled } from "twin.macro";
 
 import { BigNumber } from "components/big-number";
@@ -18,7 +16,7 @@ interface Props {
     postNum?: number;
     onPostTap: (
         e: React.MouseEvent<HTMLDivElement | HTMLAnchorElement, MouseEvent>,
-        post: PostItem,
+        post: PostItem
     ) => void;
     setImageAsBg?: boolean;
 }
@@ -57,44 +55,42 @@ export function Post({
     postNum = -1,
     onPostTap,
     setImageAsBg = false,
-}: Props) {
+}: Readonly<Props>) {
     return (
-        <Fragment>
-            <PostWrapper
-                onClick={(
-                    e: React.MouseEvent<
-                        HTMLDivElement | HTMLAnchorElement,
-                        MouseEvent
-                    >,
-                ): void => onPostTap(e, post)}
-            >
-                <Title data-text={post.name}>{post.name}</Title>
-                {setImageAsBg ? (
-                    <PostBg
-                        style={{
-                            backgroundImage: `url(${post.cover})`,
-                        }}
-                    />
-                ) : (
-                    <PostImg
-                        src={post.cover || ""}
-                        width={300}
-                        height={140}
-                        placeholder="blur"
-                        blurDataURL={post.cover}
-                        alt="Project Cover"
-                    />
-                )}
-                <PostDescription>{post.shortDescription}</PostDescription>
-                {postNum > 0 && (
-                    <StyledNumber
-                        id={`${postNum}.`}
-                        value={`${postNum}.`}
-                        viewBox="0 0 160 200"
-                        preserveAspectRatio="xMaxYMin meet"
-                    />
-                )}
-            </PostWrapper>
-        </Fragment>
+        <PostWrapper
+            onClick={(
+                e: React.MouseEvent<
+                    HTMLDivElement | HTMLAnchorElement,
+                    MouseEvent
+                >
+            ): void => onPostTap(e, post)}
+        >
+            <Title data-text={post.name}>{post.name}</Title>
+            {setImageAsBg ? (
+                <PostBg
+                    style={{
+                        backgroundImage: `url(${post.cover})`,
+                    }}
+                />
+            ) : (
+                <PostImg
+                    src={post.cover || ""}
+                    width={300}
+                    height={140}
+                    placeholder="blur"
+                    blurDataURL={post.cover}
+                    alt="Project Cover"
+                />
+            )}
+            <PostDescription>{post.shortDescription}</PostDescription>
+            {postNum > 0 && (
+                <StyledNumber
+                    id={`${postNum}.`}
+                    value={`${postNum}.`}
+                    viewBox="0 0 160 200"
+                    preserveAspectRatio="xMaxYMin meet"
+                />
+            )}
+        </PostWrapper>
     );
 }
