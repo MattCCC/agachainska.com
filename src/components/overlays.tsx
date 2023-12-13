@@ -38,10 +38,10 @@ const initializeTopOverlay = (dispatch: {
 }) => {
     const pageContainer = document.getElementById("page-container");
 
-    const onAnimationComplete = (event: TransitionEvent) => {
+    const onTransitionComplete = (event: TransitionEvent) => {
         const el = event?.target as HTMLElement;
 
-        if (!el?.classList.contains("page-container")) {
+        if (el?.id !== "page-container") {
             return;
         }
 
@@ -49,13 +49,12 @@ const initializeTopOverlay = (dispatch: {
 
         if (pageContainer) {
             pageContainer.classList.add("end");
-            pageContainer.classList.remove("enter");
             dispatch.showInitialOverlayAnimation(false);
 
             document.removeEventListener("animationstart", onAnimationStart);
             pageContainer.removeEventListener(
                 "transitionend",
-                onAnimationComplete
+                onTransitionComplete
             );
         }
     };
@@ -63,7 +62,7 @@ const initializeTopOverlay = (dispatch: {
     document.addEventListener("animationstart", onAnimationStart);
 
     if (pageContainer) {
-        pageContainer.addEventListener("transitionend", onAnimationComplete);
+        pageContainer.addEventListener("transitionend", onTransitionComplete);
     }
 };
 
