@@ -349,7 +349,7 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
                 return;
             }
 
-            const isOthers = currentItem.id.substring(0, 6) === "others";
+            const isOthers = currentItem.id.startsWith("others");
             const activeItemId = currentItem.id;
 
             if (isOthers) {
