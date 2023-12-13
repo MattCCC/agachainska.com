@@ -71,8 +71,10 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
             <FullPageOverlay />
             <div
                 id="page-container"
-                className="relative top-overlay-enter"
-                style={{ position: "relative", transform: "translateY(0)" }}
+                style={{
+                    position: "relative",
+                    transform: "translateY(100%)",
+                }}
             >
                 <Header />
                 <Main

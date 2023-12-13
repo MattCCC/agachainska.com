@@ -9,7 +9,7 @@ const overlayAnimation = {
     animationDuration: "1s",
     animationTimingFunction: "cubic-bezier(0.43, 0.13, 0.23, 0.96)",
     animationFillMode: "forwards",
-    animationName: "enterAnimation",
+    animationName: "slideOverlaysAnimation",
     animationDelay: "0s",
 };
 
@@ -33,7 +33,7 @@ const Overlays = memo(() => {
             <TopOverlay />
 
             <div
-                className="fixed left-0 right-0 w-full h-full overlay will-change-transform"
+                className="fixed left-0 right-0 w-full h-full overlay"
                 style={{
                     backgroundColor: backgroundColors[0],
                     zIndex: 1030,
@@ -41,7 +41,7 @@ const Overlays = memo(() => {
                 }}
             />
             <div
-                className="fixed left-0 right-0 w-full h-full overlay will-change-transform"
+                className="fixed left-0 right-0 w-full h-full overlay"
                 style={{
                     backgroundColor: backgroundColors[1],
                     zIndex: 1020,
@@ -50,7 +50,7 @@ const Overlays = memo(() => {
                 }}
             />
             <div
-                className="fixed left-0 right-0 w-full h-full overlay will-change-transform"
+                className="fixed left-0 right-0 w-full h-full overlay"
                 style={{
                     backgroundColor: backgroundColors[2],
                     zIndex: 1010,

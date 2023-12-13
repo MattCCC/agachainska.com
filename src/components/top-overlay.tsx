@@ -18,25 +18,36 @@ const scrollTo = (y: number = 0) => {
     });
 };
 
-const onAnimationStart = () => {
+const onAnimationStart = (variant: string) => {
     removeLocationHash();
+    if (variant === "slideOverlaysAnimation") {
+        document
+            .getElementById("page-container")
+            ?.classList.add("top-overlay-enter");
+    }
 };
 
 const onAnimationComplete = (variant: string) => {
     if (variant === "topOverlayEnter") {
         scrollTo(1);
+        const pageContainer = document.getElementById("page-container");
+
+        if (pageContainer) {
+            pageContainer.style.transform = "";
+            pageContainer.classList.remove("top-overlay-enter");
+        }
     }
 };
 
 const TopOverlay = memo(() => {
     useEffect(() => {
-        const animationStartHandler = () => {
-            onAnimationStart();
+        const animationStartHandler = (event: AnimationEvent) => {
+            onAnimationStart(event.animationName);
         };
         const animationCompleteHandler = (event: AnimationEvent) =>
             onAnimationComplete(event.animationName);
 
-        animationStartHandler();
+        document.addEventListener("animationstart", animationStartHandler);
         document.addEventListener("animationend", animationCompleteHandler);
 
         return () => {

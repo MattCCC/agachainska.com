@@ -37,7 +37,7 @@ strong {
     font-family: "Larsseit-Bold", sans-serif;
 }
 
-@keyframes enterAnimation {
+@keyframes slideOverlaysAnimation {
     from {
         transform: translateY(100%);
     }
@@ -48,14 +48,18 @@ strong {
 
 @keyframes topOverlayEnter {
     from {
-        transform: translateY(100%);
+        transform: translateY(100%) translateZ(0);
     }
     to {
-        transform: translateY(0);
+        transform: translateY(0) translateZ(0);
     }
 }
 
 .top-overlay-enter {
-    transform: translateY(100%);
     animation: topOverlayEnter 1.3s ease forwards;
+}
+
+.overlay {
+    animation: slideOverlaysAnimation 1s cubic-bezier(0.43, 0.13, 0.23, 0.96)
+        forwards 0s;
 }
