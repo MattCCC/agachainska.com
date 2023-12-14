@@ -25,7 +25,6 @@ const IllustrationsContainer = styled.div(() => [
 const Parallax = styled.div(() => [
     tw`relative`,
     css`
-        position: relative;
         transition: transform 0.3s ease-out;
     `,
 ]);
