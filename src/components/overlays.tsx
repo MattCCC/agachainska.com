@@ -22,17 +22,6 @@ const scrollTo = (y: number = 0) => {
     });
 };
 
-const onAnimationStart = (event: AnimationEvent) => {
-    removeLocationHash();
-    if (event.animationName === "slideOverlaysAnimation") {
-        const pageContainer = document.getElementById("page-container");
-
-        if (pageContainer) {
-            pageContainer.classList.add("enter");
-        }
-    }
-};
-
 const initializeTopOverlay = (dispatch: {
     showInitialOverlayAnimation: (toggle: boolean) => void;
 }) => {
@@ -59,11 +48,22 @@ const initializeTopOverlay = (dispatch: {
         }
     };
 
-    document.addEventListener("animationstart", onAnimationStart);
+    const onAnimationStart = () => {
+        removeLocationHash();
 
-    if (pageContainer) {
-        pageContainer.addEventListener("transitionend", onTransitionComplete);
-    }
+        if (pageContainer) {
+            pageContainer.addEventListener(
+                "transitionend",
+                onTransitionComplete
+            );
+        }
+
+        if (pageContainer) {
+            pageContainer.classList.add("enter");
+        }
+    };
+
+    onAnimationStart();
 };
 
 const Overlays = memo(() => {
