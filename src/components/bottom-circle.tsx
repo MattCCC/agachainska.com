@@ -12,7 +12,7 @@ export const BottomCircleStyled = styled(Circle)(() => [
     css`
         width: 60px;
         height: 60px;
-        bottom: 33px;
+        bottom: 60px;
     `,
 ]);
 
