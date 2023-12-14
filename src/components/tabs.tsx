@@ -13,6 +13,7 @@ import tw, { css, styled } from "twin.macro";
 
 interface TabsStyled {
     hideForDesktop?: boolean;
+    isInsideContainer?: boolean;
 }
 
 interface TabStyled {
@@ -28,13 +29,17 @@ interface Props extends HTMLAttributes<HTMLElement> {
     tabs: SingleTab[];
     activeTabId?: string;
     hideForDesktop?: boolean;
+    isInsideContainer?: boolean;
     onTabChange?: (tab: SingleTab) => void;
 }
 
-const TabsWrapper = styled.nav(({ hideForDesktop = false }: TabsStyled) => [
-    tw`sticky top-0 ml-[-15px] flex items-center w-[calc(100%+30px)] h-16 mb-8 z-100 max-w-[100vw] overflow-x-auto overflow-y-hidden`,
-    hideForDesktop && tw`lg:hidden`,
-]);
+const TabsWrapper = styled.nav(
+    ({ hideForDesktop = false, isInsideContainer = true }: TabsStyled) => [
+        tw`sticky top-0 flex items-center ml-[-15px] w-[calc(100%+30px)] h-16 mb-8 z-100 max-w-[100vw] overflow-x-auto overflow-y-hidden`,
+        hideForDesktop && tw`lg:hidden`,
+        !isInsideContainer && tw`pl-[15px] max-w-[calc(100vw+15px)]`,
+    ]
+);
 
 const TabsWrapperTop = styled.div(() => [
     tw`h-[1px] after:h-16 after:content-[""]`,
@@ -86,6 +91,7 @@ export const Tabs = memo(
         activeTabId = "",
         onTabChange = (): null => null,
         hideForDesktop = false,
+        isInsideContainer = true,
     }: Props) => {
         const wrapperTopRef = useRef() as RefObject<HTMLDivElement>;
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
@@ -172,7 +178,11 @@ export const Tabs = memo(
         return (
             <>
                 <TabsWrapperTop ref={wrapperTopRef} />
-                <TabsWrapper ref={wrapperRef} hideForDesktop={hideForDesktop}>
+                <TabsWrapper
+                    ref={wrapperRef}
+                    hideForDesktop={hideForDesktop}
+                    isInsideContainer={isInsideContainer}
+                >
                     <TabsListContainer>
                         <TabsList key="tab-list">
                             {tabs.map((tab) => (

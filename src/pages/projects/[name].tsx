@@ -482,7 +482,7 @@ export default function Project({ project, projects, socialMediaData }: Props) {
 
             <Article>
                 {!!numItems && (
-                    <Fragment>
+                    <>
                         <TimelineWrapper
                             style={{
                                 marginBottom: "-" + 84.66 * numItems + "px",
@@ -501,11 +501,12 @@ export default function Project({ project, projects, socialMediaData }: Props) {
 
                         <Tabs
                             hideForDesktop={true}
+                            isInsideContainer={false}
                             onTabChange={onTimelineItemChange}
                             tabs={timelineItems}
                             activeTabId={activeItemId}
                         />
-                    </Fragment>
+                    </>
                 )}
 
                 {sections?.map((section, i) => {
