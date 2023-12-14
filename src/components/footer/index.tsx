@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -6,7 +6,7 @@ import { BackgroundNoise } from "components/background-noise";
 import { Contact } from "components/footer/contact";
 import { SocialMedia } from "components/social-media";
 import { useStoreProp } from "store/index";
-import { useScroll, useMotionValueEvent } from "framer-motion";
+import { useEventListener } from "hooks/use-event-listener";
 
 interface Props {
     showFooter: boolean;
@@ -55,11 +55,11 @@ export function Footer() {
     const [darkTheme] = useStoreProp("darkTheme");
     const [socialMediaData] = useStoreProp("socialMediaData");
     const footerElement = useRef<HTMLElement>(null);
-
-    const { scrollY } = useScroll();
     const [isVisible, setIsVisible] = useState(false);
 
-    useMotionValueEvent(scrollY, "change", (scrollPosition) => {
+    useEventListener("scroll", () => {
+        const scrollPosition = window.scrollY;
+
         const pageHeight =
             document.documentElement.scrollHeight -
             window.innerHeight -
@@ -72,7 +72,7 @@ export function Footer() {
     });
 
     return (
-        <Fragment>
+        <>
             {showFooter && (
                 <FooterWrapper
                     ref={footerElement}
@@ -123,6 +123,6 @@ export function Footer() {
                     </BottomFooter>
                 </MiniFooterWrapper>
             )}
-        </Fragment>
+        </>
     );
 }

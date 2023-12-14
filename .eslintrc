@@ -168,7 +168,6 @@
         "one-var": ["error", "never"],
         "prefer-arrow/prefer-arrow-functions": "off",
         "prefer-const": "error",
-        "quote-props": ["error", "consistent-as-needed"],
         "radix": "error",
         "space-before-function-paren": [
             "error",
