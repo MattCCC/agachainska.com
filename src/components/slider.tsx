@@ -84,14 +84,6 @@ const sliderTransition = {
     opacity: { duration: duration2 },
 };
 
-const sliderDragConstraints = { top: 0, bottom: 0 };
-
-// The less distance a user has swiped, the more velocity they need to register as a swipe
-const swipeConfidenceThreshold = 5;
-
-export const swipePower = (offset: number, velocity: number): number =>
-    Math.abs(offset) * velocity;
-
 const SliderWrapper = styled.div(() => [tw`relative h-full cursor-none`]);
 
 const Container = styled.div(() => [
@@ -248,22 +240,6 @@ export const Slider = memo(
             }
         }, [defaultSlideId, goToSlide, slideId]);
 
-        const onDragEnd = useCallback(
-            (
-                _event: MouseEvent | TouchEvent | PointerEvent,
-                { offset, velocity }: PanInfo
-            ): void => {
-                const swipe = swipePower(offset.x, velocity.x);
-
-                if (swipe < -swipeConfidenceThreshold) {
-                    goToSlide(-1);
-                } else if (swipe > swipeConfidenceThreshold) {
-                    goToSlide(1);
-                }
-            },
-            [goToSlide]
-        );
-
         const updateScroll = useCallback(
             (e: WheelEvent): void => {
                 const isUp = e.deltaY && e.deltaY < 0;
@@ -362,11 +338,6 @@ export const Slider = memo(
                                 animate="center"
                                 exit="exit"
                                 transition={sliderTransition}
-                                dragPropagation={true}
-                                drag="y"
-                                dragConstraints={sliderDragConstraints}
-                                dragElastic={1}
-                                onDragEnd={onDragEnd}
                             >
                                 <Slide>
                                     <Distortion
