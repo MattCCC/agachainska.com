@@ -72,15 +72,6 @@ const variants = {
     }),
 };
 
-const sliderTransition = {
-    top: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-    },
-    opacity: { duration },
-};
-
 const SliderWrapper = styled.div(() => [tw`relative h-full cursor-none`]);
 
 const Container = styled.div(() => [
@@ -291,7 +282,6 @@ export const Slider = memo(
                                 initial="enter"
                                 animate="center"
                                 exit="exit"
-                                transition={sliderTransition}
                             >
                                 <Slide>
                                     <Distortion
