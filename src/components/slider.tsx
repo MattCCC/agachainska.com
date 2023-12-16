@@ -47,7 +47,7 @@ enum Direction {
     Bottom = 1,
 }
 
-const duration2 = 1;
+const duration = 1;
 const height = 445;
 const initialSlideScale = 0.25;
 
@@ -63,14 +63,14 @@ const variants = {
         top: 0,
         zIndex: 1,
         transition: {
-            duration: duration2,
+            duration,
         },
     },
     exit: (direction: Direction): Record<string, any> => ({
         zIndex: 0,
         top: direction === Direction.Top ? height : -height,
         transition: {
-            duration: duration2,
+            duration,
         },
     }),
 };
@@ -81,7 +81,7 @@ const sliderTransition = {
         stiffness: 100,
         damping: 15,
     },
-    opacity: { duration: duration2 },
+    opacity: { duration },
 };
 
 const SliderWrapper = styled.div(() => [tw`relative h-full cursor-none`]);
@@ -204,8 +204,8 @@ export const Slider = memo(
                 displacementEls[1]!.scale.baseVal = v;
             };
 
-            animate(0, 100, (1000 * duration2) / 2, onUpdate, () => {
-                animate(100, 0, (1000 * duration2) / 2, onUpdate, () => null);
+            animate(0, 100, (1000 * duration) / 2, onUpdate, () => {
+                animate(100, 0, (1000 * duration) / 2, onUpdate, () => null);
             });
         }, [sliderRef]);
 
