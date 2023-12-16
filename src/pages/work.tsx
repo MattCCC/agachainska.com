@@ -444,8 +444,6 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
 
     const updateScroll = useDebouncedCallback((e: WheelEvent): void => {
         if (isSliderAnimating) {
-            e.preventDefault();
-
             return;
         }
 
@@ -456,7 +454,7 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
         } else if (isPageBottom && !isUp) {
             goTo(1);
         }
-    }, 200);
+    }, 60);
 
     useEventListener(
         "wheel",
@@ -471,7 +469,7 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
             updateScroll(e as WheelEvent);
         },
         bodyNode,
-        { passive: false }
+        { passive: true }
     );
 
     return (
