@@ -1,6 +1,5 @@
 import {
     useCallback,
-    RefObject,
     useState,
     useMemo,
     useEffect,
@@ -11,10 +10,9 @@ import {
 
 import tw, { styled } from "twin.macro";
 
-import { AnimatePresence, PanInfo, motion, wrap } from "framer-motion";
+import { AnimatePresence, motion, wrap } from "framer-motion";
 import { Distortion } from "components/distortion";
 import { MainTitleTop } from "components/main-title";
-import { useEventListener } from "hooks/use-event-listener";
 import NextIcon from "svg/down.svg";
 import PrevIcon from "svg/up.svg";
 
@@ -28,7 +26,6 @@ interface Props {
     sliderItems: SliderItem[];
     slideId: number;
     showSlideTitle?: boolean;
-    mouseScrollOnSlide?: boolean;
     setIsAnimating: (newValue: boolean) => void;
     onSliderTap?:
         | ((
@@ -120,11 +117,6 @@ const NextIconStyled = styled(NextIcon)(() => [
     tw`inline-block mr-4 text-center`,
 ]);
 
-const wheelEventOptions = { passive: false };
-
-const documentBody = (typeof document !== "undefined" &&
-    (document.body as unknown)) as RefObject<HTMLDivElement>;
-
 const animate = (
     start: number,
     end: number,
@@ -164,7 +156,6 @@ export const Slider = memo(
     ({
         sliderItems,
         slideId = -1,
-        mouseScrollOnSlide = false,
         showSlideTitle = false,
         setIsAnimating,
         onSliderTap = null,
@@ -240,21 +231,6 @@ export const Slider = memo(
             }
         }, [defaultSlideId, goToSlide, slideId]);
 
-        const updateScroll = useCallback(
-            (e: WheelEvent): void => {
-                const isUp = e.deltaY && e.deltaY < 0;
-
-                if (isUp) {
-                    goToSlide(-1);
-                } else {
-                    goToSlide(1);
-                }
-            },
-            [goToSlide]
-        );
-
-        const [isHovering, setIsHovering] = useState(false);
-
         const onHoverStart = useCallback(() => {
             if (onSliderMouseEnter) {
                 onSliderMouseEnter(true);
@@ -263,8 +239,6 @@ export const Slider = memo(
             if (onSliderMouseLeave) {
                 onSliderMouseLeave(false);
             }
-
-            setIsHovering(true);
         }, [onSliderMouseEnter, onSliderMouseLeave]);
 
         const onHoverEnd = useCallback(() => {
@@ -275,27 +249,7 @@ export const Slider = memo(
             if (onSliderMouseLeave) {
                 onSliderMouseLeave(true);
             }
-
-            setIsHovering(false);
         }, [onSliderMouseEnter, onSliderMouseLeave]);
-
-        const wheelCallback = useCallback(
-            (e: Event) => {
-                if (mouseScrollOnSlide && isHovering) {
-                    e.preventDefault();
-
-                    updateScroll(e as WheelEvent);
-                }
-            },
-            [isHovering, mouseScrollOnSlide, updateScroll]
-        );
-
-        useEventListener(
-            "wheel",
-            wheelCallback,
-            documentBody,
-            wheelEventOptions
-        );
 
         const onSlideClick = useCallback(
             (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
