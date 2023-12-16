@@ -56,7 +56,7 @@ export default function Home() {
 
     return (
         <>
-            <Meta title="Aga Chainska" />
+            <Meta title="Aga Chaińska" prefetchPage="/work" />
 
             <MainSection
                 id="main-section"
@@ -77,7 +77,9 @@ export default function Home() {
                     </div>
                 </MainContainer>
             </MainSection>
+
             <BottomCircle />
+
             <CountDown seconds={10} onFinishedCallback={onCountDownFinished} />
         </>
     );

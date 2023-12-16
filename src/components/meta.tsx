@@ -7,7 +7,7 @@ import { useSiteMetadata } from "hooks/use-site-metadata";
 interface Props {
     title?: string;
     description?: string;
-    image?: string | null;
+    prefetchPage?: string | null;
     article?: boolean;
 }
 
@@ -16,6 +16,7 @@ export const Meta = memo(
         title,
         description,
         article = false,
+        prefetchPage = null,
         children,
     }: PropsWithChildren<Props>) => {
         const {
@@ -27,8 +28,8 @@ export const Meta = memo(
         } = useSiteMetadata();
 
         const seo = {
-            title: title || defaultTitle,
-            description: description || defaultDescription,
+            title: title ?? defaultTitle,
+            description: description ?? defaultDescription,
             image: `${siteUrl}${image}`,
         };
 
@@ -68,6 +69,8 @@ export const Meta = memo(
                 )}
 
                 {seo.image && <meta name="twitter:image" content={seo.image} />}
+
+                {prefetchPage && <link rel="prefetch" href={prefetchPage} />}
 
                 {children}
             </Head>
