@@ -38,8 +38,7 @@
     "sharp": "0.33.0",
     "simplest-react-store": "^1.0.11",
     "styled-components": "5.3.11",
-    "tinacms": "1.5.28",
-    "use-debounce": "10.0.0"
+    "tinacms": "1.5.28"
   },
   "devDependencies": {
     "@babel/preset-env": "7.23.6",

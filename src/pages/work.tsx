@@ -10,7 +10,6 @@ import {
 
 import { GetStaticProps } from "next";
 import tw, { css, styled } from "twin.macro";
-import { useDebouncedCallback } from "use-debounce";
 
 import dynamic from "next/dynamic";
 
@@ -38,6 +37,7 @@ import OtherProjects from "components/other-projects";
 
 import NextIcon from "svg/down.svg";
 import PrevIcon from "svg/up.svg";
+import throttleWheelEvent from "utils/throttle-wheel-event";
 
 interface PageState {
     sliderIndex: number;
@@ -447,10 +447,16 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
         setSliderIndex(newSlideIndex);
     };
 
-    const updateScroll = useDebouncedCallback((e: WheelEvent): void => {
+    const updateScroll = (e: WheelEvent): void => {
         if (isSliderAnimating) {
             return;
         }
+
+        const isUserAtEndOfPage =
+            window.innerHeight + window.scrollY >= document.body.offsetHeight;
+
+        isPageTop = window.scrollY <= 0;
+        isPageBottom = isUserAtEndOfPage;
 
         const isUp = e.deltaY && e.deltaY < 0;
 
@@ -459,23 +465,11 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
         } else if (isPageBottom && !isUp) {
             goTo(1);
         }
-    }, 60);
+    };
 
-    useEventListener(
-        "wheel",
-        (e) => {
-            const isUserAtEndOfPage =
-                window.innerHeight + window.scrollY >=
-                document.body.offsetHeight;
-
-            isPageTop = window.scrollY <= 0;
-            isPageBottom = isUserAtEndOfPage;
-
-            updateScroll(e as WheelEvent);
-        },
-        bodyNode,
-        { passive: true }
-    );
+    useEventListener("wheel", throttleWheelEvent(updateScroll, 200), bodyNode, {
+        passive: true,
+    });
 
     return (
         <Fragment>
