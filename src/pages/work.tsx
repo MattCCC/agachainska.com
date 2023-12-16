@@ -150,6 +150,11 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
         [projects]
     );
 
+    const covers = useMemo(
+        () => Object.keys(groupBy(projects, "cover")),
+        [projects]
+    );
+
     const timelineList = useMemo(
         () =>
             categories.map((category) => {
@@ -474,7 +479,11 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
 
     return (
         <Fragment>
-            <Meta title="Work · Aga Chainska" />
+            <Meta title="Work · Aga Chainska">
+                {covers.map((cover) => (
+                    <link key={cover} rel="preload" href={cover} as="image" />
+                ))}
+            </Meta>
 
             <MotionCursor />
 
