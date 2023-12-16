@@ -6,17 +6,12 @@ import {
     useEffect,
     memo,
     PropsWithChildren,
+    useRef,
 } from "react";
 
 import tw, { styled } from "twin.macro";
 
-import {
-    AnimatePresence,
-    PanInfo,
-    motion,
-    useAnimate,
-    wrap,
-} from "framer-motion";
+import { AnimatePresence, PanInfo, motion, wrap } from "framer-motion";
 import { Distortion } from "components/distortion";
 import { MainTitleTop } from "components/main-title";
 import { useEventListener } from "hooks/use-event-listener";
@@ -38,7 +33,7 @@ interface Props {
     onSliderTap?:
         | ((
               e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
-              currentItem?: SliderItem,
+              currentItem?: SliderItem
           ) => void)
         | null;
     onSliderChange?: ((currentItem?: SliderItem) => void) | null;
@@ -52,7 +47,7 @@ enum Direction {
     Bottom = 1,
 }
 
-const duration = 1;
+const duration2 = 1;
 const height = 445;
 const initialSlideScale = 0.25;
 
@@ -68,14 +63,14 @@ const variants = {
         top: 0,
         zIndex: 1,
         transition: {
-            duration,
+            duration: duration2,
         },
     },
     exit: (direction: Direction): Record<string, any> => ({
         zIndex: 0,
         top: direction === Direction.Top ? height : -height,
         transition: {
-            duration,
+            duration: duration2,
         },
     }),
 };
@@ -86,7 +81,7 @@ const sliderTransition = {
         stiffness: 100,
         damping: 15,
     },
-    opacity: { duration },
+    opacity: { duration: duration2 },
 };
 
 const sliderDragConstraints = { top: 0, bottom: 0 };
@@ -110,10 +105,6 @@ const SliderContent = styled.div(() => [
 const Title = styled(MainTitleTop)(() => [
     tw`absolute z-30 uppercase select-none bg-slider-title-gradient cursor-none`,
     tw`text-[120px] leading-[130px] top-[-4.35rem]`,
-]);
-
-const SlidesList = styled(motion.div)(() => [
-    tw`absolute w-full max-w-full h-[25.8125rem]`,
 ]);
 
 const Slide = styled.div(() => [
@@ -142,6 +133,41 @@ const wheelEventOptions = { passive: false };
 const documentBody = (typeof document !== "undefined" &&
     (document.body as unknown)) as RefObject<HTMLDivElement>;
 
+const animate = (
+    start: number,
+    end: number,
+    animationDuration: number,
+    onUpdate: (value: number) => void,
+    onComplete: () => void
+): void => {
+    const startTime = performance.now();
+
+    const update = (): void => {
+        const currentTime = performance.now();
+        const progress = Math.min(
+            1,
+            (currentTime - startTime) / animationDuration
+        );
+
+        const easedProgress = defaultEase(progress);
+        const animatedValue = start + (end - start) * easedProgress;
+
+        onUpdate(animatedValue);
+
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        } else {
+            onComplete();
+        }
+    };
+
+    update();
+};
+
+function defaultEase(t: number): number {
+    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+}
+
 export const Slider = memo(
     ({
         sliderItems,
@@ -163,15 +189,15 @@ export const Slider = memo(
         // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
         const sliderIndex = useMemo(
             () => wrap(0, numItems, slide),
-            [numItems, slide],
+            [numItems, slide]
         );
 
-        const [sliderRef, animate] = useAnimate();
+        const sliderRef = useRef<HTMLDivElement>(null);
 
         // Orchestrate distortion animation
         const orchestrateVectorAnimation = useCallback(() => {
-            const displacementEls = sliderRef.current.querySelectorAll(
-                "feDisplacementMap",
+            const displacementEls = sliderRef?.current?.querySelectorAll(
+                "feDisplacementMap"
             ) as NodeListOf<SVGFEDisplacementMapElement>;
 
             // There should be exactly 2 elements. Added and removed one
@@ -179,16 +205,17 @@ export const Slider = memo(
                 return;
             }
 
-            animate(0, [0, 100, 0], {
-                duration,
-                onUpdate: (v) => {
-                    if (displacementEls[0] && displacementEls[1]) {
-                        displacementEls[0].scale.baseVal = v;
-                        displacementEls[1].scale.baseVal = v;
-                    }
-                },
+            const onUpdate = (v: number) => {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                displacementEls[0]!.scale.baseVal = v;
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                displacementEls[1]!.scale.baseVal = v;
+            };
+
+            animate(0, 100, (1000 * duration2) / 2, onUpdate, () => {
+                animate(100, 0, (1000 * duration2) / 2, onUpdate, () => null);
             });
-        }, [animate, sliderRef]);
+        }, [sliderRef]);
 
         const goToSlide = useCallback(
             (newDirection: Direction, newSlide: number | null = null): void => {
@@ -203,7 +230,7 @@ export const Slider = memo(
                     onSliderChange(sliderItems[currentSliderItem]);
                 }
             },
-            [slide, setIsAnimating, numItems, onSliderChange, sliderItems],
+            [slide, setIsAnimating, numItems, onSliderChange, sliderItems]
         );
 
         // Orchestrate animation on the next render
@@ -224,7 +251,7 @@ export const Slider = memo(
         const onDragEnd = useCallback(
             (
                 _event: MouseEvent | TouchEvent | PointerEvent,
-                { offset, velocity }: PanInfo,
+                { offset, velocity }: PanInfo
             ): void => {
                 const swipe = swipePower(offset.x, velocity.x);
 
@@ -234,7 +261,7 @@ export const Slider = memo(
                     goToSlide(1);
                 }
             },
-            [goToSlide],
+            [goToSlide]
         );
 
         const updateScroll = useCallback(
@@ -247,7 +274,7 @@ export const Slider = memo(
                     goToSlide(1);
                 }
             },
-            [goToSlide],
+            [goToSlide]
         );
 
         const [isHovering, setIsHovering] = useState(false);
@@ -284,14 +311,14 @@ export const Slider = memo(
                     updateScroll(e as WheelEvent);
                 }
             },
-            [isHovering, mouseScrollOnSlide, updateScroll],
+            [isHovering, mouseScrollOnSlide, updateScroll]
         );
 
         useEventListener(
             "wheel",
             wheelCallback,
             documentBody,
-            wheelEventOptions,
+            wheelEventOptions
         );
 
         const onSlideClick = useCallback(
@@ -300,7 +327,7 @@ export const Slider = memo(
                     onSliderTap(e, sliderItems[sliderIndex]);
                 }
             },
-            [onSliderTap, sliderIndex, sliderItems],
+            [onSliderTap, sliderIndex, sliderItems]
         );
 
         const handleExitComplete = useCallback((): void => {
@@ -315,48 +342,45 @@ export const Slider = memo(
                     onClick={onSlideClick}
                 >
                     {children}
-                    <motion.div>
-                        {showSlideTitle && (
-                            <Title
-                                data-text={sliderItems[sliderIndex]?.name ?? ""}
-                            >
-                                {sliderItems[sliderIndex]?.name ?? ""}
-                            </Title>
-                        )}
-                        <SliderContent>
-                            <AnimatePresence
+                    {showSlideTitle && (
+                        <Title data-text={sliderItems[sliderIndex]?.name ?? ""}>
+                            {sliderItems[sliderIndex]?.name ?? ""}
+                        </Title>
+                    )}
+                    <SliderContent>
+                        <AnimatePresence
+                            custom={direction}
+                            initial={false}
+                            onExitComplete={handleExitComplete}
+                        >
+                            <motion.div
+                                key={slide}
+                                className="absolute w-full max-w-full h-[25.8125rem]"
                                 custom={direction}
-                                initial={false}
-                                onExitComplete={handleExitComplete}
+                                variants={variants}
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                transition={sliderTransition}
+                                dragPropagation={true}
+                                drag="y"
+                                dragConstraints={sliderDragConstraints}
+                                dragElastic={1}
+                                onDragEnd={onDragEnd}
                             >
-                                <SlidesList
-                                    key={slide}
-                                    custom={direction}
-                                    variants={variants}
-                                    initial="enter"
-                                    animate="center"
-                                    exit="exit"
-                                    transition={sliderTransition}
-                                    dragPropagation={true}
-                                    drag="y"
-                                    dragConstraints={sliderDragConstraints}
-                                    dragElastic={1}
-                                    onDragEnd={onDragEnd}
-                                >
-                                    <Slide>
-                                        <Distortion
-                                            id={String(slide)}
-                                            imgUrl={
-                                                sliderItems[sliderIndex]
-                                                    ?.cover ?? ""
-                                            }
-                                            key={`slide-${slide}`}
-                                        />
-                                    </Slide>
-                                </SlidesList>
-                            </AnimatePresence>
-                        </SliderContent>
-                    </motion.div>
+                                <Slide>
+                                    <Distortion
+                                        id={String(slide)}
+                                        imgUrl={
+                                            sliderItems[sliderIndex]?.cover ??
+                                            ""
+                                        }
+                                        key={`slide-${slide}`}
+                                    />
+                                </Slide>
+                            </motion.div>
+                        </AnimatePresence>
+                    </SliderContent>
                 </Container>
                 <Controls>
                     {slide < numItems - 1 && (
@@ -372,5 +396,5 @@ export const Slider = memo(
                 </Controls>
             </SliderWrapper>
         );
-    },
+    }
 );
