@@ -82,10 +82,10 @@ const routesList: RoutesList = {
         path: "/work",
         meta: {
             store: {
+                showFooter: false,
                 isMotionCursorVisible: false,
                 showMotionGrid: false,
                 showPageWhiteGradient: false,
-                showFooter: false,
             },
         },
     },

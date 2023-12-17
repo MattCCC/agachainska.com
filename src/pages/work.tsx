@@ -69,9 +69,7 @@ interface SliderWrapperProps {
 }
 
 const ContentContainer = styled.section(() => [
-    tw`relative grid mb-20 lg:mb-0 lg:grid-flow-col`,
-    tw`lg:mt-[110px]`,
-    tw`col-start-1 col-end-13 lg:col-start-2 lg:grid-cols-5`,
+    tw`mb-20 lg:grid lg:mb-0 lg:grid-flow-col lg:col-start-2 lg:col-end-13 lg:grid-cols-5 lg:mt-[110px]`,
 ]);
 
 const SlideWrapper = styled.div(
@@ -145,7 +143,9 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
         setWindowWidth(isSmallWidth);
 
         if (isSmallWidth) {
-            dispatch.showFooter(true);
+            setTimeout(() => {
+                dispatch.showFooter(true);
+            }, 0);
         }
     }, [dispatch, windowSize]);
 
@@ -359,6 +359,7 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
             }
 
             const isOthers = currentItem.id.startsWith("others");
+
             const activeItemId = currentItem.id;
 
             if (isOthers) {
@@ -459,7 +460,7 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
     };
 
     const updateScroll = (e: WheelEvent): void => {
-        if (isSliderAnimating) {
+        if (isSliderAnimating || hasSmallWindowWidth) {
             return;
         }
 
