@@ -138,8 +138,8 @@ export const Slider = memo(
     }: PropsWithChildren<Props>) => {
         const [defaultSlideId, setDefaultSlideId] = useState(0);
         const [[currentSlideId, previousSlideId], setSlide] = useState<
-            [null | number, number, number]
-        >([null, 0, 0]);
+            [null | number, null | number, number]
+        >([null, null, 0]);
         const numItems = useMemo(() => sliderItems.length, [sliderItems]);
 
         const currentId = currentSlideId || 0;
@@ -163,13 +163,14 @@ export const Slider = memo(
                 `displacement-${currentId}`
             ) as SVGFEDisplacementMapElement | null;
 
-            if (!previousSlide || !newSlide) {
-                return;
-            }
-
             const onUpdate = (v: number) => {
-                previousSlide.scale.baseVal = v;
-                newSlide.scale.baseVal = v;
+                if (previousSlide) {
+                    previousSlide.scale.baseVal = v;
+                }
+
+                if (newSlide) {
+                    newSlide.scale.baseVal = v;
+                }
             };
 
             animate(0, 100, (1000 * duration) / 2, onUpdate, () => {
@@ -200,12 +201,10 @@ export const Slider = memo(
 
         // Orchestrate animation on the next render
         useEffect(() => {
-            if (currentSlideId !== null) {
-                setTimeout(() => {
-                    orchestrateVectorAnimation();
-                }, 100);
+            if (currentSlideId !== null && currentSlideId !== previousSlideId) {
+                orchestrateVectorAnimation();
             }
-        }, [orchestrateVectorAnimation, currentSlideId]);
+        }, [orchestrateVectorAnimation, previousSlideId, currentSlideId]);
 
         // Animate to a specific slide when slide is changed in HOC
         useEffect(() => {
