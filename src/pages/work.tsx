@@ -38,6 +38,7 @@ import OtherProjects from "components/other-projects";
 import NextIcon from "svg/down.svg";
 import PrevIcon from "svg/up.svg";
 import throttleWheelEvent from "utils/throttle-wheel-event";
+import { convertTinaUrl } from "utils/convert-tina-url";
 
 interface PageState {
     sliderIndex: number;
@@ -643,7 +644,10 @@ export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => {
 
     return {
         props: {
-            projects,
+            projects: projects.map((project) => ({
+                ...project,
+                cover: convertTinaUrl(project?.cover ?? ""),
+            })),
             socialMediaData,
         },
     };

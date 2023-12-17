@@ -245,11 +245,10 @@ const Timeline = memo(
                                 <ListItem
                                     key={`${section.id}-${item.id}`}
                                     className={
-                                        "opacity-30" +
-                                        (section.id === state.activeSectionId &&
+                                        section.id === state.activeSectionId &&
                                         item.id === state.activeItemId
-                                            ? "opacity-100"
-                                            : "")
+                                            ? ""
+                                            : "opacity-30"
                                     }
                                     onClick={() => onTimelineItemClick(item)}
                                 >

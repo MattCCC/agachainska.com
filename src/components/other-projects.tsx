@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import tw, { css, styled } from "twin.macro";
 import { Project } from "types/project";
@@ -46,7 +46,7 @@ export default function OtherProjects({
 }: Readonly<Props>) {
     const container = useRef<HTMLDivElement>(null);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (!animate) {
             return;
         }
