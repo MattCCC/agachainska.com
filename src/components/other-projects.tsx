@@ -24,7 +24,7 @@ const OtherProjectsContainer = styled.div(() => [
         &.initial {
             transition:
                 opacity 0.6s ease,
-                transform 0.15s cubic-bezier(0.43, 0.13, 0.23, 0.96);
+                transform 0.3s cubic-bezier(0.43, 0.13, 0.23, 0.96);
             transform: translateY(1000px);
         }
 
@@ -60,7 +60,7 @@ export default function OtherProjects({
 
             setTimeout(() => {
                 document.body.classList.remove("overflow-hidden");
-            }, 160);
+            }, 300);
         }, 100);
     }, [animate]);
 
