@@ -10,7 +10,7 @@ import {
 
 import tw, { styled } from "twin.macro";
 
-import { AnimatePresence, motion, wrap } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Distortion } from "components/distortion";
 import { MainTitleTop } from "components/main-title";
 import NextIcon from "svg/down.svg";
@@ -51,13 +51,13 @@ const initialSlideScale = 0.25;
 const variants = {
     enter: (direction: Direction): Record<string, any> => ({
         zIndex: 1,
-        top:
+        y:
             direction === Direction.Bottom
                 ? height + height * initialSlideScale
                 : -height - height * initialSlideScale,
     }),
     center: {
-        top: 0,
+        y: 0,
         zIndex: 1,
         transition: {
             duration,
@@ -65,7 +65,7 @@ const variants = {
     },
     exit: (direction: Direction): Record<string, any> => ({
         zIndex: 0,
-        top: direction === Direction.Top ? height : -height,
+        y: direction === Direction.Top ? height : -height,
         transition: {
             duration,
         },
@@ -143,6 +143,10 @@ function defaultEase(t: number): number {
     return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 }
 
+function wrap(numItems: number, slide: number) {
+    return ((slide % numItems) + numItems) % numItems;
+}
+
 export const Slider = memo(
     ({
         sliderItems,
@@ -162,7 +166,7 @@ export const Slider = memo(
         // By passing an absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
         // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
         const sliderIndex = useMemo(
-            () => wrap(0, numItems, slide),
+            () => wrap(numItems, slide),
             [numItems, slide]
         );
 
@@ -198,7 +202,7 @@ export const Slider = memo(
                 setIsAnimating(true);
                 setSlide([newSlideNo, newDirection]);
 
-                const currentSliderItem = wrap(0, numItems, newSlideNo);
+                const currentSliderItem = wrap(numItems, newSlideNo);
 
                 if (onSliderChange) {
                     onSliderChange(sliderItems[currentSliderItem]);
