@@ -51,10 +51,16 @@ export default function OtherProjects({
             return;
         }
 
+        document.body.classList.add("overflow-hidden");
+
         setTimeout(() => {
             if (container.current) {
                 container.current.classList.add("enter");
             }
+
+            setTimeout(() => {
+                document.body.classList.remove("overflow-hidden");
+            }, 160);
         }, 100);
     }, [animate]);
 

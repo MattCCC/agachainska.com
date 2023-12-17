@@ -69,9 +69,9 @@ interface SliderWrapperProps {
 }
 
 const ContentContainer = styled.section(() => [
-    tw`relative col-start-1 col-end-13 mb-20 lg:mb-0 lg:grid lg:items-center lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col`,
+    tw`relative grid mb-20 lg:mb-0 lg:grid-flow-col`,
     tw`lg:mt-[110px]`,
-    tw`col-start-1 col-end-13 lg:col-start-2 lg:grid-cols-5 lg:gap-y-7 lg:grid-flow-col`,
+    tw`col-start-1 col-end-13 lg:col-start-2 lg:grid-cols-5`,
 ]);
 
 const SlideWrapper = styled.div(
@@ -129,21 +129,25 @@ const bodyNode = (typeof document !== "undefined" &&
 const Work = memo(({ projects, socialMediaData }: Props) => {
     const windowSize = useWindowSize();
     const [hasSmallWindowWidth, setWindowWidth] = useState(false);
-
-    useEffect(() => {
-        setWindowWidth(windowSize.width < 1024);
-    }, [windowSize]);
-
     const [, dispatchSocialMediaData] = useStoreProp("socialMediaData");
+    const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
+    const [isSliderAnimating, setIsSliderAnimating] = useState(false);
+    const [, dispatch] = useStoreProp("showMotionGrid");
+    const [, dispatchBgColor] = useStoreProp("workPageBackgroundColor");
 
     useEffect(() => {
         dispatchSocialMediaData.setSocialMediaData(socialMediaData.socialMedia);
     }, [dispatchSocialMediaData, socialMediaData.socialMedia]);
 
-    const [isShowingOtherProjects, setIsShowingOtherProjects] = useState(false);
-    const [isSliderAnimating, setIsSliderAnimating] = useState(false);
-    const [, dispatch] = useStoreProp("showMotionGrid");
-    const [, dispatchBgColor] = useStoreProp("workPageBackgroundColor");
+    useEffect(() => {
+        const isSmallWidth = windowSize.width < 1024;
+
+        setWindowWidth(isSmallWidth);
+
+        if (isSmallWidth) {
+            dispatch.showFooter(true);
+        }
+    }, [dispatch, windowSize]);
 
     const categories = useMemo(
         () => Object.keys(groupBy(projects, "category")) as ProjectCategory[],
@@ -376,13 +380,22 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
                 }
             }
 
-            const newSliderIndex = sliderItems.findIndex(
+            const newSlideIndex = sliderItems.findIndex(
                 (sliderItem: SliderItem) => sliderItem.id === activeItemId
             );
 
-            setSliderIndex(newSliderIndex);
+            setSliderIndex(newSlideIndex);
 
-            dispatch.showFooter(newSliderIndex === sliderItems.length - 1);
+            const isLastSlide = newSlideIndex === sliderItems.length - 1;
+
+            if (isLastSlide) {
+                // Make sure that the footer is shown after the animation is finished
+                setTimeout(() => {
+                    dispatch.showFooter(isLastSlide);
+                }, 900);
+            } else {
+                dispatch.showFooter(isLastSlide);
+            }
 
             const project = isOthers
                 ? projects.find(
@@ -441,8 +454,6 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
             setIsShowingOtherProjects(false);
             window.scrollTo(0, 0);
         }
-
-        dispatch.showFooter(newSlideIndex === sliderItems.length - 1);
 
         setSliderIndex(newSlideIndex);
     };
