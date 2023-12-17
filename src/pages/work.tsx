@@ -480,7 +480,7 @@ const Work = memo(({ projects, socialMediaData }: Props) => {
         }
     };
 
-    useEventListener("wheel", throttleWheelEvent(updateScroll, 200), bodyNode, {
+    useEventListener("wheel", throttleWheelEvent(updateScroll, 16), bodyNode, {
         passive: true,
     });
 
