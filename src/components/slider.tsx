@@ -37,6 +37,7 @@ interface Props {
     onSliderChange?: ((currentItem?: SliderItem) => void) | null;
     onSliderMouseEnter?: ((mouseLeft: boolean) => void) | null;
     onSliderMouseLeave?: ((mouseLeft: boolean) => void) | null;
+    className?: string;
 }
 
 // eslint-disable-next-line no-shadow
@@ -132,6 +133,7 @@ export const Slider = memo(
         onSliderChange = null,
         onSliderMouseEnter = null,
         onSliderMouseLeave = null,
+        className = "",
         children,
     }: PropsWithChildren<Props>) => {
         const [defaultSlideId, setDefaultSlideId] = useState(0);
@@ -243,7 +245,7 @@ export const Slider = memo(
         );
 
         return (
-            <SliderWrapper ref={sliderRef}>
+            <SliderWrapper ref={sliderRef} className={className}>
                 <Container
                     onMouseEnter={onHoverStart}
                     onMouseLeave={onHoverEnd}

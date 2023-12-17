@@ -16,6 +16,8 @@ interface Props {
     otherProjects: OtherProjectProp[];
     lastProjectNumber: number;
     animate?: boolean;
+    className?: string;
+    onComplete?: () => void;
 }
 
 const OtherProjectsContainer = styled.div(() => [
@@ -42,7 +44,9 @@ const OtherProjectsContainer = styled.div(() => [
 export default function OtherProjects({
     otherProjects,
     lastProjectNumber,
+    className = "",
     animate = false,
+    onComplete = () => null,
 }: Readonly<Props>) {
     const container = useRef<HTMLDivElement>(null);
 
@@ -52,6 +56,9 @@ export default function OtherProjects({
         }
 
         document.body.classList.add("overflow-hidden");
+        if (container.current) {
+            container.current.classList.add("initial");
+        }
 
         setTimeout(() => {
             if (container.current) {
@@ -60,15 +67,15 @@ export default function OtherProjects({
 
             setTimeout(() => {
                 document.body.classList.remove("overflow-hidden");
+                if (typeof onComplete === "function") {
+                    onComplete();
+                }
             }, 300);
         }, 100);
-    }, [animate]);
+    }, [animate, onComplete]);
 
     return (
-        <OtherProjectsContainer
-            ref={container}
-            className={animate ? "initial" : ""}
-        >
+        <OtherProjectsContainer ref={container} className={className}>
             {otherProjects &&
                 otherProjects.length > 0 &&
                 otherProjects[0]?.projects?.map(
