@@ -46,6 +46,7 @@ const routesList: RoutesList = {
         path: "/contact",
         meta: {
             store: {
+                isMotionCursorVisible: false,
                 showMotionGrid: false,
                 showFooter: false,
                 showPageWhiteGradient: false,
@@ -70,6 +71,7 @@ const routesList: RoutesList = {
         path: "/about",
         meta: {
             store: {
+                isMotionCursorVisible: false,
                 showMotionGrid: false,
                 showWavePattern: false,
             },
@@ -80,9 +82,10 @@ const routesList: RoutesList = {
         path: "/work",
         meta: {
             store: {
+                showFooter: false,
+                isMotionCursorVisible: false,
                 showMotionGrid: false,
                 showPageWhiteGradient: false,
-                showFooter: false,
             },
         },
     },
@@ -92,6 +95,7 @@ const routesList: RoutesList = {
         pattern: "/projects/.*?/?$",
         meta: {
             store: {
+                isMotionCursorVisible: false,
                 showMotionGrid: false,
                 showPageWhiteGradient: false,
                 showWavePattern: false,

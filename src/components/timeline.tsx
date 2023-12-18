@@ -83,6 +83,7 @@ const Timeline = memo(
         style = undefined,
     }: Props) => {
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
+        const timelineListRef = useRef() as RefObject<HTMLDivElement>;
         const sectionTitleRef = useRef() as RefObject<HTMLDivElement>;
 
         const { height: wrapperHeight } = useElementSize(wrapperRef);
@@ -117,7 +118,14 @@ const Timeline = memo(
         const [state, setState] = useState({
             activeSectionId: activeSectionId || availableSections[0]?.id || "",
             activeItemId: activeItemId || allItems[0]?.id || "",
+            disabledTransitionClass: "",
         });
+
+        useEffect(() => {
+            setTimeout(() => {
+                timelineListRef?.current?.classList.remove("!transition-none");
+            }, 60);
+        }, []);
 
         useEffect(() => {
             setState((prevState) => {
@@ -193,7 +201,9 @@ const Timeline = memo(
                         >
                             {section.title}
                         </Title>
+
                         <TimelineList
+                            ref={timelineListRef}
                             key={`timeline-${section.id}-list`}
                             style={{
                                 opacity:
@@ -205,6 +215,7 @@ const Timeline = memo(
                                         ? contentListHeight
                                         : 0,
                             }}
+                            className="!transition-none"
                         >
                             <Pin
                                 style={
@@ -234,16 +245,12 @@ const Timeline = memo(
                                 <ListItem
                                     key={`${section.id}-${item.id}`}
                                     className={
-                                        "opacity-30" +
-                                        (section.id === state.activeSectionId &&
+                                        section.id === state.activeSectionId &&
                                         item.id === state.activeItemId
-                                            ? "opacity-100"
-                                            : "")
+                                            ? ""
+                                            : "opacity-30"
                                     }
-                                    onClick={onTimelineItemClick.bind(
-                                        null,
-                                        item
-                                    )}
+                                    onClick={() => onTimelineItemClick(item)}
                                 >
                                     {item.title}
                                 </ListItem>

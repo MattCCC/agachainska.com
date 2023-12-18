@@ -23,7 +23,7 @@ export const Distortion = memo(
         useEffect(() => {
             (async () => {
                 cachedImgData.current = await fetchCachedImage(
-                    convertTinaUrl(imgUrl),
+                    convertTinaUrl(imgUrl)
                 );
 
                 setIsImgCached(true);
@@ -51,6 +51,7 @@ export const Distortion = memo(
                             result="noise"
                         />
                         <feDisplacementMap
+                            id={`displacement-${id}`}
                             in="SourceGraphic"
                             in2="noise"
                             scale={scale}
@@ -76,5 +77,5 @@ export const Distortion = memo(
                 </g>
             </svg>
         );
-    },
+    }
 );

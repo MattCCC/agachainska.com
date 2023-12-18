@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import tw, { css, styled } from "twin.macro";
 import { Project } from "types/project";
@@ -16,6 +16,8 @@ interface Props {
     otherProjects: OtherProjectProp[];
     lastProjectNumber: number;
     animate?: boolean;
+    className?: string;
+    onComplete?: () => void;
 }
 
 const OtherProjectsContainer = styled.div(() => [
@@ -24,7 +26,7 @@ const OtherProjectsContainer = styled.div(() => [
         &.initial {
             transition:
                 opacity 0.6s ease,
-                transform 0.15s cubic-bezier(0.43, 0.13, 0.23, 0.96);
+                transform 0.3s cubic-bezier(0.43, 0.13, 0.23, 0.96);
             transform: translateY(1000px);
         }
 
@@ -42,27 +44,38 @@ const OtherProjectsContainer = styled.div(() => [
 export default function OtherProjects({
     otherProjects,
     lastProjectNumber,
+    className = "",
     animate = false,
+    onComplete = () => null,
 }: Readonly<Props>) {
     const container = useRef<HTMLDivElement>(null);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (!animate) {
             return;
+        }
+
+        document.body.classList.add("overflow-hidden");
+        if (container.current) {
+            container.current.classList.add("initial");
         }
 
         setTimeout(() => {
             if (container.current) {
                 container.current.classList.add("enter");
             }
+
+            setTimeout(() => {
+                document.body.classList.remove("overflow-hidden");
+                if (typeof onComplete === "function") {
+                    onComplete();
+                }
+            }, 300);
         }, 100);
-    }, [animate]);
+    }, [animate, onComplete]);
 
     return (
-        <OtherProjectsContainer
-            ref={container}
-            className={animate ? "initial" : ""}
-        >
+        <OtherProjectsContainer ref={container} className={className}>
             {otherProjects &&
                 otherProjects.length > 0 &&
                 otherProjects[0]?.projects?.map(

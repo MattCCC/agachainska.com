@@ -1,25 +1,19 @@
 import {
     useCallback,
-    RefObject,
     useState,
     useMemo,
     useEffect,
     memo,
     PropsWithChildren,
+    useRef,
+    Fragment,
+    CSSProperties,
 } from "react";
 
 import tw, { styled } from "twin.macro";
 
-import {
-    AnimatePresence,
-    PanInfo,
-    motion,
-    useAnimate,
-    wrap,
-} from "framer-motion";
 import { Distortion } from "components/distortion";
 import { MainTitleTop } from "components/main-title";
-import { useEventListener } from "hooks/use-event-listener";
 import NextIcon from "svg/down.svg";
 import PrevIcon from "svg/up.svg";
 
@@ -33,17 +27,17 @@ interface Props {
     sliderItems: SliderItem[];
     slideId: number;
     showSlideTitle?: boolean;
-    mouseScrollOnSlide?: boolean;
     setIsAnimating: (newValue: boolean) => void;
     onSliderTap?:
         | ((
               e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
-              currentItem?: SliderItem,
+              currentItem?: SliderItem
           ) => void)
         | null;
     onSliderChange?: ((currentItem?: SliderItem) => void) | null;
     onSliderMouseEnter?: ((mouseLeft: boolean) => void) | null;
     onSliderMouseLeave?: ((mouseLeft: boolean) => void) | null;
+    className?: string;
 }
 
 // eslint-disable-next-line no-shadow
@@ -52,50 +46,7 @@ enum Direction {
     Bottom = 1,
 }
 
-const duration = 1;
-const height = 445;
-const initialSlideScale = 0.25;
-
-const variants = {
-    enter: (direction: Direction): Record<string, any> => ({
-        zIndex: 1,
-        top:
-            direction === Direction.Bottom
-                ? height + height * initialSlideScale
-                : -height - height * initialSlideScale,
-    }),
-    center: {
-        top: 0,
-        zIndex: 1,
-        transition: {
-            duration,
-        },
-    },
-    exit: (direction: Direction): Record<string, any> => ({
-        zIndex: 0,
-        top: direction === Direction.Top ? height : -height,
-        transition: {
-            duration,
-        },
-    }),
-};
-
-const sliderTransition = {
-    top: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-    },
-    opacity: { duration },
-};
-
-const sliderDragConstraints = { top: 0, bottom: 0 };
-
-// The less distance a user has swiped, the more velocity they need to register as a swipe
-const swipeConfidenceThreshold = 5;
-
-export const swipePower = (offset: number, velocity: number): number =>
-    Math.abs(offset) * velocity;
+const duration = 0.8;
 
 const SliderWrapper = styled.div(() => [tw`relative h-full cursor-none`]);
 
@@ -112,13 +63,9 @@ const Title = styled(MainTitleTop)(() => [
     tw`text-[120px] leading-[130px] top-[-4.35rem]`,
 ]);
 
-const SlidesList = styled(motion.div)(() => [
-    tw`absolute w-full max-w-full h-[25.8125rem]`,
-]);
-
 const Slide = styled.div(() => [
-    tw`relative z-10 w-full h-full cursor-pointer`,
-    tw`[transform:scale(var(--scale-value))] transition-transform duration-800`,
+    tw`absolute z-10 w-full h-[25.8125rem] max-w-full cursor-pointer`,
+    tw`[transform:translateY(calc(var(--translate-value) * var(--scale-value))) scale(var(--scale-value))] transition-transform duration-800 delay-[var(--delay)]`,
 ]);
 
 export const Controls = styled.div(() => [
@@ -137,81 +84,127 @@ const NextIconStyled = styled(NextIcon)(() => [
     tw`inline-block mr-4 text-center`,
 ]);
 
-const wheelEventOptions = { passive: false };
+const animate = (
+    start: number,
+    end: number,
+    animationDuration: number,
+    onUpdate: (value: number) => void,
+    onComplete: () => void
+): void => {
+    const startTime = performance.now();
 
-const documentBody = (typeof document !== "undefined" &&
-    (document.body as unknown)) as RefObject<HTMLDivElement>;
+    const update = (): void => {
+        const currentTime = performance.now();
+        const progress = Math.min(
+            1,
+            (currentTime - startTime) / animationDuration
+        );
+
+        const easedProgress = defaultEase(progress);
+        const animatedValue = start + (end - start) * easedProgress;
+
+        onUpdate(animatedValue);
+
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        } else {
+            onComplete();
+        }
+    };
+
+    update();
+};
+
+function defaultEase(t: number): number {
+    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+}
+
+function wrap(numItems: number, slide: number) {
+    return ((slide % numItems) + numItems) % numItems;
+}
 
 export const Slider = memo(
     ({
         sliderItems,
         slideId = -1,
-        mouseScrollOnSlide = false,
         showSlideTitle = false,
         setIsAnimating,
         onSliderTap = null,
         onSliderChange = null,
         onSliderMouseEnter = null,
         onSliderMouseLeave = null,
+        className = "",
         children,
     }: PropsWithChildren<Props>) => {
         const [defaultSlideId, setDefaultSlideId] = useState(0);
-        const [[slide, direction], setSlide] = useState([0, 0]);
+        const [[currentSlideId, previousSlideId], setSlide] = useState<
+            [null | number, null | number, number]
+        >([null, null, 0]);
         const numItems = useMemo(() => sliderItems.length, [sliderItems]);
+
+        const currentId = currentSlideId || 0;
 
         // By passing an absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
         // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
         const sliderIndex = useMemo(
-            () => wrap(0, numItems, slide),
-            [numItems, slide],
+            () => wrap(numItems, currentId),
+            [numItems, currentId]
         );
 
-        const [sliderRef, animate] = useAnimate();
+        const sliderRef = useRef<HTMLDivElement>(null);
 
         // Orchestrate distortion animation
         const orchestrateVectorAnimation = useCallback(() => {
-            const displacementEls = sliderRef.current.querySelectorAll(
-                "feDisplacementMap",
-            ) as NodeListOf<SVGFEDisplacementMapElement>;
+            // There should be exactly 2 elements. One added and one being removed
+            const previousSlide = document.getElementById(
+                `displacement-${previousSlideId}`
+            ) as SVGFEDisplacementMapElement | null;
+            const newSlide = document.getElementById(
+                `displacement-${currentId}`
+            ) as SVGFEDisplacementMapElement | null;
 
-            // There should be exactly 2 elements. Added and removed one
-            if (displacementEls.length < 2) {
-                return;
-            }
+            const onUpdate = (v: number) => {
+                if (previousSlide) {
+                    previousSlide.scale.baseVal = v;
+                }
 
-            animate(0, [0, 100, 0], {
-                duration,
-                onUpdate: (v) => {
-                    if (displacementEls[0] && displacementEls[1]) {
-                        displacementEls[0].scale.baseVal = v;
-                        displacementEls[1].scale.baseVal = v;
-                    }
-                },
+                if (newSlide) {
+                    newSlide.scale.baseVal = v;
+                }
+            };
+
+            animate(0, 100, (1000 * duration) / 2, onUpdate, () => {
+                animate(100, 0, (1000 * duration) / 2, onUpdate, () => {
+                    setIsAnimating(false);
+                });
             });
-        }, [animate, sliderRef]);
+        }, [previousSlideId, currentId, setIsAnimating]);
 
         const goToSlide = useCallback(
-            (newDirection: Direction, newSlide: number | null = null): void => {
-                const newSlideNo = newSlide ?? slide + newDirection;
+            (
+                newDirection: Direction,
+                newSlideId: number | null = null
+            ): void => {
+                const newSlideNo = newSlideId ?? currentId + newDirection;
 
                 setIsAnimating(true);
-                setSlide([newSlideNo, newDirection]);
+                setSlide([newSlideNo, currentId, newDirection]);
 
-                const currentSliderItem = wrap(0, numItems, newSlideNo);
+                const currentSliderItem = wrap(numItems, newSlideNo);
 
                 if (onSliderChange) {
                     onSliderChange(sliderItems[currentSliderItem]);
                 }
             },
-            [slide, setIsAnimating, numItems, onSliderChange, sliderItems],
+            [currentId, setIsAnimating, numItems, onSliderChange, sliderItems]
         );
 
         // Orchestrate animation on the next render
         useEffect(() => {
-            if (slide !== null) {
+            if (currentSlideId !== null && currentSlideId !== previousSlideId) {
                 orchestrateVectorAnimation();
             }
-        }, [orchestrateVectorAnimation, slide]);
+        }, [orchestrateVectorAnimation, previousSlideId, currentSlideId]);
 
         // Animate to a specific slide when slide is changed in HOC
         useEffect(() => {
@@ -221,37 +214,6 @@ export const Slider = memo(
             }
         }, [defaultSlideId, goToSlide, slideId]);
 
-        const onDragEnd = useCallback(
-            (
-                _event: MouseEvent | TouchEvent | PointerEvent,
-                { offset, velocity }: PanInfo,
-            ): void => {
-                const swipe = swipePower(offset.x, velocity.x);
-
-                if (swipe < -swipeConfidenceThreshold) {
-                    goToSlide(-1);
-                } else if (swipe > swipeConfidenceThreshold) {
-                    goToSlide(1);
-                }
-            },
-            [goToSlide],
-        );
-
-        const updateScroll = useCallback(
-            (e: WheelEvent): void => {
-                const isUp = e.deltaY && e.deltaY < 0;
-
-                if (isUp) {
-                    goToSlide(-1);
-                } else {
-                    goToSlide(1);
-                }
-            },
-            [goToSlide],
-        );
-
-        const [isHovering, setIsHovering] = useState(false);
-
         const onHoverStart = useCallback(() => {
             if (onSliderMouseEnter) {
                 onSliderMouseEnter(true);
@@ -260,8 +222,6 @@ export const Slider = memo(
             if (onSliderMouseLeave) {
                 onSliderMouseLeave(false);
             }
-
-            setIsHovering(true);
         }, [onSliderMouseEnter, onSliderMouseLeave]);
 
         const onHoverEnd = useCallback(() => {
@@ -272,27 +232,7 @@ export const Slider = memo(
             if (onSliderMouseLeave) {
                 onSliderMouseLeave(true);
             }
-
-            setIsHovering(false);
         }, [onSliderMouseEnter, onSliderMouseLeave]);
-
-        const wheelCallback = useCallback(
-            (e: Event) => {
-                if (mouseScrollOnSlide && isHovering) {
-                    e.preventDefault();
-
-                    updateScroll(e as WheelEvent);
-                }
-            },
-            [isHovering, mouseScrollOnSlide, updateScroll],
-        );
-
-        useEventListener(
-            "wheel",
-            wheelCallback,
-            documentBody,
-            wheelEventOptions,
-        );
 
         const onSlideClick = useCallback(
             (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -300,71 +240,63 @@ export const Slider = memo(
                     onSliderTap(e, sliderItems[sliderIndex]);
                 }
             },
-            [onSliderTap, sliderIndex, sliderItems],
+            [onSliderTap, sliderIndex, sliderItems]
         );
 
-        const handleExitComplete = useCallback((): void => {
-            setIsAnimating(false);
-        }, [setIsAnimating]);
-
         return (
-            <SliderWrapper ref={sliderRef}>
+            <SliderWrapper ref={sliderRef} className={className}>
                 <Container
                     onMouseEnter={onHoverStart}
                     onMouseLeave={onHoverEnd}
                     onClick={onSlideClick}
                 >
                     {children}
-                    <motion.div>
-                        {showSlideTitle && (
-                            <Title
-                                data-text={sliderItems[sliderIndex]?.name ?? ""}
-                            >
-                                {sliderItems[sliderIndex]?.name ?? ""}
-                            </Title>
-                        )}
-                        <SliderContent>
-                            <AnimatePresence
-                                custom={direction}
-                                initial={false}
-                                onExitComplete={handleExitComplete}
-                            >
-                                <SlidesList
-                                    key={slide}
-                                    custom={direction}
-                                    variants={variants}
-                                    initial="enter"
-                                    animate="center"
-                                    exit="exit"
-                                    transition={sliderTransition}
-                                    dragPropagation={true}
-                                    drag="y"
-                                    dragConstraints={sliderDragConstraints}
-                                    dragElastic={1}
-                                    onDragEnd={onDragEnd}
+                    {showSlideTitle && (
+                        <Title data-text={sliderItems[sliderIndex]?.name ?? ""}>
+                            {sliderItems[sliderIndex]?.name ?? ""}
+                        </Title>
+                    )}
+                    <SliderContent>
+                        {sliderItems.map((slide, index) => {
+                            if (!slide.cover) {
+                                return <Fragment key={slide.id}></Fragment>;
+                            }
+
+                            return (
+                                <Slide
+                                    id={`slide-${index}`}
+                                    key={slide.id}
+                                    style={
+                                        {
+                                            "--delay":
+                                                index === previousSlideId
+                                                    ? "400ms"
+                                                    : 0,
+                                            "--translate-value":
+                                                index === currentId
+                                                    ? "0%"
+                                                    : "-100%",
+                                            zIndex:
+                                                index === currentId ? 10 : 5,
+                                        } as CSSProperties
+                                    }
                                 >
-                                    <Slide>
-                                        <Distortion
-                                            id={String(slide)}
-                                            imgUrl={
-                                                sliderItems[sliderIndex]
-                                                    ?.cover ?? ""
-                                            }
-                                            key={`slide-${slide}`}
-                                        />
-                                    </Slide>
-                                </SlidesList>
-                            </AnimatePresence>
-                        </SliderContent>
-                    </motion.div>
+                                    <Distortion
+                                        id={String(index)}
+                                        imgUrl={slide.cover}
+                                    />
+                                </Slide>
+                            );
+                        })}
+                    </SliderContent>
                 </Container>
                 <Controls>
-                    {slide < numItems - 1 && (
+                    {currentId < numItems - 1 && (
                         <Btn onClick={(): void => goToSlide(1)}>
                             <NextIconStyled /> Next
                         </Btn>
                     )}
-                    {slide > 0 && (
+                    {currentId > 0 && (
                         <Btn onClick={(): void => goToSlide(-1)}>
                             <PrevIconStyled /> Previous
                         </Btn>
@@ -372,5 +304,5 @@ export const Slider = memo(
                 </Controls>
             </SliderWrapper>
         );
-    },
+    }
 );

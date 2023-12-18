@@ -14,7 +14,7 @@ export function Logo() {
     return (
         <div className="flex items-center h-12 text-primary">
             <div
-                className={`subpixel-antialiased select-none font-flight text-[24px] text-primary leading-[30px] hidden${
+                className={`animate-logo subpixel-antialiased select-none font-flight text-[24px] text-primary leading-[30px] hidden${
                     showLogoOnDesktop ? " lg:block" : ""
                 }`}
             >

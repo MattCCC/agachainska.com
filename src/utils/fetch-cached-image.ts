@@ -5,10 +5,9 @@
  * @returns {Promise<string>} Image base64 encoded data
  */
 export const fetchCachedImage = async (
-    url: string
+    url: string,
+    cacheName = "images"
 ): Promise<{ blob: string }> => {
-    const cacheName = "images";
-
     try {
         const cache = await self.caches.open(cacheName);
         const cachedResponse = await cache.match(url);

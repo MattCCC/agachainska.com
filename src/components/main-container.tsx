@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Grid = styled.div(({ topPadding }: Props) => [
-    tw`container relative z-10 grid grid-flow-row grid-cols-12 mx-auto lg:gap-7`,
+    tw`container relative z-10 mx-auto lg:grid lg:grid-flow-row lg:grid-cols-12 lg:gap-7`,
     topPadding && tw`pt-28 lg:pt-32`,
 ]);
 
