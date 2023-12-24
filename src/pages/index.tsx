@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -10,7 +10,6 @@ import HomepageTitle from "components/homepage-title";
 import { MainContainer } from "components/main-container";
 import { MainSection } from "components/main-section";
 import { Meta } from "components/meta";
-import { pageContentVariants } from "components/overlays";
 import { Translate } from "components/translate";
 import { useLockBodyScroll } from "hooks/use-lock-body-scroll";
 import { useStoreProp } from "store/index";
@@ -46,19 +45,31 @@ export default function Home() {
         });
     }, [showMotionCursor, workLink.to]);
 
+    useEffect(() => {
+        const el = document.getElementById("main-section");
+
+        if (el) {
+            el.style.setProperty("--tw-translate-y", "0%");
+            el.style.setProperty("opacity", "1");
+        }
+    }, []);
+
     return (
-        <Fragment>
-            <Meta title="Aga Chainska" />
+        <>
+            <Meta title="Aga Chaińska" prefetchPage="/work" />
 
             <MainSection
-                className="grid items-center grid-flow-col grid-cols-1 grid-rows-1 lg:cursor-none"
-                initial="exit"
-                animate="enter"
-                exit="exit"
-                variants={pageContentVariants}
+                id="main-section"
+                className="grid items-center grid-flow-col grid-cols-1 grid-rows-1 translate-y-full opacity-0 lg:cursor-none"
+                style={
+                    {
+                        transition:
+                            "transform 1s cubic-bezier(0.43, 0.13, 0.23, 0.96) 0.3s, opacity 2s cubic-bezier(0.43, 0.13, 0.23, 0.96) 1s",
+                    } as React.CSSProperties
+                }
             >
                 <MainContainer>
-                    <div tw="col-start-1 col-end-13">
+                    <div className="col-start-1 col-end-13">
                         <HomepageTitle />
                         <Desc>
                             <Translate id="home.description" />
@@ -66,8 +77,10 @@ export default function Home() {
                     </div>
                 </MainContainer>
             </MainSection>
+
             <BottomCircle />
+
             <CountDown seconds={10} onFinishedCallback={onCountDownFinished} />
-        </Fragment>
+        </>
     );
 }

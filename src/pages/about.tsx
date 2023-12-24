@@ -29,8 +29,7 @@ import {
 } from "queries/fetch-social-media-data";
 
 const HeroSection = styled.section(() => [
-    tw`relative mb-20 lg:mb-0 lg:mt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-[max(600px,100vh)]`,
-    tw`mt-[110px]`,
+    tw`relative pb-20 pt-[110px] lg:pb-0 lg:pt-0 lg:grid lg:grid-cols-12 lg:gap-7 lg:items-center lg:h-[max(600px,100vh)]`,
 ]);
 
 const Info = styled.div(() => [
@@ -250,7 +249,7 @@ export default function About({
             {!hasSmallWindowWidth && <ParallaxBackground />}
 
             <MainContainer>
-                <div tw="col-start-1 col-end-13">
+                <div className="col-start-1 col-end-13">
                     <HeroSection>
                         <PersonalPic />
                         <Info>

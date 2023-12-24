@@ -51,6 +51,7 @@ export const Distortion = memo(
                             result="noise"
                         />
                         <feDisplacementMap
+                            id={`displacement-${id}`}
                             in="SourceGraphic"
                             in2="noise"
                             scale={scale}

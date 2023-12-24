@@ -69,20 +69,22 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
                 `}</style>
             )}
             <FullPageOverlay />
-            <Header />
-            <Main
-                hasGradient={showPageWhiteGradient}
-                backgroundColor={
-                    isSingleProject
-                        ? projectPageBackgroundColor
-                        : workPageBackgroundColor
-                }
-                showFooter={showFooter}
-                darkTheme={darkTheme}
-            >
-                <Background />
-                {children}
-            </Main>
+            <div id="page-container">
+                <Header />
+                <Main
+                    hasGradient={showPageWhiteGradient}
+                    backgroundColor={
+                        isSingleProject
+                            ? projectPageBackgroundColor
+                            : workPageBackgroundColor
+                    }
+                    showFooter={showFooter}
+                    darkTheme={darkTheme}
+                >
+                    <Background />
+                    {children}
+                </Main>
+            </div>
             <Footer />
         </StrictMode>
     );
@@ -90,14 +92,12 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
 
 function App({ Component, pageProps }: AppProps) {
     return (
-        <>
-            <GlobalStoreProvider>
-                <Overlays />
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-            </GlobalStoreProvider>
-        </>
+        <GlobalStoreProvider>
+            <Overlays />
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+        </GlobalStoreProvider>
     );
 }
 

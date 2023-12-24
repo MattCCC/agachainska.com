@@ -10,7 +10,6 @@ import { useStoreProp } from "store/index";
 import WavesPattern from "svg/bg-lines.svg";
 import PricklyPearIllustration from "svg/Prickly pear@1x.svg?url";
 import { getLinkProps } from "utils/route";
-import { motion } from "framer-motion";
 import Image from "next/image";
 
 const loadIllustration = (illustration: string) => {
@@ -72,7 +71,7 @@ export const Contact = memo(() => {
     }, [toggleHoverCursor]);
 
     return (
-        <motion.div onHoverStart={onHoverStart} onHoverEnd={onHoverEnd}>
+        <div onMouseEnter={onHoverStart} onMouseLeave={onHoverEnd}>
             <ContactWrapper {...getLinkProps("contact", location)}>
                 <Waves />
                 <PricklyPear>
@@ -84,6 +83,6 @@ export const Contact = memo(() => {
                     </MarqueeTextContainer>
                 </MarqueeTextWrapper>
             </ContactWrapper>
-        </motion.div>
+        </div>
     );
 });

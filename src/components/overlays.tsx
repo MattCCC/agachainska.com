@@ -1,117 +1,106 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 
-import { motion, LayoutGroup } from "framer-motion";
-import TopOverlay from "components/top-overlay";
 import { useStoreProp } from "store/index";
-
-const duration = 1;
-
-const transition = {
-    duration,
-    ease: [0.43, 0.13, 0.23, 0.96],
-};
 
 const backgroundColors = ["#F5A4FF", "#C0A4FF", "#61F1F8"];
 
-export const pageContentVariants = {
-    exit: {
-        y: 100,
-        opacity: 0,
-        transition,
-    },
-    enter: {
-        y: 0,
-        opacity: 1,
-        transition: {
-            duration,
-            delay: duration,
-        },
-    },
-};
+const removeLocationHash = () => {
+    const hasHash = window.location.href.indexOf("#") !== -1;
 
-const OverlayVariants = {
-    end: {
-        y: "100%",
-        transition,
-    },
-    enter: (variant: Record<string, unknown>) => ({
-        y: "-100%",
-        transition: {
-            ...transition,
-            duration: variant["duration"],
-        },
-    }),
-};
-
-const Overlays = memo(
-    () => {
-        const [initialOverlayAnimation, dispatch] = useStoreProp(
-            "initialOverlayAnimation"
+    if (hasHash) {
+        window.location.replace(
+            window.location.href.substring(0, window.location.href.indexOf("#"))
         );
+    }
+};
 
-        // Don't render overlays when navigating subsequently
-        if (!initialOverlayAnimation) {
-            return null;
+const scrollTo = (y: number = 0) => {
+    window.scrollTo({
+        top: y,
+        left: 0,
+        behavior: "auto",
+    });
+};
+
+const initializeTopOverlay = (dispatch: {
+    showInitialOverlayAnimation: (toggle: boolean) => void;
+}) => {
+    const pageContainer = document.getElementById("page-container");
+
+    const onTransitionComplete = (event: TransitionEvent) => {
+        const el = event?.target as HTMLElement;
+
+        if (el?.id !== "page-container") {
+            return;
         }
 
-        return (
-            <div id="overlays">
-                <LayoutGroup id="overlays">
-                    <TopOverlay />
+        scrollTo(1);
 
-                    <motion.div
-                        className="fixed left-0 right-0 w-full h-full will-change-transform"
-                        style={{
-                            backgroundColor: backgroundColors[0],
-                            zIndex: 1030,
-                        }}
-                        custom={{
-                            id: 1,
-                            duration,
-                        }}
-                        onAnimationComplete={() => {
-                            dispatch.showInitialOverlayAnimation(false);
-                        }}
-                        variants={OverlayVariants}
-                        animate="enter"
-                        initial="end"
-                        exit="end"
-                    />
-                    <motion.div
-                        className="fixed left-0 right-0 w-full h-full will-change-transform"
-                        style={{
-                            backgroundColor: backgroundColors[1],
-                            zIndex: 1020,
-                        }}
-                        custom={{
-                            id: 2,
-                            duration: duration * 0.66,
-                        }}
-                        variants={OverlayVariants}
-                        animate="enter"
-                        initial="end"
-                        exit="end"
-                    />
-                    <motion.div
-                        className="fixed left-0 right-0 w-full h-full will-change-transform"
-                        style={{
-                            backgroundColor: backgroundColors[2],
-                            zIndex: 1010,
-                        }}
-                        custom={{
-                            id: 3,
-                            duration: duration * 0.4,
-                        }}
-                        variants={OverlayVariants}
-                        animate="enter"
-                        initial="end"
-                        exit="end"
-                    />
-                </LayoutGroup>
-            </div>
-        );
-    },
-    () => true
-);
+        if (pageContainer) {
+            pageContainer.classList.add("end");
+            dispatch.showInitialOverlayAnimation(false);
+
+            document.removeEventListener("animationstart", onAnimationStart);
+            pageContainer.removeEventListener(
+                "transitionend",
+                onTransitionComplete
+            );
+        }
+    };
+
+    const onAnimationStart = () => {
+        removeLocationHash();
+
+        if (pageContainer) {
+            pageContainer.addEventListener(
+                "transitionend",
+                onTransitionComplete
+            );
+        }
+
+        if (pageContainer) {
+            pageContainer.classList.add("enter");
+        }
+    };
+
+    onAnimationStart();
+};
+
+const Overlays = memo(() => {
+    const [, dispatch] = useStoreProp("initialOverlayAnimation");
+
+    useEffect(() => {
+        initializeTopOverlay(dispatch);
+    }, [dispatch]);
+
+    return (
+        <div id="overlays">
+            <div
+                className="fixed left-0 right-0 w-full h-full overlay"
+                style={{
+                    backgroundColor: backgroundColors[0],
+                    zIndex: 1030,
+                    animationDuration: 0.9 + "s",
+                }}
+            />
+            <div
+                className="fixed left-0 right-0 w-full h-full overlay"
+                style={{
+                    backgroundColor: backgroundColors[1],
+                    zIndex: 1020,
+                    animationDuration: 0.9 * 0.66 + "s",
+                }}
+            />
+            <div
+                className="fixed left-0 right-0 w-full h-full overlay"
+                style={{
+                    backgroundColor: backgroundColors[2],
+                    zIndex: 1010,
+                    animationDuration: 0.9 * 0.4 + "s",
+                }}
+            />
+        </div>
+    );
+});
 
 export default Overlays;

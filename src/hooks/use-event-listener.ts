@@ -1,27 +1,40 @@
 import { useRef, useEffect, RefObject } from "react";
 
-type AllEvents =
-    | AnimationEvent
-    | ClipboardEvent
-    | CompositionEvent
-    | DragEvent
-    | FocusEvent
-    | KeyboardEvent
-    | MouseEvent
-    | TouchEvent
-    | PointerEvent
-    | TransitionEvent
-    | UIEvent
-    | WheelEvent
-    | Event;
+interface EventMap {
+    animation: AnimationEvent;
+    clipboard: ClipboardEvent;
+    composition: CompositionEvent;
+    drag: DragEvent;
+    focus: FocusEvent;
+    keyboard: KeyboardEvent;
+    mouse: MouseEvent;
+    touch: TouchEvent;
+    pointer: PointerEvent;
+    transition: TransitionEvent;
+    ui: UIEvent;
+    wheel: WheelEvent;
+}
 
-export function useEventListener<T extends HTMLElement = HTMLDivElement>(
-    eventName: string,
-    handler: (event: AllEvents) => void,
-    element?: RefObject<T> | HTMLElement,
+type GlobalEventHandlersEventMapKeys = keyof GlobalEventHandlersEventMap;
+
+type RemainingEventMapKeys<T> = Exclude<
+    GlobalEventHandlersEventMapKeys,
+    keyof T
+>;
+
+type RemainingEvents = {
+    [K in RemainingEventMapKeys<EventMap>]: Event;
+};
+
+export interface EventMapExtended extends EventMap, RemainingEvents {}
+
+export function useEventListener<T extends keyof EventMapExtended>(
+    eventName: T,
+    handler: (event: EventMapExtended[T]) => void,
+    element?: RefObject<HTMLElement> | HTMLElement,
     options?: boolean | AddEventListenerOptions | undefined
 ): void {
-    const savedHandler = useRef<(event: AllEvents) => void>();
+    const savedHandler = useRef<(event: EventMapExtended[T]) => void>();
 
     useEffect(() => {
         const targetElement =
@@ -35,9 +48,10 @@ export function useEventListener<T extends HTMLElement = HTMLDivElement>(
             savedHandler.current = handler;
         }
 
-        const eventListener = (event: AllEvents): void => {
+        const eventListener: EventListener = (event: Event) => {
             if (!!savedHandler?.current) {
-                savedHandler.current(event);
+                // Type assertion to cast the event to the specific type
+                savedHandler.current(event as EventMapExtended[T]);
             }
         };
 

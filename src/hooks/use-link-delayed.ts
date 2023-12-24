@@ -53,6 +53,15 @@ export const useLinkDelayed = ({
                 return;
             }
 
+            // If the link is an external link, open in new tab.
+            if(goTo.includes("://")) {
+                if (typeof window !== "undefined") {
+                    window.open(goTo, "_blank");
+                }
+
+                return;
+            }
+
             if (delay) {
                 onDelayStart(e, goTo);
 

@@ -10,8 +10,3 @@ socialMedia:
 _template: socialMedia
 ---
 
-
-
-
-
-

@@ -11,14 +11,12 @@ import {
 
 import tw, { css, styled } from "twin.macro";
 
-import { motion, MotionProps, AnimatePresence } from "framer-motion";
-
 interface TabsStyled {
     hideForDesktop?: boolean;
-    isIntersecting: boolean;
+    isInsideContainer?: boolean;
 }
 
-interface TabStyled extends MotionProps {
+interface TabStyled {
     isActive?: boolean;
 }
 
@@ -31,41 +29,34 @@ interface Props extends HTMLAttributes<HTMLElement> {
     tabs: SingleTab[];
     activeTabId?: string;
     hideForDesktop?: boolean;
+    isInsideContainer?: boolean;
     onTabChange?: (tab: SingleTab) => void;
 }
 
-const TabsWrapper = styled.div(
-    ({ hideForDesktop = false, isIntersecting = false }: TabsStyled) => [
-        tw`sticky top-0 flex items-center w-full h-16 mb-8 z-100`,
+const TabsWrapper = styled.nav(
+    ({ hideForDesktop = false, isInsideContainer = true }: TabsStyled) => [
+        tw`sticky top-0 flex items-center ml-[-15px] w-[calc(100%+30px)] h-16 mb-8 z-100 max-w-[100vw] overflow-x-auto overflow-y-hidden`,
         hideForDesktop && tw`lg:hidden`,
-        isIntersecting &&
-            css`
-                &:after {
-                    ${tw`content-[""] w-full min-w-[100vw] h-16 top-1/2 left-1/2 absolute`}
-
-                    background: rgba(255, 255, 255, 0.92);
-                    backdrop-filter: blur(60px);
-                    box-shadow: 0px 14px 60px 0px rgba(0, 0, 0, 0.25);
-                    transition: all 0.2s ease-in;
-                    transform: translate(-50%, -50%);
-                    z-index: -1;
-                }
-            `,
+        !isInsideContainer && tw`pl-[15px] max-w-[calc(100vw+15px)]`,
     ]
 );
 
-const TabsWrapperTop = styled.div(() => [tw`h-[1px]`]);
+const TabsWrapperTop = styled.div(() => [
+    tw`h-[1px] after:h-16 after:content-[""]`,
+]);
 
 const TabsListContainer = styled.div(() => [
-    tw`relative h-8 px-[15px] w-[100vw]`,
+    tw`relative h-[2.3rem] px-[15px] w-[100vw]`,
     tw`overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`,
 ]);
 
-const TabsList = styled.ul(() => [tw`relative flex flex-row justify-between`]);
+const TabsList = styled.menu(() => [
+    tw`relative flex flex-row justify-between`,
+]);
 
 const Tab = styled.li(({ isActive = false }: TabStyled) => [
-    tw`w-full h-8 capitalize transition-opacity cursor-pointer min-w-[120px] select-none text-melrose-40 text-opacity-40`,
-    tw`leading-[25px] text-[20px]`,
+    tw`w-full h-8 ml-0 capitalize list-none transition-opacity cursor-pointer select-none text-melrose-40 text-opacity-40`,
+    tw`min-w-[120px] leading-[25px] text-[20px]`,
     isActive && tw`text-opacity-100 text-melrose`,
     isActive
         ? css`
@@ -79,13 +70,14 @@ const Tab = styled.li(({ isActive = false }: TabStyled) => [
     `,
 ]);
 
-const Progress = styled(motion.div)(() => [
+const Progress = styled.div(() => [
     tw`absolute left-0 h-px top-8 bg-melrose z-[2]`,
     css`
+        transition: left 0.3s ease;
         box-shadow: 0 2px 4px 0 var(--melrose);
 
         &:after {
-            ${tw`block content-[""] w-full absolute left-0 right-0 h-[1px]`}
+            ${tw`block content-[""] w-full absolute left-0 right-0 h-px`}
             box-shadow: inset 0px -2px 1px -1px var(--melrose);
         }
     `,
@@ -99,13 +91,13 @@ export const Tabs = memo(
         activeTabId = "",
         onTabChange = (): null => null,
         hideForDesktop = false,
+        isInsideContainer = true,
     }: Props) => {
+        const wrapperTopRef = useRef() as RefObject<HTMLDivElement>;
         const wrapperRef = useRef() as RefObject<HTMLDivElement>;
 
-        const [areTabsIntersectingContent, setTabsIntersecting] =
-            useState(false);
         const [tabId, setTabId] = useState("");
-        const [pinX, setPinX] = useState("0%");
+        const [pinX, setPinX] = useState(0);
         const [tabWidth, setTabWidth] = useState(0);
 
         const activeTabIndex = useMemo(
@@ -118,18 +110,25 @@ export const Tabs = memo(
         }, [activeTabId, tabs]);
 
         useEffect(() => {
-            setTabWidth(100 / tabs.length);
-        }, [tabs]);
-
-        useEffect(() => {
-            setPinX(tabWidth * (activeTabIndex + 1) - tabWidth + "%");
-        }, [activeTabId, activeTabIndex, tabWidth]);
-
-        useEffect(() => {
-            const currentElement = wrapperRef.current;
+            const currentElement = wrapperTopRef.current;
             const observer = new IntersectionObserver(
                 ([e]) => {
-                    setTabsIntersecting(!e?.intersectionRatio);
+                    if (!wrapperRef.current) {
+                        return;
+                    }
+                    const areTabsIntersectingContent = !e?.intersectionRatio;
+
+                    if (areTabsIntersectingContent) {
+                        wrapperRef.current.style.backgroundColor =
+                            "rgba(255, 255, 255, 0.92)";
+                        wrapperRef.current.style.backdropFilter = "blur(60px)";
+                        wrapperRef.current.style.boxShadow =
+                            "0px 14px 60px 0px rgba(0, 0, 0, 0.25)";
+                    } else {
+                        wrapperRef.current.style.backgroundColor = "";
+                        wrapperRef.current.style.backdropFilter = "";
+                        wrapperRef.current.style.boxShadow = "";
+                    }
                 },
                 {
                     threshold,
@@ -140,13 +139,12 @@ export const Tabs = memo(
                 observer.observe(currentElement);
             }
 
-            // eslint-disable-next-line space-before-function-paren
-            return function () {
+            return () => {
                 if (currentElement) {
                     observer.unobserve(currentElement);
                 }
             };
-        }, [wrapperRef]);
+        }, [wrapperTopRef]);
 
         const onTabClick = useCallback(
             (tab: SingleTab) => {
@@ -161,31 +159,46 @@ export const Tabs = memo(
             [onTabChange, tabId]
         );
 
+        useEffect(() => {
+            const el = document.getElementById("tab-" + tabId);
+
+            if (el) {
+                const width = el.clientWidth;
+                const tabListContainerPaddingLeft = 15;
+
+                setTabWidth(width - tabListContainerPaddingLeft);
+                setPinX(
+                    width * (activeTabIndex + 1) -
+                        width +
+                        tabListContainerPaddingLeft
+                );
+            }
+        }, [activeTabIndex, tabId]);
+
         return (
             <>
-                <TabsWrapperTop ref={wrapperRef} />
+                <TabsWrapperTop ref={wrapperTopRef} />
                 <TabsWrapper
+                    ref={wrapperRef}
                     hideForDesktop={hideForDesktop}
-                    isIntersecting={areTabsIntersectingContent}
+                    isInsideContainer={isInsideContainer}
                 >
                     <TabsListContainer>
-                        <AnimatePresence initial={false}>
-                            <TabsList key="tab-list">
-                                {tabs.map((tab, index) => (
-                                    <Tab
-                                        key={`tab-${index}`}
-                                        isActive={tab.id === tabId}
-                                        onClick={onTabClick.bind(null, tab)}
-                                    >
-                                        {tab.title}
-                                    </Tab>
-                                ))}
-                            </TabsList>
-                            <Progress
-                                animate={{ left: pinX }}
-                                style={{ width: `${100 / tabs.length}%` }}
-                            />
-                        </AnimatePresence>
+                        <TabsList key="tab-list">
+                            {tabs.map((tab) => (
+                                <Tab
+                                    id={`tab-${tab.id}`}
+                                    key={`tab-${tab.id}`}
+                                    isActive={tab.id === tabId}
+                                    onClick={onTabClick.bind(null, tab)}
+                                >
+                                    {tab.title}
+                                </Tab>
+                            ))}
+                        </TabsList>
+                        <Progress
+                            style={{ width: `${tabWidth}px`, left: pinX }}
+                        />
                     </TabsListContainer>
                 </TabsWrapper>
             </>
