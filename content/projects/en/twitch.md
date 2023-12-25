@@ -10,7 +10,7 @@ starColor: '#F5A4FF'
 cover: /img/projects/Image-1.png
 keyInfo:
   - title: Client
-    text: RE/MAX Malta
+    text: N/A
   - title: Agency
     text: BRND WGN
   - title: Project timeframe & duration
