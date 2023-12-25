@@ -1,13 +1,13 @@
 ---
-name: Twitter
+name: Project 4
+shortDescription: Custom Illustrations for Project 4
 category: UX/UI
 subCategory: Others
+dribbbleLink: 'https://dribbble.com/shots/17728344-RE-MAX-Malta-Website'
+timelineTitle: Design Process
 workPageColor: '#FFFFFF'
 starColor: '#F5A4FF'
 cover: /img/projects/Image-1.png
-shortDescription: Custom Illustrations for RE/MAX
-dribbbleLink: 'https://dribbble.com/shots/17728344-RE-MAX-Malta-Website'
-timelineTitle: Design Process
 keyInfo:
   - title: Client
     text: RE/MAX Malta
@@ -73,8 +73,7 @@ sections:
           - image: /img/placeholder-full.png
           - image: /img/placeholder-full.png
         _template: slider
-      - title: Quote
-        quote: >
+      - quote: >
           ‘Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam
           rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas.’
         _template: quote
