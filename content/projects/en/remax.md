@@ -10,7 +10,7 @@ starColor: '#F5A4FF'
 cover: /img/projects/Image-1.png
 keyInfo:
   - title: Client
-    text: RE/MAX Malta
+    text: Project 2
   - title: Agency
     text: N/A
   - title: Project timeframe & duration
