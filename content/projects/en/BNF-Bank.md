@@ -1,8 +1,8 @@
 ---
-name: BNF Bank
+name: Project 1
 shortDescription: ATM interface redesign
 category: UX/UI
-timelineTitle: BNF Bank
+timelineTitle: Project 1
 workPageColor: '#FFFFFF'
 starColor: '#C0A4FF'
 cover: >-
