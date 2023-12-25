@@ -12,7 +12,7 @@ keyInfo:
   - title: Client
     text: RE/MAX Malta
   - title: Agency
-    text: BRND WGN
+    text: N/A
   - title: Project timeframe & duration
     text: 'November 2019, 7 days'
   - title: My role in the project
