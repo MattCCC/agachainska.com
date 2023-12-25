@@ -1,12 +1,13 @@
 ---
-name: RE/MAX
+name: Project 2
+shortDescription: Custom Illustrations for Project 2
 category: UX/UI
 subCategory: ''
+dribbbleLink: 'https://dribbble.com/shots/17728344-RE-MAX-Malta-Website'
+timelineTitle: Design Process
 workPageColor: '#FFFFFF'
 starColor: '#F5A4FF'
 cover: /img/projects/Image-1.png
-shortDescription: Custom Illustrations for RE/MAX
-timelineTitle: Design Process
 keyInfo:
   - title: Client
     text: RE/MAX Malta
@@ -125,10 +126,5 @@ sections:
     elements:
       - limit: 4
         _template: projects
-dribbbleLink: 'https://dribbble.com/shots/17728344-RE-MAX-Malta-Website'
 ---
-
-
-
-
 
