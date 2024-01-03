@@ -29,7 +29,7 @@ export const Meta = memo(
 
         const seo = {
             title: title ?? defaultTitle,
-            description: description ?? defaultDescription,
+            description: description ?? title + " " + defaultDescription,
             image: `${siteUrl}${image}`,
         };
 
