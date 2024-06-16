@@ -18,7 +18,7 @@ keyInfo:
     text: Netguru
 sections:
   - title: the challenge
-    showInTimeline: true
+    showInTimeline: false
     showSectionTitle: true
     elements:
       - title: About
