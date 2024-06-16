@@ -27,5 +27,9 @@ sections:
       - title: Project objectives
         content: "The client’s key business goals were to increase the number of videos submitted to the platform by creators, as well as increase the number of purchased video licenses. \_ \n\n\_\nNetguru’s task was to redesign ViralHog’s existing web application with these goals in mind, and with a mobile-first focus. The goal was to ensure a clear, user-friendly and consistent experience\_in line with current industry standards and best practices.\n"
         _template: text
+      - quote: >
+          View full case study on
+          [Behance](https://www.behance.net/gallery/177105907/ViralHog-Monetizing-Video).
+        _template: quote
 ---
 
