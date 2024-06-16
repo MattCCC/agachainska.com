@@ -10,7 +10,7 @@ cover: >-
   https://assets.tina.io/42002fc2-493d-4640-a909-8d1fa660acf3/img/projects/ViralHog
   Behance Thumbnail (1).jpg
 keyInfo:
-  - title: Project timeframe and duration
+  - title: UX-phase timeframe and duration
     text: October-November 2022
   - title: My role in the project
     text: Senior Product Designer
