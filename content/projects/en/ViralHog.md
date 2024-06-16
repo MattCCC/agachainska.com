@@ -12,9 +12,9 @@ cover: >-
 keyInfo:
   - title: Project timeframe and duration
     text: October-November 2022
-  - title: Created as part of
-    text: Netguru
   - title: My role in the project
     text: Senior Product Designer
+  - title: Created as part of
+    text: Netguru
 ---
 
