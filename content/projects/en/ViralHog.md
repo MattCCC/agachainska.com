@@ -16,5 +16,13 @@ keyInfo:
     text: Senior Product Designer
   - title: Created as part of
     text: Netguru
+sections:
+  - title: the challenge
+    showInTimeline: true
+    showSectionTitle: true
+    elements:
+      - title: About
+        content: "ViralHog is a video licensing company that specializes in licensing, monetizing, promoting and protecting video content. With over 40,000\_videos currently uploaded to the website, ViralHog is one of the leading licensing companies in the world, working daily with industry leaders.\n"
+        _template: text
 ---
 
