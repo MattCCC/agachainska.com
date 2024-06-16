@@ -17,7 +17,7 @@ keyInfo:
   - title: Created as part of
     text: Netguru
 sections:
-  - title: the challenge
+  - title: challenge
     showInTimeline: false
     showSectionTitle: true
     elements:
