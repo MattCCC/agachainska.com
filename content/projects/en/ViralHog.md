@@ -13,7 +13,19 @@ keyInfo:
   - title: UX-phase timeframe
     text: October-November 2022
   - title: My role in the project
-    text: Senior Product Designer
+    text: >-
+      I led the UX-phase of the redesign for the ViralHog platform. My team
+      diagnosed and addressed the platform's usability issues through an
+      in-depth UX audit. Our primary focus was on mobile-first approach for the
+      redesign, aimed at tackling significant business challenges, such as
+      enhancing content discoverability and user engagement, while also
+      increasing user trust and conversion rates for they key user types. We
+      worked towards ensuring that the redesign provides a friendly and
+      consistent user experience in line with current industry standards and
+      best practices. Our work involved simplifying long and complex user flows,
+      eliminating bottlenecks and preventing errors. We developed a new
+      information architecture and navigation system to further improve the
+      overall user experience. 
   - title: Created as part of
     text: Netguru
 sections:
