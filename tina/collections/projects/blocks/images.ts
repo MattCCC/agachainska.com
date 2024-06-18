@@ -40,7 +40,7 @@ export const Images = {
                     type: "string",
                     name: "image",
                     label: "Image",
-                    required: true,
+                    required: false,
                     ui: {
                         component: "image",
                         parse: (fullSrc: any) =>
