@@ -8,7 +8,7 @@ workPageColor: '#FFFFFF'
 starColor: '#C0A4FF'
 cover: >-
   https://assets.tina.io/42002fc2-493d-4640-a909-8d1fa660acf3/ViralHog Behance
-  Thumbnail (2).jpg
+  Thumbnail.png
 keyInfo:
   - title: UX-phase timeframe
     text: October-November 2022
