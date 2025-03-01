@@ -13,6 +13,7 @@ import { Header } from "components/header";
 import Overlays from "components/overlays";
 import { useOnRouteChange } from "hooks/use-on-route-change";
 import { useStoreProp, Provider as GlobalStoreProvider } from "store/index";
+import Head from "next/head";
 
 interface Props {
     hasGradient: boolean;
@@ -60,6 +61,10 @@ export const Layout = ({ children }: PropsWithChildren<unknown>) => {
 
     return (
         <StrictMode>
+            <Head>
+                <meta name="robots" content="noindex, nofollow" />
+            </Head>
+
             {darkTheme && (
                 <style>{`
                     :root {
